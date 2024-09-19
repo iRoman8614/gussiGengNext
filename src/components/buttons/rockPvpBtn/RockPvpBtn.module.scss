@@ -1,0 +1,30 @@
+.rocSecBtn {
+  border-radius: 11px;
+  width: 90px;
+  height: 90px;
+  object-fit: fill;
+}
+
+.rocSecBtnHalfActive {
+  border-radius: 11px;
+  width: 90px;
+  height: 90px;
+  box-shadow: 0 0 20px 10px rgba(199, 102, 8, 0.75);
+  background: rgba(199, 102, 8, 0.75);
+}
+
+.rocSecBtnActive {
+  border-radius: 11px;
+  width: 90px;
+  height: 90px;
+  box-shadow: 0 0 20px 10px rgba(199, 102, 8, 1);
+  background: rgba(199, 102, 8, 1);
+}
+
+@media (max-width: 360px) {
+  .rocSecBtn, .rocSecBtnHalfActive, .rocSecBtnActive {
+    height: 70px;
+    width: 70px;
+  }
+}
+
