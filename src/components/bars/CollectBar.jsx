@@ -3,13 +3,10 @@ import styles from './CollectBar.module.scss';
 import Image from "next/image";
 
 // eslint-disable-next-line react/prop-types
-export const CollectBar = ({ currentCoins, maxCoins }) => {
-    const maxWidth = 224;
-    const currentWidth = (currentCoins / maxCoins) * maxWidth;
-
+export const CollectBar = ({ currentCoins, maxCoins, width }) => {
     return (
         <div className={styles.root}>
-            <div className={styles.progressBar} style={{ 'width': `${currentWidth}px` }}></div>
+            <div className={styles.progressBar} style={{ 'width': `${width}px` }}></div>
             <div className={styles.title}>
                 {currentCoins} / {maxCoins}
             </div>

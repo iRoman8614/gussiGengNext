@@ -84,6 +84,9 @@ export default function Home() {
         return num.toString().replace(/(\d)(?=(\d{3})+$)/g, '$1 ');
     }
 
+    const maxWidth = 224;
+    const currentWidth = (currentFarmCoins / 3500) * maxWidth;
+
   return (
     <>
       <Head>
@@ -117,7 +120,7 @@ export default function Home() {
             <Image width={1000} height={1000} className={styles.char} alt={'character'} src={purpleChar}/>
           </div>
           <div className={styles.item8}>
-            <CollectBar currentCoins={formatNumberFromEnd(currentFarmCoins)} maxCoins={formatNumberFromEnd(3500)} />
+            <CollectBar currentCoins={formatNumberFromEnd(currentFarmCoins)} maxCoins={formatNumberFromEnd(3500)} width={currentWidth} />
           </div>
           <div className={styles.item9}>
             <Image className={styles.claimRoot} width={600} height={200} src={isClaimClicked ? claimClicked : claim} onClick={handleClaimClick} alt={'claim'} />
