@@ -1,0 +1,21 @@
+@font-face {
+  font-family: 'Pricedown';
+  src: url("../pages/fonts/pricedownbl.ttf");
+}
+
+html, body {
+  margin: 0 auto;
+  padding: 0;
+  min-width: 319px;
+  max-width: 450px;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+* {
+  box-sizing: border-box;
+  font-family: 'Pricedown', serif
+}
+
+
