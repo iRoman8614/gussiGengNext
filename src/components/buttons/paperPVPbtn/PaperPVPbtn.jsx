@@ -46,7 +46,7 @@ export const PaperPVPbtn = ({onClick, choose}) => {
         if (isAnimating && currentImage < images.length - 1) {
             interval = setInterval(() => {
                 setCurrentImage((prevImage) => prevImage + 1);
-            }, 50);
+            }, 100);
         } else if (currentImage === images.length - 1) {
             setIsAnimating(false);
         }
@@ -64,25 +64,17 @@ export const PaperPVPbtn = ({onClick, choose}) => {
     };
 
     return (
-        <>
-            {currentImage < 3 && <Image width={90} height={90}
-                className={styles.papSecBtn}
-                onClick={handleClick}
-                src={images[currentImage]}
-                alt=""
-            />}
-            {currentImage >= 3 && currentImage < 6 && <Image width={90} height={90}
-                className={styles.papSecBtnHalfActive}
-                onClick={handleClick}
-                src={images[currentImage]}
-                alt=""
-            />}
-            {currentImage >= 6 && <Image width={90} height={90}
-                className={styles.papSecBtnActive}
-                onClick={handleClick}
-                src={images[currentImage]}
-                alt=""
-            />}
-        </>
+        <Image
+            width={90}
+            height={90}
+            className={currentImage < 3
+                ? styles.papSecBtn
+                : currentImage < 6
+                    ? styles.papSecBtnHalfActive
+                    : styles.papSecBtnActive}
+            onClick={handleClick}
+            src={images[currentImage]}
+            alt=""
+        />
     );
 };

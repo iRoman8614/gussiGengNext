@@ -79,25 +79,20 @@ export default function PvpPage() {
         const startGame = async () => {
             try {
                 const response = await fetch(`https://supavpn.lol/game/start?profileId=${userId || 111}`);
-
-                // Проверяем, является ли статус ошибки 400 (Bad Request)
                 if (response.status === 400 || response.status === 504) {
-                    toast.error("Pair not found. Redirecting...");
+                    toast.error("Pair not found");
                     setTimeout(() => {
                         router.push('/');
-                    }, 5000); // Перенаправляем через 5 секунд
+                    }, 5000);
                     return;
                 }
-
-                const data = await response.json(); // Парсим только если статус успешный
-                setSessionId(data.sessionId);  // Сохраняем sessionId в стейт
-                setIsLoadingPvp(false); // Лоадер скрывается после получения sessionId
+                const data = await response.json();
+                setSessionId(data.sessionId);
+                setIsLoadingPvp(false);
             } catch (error) {
                 console.error('Ошибка при запросе /game/start:', error);
             }
         };
-
-        // Проверяем, что код выполняется на клиенте, а не на сервере
         if (typeof window !== 'undefined' && userId !== null) {
             startGame();
         }
@@ -107,17 +102,13 @@ export default function PvpPage() {
 // Таймер отсчитывает время после скрытия лоадера и начала игры
     useEffect(() => {
         let timerId;
-        // Начинаем отсчет таймера
         if (!isLoadingPvp && timer > 0 && !gameOver) {
             timerId = setTimeout(() => {
                 setTimer(timer - 1);
             }, 1000);
+        } else if (timer === 0 && playerChoice !== null && opponentChoice !== null) {
+            showGifSequence();
         }
-        // Когда таймер достигает 0, запускаем анимации только если ответ от сервера уже получен
-        else if (timer === 0 && playerChoice !== null && opponentChoice !== null) {
-            showGifSequence(); // Запускаем анимации
-        }
-
         return () => clearTimeout(timerId);
     }, [timer, gameOver, playerChoice, opponentChoice, isLoadingPvp]);
 
@@ -126,10 +117,9 @@ export default function PvpPage() {
         if (window.Telegram?.WebApp?.HapticFeedback) {
             window.Telegram.WebApp.HapticFeedback.impactOccurred('heavy');
         }
-        if (gameOver || playerChoice !== null) return; // Блокируем повторный выбор
-        setPlayerChoice(choice); // Сохраняем выбор игрока
+        if (gameOver || playerChoice !== null) return;
+        setPlayerChoice(choice);
 
-        // Отправляем выбор игрока и ожидаем ответ сервера
         const sendAnswer = async () => {
             if (!sessionId) {
                 console.error("Session ID is missing, cannot send answer");
@@ -138,7 +128,7 @@ export default function PvpPage() {
             try {
                 const response = await fetch(`https://supavpn.lol/game/answer?profileId=${userId || 111}&sessionId=${sessionId}&answer=${choice}`);
                 const data = await response.json();
-                handleRoundResult(data); // Обрабатываем результат раунда
+                handleRoundResult(data);
             } catch (error) {
                 console.error('Ошибка при запросе /game/answer:', error);
             }
@@ -148,24 +138,19 @@ export default function PvpPage() {
 
 // Обработка результата раунда
     const handleRoundResult = (data) => {
-        const { num, player1, player2, result, victory, finished } = data;
-        // Определяем, какой игрок — пользователь, а какой — оппонент
+        const { player1, player2, result, victory, finished } = data;
         const isPlayer1 = player1.id === userId;
         const userAnswer = isPlayer1 ? player1.answer : player2.answer;
         const opponentAnswer = isPlayer1 ? player2.answer : player1.answer;
-        // Обновляем выбор игрока и оппонента
+
         setPlayerChoice(userAnswer);
         setOpponentChoice(opponentAnswer);
 
-        // Если таймер уже на нуле, запускаем анимации сразу после получения ответа
         if (timer === 0) {
-            showGifSequence(); // Запускаем анимации
+            showGifSequence(); // Показываем анимацию
         }
 
-        // Обновляем счет в зависимости от результата
-        if (result === 0) {
-            console.log('Ничья');
-        } else if (result === 1 && victory === userId) {
+        if (result === 1 && victory === userId) {
             setPlayerScore(prev => {
                 const newScore = prev + 1;
                 if (newScore === 3) {
@@ -182,11 +167,11 @@ export default function PvpPage() {
                 return newScore;
             });
         }
-        // Обновляем состояние игры (переход к следующему раунду)
+
         if (!finished) {
             setTimeout(() => {
                 resetRoundAfterDelay();
-            }, 2000); // Даем время для анимации перед следующим раундом
+            }, 2000);
         }
     };
 
