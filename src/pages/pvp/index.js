@@ -20,6 +20,8 @@ const start = '/game-icons/animation_hand_start.gif';
 const rockAnim = '/game-icons/animation_hand_rock.gif';
 const scisAnim = '/game-icons/animation_hand_sci.gif';
 const papAnim = '/game-icons/animation_hand_pap.gif';
+const background = '/backgrounds/backalley.png'
+const timerBG = '/timer.png'
 //кадры лампочки
 const scale000 = '/roundLightUp/scale00.png'
 const scale001 = '/roundLightUp/scale01.png'
@@ -217,6 +219,7 @@ export default function PvpPage() {
                 <>
                     {gameEnded && <WinningScreen userName={userName} playerScore={playerScore} />}
                     <div className={styles.root}>
+                        <Image className={styles.background} src={background} width={300} height={1000}  alt={'bg'}/>
                         <div className={styles.container}>
                             <div className={styles.oppNickname}>
                                 biggie smalls
@@ -275,9 +278,10 @@ export default function PvpPage() {
                             <VictoryCounter score={opponentScore} />
                             <IconButton image={teamData[1].logo} alt={'gang'} />
                             <div className={styles.roundTimer}>
+                                <Image src={timerBG} alt={'timer'} height={144} width={144} className={styles.roundTimerBG} />
                                 <div className={styles.time}>{timer}</div>
                             </div>
-                            <IconButton image={teamData[opponentTeamId].logo} alt={'gang'} />
+                            <IconButton image={teamData[4].logo} alt={'gang'} />
                             <VictoryCounter score={playerScore} />
                             <div className={styles.optionBg}>
                                 {visibleImage === 0 && (

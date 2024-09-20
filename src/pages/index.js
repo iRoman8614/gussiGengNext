@@ -87,7 +87,7 @@ export default function LoaderPage() {
             if (!start) {
                 console.log("Данных start нет в localStorage, выполняем запрос /farm/start");
                 try {
-                    const response = await fetch(`https://85.192.42.16/farm/start?profileId=${tgUserId}`);
+                    const response = await fetch(`https://supavpn.lol/farm/start?profileId=${tgUserId}`);
                     const data = await response.json();
                     console.log("Ответ от /farm/start:", data);
 
