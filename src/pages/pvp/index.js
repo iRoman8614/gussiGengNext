@@ -79,27 +79,25 @@ export default function PvpPage() {
         const startGame = async () => {
             try {
                 const response = await fetch(`https://supavpn.lol/game/start?profileId=${userId || 111}`);
-                const data = await response.text(); // Читаем ответ как текст
-                console.log("Response from /game/start:", data); // Лог ответа
+                const data = await response.text(); // Получаем текстовый ответ
 
                 if (data === "timeout") {
                     // Если ответ timeout, выводим уведомление и перенаправляем
-                    console.log("Timeout detected");
-                    toast.error("Pair not found", { position: "top-center", autoClose: false });
+                    toast.error("Pair not found");
                     setTimeout(() => {
-                        router.push('/'); // Перенаправляем через 5 секунд
-                    }, 5000);
+                        router.push('/');
+                    }, 5000); // Перенаправляем через 5 секунд
                 } else {
-                    const parsedData = JSON.parse(data); // Парсим ответ, если не timeout
-                    console.log("Parsed data:", parsedData); // Лог для парсинга
-                    setSessionId(parsedData.sessionId); // Сохраняем sessionId в стейт
-                    setIsLoadingPvp(false); // Скрываем лоадер
+                    // Парсим ответ, только если это не "timeout"
+                    const parsedData = JSON.parse(data);
+                    setSessionId(parsedData.sessionId);  // Сохраняем sessionId в стейт
+                    setIsLoadingPvp(false); // Лоадер скрывается после получения sessionId
                 }
             } catch (error) {
-                console.error('Ошибка при запросе /game/start:', error); // Лог ошибок
-                toast.error("Failed to start game", { position: "top-center" });
+                console.error('Ошибка при запросе /game/start:', error);
             }
         };
+
         // Проверяем, что код выполняется на клиенте, а не на сервере
         if (typeof window !== 'undefined' && userId !== null) {
             startGame();
