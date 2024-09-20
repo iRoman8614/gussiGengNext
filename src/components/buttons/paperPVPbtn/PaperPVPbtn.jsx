@@ -1,20 +1,20 @@
-import paper00 from '/buttonPaper/paper00.png'
-import paper01 from '/buttonPaper/paper01.png'
-import paper02 from '/buttonPaper/paper02.png'
-import paper03 from '/buttonPaper/paper03.png'
-import paper04 from '/buttonPaper/paper04.png'
-import paper05 from '/buttonPaper/paper05.png'
-import paper06 from '/buttonPaper/paper06.png'
-import paper07 from '/buttonPaper/paper07.png'
-import paper08 from '/buttonPaper/paper08.png'
-import paper09 from '/buttonPaper/paper09.png'
+const paper00 = '/buttonPaper/paper00.png'
+const paper01 = '/buttonPaper/paper01.png'
+const paper02 = '/buttonPaper/paper02.png'
+const paper03 = '/buttonPaper/paper03.png'
+const paper04 = '/buttonPaper/paper04.png'
+const paper05 = '/buttonPaper/paper05.png'
+const paper06 = '/buttonPaper/paper06.png'
+const paper07 = '/buttonPaper/paper07.png'
+const paper08 = '/buttonPaper/paper08.png'
+const paper09 = '/buttonPaper/paper09.png'
 import {useEffect, useState} from "react";
 
 import styles from './PaperPVPbtn.module.scss'
 
 
 // eslint-disable-next-line react/prop-types
-export const PaperPVPbtn = ({onClick, reset}) => {
+export const PaperPVPbtn = ({onClick, choose}) => {
     const images = [
         paper01,
         paper00,
@@ -33,18 +33,18 @@ export const PaperPVPbtn = ({onClick, reset}) => {
     const [isAnimating, setIsAnimating] = useState(false);
 
     useEffect(() => {
-        if (reset || !reset) {
+        if (choose !== 1) {
             setCurrentImage(0);
             setIsAnimating(false);
         }
-    }, [reset]);
+    }, [choose]);
 
     useEffect(() => {
         let interval;
         if (isAnimating && currentImage < images.length - 1) {
             interval = setInterval(() => {
                 setCurrentImage((prevImage) => prevImage + 1);
-            }, 90);
+            }, 50);
         } else if (currentImage === images.length - 1) {
             setIsAnimating(false);
         }

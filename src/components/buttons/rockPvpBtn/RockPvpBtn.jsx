@@ -1,20 +1,20 @@
-import rock00 from '/buttonRock/rock00.png'
-import rock01 from '/buttonRock/rock01.png'
-import rock02 from '/buttonRock/rock02.png'
-import rock03 from '/buttonRock/rock03.png'
-import rock04 from '/buttonRock/rock04.png'
-import rock05 from '/buttonRock/rock05.png'
-import rock06 from '/buttonRock/rock06.png'
-import rock07 from '/buttonRock/rock07.png'
-import rock08 from '/buttonRock/rock08.png'
-import rock09 from '/buttonRock/rock09.png'
+const rock00 = '/buttonRock/rock00.png'
+const rock01 = '/buttonRock/rock01.png'
+const rock02 = '/buttonRock/rock02.png'
+const rock03 = '/buttonRock/rock03.png'
+const rock04 = '/buttonRock/rock04.png'
+const rock05 = '/buttonRock/rock05.png'
+const rock06 = '/buttonRock/rock06.png'
+const rock07 = '/buttonRock/rock07.png'
+const rock08 = '/buttonRock/rock08.png'
+const rock09 = '/buttonRock/rock09.png'
 import {useEffect, useState} from "react";
 
 import styles from './RockPvpBtn.module.scss'
 
 
 // eslint-disable-next-line react/prop-types
-export const RockPvpBtn = ({onClick, reset}) => {
+export const RockPvpBtn = ({onClick, choose}) => {
     const images = [
         rock01,
         rock00,
@@ -33,18 +33,18 @@ export const RockPvpBtn = ({onClick, reset}) => {
     const [isAnimating, setIsAnimating] = useState(false);
 
     useEffect(() => {
-        if (reset || !reset) {
+        if (choose !== 0) {
             setCurrentImage(0);
             setIsAnimating(false);
         }
-    }, [reset]);
+    }, [choose]);
 
     useEffect(() => {
         let interval;
         if (isAnimating && currentImage < images.length - 1) {
             interval = setInterval(() => {
                 setCurrentImage((prevImage) => prevImage + 1);
-            }, 90);
+            }, 50);
         } else if (currentImage === images.length - 1) {
             setIsAnimating(false);
         }

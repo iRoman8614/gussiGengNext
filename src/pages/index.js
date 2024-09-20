@@ -1,125 +1,156 @@
-import Image from "next/image";
-import {useEffect, useState} from "react";
-import {IconButton} from "@/components/buttons/icon-btn/IconButton";
-import {NavBar} from "@/components/nav-bar/NavBar";
-import {CollectBar} from "@/components/bars/CollectBar";
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+import Image from 'next/image';
 
-const account = "/main-buttons/account.png";
-const settings = "/main-buttons/settings.png";
-const boards = "/main-buttons/boards.png";
-const wallet = "/main-buttons/wallet.png";
-const claim = '/claimBTN.png'
-const purpleChar = '/characters/purpleChar.png'
-const border = '/totalbar.png'
-const claimClicked = '/claimBTNclicked.png'
-const background = '/backgrounds/nightcity.png'
+import styles from '../styles/Loader.module.scss'; // путь к вашему стилю
 
-import teamData from "../mock/teamsData.js";
+const loaderImage = '/loadingImg.jpg';
 
-import styles from "@/styles/Home.module.scss";
-
-export default function Home() {
-    const [totalCoins, setTotalCoins] = useState(0);
-    const [currentFarmCoins, setCurrentFarmCoins] = useState(0);
-    const [rate, setRate] = useState(3);
-    const [startFarmTime, setStartFarmTime] = useState(Date.now());
-    const [teamId, setTeamId] = useState(1)
-    const [isClaimClicked, setIsClaimClicked] = useState(false);
+export default function LoaderPage() {
+    const [isLoading, setIsLoading] = useState(true);
+    const [userId, setUserId] = useState(null); // Состояние для хранения userId
+    const router = useRouter();
 
     useEffect(() => {
-        const savedTeamId = localStorage.getItem('teamId') || Math.floor(Math.random() * 4) + 1;
-        const savedTotalCoins = localStorage.getItem('totalCoins') || 1000;
-        const savedRate = localStorage.getItem('rate') || 3;
-        const savedStartFarmTime = localStorage.getItem('startFarmTime') || Date.now();
-
-        setTeamId(savedTeamId)
-
-        setTotalCoins(parseInt(savedTotalCoins));
-        setRate(parseInt(savedRate));
-        setStartFarmTime(parseInt(savedStartFarmTime));
-
-        localStorage.setItem('teamId', savedTeamId);
-        localStorage.setItem('totalCoins', savedTotalCoins);
-        localStorage.setItem('rate', savedRate);
-        localStorage.setItem('startFarmTime', savedStartFarmTime);
-    }, []);
-
-    // Логика накопления монет
-    useEffect(() => {
-        const now = Date.now();
-        const secondsPassed = Math.floor((now - startFarmTime) / 1000);
-        const accumulatedCoins = Math.min(rate * secondsPassed, 3500);
-        setCurrentFarmCoins(accumulatedCoins);
-    }, [rate, startFarmTime]);
-
-    useEffect(() => {
-        const interval = setInterval(() => {
-            const now = Date.now();
-            const secondsPassed = Math.floor((now - startFarmTime) / 1000);
-            const accumulatedCoins = Math.min(rate * secondsPassed, 3500);
-
-            setCurrentFarmCoins(accumulatedCoins);
-        }, 1000);
-
-        return () => clearInterval(interval);
-    }, [rate, startFarmTime]);
-
-    const handleClaimClick = () => {
-        if (window.Telegram?.WebApp?.HapticFeedback) {
-            window.Telegram.WebApp.HapticFeedback.impactOccurred('heavy');
+        // Функция установки высоты экрана под Telegram WebApp
+        function setTelegramHeight() {
+            const availableHeight = window.innerHeight;
+            document.body.style.height = `${availableHeight}px`;
         }
-        const newTotalCoins = totalCoins + currentFarmCoins;
-        const newStartTime = Date.now();
-        setTotalCoins(newTotalCoins);
-        setCurrentFarmCoins(0);
-        setStartFarmTime(newStartTime);
-        setIsClaimClicked(true);
-        setTimeout(() => {
-            setIsClaimClicked(false);
-        }, 500);
-    };
 
-    function formatNumberFromEnd(num) {
-        return num.toString().replace(/(\d)(?=(\d{3})+$)/g, '$1 ');
-    }
+        const initializeTelegramWebApp = () => {
+            if (window.Telegram?.WebApp) {
+                // Устанавливаем цвет заголовка
+                window.Telegram.WebApp.setHeaderColor('#183256');
+                window.Telegram.WebApp.expand();
 
-    const maxWidth = 224;
-    const currentWidth = (currentFarmCoins / 3500) * maxWidth;
+                // Устанавливаем высоту под Telegram Web App
+                setTelegramHeight();
+                window.addEventListener('resize', setTelegramHeight);
+
+                // Чтение initData и получение userId
+                const search = window.Telegram.WebApp.initData;
+                const urlParams = new URLSearchParams(search);
+                const userParam = urlParams.get('user');
+
+                if (userParam) {
+                    const decodedUserParam = decodeURIComponent(userParam);
+                    const userObject = JSON.parse(decodedUserParam);
+                    console.log("Telegram userObject:", userObject);
+                    console.log("User ID from Telegram:", userObject.id);
+                    setUserId(userObject.id); // Сохраняем userId в состоянии
+                } else {
+                    console.log("Нет userParam, используем userId = 111");
+                    setUserId(111); // Если userParam не найден, используем userId = 1
+                }
+            } else {
+                console.log("Telegram WebApp недоступен, используем userId = 111");
+                setUserId(111); // Если Telegram WebApp недоступен, используем userId = 1
+            }
+        };
+
+        // Проверка localStorage и запрос init
+        const checkLocalStorageAndInit = async () => {
+            console.log("Запуск проверки localStorage и init");
+
+            const tgUserId = userId || 111; // Если userId не получен, подставляем 1 по умолчанию
+            console.log("Используемый userId для запроса:", tgUserId);
+
+            const init = localStorage.getItem('init');
+
+            if (!init) {
+                console.log("Данных init нет в localStorage, выполняем запрос /profile/init");
+                try {
+                    const response = await fetch(`https://supavpn.lol/profile/init?profileId=${tgUserId}`);
+                    const data = await response.json();
+
+                    console.log("Ответ от /profile/init:", data);
+
+                    const initData = {
+                        group: data.group,
+                        farm: data.farm,
+                    };
+                    localStorage.setItem('init', JSON.stringify(initData));
+
+                    checkStartData(tgUserId);
+                } catch (error) {
+                    console.error('Ошибка при запросе /init:', error);
+                }
+            } else {
+                console.log("Данные init уже есть в localStorage");
+                checkStartData(tgUserId);
+            }
+        };
+
+        const checkStartData = async (tgUserId) => {
+            const start = localStorage.getItem('start');
+
+            if (!start) {
+                console.log("Данных start нет в localStorage, выполняем запрос /farm/start");
+                try {
+                    const response = await fetch(`https://supavpn.lol/farm/start?profileId=${tgUserId}`);
+                    const data = await response.json();
+                    console.log("Ответ от /farm/start:", data);
+                    localStorage.setItem('start', JSON.stringify(data));
+                } catch (error) {
+                    console.error('Ошибка при запросе /start:', error);
+                }
+            }
+            router.push('/main'); // Перенаправляем на главную страницу
+        };
+
+        // Запускаем логику при монтировании компонента
+        if (typeof window !== 'undefined') {
+            window.Telegram?.WebApp.ready(); // Инициализация Telegram WebApp
+            initializeTelegramWebApp(); // Запуск логики работы с Telegram WebApp
+
+            if (userId !== null) {
+                // Если userId уже получен, запускаем проверку localStorage
+                console.log("userId уже получен:", userId);
+                checkLocalStorageAndInit();
+            } else {
+                // Если userId еще не получен, ждем инициализации
+                console.log("Ждем получения userId");
+                setTimeout(() => {
+                    console.log("userId после ожидания:", userId);
+                    if (userId !== null) {
+                        checkLocalStorageAndInit();
+                    }
+                }, 1000); // Даем 1 секунду на инициализацию Telegram WebApp
+            }
+        }
+
+        return () => {
+            window.removeEventListener('resize', setTelegramHeight); // Убираем обработчик события при размонтировании
+        };
+    }, [userId, router]);
 
     return (
         <div className={styles.root}>
-          <Image className={styles.background} src={background} width={300} height={1000}  alt={'bg'}/>
-          <div className={styles.item1}>
-            <IconButton image={account} alt={'account'} title={'account'}/>
-          </div>
-          <div className={styles.item2}>
-            <IconButton image={teamData[teamId].logo} alt={'gang'}/>
-          </div>
-          <div className={styles.item3}>
-            <IconButton image={settings} alt={'settings'} title={'settings'}/>
-          </div>
-          <div className={styles.item4}>
-            <IconButton image={boards} alt={'boards'} title={'board'}/>
-          </div>
-          <div className={styles.item5}>
-            <Image src={border} width={600} height={200} alt={'border'} className={styles.totalBarRoot}/>
-            <div className={styles.totalText}>{formatNumberFromEnd(totalCoins)}</div>
-          </div>
-          <div className={styles.item6}>
-            <IconButton image={wallet} alt={'wallet'} title={'wallet'}/>
-          </div>
-          <div className={styles.item7}>
-            <Image width={1000} height={1000} className={styles.char} alt={'character'} src={purpleChar}/>
-          </div>
-          <div className={styles.item8}>
-            <CollectBar currentCoins={formatNumberFromEnd(currentFarmCoins)} maxCoins={formatNumberFromEnd(3500)} width={currentWidth} />
-          </div>
-          <div className={styles.item9}>
-            <Image className={styles.claimRoot} width={600} height={200} src={isClaimClicked ? claimClicked : claim} onClick={handleClaimClick} alt={'claim'} />
-          </div>
-          <div className={styles.item10}>
-            <NavBar/>
-          </div>
+            {isLoading && (
+                <>
+                    <Image className={styles.video} src={loaderImage} alt="Loading..." width={500} height={500} />
+                    <LoadingText />
+                </>
+            )}
         </div>
     );
 }
+
+const LoadingText = () => {
+    const [dots, setDots] = useState(0);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setDots(prevDots => (prevDots + 1) % 4);
+        }, 500);
+
+        return () => clearInterval(interval);
+    }, []);
+
+    return (
+        <div className={styles.loading}>
+            Loading{'.'.repeat(dots)}
+        </div>
+    );
+};

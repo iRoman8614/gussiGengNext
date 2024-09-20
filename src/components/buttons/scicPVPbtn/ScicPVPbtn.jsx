@@ -1,20 +1,20 @@
-import scis00 from '/buttonScissors/scis00.png'
-import scis01 from '/buttonScissors/scis01.png'
-import scis02 from '/buttonScissors/scis02.png'
-import scis03 from '/buttonScissors/scis03.png'
-import scis04 from '/buttonScissors/scis04.png'
-import scis05 from '/buttonScissors/scis05.png'
-import scis06 from '/buttonScissors/scis06.png'
-import scis07 from '/buttonScissors/scis07.png'
-import scis08 from '/buttonScissors/scis08.png'
-import scis09 from '/buttonScissors/scis09.png'
+const scis00 = '/buttonScissors/scis00.png'
+const scis01 = '/buttonScissors/scis01.png'
+const scis02 = '/buttonScissors/scis02.png'
+const scis03 = '/buttonScissors/scis03.png'
+const scis04 = '/buttonScissors/scis04.png'
+const scis05 = '/buttonScissors/scis05.png'
+const scis06 = '/buttonScissors/scis06.png'
+const scis07 = '/buttonScissors/scis07.png'
+const scis08 = '/buttonScissors/scis08.png'
+const scis09 = '/buttonScissors/scis09.png'
 import {useEffect, useState} from "react";
 
 import styles from './ScicPVPbtn.module.scss'
 
 
 // eslint-disable-next-line react/prop-types
-export const ScicPvpBtn = ({onClick, reset}) => {
+export const ScicPvpBtn = ({onClick, choose}) => {
     const images = [
         scis01,
         scis00,
@@ -33,18 +33,18 @@ export const ScicPvpBtn = ({onClick, reset}) => {
     const [isAnimating, setIsAnimating] = useState(false);
 
     useEffect(() => {
-        if (reset || !reset) {
+        if (choose !== 2) {
             setCurrentImage(0);
             setIsAnimating(false);
         }
-    }, [reset]);
+    }, [choose]);
 
     useEffect(() => {
         let interval;
         if (isAnimating && currentImage < images.length - 1) {
             interval = setInterval(() => {
                 setCurrentImage((prevImage) => prevImage + 1);
-            }, 90);
+            }, 50);
         } else if (currentImage === images.length - 1) {
             setIsAnimating(false);
         }
