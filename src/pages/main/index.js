@@ -140,6 +140,9 @@ export default function Home() {
 
     // Форматирование числа для вывода
     function formatNumberFromEnd(num) {
+        if (typeof num !== 'number') {
+            return '0';  // Если num не является числом, возвращаем строку '0'
+        }
         return num.toString().replace(/(\d)(?=(\d{3})+$)/g, "$1 ");
     }
 
