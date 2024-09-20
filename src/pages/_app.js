@@ -1,12 +1,14 @@
 import "@/styles/globals.scss";
-import {Head} from "next/document";
+import {Head} from "next/head";
+import Script from "next/script";
 
 export default function App({ Component, pageProps }) {
   return(
       <>
-        <Head>
-          <script src="https://telegram.org/js/telegram-web-app.js"></script>
-        </Head>
+        <Script
+            src="https://telegram.org/js/telegram-web-app.js"
+            strategy="beforeInteractive"
+        />
         <Component {...pageProps} />
       </>
       );

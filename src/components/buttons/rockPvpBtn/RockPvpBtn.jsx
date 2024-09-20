@@ -9,6 +9,7 @@ const rock07 = '/buttonRock/rock07.png'
 const rock08 = '/buttonRock/rock08.png'
 const rock09 = '/buttonRock/rock09.png'
 import {useEffect, useState} from "react";
+import Image from "next/image";
 
 import styles from './RockPvpBtn.module.scss'
 
@@ -63,19 +64,19 @@ export const RockPvpBtn = ({onClick, choose}) => {
 
     return (
         <>
-            {currentImage < 3 && <img
+            {currentImage < 3 && <Image width={90} height={90}
                 className={styles.rocSecBtn}
                 onClick={handleClick}
                 src={images[currentImage]}
                 alt=""
             />}
-            {currentImage >= 3 && currentImage < 6 && <img
+            {currentImage >= 3 && currentImage < 6 && <Image width={90} height={90}
                 className={styles.rocSecBtnHalfActive}
                 onClick={handleClick}
                 src={images[currentImage]}
                 alt=""
             />}
-            {currentImage >= 6 && <img
+            {currentImage >= 6 && <Image width={90} height={90}
                 className={styles.rocSecBtnActive}
                 onClick={handleClick}
                 src={images[currentImage]}

@@ -9,6 +9,7 @@ const scis07 = '/buttonScissors/scis07.png'
 const scis08 = '/buttonScissors/scis08.png'
 const scis09 = '/buttonScissors/scis09.png'
 import {useEffect, useState} from "react";
+import Image from "next/image";
 
 import styles from './ScicPVPbtn.module.scss'
 
@@ -63,19 +64,19 @@ export const ScicPvpBtn = ({onClick, choose}) => {
 
     return (
         <>
-            {currentImage < 3 && <img
+            {currentImage < 3 && <Image width={90} height={90}
                 className={styles.sciSecBtn}
                 onClick={handleClick}
                 src={images[currentImage]}
                 alt=""
             />}
-            {currentImage >= 3 && currentImage < 6 && <img
+            {currentImage >= 3 && currentImage < 6 && <Image width={90} height={90}
                 className={styles.sciSecBtnHalfActive}
                 onClick={handleClick}
                 src={images[currentImage]}
                 alt=""
             />}
-            {currentImage >= 6 && <img
+            {currentImage >= 6 && <Image width={90} height={90}
                 className={styles.sciSecBtnActive}
                 onClick={handleClick}
                 src={images[currentImage]}

@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 const paper00 = '/buttonPaper/paper00.png'
 const paper01 = '/buttonPaper/paper01.png'
 const paper02 = '/buttonPaper/paper02.png'
@@ -63,19 +65,19 @@ export const PaperPVPbtn = ({onClick, choose}) => {
 
     return (
         <>
-            {currentImage < 3 && <img
+            {currentImage < 3 && <Image width={90} height={90}
                 className={styles.papSecBtn}
                 onClick={handleClick}
                 src={images[currentImage]}
                 alt=""
             />}
-            {currentImage >= 3 && currentImage < 6 && <img
+            {currentImage >= 3 && currentImage < 6 && <Image width={90} height={90}
                 className={styles.papSecBtnHalfActive}
                 onClick={handleClick}
                 src={images[currentImage]}
                 alt=""
             />}
-            {currentImage >= 6 && <img
+            {currentImage >= 6 && <Image width={90} height={90}
                 className={styles.papSecBtnActive}
                 onClick={handleClick}
                 src={images[currentImage]}
