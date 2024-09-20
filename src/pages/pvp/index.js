@@ -113,6 +113,7 @@ export default function PvpPage() {
 
 // Функция для отправки ответа и ожидания результата
     const handlePlayerChoice = (choice) => {
+        console.log('clicked')
         if (window.Telegram?.WebApp?.HapticFeedback) {
             window.Telegram.WebApp.HapticFeedback.impactOccurred('heavy');
         }

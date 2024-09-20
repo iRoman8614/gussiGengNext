@@ -22,35 +22,36 @@ export const PaperPVPbtn = ({ onClick, choose }) => {
 
     useEffect(() => {
         let interval;
+
         // Если выбрана "бумага", запускаем анимацию
-        if (choose === 1) {
-            setIsAnimating(true);
+        if (choose === 1 && isAnimating) {
             interval = setInterval(() => {
                 setCurrentImage((prevImage) => {
-                    // Когда достигли конца анимации, останавливаем анимацию
                     if (prevImage >= paperImages.length - 1) {
-                        setIsAnimating(false);
-                        return prevImage; // Останавливаемся на последнем кадре
+                        clearInterval(interval);  // Останавливаем анимацию на последнем кадре
+                        setIsAnimating(false);  // Анимация закончена
+                        return prevImage;
                     }
-                    return prevImage + 1; // Иначе продолжаем анимацию
+                    return prevImage + 1;
                 });
             }, 100);
         } else {
-            // Если выбрано что-то другое (или анимация сброшена), сбрасываем кадр
+            // Если выбрано что-то другое, сбрасываем кадр
             setCurrentImage(0);
             setIsAnimating(false);
         }
-        // Очищаем интервал при размонтировании или изменении условий
+
+        // Очищаем интервал при изменении условий или размонтировании
         return () => clearInterval(interval);
-    }, [choose, currentImage]);
+    }, [choose, isAnimating]);
 
     const handleClick = () => {
         if (window.Telegram?.WebApp?.HapticFeedback) {
             window.Telegram.WebApp.HapticFeedback.impactOccurred('heavy');
         }
-        if (!isAnimating && currentImage === 0) {
+        if (!isAnimating) {
             setIsAnimating(true);
-            onClick();
+            onClick();  // Запускаем анимацию только при клике
         }
     };
 
