@@ -1,14 +1,15 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import Head from 'next/head';
 import Image from 'next/image';
 
-import styles from '../styles/Loader.module.scss'; // путь к вашему стилю
+import styles from '../styles/Loader.module.scss';
 
 const loaderImage = '/loadingImg.jpg';
 
 export default function LoaderPage() {
     const [isLoading, setIsLoading] = useState(true);
-    const [userId, setUserId] = useState(null); // Состояние для хранения userId
+    const [userId, setUserId] = useState(111); // Стандартный userId = 111
     const router = useRouter();
 
     useEffect(() => {
@@ -41,11 +42,11 @@ export default function LoaderPage() {
                     setUserId(userObject.id); // Сохраняем userId в состоянии
                 } else {
                     console.log("Нет userParam, используем userId = 111");
-                    setUserId(111); // Если userParam не найден, используем userId = 1
+                    setUserId(111); // Если userParam не найден, используем userId = 111
                 }
             } else {
                 console.log("Telegram WebApp недоступен, используем userId = 111");
-                setUserId(111); // Если Telegram WebApp недоступен, используем userId = 1
+                setUserId(111); // Если Telegram WebApp недоступен, используем userId = 111
             }
         };
 
@@ -53,7 +54,7 @@ export default function LoaderPage() {
         const checkLocalStorageAndInit = async () => {
             console.log("Запуск проверки localStorage и init");
 
-            const tgUserId = userId || 111; // Если userId не получен, подставляем 1 по умолчанию
+            const tgUserId = userId || 111;
             console.log("Используемый userId для запроса:", tgUserId);
 
             const init = localStorage.getItem('init');
@@ -82,16 +83,24 @@ export default function LoaderPage() {
             }
         };
 
+        // Метод для запроса /farm/start и сохранения в localStorage
         const checkStartData = async (tgUserId) => {
             const start = localStorage.getItem('start');
 
             if (!start) {
                 console.log("Данных start нет в localStorage, выполняем запрос /farm/start");
                 try {
-                    const response = await fetch(`https://supavpn.lol/farm/start?profileId=${tgUserId}`);
+                    const response = await fetch(`https://85.192.42.16/farm/start?profileId=${tgUserId}`);
                     const data = await response.json();
                     console.log("Ответ от /farm/start:", data);
-                    localStorage.setItem('start', JSON.stringify(data));
+
+                    // Сохраняем в localStorage только необходимые данные: startTime, rate, limit
+                    const startData = {
+                        startTime: data.startTime,
+                        rate: data.rate,
+                        limit: data.limit,
+                    };
+                    localStorage.setItem('start', JSON.stringify(startData));
                 } catch (error) {
                     console.error('Ошибка при запросе /start:', error);
                 }
@@ -102,26 +111,21 @@ export default function LoaderPage() {
         // Запускаем логику при монтировании компонента
         if (typeof window !== 'undefined') {
             window.Telegram?.WebApp.ready(); // Инициализация Telegram WebApp
-            initializeTelegramWebApp(); // Запуск логики работы с Telegram WebApp
+            initializeTelegramWebApp();
 
             if (userId !== null) {
-                // Если userId уже получен, запускаем проверку localStorage
-                console.log("userId уже получен:", userId);
                 checkLocalStorageAndInit();
             } else {
-                // Если userId еще не получен, ждем инициализации
-                console.log("Ждем получения userId");
                 setTimeout(() => {
-                    console.log("userId после ожидания:", userId);
                     if (userId !== null) {
                         checkLocalStorageAndInit();
                     }
-                }, 1000); // Даем 1 секунду на инициализацию Telegram WebApp
+                }, 1000);
             }
         }
 
         return () => {
-            window.removeEventListener('resize', setTelegramHeight); // Убираем обработчик события при размонтировании
+            window.removeEventListener('resize', setTelegramHeight);
         };
     }, [userId, router]);
 
