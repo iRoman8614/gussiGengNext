@@ -201,7 +201,7 @@ export default function PvpPage() {
 
     return (
         <>
-            {!isLoadingPvp ? (
+            {isLoadingPvp ? (
                 <LoaderGif />
             ) : (
                 <>
