@@ -20,38 +20,40 @@ export const PaperPVPbtn = ({ onClick, choose }) => {
     const [currentImage, setCurrentImage] = useState(0);
     const [isAnimating, setIsAnimating] = useState(false);
 
+    // Сброс анимации при изменении выбора
+    useEffect(() => {
+        if (choose !== 1) {
+            setCurrentImage(0);
+            setIsAnimating(false);
+        }
+    }, [choose]);
+
+    // Запуск анимации при выборе "бумаги" и срабатывании клика
     useEffect(() => {
         let interval;
-
-        // Если выбрана "бумага", запускаем анимацию
-        if (choose === 1 && isAnimating) {
+        if (isAnimating) {
             interval = setInterval(() => {
                 setCurrentImage((prevImage) => {
                     if (prevImage >= paperImages.length - 1) {
-                        clearInterval(interval);  // Останавливаем анимацию на последнем кадре
-                        setIsAnimating(false);  // Анимация закончена
+                        clearInterval(interval); // Останавливаем анимацию на последнем кадре
+                        setIsAnimating(false);   // Анимация завершена
                         return prevImage;
                     }
                     return prevImage + 1;
                 });
             }, 100);
-        } else {
-            // Если выбрано что-то другое, сбрасываем кадр
-            setCurrentImage(0);
-            setIsAnimating(false);
         }
-
-        // Очищаем интервал при изменении условий или размонтировании
         return () => clearInterval(interval);
-    }, [choose, isAnimating]);
+    }, [isAnimating]);
 
     const handleClick = () => {
+        console.log('clicked');  // Лог для отслеживания клика
         if (window.Telegram?.WebApp?.HapticFeedback) {
             window.Telegram.WebApp.HapticFeedback.impactOccurred('heavy');
         }
-        if (!isAnimating) {
+        if (!isAnimating && currentImage === 0 && choose === 1) {  // Анимация начинается только если кнопка выбрана и анимация не идет
             setIsAnimating(true);
-            onClick();  // Запускаем анимацию только при клике
+            onClick();  // Выполняем действие при клике
         }
     };
 
