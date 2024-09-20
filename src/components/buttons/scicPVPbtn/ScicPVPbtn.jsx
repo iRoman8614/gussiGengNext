@@ -63,7 +63,7 @@ export const ScicPvpBtn = ({onClick, choose}) => {
     };
 
     return (
-        <button disabled={choose !== 2} className={styles.root}>
+        <button disabled={choose !== 2 || choose !== 3} className={styles.root}>
             <Image
                 width={90} height={90}
                 className={currentImage < 3

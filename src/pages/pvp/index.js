@@ -48,7 +48,7 @@ export default function PvpPage() {
     const [gameOver, setGameOver] = useState(false);
     const [round, setRound] = useState(1);
     const [timer, setTimer] = useState(10);
-    const [playerChoice, setPlayerChoice] = useState(null);
+    const [playerChoice, setPlayerChoice] = useState(3);
     const [opponentChoice, setOpponentChoice] = useState(3);
     const [gameEnded, setGameEnded] = useState(false);
     const [userName, setUserName] = useState('you');

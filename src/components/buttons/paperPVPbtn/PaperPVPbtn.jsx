@@ -64,7 +64,7 @@ export const PaperPVPbtn = ({onClick, choose}) => {
     };
 
     return (
-        <button disabled={choose !== 1} className={styles.root}>
+        <button disabled={choose !== 1 || choose !== 3} className={styles.root}>
             <Image
                 width={90}
                 height={90}

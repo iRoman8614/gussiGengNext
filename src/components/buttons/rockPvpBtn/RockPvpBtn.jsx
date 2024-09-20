@@ -63,7 +63,7 @@ export const RockPvpBtn = ({onClick, choose}) => {
     };
 
     return (
-        <button disabled={choose !== 0} className={styles.root}>
+        <button disabled={choose !== 0 || choose !== 3} className={styles.root}>
             <Image
                 width={90}
                 height={90}
