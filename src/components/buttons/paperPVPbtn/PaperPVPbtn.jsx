@@ -50,23 +50,22 @@ export const PaperPVPbtn = ({ onClick, choose }) => {
         }
         if (!isAnimating && currentImage === 0) {
             setIsAnimating(true);
-            onClick(); // Отправляем выбор
+            onClick();
         }
     };
 
     return (
-        <button disabled={choose !== 1} className={styles.root} onClick={handleClick}>
-            <Image
-                width={90}
-                height={90}
-                className={currentImage < 3
-                    ? styles.papSecBtn
-                    : currentImage < 6
-                        ? styles.papSecBtnHalfActive
-                        : styles.papSecBtnActive}
-                src={paperImages[currentImage]}
-                alt=""
-            />
-        </button>
+        <Image
+            width={90}
+            height={90}
+            className={currentImage < 3
+                ? styles.papSecBtn
+                : currentImage < 6
+                    ? styles.papSecBtnHalfActive
+                    : styles.papSecBtnActive}
+            src={paperImages[currentImage]}
+            alt=""
+            onClick={handleClick}
+        />
     );
 };

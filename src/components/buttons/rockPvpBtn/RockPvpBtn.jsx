@@ -75,19 +75,17 @@ export const RockPvpBtn = ({onClick, choose}) => {
     };
 
     return (
-        <button disabled={choose !== 3 && choose !== 0} className={styles.root}>
-            <Image
-                width={90}
-                height={90}
-                className={currentImage < 3
-                    ? styles.rocSecBtn
-                    : currentImage < 6
-                        ? styles.rocSecBtnHalfActive
-                        : styles.rocSecBtnActive}
-                onClick={handleClick}
-                src={images[currentImage]}
-                alt=""
-            />
-        </button>
+        <Image
+            width={90}
+            height={90}
+            className={currentImage < 3
+                ? styles.rocSecBtn
+                : currentImage < 6
+                    ? styles.rocSecBtnHalfActive
+                    : styles.rocSecBtnActive}
+            onClick={handleClick}
+            src={images[currentImage]}
+            alt=""
+        />
     );
 };
