@@ -47,11 +47,10 @@ export default function PvpPage() {
     const [opponentScore, setOpponentScore] = useState(0);
     const [gameOver, setGameOver] = useState(false);
     const [round, setRound] = useState(1);
-    const [timer, setTimer] = useState(5);
+    const [timer, setTimer] = useState(10);
     const [playerChoice, setPlayerChoice] = useState(null);
     const [opponentChoice, setOpponentChoice] = useState(3);
     const [gameEnded, setGameEnded] = useState(false);
-    const [opponentTeamId, setOpponentTeamId] = useState(() => Math.floor(Math.random() * 3) + 1);
     const [userName, setUserName] = useState('you');
     const [sessionId, setSessionId] = useState(null);  // Сохраняем sessionId
     const [isLoadingPvp, setIsLoadingPvp] = useState(true); // Управляет отображением лоадера
@@ -193,7 +192,7 @@ export default function PvpPage() {
     const resetRoundAfterDelay = () => {
         setPlayerChoice(null);
         setOpponentChoice(null);
-        setTimer(5); // Сбрасываем таймер
+        setTimer(10); // Сбрасываем таймер
         setVisibleImage(0); // Сбрасываем анимацию
         setRound(prev => prev + 1); // Переход к следующему раунду
     };
