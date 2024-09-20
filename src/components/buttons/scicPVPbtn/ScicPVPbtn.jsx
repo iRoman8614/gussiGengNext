@@ -37,7 +37,7 @@ export const ScicPvpBtn = ({onClick, choose}) => {
         let interval;
 
         // Если выбрана "бумага", запускаем анимацию
-        if (choose === 1) {
+        if (choose === 2) {
             setIsAnimating(true);
             interval = setInterval(() => {
                 setCurrentImage((prevImage) => {

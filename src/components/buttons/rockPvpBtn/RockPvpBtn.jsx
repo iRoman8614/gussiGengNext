@@ -34,16 +34,8 @@ export const RockPvpBtn = ({onClick, choose}) => {
     const [isAnimating, setIsAnimating] = useState(false);
 
     useEffect(() => {
-        if (choose !== 0) {
-            setCurrentImage(0);
-            setIsAnimating(false);
-        }
-    }, [choose]);
-
-    useEffect(() => {
         let interval;
-        // Если выбрана "бумага", запускаем анимацию
-        if (choose === 1) {
+        if (choose === 0) {
             setIsAnimating(true);
             interval = setInterval(() => {
                 setCurrentImage((prevImage) => {
