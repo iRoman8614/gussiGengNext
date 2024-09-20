@@ -26,7 +26,7 @@ export default function Home() {
     const [startFarmTime, setStartFarmTime] = useState(Date.now());
     const [teamId, setTeamId] = useState(1)
     const [isClaimClicked, setIsClaimClicked] = useState(false);
-    const [userId, setUserId] = useState(null);
+    const [userId, setUserId] = useState(111);
 
     useEffect(() => {
         if (typeof window !== "undefined") {
