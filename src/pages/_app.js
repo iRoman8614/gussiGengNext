@@ -12,7 +12,7 @@ export default function App({ Component, pageProps }) {
         />
           <ToastContainer
               position="top-center" // Здесь можно выбрать позицию уведомлений
-              autoClose={50000}
+              autoClose={5000}
               hideProgressBar
               newestOnTop={false}
               closeOnClick

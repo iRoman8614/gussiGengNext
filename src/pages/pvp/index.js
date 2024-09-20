@@ -2,15 +2,18 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useRouter } from 'next/router';
 
-import { IconButton } from "../../components/buttons/icon-btn/IconButton.jsx";
-import {LoaderGif} from "../../components/loader/LoaderGif.jsx";
-import {PaperPVPbtn} from "../../components/buttons/paperPVPbtn/PaperPVPbtn.jsx";
-import {RockPvpBtn} from "../../components/buttons/rockPvpBtn/RockPvpBtn.jsx";
-import {ScicPvpBtn} from "../../components/buttons/scicPVPbtn/ScicPVPbtn.jsx";
-import teamData from '../../mock/teamsData.js';
-import { gameOptions } from '../../mock/optionData';
+import { IconButton } from "@/components/buttons/icon-btn/IconButton.jsx";
+import {LoaderGif} from "@/components/loader/LoaderGif.jsx";
+import {PaperPVPbtn} from "@/components/buttons/paperPVPbtn/PaperPVPbtn.jsx";
+import {RockPvpBtn} from "@/components/buttons/rockPvpBtn/RockPvpBtn";
+import {ScicPvpBtn} from "@/components/buttons/scicPVPbtn/ScicPVPbtn.jsx";
+import { toast } from "react-toastify";
 
-import styles from '../../styles/Pvp.module.scss';
+import teamData from '@/mock/teamsData.js';
+import { gameOptions } from '@/mock/optionData';
+
+import styles from '@/styles/Pvp.module.scss';
+import "react-toastify/dist/ReactToastify.css";
 
 const wins = '/wins.png';
 const start = '/game-icons/animation_hand_start.gif';
@@ -35,7 +38,6 @@ const scale013 = '/roundLightUp/scale13.png'
 const scale014 = '/roundLightUp/scale14.png'
 const scale015 = '/roundLightUp/scale15.png'
 
-
 export default function PvpPage() {
     const router = useRouter();
     const [visibleImage, setVisibleImage] = useState(0);
@@ -49,121 +51,167 @@ export default function PvpPage() {
     const [gameEnded, setGameEnded] = useState(false);
     const [opponentTeamId, setOpponentTeamId] = useState(() => Math.floor(Math.random() * 3) + 1);
     const [userName, setUserName] = useState('you');
+    const [sessionId, setSessionId] = useState(null);  // Сохраняем sessionId
+    const [isLoadingPvp, setIsLoadingPvp] = useState(true); // Управляет отображением лоадера
+    const [userId, setUserId] = useState(null); // Для хранения userId
 
-    const [isLoadingPvp, setIsLoadingPvp] = useState(true);
+// Получаем userId из Telegram
+    useEffect(() => {
+        if (typeof window !== 'undefined' && window.Telegram?.WebApp) {
+            const search = window.Telegram.WebApp.initData;
+            const urlParams = new URLSearchParams(search);
+            const userParam = urlParams.get('user');
 
-    // useEffect(() => {
-    //     if (typeof window !== 'undefined') {
-    //         const search = window.Telegram.WebApp.initData;
-    //         const urlParams = new URLSearchParams(search);
-    //         const userParam = urlParams.get('user');
-    //         const decodedUserParam = decodeURIComponent(userParam);
-    //         const userObject = JSON.parse(decodedUserParam);
-    //         const userTG = userObject.username;
-    //         setUserName(userTG);
-    //     }
-    // }, []);
+            if (userParam) {
+                const decodedUserParam = decodeURIComponent(userParam);
+                const userObject = JSON.parse(decodedUserParam);
+                setUserId(userObject.id);  // Сохраняем userId
+            } else {
+                setUserId(111);  // Если userId не найден, используем 111 по умолчанию
+            }
+        }
+    }, []);
 
-    // useEffect(() => {
-    //     if (teamId !== null) {
-    //         const randomOpponentTeamId = getRandomTeamIdExceptCurrent(teamId, Object.keys(teamData).length);
-    //         setOpponentTeamId(randomOpponentTeamId);
-    //     }
-    // }, [teamId]);
+// Делаем запрос на /game/start и сохраняем sessionId
+    useEffect(() => {
+        const startGame = async () => {
+            try {
+                const response = await fetch(`https://supavpn.lol/game/start?profileId=${userId || 111}`);
+                const data = await response.text();
+                if (data === "timeout") {
+                    // Если ответ timeout, выводим уведомление и перенаправляем
+                    toast.error("Pair not found");
+                    setTimeout(() => {
+                        router.push('/');
+                    }, 5000); // Перенаправляем через 5 секунд
+                } else {
+                    const parsedData = JSON.parse(data); // Парсим ответ, если не timeout
+                    setSessionId(parsedData.sessionId);  // Сохраняем sessionId в стейт
+                    setIsLoadingPvp(false); // Лоадер скрывается после получения sessionId
+                }
+            } catch (error) {
+                console.error('Ошибка при запросе /game/start:', error);
+            }
+        };
+        // Проверяем, что код выполняется на клиенте, а не на сервере
+        if (typeof window !== 'undefined' && userId !== null) {
+            startGame();
+        }
+    }, [userId]);
 
+// Таймер отсчитывает время после скрытия лоадера и начала игры
     useEffect(() => {
         let timerId;
-        if (timer > 0 && !gameOver) {
+        // Начинаем отсчет таймера
+        if (!isLoadingPvp && timer > 0 && !gameOver) {
             timerId = setTimeout(() => {
                 setTimer(timer - 1);
             }, 1000);
-        } else if (timer === 0 && playerChoice !== null) {
-            const randomOpponentChoice = getRandomOption();
-            setOpponentChoice(randomOpponentChoice);
-            showGifSequence();
-            setTimeout(() => {
-                updateScores(playerChoice, randomOpponentChoice);
-            }, 1000);
         }
-        return () => clearTimeout(timerId);
-    }, [timer, gameOver, playerChoice]);
+        // Когда таймер достигает 0, запускаем анимации только если ответ от сервера уже получен
+        else if (timer === 0 && playerChoice !== null && opponentChoice !== null) {
+            showGifSequence(); // Запускаем анимации
+        }
 
+        return () => clearTimeout(timerId);
+    }, [timer, gameOver, playerChoice, opponentChoice, isLoadingPvp]);
+
+// Функция для отправки ответа и ожидания результата
+    const handlePlayerChoice = (choice) => {
+        if (window.Telegram?.WebApp?.HapticFeedback) {
+            window.Telegram.WebApp.HapticFeedback.impactOccurred('heavy');
+        }
+        if (gameOver || playerChoice !== null) return; // Блокируем повторный выбор
+        setPlayerChoice(choice); // Сохраняем выбор игрока
+
+        // Отправляем выбор игрока и ожидаем ответ сервера
+        const sendAnswer = async () => {
+            if (!sessionId) {
+                console.error("Session ID is missing, cannot send answer");
+                return;
+            }
+            try {
+                const response = await fetch(`https://supavpn.lol/game/answer?profileId=${userId || 111}&sessionId=${sessionId}&answer=${choice}`);
+                const data = await response.json();
+                handleRoundResult(data); // Обрабатываем результат раунда
+            } catch (error) {
+                console.error('Ошибка при запросе /game/answer:', error);
+            }
+        };
+        sendAnswer();
+    };
+
+// Обработка результата раунда
+    const handleRoundResult = (data) => {
+        const { num, player1, player2, result, victory, finished } = data;
+        // Определяем, какой игрок — пользователь, а какой — оппонент
+        const isPlayer1 = player1.id === userId;
+        const userAnswer = isPlayer1 ? player1.answer : player2.answer;
+        const opponentAnswer = isPlayer1 ? player2.answer : player1.answer;
+        // Обновляем выбор игрока и оппонента
+        setPlayerChoice(userAnswer);
+        setOpponentChoice(opponentAnswer);
+
+        // Если таймер уже на нуле, запускаем анимации сразу после получения ответа
+        if (timer === 0) {
+            showGifSequence(); // Запускаем анимации
+        }
+
+        // Обновляем счет в зависимости от результата
+        if (result === 0) {
+            console.log('Ничья');
+        } else if (result === 1 && victory === userId) {
+            setPlayerScore(prev => {
+                const newScore = prev + 1;
+                if (newScore === 3) {
+                    handleGameEnd();
+                }
+                return newScore;
+            });
+        } else if (result === 2 || (result === 1 && victory !== userId)) {
+            setOpponentScore(prev => {
+                const newScore = prev + 1;
+                if (newScore === 3) {
+                    handleGameEnd();
+                }
+                return newScore;
+            });
+        }
+        // Обновляем состояние игры (переход к следующему раунду)
+        if (!finished) {
+            setTimeout(() => {
+                resetRoundAfterDelay();
+            }, 2000); // Даем время для анимации перед следующим раундом
+        }
+    };
+
+// Запуск анимаций
     const showGifSequence = () => {
         const timeouts = [];
         const durations = [0, 1000, 1000];
         durations.forEach((duration, index) => {
             timeouts.push(
                 setTimeout(() => {
-                    setVisibleImage(index + 1);
+                    setVisibleImage(index + 1); // Обновляем показ картинки
                 }, duration)
             );
         });
+
         return () => timeouts.forEach(timeout => clearTimeout(timeout));
-    };
-
-    // const handlePlayerChoice = (choice) => {
-    //     if (window.Telegram?.WebApp?.HapticFeedback) {
-    //         window.Telegram.WebApp.HapticFeedback.impactOccurred('heavy');
-    //     }
-    //     if (gameOver || playerChoice !== null) return;
-    //     setPlayerChoice(choice);
-    // };
-
-    const updateScores = (playerMoveIndex, opponentMoveIndex) => {
-        const playerMove = gameOptions[playerMoveIndex].name;
-        const opponentMove = gameOptions[opponentMoveIndex].name;
-
-        if (playerMove === opponentMove) {
-            // Ничья — обновляем раунд сразу после анимации
-        } else if (
-            (playerMove === 'paper' && opponentMove === 'rock') ||
-            (playerMove === 'rock' && opponentMove === 'scis') ||
-            (playerMove === 'scis' && opponentMove === 'paper')
-        ) {
-            setPlayerScore(prev => {
-                const newScore = prev + 1;
-                if (newScore === 3) {
-                    setTimeout(() => handleGameEnd(), 3000);
-                }
-                return newScore;
-            });
-        } else {
-            setOpponentScore(prev => {
-                const newScore = prev + 1;
-                if (newScore === 3) {
-                    setTimeout(() => handleGameEnd(), 3000);
-                }
-                return newScore;
-            });
-        }
-        if(!gameEnded) {
-            setTimeout(() => {
-                resetRoundAfterDelay();
-            }, 2000);
-        }
-    };
-
-    const handleGameEnd = () => {
-        setGameEnded(true);
-        setTimeout(() => {
-            setGameOver(true);
-        }, 3000);
-        setTimeout(() => {
-            router.push('/');
-        }, 2000);
     };
 
     const resetRoundAfterDelay = () => {
         setPlayerChoice(null);
         setOpponentChoice(null);
-        setTimer(5);
-        setVisibleImage(0);
-        setRound(prev => prev + 1);
+        setTimer(5); // Сбрасываем таймер
+        setVisibleImage(0); // Сбрасываем анимацию
+        setRound(prev => prev + 1); // Переход к следующему раунду
     };
+
 
     return (
         <>
-            {!isLoadingPvp ? (
+            {isLoadingPvp ? (
                 <LoaderGif />
             ) : (
                 <>
@@ -218,37 +266,6 @@ export default function PvpPage() {
                                                 height={190}
                                                 className={styles.choose}
                                                 src={scisAnim}
-                                                alt="Third"
-                                            />
-                                        )}
-                                    </>
-                                )}
-                                {visibleImage === 3 && (
-                                    <>
-                                        {opponentChoice === 0 && (
-                                            <Image
-                                                width={90}
-                                                height={190}
-                                                className={styles.choose}
-                                                src={gameOptions[0].logo}
-                                                alt="Third"
-                                            />
-                                        )}
-                                        {opponentChoice === 1 && (
-                                            <Image
-                                                width={90}
-                                                height={190}
-                                                className={styles.choose}
-                                                src={gameOptions[1].logo}
-                                                alt="Third"
-                                            />
-                                        )}
-                                        {opponentChoice === 2 && (
-                                            <Image
-                                                width={90}
-                                                height={190}
-                                                className={styles.choose}
-                                                src={gameOptions[2].logo}
                                                 alt="Third"
                                             />
                                         )}
@@ -312,45 +329,14 @@ export default function PvpPage() {
                                         )}
                                     </>
                                 )}
-                                {visibleImage === 3 && (
-                                    <>
-                                        {playerChoice === 0 && (
-                                            <Image
-                                                width={90}
-                                                height={190}
-                                                className={styles.mychoose}
-                                                src={gameOptions[0].logo}
-                                                alt="Third"
-                                            />
-                                        )}
-                                        {playerChoice === 1 && (
-                                            <Image
-                                                width={90}
-                                                height={190}
-                                                className={styles.mychoose}
-                                                src={gameOptions[1].logo}
-                                                alt="Third"
-                                            />
-                                        )}
-                                        {playerChoice === 2 && (
-                                            <Image
-                                                width={90}
-                                                height={190}
-                                                className={styles.mychoose}
-                                                src={gameOptions[2].logo}
-                                                alt="Third"
-                                            />
-                                        )}
-                                    </>
-                                )}
                             </div>
                             <div className={styles.round}>
                                 round {round}
                             </div>
                             <div className={styles.buttonSet}>
-                                <PaperPVPbtn onClick={() => setPlayerChoice(1)} choose={playerChoice} />
-                                <RockPvpBtn onClick={() => setPlayerChoice(0)} choose={playerChoice} />
-                                <ScicPvpBtn onClick={() => setPlayerChoice(2)} choose={playerChoice} />
+                                <PaperPVPbtn onClick={() => handlePlayerChoice(1)} choose={playerChoice} />
+                                <RockPvpBtn onClick={() => handlePlayerChoice(0)} choose={playerChoice} />
+                                <ScicPvpBtn onClick={() => handlePlayerChoice(2)} choose={playerChoice} />
                             </div>
                         </div>
                     </div>
@@ -359,15 +345,7 @@ export default function PvpPage() {
         </>
     )
 }
-function getRandomOption() {
-    return Math.floor(Math.random() * 3);
-}
-function getRandomTeamIdExceptCurrent(currentTeamId, totalTeams = 3) {
-    const teamIds = Array.from({ length: totalTeams }, (_, i) => i + 1);
-    const filteredTeamIds = teamIds.filter(id => id !== currentTeamId);
-    const randomIndex = Math.floor(Math.random() * filteredTeamIds.length);
-    return filteredTeamIds[randomIndex];
-}
+
 // eslint-disable-next-line react/prop-types
 const VictoryCounter = ({ score }) => (
     <div className={styles.counter}>
@@ -376,6 +354,7 @@ const VictoryCounter = ({ score }) => (
         {(score >= 1) ? (<LightOnSequence />) : <div className={styles.lampOff}></div>}
     </div>
 );
+
 // eslint-disable-next-line react/prop-types
 const WinningScreen = ({ userName, playerScore }) => (
     <div className={styles.winbg}>
@@ -417,11 +396,7 @@ const LightOnSequence = () => {
     }, [currentImage, initialImages.length]);
     return (
         <div className={styles.lampOnBg}>
-            <Image width={42} height={53}
-                className={styles.lampOn}
-                src={initialImages[currentImage]}
-                alt="on"
-            />
+            <Image width={42} height={53} className={styles.lampOn} src={initialImages[currentImage]} alt="on" />
         </div>
     );
 };
