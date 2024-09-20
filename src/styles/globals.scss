@@ -18,4 +18,20 @@ html, body {
   font-family: 'Pricedown', serif
 }
 
+.Toastify__toast {
+  background: radial-gradient(67% 67.04% at 50% 50%, rgb(56, 66, 164) 0%, rgb(21, 25, 62) 100%) !important;
+  color: #fff !important;
+  font-size: 20px !important;
+  border-radius: 16px !important;
+  margin: 5px;
+}
+
+.Toastify__close-button {
+  color: #fff !important;
+  margin-top: 15px !important;
+}
+
+.Toastify__toast-body {
+  color: #fff; /* Белый текст */
+}
 

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
+import { toast } from "react-toastify";
 
 import styles from '../styles/Loader.module.scss';
 
@@ -8,7 +9,7 @@ const loaderImage = '/loadingImg.jpg';
 
 export default function LoaderPage() {
     const [isLoading, setIsLoading] = useState(true);
-    const [userId, setUserId] = useState(111); // Стандартный userId = 111
+    const [userId, setUserId] = useState(null);
     const router = useRouter();
 
     useEffect(() => {
@@ -44,20 +45,16 @@ export default function LoaderPage() {
                     setUserId(111); // Если userParam не найден, используем userId = 111
                 }
             } else {
-                console.log("Telegram WebApp недоступен, используем userId = 111");
+                toast.error("Telegram WebApp недоступен")
                 setUserId(111); // Если Telegram WebApp недоступен, используем userId = 111
             }
         };
 
         // Проверка localStorage и запрос init
         const checkLocalStorageAndInit = async () => {
-            console.log("Запуск проверки localStorage и init");
-
             const tgUserId = userId || 111;
             console.log("Используемый userId для запроса:", tgUserId);
-
             const init = localStorage.getItem('init');
-
             if (!init) {
                 console.log("Данных init нет в localStorage, выполняем запрос /profile/init");
                 try {
@@ -74,7 +71,8 @@ export default function LoaderPage() {
 
                     checkStartData(tgUserId);
                 } catch (error) {
-                    console.error('Ошибка при запросе /init:', error);
+                    toast.error('Error during init request');
+                    console.log('Ошибка при запросе /init:', error)
                 }
             } else {
                 console.log("Данные init уже есть в localStorage");
@@ -101,6 +99,7 @@ export default function LoaderPage() {
                     };
                     localStorage.setItem('start', JSON.stringify(startData));
                 } catch (error) {
+                    toast.error('Error during start request')
                     console.error('Ошибка при запросе /start:', error);
                 }
             }

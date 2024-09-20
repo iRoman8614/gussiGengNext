@@ -21,70 +21,130 @@ const background = '/backgrounds/nightcity.png'
 export default function Home() {
     const [totalCoins, setTotalCoins] = useState(0);
     const [currentFarmCoins, setCurrentFarmCoins] = useState(0);
-    const [rate, setRate] = useState(3);
+    const [rate, setRate] = useState(1);
+    const [limit, setLimit] = useState(3600)
     const [startFarmTime, setStartFarmTime] = useState(Date.now());
     const [teamId, setTeamId] = useState(1)
     const [isClaimClicked, setIsClaimClicked] = useState(false);
+    const [userId, setUserId] = useState(null);
 
     useEffect(() => {
-        const savedTeamId = localStorage.getItem('teamId') || Math.floor(Math.random() * 4) + 1;
-        const savedTotalCoins = localStorage.getItem('totalCoins') || 1000;
-        const savedRate = localStorage.getItem('rate') || 3;
-        const savedStartFarmTime = localStorage.getItem('startFarmTime') || Date.now();
+        if (typeof window !== "undefined") {
+            // Получаем init из localStorage
+            const init = JSON.parse(localStorage.getItem("init"));
+            if (init && init.group) {
+                setTeamId(init.group.id); // Устанавливаем команду
+            }
 
-        setTeamId(savedTeamId)
+            // Получаем start из localStorage
+            const start = JSON.parse(localStorage.getItem("start"));
+            if (start) {
+                setTotalCoins(start.totalCoins);
+                setRate(start.rate);
+                setLimit(start.limit);
+                setStartFarmTime(new Date(start.startTime).getTime()); // Преобразуем startTime в миллисекунды
+            }
 
-        setTotalCoins(parseInt(savedTotalCoins));
-        setRate(parseInt(savedRate));
-        setStartFarmTime(parseInt(savedStartFarmTime));
-
-        localStorage.setItem('teamId', savedTeamId);
-        localStorage.setItem('totalCoins', savedTotalCoins);
-        localStorage.setItem('rate', savedRate);
-        localStorage.setItem('startFarmTime', savedStartFarmTime);
+            // Чтение Telegram userId
+            if (window.Telegram?.WebApp) {
+                const search = window.Telegram.WebApp.initData;
+                const urlParams = new URLSearchParams(search);
+                const userParam = urlParams.get("user");
+                if (userParam) {
+                    const decodedUserParam = decodeURIComponent(userParam);
+                    const userObject = JSON.parse(decodedUserParam);
+                    console.log("User ID from Telegram:", userObject.id);
+                    setUserId(userObject.id);
+                }
+            }
+        }
     }, []);
 
     // Логика накопления монет
     useEffect(() => {
-        const now = Date.now();
-        const secondsPassed = Math.floor((now - startFarmTime) / 1000);
-        const accumulatedCoins = Math.min(rate * secondsPassed, 3500);
-        setCurrentFarmCoins(accumulatedCoins);
-    }, [rate, startFarmTime]);
-
-    useEffect(() => {
-        const interval = setInterval(() => {
+        if (typeof window !== "undefined") {
             const now = Date.now();
             const secondsPassed = Math.floor((now - startFarmTime) / 1000);
-            const accumulatedCoins = Math.min(rate * secondsPassed, 3500);
-
+            const accumulatedCoins = Math.min(rate * secondsPassed, limit);
             setCurrentFarmCoins(accumulatedCoins);
-        }, 1000);
-
-        return () => clearInterval(interval);
-    }, [rate, startFarmTime]);
-
-    const handleClaimClick = () => {
-        if (window.Telegram?.WebApp?.HapticFeedback) {
-            window.Telegram.WebApp.HapticFeedback.impactOccurred('heavy');
         }
-        const newTotalCoins = totalCoins + currentFarmCoins;
-        const newStartTime = Date.now();
-        setTotalCoins(newTotalCoins);
-        setCurrentFarmCoins(0);
-        setStartFarmTime(newStartTime);
-        setIsClaimClicked(true);
-        setTimeout(() => {
-            setIsClaimClicked(false);
-        }, 500);
+    }, [rate, startFarmTime, limit]);
+
+    // Накопление монет в реальном времени (каждую секунду) (с проверкой на наличие window)
+    useEffect(() => {
+        if (typeof window !== "undefined") {
+            const interval = setInterval(() => {
+                const now = Date.now();
+                const secondsPassed = Math.floor((now - startFarmTime) / 1000);
+                const accumulatedCoins = Math.min(rate * secondsPassed, limit);
+
+                setCurrentFarmCoins(accumulatedCoins);
+            }, 1000);
+
+            return () => clearInterval(interval);
+        }
+    }, [rate, startFarmTime, limit]);
+
+    // Обработчик для кнопки "Claim"
+    const handleClaimClick = async () => {
+        if (typeof window !== "undefined") {
+            if (window.Telegram?.WebApp?.HapticFeedback) {
+                window.Telegram.WebApp.HapticFeedback.impactOccurred("heavy");
+            }
+            try {
+                // Запрос к /farm/collect
+                const collectResponse = await fetch(
+                    `https://supavpn.lol/farm/collect?profileId=${userId}`
+                );
+                const collectData = await collectResponse.json();
+                console.log("Ответ от /farm/collect:", collectData);
+
+                // Обновляем состояния на основе ответа
+                setTotalCoins(collectData.totalCoins);
+                setCurrentFarmCoins(0); // Обнуляем накопленные монеты
+                setStartFarmTime(new Date(collectData.startTime).getTime()); // Обновляем время старта
+
+                // Затем делаем запрос на /farm/start
+                const startResponse = await fetch(
+                    `https://supavpn.lol/farm/start?profileId=${userId}`
+                );
+                const startData = await startResponse.json();
+                console.log("Ответ от /farm/start:", startData);
+
+                // Обновляем состояния
+                setTotalCoins(startData.totalCoins);
+                setRate(startData.rate);
+                setLimit(startData.limit);
+                setStartFarmTime(new Date(startData.startTime).getTime());
+
+                // Сохраняем в localStorage данные
+                localStorage.setItem(
+                    "start",
+                    JSON.stringify({
+                        totalCoins: startData.totalCoins,
+                        startTime: new Date(startData.startTime).toISOString(),
+                        rate: startData.rate,
+                        limit: startData.limit,
+                    })
+                );
+            } catch (error) {
+                console.error("Ошибка при сборе монет:", error);
+            }
+
+            setIsClaimClicked(true);
+            setTimeout(() => {
+                setIsClaimClicked(false);
+            }, 500);
+        }
     };
 
+    // Форматирование числа для вывода
     function formatNumberFromEnd(num) {
-        return num.toString().replace(/(\d)(?=(\d{3})+$)/g, '$1 ');
+        return num.toString().replace(/(\d)(?=(\d{3})+$)/g, "$1 ");
     }
 
     const maxWidth = 224;
-    const currentWidth = (currentFarmCoins / 3500) * maxWidth;
+    const currentWidth = (currentFarmCoins / limit) * maxWidth;
 
     return (
         <div className={styles.root}>
