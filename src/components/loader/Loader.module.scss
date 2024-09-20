@@ -11,6 +11,8 @@
 }
 
 .video {
+  min-width: 320px;
+  max-width: 450px;
   width: 100%;
   height: 100%;
   object-fit: cover;

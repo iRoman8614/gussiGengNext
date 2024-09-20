@@ -79,20 +79,25 @@ export default function PvpPage() {
         const startGame = async () => {
             try {
                 const response = await fetch(`https://supavpn.lol/game/start?profileId=${userId || 111}`);
-                const data = await response.text();
+                const data = await response.text(); // Читаем ответ как текст
+                console.log("Response from /game/start:", data); // Лог ответа
+
                 if (data === "timeout") {
                     // Если ответ timeout, выводим уведомление и перенаправляем
-                    toast.error("Pair not found");
+                    console.log("Timeout detected");
+                    toast.error("Pair not found", { position: "top-center", autoClose: false });
                     setTimeout(() => {
-                        router.push('/');
-                    }, 5000); // Перенаправляем через 5 секунд
+                        router.push('/'); // Перенаправляем через 5 секунд
+                    }, 5000);
                 } else {
                     const parsedData = JSON.parse(data); // Парсим ответ, если не timeout
-                    setSessionId(parsedData.sessionId);  // Сохраняем sessionId в стейт
-                    setIsLoadingPvp(false); // Лоадер скрывается после получения sessionId
+                    console.log("Parsed data:", parsedData); // Лог для парсинга
+                    setSessionId(parsedData.sessionId); // Сохраняем sessionId в стейт
+                    setIsLoadingPvp(false); // Скрываем лоадер
                 }
             } catch (error) {
-                console.error('Ошибка при запросе /game/start:', error);
+                console.error('Ошибка при запросе /game/start:', error); // Лог ошибок
+                toast.error("Failed to start game", { position: "top-center" });
             }
         };
         // Проверяем, что код выполняется на клиенте, а не на сервере
