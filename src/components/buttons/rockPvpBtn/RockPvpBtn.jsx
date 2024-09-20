@@ -42,15 +42,27 @@ export const RockPvpBtn = ({onClick, choose}) => {
 
     useEffect(() => {
         let interval;
-        if (isAnimating && currentImage < images.length - 1) {
+        // Если выбрана "бумага", запускаем анимацию
+        if (choose === 1) {
+            setIsAnimating(true);
             interval = setInterval(() => {
-                setCurrentImage((prevImage) => prevImage + 1);
+                setCurrentImage((prevImage) => {
+                    // Когда достигли конца анимации, останавливаем анимацию
+                    if (prevImage >= images.length - 1) {
+                        setIsAnimating(false);
+                        return prevImage; // Останавливаемся на последнем кадре
+                    }
+                    return prevImage + 1; // Иначе продолжаем анимацию
+                });
             }, 100);
-        } else if (currentImage === images.length - 1) {
+        } else {
+            // Если выбрано что-то другое (или анимация сброшена), сбрасываем кадр
+            setCurrentImage(0);
             setIsAnimating(false);
         }
+        // Очищаем интервал при размонтировании или изменении условий
         return () => clearInterval(interval);
-    }, [isAnimating, currentImage, images.length]);
+    }, [choose, currentImage]);
 
     const handleClick = () => {
         if (window.Telegram?.WebApp?.HapticFeedback) {

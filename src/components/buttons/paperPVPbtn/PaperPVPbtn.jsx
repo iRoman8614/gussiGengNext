@@ -1,57 +1,48 @@
 import Image from "next/image";
+import { useEffect, useState } from "react";
+import styles from './PaperPVPbtn.module.scss';
 
-const paper00 = '/buttonPaper/paper00.png'
-const paper01 = '/buttonPaper/paper01.png'
-const paper02 = '/buttonPaper/paper02.png'
-const paper03 = '/buttonPaper/paper03.png'
-const paper04 = '/buttonPaper/paper04.png'
-const paper05 = '/buttonPaper/paper05.png'
-const paper06 = '/buttonPaper/paper06.png'
-const paper07 = '/buttonPaper/paper07.png'
-const paper08 = '/buttonPaper/paper08.png'
-const paper09 = '/buttonPaper/paper09.png'
-import {useEffect, useState} from "react";
-
-import styles from './PaperPVPbtn.module.scss'
-
+const paperImages = [
+    '/buttonPaper/paper00.png',
+    '/buttonPaper/paper01.png',
+    '/buttonPaper/paper02.png',
+    '/buttonPaper/paper03.png',
+    '/buttonPaper/paper04.png',
+    '/buttonPaper/paper05.png',
+    '/buttonPaper/paper06.png',
+    '/buttonPaper/paper07.png',
+    '/buttonPaper/paper08.png',
+    '/buttonPaper/paper09.png'
+];
 
 // eslint-disable-next-line react/prop-types
-export const PaperPVPbtn = ({onClick, choose}) => {
-    const images = [
-        paper01,
-        paper00,
-        paper01,
-        paper02,
-        paper03,
-        paper04,
-        paper05,
-        paper06,
-        paper07,
-        paper08,
-        paper09,
-    ];
-
+export const PaperPVPbtn = ({ onClick, choose }) => {
     const [currentImage, setCurrentImage] = useState(0);
     const [isAnimating, setIsAnimating] = useState(false);
 
     useEffect(() => {
-        if (choose !== 1) {
+        let interval;
+        // Если выбрана "бумага", запускаем анимацию
+        if (choose === 1) {
+            setIsAnimating(true);
+            interval = setInterval(() => {
+                setCurrentImage((prevImage) => {
+                    // Когда достигли конца анимации, останавливаем анимацию
+                    if (prevImage >= paperImages.length - 1) {
+                        setIsAnimating(false);
+                        return prevImage; // Останавливаемся на последнем кадре
+                    }
+                    return prevImage + 1; // Иначе продолжаем анимацию
+                });
+            }, 100);
+        } else {
+            // Если выбрано что-то другое (или анимация сброшена), сбрасываем кадр
             setCurrentImage(0);
             setIsAnimating(false);
         }
-    }, [choose]);
-
-    useEffect(() => {
-        let interval;
-        if (isAnimating && currentImage < images.length - 1) {
-            interval = setInterval(() => {
-                setCurrentImage((prevImage) => prevImage + 1);
-            }, 100);
-        } else if (currentImage === images.length - 1) {
-            setIsAnimating(false);
-        }
+        // Очищаем интервал при размонтировании или изменении условий
         return () => clearInterval(interval);
-    }, [isAnimating, currentImage, images.length]);
+    }, [choose, currentImage]);
 
     const handleClick = () => {
         if (window.Telegram?.WebApp?.HapticFeedback) {
@@ -59,12 +50,12 @@ export const PaperPVPbtn = ({onClick, choose}) => {
         }
         if (!isAnimating && currentImage === 0) {
             setIsAnimating(true);
-            onClick();
+            onClick(); // Отправляем выбор
         }
     };
 
     return (
-        <button disabled={choose !== 3 && choose !== 1} className={styles.root}>
+        <button disabled={choose !== 1} className={styles.root} onClick={handleClick}>
             <Image
                 width={90}
                 height={90}
@@ -73,11 +64,9 @@ export const PaperPVPbtn = ({onClick, choose}) => {
                     : currentImage < 6
                         ? styles.papSecBtnHalfActive
                         : styles.papSecBtnActive}
-                onClick={handleClick}
-                src={images[currentImage]}
+                src={paperImages[currentImage]}
                 alt=""
             />
         </button>
-
     );
 };
