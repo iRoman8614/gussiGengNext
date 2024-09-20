@@ -63,16 +63,19 @@ export const ScicPvpBtn = ({onClick, choose}) => {
     };
 
     return (
-        <Image
-            width={90} height={90}
-            className={currentImage < 3
-                ? styles.sciSecBtn
-                : currentImage < 6
-                    ? styles.sciSecBtnHalfActive
-                    : styles.sciSecBtnActive}
-            onClick={handleClick}
-            src={images[currentImage]}
-            alt=""
-        />
+        <button disabled={choose !== 2} className={styles.root}>
+            <Image
+                width={90} height={90}
+                className={currentImage < 3
+                    ? styles.sciSecBtn
+                    : currentImage < 6
+                        ? styles.sciSecBtnHalfActive
+                        : styles.sciSecBtnActive}
+                onClick={handleClick}
+                src={images[currentImage]}
+                alt=""
+            />
+        </button>
+
     );
 };

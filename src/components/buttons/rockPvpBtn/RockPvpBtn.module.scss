@@ -1,3 +1,12 @@
+.root {
+  border: none;
+  background: none;
+  margin: 0;
+  padding: 0;
+  width: 90px;
+  height: 90px;
+}
+
 .rocSecBtn {
   border-radius: 11px;
   width: 90px;
@@ -22,7 +31,7 @@
 }
 
 @media (max-width: 360px) {
-  .rocSecBtn, .rocSecBtnHalfActive, .rocSecBtnActive {
+  .root, .rocSecBtn, .rocSecBtnHalfActive, .rocSecBtnActive {
     height: 70px;
     width: 70px;
   }

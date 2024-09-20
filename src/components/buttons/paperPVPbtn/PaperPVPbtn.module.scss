@@ -1,3 +1,12 @@
+.root {
+  border: none;
+  background: none;
+  margin: 0;
+  padding: 0;
+  width: 90px;
+  height: 90px;
+}
+
 .papSecBtn {
   border-radius: 11px;
   width: 90px;
@@ -22,7 +31,7 @@
 }
 
 @media (max-width: 360px) {
-  .papSecBtn, .papSecBtnHalfActive, .papSecBtnActive {
+  .root, .papSecBtn, .papSecBtnHalfActive, .papSecBtnActive {
     height: 70px;
     width: 70px;
   }

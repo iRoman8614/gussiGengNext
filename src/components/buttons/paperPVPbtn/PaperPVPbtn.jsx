@@ -64,17 +64,20 @@ export const PaperPVPbtn = ({onClick, choose}) => {
     };
 
     return (
-        <Image
-            width={90}
-            height={90}
-            className={currentImage < 3
-                ? styles.papSecBtn
-                : currentImage < 6
-                    ? styles.papSecBtnHalfActive
-                    : styles.papSecBtnActive}
-            onClick={handleClick}
-            src={images[currentImage]}
-            alt=""
-        />
+        <button disabled={choose !== 1} className={styles.root}>
+            <Image
+                width={90}
+                height={90}
+                className={currentImage < 3
+                    ? styles.papSecBtn
+                    : currentImage < 6
+                        ? styles.papSecBtnHalfActive
+                        : styles.papSecBtnActive}
+                onClick={handleClick}
+                src={images[currentImage]}
+                alt=""
+            />
+        </button>
+
     );
 };
