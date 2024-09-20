@@ -81,7 +81,7 @@ export default function PvpPage() {
                 const response = await fetch(`https://supavpn.lol/game/start?profileId=${userId || 111}`);
 
                 // Проверяем, является ли статус ошибки 400 (Bad Request)
-                if (response.status === 400) {
+                if (response.status === 400 || response.status === 504) {
                     toast.error("Pair not found. Redirecting...");
                     setTimeout(() => {
                         router.push('/');
