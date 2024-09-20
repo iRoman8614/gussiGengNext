@@ -26,7 +26,7 @@ export default function Home() {
     const [startFarmTime, setStartFarmTime] = useState(Date.now());
     const [teamId, setTeamId] = useState(1)
     const [isClaimClicked, setIsClaimClicked] = useState(false);
-    const [userId, setUserId] = useState(111);
+    const [userId, setUserId] = useState(null);
 
     useEffect(() => {
         if (typeof window !== "undefined") {
@@ -55,6 +55,8 @@ export default function Home() {
                     const userObject = JSON.parse(decodedUserParam);
                     console.log("User ID from Telegram:", userObject.id);
                     setUserId(userObject.id);
+                } else {
+                    setUserId(111)
                 }
             }
         }
