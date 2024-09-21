@@ -16,7 +16,7 @@ import Image from "next/image";
 
 import styles from './Loader.module.scss'
 
-const loader = '/loading.gif'
+const loader = '/loadingImg.jpg'
 export const LoaderGif = () => {
     return(
         <div className={styles.root}>
