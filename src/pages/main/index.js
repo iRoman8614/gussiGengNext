@@ -7,6 +7,7 @@ import {CollectBar} from "@/components/bars/CollectBar";
 import teamData from "@/mock/teamsData.js";
 
 import styles from "@/styles/Home.module.scss";
+import {useRouter} from "next/router";
 
 const account = "/main-buttons/account.png";
 const settings = "/main-buttons/settings.png";
@@ -19,6 +20,7 @@ const claimClicked = '/claimBTNclicked.png'
 const background = '/backgrounds/nightcity.png'
 
 export default function Home() {
+    const router = useRouter();
     const [totalCoins, setTotalCoins] = useState(0);
     const [currentFarmCoins, setCurrentFarmCoins] = useState(0);
     const [rate, setRate] = useState(1);
@@ -167,7 +169,7 @@ export default function Home() {
                 <IconButton image={teamData[teamId].logo} alt={'gang'}/>
             </div>
             <div className={styles.item3}>
-                <IconButton image={settings} alt={'settings'} title={'settings'}/>
+                <IconButton image={settings} alt={'settings'} title={'settings'} onClick={() => {router.push('/settings');}}/>
             </div>
             <div className={styles.item4}>
                 <IconButton image={boards} alt={'boards'} title={'board'}/>

@@ -1,0 +1,29 @@
+.root {
+  max-width: 450px;
+  min-width: 320px;
+  position: relative;
+  background: black;
+  height: 100vh;
+}
+
+.bg {
+  position: absolute;
+  top: -10px;
+  left: 0;
+  object-fit: cover;
+  filter: grayscale(60%);
+}
+
+.container {
+  position: absolute;
+  width: 100%;
+  z-index: 100;
+  padding: 20px;
+}
+
+.title {
+  font-size: 55px;
+  color: #fff;
+  width: 100%;
+  text-align: center;
+}

@@ -3,11 +3,12 @@ import Image from "next/image";
 import Link from "next/link";
 
 // eslint-disable-next-line react/prop-types
-export const IconButton = ({image, title, alt}) => {
+export const IconButton = ({image, title, alt, onClick}) => {
     const handleClick = () => {
         if (window.Telegram?.WebApp?.HapticFeedback) {
             window.Telegram.WebApp.HapticFeedback.impactOccurred('heavy');
         }
+        onClick();
     };
     return(
         <div className={styles.root} onClick={handleClick}>
