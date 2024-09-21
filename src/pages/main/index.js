@@ -87,7 +87,7 @@ export default function Home() {
         }
     }, [rate, startFarmTime, limit]);
 
-    // Обработчик для кнопки "Claim"
+// Обработчик для кнопки "Claim"
     const handleClaimClick = async () => {
         if (typeof window !== "undefined") {
             if (window.Telegram?.WebApp?.HapticFeedback) {
@@ -101,8 +101,9 @@ export default function Home() {
                 const collectData = await collectResponse.json();
                 console.log("Ответ от /farm/collect:", collectData);
 
-                // Обновляем состояния на основе ответа
-                setTotalCoins(collectData.totalCoins);
+                // Обновляем состояния на основе ответа, проверяя на отрицательное значение
+                const updatedTotalCoins = Math.max(collectData.totalCoins, 0); // Если totalCoins меньше 0, ставим 0
+                setTotalCoins(updatedTotalCoins);
                 setCurrentFarmCoins(0); // Обнуляем накопленные монеты
                 setStartFarmTime(new Date(collectData.startTime).getTime()); // Обновляем время старта
 
@@ -113,20 +114,24 @@ export default function Home() {
                 const startData = await startResponse.json();
                 console.log("Ответ от /farm/start:", startData);
 
-                // Обновляем состояния
-                setTotalCoins(startData.totalCoins);
-                setRate(startData.rate);
-                setLimit(startData.limit);
+                // Обновляем состояния, также проверяя на отрицательные значения
+                const updatedStartTotalCoins = Math.max(startData.totalCoins, 0); // Проверяем totalCoins
+                const updatedRate = Math.max(startData.rate, 0); // Проверяем rate, если он может быть отрицательным
+                const updatedLimit = Math.max(startData.limit, 0); // Проверяем limit, если он может быть отрицательным
+
+                setTotalCoins(updatedStartTotalCoins);
+                setRate(updatedRate);
+                setLimit(updatedLimit);
                 setStartFarmTime(new Date(startData.startTime).getTime());
 
                 // Сохраняем в localStorage данные
                 localStorage.setItem(
                     "start",
                     JSON.stringify({
-                        totalCoins: startData.totalCoins,
+                        totalCoins: updatedStartTotalCoins,
                         startTime: new Date(startData.startTime).toISOString(),
-                        rate: startData.rate,
-                        limit: startData.limit,
+                        rate: updatedRate,
+                        limit: updatedLimit,
                     })
                 );
             } catch (error) {
@@ -139,6 +144,7 @@ export default function Home() {
             }, 500);
         }
     };
+
 
     // Форматирование числа для вывода
     function formatNumberFromEnd(num) {

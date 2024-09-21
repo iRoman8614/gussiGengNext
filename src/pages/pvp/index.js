@@ -198,7 +198,6 @@ export default function PvpPage() {
         setRound(prev => prev + 1); // Переход к следующему раунду
     };
 
-
     return (
         <>
             {isLoadingPvp ? (
