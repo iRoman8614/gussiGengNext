@@ -38,7 +38,7 @@ export default function Page() {
                         </div>
                         <div className={styles.sign}>2/3</div>
                     </>
-                    <div>{friends.map((item) => <ListItem item={item} />)}</div>
+                    <div>{friends.map((item, index) => <ListItem key={index} item={item} />)}</div>
                     <div className={styles.buttonset}>
                         <button className={styles.btnInvite}>INVITE</button>
                         <button className={styles.btnCopy}>

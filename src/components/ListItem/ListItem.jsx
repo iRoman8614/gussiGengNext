@@ -11,7 +11,7 @@ export const ListItem = ({item, index}) => {
                 </div>
                 <div className={styles.nickname}>{item.nickname}</div>
                 <div className={styles.sum}>{item.sum}</div>
-                {index && <div>{index}</div>}
+                {index && <div className={styles.index}>{index}</div>}
             </div>
 
         </div>

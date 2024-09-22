@@ -1,0 +1,27 @@
+.root {
+  max-width: 450px;
+  min-width: 320px;
+  position: relative;
+  background: black;
+  height: 100vh;
+  padding: 13px;
+  display: flex;
+  align-items: end;
+}
+
+.bg {
+  position: absolute;
+  top: -10px;
+  left: 0;
+  object-fit: cover;
+}
+
+.container {
+  width: 100%;
+  z-index: 100;
+  padding: 3px;
+  bottom: 0;
+  background: #38246f;
+  opacity: 0.8;
+  border-radius: 11px;
+}

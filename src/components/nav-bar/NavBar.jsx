@@ -87,7 +87,7 @@ export const NavBar = () => {
             <IconButton image={home} alt={'home'} title={'home'} />
             <IconButton image={upgrades} alt={'upgrades'} title={'exp'} />
             <BigButton image={hands} alt={'pvp'} title={'pvp'} onClick={handlePvpClick} />
-            <IconButton image={friends} alt={'friends'} title={'friends'} />
+            <IconButton image={friends} alt={'friends'} title={'friends'} onClick={() => {router.push('/friends')}} />
             <IconButton image={bag} alt={'items'} title={'items'} />
         </div>
     );

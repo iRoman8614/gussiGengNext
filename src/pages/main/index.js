@@ -172,7 +172,7 @@ export default function Home() {
                 <IconButton image={settings} alt={'settings'} title={'settings'} onClick={() => {router.push('/settings');}}/>
             </div>
             <div className={styles.item4}>
-                <IconButton image={boards} alt={'boards'} title={'board'}/>
+                <IconButton image={boards} alt={'boards'} title={'board'} onClick={() => {router.push('/boards');}}/>
             </div>
             <div className={styles.item5}>
                 <Image src={border} width={600} height={200} alt={'border'} className={styles.totalBarRoot}/>
