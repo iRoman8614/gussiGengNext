@@ -1,0 +1,55 @@
+.root {
+  width: 100%;
+  position: relative;
+  height: 65px;
+  margin-bottom: 7px;
+  border-radius: 11px;
+}
+
+.bg {
+  max-width: 420px;
+  min-width: 260px;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  object-fit: cover;
+  z-index: -1;
+  border-radius: 11px;
+}
+
+.container {
+  padding-top: 2px;
+  display: flex;
+  align-items: center;
+}
+
+.avatar {
+  border-radius: 11px;
+  background: linear-gradient(360deg, #1d002f 0%, #4f5e85 50.5%, rgba(255, 206, 204, 0.83) 100%);
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+  width: 60px;
+  height: 60px;
+}
+
+.nickname, .sum {
+  font-size: 20px;
+  color: #fff;
+}
+
+.nickname {
+  text-align: left;
+  padding-left: 10px;
+  margin-right: auto;
+}
+
+.sum {
+  width: 65px;
+  text-align: center;
+}
+
+.index {
+  font-size: 20px;
+  color: #fff;
+  opacity: 50%;
+}

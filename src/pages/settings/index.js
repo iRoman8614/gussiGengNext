@@ -1,10 +1,12 @@
 import React from 'react';
-import {CustomSelect} from '@/components/selector/Select';
-import styles from '@/styles/Settings.module.scss'
 import Image from "next/image";
-import ToggleSwitch from "@/components/toggleswitch/ToggleSwitch";
+import {CustomSelect} from '@/components/selector/Select';
+import {ToggleSwitch} from "@/components/toggleswitch/ToggleSwitch";
+
+import styles from '@/styles/Settings.module.scss'
 
 const bg = '/backgrounds/settingsBG.png'
+
 export default function Page() {
     const languageOptions = [
         { value: 'english', label: 'English' },

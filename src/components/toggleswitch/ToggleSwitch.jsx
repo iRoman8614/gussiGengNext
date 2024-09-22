@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styles from './ToggleSwitch.module.scss'; // Подключение стилей
 
-const ToggleSwitch = () => {
+export const ToggleSwitch = () => {
     const [isChecked, setIsChecked] = useState(false);
 
     const handleToggle = () => {
@@ -18,5 +18,3 @@ const ToggleSwitch = () => {
         </div>
     );
 };
-
-export default ToggleSwitch;
