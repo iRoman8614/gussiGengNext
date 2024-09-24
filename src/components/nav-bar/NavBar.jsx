@@ -35,9 +35,7 @@ export const NavBar = () => {
     const handlePvpClick = async () => {
         // Проверяем, есть ли доступ к window и sessionStorage
         if (typeof window === "undefined") return;
-
         const firstGame = sessionStorage.getItem('firstGame');
-
         if (firstGame) {
             // Если есть firstGame, считаем время до следующей игры
             const firstGameTime = new Date(firstGame);

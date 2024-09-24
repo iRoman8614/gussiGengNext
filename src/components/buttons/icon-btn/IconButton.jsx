@@ -1,6 +1,5 @@
 import styles from './IconButton.module.scss'
 import Image from "next/image";
-import Link from "next/link";
 
 // eslint-disable-next-line react/prop-types
 export const IconButton = ({image, title, alt, onClick}) => {

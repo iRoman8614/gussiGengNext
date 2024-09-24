@@ -1,20 +1,20 @@
-import Image from "next/image";
 import {useEffect, useState} from "react";
+import Image from "next/image";
+import {useRouter} from "next/router";
 import {IconButton} from "@/components/buttons/icon-btn/IconButton";
 import {NavBar} from "@/components/nav-bar/NavBar";
 import {CollectBar} from "@/components/bars/CollectBar";
 
 import teamData from "@/mock/teamsData.js";
+import skinData from '@/mock/skinsData'
 
 import styles from "@/styles/Home.module.scss";
-import {useRouter} from "next/router";
 
 const account = "/main-buttons/account.png";
 const settings = "/main-buttons/settings.png";
 const boards = "/main-buttons/boards.png";
 const wallet = "/main-buttons/wallet.png";
 const claim = '/claimBTN.png'
-const purpleChar = '/characters/purpleChar.png'
 const border = '/totalbar.png'
 const claimClicked = '/claimBTNclicked.png'
 const background = '/backgrounds/nightcity.png'
@@ -147,6 +147,9 @@ export default function Home() {
         }
     };
 
+    function getRandomNumber() {
+        return Math.floor(Math.random() * 5) + 1;
+    }
 
     // Форматирование числа для вывода
     function formatNumberFromEnd(num) {
@@ -182,7 +185,7 @@ export default function Home() {
                 <IconButton image={wallet} alt={'wallet'} title={'wallet'}/>
             </div>
             <div className={styles.item7}>
-                <Image width={1000} height={1000} className={styles.char} alt={'character'} src={purpleChar}/>
+                <Image width={1000} height={1000} className={styles.char} alt={'character'} src={skinData[teamId][getRandomNumber()]}/>
             </div>
             <div className={styles.item8}>
                 <CollectBar

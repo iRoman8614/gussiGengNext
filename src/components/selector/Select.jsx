@@ -35,7 +35,7 @@ export const CustomSelect = ({ optionsArray, title }) => {
         }),
         singleValue: (provided) => ({
             ...provided,
-            marginTop: '30px', // Чтобы выбранный элемент был ниже плейсхолдера
+            marginTop: '30px',
             color: '#fff',
             fontSize: '18px',
         }),
@@ -46,13 +46,13 @@ export const CustomSelect = ({ optionsArray, title }) => {
             ...provided,
             color: '#fff',
         }),
-        // Выпадающий список
         menu: (provided) => ({
             ...provided,
             marginTop: '5px',
             borderRadius: '11px',
             background: 'linear-gradient(180deg, #5c498f 0%, #47347d 100%)',
             color: '#fff',
+            zIndex: '1000'
         }),
         // Стиль для каждой опции
         option: (provided, state) => ({

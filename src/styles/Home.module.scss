@@ -52,6 +52,8 @@
   max-height: 75px;
   max-width: 227px;
   position: relative;
+  transform: scale(0.5);
+  animation: zoom-in 0.5s forwards ease-out;
 }
 
 .totalBarRoot {
@@ -92,6 +94,8 @@
   align-items: center;
   padding: 10px 5px;
   margin: 5px;
+  transform: scale(0.5);
+  animation: zoom-in 0.5s forwards ease-out;
 }
 
 .char {
@@ -126,4 +130,15 @@
   width: 100%;
   grid-row: 9 / 10;
   grid-column: 1 / 11;
+}
+
+@keyframes zoom-in {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
