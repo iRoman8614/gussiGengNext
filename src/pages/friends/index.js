@@ -40,6 +40,12 @@ export default function Page() {
         }
     }, [router]);
 
+    const handleClick = () => {
+        if (window.Telegram?.WebApp?.HapticFeedback) {
+            window.Telegram.WebApp.HapticFeedback.impactOccurred('heavy');
+        }
+    }
+
     return(
         <div className={styles.root}>
             <Image className={styles.bg} src={bg} alt={'bg'} width={450} height={1000} />
@@ -55,8 +61,8 @@ export default function Page() {
                     </>
                     <div>{friends.map((item, index) => <ListItem key={index} item={item} />)}</div>
                     <div className={styles.buttonset}>
-                        <button className={styles.btnInvite}>INVITE</button>
-                        <button className={styles.btnCopy}>
+                        <button className={styles.btnInvite} onClick={handleClick}>INVITE</button>
+                        <button className={styles.btnCopy} onClick={handleClick}>
                             <Image src={copy} alt={'copy'} height={50} width={50} />
                         </button>
                     </div>
