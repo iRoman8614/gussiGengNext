@@ -1,9 +1,10 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Image from "next/image";
 import {CustomSelect} from '@/components/selector/Select';
 import {ToggleSwitch} from "@/components/toggleswitch/ToggleSwitch";
 
 import styles from '@/styles/Settings.module.scss'
+import {useRouter} from "next/router";
 
 const bg = '/backgrounds/settingsBG.png'
 
@@ -13,6 +14,20 @@ export default function Page() {
         { value: 'spanish', label: 'Spanish' },
         { value: 'french', label: 'French' },
     ];
+
+    const router = useRouter();
+
+    useEffect(() => {
+        if (typeof window !== 'undefined' && window.Telegram?.WebApp?.BackButton) {
+            window.Telegram.WebApp.BackButton.show();
+            window.Telegram.WebApp.BackButton.onClick(() => {
+                router.push('/');
+            });
+            return () => {
+                window.Telegram.WebApp.BackButton.hide();
+            };
+        }
+    }, [router]);
 
     return (
         <div className={styles.root}>

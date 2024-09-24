@@ -1,8 +1,9 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Image from "next/image";
 
 import styles from '@/styles/Friends.module.scss'
 import {ListItem} from "@/components/ListItem/ListItem";
+import {useRouter} from "next/router";
 
 const bg = '/backgrounds/friendsBG.png'
 const copy = '/copy.png'
@@ -24,6 +25,20 @@ export default function Page() {
             image: '/listItemsBG/4rrbg.png'
         }
     ]
+
+    const router = useRouter();
+
+    useEffect(() => {
+        if (typeof window !== 'undefined' && window.Telegram?.WebApp?.BackButton) {
+            window.Telegram.WebApp.BackButton.show();
+            window.Telegram.WebApp.BackButton.onClick(() => {
+                router.push('/');
+            });
+            return () => {
+                window.Telegram.WebApp.BackButton.hide();
+            };
+        }
+    }, [router]);
 
     return(
         <div className={styles.root}>

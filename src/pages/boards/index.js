@@ -1,11 +1,27 @@
 import styles from '@/styles/Boards.module.scss'
 import Image from "next/image";
 import {ListItem} from "@/components/ListItem/ListItem";
-import React from "react";
+import React, {useEffect} from "react";
+import {useRouter} from "next/router";
 
 const bg = '/backgrounds/leaderboardBG.png'
 
 export default function Page() {
+
+    const router = useRouter();
+
+    useEffect(() => {
+        if (typeof window !== 'undefined' && window.Telegram?.WebApp?.BackButton) {
+            window.Telegram.WebApp.BackButton.show();
+            window.Telegram.WebApp.BackButton.onClick(() => {
+                router.push('/');
+            });
+            return () => {
+                window.Telegram.WebApp.BackButton.hide();
+            };
+        }
+    }, [router]);
+
     const friends = [
         {
             nickname: 'Tupacshakur',

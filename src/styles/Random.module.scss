@@ -1,0 +1,36 @@
+.root {
+  max-width: 450px;
+  min-width: 320px;
+  position: relative;
+  background: black;
+  height: 100vh;
+}
+
+.bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  object-fit: cover;
+}
+
+.container {
+  position: absolute;
+  width: 100%;
+  z-index: 100;
+  bottom: -5px;
+}
+
+.person {
+  width: 100%;
+  object-fit: contain;
+  height: auto;
+}
+
+.dialog {
+  background: url("/random/dialog.png") no-repeat;
+  background-size: contain;
+  width: 200px;
+  height: 100px;
+  margin-left: 50px;
+  margin-bottom: -20px;
+}
