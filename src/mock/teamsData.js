@@ -6,7 +6,7 @@ const teamData = {
     2: {
         Name: 'Blue Vipers',
         Description: 'Blue Vipers',
-        logo: '/gangs-logos/purple-logo.png' },
+        logo: '/gangs-logos/blue-logo.png' },
     3: {
         Name: 'Yellow Flames',
         Description: 'Yellow Flames',
