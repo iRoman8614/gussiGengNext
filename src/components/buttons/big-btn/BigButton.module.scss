@@ -16,11 +16,17 @@
     0% {
       transform: scale(1);
     }
+    25% {
+      rotate: 10deg;
+    }
     50% {
-      transform: scale(1.1); // Максимальное увеличение
+      transform: scale(1.1);
+    }
+    75% {
+      rotate: -10deg;
     }
     100% {
-      transform: scale(1); // Возвращение к исходному размеру
+      transform: scale(1);
     }
   }
 }
