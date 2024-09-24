@@ -15,7 +15,18 @@ const bg = '/backgrounds/leaderboardBG.png'
 
 export default function Page() {
     const [activeIndex, setActiveIndex] = useState(0);
+    const [teamId, setTeamId] = useState(1)
     const router = useRouter();
+
+    useEffect(() => {
+        if (typeof window !== "undefined") {
+            // Получаем init из localStorage
+            const init = JSON.parse(localStorage.getItem("init"));
+            if (init && init.group) {
+                setTeamId(init.group.id);
+            }
+        }
+    }, [])
 
     useEffect(() => {
         if (typeof window !== 'undefined' && window.Telegram?.WebApp?.BackButton) {
@@ -29,14 +40,40 @@ export default function Page() {
         }
     }, [router]);
 
-    const characters = [
-        { name: 'Associate', icon: '/skins/bg.png' },
-        { name: 'Street soldier', icon: '/skins/bg2.png' },
-        { name: 'Hood hustler', icon: '/skins/bg3.png' },
-        { name: 'Block boss', icon: '/skins/bg4.png' },
-        { name: 'CApo', icon: '/skins/bg5.png' },
-        { name: 'Syndicate kingpin', icon: '/skins/bg3.png' },
-    ];
+    const characters ={
+        1: [
+            { name: 'Associate', icon: '/skins/gg.png' },
+            { name: 'Street soldier', icon: '/skins/gg2.png' },
+            { name: 'Hood hustler', icon: '/skins/gg3.png' },
+            { name: 'Block boss', icon: '/skins/gg4.png' },
+            { name: 'CApo', icon: '/skins/gg5.png' },
+            { name: 'Syndicate kingpin', icon: '/skins/gg6.png' },
+        ],
+        2: [
+            { name: 'Associate', icon: '/skins/bg.png' },
+            { name: 'Street soldier', icon: '/skins/bg2.png' },
+            { name: 'Hood hustler', icon: '/skins/bg3.png' },
+            { name: 'Block boss', icon: '/skins/bg4.png' },
+            { name: 'CApo', icon: '/skins/bg5.png' },
+            { name: 'Syndicate kingpin', icon: '/skins/bg6.png' },
+        ],
+        3: [
+            { name: 'Associate', icon: '/skins/yg.png' },
+            { name: 'Street soldier', icon: '/skins/yg2.png' },
+            { name: 'Hood hustler', icon: '/skins/yg3.png' },
+            { name: 'Block boss', icon: '/skins/yg4.png' },
+            { name: 'CApo', icon: '/skins/yg5.png' },
+            { name: 'Syndicate kingpin', icon: '/skins/yg6.png' },
+        ],
+        4: [
+            { name: 'Associate', icon: '/skins/rg.png' },
+            { name: 'Street soldier', icon: '/skins/rg2.png' },
+            { name: 'Hood hustler', icon: '/skins/rg3.png' },
+            { name: 'Block boss', icon: '/skins/rg4.png' },
+            { name: 'CApo', icon: '/skins/rg5.png' },
+            { name: 'Syndicate kingpin', icon: '/skins/rg6.png' },
+        ],
+    };
 
     const swiperRef = useRef(null);
     const handleSlidePrev = () => {
@@ -70,7 +107,7 @@ export default function Page() {
                     onSlideChange={handleSlideChange}
                     className={styles.swiper}
                 >
-                    {characters.map((character, index) => (
+                    {characters[teamId].map((character, index) => (
                         <SwiperSlide
                             key={index}
                             className={index === activeIndex ? styles.activeSlide : styles.inactiveSlide}
@@ -80,7 +117,7 @@ export default function Page() {
                                     width={index === activeIndex ? 100 : 80}
                                     height={index === activeIndex ? 194 : 155}
                                     src={character.icon}
-                                    alt={character.name}
+                                    alt={''}
                                     className={styles.icon}
                                 />
                             </div>
@@ -92,7 +129,7 @@ export default function Page() {
                         <Image src={'/Arrow.png'} alt={''} width={15} height={15} />
                     </button>
                     <div className={styles.caption}>
-                        <span>{characters[activeIndex].name}</span>
+                        <span>{characters[teamId][activeIndex].name}</span>
                     </div>
                     <button className={styles.navRight} onClick={handleSlideNext}>
                         <Image src={'/Arrow.png'} alt={''} width={15} height={15} />

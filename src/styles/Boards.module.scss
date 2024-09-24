@@ -58,10 +58,14 @@
   flex-direction: column;
 }
 
-.swiper, .swiper-wrapper {
-  width: auto;
+.swiper {
+  width: 100%;
   max-width: 450px;
   min-width: 320px;
+}
+
+.swiper-wrapper {
+  width: auto;
 }
 
 .icon {
