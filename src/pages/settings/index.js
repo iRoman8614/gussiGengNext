@@ -1,10 +1,10 @@
 import React, {useEffect} from 'react';
 import Image from "next/image";
+import {useRouter} from "next/router";
 import {CustomSelect} from '@/components/selector/Select';
 import {ToggleSwitch} from "@/components/toggleswitch/ToggleSwitch";
 
 import styles from '@/styles/Settings.module.scss'
-import {useRouter} from "next/router";
 
 const bg = '/backgrounds/settingsBG.png'
 

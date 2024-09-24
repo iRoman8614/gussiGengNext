@@ -11,7 +11,8 @@
   top: -10px;
   left: 0;
   object-fit: cover;
-  filter: grayscale(60%);
+  opacity: 0.5; /* Прозрачность 40%, можно настроить */
+  mix-blend-mode: normal; /* Экспериментируйте с режимами наложения: multiply, screen, overlay */
 }
 
 .container {
