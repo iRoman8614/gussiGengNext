@@ -29,6 +29,7 @@ export default function Home() {
     const [teamId, setTeamId] = useState(1)
     const [isClaimClicked, setIsClaimClicked] = useState(false);
     const [userId, setUserId] = useState(null);
+    const [level, setLevel] = useState(1)
 
     useEffect(() => {
         if (typeof window !== "undefined") {
@@ -150,6 +151,10 @@ export default function Home() {
     function getRandomNumber() {
         return Math.floor(Math.random() * 5) + 1;
     }
+    useEffect(() => {
+        const level = getRandomNumber()
+        setLevel(level)
+    }, [])
 
     // Форматирование числа для вывода
     function formatNumberFromEnd(num) {
@@ -185,7 +190,7 @@ export default function Home() {
                 <IconButton image={wallet} alt={'wallet'} title={'wallet'}/>
             </div>
             <div className={styles.item7}>
-                <Image width={1000} height={1000} className={styles.char} alt={'character'} src={skinData[teamId][getRandomNumber()]}/>
+                <Image width={1000} height={1000} className={styles.char} alt={'character'} src={skinData[teamId][level]}/>
             </div>
             <div className={styles.item8}>
                 <CollectBar
