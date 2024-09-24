@@ -37,6 +37,16 @@
 
   transform: scale(0.5);
   animation: zoom-in 0.5s forwards ease-out;
+  @keyframes zoom-in {
+    0% {
+      transform: scale(0);
+      opacity: 0;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
 }
 
 .containerSwiper {
@@ -48,6 +58,16 @@
   flex-direction: column;
 
   animation: slide-in 0.5s forwards ease-in-out;
+  @keyframes slide-in {
+    0% {
+      transform: translatey(-100%);
+      opacity: 0;
+    }
+    100% {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
 }
 
 .swiper {
@@ -118,6 +138,7 @@
 }
 
 .navigation {
+  z-index: 100;
   max-width: 450px;
   min-width: 320px;
   width: 100%;
@@ -126,6 +147,19 @@
   align-items: center;
   margin-top: 10px;
   margin-bottom: 10px;
+
+  transform: scale(0.5);
+  animation: zoom-in 0.5s forwards ease-out;
+  @keyframes zoom-in {
+    0% {
+      transform: scale(0);
+      opacity: 0;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
 }
 
 .navLeft, .navRight {
@@ -146,27 +180,9 @@
   margin-left: 10px;
 }
 
-@keyframes zoom-in {
-  0% {
-    transform: scale(0);
-    opacity: 0;
-  }
-  100% {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
 
-@keyframes slide-in {
-  0% {
-    transform: translatey(-100%);
-    opacity: 0;
-  }
-  100% {
-    transform: translateX(0);
-    opacity: 1;
-  }
-}
+
+
 
 @media (max-width: 360px) {
   .caption {
