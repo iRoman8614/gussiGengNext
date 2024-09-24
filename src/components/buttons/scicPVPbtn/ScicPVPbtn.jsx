@@ -57,7 +57,7 @@ export const ScicPvpBtn = ({onClick, choose}) => {
 
         // Очищаем интервал при размонтировании или изменении условий
         return () => clearInterval(interval);
-    }, [choose, currentImage]);
+    }, [choose, currentImage, images.length]);
 
     const handleClick = () => {
         if (window.Telegram?.WebApp?.HapticFeedback) {

@@ -1,4 +1,4 @@
-const skinsMock = {
+const skinData = {
     1: {
         1: '/skins/gg',
         2: '/skins/gg2',
@@ -30,5 +30,3 @@ const skinsMock = {
 };
 
 export default skinData;
-
-export default teamData;
