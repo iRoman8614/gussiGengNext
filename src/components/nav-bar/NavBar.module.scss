@@ -3,4 +3,18 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  transform: scale(0.5);
+  animation: zoom-in 0.5s forwards ease-out;
+
+  @keyframes zoom-in {
+    0% {
+      transform: scale(0);
+      opacity: 0;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
 }

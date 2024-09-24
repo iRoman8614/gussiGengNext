@@ -10,17 +10,17 @@
   align-items: center;
   cursor: pointer;
 
-  transform: scale(0.5);
-  animation: zoom-in 0.5s forwards ease-out;
+  animation: pulse 5s infinite;
 
-  @keyframes zoom-in {
+  @keyframes pulse {
     0% {
-      transform: scale(0);
-      opacity: 0;
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.1); // Максимальное увеличение
     }
     100% {
-      transform: scale(1);
-      opacity: 1;
+      transform: scale(1); // Возвращение к исходному размеру
     }
   }
 }
@@ -37,7 +37,6 @@
   background: rgba(104, 110, 166, 0.6);
   border-radius: 5px;
 }
-
 @media (max-width: 360px) {
   .root {
     width: 70px;
