@@ -124,17 +124,17 @@ export default function Page() {
                         </SwiperSlide>
                     ))}
                 </Swiper>
-                <div className={styles.navigation}>
-                    <button className={styles.navLeft} onClick={handleSlidePrev}>
-                        <Image src={'/Arrow.png'} alt={''} width={15} height={15} />
-                    </button>
-                    <div className={styles.caption}>
-                        <span>{characters[teamId][activeIndex].name}</span>
-                    </div>
-                    <button className={styles.navRight} onClick={handleSlideNext}>
-                        <Image src={'/Arrow.png'} alt={''} width={15} height={15} />
-                    </button>
+            </div>
+            <div className={styles.navigation}>
+                <button className={styles.navLeft} onClick={handleSlidePrev}>
+                    <Image src={'/Arrow.png'} alt={''} width={15} height={15} />
+                </button>
+                <div className={styles.caption}>
+                    <span>{characters[teamId][activeIndex].name}</span>
                 </div>
+                <button className={styles.navRight} onClick={handleSlideNext}>
+                    <Image src={'/Arrow.png'} alt={''} width={15} height={15} />
+                </button>
             </div>
             <Image src={bg} alt={''} className={styles.bg} width={450} height={1000} />
             <div className={styles.container}>

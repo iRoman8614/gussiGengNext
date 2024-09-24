@@ -118,11 +118,13 @@
 }
 
 .navigation {
+  max-width: 450px;
+  min-width: 320px;
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-top: 10px;
-  gap: 20px;
   margin-bottom: 10px;
 }
 
@@ -137,6 +139,11 @@
 
 .navRight {
   rotate: 180deg;
+  margin-right: 10px;
+}
+
+.navLeft {
+  margin-left: 10px;
 }
 
 @keyframes zoom-in {
