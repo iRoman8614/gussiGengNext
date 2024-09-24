@@ -52,6 +52,66 @@ export default function Page() {
             nickname: 'missyelliot',
             sum: '70K',
             image: '/listItemsBG/4rrbg.png'
+        },
+        {
+            nickname: 'Tupacshakur',
+            sum: '15M',
+            image: '/listItemsBG/1grbg.png'
+        },
+        {
+            nickname: 'Jhonnycash',
+            sum: '14.1M',
+            image: '/listItemsBG/3yfbg.png'
+        },
+        {
+            nickname: 'missyelliot',
+            sum: '70K',
+            image: '/listItemsBG/2bvbg.png'
+        },
+        {
+            nickname: 'missyelliot',
+            sum: '70K',
+            image: '/listItemsBG/3yfbg.png'
+        },
+        {
+            nickname: 'missyelliot',
+            sum: '70K',
+            image: '/listItemsBG/2bvbg.png'
+        },
+        {
+            nickname: 'missyelliot',
+            sum: '70K',
+            image: '/listItemsBG/4rrbg.png'
+        },
+        {
+            nickname: 'Tupacshakur',
+            sum: '15M',
+            image: '/listItemsBG/1grbg.png'
+        },
+        {
+            nickname: 'Jhonnycash',
+            sum: '14.1M',
+            image: '/listItemsBG/3yfbg.png'
+        },
+        {
+            nickname: 'missyelliot',
+            sum: '70K',
+            image: '/listItemsBG/2bvbg.png'
+        },
+        {
+            nickname: 'missyelliot',
+            sum: '70K',
+            image: '/listItemsBG/3yfbg.png'
+        },
+        {
+            nickname: 'missyelliot',
+            sum: '70K',
+            image: '/listItemsBG/2bvbg.png'
+        },
+        {
+            nickname: 'missyelliot',
+            sum: '70K',
+            image: '/listItemsBG/4rrbg.png'
         }
     ]
 
