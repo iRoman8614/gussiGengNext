@@ -162,21 +162,24 @@
   }
 }
 
-.navLeft, .navRight {
+.navRight {
   z-index: 2;
   background: transparent;
   border: none;
   font-size: 20px;
   cursor: pointer;
   color: white;
-}
-
-.navRight {
   rotate: 180deg;
   margin-right: 8px;
 }
 
 .navLeft {
+  z-index: 2;
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: white;
   margin-left: 8px;
 }
 
