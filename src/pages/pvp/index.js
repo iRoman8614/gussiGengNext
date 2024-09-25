@@ -48,8 +48,8 @@ export default function PvpPage() {
     const [gameOver, setGameOver] = useState(false);
     const [round, setRound] = useState(1);
     const [timer, setTimer] = useState(5);
-    const [playerChoice, setPlayerChoice] = useState(3);
-    const [opponentChoice, setOpponentChoice] = useState(3);
+    const [playerChoice, setPlayerChoice] = useState(0);
+    const [opponentChoice, setOpponentChoice] = useState(0);
     const [gameEnded, setGameEnded] = useState(false);
     const [userName, setUserName] = useState('you');
     const [sessionId, setSessionId] = useState(null);  // Сохраняем sessionId
@@ -117,7 +117,7 @@ export default function PvpPage() {
         if (window.Telegram?.WebApp?.HapticFeedback) {
             window.Telegram.WebApp.HapticFeedback.impactOccurred('heavy');
         }
-        if (gameOver || playerChoice !== 3) return;
+        if (gameOver || playerChoice !== 0) return;
         setPlayerChoice(choice);
 
         const sendAnswer = async () => {
@@ -191,11 +191,16 @@ export default function PvpPage() {
     };
 
     const resetRoundAfterDelay = () => {
-        setPlayerChoice(3);
-        setOpponentChoice(3);
+        setPlayerChoice(0);
+        setOpponentChoice(0);
         setTimer(5); // Сбрасываем таймер
         setVisibleImage(0); // Сбрасываем анимацию
         setRound(prev => prev + 1); // Переход к следующему раунду
+    };
+
+    const handleGameEnd = () => {
+        setGameOver(true);
+        setGameEnded(true);
     };
 
     return (
@@ -326,7 +331,7 @@ export default function PvpPage() {
                             </div>
                             <div className={styles.buttonSet}>
                                 <PaperPVPbtn onClick={() => handlePlayerChoice(1)} choose={playerChoice} />
-                                <RockPvpBtn onClick={() => handlePlayerChoice(0)} choose={playerChoice} />
+                                <RockPvpBtn onClick={() => handlePlayerChoice(3)} choose={playerChoice} />
                                 <ScicPvpBtn onClick={() => handlePlayerChoice(2)} choose={playerChoice} />
                             </div>
                         </div>
