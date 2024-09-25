@@ -199,8 +199,13 @@ export default function PvpPage() {
     };
 
     const handleGameEnd = () => {
-        setGameOver(true);
         setGameEnded(true);
+        setTimeout(() => {
+            setGameOver(true);
+        }, 3000);
+        setTimeout(() => {
+            router.push('/');
+        }, 2000);
     };
 
     return (
@@ -222,7 +227,7 @@ export default function PvpPage() {
                                         width={90}
                                         height={190}
                                         className={styles.choose}
-                                        src={gameOptions[3].logo}
+                                        src={gameOptions[0].logo}
                                         alt="First"
                                     />
                                 )}
@@ -237,7 +242,7 @@ export default function PvpPage() {
                                 )}
                                 {visibleImage === 2 && (
                                     <>
-                                        {opponentChoice === 0 && (
+                                        {opponentChoice === 3 && (
                                             <Image
                                                 width={90}
                                                 height={190}
@@ -281,7 +286,7 @@ export default function PvpPage() {
                                         width={90}
                                         height={190}
                                         className={styles.mychoose}
-                                        src={gameOptions[3].logo}
+                                        src={gameOptions[0].logo}
                                         alt="First"
                                     />
                                 )}
@@ -296,7 +301,7 @@ export default function PvpPage() {
                                 )}
                                 {visibleImage === 2 && (
                                     <>
-                                        {playerChoice === 0 && (
+                                        {playerChoice === 3 && (
                                             <Image
                                                 width={90}
                                                 height={190}
@@ -345,9 +350,9 @@ export default function PvpPage() {
 // eslint-disable-next-line react/prop-types
 const VictoryCounter = ({ score }) => (
     <div className={styles.counter}>
-        {(score >= 3) ? (<LightOnSequence />) : <div className={styles.lampOff}></div>}
-        {(score >= 2) ? (<LightOnSequence />) : <div className={styles.lampOff}></div>}
-        {(score >= 1) ? (<LightOnSequence />) : <div className={styles.lampOff}></div>}
+        {(score >= 3) ? <div className={styles.lampOnBg} /> : <div className={styles.lampOff} />}
+        {(score >= 2) ? <div className={styles.lampOnBg} /> : <div className={styles.lampOff} />}
+        {(score >= 1) ? <div className={styles.lampOnBg} /> : <div className={styles.lampOff} />}
     </div>
 );
 
@@ -362,37 +367,37 @@ const WinningScreen = ({ userName, playerScore }) => (
     </div>
 );
 
-const LightOnSequence = () => {
-    const initialImages = [
-        scale000,
-        scale001,
-        scale002,
-        scale003,
-        scale004,
-        scale005,
-        scale006,
-        scale007,
-        scale008,
-        scale009,
-        scale010,
-        scale011,
-        scale012,
-        scale013,
-        scale014,
-        scale015,
-    ];
-    const [currentImage, setCurrentImage] = useState(0);
-    useEffect(() => {
-        if (currentImage < (initialImages.length - 1)) {
-            const interval = setInterval(() => {
-                setCurrentImage((prevImage) => prevImage + 1);
-            }, 100);
-            return () => clearInterval(interval);
-        }
-    }, [currentImage, initialImages.length]);
-    return (
-        <div className={styles.lampOnBg}>
-            <Image width={42} height={53} className={styles.lampOn} src={initialImages[currentImage]} alt="on" />
-        </div>
-    );
-};
+// const LightOnSequence = () => {
+//     const initialImages = [
+//         scale000,
+//         scale001,
+//         scale002,
+//         scale003,
+//         scale004,
+//         scale005,
+//         scale006,
+//         scale007,
+//         scale008,
+//         scale009,
+//         scale010,
+//         scale011,
+//         scale012,
+//         scale013,
+//         scale014,
+//         scale015,
+//     ];
+//     const [currentImage, setCurrentImage] = useState(0);
+//     useEffect(() => {
+//         if (currentImage < (initialImages.length - 1)) {
+//             const interval = setInterval(() => {
+//                 setCurrentImage((prevImage) => prevImage + 1);
+//             }, 100);
+//             return () => clearInterval(interval);
+//         }
+//     }, [currentImage, initialImages.length]);
+//     return (
+//         <div className={styles.lampOnBg}>
+//             <Image width={42} height={53} className={styles.lampOn} src={initialImages[currentImage]} alt="on" />
+//         </div>
+//     );
+// };
