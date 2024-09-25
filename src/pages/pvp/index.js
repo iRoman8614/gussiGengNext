@@ -47,7 +47,7 @@ export default function PvpPage() {
     const [opponentScore, setOpponentScore] = useState(0);
     const [gameOver, setGameOver] = useState(false);
     const [round, setRound] = useState(1);
-    const [timer, setTimer] = useState(10);
+    const [timer, setTimer] = useState(5);
     const [playerChoice, setPlayerChoice] = useState(3);
     const [opponentChoice, setOpponentChoice] = useState(3);
     const [gameEnded, setGameEnded] = useState(false);
@@ -191,9 +191,9 @@ export default function PvpPage() {
     };
 
     const resetRoundAfterDelay = () => {
-        setPlayerChoice(null);
-        setOpponentChoice(null);
-        setTimer(10); // Сбрасываем таймер
+        setPlayerChoice(3);
+        setOpponentChoice(3);
+        setTimer(5); // Сбрасываем таймер
         setVisibleImage(0); // Сбрасываем анимацию
         setRound(prev => prev + 1); // Переход к следующему раунду
     };
