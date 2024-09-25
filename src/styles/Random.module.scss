@@ -2,7 +2,6 @@
   max-width: 450px;
   min-width: 320px;
   position: relative;
-  background: black;
   height: 100vh;
 }
 
@@ -11,26 +10,161 @@
   top: 0;
   left: 0;
   object-fit: cover;
+  z-index: -1000;
 }
 
 .container {
-  position: absolute;
+  max-width: 450px;
+  min-width: 320px;
+  position: relative;
+  height: 100vh;
   width: 100%;
-  z-index: 100;
-  bottom: -5px;
+
+  // Применяем анимацию при рендере
+  animation: slide-in-right 1s ease-out forwards;
 }
 
 .person {
-  width: 100%;
-  object-fit: contain;
+  width: 100%; // Задаем ширину в процентах от родителя
   height: auto;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  object-fit: fill;
+  z-index: 2;
+
+  // Применяем анимацию при рендере
+  animation: slide-in-right 0.5s ease-out forwards;
+}
+
+.card {
+  width: 100%; // Задаем ширину в процентах от родителя
+  height: auto;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  object-fit: fill;
+  z-index: 3;
+
+  // Применяем анимацию при рендере
+  animation: slide-in-right 0.5s ease-out forwards;
+}
+
+.hand {
+  width: 100%; // Задаем ширину в процентах от родителя
+  height: auto;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  object-fit: fill;
+  z-index: 4;
+
+  // Применяем анимацию при рендере
+  animation: slide-in-right 0.5s ease-out forwards;
 }
 
 .dialog {
-  background: url("/random/dialog.png") no-repeat;
-  background-size: contain;
-  width: 200px;
+  max-width: 450px;
+  min-width: 320px;
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  z-index: 1;
+
+  opacity: 0;
+  animation-delay: 0.5s;
+  animation-name: grow;
+  animation-duration: 0.5s;
+  animation-timing-function: ease-out;
+  animation-fill-mode: forwards;
+}
+
+.dialogImage {
+  width: 186px;
+  opacity: 30%;
   height: 100px;
-  margin-left: 50px;
-  margin-bottom: -20px;
+  position: absolute;
+  top: 12%;
+  left: 8%;
+}
+
+.text {
+  font-size: 24px;
+  color: #fff;
+  position: absolute;
+  top: 12%;
+  left: 8%;
+  margin-left: 30px;
+  margin-top: 20px;
+}
+
+.cardImage1, .cardImage2, .cardImage3, .cardImage4 {
+  margin: auto;
+  width: 100%;
+  object-fit: contain;
+  height: auto;
+  border-radius: 16px;
+}
+
+.cardImage1 {
+  box-shadow: 0 0 20px 10px rgba(0,167,0);
+}
+.cardImage2 {
+  box-shadow: 0 0 20px 10px rgba(22,67,235);
+}
+.cardImage3 {
+  box-shadow: 0 0 20px 10px rgba(252,192,46);
+}
+.cardImage4 {
+  box-shadow: 0 0 20px 10px rgba(199,21,22);
+}
+
+
+.shown {
+  z-index: 5;
+  width: 50%;
+  height: auto;
+  position: absolute;
+  bottom: 25px;
+  border-radius: 16px;
+  margin-left: 30%;
+
+  animation: slide-in-up 0.5s ease-out forwards;
+}
+
+.hidden {
+  display: none;
+}
+
+@keyframes slide-in-right {
+  0% {
+    transform: translateX(100vw);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slide-in-up {
+  0% {
+    transform: translateY(100vw);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes grow {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
