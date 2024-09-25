@@ -2,17 +2,25 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import styles from './PaperPVPbtn.module.scss';
 
+// const paperImages = [
+//     '/buttonPaper/paper00.png',
+//     '/buttonPaper/paper01.png',
+//     '/buttonPaper/paper02.png',
+//     '/buttonPaper/paper03.png',
+//     '/buttonPaper/paper04.png',
+//     '/buttonPaper/paper05.png',
+//     '/buttonPaper/paper06.png',
+//     '/buttonPaper/paper07.png',
+//     '/buttonPaper/paper08.png',
+//     '/buttonPaper/paper09.png'
+// ];
+
+const papet1 = '/buttonPaper/paper01.png'
+const paper2 = '/buttonPaper/paper09.png'
+
 const paperImages = [
-    '/buttonPaper/paper00.png',
-    '/buttonPaper/paper01.png',
-    '/buttonPaper/paper02.png',
-    '/buttonPaper/paper03.png',
-    '/buttonPaper/paper04.png',
-    '/buttonPaper/paper05.png',
-    '/buttonPaper/paper06.png',
-    '/buttonPaper/paper07.png',
-    '/buttonPaper/paper08.png',
-    '/buttonPaper/paper09.png'
+    papet1,
+    paper2
 ];
 
 // eslint-disable-next-line react/prop-types
@@ -41,7 +49,7 @@ export const PaperPVPbtn = ({ onClick, choose }) => {
                     }
                     return prevImage + 1;
                 });
-            }, 100);
+            }, 200);
         }
         return () => clearInterval(interval);
     }, [isAnimating]);
@@ -61,25 +69,45 @@ export const PaperPVPbtn = ({ onClick, choose }) => {
 
     return (
         <>
-            {currentImage < 3 && <Image width={90} height={90}
-                                        className={styles.papSecBtn}
-                                        onClick={handleClick}
-                                        src={paperImages[currentImage]}
-                                        alt=""
+            {currentImage === 0 &&
+                <Image
+                    width={90}
+                    height={90}
+                    className={styles.papSecBtn}
+                    onClick={handleClick}
+                    src={paperImages[currentImage]}
+                    alt=""
             />}
-            {currentImage >= 3 && currentImage < 6 && <Image width={90} height={90}
-                                                             className={styles.papSecBtnHalfActive}
-                                                             onClick={handleClick}
-                                                             src={paperImages[currentImage]}
-                                                             alt=""
-            />}
-            {currentImage >= 6 && <Image width={90} height={90}
-                                         className={styles.papSecBtnActive}
-                                         onClick={handleClick}
-                                         src={paperImages[currentImage]}
-                                         alt=""
+            {currentImage === 1 &&
+                <Image
+                    width={90}
+                    height={90}
+                    className={styles.papSecBtnHalfActive}
+                    onClick={handleClick}
+                    src={paperImages[currentImage]}
+                    alt=""
             />}
         </>
+        // <>
+        //     {currentImage < 3 && <Image width={90} height={90}
+        //                                 className={styles.papSecBtn}
+        //                                 onClick={handleClick}
+        //                                 src={paperImages[currentImage]}
+        //                                 alt=""
+        //     />}
+        //     {currentImage >= 3 && currentImage < 6 && <Image width={90} height={90}
+        //                                                      className={styles.papSecBtnHalfActive}
+        //                                                      onClick={handleClick}
+        //                                                      src={paperImages[currentImage]}
+        //                                                      alt=""
+        //     />}
+        //     {currentImage >= 6 && <Image width={90} height={90}
+        //                                  className={styles.papSecBtnActive}
+        //                                  onClick={handleClick}
+        //                                  src={paperImages[currentImage]}
+        //                                  alt=""
+        //     />}
+        // </>
         // <Image
         //     width={90}
         //     height={90}

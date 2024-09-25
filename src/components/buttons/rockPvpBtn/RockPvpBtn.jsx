@@ -16,17 +16,21 @@ import styles from './RockPvpBtn.module.scss'
 
 // eslint-disable-next-line react/prop-types
 export const RockPvpBtn = ({onClick, choose}) => {
+    // const images = [
+    //     rock01,
+    //     rock00,
+    //     rock01,
+    //     rock02,
+    //     rock03,
+    //     rock04,
+    //     rock05,
+    //     rock06,
+    //     rock07,
+    //     rock08,
+    //     rock09,
+    // ];
     const images = [
         rock01,
-        rock00,
-        rock01,
-        rock02,
-        rock03,
-        rock04,
-        rock05,
-        rock06,
-        rock07,
-        rock08,
         rock09,
     ];
 
@@ -46,7 +50,7 @@ export const RockPvpBtn = ({onClick, choose}) => {
                     }
                     return prevImage + 1; // Иначе продолжаем анимацию
                 });
-            }, 100);
+            }, 200);
         } else {
             // Если выбрано что-то другое (или анимация сброшена), сбрасываем кадр
             setCurrentImage(0);
@@ -68,25 +72,45 @@ export const RockPvpBtn = ({onClick, choose}) => {
 
     return (
         <>
-            {currentImage < 3 && <Image width={90} height={90}
-                                        className={styles.rocSecBtn}
-                                        onClick={handleClick}
-                                        src={images[currentImage]}
-                                        alt=""
+            {currentImage === 0 &&
+                <Image
+                    width={90}
+                    height={90}
+                    className={styles.rocSecBtn}
+                    onClick={handleClick}
+                    src={images[currentImage]}
+                    alt=""
             />}
-            {currentImage >= 3 && currentImage < 6 && <Image width={90} height={90}
-                                                             className={styles.rocSecBtnHalfActive}
-                                                             onClick={handleClick}
-                                                             src={images[currentImage]}
-                                                             alt=""
-            />}
-            {currentImage >= 6 && <Image width={90} height={90}
-                                         className={styles.rocSecBtnActive}
-                                         onClick={handleClick}
-                                         src={images[currentImage]}
-                                         alt=""
+            {currentImage === 1 &&
+                <Image
+                    width={90}
+                    height={90}
+                    className={styles.rocSecBtnActive}
+                    onClick={handleClick}
+                    src={images[currentImage]}
+                    alt=""
             />}
         </>
+        // <>
+        //     {currentImage < 3 && <Image width={90} height={90}
+        //                                 className={styles.rocSecBtn}
+        //                                 onClick={handleClick}
+        //                                 src={images[currentImage]}
+        //                                 alt=""
+        //     />}
+        //     {currentImage >= 3 && currentImage < 6 && <Image width={90} height={90}
+        //                                                      className={styles.rocSecBtnHalfActive}
+        //                                                      onClick={handleClick}
+        //                                                      src={images[currentImage]}
+        //                                                      alt=""
+        //     />}
+        //     {currentImage >= 6 && <Image width={90} height={90}
+        //                                  className={styles.rocSecBtnActive}
+        //                                  onClick={handleClick}
+        //                                  src={images[currentImage]}
+        //                                  alt=""
+        //     />}
+        // </>
         // <Image
         //     width={90}
         //     height={90}

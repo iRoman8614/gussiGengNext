@@ -16,17 +16,22 @@ import styles from './ScicPVPbtn.module.scss'
 
 // eslint-disable-next-line react/prop-types
 export const ScicPvpBtn = ({onClick, choose}) => {
+    // const images = [
+    //     scis01,
+    //     scis00,
+    //     scis01,
+    //     scis02,
+    //     scis03,
+    //     scis04,
+    //     scis05,
+    //     scis06,
+    //     scis07,
+    //     scis08,
+    //     scis09,
+    // ];
+
     const images = [
         scis01,
-        scis00,
-        scis01,
-        scis02,
-        scis03,
-        scis04,
-        scis05,
-        scis06,
-        scis07,
-        scis08,
         scis09,
     ];
 
@@ -48,7 +53,7 @@ export const ScicPvpBtn = ({onClick, choose}) => {
                     }
                     return prevImage + 1; // Иначе продолжаем анимацию
                 });
-            }, 100);
+            }, 200);
         } else {
             // Если выбрано что-то другое (или анимация сброшена), сбрасываем кадр
             setCurrentImage(0);
@@ -71,7 +76,7 @@ export const ScicPvpBtn = ({onClick, choose}) => {
 
     return (
         <>
-            {currentImage < 3 &&
+            {currentImage === 0 &&
                 <Image
                     width={90} height={90}
                     className={styles.sciSecBtn}
@@ -80,16 +85,7 @@ export const ScicPvpBtn = ({onClick, choose}) => {
                     alt=""
                 />
             }
-            {currentImage >= 3 && currentImage < 6 &&
-                <Image
-                    width={90} height={90}
-                    className={styles.sciSecBtnHalfActive}
-                    onClick={handleClick}
-                    src={images[currentImage]}
-                    alt=""
-                />
-            }
-            {currentImage >= 6 &&
+            {currentImage === 1 &&
                 <Image
                     width={90} height={90}
                     className={styles.sciSecBtnActive}
@@ -99,6 +95,35 @@ export const ScicPvpBtn = ({onClick, choose}) => {
                 />
             }
         </>
+        // <>
+        //     {currentImage < 3 &&
+        //         <Image
+        //             width={90} height={90}
+        //             className={styles.sciSecBtn}
+        //             onClick={handleClick}
+        //             src={images[currentImage]}
+        //             alt=""
+        //         />
+        //     }
+        //     {currentImage >= 3 && currentImage < 6 &&
+        //         <Image
+        //             width={90} height={90}
+        //             className={styles.sciSecBtnHalfActive}
+        //             onClick={handleClick}
+        //             src={images[currentImage]}
+        //             alt=""
+        //         />
+        //     }
+        //     {currentImage >= 6 &&
+        //         <Image
+        //             width={90} height={90}
+        //             className={styles.sciSecBtnActive}
+        //             onClick={handleClick}
+        //             src={images[currentImage]}
+        //             alt=""
+        //         />
+        //     }
+        // </>
         // <Image
         //     width={90} height={90}
         //     className={currentImage < 3
