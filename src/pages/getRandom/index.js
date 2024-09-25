@@ -9,10 +9,7 @@ const person = '/random/person.png'
 const hand = '/random/hand.png'
 const card = '/random/card.png'
 const dialog = '/random/dialog.png'
-const greenCard = '/random/greenCard.png'
-const blueCard = '/random/blueCard.png'
-const yellowCard = '/random/yellowCard.png'
-const redCard = '/random/redCard.png'
+
 
 export default function Page() {
     const router = useRouter();
@@ -41,6 +38,11 @@ export default function Page() {
     }, [router]);
 
     const ShownCard = ({state, teamId}) => {
+        const greenCard = '/random/greenCard.png'
+        const blueCard = '/random/blueCard.png'
+        const yellowCard = '/random/yellowCard.png'
+        const redCard = '/random/redCard.png'
+
         return(
             <div className={state ? styles.shown : styles.hidden}>
                 {teamId === 1 && <Image className={styles.cardImage1} src={greenCard} alt={''} width={200} height={340} loading="lazy" />}
