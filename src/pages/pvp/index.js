@@ -109,7 +109,7 @@ export default function PvpPage() {
             showGifSequence();
         }
         return () => clearTimeout(timerId);
-    }, [timer, gameOver, playerChoice, opponentChoice, isLoadingPvp]);
+    }, [timer, round, isLoadingPvp]);
 
 // Функция для отправки ответа и ожидания результата
     const handlePlayerChoice = (choice) => {
