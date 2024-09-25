@@ -117,7 +117,7 @@ export default function PvpPage() {
         if (window.Telegram?.WebApp?.HapticFeedback) {
             window.Telegram.WebApp.HapticFeedback.impactOccurred('heavy');
         }
-        if (gameOver || playerChoice !== null) return;
+        if (gameOver || playerChoice !== 3) return;
         setPlayerChoice(choice);
 
         const sendAnswer = async () => {
