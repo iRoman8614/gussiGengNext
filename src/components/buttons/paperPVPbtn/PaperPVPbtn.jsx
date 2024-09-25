@@ -60,17 +60,37 @@ export const PaperPVPbtn = ({ onClick, choose }) => {
     };
 
     return (
-        <Image
-            width={90}
-            height={90}
-            className={currentImage < 3
-                ? styles.papSecBtn
-                : currentImage < 6
-                    ? styles.papSecBtnHalfActive
-                    : styles.papSecBtnActive}
-            src={paperImages[currentImage]}
-            alt=""
-            onClick={handleClick}
-        />
+        <>
+            {currentImage < 3 && <Image width={90} height={90}
+                                        className={styles.papSecBtn}
+                                        onClick={handleClick}
+                                        src={paperImages[currentImage]}
+                                        alt=""
+            />}
+            {currentImage >= 3 && currentImage < 6 && <Image width={90} height={90}
+                                                             className={styles.papSecBtnHalfActive}
+                                                             onClick={handleClick}
+                                                             src={paperImages[currentImage]}
+                                                             alt=""
+            />}
+            {currentImage >= 6 && <Image width={90} height={90}
+                                         className={styles.papSecBtnActive}
+                                         onClick={handleClick}
+                                         src={paperImages[currentImage]}
+                                         alt=""
+            />}
+        </>
+        // <Image
+        //     width={90}
+        //     height={90}
+        //     className={currentImage < 3
+        //         ? styles.papSecBtn
+        //         : currentImage < 6
+        //             ? styles.papSecBtnHalfActive
+        //             : styles.papSecBtnActive}
+        //     src={paperImages[currentImage]}
+        //     alt=""
+        //     onClick={handleClick}
+        // />
     );
 };
