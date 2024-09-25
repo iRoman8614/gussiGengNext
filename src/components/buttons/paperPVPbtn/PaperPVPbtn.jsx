@@ -55,15 +55,13 @@ export const PaperPVPbtn = ({ onClick, choose }) => {
     }, [isAnimating]);
 
     const handleClick = () => {
-        if (choose === 1) { // Проверяем, что выбрана бумага
-            console.log('clicked');
-            if (window.Telegram?.WebApp?.HapticFeedback) {
-                window.Telegram.WebApp.HapticFeedback.impactOccurred('heavy');
-            }
-            if (!isAnimating && currentImage === 0) { // Запускаем анимацию только при первом кадре
-                setIsAnimating(true);
-                onClick();
-            }
+        console.log('clicked');
+        if (window.Telegram?.WebApp?.HapticFeedback) {
+            window.Telegram.WebApp.HapticFeedback.impactOccurred('heavy');
+        }
+        if (!isAnimating && currentImage === 0) { // Запускаем анимацию только при первом кадре
+            setIsAnimating(true);
+            onClick();
         }
     };
 

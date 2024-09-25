@@ -98,20 +98,45 @@ export default function PvpPage() {
     }, [userId]);
 
 
-// Таймер отсчитывает время после скрытия лоадера и начала игры
+    // Таймер отсчитывает время после скрытия лоадера и начала игры
     useEffect(() => {
         let timerId;
         if (!isLoadingPvp && timer > 0 && !gameOver) {
             timerId = setTimeout(() => {
                 setTimer(timer - 1);
             }, 1000);
-        } else if (timer === 0 && playerChoice !== null && opponentChoice !== null) {
+        } else if (timer === 0 && playerChoice !== 0 && opponentChoice !== 0) {
             showGifSequence();
+        } else if (timer === 0) {
+            // Если время вышло и игрок не сделал выбор, отправляем answer: 0
+            if (playerChoice === 0) {
+                handlePlayerChoiceTimeout();  // Отправляем 0 как ответ
+            }
         }
         return () => clearTimeout(timerId);
     }, [timer, round, isLoadingPvp]);
 
-// Функция для отправки ответа и ожидания результата
+    // Обработка выбора игрока (если игрок не сделал выбор)
+    const handlePlayerChoiceTimeout = () => {
+        console.log('Тайм-аут: Отправляем ответ 0 на сервер');
+        sendAnswerToServer(0); // Отправляем ответ 0 как выбор игрока
+    };
+
+    // Функция для отправки ответа игрока на сервер
+    const sendAnswerToServer = async (choice) => {
+        if (!sessionId) {
+            return;
+        }
+        try {
+            const response = await fetch(`https://supavpn.lol/game/answer?profileId=${userId || 111}&sessionId=${sessionId}&answer=${choice}`);
+            const data = await response.json();
+            handleRoundResult(data); // Обрабатываем результат раунда на основе ответа от сервера
+        } catch (error) {
+            console.error('Ошибка при запросе /game/answer:', error);
+        }
+    };
+
+    // Функция для отправки ответа и ожидания результата
     const handlePlayerChoice = (choice) => {
         console.log('clicked playerChoice', playerChoice)
         if (window.Telegram?.WebApp?.HapticFeedback) {
@@ -146,11 +171,13 @@ export default function PvpPage() {
         setPlayerChoice(userAnswer);
         setOpponentChoice(opponentAnswer);
 
-        if (timer === 0) {
+        if (timer === 0 && userAnswer !== null && opponentAnswer !== null) {
             showGifSequence(); // Показываем анимацию
         }
 
-        if (result === 1 && victory === userId) {
+        if (result === 0) {
+            console.log('Ничья!');
+        } else if (result === 1 && victory === userId) {
             setPlayerScore(prev => {
                 const newScore = prev + 1;
                 if (newScore === 3) {

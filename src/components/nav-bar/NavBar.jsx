@@ -59,7 +59,7 @@ export const NavBar = () => {
 
             if (data.count < 6) {
                 // Если меньше 6 игр, разрешаем переход на /pvp
-                router.push('/pvp');
+                // router.push('/pvp');
             } else {
                 // Если уже сыграно 6 игр, вычисляем время до следующей игры
                 const firstGameTime = new Date(data.firstTime);
@@ -71,7 +71,7 @@ export const NavBar = () => {
                 } else {
                     // Удаляем firstGame из sessionStorage и продолжаем игру
                     sessionStorage.removeItem('firstGame');
-                    router.push('/pvp');
+                    // router.push('/pvp');
                 }
             }
         } catch (error) {
