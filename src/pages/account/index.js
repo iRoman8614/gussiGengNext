@@ -4,12 +4,27 @@ import React, {useEffect, useState} from "react";
 
 import skinData from '@/mock/skinsData'
 import teamData from "@/mock/teamsData";
+import {useRouter} from "next/router";
 
 const bg = '/backgrounds/accountBG.png'
 export default function Page() {
     const [teamId, setTeamId] = useState(1)
     const [level, setLevel] = useState(1)
     const [activeTab, setActiveTab] = useState(1);
+
+    const router = useRouter();
+
+    useEffect(() => {
+        if (typeof window !== 'undefined' && window.Telegram?.WebApp?.BackButton) {
+            window.Telegram.WebApp.BackButton.show();
+            window.Telegram.WebApp.BackButton.onClick(() => {
+                router.push('/');
+            });
+            return () => {
+                window.Telegram.WebApp.BackButton.hide();
+            };
+        }
+    }, [router]);
 
 
     useEffect(() => {
