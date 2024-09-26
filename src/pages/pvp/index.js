@@ -261,14 +261,14 @@ export default function PvpPage() {
                                 )}
                                 {visibleImage === 1 && (
                                     <>
-                                        {opponentChoice === 3 && (
+                                        {opponentChoice === 1 && (
                                             <img
                                                 className={styles.choose}
                                                 src={rockAnim}
                                                 alt="Third"
                                             />
                                         )}
-                                        {opponentChoice === 1 && (
+                                        {opponentChoice === 3 && (
                                             <img
                                                 className={styles.choose}
                                                 src={papAnim}
@@ -286,21 +286,21 @@ export default function PvpPage() {
                                 )}
                                 {visibleImage === 2 && (
                                     <>
-                                        {opponentChoice === 3 && (
-                                            <Image
-                                                width={90}
-                                                height={190}
-                                                className={styles.choose}
-                                                src={gameOptions[3].logo}
-                                                alt="Third"
-                                            />
-                                        )}
                                         {opponentChoice === 1 && (
                                             <Image
                                                 width={90}
                                                 height={190}
                                                 className={styles.choose}
                                                 src={gameOptions[1].logo}
+                                                alt="Third"
+                                            />
+                                        )}
+                                        {opponentChoice === 3 && (
+                                            <Image
+                                                width={90}
+                                                height={190}
+                                                className={styles.choose}
+                                                src={gameOptions[3].logo}
                                                 alt="Third"
                                             />
                                         )}
@@ -336,14 +336,14 @@ export default function PvpPage() {
                                 )}
                                 {visibleImage === 1 && (
                                     <>
-                                        {playerChoice === 3 && (
+                                        {playerChoice === 1 && (
                                             <img
                                                 className={styles.mychoose}
                                                 src={rockAnim}
                                                 alt="Third"
                                             />
                                         )}
-                                        {playerChoice === 1 && (
+                                        {playerChoice === 3 && (
                                             <img
                                                 className={styles.mychoose}
                                                 src={papAnim}
@@ -361,21 +361,21 @@ export default function PvpPage() {
                                 )}
                                 {visibleImage === 2 && (
                                     <>
-                                        {playerChoice === 3 && (
-                                            <Image
-                                                width={90}
-                                                height={190}
-                                                className={styles.mychoose}
-                                                src={gameOptions[3].logo}
-                                                alt="Third"
-                                            />
-                                        )}
                                         {playerChoice === 1 && (
                                             <Image
                                                 width={90}
                                                 height={190}
                                                 className={styles.mychoose}
                                                 src={gameOptions[1].logo}
+                                                alt="Third"
+                                            />
+                                        )}
+                                        {playerChoice === 3 && (
+                                            <Image
+                                                width={90}
+                                                height={190}
+                                                className={styles.mychoose}
+                                                src={gameOptions[3].logo}
                                                 alt="Third"
                                             />
                                         )}
@@ -395,8 +395,8 @@ export default function PvpPage() {
                                 round {round}
                             </div>
                             <div className={styles.buttonSet}>
-                                <PaperPVPbtn onClick={() => handlePlayerChoice(1)} choose={playerChoice} />
-                                <RockPvpBtn onClick={() => handlePlayerChoice(3)} choose={playerChoice} />
+                                <PaperPVPbtn onClick={() => handlePlayerChoice(3)} choose={playerChoice} />
+                                <RockPvpBtn onClick={() => handlePlayerChoice(1)} choose={playerChoice} />
                                 <ScicPvpBtn onClick={() => handlePlayerChoice(2)} choose={playerChoice} />
                             </div>
                         </div>
