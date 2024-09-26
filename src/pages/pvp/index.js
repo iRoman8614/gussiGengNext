@@ -110,7 +110,7 @@ export default function PvpPage() {
             showGifSequence();
         } else if (timer === 0) {
             // Если время вышло и игрок не сделал выбор, отправляем answer: 0
-            if (playerChoice === 0) {
+            if (playerChoice === 10) {
                 handlePlayerChoiceTimeout();  // Отправляем 0 как ответ
             }
         }
@@ -120,7 +120,7 @@ export default function PvpPage() {
     // Обработка выбора игрока (если игрок не сделал выбор)
     const handlePlayerChoiceTimeout = () => {
         console.log('Тайм-аут: Отправляем ответ 0 на сервер');
-        sendAnswerToServer(0); // Отправляем ответ 0 как выбор игрока
+        sendAnswerToServer(10); // Отправляем ответ 0 как выбор игрока
     };
 
     // Функция для отправки ответа игрока на сервер
