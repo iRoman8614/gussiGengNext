@@ -119,6 +119,7 @@ export default function PvpPage() {
     // Обработка выбора игрока (если игрок не сделал выбор)
     const handlePlayerChoiceTimeout = () => {
         console.log('Тайм-аут: Отправляем ответ 10 на сервер');
+        console.log('Отправляем выбор:', choice);
         sendAnswerToServer(10); // Отправляем ответ 0 как выбор игрока
     };
 
@@ -129,6 +130,7 @@ export default function PvpPage() {
             return;
         }
         try {
+            console.log('Отправляем выбор:', choice);
             const response = await fetch(`https://supavpn.lol/game/answer?profileId=${userId || 111}&sessionId=${sessionId}&answer=${choice}`);
             const data = await response.json();
             handleRoundResult(data); // Обрабатываем результат раунда на основе ответа от сервера
