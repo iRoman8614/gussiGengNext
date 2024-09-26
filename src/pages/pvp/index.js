@@ -207,7 +207,7 @@ export default function PvpPage() {
 // Запуск анимаций
     const showGifSequence = () => {
         const timeouts = [];
-        const durations = [0, 1000];
+        const durations = [0, 2000];
         durations.forEach((duration, index) => {
             timeouts.push(
                 setTimeout(() => {
