@@ -16,12 +16,13 @@ import styles from '@/styles/Pvp.module.scss';
 import "react-toastify/dist/ReactToastify.css";
 
 const wins = '/wins.png';
-const start = '/game-icons/animation_hand_start.gif';
 const rockAnim = '/game-icons/animation_hand_rock.gif';
 const scisAnim = '/game-icons/animation_hand_sci.gif';
 const papAnim = '/game-icons/animation_hand_pap.gif';
 const background = '/backgrounds/backalley.png'
 const timerBG = '/timer.png'
+const heart = '/game-icons/heart.png'
+const cross = '/game-icons/lose.png'
 
 export default function PvpPage() {
     const router = useRouter();
@@ -31,15 +32,26 @@ export default function PvpPage() {
     const [gameOver, setGameOver] = useState(false);
     const [round, setRound] = useState(1);
     const [timer, setTimer] = useState(5);
-    const [playerChoice, setPlayerChoice] = useState(0);
-    const [opponentChoice, setOpponentChoice] = useState(0);
+    const [playerChoice, setPlayerChoice] = useState(10);
+    const [opponentChoice, setOpponentChoice] = useState(10);
     const [gameEnded, setGameEnded] = useState(false);
-    const [userName, setUserName] = useState('you');
+    const [userName, setUserName] = useState(null);
     const [sessionId, setSessionId] = useState(null);
     const [isLoadingPvp, setIsLoadingPvp] = useState(true);
     const [userId, setUserId] = useState(null);
+    const [userClan, setUserClan] = useState(1);
+    const [oppClan, setOppClan] = useState(4);
 
-// Получаем userId из Telegram
+    useEffect(() => {
+        if (typeof window !== "undefined") {
+            const init = JSON.parse(localStorage.getItem("init"));
+            if (init && init.group) {
+                setUserClan(init.group.id);
+            }
+        }
+    },[])
+
+    // Получаем userId из Telegram
     useEffect(() => {
         if (typeof window !== 'undefined' && window.Telegram?.WebApp) {
             const search = window.Telegram.WebApp.initData;
@@ -50,8 +62,10 @@ export default function PvpPage() {
                 const decodedUserParam = decodeURIComponent(userParam);
                 const userObject = JSON.parse(decodedUserParam);
                 setUserId(userObject.id);  // Сохраняем userId
+                setUserName(userObject.username)
             } else {
                 setUserId(111);  // Если userId не найден, используем 111 по умолчанию
+                setUserName('you')
             }
         }
     }, []);
@@ -69,8 +83,12 @@ export default function PvpPage() {
                     return;
                 }
                 const data = await response.json();
+                const isPlayer1 = player1.id === userId;
+                const opponentClan = isPlayer1 ? data.player1.Group : data.player2.Group;
+                setOppClan(opponentClan);
                 setSessionId(data.sessionId);
                 setIsLoadingPvp(false);
+
             } catch (error) {
                 console.error('Ошибка при запросе /game/start:', error);
             }
@@ -188,7 +206,7 @@ export default function PvpPage() {
 // Запуск анимаций
     const showGifSequence = () => {
         const timeouts = [];
-        const durations = [0, 1000, 1000];
+        const durations = [0, 1000];
         durations.forEach((duration, index) => {
             timeouts.push(
                 setTimeout(() => {
@@ -196,16 +214,15 @@ export default function PvpPage() {
                 }, duration)
             );
         });
-
         return () => timeouts.forEach(timeout => clearTimeout(timeout));
     };
 
     const resetRoundAfterDelay = () => {
-        setPlayerChoice(0);
-        setOpponentChoice(0);
-        setTimer(5); // Сбрасываем таймер
-        setVisibleImage(0); // Сбрасываем анимацию
-        setRound(prev => prev + 1); // Переход к следующему раунду
+        setPlayerChoice(10);
+        setOpponentChoice(10);
+        setTimer(5);
+        setVisibleImage(0);
+        setRound(prev => prev + 1);
     };
 
     const handleGameEnd = () => {
@@ -237,18 +254,34 @@ export default function PvpPage() {
                                         width={90}
                                         height={190}
                                         className={styles.choose}
-                                        src={gameOptions[0].logo}
+                                        src={gameOptions[10].logo}
                                         alt="First"
                                     />
                                 )}
                                 {visibleImage === 1 && (
-                                    <Image
-                                        width={90}
-                                        height={190}
-                                        className={styles.choose}
-                                        src={start}
-                                        alt="Second"
-                                    />
+                                    <>
+                                        {opponentChoice === 3 && (
+                                            <img
+                                                className={styles.choose}
+                                                src={rockAnim}
+                                                alt="Third"
+                                            />
+                                        )}
+                                        {opponentChoice === 1 && (
+                                            <img
+                                                className={styles.choose}
+                                                src={papAnim}
+                                                alt="Third"
+                                            />
+                                        )}
+                                        {opponentChoice === 2 && (
+                                            <img
+                                                className={styles.choose}
+                                                src={scisAnim}
+                                                alt="Third"
+                                            />
+                                        )}
+                                    </>
                                 )}
                                 {visibleImage === 2 && (
                                     <>
@@ -257,7 +290,7 @@ export default function PvpPage() {
                                                 width={90}
                                                 height={190}
                                                 className={styles.choose}
-                                                src={rockAnim}
+                                                src={gameOptions[3].logo}
                                                 alt="Third"
                                             />
                                         )}
@@ -266,7 +299,7 @@ export default function PvpPage() {
                                                 width={90}
                                                 height={190}
                                                 className={styles.choose}
-                                                src={papAnim}
+                                                src={gameOptions[1].logo}
                                                 alt="Third"
                                             />
                                         )}
@@ -275,39 +308,55 @@ export default function PvpPage() {
                                                 width={90}
                                                 height={190}
                                                 className={styles.choose}
-                                                src={scisAnim}
+                                                src={gameOptions[2].logo}
                                                 alt="Third"
                                             />
                                         )}
                                     </>
                                 )}
                             </div>
-                            <VictoryCounter score={opponentScore} />
-                            <IconButton image={teamData[1].logo} alt={'gang'} />
+                            <VictoryCounter score={playerScore} />
+                            <IconButton image={teamData[userClan].logo} alt={'gang'} />
                             <div className={styles.roundTimer}>
                                 <Image src={timerBG} alt={'timer'} height={144} width={144} className={styles.roundTimerBG} />
                                 <div className={styles.time}>{timer}</div>
                             </div>
-                            <IconButton image={teamData[4].logo} alt={'gang'} />
-                            <VictoryCounter score={playerScore} />
+                            <IconButton image={teamData[oppClan].logo} alt={'gang'} />
+                            <VictoryCounter score={opponentScore} />
                             <div className={styles.optionBg}>
                                 {visibleImage === 0 && (
                                     <Image
                                         width={90}
                                         height={190}
                                         className={styles.mychoose}
-                                        src={gameOptions[0].logo}
+                                        src={gameOptions[10].logo}
                                         alt="First"
                                     />
                                 )}
                                 {visibleImage === 1 && (
-                                    <Image
-                                        width={90}
-                                        height={190}
-                                        className={styles.mychoose}
-                                        src={start}
-                                        alt="Second"
-                                    />
+                                    <>
+                                        {playerChoice === 3 && (
+                                            <img
+                                                className={styles.mychoose}
+                                                src={rockAnim}
+                                                alt="Third"
+                                            />
+                                        )}
+                                        {playerChoice === 1 && (
+                                            <img
+                                                className={styles.mychoose}
+                                                src={papAnim}
+                                                alt="Third"
+                                            />
+                                        )}
+                                        {playerChoice === 2 && (
+                                            <img
+                                                className={styles.mychoose}
+                                                src={scisAnim}
+                                                alt="Third"
+                                            />
+                                        )}
+                                    </>
                                 )}
                                 {visibleImage === 2 && (
                                     <>
@@ -316,7 +365,7 @@ export default function PvpPage() {
                                                 width={90}
                                                 height={190}
                                                 className={styles.mychoose}
-                                                src={rockAnim}
+                                                src={gameOptions[3].logo}
                                                 alt="Third"
                                             />
                                         )}
@@ -325,7 +374,7 @@ export default function PvpPage() {
                                                 width={90}
                                                 height={190}
                                                 className={styles.mychoose}
-                                                src={papAnim}
+                                                src={gameOptions[1].logo}
                                                 alt="Third"
                                             />
                                         )}
@@ -334,7 +383,7 @@ export default function PvpPage() {
                                                 width={90}
                                                 height={190}
                                                 className={styles.mychoose}
-                                                src={scisAnim}
+                                                src={gameOptions[2].logo}
                                                 alt="Third"
                                             />
                                         )}
@@ -360,9 +409,9 @@ export default function PvpPage() {
 // eslint-disable-next-line react/prop-types
 const VictoryCounter = ({ score }) => (
     <div className={styles.counter}>
-        {(score >= 3) ? <div className={styles.lampOnBg} /> : <div className={styles.lampOff} />}
-        {(score >= 2) ? <div className={styles.lampOnBg} /> : <div className={styles.lampOff} />}
-        {(score >= 1) ? <div className={styles.lampOnBg} /> : <div className={styles.lampOff} />}
+        {(score >= 1) ? <Image src={cross} alt={''} width={55} height={55}  /> : <Image src={heart} alt={''} width={55} height={55}  />}
+        {(score >= 2) ? <Image src={cross} alt={''} width={55} height={55}  /> : <Image src={heart} alt={''} width={55} height={55}  />}
+        {(score >= 3) ? <Image src={cross} alt={''} width={55} height={55}  /> : <Image src={heart} alt={''} width={55} height={55}  />}
     </div>
 );
 
@@ -377,37 +426,3 @@ const WinningScreen = ({ userName, playerScore }) => (
     </div>
 );
 
-// const LightOnSequence = () => {
-//     const initialImages = [
-//         scale000,
-//         scale001,
-//         scale002,
-//         scale003,
-//         scale004,
-//         scale005,
-//         scale006,
-//         scale007,
-//         scale008,
-//         scale009,
-//         scale010,
-//         scale011,
-//         scale012,
-//         scale013,
-//         scale014,
-//         scale015,
-//     ];
-//     const [currentImage, setCurrentImage] = useState(0);
-//     useEffect(() => {
-//         if (currentImage < (initialImages.length - 1)) {
-//             const interval = setInterval(() => {
-//                 setCurrentImage((prevImage) => prevImage + 1);
-//             }, 100);
-//             return () => clearInterval(interval);
-//         }
-//     }, [currentImage, initialImages.length]);
-//     return (
-//         <div className={styles.lampOnBg}>
-//             <Image width={42} height={53} className={styles.lampOn} src={initialImages[currentImage]} alt="on" />
-//         </div>
-//     );
-// };

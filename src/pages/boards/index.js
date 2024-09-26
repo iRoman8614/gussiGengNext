@@ -16,7 +16,11 @@ const bg = '/backgrounds/leaderboardBG.png'
 export default function Page() {
     const [activeIndex, setActiveIndex] = useState(0);
     const [teamId, setTeamId] = useState(1)
+    const [currentWins, setCurrentWins] = useState(19)
     const router = useRouter();
+
+    const ligsLimits = ['10', '25', '50', '100', '250', '500', '500+']
+    const length = currentWins / ligsLimits[activeIndex] * 100
 
     useEffect(() => {
         if (typeof window !== "undefined") {
@@ -136,6 +140,10 @@ export default function Page() {
                     <Image src={'/Arrow.png'} alt={''} width={15} height={15} />
                 </button>
             </div>
+            <div className={styles.progressBar}>
+                <div className={styles.progress} style={{width: `${length}%`}}></div>
+            </div>
+            <div className={styles.winsCounter}>{`wins ${currentWins}/${ligsLimits[activeIndex]}`}</div>
             <Image src={bg} alt={''} className={styles.bg} width={450} height={1000} />
             <div className={styles.container}>
                 {ratingData[activeIndex].map((item, index) => <ListItem key={index} item={item} index={index+1} />)}

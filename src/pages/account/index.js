@@ -33,6 +33,8 @@ export default function Page() {
             const init = JSON.parse(localStorage.getItem("init"));
             if (init && init.group) {
                 setTeamId(init.group.id); // Устанавливаем команду
+            } else {
+                setTeamId(1)
             }
         }},[])
 

@@ -15,26 +15,44 @@ import styles from './PaperPVPbtn.module.scss';
 //     '/buttonPaper/paper09.png'
 // ];
 
-const papet1 = '/buttonPaper/paper01.png'
-const paper2 = '/buttonPaper/paper09.png'
 
-const paperImages = [
-    papet1,
-    paper2
-];
 
 // eslint-disable-next-line react/prop-types
 export const PaperPVPbtn = ({ onClick, choose }) => {
     const [currentImage, setCurrentImage] = useState(0);
     const [isAnimating, setIsAnimating] = useState(false);
 
+    const papet1 = '/buttonPaper/paper01.png'
+    const paper2 = '/buttonPaper/paper09.png'
+
+    const paperImages = [
+        papet1,
+        paper2
+    ];
+
     // Сброс анимации при изменении выбора
     useEffect(() => {
-        if (choose !== 1) {
+        let interval;
+        if (choose === 1) {
+            setIsAnimating(true);
+            interval = setInterval(() => {
+                setCurrentImage((prevImage) => {
+                    // Когда достигли конца анимации, останавливаем анимацию
+                    if (prevImage >= paperImages.length - 1) {
+                        setIsAnimating(false);
+                        return prevImage; // Останавливаемся на последнем кадре
+                    }
+                    return prevImage + 1; // Иначе продолжаем анимацию
+                });
+            }, 200);
+        } else {
+            // Если выбрано что-то другое (или анимация сброшена), сбрасываем кадр
             setCurrentImage(0);
             setIsAnimating(false);
         }
-    }, [choose]);
+        // Очищаем интервал при размонтировании или изменении условий
+        return () => clearInterval(interval);
+    }, [choose, currentImage, paperImages.length]);
 
     // Запуск анимации при выборе "бумаги" и срабатывании клика
     useEffect(() => {

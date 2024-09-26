@@ -70,7 +70,7 @@
   height: 184px;
   object-fit: contain;
   rotate: 180deg;
-  transform: scale(2.1);
+  transform: scale(1.5);
   padding-top: 10px;
   padding-left: 5px;
 }
@@ -79,7 +79,7 @@
   width: 92px;
   height: 184px;
   object-fit: contain;
-  transform: scale(2.3);
+  transform: scale(1.5);
   padding-top: 10px;
   padding-left: 5px;
 }
@@ -147,39 +147,15 @@
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  background: url("/progressBar.png") no-repeat;
-  background-size: contain;
-  background-position: center;
-  max-height: 200px;
-  max-width: 67px;
-  width: 100%;
-  height: 100%;
-  padding: 14px 10px;
+  max-height: 186px;
+  max-width: 56px;
+  width: auto;
+  height: auto;
   justify-self: center;
-}
-
-.lampOn {
-  max-width: 42px;
   border-radius: 11px;
-  object-fit: fill;
-  background: url("/roundLightUp/scale00.png");
-}
-
-.lampOnBg {
-  max-width: 42px;
-  width: 100%;
-  height: 30%;
-  border-radius: 11px;
-  background: #1AF1FF;
-}
-
-.lampOff {
-  max-width: 42px;
-  width: 100%;
-  height: 30%;
-  border-radius: 11px;
-  background: linear-gradient(270deg, #1d002f 0%, #4f5e85 50%, rgba(255, 206, 204, 0.83) 100%);
-  opacity: 80%;
+  backdrop-filter: blur(7px);
+  background: #0d112e;
+  border: 4px solid #15193E;
 }
 
 .winbg {
@@ -231,13 +207,10 @@
     font-size: 24px;
     line-height: 24px;
   }
-  .counter {
-    padding: 9px;
-  }
   .choose, .mychoose {
     height: 110px;
     object-fit: contain;
-    transform: scale(1.6);
+    transform: scale(1.1);
   }
   .optionBg {
     height: 130px;
@@ -254,9 +227,6 @@
   .middleBar {
     height: 80px;
   }
-  .counter {
-    padding: 10px;
-  }
   .roundTimer {
     width: 120px;
     height: 122px;
@@ -270,7 +240,7 @@
     height: 130px;
     object-fit: contain;
     border-radius: 6px;
-    transform: scale(1.7);
+    transform: scale(1.2);
   }
   .optionBg {
     height: 150px;
