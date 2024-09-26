@@ -39,7 +39,7 @@ export const RockPvpBtn = ({onClick, choose}) => {
 
     useEffect(() => {
         let interval;
-        if (choose === 3) {
+        if (choose === 1) {
             setIsAnimating(true);
             interval = setInterval(() => {
                 setCurrentImage((prevImage) => {
