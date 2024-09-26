@@ -83,12 +83,11 @@ export default function PvpPage() {
                     return;
                 }
                 const data = await response.json();
-                const isPlayer1 = player1.id === userId;
+                const isPlayer1 = data.player1.id === userId;
                 const opponentClan = isPlayer1 ? data.player1.Group : data.player2.Group;
                 setOppClan(opponentClan);
                 setSessionId(data.sessionId);
                 setIsLoadingPvp(false);
-
             } catch (error) {
                 console.error('Ошибка при запросе /game/start:', error);
             }
