@@ -118,12 +118,13 @@ export default function PvpPage() {
 
     // Обработка выбора игрока (если игрок не сделал выбор)
     const handlePlayerChoiceTimeout = () => {
-        console.log('Тайм-аут: Отправляем ответ 0 на сервер');
+        console.log('Тайм-аут: Отправляем ответ 10 на сервер');
         sendAnswerToServer(10); // Отправляем ответ 0 как выбор игрока
     };
 
     // Функция для отправки ответа игрока на сервер
     const sendAnswerToServer = async (choice) => {
+        console.log('sessionId', sessionId)
         if (!sessionId) {
             return;
         }
@@ -138,13 +139,12 @@ export default function PvpPage() {
 
     // Функция для отправки ответа и ожидания результата
     const handlePlayerChoice = (choice) => {
-        console.log('clicked playerChoice', playerChoice)
         if (window.Telegram?.WebApp?.HapticFeedback) {
             window.Telegram.WebApp.HapticFeedback.impactOccurred('heavy');
         }
-        if (gameOver || playerChoice !== 0) return;
+        if (gameOver || playerChoice !== 10) return;
         setPlayerChoice(choice);
-
+        console.log('clicked playerChoice', playerChoice)
         const sendAnswer = async () => {
             if (!sessionId) {
                 console.error("Session ID is missing, cannot send answer");
