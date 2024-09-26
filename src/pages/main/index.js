@@ -171,7 +171,7 @@ export default function Home() {
         <div className={styles.root}>
             <Image className={styles.background} src={background} width={300} height={1000}  alt={'bg'}/>
             <div className={styles.item1}>
-                <IconButton image={account} alt={'account'} title={'account'}/>
+                <IconButton image={account} alt={'account'} title={'account'}  onClick={() => {router.push('/account')}}/>
             </div>
             <div className={styles.item2}>
                 <IconButton image={teamData[teamId].logo} alt={'gang'} onClick={() => {router.push('/getRandom')}}/>

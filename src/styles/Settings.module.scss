@@ -8,11 +8,15 @@
 
 .bg {
   position: absolute;
-  top: -10px;
+  top: 0;
   left: 0;
   object-fit: cover;
   opacity: 0.5; /* Прозрачность 40%, можно настроить */
   mix-blend-mode: normal; /* Экспериментируйте с режимами наложения: multiply, screen, overlay */
+  max-width: 450px;
+  min-width: 320px;
+  height: 100vh;
+  width: 100%;
 }
 
 .container {

@@ -22,23 +22,6 @@ const scisAnim = '/game-icons/animation_hand_sci.gif';
 const papAnim = '/game-icons/animation_hand_pap.gif';
 const background = '/backgrounds/backalley.png'
 const timerBG = '/timer.png'
-//кадры лампочки
-const scale000 = '/roundLightUp/scale00.png'
-const scale001 = '/roundLightUp/scale01.png'
-const scale002 = '/roundLightUp/scale02.png'
-const scale003 = '/roundLightUp/scale03.png'
-const scale004 = '/roundLightUp/scale04.png'
-const scale005 = '/roundLightUp/scale05.png'
-const scale006 = '/roundLightUp/scale06.png'
-const scale007 = '/roundLightUp/scale07.png'
-const scale008 = '/roundLightUp/scale08.png'
-const scale009 = '/roundLightUp/scale09.png'
-const scale010 = '/roundLightUp/scale10.png'
-const scale011 = '/roundLightUp/scale11.png'
-const scale012 = '/roundLightUp/scale12.png'
-const scale013 = '/roundLightUp/scale13.png'
-const scale014 = '/roundLightUp/scale14.png'
-const scale015 = '/roundLightUp/scale15.png'
 
 export default function PvpPage() {
     const router = useRouter();
@@ -52,9 +35,9 @@ export default function PvpPage() {
     const [opponentChoice, setOpponentChoice] = useState(0);
     const [gameEnded, setGameEnded] = useState(false);
     const [userName, setUserName] = useState('you');
-    const [sessionId, setSessionId] = useState(null);  // Сохраняем sessionId
-    const [isLoadingPvp, setIsLoadingPvp] = useState(true); // Управляет отображением лоадера
-    const [userId, setUserId] = useState(null); // Для хранения userId
+    const [sessionId, setSessionId] = useState(null);
+    const [isLoadingPvp, setIsLoadingPvp] = useState(true);
+    const [userId, setUserId] = useState(null);
 
 // Получаем userId из Telegram
     useEffect(() => {
@@ -231,7 +214,7 @@ export default function PvpPage() {
             setGameOver(true);
         }, 3000);
         setTimeout(() => {
-            router.push('/');
+            router.push('/main');
         }, 2000);
     };
 

@@ -13,9 +13,13 @@
 
 .bg {
   position: absolute;
-  top: -10px;
+  top: 0;
   left: 0;
   object-fit: cover;
+  max-width: 450px;
+  min-width: 320px;
+  height: 100vh;
+  width: 100%;
 }
 
 .container {

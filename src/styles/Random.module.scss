@@ -19,47 +19,157 @@
   position: relative;
   height: 100vh;
   width: 100%;
-
-  // Применяем анимацию при рендере
   animation: slide-in-right 1s ease-out forwards;
 }
 
 .person {
-  width: 100%; // Задаем ширину в процентах от родителя
+  width: 100%;
   height: auto;
   position: absolute;
   bottom: 0;
   left: 0;
   object-fit: fill;
   z-index: 2;
-
-  // Применяем анимацию при рендере
   animation: slide-in-right 0.5s ease-out forwards;
 }
 
-.card {
-  width: 100%; // Задаем ширину в процентах от родителя
-  height: auto;
-  position: absolute;
+.cardSet {
+  width: 100%;
+  height: 100%;
   bottom: 0;
-  left: 0;
-  object-fit: fill;
-  z-index: 3;
-
-  // Применяем анимацию при рендере
+  position: absolute;
+  z-index: 6;
   animation: slide-in-right 0.5s ease-out forwards;
 }
+
+
+.oneCard1 {
+  position: absolute;
+  z-index: 10;
+  top: 37%;
+  left: 30%;
+  --rotate-angle: -34deg;
+  transform: rotate(var(--rotate-angle));
+  transition: top 0.3s ease, left 0.3s ease, transform 0.3s ease;
+}
+.oneCard1FirstClick {
+  position: absolute;
+  z-index: 10;
+  top: 34%;
+  left: 24%;
+  --rotate-angle: -34deg;
+  transform: rotate(var(--rotate-angle));
+  transition: top 0.3s ease, left 0.3s ease, transform 0.3s ease;
+}
+.oneCard1SecondClick {
+  position: absolute;
+  z-index: 10;
+  top: 31%;
+  left: 18%;
+  --rotate-angle: -34deg;
+  transform: rotate(var(--rotate-angle));
+  animation: fadeOut 0.3s ease-out forwards;
+  transition: top 0.3s ease, left 0.3s ease, transform 0.3s ease;
+}
+
+
+.oneCard2 {
+  position: absolute;
+  z-index: 9;
+  top: 34%;
+  left: 40%;
+  --rotate-angle: -17deg;
+  transform: rotate(var(--rotate-angle));
+  transition: top 0.3s ease, left 0.3s ease, transform 0.3s ease;
+}
+.oneCard2FirstClick {
+  position: absolute;
+  z-index: 9;
+  top: 30%;
+  left: 38%;
+  --rotate-angle: -17deg;
+  transform: rotate(var(--rotate-angle));
+  transition: top 0.3s ease, left 0.3s ease, transform 0.3s ease;
+}
+.oneCard2SecondClick {
+  position: absolute;
+  z-index: 9;
+  top: 27%;
+  left: 36%;
+  --rotate-angle: -17deg;
+  transform: rotate(var(--rotate-angle));
+  animation: fadeOut 0.3s ease-out forwards;
+  transition: top 0.3s ease, left 0.3s ease, transform 0.3s ease;
+}
+
+.oneCard3 {
+  position: absolute;
+  z-index: 8;
+  top: 34%;
+  left: 50%;
+  --rotate-angle: 11deg;
+  transform: rotate(var(--rotate-angle));
+  transition: top 0.3s ease, left 0.3s ease, transform 0.3s ease;
+}
+.oneCard3FirstClick {
+  position: absolute;
+  z-index: 8;
+  top: 28%;
+  left: 52%;
+  --rotate-angle: 11deg;
+  transform: rotate(var(--rotate-angle));
+  transition: top 0.3s ease, left 0.3s ease, transform 0.3s ease;
+}
+.oneCard3SecondClick {
+  position: absolute;
+  z-index: 8;
+  top: 26%;
+  left: 53%;
+  --rotate-angle: 11deg;
+  transform: rotate(var(--rotate-angle));
+  animation: fadeOut 0.3s ease-out forwards;
+  transition: top 0.3s ease, left 0.3s ease, transform 0.3s ease;
+}
+
+.oneCard4 {
+  position: absolute;
+  z-index: 7;
+  top: 37%;
+  left: 60%;
+  --rotate-angle: 37deg;
+  transform: rotate(var(--rotate-angle));
+  transition: top 0.3s ease, left 0.3s ease, transform 0.3s ease;
+}
+.oneCard4FirstClick {
+  position: absolute;
+  z-index: 7;
+  top: 31%;
+  left: 68%;
+  --rotate-angle: 37deg;
+  transform: rotate(var(--rotate-angle));
+  transition: top 0.3s ease, left 0.3s ease, transform 0.3s ease;
+}
+.oneCard4SecondClick {
+  position: absolute;
+  z-index: 7;
+  top: 27%;
+  left: 74%;
+  --rotate-angle: 37deg;
+  transform: rotate(var(--rotate-angle));
+  animation: fadeOut 0.3s ease-out forwards;
+  transition: top 0.3s ease, left 0.3s ease, transform 0.3s ease;
+}
+
+
 
 .hand {
-  width: 100%; // Задаем ширину в процентах от родителя
+  width: 100%;
   height: auto;
   position: absolute;
   bottom: 0;
   left: 0;
   object-fit: fill;
-  z-index: 4;
-
-  // Применяем анимацию при рендере
+  z-index: 11;
   animation: slide-in-right 0.5s ease-out forwards;
 }
 
@@ -98,30 +208,8 @@
   margin-top: 20px;
 }
 
-.cardImage1, .cardImage2, .cardImage3, .cardImage4 {
-  margin: auto;
-  width: 100%;
-  object-fit: contain;
-  height: auto;
-  border-radius: 16px;
-}
-
-.cardImage1 {
-  box-shadow: 0 0 20px 10px rgba(0,167,0);
-}
-.cardImage2 {
-  box-shadow: 0 0 20px 10px rgba(22,67,235);
-}
-.cardImage3 {
-  box-shadow: 0 0 20px 10px rgba(252,192,46);
-}
-.cardImage4 {
-  box-shadow: 0 0 20px 10px rgba(199,21,22);
-}
-
-
-.shown {
-  z-index: 5;
+.cardImage {
+  z-index: 15;
   width: 50%;
   height: auto;
   position: absolute;
@@ -130,6 +218,7 @@
   margin-left: 25%;
 
   animation: slide-in-up 0.5s ease-out forwards;
+  box-shadow: 0 0 20px 10px var(--box-shadow-color);
 }
 
 .hidden {
@@ -166,5 +255,14 @@
   100% {
     transform: scale(1);
     opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1; /* Начало: элемент полностью видим */
+  }
+  to {
+    opacity: 0; /* Конец: элемент полностью невидим */
   }
 }

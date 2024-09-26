@@ -7,13 +7,17 @@ import styles from '@/styles/Random.module.scss'
 const bg = '/backgrounds/randomBG.png'
 const person = '/random/person.png'
 const hand = '/random/hand.png'
-const card = '/random/card.png'
 const dialog = '/random/dialog.png'
+const oneCard = '/random/oneCard.png'
 
 
 export default function Page() {
     const router = useRouter();
-    const [showCard, setShowCard] = useState(false)
+    const [clickCount1, setClickCount1] = useState(0);
+    const [clickCount2, setClickCount2] = useState(0);
+    const [clickCount3, setClickCount3] = useState(0);
+    const [clickCount4, setClickCount4] = useState(0);
+    const [showCard, setShowCard] = useState(false);
     const [teamId, setTeamId] = useState(1)
 
     useEffect(() => {
@@ -23,7 +27,20 @@ export default function Page() {
                 setTeamId(init.group.id);
             }
         }
-        }, [])
+    }, [])
+
+    const getBoxShadowColor = (teamId) => {
+        switch (teamId) {
+            case 1:
+                return 'rgba(0,167,0)';
+            case 2:
+                return 'rgba(22,67,235)';
+            case 3:
+                return 'rgba(252,192,46)';
+            case 4:
+                return 'rgba(199,21,22)';
+        }
+    };
 
     useEffect(() => {
         if (typeof window !== 'undefined' && window.Telegram?.WebApp?.BackButton) {
@@ -44,14 +61,75 @@ export default function Page() {
         const redCard = '/random/redCard.png'
 
         return(
-            <div className={state ? styles.shown : styles.hidden}>
-                {teamId === 1 && <Image className={styles.cardImage1} src={greenCard} alt={''} width={200} height={340} loading="lazy" />}
-                {teamId === 2 && <Image className={styles.cardImage2} src={blueCard} alt={''} width={200} height={340} loading="lazy" />}
-                {teamId === 3 && <Image className={styles.cardImage3} src={yellowCard} alt={''} width={200} height={340} loading="lazy" />}
-                {teamId === 4 && <Image className={styles.cardImage4} src={redCard} alt={''} width={200} height={340} loading="lazy" />}
-            </div>
+            <>
+                {teamId === 1 && <Image className={state ? styles.cardImage : styles.hidden} style={{ boxShadow: `0 0 20px 10px ${getBoxShadowColor(teamId)}` }} src={greenCard} alt={''} width={200} height={340} loading="lazy" />}
+                {teamId === 2 && <Image className={state ? styles.cardImage : styles.hidden} style={{ boxShadow: `0 0 20px 10px ${getBoxShadowColor(teamId)}` }} src={blueCard} alt={''} width={200} height={340} loading="lazy" />}
+                {teamId === 3 && <Image className={state ? styles.cardImage : styles.hidden} style={{ boxShadow: `0 0 20px 10px ${getBoxShadowColor(teamId)}` }} src={yellowCard} alt={''} width={200} height={340} loading="lazy" />}
+                {teamId === 4 && <Image className={state ? styles.cardImage : styles.hidden} style={{ boxShadow: `0 0 20px 10px ${getBoxShadowColor(teamId)}` }} src={redCard} alt={''} width={200} height={340} loading="lazy" />}
+            </>
         )
     }
+
+    const handleClick1 = () => {
+        if (clickCount1 === 0) {
+            setClickCount1(1);
+            setClickCount2(0)
+            setClickCount3(0)
+            setClickCount4(0)
+        } else if (clickCount1 === 1) {
+            setClickCount1(2);
+            setShowCard(true);
+
+            setTimeout(() => {
+                router.push('/main');
+            }, 2000);
+        }
+    };
+    const handleClick2 = () => {
+        if (clickCount2 === 0) {
+            setClickCount2(1);
+            setClickCount1(0)
+            setClickCount3(0)
+            setClickCount4(0)
+        } else if (clickCount2 === 1) {
+            setClickCount2(2);
+            setShowCard(true);
+
+            setTimeout(() => {
+                router.push('/main');
+            }, 2000);
+        }
+    };
+    const handleClick3 = () => {
+        if (clickCount3 === 0) {
+            setClickCount3(1);
+            setClickCount2(0)
+            setClickCount1(0)
+            setClickCount4(0)
+        } else if (clickCount3 === 1) {
+            setClickCount3(2);
+            setShowCard(true);
+
+            setTimeout(() => {
+                router.push('/main');
+            }, 2000);
+        }
+    };
+    const handleClick4 = () => {
+        if (clickCount4 === 0) {
+            setClickCount4(1);
+            setClickCount2(0)
+            setClickCount3(0)
+            setClickCount1(0)
+        } else if (clickCount4 === 1) {
+            setClickCount4(2);
+            setShowCard(true);
+
+            setTimeout(() => {
+                router.push('/main');
+            }, 2000);
+        }
+    };
 
     return(
         <div className={styles.root}>
@@ -61,7 +139,60 @@ export default function Page() {
                 <div className={styles.text}>pick a card</div>
             </div>
             <Image src={person} className={styles.person} width={450} height={1000} alt={''} />
-            <Image src={card} className={styles.card} width={450} height={1000} alt={''} onClick={() => {setShowCard(true)}} />
+            <div className={styles.cardSet}>
+                <Image
+                    src={oneCard}
+                    alt={''}
+                    width={100}
+                    height={155}
+                    className={
+                        clickCount1 === 0
+                            ? styles.oneCard1
+                            : clickCount1 === 1
+                                ? styles.oneCard1FirstClick
+                                : styles.oneCard1SecondClick
+                    }
+                    onClick={handleClick1} />
+                <Image
+                    src={oneCard}
+                    alt={''}
+                    width={100}
+                    height={155}
+                    className={
+                        clickCount2 === 0
+                            ? styles.oneCard2
+                            : clickCount2 === 1
+                                ? styles.oneCard2FirstClick
+                                : styles.oneCard2SecondClick
+                    }
+                    onClick={handleClick2} />
+                <Image
+                    src={oneCard}
+                    alt={''}
+                    width={100}
+                    height={155}
+                    className={
+                        clickCount3 === 0
+                            ? styles.oneCard3
+                            : clickCount3 === 1
+                                ? styles.oneCard3FirstClick
+                                : styles.oneCard3SecondClick
+                    }
+                    onClick={handleClick3} />
+                <Image
+                    src={oneCard}
+                    alt={''}
+                    width={100}
+                    height={155}
+                    className={
+                        clickCount4 === 0
+                            ? styles.oneCard4
+                            : clickCount4 === 1
+                                ? styles.oneCard4FirstClick
+                                : styles.oneCard4SecondClick
+                    }
+                    onClick={handleClick4} />
+            </div>
             <Image src={hand} className={styles.hand} width={450} height={1000} alt={''} />
             <ShownCard state={showCard} teamId={teamId} />
         </div>
