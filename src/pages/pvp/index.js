@@ -33,7 +33,7 @@ export default function PvpPage() {
     const [opponentScore, setOpponentScore] = useState(0);
     const [gameOver, setGameOver] = useState(false);
     const [round, setRound] = useState(1);
-    const [timer, setTimer] = useState(5);
+    const [timer, setTimer] = useState(7);
     const [playerChoice, setPlayerChoice] = useState(10);
     const [opponentChoice, setOpponentChoice] = useState(10);
     const [gameEnded, setGameEnded] = useState(false);
@@ -228,7 +228,7 @@ export default function PvpPage() {
     const resetRoundAfterDelay = () => {
         setPlayerChoice(10);
         setOpponentChoice(10);
-        setTimer(5);
+        setTimer(7);
         setVisibleImage(0);
         setRound(prev => prev + 1);
     };
