@@ -145,6 +145,7 @@ export default function Page() {
                     alt={''}
                     width={100}
                     height={155}
+                    style={clickCount1 > 0 && { boxShadow: `0 0 20px 10px ${getBoxShadowColor(teamId)}` }}
                     className={
                         clickCount1 === 0
                             ? styles.oneCard1
@@ -158,6 +159,7 @@ export default function Page() {
                     alt={''}
                     width={100}
                     height={155}
+                    style={clickCount2 > 0 && { boxShadow: `0 0 20px 10px ${getBoxShadowColor(teamId)}` }}
                     className={
                         clickCount2 === 0
                             ? styles.oneCard2
@@ -171,6 +173,7 @@ export default function Page() {
                     alt={''}
                     width={100}
                     height={155}
+                    style={clickCount3 > 0 && { boxShadow: `0 0 20px 10px ${getBoxShadowColor(teamId)}` }}
                     className={
                         clickCount3 === 0
                             ? styles.oneCard3
@@ -184,6 +187,7 @@ export default function Page() {
                     alt={''}
                     width={100}
                     height={155}
+                    style={clickCount4 > 0 && { boxShadow: `0 0 20px 10px ${getBoxShadowColor(teamId)}` }}
                     className={
                         clickCount4 === 0
                             ? styles.oneCard4

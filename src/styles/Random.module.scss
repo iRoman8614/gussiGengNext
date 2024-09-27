@@ -46,56 +46,59 @@
 .oneCard1 {
   position: absolute;
   z-index: 10;
-  top: 37%;
-  left: 30%;
+  top: 30%;
+  left: 25%;
   --rotate-angle: -34deg;
   transform: rotate(var(--rotate-angle));
   transition: top 0.3s ease, left 0.3s ease, transform 0.3s ease;
 }
 .oneCard1FirstClick {
   position: absolute;
+  border-radius: 10px;
   z-index: 10;
-  top: 34%;
-  left: 24%;
+  top: 27%;
+  left: 20%;
   --rotate-angle: -34deg;
   transform: rotate(var(--rotate-angle));
   transition: top 0.3s ease, left 0.3s ease, transform 0.3s ease;
 }
 .oneCard1SecondClick {
   position: absolute;
+  border-radius: 10px;
   z-index: 10;
-  top: 31%;
-  left: 18%;
+  top: 24%;
+  left: 17%;
   --rotate-angle: -34deg;
   transform: rotate(var(--rotate-angle));
   animation: fadeOut 0.3s ease-out forwards;
   transition: top 0.3s ease, left 0.3s ease, transform 0.3s ease;
 }
 
-
 .oneCard2 {
   position: absolute;
   z-index: 9;
-  top: 34%;
-  left: 40%;
+  top: 27%;
+  left: 36%;
   --rotate-angle: -17deg;
   transform: rotate(var(--rotate-angle));
   transition: top 0.3s ease, left 0.3s ease, transform 0.3s ease;
 }
 .oneCard2FirstClick {
   position: absolute;
+  border-radius: 10px;
   z-index: 9;
-  top: 30%;
-  left: 38%;
+  top: 23%;
+  left: 33%;
   --rotate-angle: -17deg;
   transform: rotate(var(--rotate-angle));
   transition: top 0.3s ease, left 0.3s ease, transform 0.3s ease;
 }
 .oneCard2SecondClick {
   position: absolute;
+  border-radius: 10px;
   z-index: 9;
-  top: 27%;
-  left: 36%;
+  top: 20%;
+  left: 31%;
   --rotate-angle: -17deg;
   transform: rotate(var(--rotate-angle));
   animation: fadeOut 0.3s ease-out forwards;
@@ -104,27 +107,30 @@
 
 .oneCard3 {
   position: absolute;
+  border-radius: 10px;
   z-index: 8;
-  top: 34%;
-  left: 50%;
+  top: 27%;
+  left: 45%;
   --rotate-angle: 11deg;
   transform: rotate(var(--rotate-angle));
   transition: top 0.3s ease, left 0.3s ease, transform 0.3s ease;
 }
 .oneCard3FirstClick {
   position: absolute;
+  border-radius: 10px;
   z-index: 8;
-  top: 28%;
-  left: 52%;
+  top: 22%;
+  left: 48%;
   --rotate-angle: 11deg;
   transform: rotate(var(--rotate-angle));
   transition: top 0.3s ease, left 0.3s ease, transform 0.3s ease;
 }
 .oneCard3SecondClick {
   position: absolute;
+  border-radius: 10px;
   z-index: 8;
-  top: 26%;
-  left: 53%;
+  top: 17%;
+  left: 51%;
   --rotate-angle: 11deg;
   transform: rotate(var(--rotate-angle));
   animation: fadeOut 0.3s ease-out forwards;
@@ -134,26 +140,28 @@
 .oneCard4 {
   position: absolute;
   z-index: 7;
-  top: 37%;
-  left: 60%;
+  top: 30%;
+  left: 55%;
   --rotate-angle: 37deg;
   transform: rotate(var(--rotate-angle));
   transition: top 0.3s ease, left 0.3s ease, transform 0.3s ease;
 }
 .oneCard4FirstClick {
   position: absolute;
+  border-radius: 10px;
   z-index: 7;
-  top: 31%;
-  left: 68%;
+  top: 27%;
+  left: 60%;
   --rotate-angle: 37deg;
   transform: rotate(var(--rotate-angle));
   transition: top 0.3s ease, left 0.3s ease, transform 0.3s ease;
 }
 .oneCard4SecondClick {
   position: absolute;
+  border-radius: 10px;
   z-index: 7;
-  top: 27%;
-  left: 74%;
+  top: 24%;
+  left: 63%;
   --rotate-angle: 37deg;
   transform: rotate(var(--rotate-angle));
   animation: fadeOut 0.3s ease-out forwards;
@@ -194,7 +202,7 @@
   opacity: 30%;
   height: 100px;
   position: absolute;
-  top: 8%;
+  top: 5%;
   left: 8%;
 }
 
@@ -202,7 +210,7 @@
   font-size: 24px;
   color: #fff;
   position: absolute;
-  top: 8%;
+  top: 5%;
   left: 8%;
   margin-left: 30px;
   margin-top: 20px;
