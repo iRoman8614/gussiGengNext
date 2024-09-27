@@ -101,7 +101,7 @@ export default function PvpPage() {
                 }
                 const data = await response.json();
                 const isPlayer1 = data.player1.id === userId;
-                const opponentClan = isPlayer1 ? data.player1.Group : data.player2.Group;
+                const opponentClan = isPlayer1 ? data.player1.group : data.player2.group;
                 setOppClan(opponentClan);
                 setSessionId(data.sessionId);
                 setIsLoadingPvp(false);
