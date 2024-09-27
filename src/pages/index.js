@@ -98,12 +98,17 @@ export default function LoaderPage() {
                         limit: data.limit,
                     };
                     localStorage.setItem('start', JSON.stringify(startData));
+                    // Перенаправляем на страницу выдачи команды /getRandom
+                    router.push('/getRandom');
                 } catch (error) {
                     toast.error('Error during start request')
                     console.error('Ошибка при запросе /start:', error);
                 }
+            } else {
+                console.log("Данные start уже есть в localStorage, перенаправляем на /main");
+                router.push('/main'); // Перенаправляем на главную страницу
             }
-            router.push('/main'); // Перенаправляем на главную страницу
+
         };
 
         // Запускаем логику при монтировании компонента

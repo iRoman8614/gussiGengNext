@@ -36,6 +36,10 @@ export default function Page() {
         if (typeof window !== 'undefined') {
             localStorage.removeItem("init");
             localStorage.removeItem("start");
+            localStorage.removeItem("totalCoins");
+            localStorage.removeItem("rate");
+            localStorage.removeItem("startFarmTime");
+            localStorage.removeItem("teamId");
             console.log("Данные удалены из localStorage: 'init' и 'start'");
         }
     };
