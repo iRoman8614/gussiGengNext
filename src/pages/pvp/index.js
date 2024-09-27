@@ -44,30 +44,28 @@ export default function PvpPage() {
     const [userClan, setUserClan] = useState(1);
     const [oppClan, setOppClan] = useState(4);
 
-    // Реф для хранения предзагруженных GIF-файлов
+
+// Реф для хранения предзагруженных GIF-файлов
     const gifCache = useRef({});
 
-    useEffect(() => {
-        if (typeof window !== "undefined") {
-            const init = JSON.parse(localStorage.getItem("init"));
-            if (init && init.group) {
-                setUserClan(init.group.id);
-            }
-        }
-    },[])
-
-    // Предзагрузка GIF-файлов
+// Предзагрузка GIF-файлов
     const preloadGifs = () => {
-        Object.keys(gifPaths).forEach(key => {
-            const img = new Image();
-            img.src = gifPaths[key];
-            gifCache.current[key] = img;  // Сохраняем предзагруженные GIFы в реф
-        });
+        const cache = {};
+        if (typeof window !== 'undefined') {
+            Object.keys(gifPaths).forEach(key => {
+                const img = new window.Image(); // Используем window.Image, чтобы убедиться, что Image доступен
+                img.src = gifPaths[key];
+                cache[key] = img;
+                console.log(`Загружен ${key}: ${img.src}`); // Лог загрузки
+            });
+        }
+        return cache;
     };
 
-    // Используем useEffect для предзагрузки GIF-файлов при монтировании компонента
     useEffect(() => {
-        preloadGifs();
+        if (typeof window !== 'undefined') {
+            gifCache.current = preloadGifs(); // Предзагрузка GIF-файлов
+        }
     }, []);
 
     // Получаем userId из Telegram
@@ -81,10 +79,10 @@ export default function PvpPage() {
                 const decodedUserParam = decodeURIComponent(userParam);
                 const userObject = JSON.parse(decodedUserParam);
                 setUserId(userObject.id);  // Сохраняем userId
-                setUserName(userObject.username)
+                setUserName(userObject.username);
             } else {
                 setUserId(111);  // Если userId не найден, используем 111 по умолчанию
-                setUserName('you')
+                setUserName('you');
             }
         }
     }, []);
@@ -283,25 +281,26 @@ export default function PvpPage() {
                                         {opponentChoice === 1 && (
                                             <img
                                                 className={styles.choose}
-                                                src={gifCache.current.rockAnim.src}
+                                                src={gifCache.current.rockAnim ? gifCache.current.rockAnim.src : gifPaths.rockAnim}
                                                 alt="Third"
                                             />
                                         )}
                                         {opponentChoice === 2 && (
                                             <img
                                                 className={styles.choose}
-                                                src={gifCache.current.papAnim.src}
+                                                src={gifCache.current.papAnim ? gifCache.current.papAnim.src : gifPaths.papAnim}
                                                 alt="Third"
                                             />
                                         )}
                                         {opponentChoice === 3 && (
                                             <img
                                                 className={styles.choose}
-                                                src={gifCache.current.scisAnim.src}
+                                                src={gifCache.current.scisAnim ? gifCache.current.scisAnim.src : gifPaths.scisAnim}
                                                 alt="Third"
                                             />
                                         )}
                                     </>
+
                                 )}
                                 {visibleImage === 2 && (
                                     <>
@@ -355,24 +354,24 @@ export default function PvpPage() {
                                 )}
                                 {visibleImage === 1 && (
                                     <>
-                                        {playerChoice === 1 && (
+                                        {opponentChoice === 1 && (
                                             <img
                                                 className={styles.mychoose}
-                                                src={gifCache.current.rockAnim.src}
+                                                src={gifCache.current.rockAnim ? gifCache.current.rockAnim.src : gifPaths.rockAnim}
                                                 alt="Third"
                                             />
                                         )}
-                                        {playerChoice === 2 && (
+                                        {opponentChoice === 2 && (
                                             <img
                                                 className={styles.mychoose}
-                                                src={gifCache.current.papAnim.src}
+                                                src={gifCache.current.papAnim ? gifCache.current.papAnim.src : gifPaths.papAnim}
                                                 alt="Third"
                                             />
                                         )}
-                                        {playerChoice === 3 && (
+                                        {opponentChoice === 3 && (
                                             <img
                                                 className={styles.mychoose}
-                                                src={gifCache.current.scisAnim.src}
+                                                src={gifCache.current.scisAnim ? gifCache.current.scisAnim.src : gifPaths.scisAnim}
                                                 alt="Third"
                                             />
                                         )}
