@@ -29,6 +29,17 @@ export default function Page() {
         }
     }, [router]);
 
+
+
+    // Метод для удаления всех данных из localStorage, созданных в этом компоненте
+    const clearLocalStorage = () => {
+        if (typeof window !== 'undefined') {
+            localStorage.removeItem("init");
+            localStorage.removeItem("start");
+            console.log("Данные удалены из localStorage: 'init' и 'start'");
+        }
+    };
+
     return (
         <div className={styles.root}>
             <Image src={bg} alt={'bg'} width={450} height={1000} className={styles.bg} />
@@ -37,6 +48,7 @@ export default function Page() {
                 <CustomSelect title={'select LANGUAGE'} optionsArray={languageOptions} />
                 <CustomSelect title={'select LANGUAGE'} optionsArray={languageOptions} />
                 <ToggleSwitch />
+                <button onClick={clearLocalStorage}>Очистить LocalStorage</button>
             </div>
         </div>
     );
