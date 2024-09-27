@@ -33,7 +33,7 @@ export default function PvpPage() {
     const [opponentScore, setOpponentScore] = useState(0);
     const [gameOver, setGameOver] = useState(false);
     const [round, setRound] = useState(1);
-    const [timer, setTimer] = useState(7);
+    const [timer, setTimer] = useState(5);
     const [playerChoice, setPlayerChoice] = useState(10);
     const [opponentChoice, setOpponentChoice] = useState(10);
     const [gameEnded, setGameEnded] = useState(false);
@@ -45,18 +45,18 @@ export default function PvpPage() {
     const [oppClan, setOppClan] = useState(4);
 
 
-// Реф для хранения предзагруженных GIF-файлов
+    // Реф для хранения предзагруженных GIF-файлов
     const gifCache = useRef({});
 
-// Предзагрузка GIF-файлов
+    // Предзагрузка GIF-файлов
     const preloadGifs = () => {
         const cache = {};
         if (typeof window !== 'undefined') {
             Object.keys(gifPaths).forEach(key => {
-                const img = new window.Image(); // Используем window.Image, чтобы убедиться, что Image доступен
+                const img = new window.Image();
                 img.src = gifPaths[key];
                 cache[key] = img;
-                console.log(`Загружен ${key}: ${img.src}`); // Лог загрузки
+                console.log(`Загружен ${key}: ${img.src}`);
             });
         }
         return cache;
@@ -64,7 +64,7 @@ export default function PvpPage() {
 
     useEffect(() => {
         if (typeof window !== 'undefined') {
-            gifCache.current = preloadGifs(); // Предзагрузка GIF-файлов
+            gifCache.current = preloadGifs();
         }
     }, []);
 
@@ -87,7 +87,7 @@ export default function PvpPage() {
         }
     }, []);
 
-// Делаем запрос на /game/start и сохраняем sessionId
+    // Делаем запрос на /game/start и сохраняем sessionId
     useEffect(() => {
         const startGame = async () => {
             try {
@@ -125,9 +125,9 @@ export default function PvpPage() {
         } else if (timer === 0 && playerChoice !== 0 && opponentChoice !== 0) {
             showGifSequence();
         } else if (timer === 0) {
-            // Если время вышло и игрок не сделал выбор, отправляем answer: 0
+            // Если время вышло и игрок не сделал выбор, отправляем answer: 10
             if (playerChoice === 10) {
-                handlePlayerChoiceTimeout();  // Отправляем 0 как ответ
+                handlePlayerChoiceTimeout();
             }
         }
         return () => clearTimeout(timerId);
@@ -137,12 +137,11 @@ export default function PvpPage() {
     const handlePlayerChoiceTimeout = () => {
         console.log('Тайм-аут: Отправляем ответ 10 на сервер');
         console.log('Отправляем выбор:', choice);
-        sendAnswerToServer(10); // Отправляем ответ 0 как выбор игрока
+        sendAnswerToServer(10);
     };
 
     // Функция для отправки ответа игрока на сервер
     const sendAnswerToServer = async (choice) => {
-        console.log('sessionId', sessionId)
         if (!sessionId) {
             return;
         }
@@ -166,7 +165,6 @@ export default function PvpPage() {
         console.log('clicked playerChoice', playerChoice)
         const sendAnswer = async () => {
             if (!sessionId) {
-                console.error("Session ID is missing, cannot send answer");
                 return;
             }
             try {
@@ -183,7 +181,7 @@ export default function PvpPage() {
 
     // Обработка результата раунда
     const handleRoundResult = (data) => {
-        const { player1, player2, result, victory, finished } = data;
+        const { player1, player2, finished } = data;
         const isPlayer1 = player1.id === userId;
         const userVictory = isPlayer1 ? player1.victory : player2.victory;  // Счет игрока
         const opponentVictory = isPlayer1 ? player2.victory : player1.victory;  // Счет оппонента
@@ -204,7 +202,7 @@ export default function PvpPage() {
             // Если игра не закончена, продолжаем следующий раунд
             setTimeout(() => {
                 resetRoundAfterDelay();
-            }, 2000);
+            }, 5000);
         } else {
             // Если игра завершена, обрабатываем завершение игры
             handleGameEnd();
@@ -228,7 +226,7 @@ export default function PvpPage() {
     const resetRoundAfterDelay = () => {
         setPlayerChoice(10);
         setOpponentChoice(10);
-        setTimer(7);
+        setTimer(5);
         setVisibleImage(0);
         setRound(prev => prev + 1);
     };
