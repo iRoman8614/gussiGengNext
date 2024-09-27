@@ -16,13 +16,15 @@ import styles from '@/styles/Pvp.module.scss';
 import "react-toastify/dist/ReactToastify.css";
 
 const wins = '/wins.png';
-const rockAnim = '/game-icons/animation_hand_rock.gif';
-const scisAnim = '/game-icons/animation_hand_sci.gif';
-const papAnim = '/game-icons/animation_hand_pap.gif';
 const background = '/backgrounds/backalley.png'
 const timerBG = '/timer.png'
 const heart = '/game-icons/heart.png'
 const cross = '/game-icons/lose.png'
+const gifPaths = {
+    rockAnim: '/game-icons/animation_hand_rock.gif',
+    scisAnim: '/game-icons/animation_hand_sci.gif',
+    papAnim: '/game-icons/animation_hand_pap.gif',
+};
 
 export default function PvpPage() {
     const router = useRouter();
@@ -42,6 +44,9 @@ export default function PvpPage() {
     const [userClan, setUserClan] = useState(1);
     const [oppClan, setOppClan] = useState(4);
 
+    // Реф для хранения предзагруженных GIF-файлов
+    const gifCache = useRef({});
+
     useEffect(() => {
         if (typeof window !== "undefined") {
             const init = JSON.parse(localStorage.getItem("init"));
@@ -50,6 +55,20 @@ export default function PvpPage() {
             }
         }
     },[])
+
+    // Предзагрузка GIF-файлов
+    const preloadGifs = () => {
+        Object.keys(gifPaths).forEach(key => {
+            const img = new Image();
+            img.src = gifPaths[key];
+            gifCache.current[key] = img;  // Сохраняем предзагруженные GIFы в реф
+        });
+    };
+
+    // Используем useEffect для предзагрузки GIF-файлов при монтировании компонента
+    useEffect(() => {
+        preloadGifs();
+    }, []);
 
     // Получаем userId из Telegram
     useEffect(() => {
@@ -264,21 +283,21 @@ export default function PvpPage() {
                                         {opponentChoice === 1 && (
                                             <img
                                                 className={styles.choose}
-                                                src={rockAnim}
-                                                alt="Third"
-                                            />
-                                        )}
-                                        {opponentChoice === 3 && (
-                                            <img
-                                                className={styles.choose}
-                                                src={papAnim}
+                                                src={gifCache.current.rockAnim.src}
                                                 alt="Third"
                                             />
                                         )}
                                         {opponentChoice === 2 && (
                                             <img
                                                 className={styles.choose}
-                                                src={scisAnim}
+                                                src={gifCache.current.papAnim.src}
+                                                alt="Third"
+                                            />
+                                        )}
+                                        {opponentChoice === 3 && (
+                                            <img
+                                                className={styles.choose}
+                                                src={gifCache.current.scisAnim.src}
                                                 alt="Third"
                                             />
                                         )}
@@ -295,21 +314,21 @@ export default function PvpPage() {
                                                 alt="Third"
                                             />
                                         )}
-                                        {opponentChoice === 3 && (
-                                            <Image
-                                                width={90}
-                                                height={190}
-                                                className={styles.choose}
-                                                src={gameOptions[3].logo}
-                                                alt="Third"
-                                            />
-                                        )}
                                         {opponentChoice === 2 && (
                                             <Image
                                                 width={90}
                                                 height={190}
                                                 className={styles.choose}
                                                 src={gameOptions[2].logo}
+                                                alt="Third"
+                                            />
+                                        )}
+                                        {opponentChoice === 3 && (
+                                            <Image
+                                                width={90}
+                                                height={190}
+                                                className={styles.choose}
+                                                src={gameOptions[3].logo}
                                                 alt="Third"
                                             />
                                         )}
@@ -339,21 +358,21 @@ export default function PvpPage() {
                                         {playerChoice === 1 && (
                                             <img
                                                 className={styles.mychoose}
-                                                src={rockAnim}
-                                                alt="Third"
-                                            />
-                                        )}
-                                        {playerChoice === 3 && (
-                                            <img
-                                                className={styles.mychoose}
-                                                src={papAnim}
+                                                src={gifCache.current.rockAnim.src}
                                                 alt="Third"
                                             />
                                         )}
                                         {playerChoice === 2 && (
                                             <img
                                                 className={styles.mychoose}
-                                                src={scisAnim}
+                                                src={gifCache.current.papAnim.src}
+                                                alt="Third"
+                                            />
+                                        )}
+                                        {playerChoice === 3 && (
+                                            <img
+                                                className={styles.mychoose}
+                                                src={gifCache.current.scisAnim.src}
                                                 alt="Third"
                                             />
                                         )}
@@ -370,21 +389,21 @@ export default function PvpPage() {
                                                 alt="Third"
                                             />
                                         )}
-                                        {playerChoice === 3 && (
-                                            <Image
-                                                width={90}
-                                                height={190}
-                                                className={styles.mychoose}
-                                                src={gameOptions[3].logo}
-                                                alt="Third"
-                                            />
-                                        )}
                                         {playerChoice === 2 && (
                                             <Image
                                                 width={90}
                                                 height={190}
                                                 className={styles.mychoose}
                                                 src={gameOptions[2].logo}
+                                                alt="Third"
+                                            />
+                                        )}
+                                        {playerChoice === 3 && (
+                                            <Image
+                                                width={90}
+                                                height={190}
+                                                className={styles.mychoose}
+                                                src={gameOptions[3].logo}
                                                 alt="Third"
                                             />
                                         )}
@@ -395,9 +414,9 @@ export default function PvpPage() {
                                 round {round}
                             </div>
                             <div className={styles.buttonSet}>
-                                <PaperPVPbtn onClick={() => handlePlayerChoice(3)} choose={playerChoice} />
+                                <PaperPVPbtn onClick={() => handlePlayerChoice(2)} choose={playerChoice} />
                                 <RockPvpBtn onClick={() => handlePlayerChoice(1)} choose={playerChoice} />
-                                <ScicPvpBtn onClick={() => handlePlayerChoice(2)} choose={playerChoice} />
+                                <ScicPvpBtn onClick={() => handlePlayerChoice(3)} choose={playerChoice} />
                             </div>
                         </div>
                     </div>

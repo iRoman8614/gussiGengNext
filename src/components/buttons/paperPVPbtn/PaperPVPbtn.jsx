@@ -33,7 +33,7 @@ export const PaperPVPbtn = ({ onClick, choose }) => {
     // Сброс анимации при изменении выбора
     useEffect(() => {
         let interval;
-        if (choose === 3) {
+        if (choose === 2) {
             setIsAnimating(true);
             interval = setInterval(() => {
                 setCurrentImage((prevImage) => {
