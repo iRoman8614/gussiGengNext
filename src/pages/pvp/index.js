@@ -185,7 +185,12 @@ export default function PvpPage() {
     // Обработка результата раунда (здесь мы просто сохраняем данные, но не обновляем счёт)
     const handleRoundResult = (data) => {
         const { player1, player2, finished } = data;
+
+        console.log("player1 ID:", player1.id, "player2 ID:", player2.id, "userId:", userId); // Логи для проверки ID
+
         const isPlayer1 = player1.id === userId;
+
+        console.log("isPlayer1:", isPlayer1); // Проверка, является ли игрок player1
 
         const userAnswer = isPlayer1 ? player1.answer : player2.answer;
         const opponentAnswer = isPlayer1 ? player2.answer : player1.answer;
@@ -213,6 +218,7 @@ export default function PvpPage() {
             }, 5000);
         }
     };
+
 
 
     // Запуск анимации и обновление счёта после её завершения
