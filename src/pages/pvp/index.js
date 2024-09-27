@@ -180,48 +180,38 @@ export default function PvpPage() {
         sendAnswer();
     };
 
-// Обработка результата раунда
+
+    // Обработка результата раунда
     const handleRoundResult = (data) => {
         const { player1, player2, result, victory, finished } = data;
         const isPlayer1 = player1.id === userId;
-        const userAnswer = isPlayer1 ? player1.answer : player2.answer;
-        const opponentAnswer = isPlayer1 ? player2.answer : player1.answer;
+        const userVictory = isPlayer1 ? player1.victory : player2.victory;  // Счет игрока
+        const opponentVictory = isPlayer1 ? player2.victory : player1.victory;  // Счет оппонента
 
-        setPlayerChoice(userAnswer);
-        setOpponentChoice(opponentAnswer);
+        setPlayerChoice(isPlayer1 ? player1.answer : player2.answer);
+        setOpponentChoice(isPlayer1 ? player2.answer : player1.answer);
 
-        if (timer === 0 && userAnswer !== null && opponentAnswer !== null) {
+        // Обновляем счет из полей victory в ответе
+        setPlayerScore(userVictory);
+        setOpponentScore(opponentVictory);
+
+        // Запуск анимации, если оба игрока сделали выбор
+        if (timer === 0 && player1.answer !== null && player2.answer !== null) {
             showGifSequence(); // Показываем анимацию
         }
 
-        if (result === 0) {
-            console.log('Ничья!');
-        } else if (result === 1 && victory === userId) {
-            setPlayerScore(prev => {
-                const newScore = prev + 1;
-                if (newScore === 3) {
-                    handleGameEnd();
-                }
-                return newScore;
-            });
-        } else if (result === 2 || (result === 1 && victory !== userId)) {
-            setOpponentScore(prev => {
-                const newScore = prev + 1;
-                if (newScore === 3) {
-                    handleGameEnd();
-                }
-                return newScore;
-            });
-        }
-
         if (!finished) {
+            // Если игра не закончена, продолжаем следующий раунд
             setTimeout(() => {
                 resetRoundAfterDelay();
             }, 2000);
+        } else {
+            // Если игра завершена, обрабатываем завершение игры
+            handleGameEnd();
         }
     };
 
-// Запуск анимаций
+    // Запуск анимаций
     const showGifSequence = () => {
         const timeouts = [];
         const durations = [0, 2000];
