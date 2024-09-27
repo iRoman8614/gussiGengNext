@@ -198,8 +198,8 @@ export default function PvpPage() {
         // Сохраняем результаты раунда, но не обновляем счёт
         setRoundResult({ userVictory, opponentVictory });
 
-        // Запуск анимации, если оба игрока сделали выбор
-        if (player1.answer !== null && player2.answer !== null) {
+        // Запуск анимации, если оба игрока сделали выбор и таймер равен 0
+        if (player1.answer !== null && player2.answer !== null && timer === 0) {
             showGifSequence();
         }
 
@@ -213,6 +213,7 @@ export default function PvpPage() {
             }, 5000);
         }
     };
+
 
     // Запуск анимации и обновление счёта после её завершения
     const showGifSequence = () => {
