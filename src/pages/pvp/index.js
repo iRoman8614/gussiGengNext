@@ -184,25 +184,35 @@ export default function PvpPage() {
 
     // Обработка результата раунда (здесь мы просто сохраняем данные, но не обновляем счёт)
     const handleRoundResult = (data) => {
-        const { player1, player2 } = data;
+        const { player1, player2, finished } = data;
         const isPlayer1 = player1.id === userId;
 
         const userAnswer = isPlayer1 ? player1.answer : player2.answer;
         const opponentAnswer = isPlayer1 ? player2.answer : player1.answer;
-        const userVictory = isPlayer1 ? player1.victory : player2.victory;  // Счет игрока
-        const opponentVictory = isPlayer1 ? player2.victory : player1.victory;  // Счет оппонента
+        const userVictory = isPlayer1 ? player1.victory : player2.victory;
+        const opponentVictory = isPlayer1 ? player2.victory : player1.victory;
 
         setPlayerChoice(userAnswer);
         setOpponentChoice(opponentAnswer);
 
-        // Сохраняем результаты, но не обновляем счёт
+        // Сохраняем результаты раунда, но не обновляем счёт
         setRoundResult({ userVictory, opponentVictory });
 
+        // Запуск анимации, если оба игрока сделали выбор
         if (player1.answer !== null && player2.answer !== null) {
-            showGifSequence(); // Запускаем анимацию
+            showGifSequence();
+        }
+
+        // Если пришел флаг finished: true, завершить игру
+        if (finished) {
+            handleGameEnd(); // Завершаем игру, если она закончена
+        } else {
+            // Иначе продолжаем игру, сбрасывая раунд
+            setTimeout(() => {
+                resetRoundAfterDelay();
+            }, 5000);
         }
     };
-
 
     // Запуск анимации и обновление счёта после её завершения
     const showGifSequence = () => {
@@ -212,18 +222,17 @@ export default function PvpPage() {
         durations.forEach((duration, index) => {
             timeouts.push(
                 setTimeout(() => {
-                    setVisibleImage(index + 1); // Обновляем показ картинки
+                    setVisibleImage(index + 1);
                 }, duration)
             );
         });
 
-        // После завершения анимации обновляем счёт
         setTimeout(() => {
             if (roundResult) {
                 setPlayerScore(roundResult.userVictory);
                 setOpponentScore(roundResult.opponentVictory);
             }
-        }, 2000); // Время анимации (можно менять под продолжительность GIF-а)
+        }, 2000);
 
         return () => timeouts.forEach(timeout => clearTimeout(timeout));
     };
@@ -234,6 +243,7 @@ export default function PvpPage() {
         setTimer(5);
         setVisibleImage(0);
         setRound(prev => prev + 1);
+        setRoundResult(null)
     };
 
     const handleGameEnd = () => {
