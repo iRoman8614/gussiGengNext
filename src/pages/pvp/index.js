@@ -45,18 +45,32 @@ export default function PvpPage() {
     const [oppClan, setOppClan] = useState(4);
     const [roundResult, setRoundResult] = useState(null);
 
-    // Реф для хранения предзагруженных GIF-файлов
-    const gifCache = useRef({});
+// Рефы для хранения предзагруженных GIF-файлов игрока и оппонента
+    const playerGifCache = useRef({});
+    const opponentGifCache = useRef({});
 
-    // Предзагрузка GIF-файлов
-    const preloadGifs = () => {
+// Предзагрузка GIF-файлов для игрока и оппонента
+    const preloadPlayerGifs = () => {
         const cache = {};
         if (typeof window !== 'undefined') {
-            Object.keys(gifPaths).forEach(key => {
+            ['rockAnim', 'scisAnim', 'papAnim'].forEach(key => {
                 const img = new window.Image();
                 img.src = gifPaths[key];
                 cache[key] = img;
-                console.log(`Загружен ${key}: ${img.src}`);
+                console.log(`Игрок - Загружен ${key}: ${img.src}`);
+            });
+        }
+        return cache;
+    };
+
+    const preloadOpponentGifs = () => {
+        const cache = {};
+        if (typeof window !== 'undefined') {
+            ['rockAnim', 'scisAnim', 'papAnim'].forEach(key => {
+                const img = new window.Image();
+                img.src = gifPaths[key];
+                cache[key] = img;
+                console.log(`Оппонент - Загружен ${key}: ${img.src}`);
             });
         }
         return cache;
@@ -64,7 +78,8 @@ export default function PvpPage() {
 
     useEffect(() => {
         if (typeof window !== 'undefined') {
-            gifCache.current = preloadGifs();
+            playerGifCache.current = preloadPlayerGifs(); // Предзагрузка GIF для игрока
+            opponentGifCache.current = preloadOpponentGifs(); // Предзагрузка GIF для оппонента
         }
     }, []);
 
@@ -179,51 +194,34 @@ export default function PvpPage() {
         sendAnswer();
     };
 
-// Обработка результата раунда
+    // Обработка результата раунда
     const handleRoundResult = (data) => {
         const { player1, player2, finished } = data;
 
-        console.log("player1 ID:", player1.id, "player2 ID:", player2.id, "userId:", userId); // Логи для проверки ID
+        console.log("player1 ID:", player1.id, "player2 ID:", player2.id, "userId:", userId);
 
-        // Определяем, является ли текущий пользователь player1 или player2
         const isPlayer1 = player1.id === userId;
-
-        // Лог для проверки, кто из игроков является текущим пользователем
-        console.log("isPlayer1:", isPlayer1);
-
-        // Определяем выборы игроков в зависимости от того, кто является текущим пользователем
         const userAnswer = isPlayer1 ? player1.answer : player2.answer;
         const opponentAnswer = isPlayer1 ? player2.answer : player1.answer;
+        const userVictory = isPlayer1 ? player1.victory : player2.victory;
+        const opponentVictory = isPlayer1 ? player2.victory : player1.victory;
 
-        // Проверяем выборы и логируем их для отладки
-        console.log(`User choice: ${userAnswer}, Opponent choice: ${opponentAnswer}`);
-
-        // Устанавливаем выборы игрока и оппонента в стейт
         setPlayerChoice(userAnswer);
         setOpponentChoice(opponentAnswer);
 
         // Сохраняем результаты раунда, но не обновляем счёт сразу
-        setRoundResult({ userVictory: isPlayer1 ? player1.victory : player2.victory, opponentVictory: isPlayer1 ? player2.victory : player1.victory, finished });
+        setRoundResult({ userVictory, opponentVictory, finished });
 
-        // Запуск анимации, если оба игрока сделали выбор и таймер равен 0
-        if (userAnswer !== null && opponentAnswer !== null && timer === 0) {
+        // Если оба игрока сделали выбор и таймер равен 0, запускаем анимации
+        if (player1.answer !== null && player2.answer !== null && timer === 0) {
             showGifSequence();
-        }
-
-        // Если игра окончена, завершаем её
-        if (finished) {
-            handleGameEnd();
-        } else {
-            setTimeout(() => {
-                resetRoundAfterDelay();
-            }, 5000);
         }
     };
 
     // Запуск анимации и обновление счёта
     const showGifSequence = () => {
         const timeouts = [];
-        const durations = [0, 2000]; // Длительность анимации 2000 мс
+        const durations = [0, 2000]; // 2000 мс для анимации
 
         durations.forEach((duration, index) => {
             timeouts.push(
@@ -233,21 +231,24 @@ export default function PvpPage() {
             );
         });
 
+        // После завершения анимации обновляем счет
         setTimeout(() => {
             if (roundResult) {
-                // Обновляем счёт только после проигрывания анимации
                 setPlayerScore(roundResult.userVictory);
                 setOpponentScore(roundResult.opponentVictory);
 
+                // Проверяем, окончена ли игра после анимации
                 if (roundResult.finished) {
                     handleGameEnd();
+                } else {
+                    // Иначе продолжаем игру
+                    resetRoundAfterDelay();
                 }
             }
         }, 2000); // Обновляем счет после анимации
 
         return () => timeouts.forEach(timeout => clearTimeout(timeout));
     };
-
 
     const resetRoundAfterDelay = () => {
         setPlayerChoice(10);
@@ -296,21 +297,21 @@ export default function PvpPage() {
                                         {opponentChoice === 1 && (
                                             <img
                                                 className={styles.choose}
-                                                src={gifCache.current.rockAnim ? gifCache.current.rockAnim.src : gifPaths.rockAnim}
+                                                src={opponentGifCache.current.rockAnim ? opponentGifCache.current.rockAnim.src : gifPaths.rockAnim}
                                                 alt="Third"
                                             />
                                         )}
                                         {opponentChoice === 2 && (
                                             <img
                                                 className={styles.choose}
-                                                src={gifCache.current.papAnim ? gifCache.current.papAnim.src : gifPaths.papAnim}
+                                                src={opponentGifCache.current.papAnim ? opponentGifCache.current.papAnim.src : gifPaths.papAnim}
                                                 alt="Third"
                                             />
                                         )}
                                         {opponentChoice === 3 && (
                                             <img
                                                 className={styles.choose}
-                                                src={gifCache.current.scisAnim ? gifCache.current.scisAnim.src : gifPaths.scisAnim}
+                                                src={opponentGifCache.current.scisAnim ? opponentGifCache.current.scisAnim.src : gifPaths.scisAnim}
                                                 alt="Third"
                                             />
                                         )}
@@ -369,24 +370,24 @@ export default function PvpPage() {
                                 )}
                                 {visibleImage === 1 && (
                                     <>
-                                        {opponentChoice === 1 && (
+                                        {playerChoice === 1 && (
                                             <img
                                                 className={styles.mychoose}
-                                                src={gifCache.current.rockAnim ? gifCache.current.rockAnim.src : gifPaths.rockAnim}
+                                                src={playerGifCache.current.rockAnim ? playerGifCache.current.rockAnim.src : gifPaths.rockAnim}
                                                 alt="Third"
                                             />
                                         )}
-                                        {opponentChoice === 2 && (
+                                        {playerChoice === 2 && (
                                             <img
                                                 className={styles.mychoose}
-                                                src={gifCache.current.papAnim ? gifCache.current.papAnim.src : gifPaths.papAnim}
+                                                src={playerGifCache.current.papAnim ? playerGifCache.current.papAnim.src : gifPaths.papAnim}
                                                 alt="Third"
                                             />
                                         )}
-                                        {opponentChoice === 3 && (
+                                        {playerChoice === 3 && (
                                             <img
                                                 className={styles.mychoose}
-                                                src={gifCache.current.scisAnim ? gifCache.current.scisAnim.src : gifPaths.scisAnim}
+                                                src={playerGifCache.current.scisAnim ? playerGifCache.current.scisAnim.src : gifPaths.scisAnim}
                                                 alt="Third"
                                             />
                                         )}
