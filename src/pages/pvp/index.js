@@ -45,7 +45,6 @@ export default function PvpPage() {
     const [oppClan, setOppClan] = useState(4);
     const [roundResult, setRoundResult] = useState(null);
 
-
     // Реф для хранения предзагруженных GIF-файлов
     const gifCache = useRef({});
 
@@ -117,7 +116,6 @@ export default function PvpPage() {
         }
     }, [userId]);
 
-
     // Таймер отсчитывает время после скрытия лоадера и начала игры
     useEffect(() => {
         let timerId;
@@ -181,17 +179,13 @@ export default function PvpPage() {
         sendAnswer();
     };
 
-
-    // Обработка результата раунда (здесь мы просто сохраняем данные, но не обновляем счёт)
+    // Обработка результата раунда
     const handleRoundResult = (data) => {
         const { player1, player2, finished } = data;
 
-        console.log("player1 ID:", player1.id, "player2 ID:", player2.id, "userId:", userId); // Логи для проверки ID
+        console.log("player1 ID:", player1.id, "player2 ID:", player2.id, "userId:", userId);
 
         const isPlayer1 = player1.id === userId;
-
-        console.log("isPlayer1:", isPlayer1); // Проверка, является ли игрок player1
-
         const userAnswer = isPlayer1 ? player1.answer : player2.answer;
         const opponentAnswer = isPlayer1 ? player2.answer : player1.answer;
         const userVictory = isPlayer1 ? player1.victory : player2.victory;
@@ -200,31 +194,19 @@ export default function PvpPage() {
         setPlayerChoice(userAnswer);
         setOpponentChoice(opponentAnswer);
 
-        // Сохраняем результаты раунда, но не обновляем счёт
-        setRoundResult({ userVictory, opponentVictory });
+        // Сохраняем результаты раунда, но не обновляем счёт сразу
+        setRoundResult({ userVictory, opponentVictory, finished });
 
-        // Запуск анимации, если оба игрока сделали выбор и таймер равен 0
+        // Если оба игрока сделали выбор и таймер равен 0, запускаем анимации
         if (player1.answer !== null && player2.answer !== null && timer === 0) {
             showGifSequence();
         }
-
-        // Если пришел флаг finished: true, завершить игру
-        if (finished) {
-            handleGameEnd(); // Завершаем игру, если она закончена
-        } else {
-            // Иначе продолжаем игру, сбрасывая раунд
-            setTimeout(() => {
-                resetRoundAfterDelay();
-            }, 5000);
-        }
     };
 
-
-
-    // Запуск анимации и обновление счёта после её завершения
+// Запуск анимации и обновление счёта
     const showGifSequence = () => {
         const timeouts = [];
-        const durations = [0, 2000];
+        const durations = [0, 2000]; // 2000 мс для анимации
 
         durations.forEach((duration, index) => {
             timeouts.push(
@@ -234,12 +216,21 @@ export default function PvpPage() {
             );
         });
 
+        // После завершения анимации обновляем счет
         setTimeout(() => {
             if (roundResult) {
                 setPlayerScore(roundResult.userVictory);
                 setOpponentScore(roundResult.opponentVictory);
+
+                // Проверяем, окончена ли игра после анимации
+                if (roundResult.finished) {
+                    handleGameEnd();
+                } else {
+                    // Иначе продолжаем игру
+                    resetRoundAfterDelay();
+                }
             }
-        }, 2000);
+        }, 2000); // Обновляем счет после анимации
 
         return () => timeouts.forEach(timeout => clearTimeout(timeout));
     };
@@ -438,9 +429,9 @@ export default function PvpPage() {
 // eslint-disable-next-line react/prop-types
 const VictoryCounter = ({ score }) => (
     <div className={styles.counter}>
-        {(score >= 1) ? <Image src={cross} alt={''} width={55} height={55}  /> : <Image src={heart} alt={''} width={55} height={55}  />}
-        {(score >= 2) ? <Image src={cross} alt={''} width={55} height={55}  /> : <Image src={heart} alt={''} width={55} height={55}  />}
-        {(score >= 3) ? <Image src={cross} alt={''} width={55} height={55}  /> : <Image src={heart} alt={''} width={55} height={55}  />}
+        {(score >= 1) ? <Image className={styles.heart} src={cross} alt={''} width={55} height={55}  /> : <Image className={styles.heart} src={heart} alt={''} width={55} height={55}  />}
+        {(score >= 2) ? <Image className={styles.heart} src={cross} alt={''} width={55} height={55}  /> : <Image className={styles.heart} src={heart} alt={''} width={55} height={55}  />}
+        {(score >= 3) ? <Image className={styles.heart} src={cross} alt={''} width={55} height={55}  /> : <Image className={styles.heart} src={heart} alt={''} width={55} height={55}  />}
     </div>
 );
 

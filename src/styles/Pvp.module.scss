@@ -1,3 +1,5 @@
+@import './_utils';
+
 .root {
   height: 100vh;
   min-width: 319px;
@@ -59,8 +61,8 @@
   width: 100%;
   height: 100%;
   text-align: center;
-  font-size: 27px;
-  line-height: 22px;
+  font-size: auto-clamp(16, 27);
+  line-height:  auto-clamp(16, 27);
   padding:2px 16px;
   max-height: 52px;
 }
@@ -117,14 +119,12 @@
   grid-row-start: 5;
   grid-column-start: 2;
   background: url("/roundContainer.png") no-repeat;
-  max-width: 120px;
-  max-height: 52px;
-  background-size: 100%;
-  height: 100%;
-  width: 100%;
+  background-size: contain;
+  width: auto-clamp(100, 120);
+  height: auto-clamp(44, 52);
   text-align: center;
-  line-height: 27px;
-  font-size: 27px;
+  line-height: auto-clamp(16, 27);
+  font-size: auto-clamp(16, 27);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -147,10 +147,9 @@
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  max-height: 186px;
+  height: auto-clamp(130, 185);
   max-width: 56px;
   width: auto;
-  height: auto;
   justify-self: center;
   border-radius: 11px;
   backdrop-filter: blur(7px);
@@ -194,6 +193,11 @@
   height: 151px;
 }
 
+.heart {
+  width: auto-clamp(40, 55);
+  height: auto-clamp(40, 55);
+}
+
 @media (max-width: 360px) {
   .middleBar {
     height: 60px;
@@ -216,10 +220,6 @@
     height: 130px;
     width: 100px;
     border-radius: 18px;
-  }
-  .lampOff, .lampOn, .lampOnBg {
-    max-width: 31px;
-    border-radius: 7px;
   }
 }
 
@@ -246,10 +246,5 @@
     height: 150px;
     width: 115px;
     border-radius: 18px;
-  }
-  .lampOff, .lampOn, .lampOnBg {
-    max-width: 35px;
-    height: 30%;
-    border-radius: 9px;
   }
 }

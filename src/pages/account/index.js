@@ -5,12 +5,15 @@ import React, {useEffect, useState} from "react";
 import skinData from '@/mock/skinsData'
 import teamData from "@/mock/teamsData";
 import {useRouter} from "next/router";
+import {ItemPlaceholder} from "@/components/itemPlaceholder/ItemPlaceholder";
 
 const bg = '/backgrounds/accountBG.png'
 export default function Page() {
     const [teamId, setTeamId] = useState(1)
     const [level, setLevel] = useState(1)
     const [activeTab, setActiveTab] = useState(1);
+    const [userId, setUserId] = useState(null);
+    const [stats, setStats] = useState(null);
 
     const router = useRouter();
 
@@ -46,6 +49,38 @@ export default function Page() {
         setLevel(level)
     }, [])
 
+
+    // Получение profileId из Telegram WebApp
+    useEffect(() => {
+        if (typeof window !== 'undefined' && window.Telegram?.WebApp) {
+            const search = window.Telegram.WebApp.initData;
+            const urlParams = new URLSearchParams(search);
+            const userParam = urlParams.get('user');
+            if (userParam) {
+                const decodedUserParam = decodeURIComponent(userParam);
+                const userObject = JSON.parse(decodedUserParam);
+                setUserId(userObject.id);
+                fetchStats(userObject.id); // Запрос на получение статистики
+            } else {
+                setUserId(111);
+                fetchStats(111); // Запрос для ID по умолчанию
+            }
+        }
+    }, []);
+
+
+    // Функция для запроса статистики
+    const fetchStats = async (profileId) => {
+        try {
+            const response = await fetch(`https://supavpn.lol/profile/stats?profileId=${profileId}`);
+            const data = await response.json();
+            setStats(data); // Сохраняем данные статистики в состояние
+        } catch (error) {
+            console.error('Ошибка при получении статистики:', error);
+        }
+    };
+
+
     return(
         <div className={styles.root}>
             <Image src={bg} alt={'bg'} width={450} height={1000} className={styles.bg} />
@@ -54,7 +89,7 @@ export default function Page() {
                     <div className={styles.season}>season 1</div>
                     <div className={styles.avatarContainer}>
                         <Image className={styles.logo} src={teamData[teamId].logo} alt={''} width={40} height={40} />
-                        <Image src={skinData[teamId][level]} alt={''} width={100} height={178} />
+                        <Image className={styles.character} src={skinData[teamId][level]} alt={''} width={100} height={178} />
                     </div>
                 </div>
                 <div className={styles.block}>
@@ -80,23 +115,23 @@ export default function Page() {
                             tupacshakur
                         </div>
                         <div className={styles.stats}>
-                            <div className={styles.nickname}>League 1</div>
+                            <div className={styles.nickname}>League {stats.liga}</div>
                             <div className={styles.stat}>
-                                total <br/> 7
+                                total <p>{stats.count}</p>
                             </div>
                             <div className={styles.stat}>
-                                wins <br/> 5
+                                wins <p>{stats.victory}</p>
                             </div>
                             <div className={styles.stat}>
-                                defeats <br/> 2
+                                defeats <p>{stats.lost}</p>
                             </div>
                             <div className={styles.stat}>
-                                winrate <br/> 70%
+                                winrate <p>{((stats.victory / stats.count) * 100).toFixed(2)}%</p>
                             </div>
                         </div>
                         <div className={styles.barBlock}>
                             <div className={styles.ballanceLabel}>
-                                earn a total of 100 k to earn a booster
+                                earn a total of 100 k to get extra games
                             </div>
                             <div className={styles.bar}>
                                 <div className={styles.progress}></div>
@@ -111,39 +146,20 @@ export default function Page() {
                         </div>
                     </div>}
                     {activeTab === 2 && <div className={styles.skinContainer}>
-                        <div className={styles.nickname}>
-                            tupacshakur
-                        </div>
-                        <div className={styles.stats}>
-                            <div className={styles.nickname}>League 2</div>
-                            <div className={styles.stat}>
-                                total <br/> 9
-                            </div>
-                            <div className={styles.stat}>
-                                wins <br/> 1
-                            </div>
-                            <div className={styles.stat}>
-                                defeats <br/> 6
-                            </div>
-                            <div className={styles.stat}>
-                                winrate <br/> 30%
-                            </div>
-                        </div>
-                        <div className={styles.barBlock}>
-                            <div className={styles.ballanceLabel}>
-                                earn a total of 100 k to earn a booster
-                            </div>
-                            <div className={styles.bar}>
-                                <div className={styles.progress}></div>
-                            </div>
-                            <div className={styles.ballanceLabel}>
-                                70K
-                            </div>
-                        </div>
-                        <div>
-                            <div className={styles.ballanceLabel}>current balance</div>
-                            <div className={styles.balance}> 47000</div>
-                        </div>
+                        <ItemPlaceholder />
+                        <ItemPlaceholder />
+                        <ItemPlaceholder />
+                        <ItemPlaceholder />
+                        <ItemPlaceholder />
+                        <ItemPlaceholder />
+                        <ItemPlaceholder />
+                        <ItemPlaceholder />
+                        <ItemPlaceholder />
+                        <ItemPlaceholder />
+                        <ItemPlaceholder />
+                        <ItemPlaceholder />
+                        <ItemPlaceholder />
+                        <ItemPlaceholder />
                     </div>}
                 </div>
             </div>
