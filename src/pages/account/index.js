@@ -115,18 +115,18 @@ export default function Page() {
                             tupacshakur
                         </div>
                         <div className={styles.stats}>
-                            <div className={styles.nickname}>League {stats.liga}</div>
+                            <div className={styles.nickname}>League {stats?.liga}</div>
                             <div className={styles.stat}>
-                                total <p>{stats.count}</p>
+                                total <p>{stats?.count}</p>
                             </div>
                             <div className={styles.stat}>
-                                wins <p>{stats.victory}</p>
+                                wins <p>{stats?.victory}</p>
                             </div>
                             <div className={styles.stat}>
-                                defeats <p>{stats.lost}</p>
+                                defeats <p>{stats?.lost}</p>
                             </div>
                             <div className={styles.stat}>
-                                winrate <p>{((stats.victory / stats.count) * 100).toFixed(2)}%</p>
+                                winrate <p>{((stats?.victory / stats?.count) * 100).toFixed(2)}%</p>
                             </div>
                         </div>
                         <div className={styles.barBlock}>
