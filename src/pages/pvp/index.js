@@ -179,34 +179,51 @@ export default function PvpPage() {
         sendAnswer();
     };
 
-    // Обработка результата раунда
+// Обработка результата раунда
     const handleRoundResult = (data) => {
         const { player1, player2, finished } = data;
 
-        console.log("player1 ID:", player1.id, "player2 ID:", player2.id, "userId:", userId);
+        console.log("player1 ID:", player1.id, "player2 ID:", player2.id, "userId:", userId); // Логи для проверки ID
 
+        // Определяем, является ли текущий пользователь player1 или player2
         const isPlayer1 = player1.id === userId;
+
+        // Лог для проверки, кто из игроков является текущим пользователем
+        console.log("isPlayer1:", isPlayer1);
+
+        // Определяем выборы игроков в зависимости от того, кто является текущим пользователем
         const userAnswer = isPlayer1 ? player1.answer : player2.answer;
         const opponentAnswer = isPlayer1 ? player2.answer : player1.answer;
-        const userVictory = isPlayer1 ? player1.victory : player2.victory;
-        const opponentVictory = isPlayer1 ? player2.victory : player1.victory;
 
+        // Проверяем выборы и логируем их для отладки
+        console.log(`User choice: ${userAnswer}, Opponent choice: ${opponentAnswer}`);
+
+        // Устанавливаем выборы игрока и оппонента в стейт
         setPlayerChoice(userAnswer);
         setOpponentChoice(opponentAnswer);
 
         // Сохраняем результаты раунда, но не обновляем счёт сразу
-        setRoundResult({ userVictory, opponentVictory, finished });
+        setRoundResult({ userVictory: isPlayer1 ? player1.victory : player2.victory, opponentVictory: isPlayer1 ? player2.victory : player1.victory, finished });
 
-        // Если оба игрока сделали выбор и таймер равен 0, запускаем анимации
-        if (player1.answer !== null && player2.answer !== null && timer === 0) {
+        // Запуск анимации, если оба игрока сделали выбор и таймер равен 0
+        if (userAnswer !== null && opponentAnswer !== null && timer === 0) {
             showGifSequence();
+        }
+
+        // Если игра окончена, завершаем её
+        if (finished) {
+            handleGameEnd();
+        } else {
+            setTimeout(() => {
+                resetRoundAfterDelay();
+            }, 5000);
         }
     };
 
-// Запуск анимации и обновление счёта
+    // Запуск анимации и обновление счёта
     const showGifSequence = () => {
         const timeouts = [];
-        const durations = [0, 2000]; // 2000 мс для анимации
+        const durations = [0, 2000]; // Длительность анимации 2000 мс
 
         durations.forEach((duration, index) => {
             timeouts.push(
@@ -216,24 +233,21 @@ export default function PvpPage() {
             );
         });
 
-        // После завершения анимации обновляем счет
         setTimeout(() => {
             if (roundResult) {
+                // Обновляем счёт только после проигрывания анимации
                 setPlayerScore(roundResult.userVictory);
                 setOpponentScore(roundResult.opponentVictory);
 
-                // Проверяем, окончена ли игра после анимации
                 if (roundResult.finished) {
                     handleGameEnd();
-                } else {
-                    // Иначе продолжаем игру
-                    resetRoundAfterDelay();
                 }
             }
         }, 2000); // Обновляем счет после анимации
 
         return () => timeouts.forEach(timeout => clearTimeout(timeout));
     };
+
 
     const resetRoundAfterDelay = () => {
         setPlayerChoice(10);
