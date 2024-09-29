@@ -14,6 +14,7 @@ export default function Page() {
     const [activeTab, setActiveTab] = useState(1);
     const [userId, setUserId] = useState(null);
     const [stats, setStats] = useState(null);
+    const [totalCoins, setTotalCoins] = useState(0);
 
     const router = useRouter();
 
@@ -31,15 +32,19 @@ export default function Page() {
 
 
     useEffect(() => {
-        if (typeof window !== "undefined") {
+        if (typeof window !== 'undefined') {
             // Получаем init из localStorage
-            const init = JSON.parse(localStorage.getItem("init"));
+            const init = JSON.parse(localStorage.getItem('init'));
             if (init && init.group) {
                 setTeamId(init.group.id); // Устанавливаем команду
-            } else {
-                setTeamId(1)
             }
-        }},[])
+            // Получаем start из localStorage
+            const start = JSON.parse(localStorage.getItem('start'));
+            if (start) {
+                setTotalCoins(start.totalCoins);
+            }
+        }
+    }, []);
 
     function getRandomNumber() {
         return Math.floor(Math.random() * 6) + 1;
@@ -48,7 +53,6 @@ export default function Page() {
         const level = getRandomNumber()
         setLevel(level)
     }, [])
-
 
     // Получение profileId из Telegram WebApp
     useEffect(() => {
@@ -68,7 +72,6 @@ export default function Page() {
         }
     }, []);
 
-
     // Функция для запроса статистики
     const fetchStats = async (profileId) => {
         try {
@@ -80,6 +83,8 @@ export default function Page() {
         }
     };
 
+    // Вычисляем процент для прогресс-бара
+    const progressPercentage = ((totalCoins % 100000) / 100000) * 100;
 
     return(
         <div className={styles.root}>
@@ -134,15 +139,16 @@ export default function Page() {
                                 earn a total of 100 k to get extra games
                             </div>
                             <div className={styles.bar}>
-                                <div className={styles.progress}></div>
+                                <div
+                                    className={styles.progress}
+                                    style={{ width: `${Math.min(progressPercentage, 100)}%` }}
+                                ></div>
                             </div>
-                            <div className={styles.ballanceLabel}>
-                                70K
-                            </div>
+                            <div className={styles.ballanceLabel}>{totalCoins}K</div>
                         </div>
                         <div>
                             <div className={styles.ballanceLabel}>current balance</div>
-                            <div className={styles.balance}> 47000</div>
+                            <div className={styles.balance}>{totalCoins}</div>
                         </div>
                     </div>}
                     {activeTab === 2 && <div className={styles.skinContainer}>
