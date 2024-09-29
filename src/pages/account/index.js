@@ -13,7 +13,12 @@ export default function Page() {
     const [level, setLevel] = useState(1)
     const [activeTab, setActiveTab] = useState(1);
     const [userId, setUserId] = useState(null);
-    const [stats, setStats] = useState(null);
+    const [stats, setStats] = useState({
+        liga: 0,
+        count: 0,
+        victory: 0,
+        lost: 0,
+    });
     const [totalCoins, setTotalCoins] = useState(0);
 
     const router = useRouter();
