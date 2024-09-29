@@ -144,7 +144,7 @@ export default function Page() {
                                     style={{ width: `${Math.min(progressPercentage, 100)}%` }}
                                 ></div>
                             </div>
-                            <div className={styles.ballanceLabel}>{totalCoins}K</div>
+                            <div className={styles.ballanceLabel}>{totalCoins}</div>
                         </div>
                         <div>
                             <div className={styles.ballanceLabel}>current balance</div>
