@@ -179,6 +179,8 @@
 
 .nickname {
   font-size: auto-clamp(12, 24);
+  line-height: auto-clamp(12, 24);
+  white-space: nowrap;
   color: #fff;
   padding-left: 12px;
 }
