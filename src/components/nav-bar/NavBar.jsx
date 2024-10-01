@@ -51,18 +51,18 @@ export const NavBar = () => {
             }
         }
 
-        // Если firstGame нет, делаем запрос к /farm/first-winners
+        // Если firstGame нет, делаем запрос к /farm/last-games
         try {
-            const response = await fetch(`https://supavpn.lol/farm/first-winners?profileId=${userId}`);
+            const response = await fetch(`https://supavpn.lol/farm/last-games?profileId=${userId}`);
             const data = await response.json();
             console.log("Ответ от /farm/first-winners:", data);
 
-            if (data.count < 6) {
+            if (data.session.count < 6) {
                 // Если меньше 6 игр, разрешаем переход на /pvp
                 router.push('/pvp');
             } else {
                 // Если уже сыграно 6 игр, вычисляем время до следующей игры
-                const firstGameTime = new Date(data.firstTime);
+                const firstGameTime = new Date(data.session.firstTime);
                 const now = new Date();
                 const timeDiff = (now - firstGameTime) / (1000 * 60 * 60); // Разница в часах
 
