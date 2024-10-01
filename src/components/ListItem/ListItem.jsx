@@ -1,10 +1,10 @@
 import styles from './Listitem.module.scss'
 import Image from "next/image";
 
-export const ListItem = ({item, index}) => {
+export const ListItem = ({item, index, me}) => {
     return(
         <>
-            <div className={styles.root}>
+            <div className={me ? styles.rootMe : styles.root}>
                 <div className={styles.avatar}>
                     {item.avatar && <Image src={item.avatar} alt={'avatar'} width={40} height={44} /> }
                 </div>

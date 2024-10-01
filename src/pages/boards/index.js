@@ -16,7 +16,11 @@ const bg = '/backgrounds/leaderboardBG.png'
 export default function Page() {
     const [activeIndex, setActiveIndex] = useState(0);
     const [teamId, setTeamId] = useState(1)
-    const [currentWins, setCurrentWins] = useState(19)
+    const [currentWins, setCurrentWins] = useState(0)
+    const [userId, setUserId] = useState(null);
+    const [userName, setUserName] = useState(null);
+    const [balance, setBalance] = useState(0)
+    const [liga, setLiga] = useState(1)
     const router = useRouter();
 
     const ligsLimits = ['10', '25', '50', '100', '250', '500', '500+']
@@ -28,6 +32,10 @@ export default function Page() {
             const init = JSON.parse(localStorage.getItem("init"));
             if (init && init.group) {
                 setTeamId(init.group.id);
+            }
+            const start = JSON.parse(localStorage.getItem('start'));
+            if (start) {
+                setBalance(start.balance)
             }
         }
     }, [])
@@ -43,6 +51,39 @@ export default function Page() {
             };
         }
     }, [router]);
+
+    // Получаем userId из Telegram
+    useEffect(() => {
+        if (typeof window !== 'undefined' && window.Telegram?.WebApp) {
+            const search = window.Telegram.WebApp.initData;
+            const urlParams = new URLSearchParams(search);
+            const userParam = urlParams.get('user');
+
+            if (userParam) {
+                const decodedUserParam = decodeURIComponent(userParam);
+                const userObject = JSON.parse(decodedUserParam);
+                setUserId(userObject.id);
+                setUserName(userObject.username);
+                fetchStats(userObject.id);
+            } else {
+                setUserId(111);
+                setUserName('you');
+                fetchStats(111);
+            }
+        }
+    }, []);
+
+    // Функция для запроса статистики
+    const fetchStats = async (profileId) => {
+        try {
+            const response = await fetch(`https://supavpn.lol/profile/stats?profileId=${profileId}`);
+            const data = await response.json();
+            setCurrentWins(data.victory);
+            setLiga(data.liga)
+        } catch (error) {
+            console.error('Ошибка при получении статистики:', error);
+        }
+    };
 
     const characters ={
         1: [
@@ -78,6 +119,41 @@ export default function Page() {
             { name: 'Syndicate kingpin', icon: '/skins/rg6.png' },
         ],
     };
+
+    function getAvatarAndImageByIndex(index) {
+        let avatar, image;
+
+        switch (index) {
+            case 1:
+                avatar = '/listItemsBG/avaG.png'; // Green
+                image = '/listItemsBG/1grbg.png'; // Green
+                break;
+            case 2:
+                avatar = '/listItemsBG/avaB.png'; // Blue
+                image = '/listItemsBG/2bvbg.png'; // Blue
+                break;
+            case 3:
+                avatar = '/listItemsBG/avaY.png'; // Yellow
+                image = '/listItemsBG/3yfbg.png'; // Yellow
+                break;
+            case 4:
+                avatar = '/listItemsBG/avaR.png'; // Red
+                image = '/listItemsBG/4rrbg.png'; // Red
+                break;
+            default:
+                throw new Error("Invalid index. Must be between 1 and 4.");
+        }
+
+        return { avatar, image };
+    }
+    const result = getAvatarAndImageByIndex(teamId);
+
+    const Me = {
+        avatar: result.avatar,
+        nickname: userName,
+        sum: balance,
+        image: result.image
+    }
 
     const swiperRef = useRef(null);
     const handleSlidePrev = () => {
@@ -147,6 +223,9 @@ export default function Page() {
             <Image src={bg} alt={''} className={styles.bg} width={450} height={1000} />
             <div className={styles.container}>
                 {ratingData[activeIndex].map((item, index) => <ListItem key={index} item={item} index={index+1} />)}
+                {activeIndex + 1 === 1 && <div className={styles.me}>
+                    <ListItem item={Me} index={187} me={true}/>
+                </div>}
             </div>
         </div>
     )
