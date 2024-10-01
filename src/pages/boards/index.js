@@ -67,7 +67,7 @@ export default function Page() {
                 setUserName(userObject.username);
                 fetchStats(userObject.id);
                 const result = getAvatarAndImageByIndex(teamId);
-                fetch(`/api/getAvatar?userId=${userId}`)
+                fetch(`/api/getAvatar?userId=${userObject.id}`)
                     .then((res) => res.json())
                     .then((data) => {
                         if (data.avatar) {
