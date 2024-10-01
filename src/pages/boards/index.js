@@ -21,6 +21,7 @@ export default function Page() {
     const [userName, setUserName] = useState(null);
     const [balance, setBalance] = useState(0)
     const [liga, setLiga] = useState(1)
+    const [userAvatar, setUserAvatar] = useState(null)
     const router = useRouter();
 
     const ligsLimits = ['10', '25', '50', '100', '250', '500', '500+']
@@ -65,6 +66,20 @@ export default function Page() {
                 setUserId(userObject.id);
                 setUserName(userObject.username);
                 fetchStats(userObject.id);
+                const result = getAvatarAndImageByIndex(teamId);
+                fetch(`/api/getAvatar?userId=${userObject.id}`)
+                    .then((res) => res.json())
+                    .then((data) => {
+                        if (data.avatar) {
+                            setUserAvatar(data.avatar);
+                        } else {
+                            setUserAvatar(result.avatar);
+                        }
+                    })
+                    .catch((error) => {
+                        console.error('Error fetching avatar:', error);
+                        setUserAvatar(result.avatar);
+                    });
             } else {
                 setUserId(111);
                 setUserName('you');
@@ -149,7 +164,7 @@ export default function Page() {
     const result = getAvatarAndImageByIndex(teamId);
 
     const Me = {
-        avatar: result.avatar,
+        avatar: userAvatar,
         nickname: userName,
         sum: balance,
         image: result.image
