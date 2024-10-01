@@ -13,6 +13,7 @@ export default function Page() {
     const [level, setLevel] = useState(1)
     const [activeTab, setActiveTab] = useState(1);
     const [userId, setUserId] = useState(null);
+    const [userName, setUserName] = useState(null);
     const [stats, setStats] = useState({
         liga: 0,
         count: 0,
@@ -20,6 +21,7 @@ export default function Page() {
         lost: 0,
     });
     const [totalCoins, setTotalCoins] = useState(0);
+    const [balance, setBalance] = useState(0)
 
     const router = useRouter();
 
@@ -47,6 +49,26 @@ export default function Page() {
             const start = JSON.parse(localStorage.getItem('start'));
             if (start) {
                 setTotalCoins(start.totalCoins);
+                setBalance(start.balance)
+            }
+        }
+    }, []);
+
+    // Получаем userId из Telegram
+    useEffect(() => {
+        if (typeof window !== 'undefined' && window.Telegram?.WebApp) {
+            const search = window.Telegram.WebApp.initData;
+            const urlParams = new URLSearchParams(search);
+            const userParam = urlParams.get('user');
+
+            if (userParam) {
+                const decodedUserParam = decodeURIComponent(userParam);
+                const userObject = JSON.parse(decodedUserParam);
+                setUserId(userObject.id);  // Сохраняем userId
+                setUserName(userObject.username);
+            } else {
+                setUserId(111);  // Если userId не найден, используем 111 по умолчанию
+                setUserName('you');
             }
         }
     }, []);
@@ -122,7 +144,7 @@ export default function Page() {
                     </div>
                     {activeTab === 1 &&<div className={styles.personalContainer}>
                         <div className={styles.nickname}>
-                            tupacshakur
+                            {userName}
                         </div>
                         <div className={styles.stats}>
                             <div className={styles.nickname}>League {stats?.liga}</div>
@@ -136,7 +158,7 @@ export default function Page() {
                                 defeats <p>{stats.lost}</p>
                             </div>
                             <div className={styles.stat}>
-                                winrate <p>{((stats.victory / stats.count) * 100).toFixed(2)}%</p>
+                                winrate <p>{stats.count === 0 ? '0%' : `${((stats.victory / stats.count) * 100).toFixed(2)}%`}</p>
                             </div>
                         </div>
                         <div className={styles.barBlock}>
@@ -153,7 +175,7 @@ export default function Page() {
                         </div>
                         <div>
                             <div className={styles.ballanceLabel}>current balance</div>
-                            <div className={styles.balance}>{totalCoins}</div>
+                            <div className={styles.balance}>{balance}</div>
                         </div>
                     </div>}
                     {activeTab === 2 && <div className={styles.skinContainer}>

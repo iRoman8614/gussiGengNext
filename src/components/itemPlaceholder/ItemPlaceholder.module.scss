@@ -24,10 +24,11 @@
 }
 
 .title {
-  font-size: auto-clamp(12, 16);
+  font-size: auto-clamp(16, 22);
   color: #fff;
   text-align: center;
   background: rgba(104, 110, 166, 0.6);
   border-radius: 5px;
   width: 100%;
+  padding: 3px;
 }

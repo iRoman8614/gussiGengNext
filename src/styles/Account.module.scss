@@ -131,7 +131,7 @@
   width: 60%;
   border-radius: 15px 15px 0 0;
   padding-top: auto-clamp(8, 5);
-  font-size: auto-clamp(16, 20);
+  font-size: auto-clamp(20, 24);
   position: relative;
   z-index: 110;
 }
@@ -178,7 +178,7 @@
 }
 
 .nickname {
-  font-size: auto-clamp(12, 24);
+  font-size: auto-clamp(16, 30);
   line-height: auto-clamp(12, 24);
   white-space: nowrap;
   color: #fff;
@@ -209,14 +209,14 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: auto-clamp(12, 15);
+  font-size: auto-clamp(16, 20);
 
   &:last-child {
     border-right: none;
   }
 
   p {
-    font-size: auto-clamp(16, 20);
+    font-size: auto-clamp(20, 24);
     padding: 0;
     margin: 0;
   }
@@ -247,7 +247,7 @@
 
 
 .ballanceLabel {
-  font-size: auto-clamp(14, 20);
+  font-size: auto-clamp(18, 24);
   color: #fff;
   max-width: 360px;
   text-align: left;

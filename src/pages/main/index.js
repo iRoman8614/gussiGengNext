@@ -22,7 +22,8 @@ const background = '/backgrounds/nightcity.png'
 export default function Home() {
     const router = useRouter();
     const [totalCoins, setTotalCoins] = useState(0);
-    const [currentFarmCoins, setCurrentFarmCoins] = useState(0);
+    const [balance, setBalance] = useState(0)
+    const [currentFarmCoins, setCurrentFarmCoins] = useState(1000);
     const [rate, setRate] = useState(1);
     const [limit, setLimit] = useState(3600)
     const [startFarmTime, setStartFarmTime] = useState(Date.now());
@@ -45,6 +46,7 @@ export default function Home() {
                 setTotalCoins(start.totalCoins);
                 setRate(start.rate);
                 setLimit(start.limit);
+                setBalance(start.balance)
                 setStartFarmTime(new Date(start.startTime).getTime()); // Преобразуем startTime в миллисекунды
             }
 
@@ -121,10 +123,12 @@ export default function Home() {
                 const updatedStartTotalCoins = Math.max(startData.totalCoins, 0); // Проверяем totalCoins
                 const updatedRate = Math.max(startData.rate, 0); // Проверяем rate, если он может быть отрицательным
                 const updatedLimit = Math.max(startData.limit, 0); // Проверяем limit, если он может быть отрицательным
+                const updatedBalance = Math.max(startData.balance, 0)
 
                 setTotalCoins(updatedStartTotalCoins);
                 setRate(updatedRate);
                 setLimit(updatedLimit);
+                setBalance(updatedBalance)
                 setStartFarmTime(new Date(startData.startTime).getTime());
 
                 // Сохраняем в localStorage данные
@@ -135,6 +139,7 @@ export default function Home() {
                         startTime: new Date(startData.startTime).toISOString(),
                         rate: updatedRate,
                         limit: updatedLimit,
+                        balance: updatedBalance,
                     })
                 );
             } catch (error) {
@@ -184,7 +189,7 @@ export default function Home() {
             </div>
             <div className={styles.item5}>
                 <Image src={border} width={600} height={200} alt={'border'} className={styles.totalBarRoot}/>
-                <div className={styles.totalText}>{formatNumberFromEnd(totalCoins)}</div>
+                <div className={styles.totalText}>{formatNumberFromEnd(balance)}</div>
             </div>
             <div className={styles.item6}>
                 <IconButton image={wallet} alt={'wallet'} title={'wallet'}/>

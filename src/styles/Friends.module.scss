@@ -93,7 +93,7 @@
 
 .sign {
   margin: 3px 0 18px 8px;
-  font-size: 15px;
+  font-size: 22px;
   color: #fff;
 }
 
@@ -106,13 +106,13 @@
 .btnInvite, .btnCopy {
   border-radius: 11px;
   border: none;
-  background: rgba(255, 181, 39, 0.79);
-  stroke-width: 2px;
-  stroke: rgba(0, 0, 0, 0.39);
-  box-shadow: 0 5px 0 0 #1d002f;
   cursor: pointer;
   transition: transform 0.2s ease-in-out;
   padding-bottom: 6px;
+  background: linear-gradient(180deg, #c78100 0%, #e4aa39 50.3%, #c78100 100%);
+  stroke-width: 2px;
+  stroke: rgba(0, 0, 0, 0.39);
+  box-shadow: 0 5px 0 0 #69470d;
 }
 
 .btnCopy {
@@ -123,7 +123,7 @@
 .btnInvite {
   max-width: 400px;
   width: 100%;
-  font-size: 40px;
+  font-size: 50px;
   color: rgba(255,255,255);
 
   animation: pulse 1.5s infinite;

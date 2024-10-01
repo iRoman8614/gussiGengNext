@@ -96,6 +96,7 @@ export default function LoaderPage() {
                         startTime: data.startTime,
                         rate: data.rate,
                         limit: data.limit,
+                        balance: data.balance
                     };
                     localStorage.setItem('start', JSON.stringify(startData));
                     // Перенаправляем на страницу выдачи команды /getRandom
