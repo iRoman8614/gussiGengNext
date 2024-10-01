@@ -172,6 +172,34 @@ export default function Page() {
         setActiveIndex(swiper.realIndex);
     };
 
+    let startIndex = 1; // Начальный индекс
+
+// Первые элементы (все, кроме двух последних)
+    const firstPart = ratingData[activeIndex].slice(0, -2).map((item, index) => {
+        const listItemIndex = startIndex + index; // Используем начальный индекс
+        return <ListItem key={listItemIndex} item={item} index={listItemIndex} />;
+    });
+
+    startIndex += ratingData[activeIndex].length - 2; // Обновляем стартовый индекс для следующих элементов
+
+// Условие для добавления "Me"
+    const meElement = activeIndex + 1 === 1 && (
+        <div className={styles.me}>
+            <ListItem item={Me} index={startIndex} me={true} />
+        </div>
+    );
+
+// Увеличиваем индекс на 1 для элемента "Me", если он добавлен
+    if (activeIndex + 1 === 1) {
+        startIndex++;
+    }
+
+// Последние два элемента
+    const lastPart = ratingData[activeIndex].slice(-2).map((item, index) => {
+        const listItemIndex = startIndex + index; // Продолжаем увеличивать индекс
+        return <ListItem key={listItemIndex} item={item} index={listItemIndex} />;
+    });
+
     return(
         <div className={styles.root}>
             <div className={styles.containerSwiper}>
@@ -222,10 +250,9 @@ export default function Page() {
             <div className={styles.winsCounter}>{`wins ${currentWins}/${ligsLimits[activeIndex]}`}</div>
             <Image src={bg} alt={''} className={styles.bg} width={450} height={1000} />
             <div className={styles.container}>
-                {ratingData[activeIndex].map((item, index) => <ListItem key={index} item={item} index={index+1} />)}
-                {activeIndex + 1 === 1 && <div className={styles.me}>
-                    <ListItem item={Me} index={187} me={true}/>
-                </div>}
+                {firstPart}
+                {meElement}
+                {lastPart}
             </div>
         </div>
     )
