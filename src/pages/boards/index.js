@@ -67,7 +67,7 @@ export default function Page() {
                 setUserName(userObject.username);
                 fetchStats(userObject.id);
                 const result = getAvatarAndImageByIndex(teamId);
-                fetch(`/api/getAvatar?userId=557540399`)
+                fetch(`/api/getAvatar?userId=${userId}`)
                     .then((res) => res.json())
                     .then((data) => {
                         if (data.avatar) {
@@ -81,33 +81,12 @@ export default function Page() {
                         setUserAvatar(result.avatar);
                     });
             } else {
-                setUserId(557540399);
+                setUserId(111);
                 setUserName('you');
-                fetchStats(557540399);
+                fetchStats(111);
             }
         }
     }, []);
-
-    // Получаем userId из Telegram
-    useEffect(() => {
-        if (typeof window !== 'undefined') {
-            const result = getAvatarAndImageByIndex(teamId);
-            fetch(`/api/getAvatar?userId=557540399`)
-                .then((res) => res.json())
-                .then((data) => {
-                    if (data.avatar) {
-                        setUserAvatar(data.avatar);
-                    } else {
-                        setUserAvatar(result.avatar);
-                    }
-                })
-                .catch((error) => {
-                    console.error('Error fetching avatar:', error);
-                    setUserAvatar(result.avatar);
-                });
-        }
-    }, []);
-
 
     // Функция для запроса статистики
     const fetchStats = async (profileId) => {
