@@ -5,8 +5,8 @@ export const ListItem = ({item, index, me}) => {
     return(
         <>
             <div className={me ? styles.rootMe : styles.root}>
-                <div className={styles.avatar}>
-                    {item.avatar && <Image src={item.avatar} alt={'avatar'} width={40} height={44} /> }
+                <div>
+                    {item.avatar && <Image className={styles.avatar} src={item.avatar} alt={'avatar'} width={40} height={44} /> }
                 </div>
                 <div className={styles.container}>
                     <Image className={styles.bg} src={item.image} alt={''} width={450} height={65} />
