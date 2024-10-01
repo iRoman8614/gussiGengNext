@@ -31,8 +31,10 @@ export default function Page() {
         if (typeof window !== "undefined") {
             // Получаем init из localStorage
             const init = JSON.parse(localStorage.getItem("init"));
+            const result = getAvatarAndImageByIndex(teamId);
             if (init && init.group) {
                 setTeamId(init.group.id);
+                setUserAvatar(result.avatar);
             }
             const start = JSON.parse(localStorage.getItem('start'));
             if (start) {
@@ -66,19 +68,16 @@ export default function Page() {
                 setUserId(userObject.id);
                 setUserName(userObject.username);
                 fetchStats(userObject.id);
-                const result = getAvatarAndImageByIndex(teamId);
+
                 fetch(`/api/getAvatar?userId=${userObject.id}`)
                     .then((res) => res.json())
                     .then((data) => {
                         if (data.avatar) {
                             setUserAvatar(data.avatar);
-                        } else {
-                            setUserAvatar(result.avatar);
                         }
                     })
                     .catch((error) => {
                         console.error('Error fetching avatar:', error);
-                        setUserAvatar(result.avatar);
                     });
             } else {
                 setUserId(111);
