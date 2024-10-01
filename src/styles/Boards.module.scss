@@ -176,6 +176,7 @@
   z-index: 2;
   text-align: center;
   padding: 10px 20px;
+  white-space: nowrap;
 }
 
 .navigation {
@@ -212,7 +213,7 @@
   cursor: pointer;
   color: white;
   rotate: 180deg;
-  margin-right: 8px;
+  margin-right: 6px;
 }
 
 .navLeft {
@@ -222,7 +223,7 @@
   font-size: 30px;
   cursor: pointer;
   color: white;
-  margin-left: 8px;
+  margin-left: 6px;
 }
 
 @media (min-width: 361px) and (max-width: 400px) {
