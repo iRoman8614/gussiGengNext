@@ -120,7 +120,7 @@ export default function Home() {
                 console.log("Ответ от /farm/start:", startData);
 
                 // Обновляем состояния, также проверяя на отрицательные значения
-                const updatedStartTotalCoins = Math.max(startData.totalCoins, 0); // Проверяем totalCoins
+                const updatedStartTotalCoins = Math.max(startData.totalBalance, 0); // Проверяем totalCoins
                 const updatedRate = Math.max(startData.rate, 0); // Проверяем rate, если он может быть отрицательным
                 const updatedLimit = Math.max(startData.limit, 0); // Проверяем limit, если он может быть отрицательным
                 const updatedBalance = Math.max(startData.balance, 0)
