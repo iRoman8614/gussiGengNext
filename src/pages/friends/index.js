@@ -114,10 +114,7 @@ export default function Page() {
         }
 
         if (window.Telegram?.WebApp?.switchInlineQuery) {
-            window.Telegram.WebApp.switchInlineQuery("Join me in this awesome game!", {
-                allow_user_chats: true,
-                allow_group_chats: true
-            });
+            window.Telegram.WebApp.switchInlineQuery("Join me in this awesome game!", ['users', 'groups']);
         } else {
             console.error("switchInlineQuery is not available in Telegram Web App");
         }
