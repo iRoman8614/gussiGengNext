@@ -1,8 +1,9 @@
+@import './_utils';
+
 .root {
   max-width: 450px;
   min-width: 320px;
   position: relative;
-  background: black;
   height: 100vh;
 }
 
@@ -11,14 +12,39 @@
   top: -10px;
   left: 0;
   object-fit: cover;
+  z-index: -1;
+  background: #0d112e;
 }
 
 .container {
-  position: absolute;
   width: 100%;
-  z-index: 100;
   padding: 35px 20px;
-  bottom: 0;
+  height: 100vh;
+}
+
+.hintBlock {
+  border-radius: 11px;
+  width: 100%;
+  height: 40%;
+  background: #38246f;
+  opacity: 0.8;
+  padding: 20px;
+  display: flex;
+  gap: auto-clamp(5, 20);
+  flex-direction: column;
+  justify-content: space-between;
+  color: #FFFFFF;
+  font-size: auto-clamp(12, 18);
+}
+
+.important {
+  margin-top: auto-clamp(0, 20);
+  text-align: center;
+}
+
+.point {
+  color: #FFCC26;
+  font-size: auto-clamp(12, 18);
 }
 
 .title {
@@ -26,7 +52,8 @@
   color: #fff;
   width: 100%;
   text-align: center;
-  margin-bottom: 28px;
+  margin-top: auto-clamp(8, 28);
+  margin-bottom: auto-clamp(8, 28);
 
   transform: translateX(100%);
   opacity: 0;
@@ -47,13 +74,14 @@
 .block {
   border-radius: 11px;
   width: 100%;
-  height: 417px;
+  height: 50%;
   background: #38246f;
   opacity: 0.8;
   padding: 22px 11px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  margin-bottom: 5px;
 
 
   transform: scale(0.5);
@@ -82,6 +110,39 @@
   display: flex;
 }
 
+.barComplited {
+  border: 3px solid rgba(0, 0, 0, 0.39);
+  border-radius: 20px;
+  width: 100%;
+  height: 20px;
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+  background: linear-gradient(180deg, #ffcc26 0%, #ffcc26 100%);
+  opacity: 0.7;
+  display: flex;
+  text-align: center;
+  color: #FFFFFF;
+
+  a {
+    padding: 0;
+    margin: auto;
+    font-size: 18px;
+    font-weight: 300;
+  }
+
+  animation: pulseComplited 1.5s infinite;
+  @keyframes pulseComplited {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.01);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+}
+
 .barItem {
   border-radius: 17px;
   width: 33.3%;
@@ -92,12 +153,24 @@
 }
 
 .sign {
-  margin: 3px 0 18px 8px;
+  margin: 3px 0 auto-clamp(5, 18) 8px;
   font-size: 22px;
   color: #fff;
 }
 
+.list {
+  max-height: 300px;
+  overflow-y: scroll;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
 .buttonset {
+  margin-top: 10px;
   display: flex;
   justify-content: space-between;
   gap: 6px;
@@ -140,6 +213,8 @@
     }
   }
 }
+
+
 
 
 @media (max-width: 360px) {

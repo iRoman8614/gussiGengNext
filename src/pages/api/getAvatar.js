@@ -16,6 +16,7 @@ export default async function handler(req, res) {
         const response = await fetch(telegramApiUrl);
         const data = await response.json();
 
+        let avatar = null;
         if (data.ok && data.result.total_count > 0) {
             const fileId = data.result.photos[0][0].file_id;
 
@@ -25,15 +26,23 @@ export default async function handler(req, res) {
             const fileData = await fileResponse.json();
 
             if (fileData.ok) {
-                // Правильный путь к файлу
-                const fileUrl = `https://api.telegram.org/file/bot${botToken}/${fileData.result.file_path}`;
-                return res.status(200).json({ avatar: fileUrl });
+                avatar = `https://api.telegram.org/file/bot${botToken}/${fileData.result.file_path}`;
             }
         }
 
-        return res.status(404).json({ error: 'Avatar not found' });
+        // Запрос для получения информации о пользователе (например, никнейм)
+        const chatInfoUrl = `https://api.telegram.org/bot${botToken}/getChat?chat_id=${userId}`;
+        const chatInfoResponse = await fetch(chatInfoUrl);
+        const chatInfoData = await chatInfoResponse.json();
+
+        let nickname = null;
+        if (chatInfoData.ok && chatInfoData.result) {
+            nickname = chatInfoData.result.username || chatInfoData.result.first_name || 'Unknown';
+        }
+
+        return res.status(200).json({ avatar, nickname });
     } catch (error) {
-        console.error('Error fetching avatar:', error);
+        console.error('Error fetching avatar or nickname:', error);
         return res.status(500).json({ error: 'Internal Server Error' });
     }
 }
