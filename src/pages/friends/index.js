@@ -61,6 +61,10 @@ export default function Page() {
                 setUserId(111);
                 setUserName('you');
             }
+
+            // Получаем платформу
+            const platform = window.Telegram.WebApp.platform;
+            console.log("Telegram WebApp Platform: ", platform);
         }
     }, []);
     const filteredFriends = friends.filter(friend => friend.id !== userId);
@@ -110,7 +114,10 @@ export default function Page() {
         }
 
         if (window.Telegram?.WebApp?.switchInlineQuery) {
-            window.Telegram.WebApp.switchInlineQuery("Join me in this awesome game!", ["users", "groups"]);
+            window.Telegram.WebApp.switchInlineQuery("Join me in this awesome game!", {
+                allow_user_chats: true,
+                allow_group_chats: true
+            });
         } else {
             console.error("switchInlineQuery is not available in Telegram Web App");
         }
