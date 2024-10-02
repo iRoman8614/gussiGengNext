@@ -138,7 +138,7 @@ export default function Page() {
                 <Image src={dialog} className={styles.dialogImage} width={200} height={100} alt={''} />
                 <div className={styles.text}>pick a card</div>
             </div>
-            <Image src={person} className={styles.person} width={450} height={1000} alt={''} />
+            <Image src={person} className={styles.person} width={450} height={1000} alt={''} priority />
             <div className={styles.cardSet}>
                 <Image
                     src={oneCard}
@@ -153,6 +153,7 @@ export default function Page() {
                                 ? styles.oneCard1FirstClick
                                 : styles.oneCard1SecondClick
                     }
+                    priority
                     onClick={handleClick1} />
                 <Image
                     src={oneCard}
@@ -167,6 +168,7 @@ export default function Page() {
                                 ? styles.oneCard2FirstClick
                                 : styles.oneCard2SecondClick
                     }
+                    priority
                     onClick={handleClick2} />
                 <Image
                     src={oneCard}
@@ -181,6 +183,7 @@ export default function Page() {
                                 ? styles.oneCard3FirstClick
                                 : styles.oneCard3SecondClick
                     }
+                    priority
                     onClick={handleClick3} />
                 <Image
                     src={oneCard}
@@ -195,9 +198,10 @@ export default function Page() {
                                 ? styles.oneCard4FirstClick
                                 : styles.oneCard4SecondClick
                     }
+                    priority
                     onClick={handleClick4} />
             </div>
-            <Image src={hand} className={styles.hand} width={450} height={1000} alt={''} />
+            <Image src={hand} className={styles.hand} width={450} height={1000} alt={''} priority />
             <ShownCard state={showCard} teamId={teamId} />
         </div>
     )
