@@ -179,20 +179,22 @@ export default function Page() {
                         </div>
                     </div>}
                     {activeTab === 2 && <div className={styles.skinContainer}>
-                        <ItemPlaceholder />
-                        <ItemPlaceholder />
-                        <ItemPlaceholder />
-                        <ItemPlaceholder />
-                        <ItemPlaceholder />
-                        <ItemPlaceholder />
-                        <ItemPlaceholder />
-                        <ItemPlaceholder />
-                        <ItemPlaceholder />
-                        <ItemPlaceholder />
-                        <ItemPlaceholder />
-                        <ItemPlaceholder />
-                        <ItemPlaceholder />
-                        <ItemPlaceholder />
+                        <div className={styles.list}>
+                            <ItemPlaceholder />
+                            <ItemPlaceholder />
+                            <ItemPlaceholder />
+                            <ItemPlaceholder />
+                            <ItemPlaceholder />
+                            <ItemPlaceholder />
+                            <ItemPlaceholder />
+                            <ItemPlaceholder />
+                            <ItemPlaceholder />
+                            <ItemPlaceholder />
+                            <ItemPlaceholder />
+                            <ItemPlaceholder />
+                            <ItemPlaceholder />
+                            <ItemPlaceholder />
+                        </div>
                     </div>}
                 </div>
             </div>

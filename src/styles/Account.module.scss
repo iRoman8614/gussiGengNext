@@ -154,27 +154,35 @@
 }
 
 .skinContainer {
-  position: relative;
-  padding: auto-clamp(10, 5);
   width: 100%;
-  max-height: auto-clamp(280, 460);
-  height: auto;
   background: rgba(56,36,111, 0.8);
   backdrop-filter: blur(7px);
-  border-radius: 12px 12px 12px 12px;
+  border-radius: 0 12px 12px 12px;
   border: 2px solid #3842a4;
   z-index: 111;
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 300px);
   overflow-y: scroll;
   scrollbar-width: none;
   -ms-overflow-style: none;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  justify-items: center;
-  gap: 10px;
 
   &::-webkit-scrollbar {
     display: none;
   }
+}
+
+.list {
+  width: auto;
+  height: 100%;
+  margin: 25px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  justify-items: center;
+  gap: 10px;
+  overflow-y: scroll;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
 .nickname {
