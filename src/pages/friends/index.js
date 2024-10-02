@@ -109,19 +109,23 @@ export default function Page() {
     };
 
     const inviteClick = () => {
-        if (window.Telegram?.WebApp?.HapticFeedback) {
-            window.Telegram.WebApp.HapticFeedback.impactOccurred('heavy');
+        const tg = window.Telegram.WebApp;
+
+        // Ваша ссылка на бота
+        const inviteLink = "https://t.me/vodoleyservicebot";
+        // Текст приглашения
+        const inviteMessage = `Join me in this awesome game! ${inviteLink}`;
+
+        // Проверяем наличие Haptic Feedback и инициируем вибрацию
+        if (tg.HapticFeedback) {
+            tg.HapticFeedback.impactOccurred('heavy');
         }
 
-        const linkToCopy = "https://t.me/vodoleyservicebot";
-        const textToShare = `Присоединяйтесь к нашему боту: ${linkToCopy}`;
-
-        if (window.Telegram?.WebApp?.shareText) {
-            window.Telegram.WebApp.shareText(textToShare);
-        } else if (window.Telegram?.WebApp?.switchInlineQuery) {
-            window.Telegram.WebApp.switchInlineQuery(textToShare, ['users', 'groups']);
+        // Проверяем доступность метода switchInlineQuery и отправляем приглашение
+        if (tg.switchInlineQuery) {
+            tg.switchInlineQuery(inviteMessage, ['users', 'groups']); // Отправляем текст с ссылкой в выбранные диалоги
         } else {
-            console.error("Neither shareText nor switchInlineQuery is available in Telegram Web App");
+            console.error("switchInlineQuery is not available in Telegram Web App");
         }
     };
 
