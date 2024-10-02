@@ -113,10 +113,13 @@ export default function Page() {
             window.Telegram.WebApp.HapticFeedback.impactOccurred('heavy');
         }
 
-        if (window.Telegram?.WebApp?.switchInlineQuery) {
+        if (window.Telegram?.WebApp?.openLink) {
+            const link = `https://t.me/your_bot_username?start=invite`; // замените на вашу ссылку
+            window.Telegram.WebApp.openLink(link);
+        } else if (window.Telegram?.WebApp?.switchInlineQuery) {
             window.Telegram.WebApp.switchInlineQuery("Join me in this awesome game!", ['users', 'groups']);
         } else {
-            console.error("switchInlineQuery is not available in Telegram Web App");
+            console.error("Neither openLink nor switchInlineQuery is available in Telegram Web App");
         }
     };
 
