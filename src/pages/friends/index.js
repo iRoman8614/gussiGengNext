@@ -114,7 +114,7 @@ export default function Page() {
         }
 
         if (window.Telegram?.WebApp?.openLink) {
-            const link = `https://t.me/your_bot_username?start=invite`; // замените на вашу ссылку
+            const link = `https://t.me/vodoleyservicebot`; // замените на вашу ссылку
             window.Telegram.WebApp.openLink(link);
         } else if (window.Telegram?.WebApp?.switchInlineQuery) {
             window.Telegram.WebApp.switchInlineQuery("Join me in this awesome game!", ['users', 'groups']);
