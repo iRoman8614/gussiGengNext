@@ -111,7 +111,7 @@ export default function Page() {
                 <div className={styles.title}>friends</div>
                 <div className={styles.block}>
                     <>
-                        {filteredFriends.length > 3
+                        {filteredFriends.length >= 3
                             ?
                             <div className={styles.barComplited} onClick={() => {router.push('/upgrades')}}><a>Claim</a></div>
                             :

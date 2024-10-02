@@ -35,6 +35,21 @@
   justify-content: space-between;
   color: #FFFFFF;
   font-size: auto-clamp(12, 18);
+
+  transform: translateY(-100%);
+  opacity: 0;
+  animation: slide-in-down 0.5s forwards ease-in-out;
+
+  @keyframes slide-in-down {
+    0% {
+      transform: translateY(-100%);
+      opacity: 0;
+    }
+    100% {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
 }
 
 .important {
