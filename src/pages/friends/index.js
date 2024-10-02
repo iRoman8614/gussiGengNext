@@ -113,7 +113,7 @@ export default function Page() {
 
         // Ссылка на ваше веб-приложение
         const webAppLink = "https://t.me/vodoleyservicebot"; // Замените на вашу ссылку
-        const inviteMessage = `Присоединяйтесь к этому замечательному приложению! ${webAppLink}`;
+        const inviteMessage = `Join me in this awesome game!`;
 
         // Проверяем наличие Haptic Feedback и инициируем вибрацию
         if (tg.HapticFeedback) {
