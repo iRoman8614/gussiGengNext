@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {useRouter} from "next/router";
 import Image from "next/image";
+import { toast } from 'react-toastify';
 import {ListItem} from "@/components/ListItem/ListItem";
 
 import styles from '@/styles/Friends.module.scss'
@@ -77,25 +78,43 @@ export default function Page() {
     }, [router]);
 
     const handleClick = () => {
-        if (window.Telegram?.WebApp?.HapticFeedback) {
-            window.Telegram.WebApp.HapticFeedback.impactOccurred('heavy');
+        const linkToCopy = "https://t.me/vodoleyservicebot";
+
+        if (navigator.clipboard) {
+            navigator.clipboard.writeText(linkToCopy)
+                .then(() => {
+                    toast.success('Copied!', {
+                        position: "bottom-center",
+                        autoClose: 1000, // 1 секунда
+                        hideProgressBar: true,
+                        closeOnClick: true,
+                        pauseOnHover: false,
+                        draggable: false,
+                    });
+
+                    if (window.Telegram?.WebApp?.HapticFeedback) {
+                        window.Telegram.WebApp.HapticFeedback.impactOccurred('light');
+                    }
+                })
+                .catch((error) => {
+                    console.error('Failed to copy the link:', error);
+                });
+        } else {
+            console.error('Clipboard API is not available');
         }
-    }
+    };
 
     const inviteClick = () => {
         if (window.Telegram?.WebApp?.HapticFeedback) {
             window.Telegram.WebApp.HapticFeedback.impactOccurred('heavy');
         }
-        // Проверяем наличие ShareButton в WebApp API
-        if (window.Telegram?.WebApp?.ShareButton) {
-            window.Telegram.WebApp.ShareButton.show({
-                url: "https://t.me/vodoleyservicebot", // Ссылка на твоего бота
-                text: "Join me in this awesome game! Let's play together!", // Текст приглашения на английском
-            });
+
+        if (window.Telegram?.WebApp?.switchInlineQuery) {
+            window.Telegram.WebApp.switchInlineQuery("Join me in this awesome game!", ["users", "groups"]);
         } else {
-            console.error("ShareButton is not available in Telegram Web App");
+            console.error("switchInlineQuery is not available in Telegram Web App");
         }
-    }
+    };
 
     return(
         <div className={styles.root}>
