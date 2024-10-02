@@ -86,12 +86,11 @@ export default function Page() {
         if (window.Telegram?.WebApp?.HapticFeedback) {
             window.Telegram.WebApp.HapticFeedback.impactOccurred('heavy');
         }
-
         // Проверяем наличие ShareButton в WebApp API
         if (window.Telegram?.WebApp?.ShareButton) {
             window.Telegram.WebApp.ShareButton.show({
-                url: "https://your-app-url.com",
-                text: "Invite your friends to join this awesome game!",
+                url: "https://t.me/vodoleyservicebot", // Ссылка на твоего бота
+                text: "Join me in this awesome game! Let's play together!", // Текст приглашения на английском
             });
         } else {
             console.error("ShareButton is not available in Telegram Web App");
