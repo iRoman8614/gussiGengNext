@@ -111,22 +111,18 @@ export default function Page() {
     const inviteClick = () => {
         const tg = window.Telegram.WebApp;
 
-        // Ваша ссылка на бота
-        const inviteLink = "https://t.me/vodoleyservicebot";
-        // Текст приглашения
-        const inviteMessage = `Join me in this awesome game! ${inviteLink}`;
+        // Ссылка на ваше веб-приложение
+        const webAppLink = "https://t.me/vodoleyservicebot"; // Замените на вашу ссылку
+        const inviteMessage = `Присоединяйтесь к этому замечательному приложению! ${webAppLink}`;
 
         // Проверяем наличие Haptic Feedback и инициируем вибрацию
         if (tg.HapticFeedback) {
             tg.HapticFeedback.impactOccurred('heavy');
         }
 
-        // Проверяем доступность метода switchInlineQuery и отправляем приглашение
-        if (tg.switchInlineQuery) {
-            tg.switchInlineQuery(inviteMessage, ['users', 'groups']); // Отправляем текст с ссылкой в выбранные диалоги
-        } else {
-            console.error("switchInlineQuery is not available in Telegram Web App");
-        }
+        // Открываем стандартный попап для отправки сообщения
+        const shareLink = `https://t.me/share/url?url=${encodeURIComponent(webAppLink)}&text=${encodeURIComponent(inviteMessage)}`;
+        window.open(shareLink, '_blank'); // Открытие попапа
     };
 
     return(
