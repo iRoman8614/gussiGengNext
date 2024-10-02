@@ -113,13 +113,15 @@ export default function Page() {
             window.Telegram.WebApp.HapticFeedback.impactOccurred('heavy');
         }
 
-        if (window.Telegram?.WebApp?.openLink) {
-            const link = `https://t.me/vodoleyservicebot`; // замените на вашу ссылку
-            window.Telegram.WebApp.openLink(link);
+        const linkToCopy = "https://t.me/vodoleyservicebot";
+        const textToShare = `Присоединяйтесь к нашему боту: ${linkToCopy}`;
+
+        if (window.Telegram?.WebApp?.shareText) {
+            window.Telegram.WebApp.shareText(textToShare);
         } else if (window.Telegram?.WebApp?.switchInlineQuery) {
-            window.Telegram.WebApp.switchInlineQuery("Join me in this awesome game!", ['users', 'groups']);
+            window.Telegram.WebApp.switchInlineQuery(textToShare, ['users', 'groups']);
         } else {
-            console.error("Neither openLink nor switchInlineQuery is available in Telegram Web App");
+            console.error("Neither shareText nor switchInlineQuery is available in Telegram Web App");
         }
     };
 
