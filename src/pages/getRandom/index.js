@@ -8,7 +8,10 @@ const bg = '/backgrounds/randomBG.png'
 const person = '/random/person.png'
 const hand = '/random/hand.png'
 const dialog = '/random/dialog.png'
+const dialog2 = '/random/dialog2.png'
 const oneCard = '/random/oneCard.png'
+
+import gangs from '@/mock/teamsData'
 
 
 export default function Page() {
@@ -18,6 +21,7 @@ export default function Page() {
     const [clickCount3, setClickCount3] = useState(0);
     const [clickCount4, setClickCount4] = useState(0);
     const [showCard, setShowCard] = useState(false);
+    const [showFrase, setShowFrase] = useState(1)
     const [teamId, setTeamId] = useState(1)
 
     useEffect(() => {
@@ -79,10 +83,7 @@ export default function Page() {
         } else if (clickCount1 === 1) {
             setClickCount1(2);
             setShowCard(true);
-
-            setTimeout(() => {
-                router.push('/main');
-            }, 2000);
+            setShowFrase(2)
         }
     };
     const handleClick2 = () => {
@@ -94,10 +95,7 @@ export default function Page() {
         } else if (clickCount2 === 1) {
             setClickCount2(2);
             setShowCard(true);
-
-            setTimeout(() => {
-                router.push('/main');
-            }, 2000);
+            setShowFrase(2)
         }
     };
     const handleClick3 = () => {
@@ -109,10 +107,7 @@ export default function Page() {
         } else if (clickCount3 === 1) {
             setClickCount3(2);
             setShowCard(true);
-
-            setTimeout(() => {
-                router.push('/main');
-            }, 2000);
+            setShowFrase(2)
         }
     };
     const handleClick4 = () => {
@@ -124,20 +119,21 @@ export default function Page() {
         } else if (clickCount4 === 1) {
             setClickCount4(2);
             setShowCard(true);
-
-            setTimeout(() => {
-                router.push('/main');
-            }, 2000);
+            setShowFrase(2)
         }
     };
 
     return(
         <div className={styles.root}>
             <Image className={styles.bg} src={bg} alt={'bg'} width={450} height={1000} />
-            <div className={styles.dialog}>
-                <Image src={dialog} className={styles.dialogImage} width={200} height={100} alt={''} />
+            {showFrase === 1 && <div className={styles.dialog}>
+                <Image src={dialog} className={styles.dialogImage} width={200} height={100} alt={''}/>
                 <div className={styles.text}>pick a card</div>
-            </div>
+            </div>}
+            {showFrase === 2 && <div className={styles.dialog}>
+                <Image src={dialog2} className={styles.dialog2Image} width={200} height={100} alt={''}/>
+                <div className={styles.text2}>you are now a member of the <a className={styles.gang}>{gangs[teamId].Name}</a> gang</div>
+            </div>}
             <Image src={person} className={styles.person} width={450} height={1000} alt={''} priority />
             <div className={styles.cardSet}>
                 <Image
@@ -203,6 +199,9 @@ export default function Page() {
             </div>
             <Image src={hand} className={styles.hand} width={450} height={1000} alt={''} priority />
             <ShownCard state={showCard} teamId={teamId} />
+            {showFrase === 2 && <button className={styles.btn} onClick={() => {
+                router.push('/main')
+            }}>CONTinue</button>}
         </div>
     )
 }

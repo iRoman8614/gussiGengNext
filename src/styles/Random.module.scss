@@ -206,6 +206,8 @@
   left: 8%;
 }
 
+
+
 .text {
   font-size: 38px;
   color: #fff;
@@ -216,12 +218,37 @@
   margin-top: 20px;
 }
 
+.dialog2Image {
+  width: 256px;
+  opacity: 30%;
+  height: 100px;
+  position: absolute;
+  top: 5%;
+  left: 8%;
+}
+
+.text2 {
+  width: 232px;
+  font-size: 26px;
+  color: #fff;
+  position: absolute;
+  top: 4%;
+  left: 4%;
+  margin-left: 30px;
+  margin-top: 20px;
+}
+
+.gang {
+  font-size: 26px;
+  color: #FFCC26;
+}
+
 .cardImage {
   z-index: 15;
   width: 50%;
   height: auto;
   position: absolute;
-  bottom: 25px;
+  bottom: 30%;
   border-radius: 16px;
   margin-left: 25%;
 
@@ -233,9 +260,42 @@
   display: none;
 }
 
+.btn {
+  position: absolute;
+  border-radius: 11px;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+  padding-bottom: 6px;
+  background: linear-gradient(180deg, #c78100 0%, #e4aa39 50.3%, #c78100 100%);
+  stroke-width: 2px;
+  stroke: rgba(0, 0, 0, 0.39);
+  box-shadow: 0 5px 0 0 #69470d;
+  z-index: 120;
+  bottom: 10%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 230px;
+  height: 70px;
+  font-size: 50px;
+  color: rgba(255,255,255);
+  /* Add animation */
+  animation: liftUp 0.5s ease-out 3s forwards;
+  animation-fill-mode: backwards;
+}
+
+@keyframes liftUp {
+  0% {
+    transform: translate(-50%, 1000%);
+  }
+  100% {
+    transform: translate(-50%, -50%);
+  }
+}
+
 @keyframes slide-in-right {
   0% {
-    transform: translateX(100vw);
+    transform: translateX(0vw);
     opacity: 0;
   }
   100% {
