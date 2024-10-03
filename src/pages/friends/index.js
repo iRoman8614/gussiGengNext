@@ -172,6 +172,10 @@ export default function Page() {
                         </div>
                     </div>
                     {activeTab === 1 &&<div className={styles.friendsContainer}>
+                        <div className={styles.bar}>
+                            <div className={styles.progress} />
+                        </div>
+                        <p className={styles.sign}>2/3</p>
                         <div className={styles.list}>
                             {filteredFriends.map((item, index) => <ListItem key={index} item={item} />)}
                         </div>

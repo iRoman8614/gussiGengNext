@@ -266,7 +266,6 @@
   border: none;
   cursor: pointer;
   transition: transform 0.2s ease-in-out;
-  padding-bottom: 6px;
   background: linear-gradient(180deg, #c78100 0%, #e4aa39 50.3%, #c78100 100%);
   stroke-width: 2px;
   stroke: rgba(0, 0, 0, 0.39);
@@ -275,11 +274,11 @@
   bottom: 10%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 230px;
   height: 70px;
   font-size: 50px;
   color: rgba(255,255,255);
-  /* Add animation */
+  padding: 3px 30px;
+
   animation: liftUp 0.5s ease-out 3s forwards;
   animation-fill-mode: backwards;
 }
