@@ -144,8 +144,7 @@ export default function Page() {
                         <div className={styles.banner}>
                             <div className={styles.bannerMid}>
                                 invite a
-                                tg <Image src={star} alt={''} width={20} height={20} />
-                                friend
+                                tg <Image src={star} alt={''} width={15} height={15} /> friend
                                 <p>+2 PVP pass</p>
                             </div>
                             <div className={styles.hintLabel}><a>+10 extra games</a></div>
