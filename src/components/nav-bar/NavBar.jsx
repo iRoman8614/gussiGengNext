@@ -39,15 +39,20 @@ export const NavBar = () => {
         if (firstGame) {
             const firstGameTime = new Date(firstGame);
             const now = new Date();
-            const timeDiff = (now - firstGameTime) / (1000 * 60 * 60);
+            const timeDiffInMs = now - firstGameTime;
+            const remainingTimeInMs = (6 * 60 * 60 * 1000) - timeDiffInMs;
 
-            if (timeDiff < 6) {
-                toast.warn(`Next game available in ${6 - timeDiff.toFixed(2)} hours.`);
+            if (remainingTimeInMs > 0) {
+                const hours = Math.floor(remainingTimeInMs / (1000 * 60 * 60));
+                const minutes = Math.floor((remainingTimeInMs % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((remainingTimeInMs % (1000 * 60)) / 1000);
+                toast.warn(`The next game will be available in ${hours} h. ${minutes} min. ${seconds} sec.`);
                 return;
             } else {
                 sessionStorage.removeItem('firstGame');
             }
         }
+
         try {
             const response = await axiosInstance.get(`/farm/last-games?profileId=${userId}`);
             const data = response.data;
@@ -57,10 +62,15 @@ export const NavBar = () => {
             } else {
                 const firstGameTime = new Date(data.session.first);
                 const now = new Date();
-                const timeDiff = (now - firstGameTime) / (1000 * 60 * 60);
+                const timeDiffInMs = now - firstGameTime;
+                const remainingTimeInMs = (6 * 60 * 60 * 1000) - timeDiffInMs;
 
-                if (timeDiff < 6) {
-                    toast.warn(`Следующая игра доступна через ${6 - timeDiff.toFixed(2)} часов.`);
+                if (remainingTimeInMs > 0) {
+                    const hours = Math.floor(remainingTimeInMs / (1000 * 60 * 60));
+                    const minutes = Math.floor((remainingTimeInMs % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((remainingTimeInMs % (1000 * 60)) / 1000);
+
+                    toast.warn(`Следующая игра доступна через ${hours} ч. ${minutes} мин. ${seconds} сек.`);
                 } else {
                     sessionStorage.removeItem('firstGame');
                     router.push('/pvp');
@@ -71,6 +81,7 @@ export const NavBar = () => {
             toast.error('Error while checking game availability');
         }
     };
+
 
     return (
         <div className={styles.root}>
