@@ -35,6 +35,7 @@ export const NavBar = () => {
     const handlePvpClick = async () => {
         // Проверяем, есть ли доступ к window и sessionStorage
         if (typeof window === "undefined") return;
+
         const firstGame = sessionStorage.getItem('firstGame');
         if (firstGame) {
             // Если есть firstGame, считаем время до следующей игры
@@ -53,8 +54,8 @@ export const NavBar = () => {
 
         // Если firstGame нет, делаем запрос к /farm/last-games
         try {
-            const response = await fetch(`https://supavpn.lol/farm/last-games?profileId=${userId}`);
-            const data = await response.json();
+            const response = await axiosInstance.get(`/farm/last-games?profileId=${userId}`);
+            const data = response.data;
             console.log("Ответ от /farm/first-winners:", data);
 
             if (data.session.count < 6) {
@@ -79,6 +80,7 @@ export const NavBar = () => {
             toast.error('Ошибка при проверке доступности игры.');
         }
     };
+
 
     return (
         <div className={styles.root}>

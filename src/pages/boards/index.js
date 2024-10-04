@@ -6,10 +6,12 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import { Navigation, Controller } from 'swiper/modules';
 import {ListItem} from "@/components/ListItem/ListItem";
+import axiosInstance from "@/utils/axios";
 
 import {ratingData} from '@/mock/ratingData'
 
 import styles from '@/styles/Boards.module.scss'
+
 
 const bg = '/backgrounds/leaderboardBG.png'
 
@@ -87,17 +89,41 @@ export default function Page() {
         }
     }, []);
 
-    // Функция для запроса статистики
-    const fetchStats = async (profileId) => {
+// Функция для запроса статистики
+    const fetchStats = async () => {
         try {
-            const response = await fetch(`https://supavpn.lol/profile/stats?profileId=${profileId}`);
-            const data = await response.json();
-            setCurrentWins(data.victory);
-            setLiga(data.liga)
+            const response = await axiosInstance.get(`/profile/stats`);
+            // Проверяем, если статус ответа 400, 401 или 403
+            if (response.status === 400 || response.status === 401 || response.status === 403) {
+                console.log("Требуется обновление токена, выполняем запрос /profile/init");
+                // Вызов /profile/init для обновления токена
+                await axiosInstance.get(`/profile/init`)
+                    .then(initResponse => {
+                        const data = initResponse.data;
+                        console.log("Ответ от /profile/init:", data);
+
+                        // Сохраняем новый JWT в localStorage
+                        localStorage.setItem('GWToken', data.jwt);
+                    })
+                    .catch(error => {
+                        console.error('Ошибка при запросе /profile/init:', error);
+                        throw error;  // Если запрос /profile/init не удался, выходим
+                    });
+                // Повторяем запрос к /profile/stats после обновления токена
+                const retryResponse = await axiosInstance.get(`/profile/stats`);
+                const retryData = retryResponse.data;
+                setCurrentWins(retryData.victory); // Обновляем состояние побед
+                setLiga(retryData.liga); // Обновляем состояние лиги
+            } else {
+                const data = response.data;
+                setCurrentWins(data.victory); // Обновляем состояние побед
+                setLiga(data.liga); // Обновляем состояние лиги
+            }
         } catch (error) {
             console.error('Ошибка при получении статистики:', error);
         }
     };
+
 
     useEffect(() => {
         console.log('Current avatar:', userAvatar);

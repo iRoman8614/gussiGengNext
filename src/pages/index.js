@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import { toast } from "react-toastify";
+import axiosInstance from '@/utils/axios';
 
 import styles from '../styles/Loader.module.scss';
 
@@ -58,21 +59,25 @@ export default function LoaderPage() {
             if (!init) {
                 console.log("Данных init нет в localStorage, выполняем запрос /profile/init");
                 try {
-                    const response = await fetch(`https://supavpn.lol/profile/init?profileId=${tgUserId}`);
-                    const data = await response.json();
+                    const response = await axiosInstance.get(`/profile/init?profileId=${tgUserId}`);
+                    const data = response.data;
 
                     console.log("Ответ от /profile/init:", data);
+
+                    // Сохраняем JWT в localStorage как GWToken
+                    localStorage.setItem('GWToken', data.jwt);
 
                     const initData = {
                         group: data.group,
                         farm: data.farm,
+                        balance: data.balance,
                     };
                     localStorage.setItem('init', JSON.stringify(initData));
 
                     checkStartData(tgUserId);
                 } catch (error) {
                     toast.error('Error during init request');
-                    console.log('Ошибка при запросе /init:', error)
+                    console.log('Ошибка при запросе /init:', error);
                 }
             } else {
                 console.log("Данные init уже есть в localStorage");
@@ -87,30 +92,28 @@ export default function LoaderPage() {
             if (!start) {
                 console.log("Данных start нет в localStorage, выполняем запрос /farm/start");
                 try {
-                    const response = await fetch(`https://supavpn.lol/farm/start?profileId=${tgUserId}`);
-                    const data = await response.json();
+                    const response = await axiosInstance.get(`/farm/start`);
+                    const data = response.data;
                     console.log("Ответ от /farm/start:", data);
 
-                    // Сохраняем в localStorage только необходимые данные: startTime, rate, limit
+                    // Сохраняем в localStorage необходимые данные
                     const startData = {
                         startTime: data.startTime,
                         rate: data.rate,
                         limit: data.limit,
                         balance: data.balance,
-                        totalCoins: data.totalCoins,
+                        totalCoins: data.totalBalance,
                     };
                     localStorage.setItem('start', JSON.stringify(startData));
-                    // Перенаправляем на страницу выдачи команды /getRandom
                     router.push('/getRandom');
                 } catch (error) {
-                    toast.error('Error during start request')
+                    toast.error('Error during start request');
                     console.error('Ошибка при запросе /start:', error);
                 }
             } else {
                 console.log("Данные start уже есть в localStorage, перенаправляем на /main");
-                router.push('/main'); // Перенаправляем на главную страницу
+                router.push('/main');
             }
-
         };
 
         // Запускаем логику при монтировании компонента

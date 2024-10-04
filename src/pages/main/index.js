@@ -4,6 +4,7 @@ import {useRouter} from "next/router";
 import {IconButton} from "@/components/buttons/icon-btn/IconButton";
 import {NavBar} from "@/components/nav-bar/NavBar";
 import {CollectBar} from "@/components/bars/CollectBar";
+import axiosInstance from '@/utils/axios';
 
 import teamData from "@/mock/teamsData.js";
 import skinData from '@/mock/skinsData'
@@ -100,48 +101,40 @@ export default function Home() {
             }
             try {
                 // Запрос к /farm/collect
-                const collectResponse = await fetch(
-                    `https://supavpn.lol/farm/collect?profileId=${userId}`
-                );
-                const collectData = await collectResponse.json();
-                console.log("Ответ от /farm/collect:", collectData);
+                const collectResponse = await axiosInstance.get(`/farm/collect`);
 
-                // Обновляем состояния на основе ответа, проверяя на отрицательное значение
-                const updatedTotalCoins = Math.max(collectData.totalCoins, 0); // Если totalCoins меньше 0, ставим 0
-                setTotalCoins(updatedTotalCoins);
-                setCurrentFarmCoins(0); // Обнуляем накопленные монеты
-                setStartFarmTime(new Date(collectData.startTime).getTime()); // Обновляем время старта
+                // Проверка на статус ошибки авторизации
+                if (collectResponse.status === 400 || collectResponse.status === 401 || collectResponse.status === 403) {
+                    console.log("Требуется авторизация, вызываем /profile/init для обновления токена");
 
-                // Затем делаем запрос на /farm/start
-                const startResponse = await fetch(
-                    `https://supavpn.lol/farm/start?profileId=${userId}`
-                );
-                const startData = await startResponse.json();
-                console.log("Ответ от /farm/start:", startData);
+                    // Вызов /profile/init для обновления токена
+                    await axiosInstance.get(`/profile/init?profileId=${userId}`)
+                        .then(initResponse => {
+                            const data = initResponse.data;
+                            console.log("Ответ от /profile/init:", data);
 
-                // Обновляем состояния, также проверяя на отрицательные значения
-                const updatedStartTotalCoins = Math.max(startData.totalBalance, 0); // Проверяем totalCoins
-                const updatedRate = Math.max(startData.rate, 0); // Проверяем rate, если он может быть отрицательным
-                const updatedLimit = Math.max(startData.limit, 0); // Проверяем limit, если он может быть отрицательным
-                const updatedBalance = Math.max(startData.balance, 0)
+                            // Сохраняем новый JWT в localStorage
+                            localStorage.setItem('GWToken', data.jwt);
 
-                setTotalCoins(updatedStartTotalCoins);
-                setRate(updatedRate);
-                setLimit(updatedLimit);
-                setBalance(updatedBalance)
-                setStartFarmTime(new Date(startData.startTime).getTime());
+                            // Сохраняем другие данные
+                            const initData = {
+                                group: data.group,
+                                farm: data.farm,
+                                balance: data.balance,
+                            };
+                            localStorage.setItem('init', JSON.stringify(initData));
+                        })
+                        .catch(error => {
+                            console.error('Ошибка при запросе /profile/init:', error);
+                        });
 
-                // Сохраняем в localStorage данные
-                localStorage.setItem(
-                    "start",
-                    JSON.stringify({
-                        totalCoins: updatedStartTotalCoins,
-                        startTime: new Date(startData.startTime).toISOString(),
-                        rate: updatedRate,
-                        limit: updatedLimit,
-                        balance: updatedBalance,
-                    })
-                );
+                    // После успешной инициализации повторяем запрос к /farm/collect
+                    const retryCollectResponse = await axiosInstance.get(`/farm/collect`);
+                    processCollectResponse(retryCollectResponse.data);
+                } else {
+                    processCollectResponse(collectResponse.data);
+                }
+
             } catch (error) {
                 console.error("Ошибка при сборе монет:", error);
             }
@@ -152,6 +145,46 @@ export default function Home() {
             }, 500);
         }
     };
+
+// Обработка данных collect
+    const processCollectResponse = (collectData) => {
+        const updatedTotalCoins = Math.max(collectData.totalCoins, 0); // Если totalCoins меньше 0, ставим 0
+        setTotalCoins(updatedTotalCoins);
+        setCurrentFarmCoins(0); // Обнуляем накопленные монеты
+        setStartFarmTime(new Date(collectData.startTime).getTime()); // Обновляем время старта
+
+        // Запрашиваем /farm/start для продолжения
+        axiosInstance.get(`/farm/start`)
+            .then(startResponse => {
+                const startData = startResponse.data;
+                console.log("Ответ от /farm/start:", startData);
+
+                // Обновляем состояния на основе ответа
+                const updatedStartTotalCoins = Math.max(startData.totalBalance, 0);
+                const updatedRate = Math.max(startData.rate, 0);
+                const updatedLimit = Math.max(startData.limit, 0);
+                const updatedBalance = Math.max(startData.balance, 0);
+
+                setTotalCoins(updatedStartTotalCoins);
+                setRate(updatedRate);
+                setLimit(updatedLimit);
+                setBalance(updatedBalance);
+                setStartFarmTime(new Date(startData.startTime).getTime());
+
+                // Сохраняем в localStorage данные
+                localStorage.setItem("start", JSON.stringify({
+                    totalCoins: updatedStartTotalCoins,
+                    startTime: new Date(startData.startTime).toISOString(),
+                    rate: updatedRate,
+                    limit: updatedLimit,
+                    balance: updatedBalance,
+                }));
+            })
+            .catch(error => {
+                console.error("Ошибка при запросе /farm/start:", error);
+            });
+    };
+
 
     function getRandomNumber() {
         return Math.floor(Math.random() * 6) + 1;

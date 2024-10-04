@@ -8,6 +8,7 @@ import {PaperPVPbtn} from "@/components/buttons/paperPVPbtn/PaperPVPbtn.jsx";
 import {RockPvpBtn} from "@/components/buttons/rockPvpBtn/RockPvpBtn";
 import {ScicPvpBtn} from "@/components/buttons/scicPVPbtn/ScicPVPbtn.jsx";
 import { toast } from "react-toastify";
+import axiosInstance from '@/utils/axios';
 
 import teamData from '@/mock/teamsData.js';
 import { gameOptions } from '@/mock/optionData';
@@ -102,11 +103,11 @@ export default function PvpPage() {
         }
     }, []);
 
-    // Делаем запрос на /game/start и сохраняем sessionId
+// Делаем запрос на /game/start и сохраняем sessionId
     useEffect(() => {
         const startGame = async () => {
             try {
-                const response = await fetch(`https://supavpn.lol/game/start?profileId=${userId || 111}`);
+                const response = await axiosInstance.get(`/game/start?profileId=${userId || 111}`);
                 if (response.status === 400 || response.status === 504) {
                     toast.error("Pair not found");
                     setTimeout(() => {
@@ -114,12 +115,12 @@ export default function PvpPage() {
                     }, 5000);
                     return;
                 }
-                const data = await response.json();
+                const data = response.data;
                 const isPlayer1 = data.player1.id === userId;
-                const userClan = isPlayer1 ? data.player1.group : data.player2.group
+                const userClan = isPlayer1 ? data.player1.group : data.player2.group;
                 const opponentClan = isPlayer1 ? data.player2.group : data.player1.group;
                 setOppClan(opponentClan);
-                setUserClan(userClan)
+                setUserClan(userClan);
                 setSessionId(data.sessionId);
                 setIsLoadingPvp(false);
             } catch (error) {
@@ -156,36 +157,36 @@ export default function PvpPage() {
         sendAnswerToServer(10);
     };
 
-    // Функция для отправки ответа игрока на сервер
+// Функция для отправки ответа игрока на сервер
     const sendAnswerToServer = async (choice) => {
         if (!sessionId) {
             return;
         }
         try {
             console.log('Отправляем выбор:', choice);
-            const response = await fetch(`https://supavpn.lol/game/answer?profileId=${userId || 111}&sessionId=${sessionId}&answer=${choice}`);
-            const data = await response.json();
+            const response = await axiosInstance.get(`/game/answer?profileId=${userId || 111}&sessionId=${sessionId}&answer=${choice}`);
+            const data = response.data;
             handleRoundResult(data); // Обрабатываем результат раунда на основе ответа от сервера
         } catch (error) {
             console.error('Ошибка при запросе /game/answer:', error);
         }
     };
 
-    // Функция для отправки ответа и ожидания результата
+// Функция для отправки ответа и ожидания результата
     const handlePlayerChoice = (choice) => {
         if (window.Telegram?.WebApp?.HapticFeedback) {
             window.Telegram.WebApp.HapticFeedback.impactOccurred('heavy');
         }
         if (gameOver || playerChoice !== 10) return;
         setPlayerChoice(choice);
-        console.log('clicked playerChoice', playerChoice)
+        console.log('clicked playerChoice', playerChoice);
         const sendAnswer = async () => {
             if (!sessionId) {
                 return;
             }
             try {
-                const response = await fetch(`https://supavpn.lol/game/answer?profileId=${userId || 111}&sessionId=${sessionId}&answer=${choice}`);
-                const data = await response.json();
+                const response = await axiosInstance.get(`/game/answer?profileId=${userId || 111}&sessionId=${sessionId}&answer=${choice}`);
+                const data = response.data;
                 handleRoundResult(data);
             } catch (error) {
                 console.error('Ошибка при запросе /game/answer:', error);
