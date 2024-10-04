@@ -35,23 +35,18 @@ export default function Home() {
 
     useEffect(() => {
         if (typeof window !== "undefined") {
-            // Получаем init из localStorage
             const init = JSON.parse(localStorage.getItem("init"));
             if (init && init.group) {
-                setTeamId(init.group.id); // Устанавливаем команду
+                setTeamId(init.group.id);
             }
-
-            // Получаем start из localStorage
             const start = JSON.parse(localStorage.getItem("start"));
             if (start) {
                 setTotalCoins(start.totalCoins);
                 setRate(start.rate);
                 setLimit(start.limit);
                 setBalance(start.balance)
-                setStartFarmTime(new Date(start.startTime).getTime()); // Преобразуем startTime в миллисекунды
+                setStartFarmTime(new Date(start.startTime).getTime());
             }
-
-            // Чтение Telegram userId
             if (window.Telegram?.WebApp) {
                 const search = window.Telegram.WebApp.initData;
                 const urlParams = new URLSearchParams(search);
@@ -68,7 +63,6 @@ export default function Home() {
         }
     }, []);
 
-    // Логика накопления монет
     useEffect(() => {
         if (typeof window !== "undefined") {
             const now = Date.now();
@@ -76,9 +70,8 @@ export default function Home() {
             const accumulatedCoins = Math.min(rate * secondsPassed, limit);
             setCurrentFarmCoins(accumulatedCoins);
         }
-    }, [rate, startFarmTime, limit]);
+    }, [rate, startFarmTime, limit])
 
-    // Накопление монет в реальном времени (каждую секунду) (с проверкой на наличие window)
     useEffect(() => {
         if (typeof window !== "undefined") {
             const interval = setInterval(() => {
@@ -93,55 +86,37 @@ export default function Home() {
         }
     }, [rate, startFarmTime, limit]);
 
-// Обработчик для кнопки "Claim"
-// Обработчик для кнопки "Claim"
     const handleClaimClick = async () => {
         if (typeof window !== "undefined") {
             if (window.Telegram?.WebApp?.HapticFeedback) {
                 window.Telegram.WebApp.HapticFeedback.impactOccurred("heavy");
             }
             try {
-                // Запрос к /farm/collect
                 const collectResponse = await axiosInstance.get(`/farm/collect?profileId=${userId}`)
                     .catch(async (error) => {
-                        // Проверка статуса ошибки
                         if (error.response.status === 400 || error.response.status === 401 || error.response.status === 403) {
-                            console.log("Требуется авторизация, вызываем /profile/init для обновления токена");
-
-                            // Вызов /profile/init для обновления токена
                             const initResponse = await axiosInstance.get(`/profile/init?profileId=${userId}`);
                             const data = initResponse.data;
-                            console.log("Ответ от /profile/init:", data);
-
-                            // Сохраняем новый JWT в localStorage
                             localStorage.setItem('GWToken', data.jwt);
-
-                            // Сохраняем другие данные
                             const initData = {
                                 group: data.group,
                                 farm: data.farm,
                                 balance: data.balance,
                             };
                             localStorage.setItem('init', JSON.stringify(initData));
-
-                            // Повторяем запрос к /farm/collect после обновления токена
                             const retryCollectResponse = await axiosInstance.get(`/farm/collect?profileId=${userId}`);
                             processCollectResponse(retryCollectResponse.data);
                         } else {
                             console.error('Ошибка при запросе /farm/collect:', error);
-                            throw error; // Выбрасываем ошибку, если это не авторизация
+                            throw error;
                         }
                     });
-
-                // Если запрос прошел успешно, обрабатываем ответ
                 if (collectResponse) {
                     processCollectResponse(collectResponse.data);
                 }
-
             } catch (error) {
                 console.error("Ошибка при сборе монет:", error);
             }
-
             setIsClaimClicked(true);
             setTimeout(() => {
                 setIsClaimClicked(false);
@@ -149,33 +124,24 @@ export default function Home() {
         }
     };
 
-
-// Обработка данных collect
     const processCollectResponse = (collectData) => {
-        const updatedTotalCoins = Math.max(collectData.totalCoins, 0); // Если totalCoins меньше 0, ставим 0
+        const updatedTotalCoins = Math.max(collectData.totalCoins, 0);
         setTotalCoins(updatedTotalCoins);
-        setCurrentFarmCoins(0); // Обнуляем накопленные монеты
-        setStartFarmTime(new Date(collectData.startTime).getTime()); // Обновляем время старта
-
-        // Запрашиваем /farm/start для продолжения
+        setCurrentFarmCoins(0);
+        setStartFarmTime(new Date(collectData.startTime).getTime());
         axiosInstance.get(`/farm/start?profileId=${userId}`)
             .then(startResponse => {
                 const startData = startResponse.data;
                 console.log("Ответ от /farm/start:", startData);
-
-                // Обновляем состояния на основе ответа
                 const updatedStartTotalCoins = Math.max(startData.totalBalance, 0);
                 const updatedRate = Math.max(startData.rate, 0);
                 const updatedLimit = Math.max(startData.limit, 0);
                 const updatedBalance = Math.max(startData.balance, 0);
-
                 setTotalCoins(updatedStartTotalCoins);
                 setRate(updatedRate);
                 setLimit(updatedLimit);
                 setBalance(updatedBalance);
                 setStartFarmTime(new Date(startData.startTime).getTime());
-
-                // Сохраняем в localStorage данные
                 localStorage.setItem("start", JSON.stringify({
                     totalCoins: updatedStartTotalCoins,
                     startTime: new Date(startData.startTime).toISOString(),
@@ -189,7 +155,6 @@ export default function Home() {
             });
     };
 
-
     function getRandomNumber() {
         return Math.floor(Math.random() * 6) + 1;
     }
@@ -198,10 +163,9 @@ export default function Home() {
         setLevel(level)
     }, [])
 
-    // Форматирование числа для вывода
     function formatNumberFromEnd(num) {
         if (typeof num !== 'number') {
-            return '0';  // Если num не является числом, возвращаем строку '0'
+            return '0';
         }
         return num.toString().replace(/(\d)(?=(\d{3})+$)/g, "$1 ");
     }
@@ -229,7 +193,7 @@ export default function Home() {
                 <div className={styles.totalText}>{formatNumberFromEnd(balance)}</div>
             </div>
             <div className={styles.item6}>
-                <IconButton image={wallet} alt={'wallet'} title={'wallet'}/>
+                <IconButton image={wallet} alt={'wallet'} title={'wallet'} onClick={() => {router.push('/main')}}/>
             </div>
             <div className={styles.item7}>
                 <Image width={1000} height={1000} className={styles.char} alt={'character'} src={skinData[teamId][level]}/>

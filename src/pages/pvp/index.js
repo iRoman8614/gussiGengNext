@@ -46,11 +46,9 @@ export default function PvpPage() {
     const [oppClan, setOppClan] = useState(4);
     const [roundResult, setRoundResult] = useState(null);
 
-// Рефы для хранения предзагруженных GIF-файлов игрока и оппонента
     const playerGifCache = useRef({});
     const opponentGifCache = useRef({});
 
-// Предзагрузка GIF-файлов для игрока и оппонента
     const preloadPlayerGifs = () => {
         const cache = {};
         if (typeof window !== 'undefined') {
@@ -79,31 +77,28 @@ export default function PvpPage() {
 
     useEffect(() => {
         if (typeof window !== 'undefined') {
-            playerGifCache.current = preloadPlayerGifs(); // Предзагрузка GIF для игрока
-            opponentGifCache.current = preloadOpponentGifs(); // Предзагрузка GIF для оппонента
+            playerGifCache.current = preloadPlayerGifs();
+            opponentGifCache.current = preloadOpponentGifs();
         }
     }, []);
 
-    // Получаем userId из Telegram
     useEffect(() => {
         if (typeof window !== 'undefined' && window.Telegram?.WebApp) {
             const search = window.Telegram.WebApp.initData;
             const urlParams = new URLSearchParams(search);
             const userParam = urlParams.get('user');
-
             if (userParam) {
                 const decodedUserParam = decodeURIComponent(userParam);
                 const userObject = JSON.parse(decodedUserParam);
-                setUserId(userObject.id);  // Сохраняем userId
+                setUserId(userObject.id);
                 setUserName(userObject.username);
             } else {
-                setUserId(111);  // Если userId не найден, используем 111 по умолчанию
+                setUserId(111);
                 setUserName('you');
             }
         }
     }, []);
 
-// Делаем запрос на /game/start и сохраняем sessionId
     useEffect(() => {
         const startGame = async () => {
             try {
@@ -132,7 +127,6 @@ export default function PvpPage() {
         }
     }, [userId]);
 
-    // Таймер отсчитывает время после скрытия лоадера и начала игры
     useEffect(() => {
         let timerId;
         if (!isLoadingPvp && timer > 0 && !gameOver) {
@@ -142,7 +136,6 @@ export default function PvpPage() {
         } else if (timer === 0 && playerChoice !== 0 && opponentChoice !== 0) {
             showGifSequence();
         } else if (timer === 0) {
-            // Если время вышло и игрок не сделал выбор, отправляем answer: 10
             if (playerChoice === 10) {
                 handlePlayerChoiceTimeout();
             }
@@ -150,14 +143,12 @@ export default function PvpPage() {
         return () => clearTimeout(timerId);
     }, [timer, round, isLoadingPvp]);
 
-    // Обработка выбора игрока (если игрок не сделал выбор)
     const handlePlayerChoiceTimeout = () => {
         console.log('Тайм-аут: Отправляем ответ 10 на сервер');
         console.log('Отправляем выбор:', choice);
         sendAnswerToServer(10);
     };
 
-// Функция для отправки ответа игрока на сервер
     const sendAnswerToServer = async (choice) => {
         if (!sessionId) {
             return;
@@ -166,13 +157,12 @@ export default function PvpPage() {
             console.log('Отправляем выбор:', choice);
             const response = await axiosInstance.get(`/game/answer?profileId=${userId || 111}&sessionId=${sessionId}&answer=${choice}`);
             const data = response.data;
-            handleRoundResult(data); // Обрабатываем результат раунда на основе ответа от сервера
+            handleRoundResult(data);
         } catch (error) {
             console.error('Ошибка при запросе /game/answer:', error);
         }
     };
 
-// Функция для отправки ответа и ожидания результата
     const handlePlayerChoice = (choice) => {
         if (window.Telegram?.WebApp?.HapticFeedback) {
             window.Telegram.WebApp.HapticFeedback.impactOccurred('heavy');
@@ -195,35 +185,24 @@ export default function PvpPage() {
         sendAnswer();
     };
 
-    // Обработка результата раунда
     const handleRoundResult = (data) => {
         const { player1, player2, finished } = data;
-
-        console.log("player1 ID:", player1.id, "player2 ID:", player2.id, "userId:", userId);
-
         const isPlayer1 = player1.id === userId;
         const userAnswer = isPlayer1 ? player1.answer : player2.answer;
         const opponentAnswer = isPlayer1 ? player2.answer : player1.answer;
         const userVictory = isPlayer1 ? player1.victory : player2.victory;
         const opponentVictory = isPlayer1 ? player2.victory : player1.victory;
-
         setPlayerChoice(userAnswer);
         setOpponentChoice(opponentAnswer);
-
-        // Сохраняем результаты раунда, но не обновляем счёт сразу
         setRoundResult({ userVictory, opponentVictory, finished });
-
-        // Если оба игрока сделали выбор и таймер равен 0, запускаем анимации
         if (player1.answer !== null && player2.answer !== null && timer === 0) {
             showGifSequence();
         }
     };
 
-    // Запуск анимации и обновление счёта
     const showGifSequence = () => {
         const timeouts = [];
-        const durations = [0, 2000]; // 2000 мс для анимации
-
+        const durations = [0, 2000];
         durations.forEach((duration, index) => {
             timeouts.push(
                 setTimeout(() => {
@@ -231,23 +210,17 @@ export default function PvpPage() {
                 }, duration)
             );
         });
-
-        // После завершения анимации обновляем счет
         setTimeout(() => {
             if (roundResult) {
                 setPlayerScore(roundResult.userVictory);
                 setOpponentScore(roundResult.opponentVictory);
-
-                // Проверяем, окончена ли игра после анимации
                 if (roundResult.finished) {
                     handleGameEnd();
                 } else {
-                    // Иначе продолжаем игру
                     resetRoundAfterDelay();
                 }
             }
-        }, 2000); // Обновляем счет после анимации
-
+        }, 2000);
         return () => timeouts.forEach(timeout => clearTimeout(timeout));
     };
 

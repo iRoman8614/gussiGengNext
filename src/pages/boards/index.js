@@ -12,7 +12,6 @@ import {ratingData} from '@/mock/ratingData'
 
 import styles from '@/styles/Boards.module.scss'
 
-
 const bg = '/backgrounds/leaderboardBG.png'
 
 export default function Page() {
@@ -31,7 +30,6 @@ export default function Page() {
 
     useEffect(() => {
         if (typeof window !== "undefined") {
-            // Получаем init из localStorage
             const init = JSON.parse(localStorage.getItem("init"));
             const result = getAvatarAndImageByIndex(teamId);
             if (init && init.group) {
@@ -57,20 +55,17 @@ export default function Page() {
         }
     }, [router]);
 
-    // Получаем userId из Telegram
     useEffect(() => {
         if (typeof window !== 'undefined' && window.Telegram?.WebApp) {
             const search = window.Telegram.WebApp.initData;
             const urlParams = new URLSearchParams(search);
             const userParam = urlParams.get('user');
-
             if (userParam) {
                 const decodedUserParam = decodeURIComponent(userParam);
                 const userObject = JSON.parse(decodedUserParam);
                 setUserId(userObject.id);
                 setUserName(userObject.username);
                 fetchStats(userObject.id);
-
                 fetch(`/api/getAvatar?userId=${userObject.id}`)
                     .then((res) => res.json())
                     .then((data) => {
@@ -89,41 +84,32 @@ export default function Page() {
         }
     }, []);
 
-// Функция для запроса статистики
     const fetchStats = async (userId) => {
         try {
             const response = await axiosInstance.get(`/profile/stats?profileId=${userId}`);
-            // Проверяем, если статус ответа 400, 401 или 403
             if (response.status === 400 || response.status === 401 || response.status === 403) {
-                console.log("Требуется обновление токена, выполняем запрос /profile/init");
                 // Вызов /profile/init для обновления токена
                 await axiosInstance.get(`/profile/init?profileId=${userId}`)
                     .then(initResponse => {
                         const data = initResponse.data;
-                        console.log("Ответ от /profile/init:", data);
-
-                        // Сохраняем новый JWT в localStorage
                         localStorage.setItem('GWToken', data.jwt);
                     })
                     .catch(error => {
-                        console.error('Ошибка при запросе /profile/init:', error);
-                        throw error;  // Если запрос /profile/init не удался, выходим
+                        throw error;
                     });
-                // Повторяем запрос к /profile/stats после обновления токена
                 const retryResponse = await axiosInstance.get(`/profile/stats?profileId=${userId}`);
                 const retryData = retryResponse.data;
-                setCurrentWins(retryData.victory); // Обновляем состояние побед
-                setLiga(retryData.liga); // Обновляем состояние лиги
+                setCurrentWins(retryData.victory);
+                setLiga(retryData.liga);
             } else {
                 const data = response.data;
-                setCurrentWins(data.victory); // Обновляем состояние побед
-                setLiga(data.liga); // Обновляем состояние лиги
+                setCurrentWins(data.victory);
+                setLiga(data.liga);
             }
         } catch (error) {
             console.error('Ошибка при получении статистики:', error);
         }
     };
-
 
     useEffect(() => {
         console.log('Current avatar:', userAvatar);
@@ -166,28 +152,26 @@ export default function Page() {
 
     function getAvatarAndImageByIndex(index) {
         let avatar, image;
-
         switch (index) {
             case 1:
-                avatar = '/listItemsBG/avaG.png'; // Green
-                image = '/listItemsBG/1grbg.png'; // Green
+                avatar = '/listItemsBG/avaG.png';
+                image = '/listItemsBG/1grbg.png';
                 break;
             case 2:
-                avatar = '/listItemsBG/avaB.png'; // Blue
-                image = '/listItemsBG/2bvbg.png'; // Blue
+                avatar = '/listItemsBG/avaB.png';
+                image = '/listItemsBG/2bvbg.png';
                 break;
             case 3:
-                avatar = '/listItemsBG/avaY.png'; // Yellow
-                image = '/listItemsBG/3yfbg.png'; // Yellow
+                avatar = '/listItemsBG/avaY.png';
+                image = '/listItemsBG/3yfbg.png';
                 break;
             case 4:
-                avatar = '/listItemsBG/avaR.png'; // Red
-                image = '/listItemsBG/4rrbg.png'; // Red
+                avatar = '/listItemsBG/avaR.png';
+                image = '/listItemsBG/4rrbg.png';
                 break;
             default:
                 throw new Error("Invalid index. Must be between 1 and 4.");
         }
-
         return { avatar, image };
     }
     const result = getAvatarAndImageByIndex(teamId);
@@ -216,31 +200,24 @@ export default function Page() {
         setActiveIndex(swiper.realIndex);
     };
 
-    let startIndex = 1; // Начальный индекс
+    let startIndex = 1;
 
-// Первые элементы (все, кроме двух последних)
     const firstPart = ratingData[activeIndex].slice(0, -2).map((item, index) => {
-        const listItemIndex = startIndex + index; // Используем начальный индекс
+        const listItemIndex = startIndex + index;
         return <ListItem key={listItemIndex} item={item} index={listItemIndex} />;
     });
+    startIndex += ratingData[activeIndex].length - 2;
 
-    startIndex += ratingData[activeIndex].length - 2; // Обновляем стартовый индекс для следующих элементов
-
-// Условие для добавления "Me"
     const meElement = activeIndex + 1 === 1 && (
         <div className={styles.me}>
             <ListItem item={Me} index={startIndex} me={true} />
         </div>
     );
-
-// Увеличиваем индекс на 1 для элемента "Me", если он добавлен
     if (activeIndex + 1 === 1) {
         startIndex++;
     }
-
-// Последние два элемента
     const lastPart = ratingData[activeIndex].slice(-2).map((item, index) => {
-        const listItemIndex = startIndex + index; // Продолжаем увеличивать индекс
+        const listItemIndex = startIndex + index;
         return <ListItem key={listItemIndex} item={item} index={listItemIndex} />;
     });
 

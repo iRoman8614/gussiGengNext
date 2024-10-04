@@ -10,6 +10,7 @@ import {ItemPlaceholder} from "@/components/itemPlaceholder/ItemPlaceholder";
 
 const bg = '/backgrounds/accountBG.png'
 export default function Page() {
+    const router = useRouter();
     const [teamId, setTeamId] = useState(1)
     const [level, setLevel] = useState(1)
     const [activeTab, setActiveTab] = useState(1);
@@ -23,8 +24,6 @@ export default function Page() {
     });
     const [totalCoins, setTotalCoins] = useState(0);
     const [balance, setBalance] = useState(0)
-
-    const router = useRouter();
 
     useEffect(() => {
         if (typeof window !== 'undefined' && window.Telegram?.WebApp?.BackButton) {
@@ -41,12 +40,10 @@ export default function Page() {
 
     useEffect(() => {
         if (typeof window !== 'undefined') {
-            // Получаем init из localStorage
             const init = JSON.parse(localStorage.getItem('init'));
             if (init && init.group) {
-                setTeamId(init.group.id); // Устанавливаем команду
+                setTeamId(init.group.id);
             }
-            // Получаем start из localStorage
             const start = JSON.parse(localStorage.getItem('start'));
             if (start) {
                 setTotalCoins(start.totalCoins);
@@ -55,7 +52,6 @@ export default function Page() {
         }
     }, []);
 
-    // Получаем userId из Telegram
     useEffect(() => {
         if (typeof window !== 'undefined' && window.Telegram?.WebApp) {
             const search = window.Telegram.WebApp.initData;
@@ -65,10 +61,10 @@ export default function Page() {
             if (userParam) {
                 const decodedUserParam = decodeURIComponent(userParam);
                 const userObject = JSON.parse(decodedUserParam);
-                setUserId(userObject.id);  // Сохраняем userId
+                setUserId(userObject.id);
                 setUserName(userObject.username);
             } else {
-                setUserId(111);  // Если userId не найден, используем 111 по умолчанию
+                setUserId(111);
                 setUserName('you');
             }
         }
@@ -92,54 +88,41 @@ export default function Page() {
                 const decodedUserParam = decodeURIComponent(userParam);
                 const userObject = JSON.parse(decodedUserParam);
                 setUserId(userObject.id);
-                fetchStats(userObject.id); // Запрос на получение статистики
+                fetchStats(userObject.id);
             } else {
                 setUserId(111);
-                fetchStats(111); // Запрос для ID по умолчанию
+                fetchStats(111);
             }
         }
     }, []);
 
-// Функция для запроса статистики
     const fetchStats = async (userId) => {
         try {
             const response = await axiosInstance.get(`/profile/stats?profileId=${userId}`);
-
-            // Проверяем, если статус ответа 400, 401 или 403
             if (response.status === 400 || response.status === 401 || response.status === 403) {
                 console.log("Требуется обновление токена, выполняем запрос /profile/init");
-
-                // Вызов /profile/init для обновления токена
                 await axiosInstance.get(`/profile/init?profileId=${userId}`)
                     .then(initResponse => {
                         const data = initResponse.data;
                         console.log("Ответ от /profile/init:", data);
-
-                        // Сохраняем новый JWT в localStorage
                         localStorage.setItem('GWToken', data.jwt);
                     })
                     .catch(error => {
                         console.error('Ошибка при запросе /profile/init:', error);
-                        throw error;  // Если запрос /profile/init не удался, выходим
+                        throw error;
                     });
-
-                // Повторяем запрос к /profile/stats после обновления токена
                 const retryResponse = await axiosInstance.get(`/profile/stats?profileId=${userId}`);
                 const retryData = retryResponse.data;
-                setStats(retryData); // Сохраняем данные статистики в состояние
+                setStats(retryData);
             } else {
                 const data = response.data;
-                setStats(data); // Сохраняем данные статистики в состояние
+                setStats(data);
             }
-
         } catch (error) {
             console.error('Ошибка при получении статистики:', error);
         }
     };
 
-
-
-    // Вычисляем процент для прогресс-бара
     const progressPercentage = ((totalCoins % 100000) / 100000) * 100;
 
     return(

@@ -11,8 +11,6 @@ const bg = '/backgrounds/settingsBG.png'
 export default function Page() {
     const languageOptions = [
         { value: 'english', label: 'English' },
-        { value: 'spanish', label: 'Spanish' },
-        { value: 'french', label: 'French' },
     ];
 
     const router = useRouter();
@@ -29,9 +27,6 @@ export default function Page() {
         }
     }, [router]);
 
-
-
-    // Метод для удаления всех данных из localStorage, созданных в этом компоненте
     const clearLocalStorage = () => {
         if (typeof window !== 'undefined') {
             localStorage.removeItem("init");
@@ -41,7 +36,6 @@ export default function Page() {
             localStorage.removeItem("startFarmTime");
             localStorage.removeItem("teamId");
             localStorage.removeItem("GWToken");
-            console.log("Данные удалены из localStorage: 'init' и 'start'");
         }
     };
 
@@ -51,9 +45,8 @@ export default function Page() {
             <div className={styles.container}>
                 <h1 className={styles.title}>SETTINGS </h1>
                 <CustomSelect title={'select LANGUAGE'} optionsArray={languageOptions} />
-                <CustomSelect title={'select LANGUAGE'} optionsArray={languageOptions} />
-                <ToggleSwitch />
-                <button onClick={clearLocalStorage}>Очистить LocalStorage</button>
+                {/*<ToggleSwitch />*/}
+                <button onClick={clearLocalStorage}>reset LocalStorage</button>
             </div>
         </div>
     );

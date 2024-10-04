@@ -197,15 +197,8 @@
   border: 2px solid #3842a4;
   z-index: 111;
   overflow-y: scroll;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
   padding: 20px;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
 }
-
 
 .hintLabel {
   font-size: auto-clamp(22, 28);

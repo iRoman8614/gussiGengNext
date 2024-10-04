@@ -1,6 +1,8 @@
-import border from '../../../public/farm_border.png';
-import styles from './CollectBar.module.scss';
 import Image from "next/image";
+
+import styles from './CollectBar.module.scss';
+
+const border = '/farm_border.png';
 
 // eslint-disable-next-line react/prop-types
 export const CollectBar = ({ currentCoins, maxCoins, width }) => {

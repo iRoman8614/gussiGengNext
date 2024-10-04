@@ -18,32 +18,28 @@ export default function Page() {
 
     const friends = [
         {
-            id: 370439760,
-            avatar: '/listItemsBG/avaR.png',
+            avatar: '/listItemsBG/avaG.png',
             nickname: 'Tupacshakur',
             sum: '15M',
-            image: '/listItemsBG/4rrbg.png'
-        },
-        {
-            id: 68288082,
-            avatar: '/listItemsBG/avaB.png',
-            nickname: 'Jhonnycash',
-            sum: '14.1M',
-            image: '/listItemsBG/2bvbg.png'
-        },
-        {
-            id: 6171070524,
-            avatar: '/listItemsBG/avaG.png',
-            nickname: 'missyelliot',
-            sum: '70K',
             image: '/listItemsBG/1grbg.png'
         },
         {
-            id: 557540399,
-            avatar: '/listItemsBG/avaR.png',
-            nickname: 'Tupacshakur',
-            sum: '15K',
-            image: '/listItemsBG/4rrbg.png'
+            avatar: '/listItemsBG/avaY.png',
+            nickname: 'Jhonnycash',
+            sum: '14.1M',
+            image: '/listItemsBG/3yfbg.png'
+        },
+        {
+            avatar: '/listItemsBG/avaB.png',
+            nickname: 'missyelliot',
+            sum: '70K',
+            image: '/listItemsBG/2bvbg.png'
+        },
+        {
+            avatar: '/listItemsBG/avaY.png',
+            nickname: 'missyelliot',
+            sum: '70K',
+            image: '/listItemsBG/3yfbg.png'
         },
     ]
 
@@ -58,19 +54,16 @@ export default function Page() {
             if (userParam) {
                 const decodedUserParam = decodeURIComponent(userParam);
                 const userObject = JSON.parse(decodedUserParam);
-                setUserId(userObject.id);  // Сохраняем userId
+                setUserId(userObject.id);
                 setUserName(userObject.username);
             } else {
                 setUserId(111);
                 setUserName('you');
             }
-
-            // Получаем платформу
             const platform = window.Telegram.WebApp.platform;
             console.log("Telegram WebApp Platform: ", platform);
         }
     }, []);
-    const filteredFriends = friends.filter(friend => friend.id !== userId);
 
     useEffect(() => {
         if (typeof window !== 'undefined' && window.Telegram?.WebApp?.BackButton) {
@@ -86,7 +79,6 @@ export default function Page() {
 
     const handleClick = () => {
         const linkToCopy = "https://t.me/vodoleyservicebot";
-
         if (navigator.clipboard) {
             navigator.clipboard.writeText(linkToCopy)
                 .then(() => {
@@ -113,19 +105,13 @@ export default function Page() {
 
     const inviteClick = () => {
         const tg = window.Telegram.WebApp;
-
-        // Ссылка на ваше веб-приложение
-        const webAppLink = "https://t.me/vodoleyservicebot"; // Замените на вашу ссылку
+        const webAppLink = "https://t.me/vodoleyservicebot";
         const inviteMessage = `Join me in this awesome game!`;
-
-        // Проверяем наличие Haptic Feedback и инициируем вибрацию
         if (tg.HapticFeedback) {
             tg.HapticFeedback.impactOccurred('heavy');
         }
-
-        // Открываем стандартный попап для отправки сообщения
         const shareLink = `https://t.me/share/url?url=${encodeURIComponent(webAppLink)}&text=${encodeURIComponent(inviteMessage)}`;
-        window.open(shareLink, '_blank'); // Открытие попапа
+        window.open(shareLink, '_blank');
     };
 
     return(
@@ -177,7 +163,7 @@ export default function Page() {
                         </div>
                         <p className={styles.sign}>2/3</p>
                         <div className={styles.list}>
-                            {filteredFriends.map((item, index) => <ListItem key={index} item={item} />)}
+                            {friends.map((item, index) => <ListItem key={index} item={item} />)}
                         </div>
                         <div className={styles.buttonset}>
                             <button className={styles.btnInvite} onClick={inviteClick}>INVITE</button>
@@ -224,7 +210,8 @@ export default function Page() {
                                 </div>
                             </div>
                         </div>
-                    </div>}
+                    </div>
+                    }
                 </div>
             </div>
         </div>

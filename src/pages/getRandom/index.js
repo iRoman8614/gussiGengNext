@@ -13,7 +13,6 @@ const oneCard = '/random/oneCard.png'
 
 import gangs from '@/mock/teamsData'
 
-
 export default function Page() {
     const router = useRouter();
     const [clickCount1, setClickCount1] = useState(0);

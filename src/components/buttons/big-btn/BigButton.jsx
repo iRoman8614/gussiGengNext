@@ -1,5 +1,6 @@
-import styles from './BigButton.module.scss';
 import Image from "next/image";
+
+import styles from './BigButton.module.scss';
 
 // eslint-disable-next-line react/prop-types
 export const BigButton = ({ image, title, alt, onClick }) => {

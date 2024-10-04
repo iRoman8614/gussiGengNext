@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Select from 'react-select';
+
 import styles from './Select.module.scss'
 
 export const CustomSelect = ({ optionsArray, title }) => {
@@ -54,16 +55,15 @@ export const CustomSelect = ({ optionsArray, title }) => {
             color: '#fff',
             zIndex: '1000'
         }),
-        // Стиль для каждой опции
         option: (provided, state) => ({
             ...provided,
             backgroundColor: state.isSelected ? '#47347d' : state.isFocused ? '#47347d' : 'transparent',
-            color: state.isSelected ? '#fff' : '#fff', // цвет текста для выбранной и других опций
+            color: state.isSelected ? '#fff' : '#fff',
             fontSize: '18px',
             borderRadius: state.isSelected ? '10px' : 'none',
             padding: '10px 15px',
             cursor: 'pointer',
-            fontWeight: state.isSelected ? 'bold' : 'normal', // жирный шрифт для выбранной опции
+            fontWeight: state.isSelected ? 'bold' : 'normal',
         }),
     };
 

@@ -1,10 +1,11 @@
 import React, {useEffect, useState} from 'react';
-
-import styles from '@/styles/Upgrades.module.scss'
 import Image from "next/image";
 import {useRouter} from "next/router";
+
 import {ItemPlaceholder} from "@/components/itemPlaceholder/ItemPlaceholder";
 import {TaskBtn} from "@/components/taskBtn/TaskBtn";
+
+import styles from '@/styles/Upgrades.module.scss'
 
 const bg = '/backgrounds/accountBG.png'
 
@@ -63,9 +64,7 @@ export default function Page() {
     };
     const openModal = () => {
         setIsModalOpen(true);
-        console.log('Modal is opened');
     };
-
     const navigateToPage = (path) => {
         router.push(path);
     };
@@ -108,7 +107,6 @@ export default function Page() {
             };
         }
     }, [router]);
-
 
     return (
         <div className={styles.root}>
