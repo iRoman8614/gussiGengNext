@@ -94,6 +94,7 @@ export default function Home() {
     }, [rate, startFarmTime, limit]);
 
 // Обработчик для кнопки "Claim"
+// Обработчик для кнопки "Claim"
     const handleClaimClick = async () => {
         if (typeof window !== "undefined") {
             if (window.Telegram?.WebApp?.HapticFeedback) {
@@ -101,15 +102,14 @@ export default function Home() {
             }
             try {
                 // Запрос к /farm/collect
-                const collectResponse = await axiosInstance.get(`/farm/collect`);
+                const collectResponse = await axiosInstance.get(`/farm/collect`)
+                    .catch(async (error) => {
+                        // Проверка статуса ошибки
+                        if (error.response.status === 400 || error.response.status === 401 || error.response.status === 403) {
+                            console.log("Требуется авторизация, вызываем /profile/init для обновления токена");
 
-                // Проверка на статус ошибки авторизации
-                if (collectResponse.status === 400 || collectResponse.status === 401 || collectResponse.status === 403) {
-                    console.log("Требуется авторизация, вызываем /profile/init для обновления токена");
-
-                    // Вызов /profile/init для обновления токена
-                    await axiosInstance.get(`/profile/init?profileId=${userId}`)
-                        .then(initResponse => {
+                            // Вызов /profile/init для обновления токена
+                            const initResponse = await axiosInstance.get(`/profile/init?profileId=${userId}`);
                             const data = initResponse.data;
                             console.log("Ответ от /profile/init:", data);
 
@@ -123,15 +123,18 @@ export default function Home() {
                                 balance: data.balance,
                             };
                             localStorage.setItem('init', JSON.stringify(initData));
-                        })
-                        .catch(error => {
-                            console.error('Ошибка при запросе /profile/init:', error);
-                        });
 
-                    // После успешной инициализации повторяем запрос к /farm/collect
-                    const retryCollectResponse = await axiosInstance.get(`/farm/collect`);
-                    processCollectResponse(retryCollectResponse.data);
-                } else {
+                            // Повторяем запрос к /farm/collect после обновления токена
+                            const retryCollectResponse = await axiosInstance.get(`/farm/collect`);
+                            processCollectResponse(retryCollectResponse.data);
+                        } else {
+                            console.error('Ошибка при запросе /farm/collect:', error);
+                            throw error; // Выбрасываем ошибку, если это не авторизация
+                        }
+                    });
+
+                // Если запрос прошел успешно, обрабатываем ответ
+                if (collectResponse) {
                     processCollectResponse(collectResponse.data);
                 }
 
@@ -145,6 +148,7 @@ export default function Home() {
             }, 500);
         }
     };
+
 
 // Обработка данных collect
     const processCollectResponse = (collectData) => {
