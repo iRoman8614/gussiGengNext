@@ -52,7 +52,6 @@ export const NavBar = () => {
                 sessionStorage.removeItem('firstGame');
             }
         }
-
         try {
             const response = await axiosInstance.get(`/farm/last-games?profileId=${userId}`);
             const data = response.data;
@@ -80,7 +79,6 @@ export const NavBar = () => {
             toast.error('Error while checking game availability');
         }
     };
-
 
     return (
         <div className={styles.root}>
