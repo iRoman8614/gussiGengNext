@@ -39,8 +39,8 @@ export const NavBar = () => {
         if (firstGame) {
             const firstGameTime = new Date(firstGame);
             const now = new Date();
-            const timeDiffInMs = now - firstGameTime;
-            const remainingTimeInMs = (6 * 60 * 60 * 1000) - timeDiffInMs;
+            const timeDiffInMs = now - firstGameTime; // Разница во времени в миллисекундах
+            const remainingTimeInMs = (6 * 60 * 60 * 1000) - timeDiffInMs; // Оставшееся время до 6 часов в миллисекундах
 
             if (remainingTimeInMs > 0) {
                 const hours = Math.floor(remainingTimeInMs / (1000 * 60 * 60));
@@ -62,15 +62,14 @@ export const NavBar = () => {
             } else {
                 const firstGameTime = new Date(data.session.first);
                 const now = new Date();
-                const timeDiffInMs = now - firstGameTime;
-                const remainingTimeInMs = (6 * 60 * 60 * 1000) - timeDiffInMs;
+                const timeDiffInMs = now - firstGameTime; // Разница во времени в миллисекундах
+                const remainingTimeInMs = (6 * 60 * 60 * 1000) - timeDiffInMs; // Оставшееся время до 6 часов в миллисекундах
 
                 if (remainingTimeInMs > 0) {
                     const hours = Math.floor(remainingTimeInMs / (1000 * 60 * 60));
                     const minutes = Math.floor((remainingTimeInMs % (1000 * 60 * 60)) / (1000 * 60));
                     const seconds = Math.floor((remainingTimeInMs % (1000 * 60)) / 1000);
-
-                    toast.warn(`Следующая игра доступна через ${hours} ч. ${minutes} мин. ${seconds} сек.`);
+                    toast.warn(`The next game will be available in ${hours} h. ${minutes} min. ${seconds} sec.`);
                 } else {
                     sessionStorage.removeItem('firstGame');
                     router.push('/pvp');
