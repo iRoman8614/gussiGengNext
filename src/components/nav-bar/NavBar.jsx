@@ -55,7 +55,7 @@ export const NavBar = () => {
             if (data.session.count < 6) {
                 router.push('/pvp');
             } else {
-                const firstGameTime = new Date(data.session.firstTime);
+                const firstGameTime = new Date(data.session.first);
                 const now = new Date();
                 const timeDiff = (now - firstGameTime) / (1000 * 60 * 60);
 
