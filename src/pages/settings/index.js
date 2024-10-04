@@ -40,6 +40,7 @@ export default function Page() {
             localStorage.removeItem("rate");
             localStorage.removeItem("startFarmTime");
             localStorage.removeItem("teamId");
+            localStorage.removeItem("GWToken");
             console.log("Данные удалены из localStorage: 'init' и 'start'");
         }
     };
