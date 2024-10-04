@@ -92,7 +92,7 @@ export default function LoaderPage() {
             if (!start) {
                 console.log("Данных start нет в localStorage, выполняем запрос /farm/start");
                 try {
-                    const response = await axiosInstance.get(`/farm/start`);
+                    const response = await axiosInstance.get(`/farm/start?profileId=${userId}`);
                     const data = response.data;
                     console.log("Ответ от /farm/start:", data);
 

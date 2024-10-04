@@ -103,14 +103,14 @@ export default function Page() {
 // Функция для запроса статистики
     const fetchStats = async () => {
         try {
-            const response = await axiosInstance.get(`/profile/stats`);
+            const response = await axiosInstance.get(`/profile/stats?profileId=${userId}`);
 
             // Проверяем, если статус ответа 400, 401 или 403
             if (response.status === 400 || response.status === 401 || response.status === 403) {
                 console.log("Требуется обновление токена, выполняем запрос /profile/init");
 
                 // Вызов /profile/init для обновления токена
-                await axiosInstance.get(`/profile/init`)
+                await axiosInstance.get(`/profile/init?profileId=${userId}`)
                     .then(initResponse => {
                         const data = initResponse.data;
                         console.log("Ответ от /profile/init:", data);
@@ -124,7 +124,7 @@ export default function Page() {
                     });
 
                 // Повторяем запрос к /profile/stats после обновления токена
-                const retryResponse = await axiosInstance.get(`/profile/stats`);
+                const retryResponse = await axiosInstance.get(`/profile/stats?profileId=${userId}`);
                 const retryData = retryResponse.data;
                 setStats(retryData); // Сохраняем данные статистики в состояние
             } else {

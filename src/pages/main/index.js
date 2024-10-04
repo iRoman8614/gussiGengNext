@@ -102,7 +102,7 @@ export default function Home() {
             }
             try {
                 // Запрос к /farm/collect
-                const collectResponse = await axiosInstance.get(`/farm/collect`)
+                const collectResponse = await axiosInstance.get(`/farm/collect?profileId=${userId}`)
                     .catch(async (error) => {
                         // Проверка статуса ошибки
                         if (error.response.status === 400 || error.response.status === 401 || error.response.status === 403) {
@@ -125,7 +125,7 @@ export default function Home() {
                             localStorage.setItem('init', JSON.stringify(initData));
 
                             // Повторяем запрос к /farm/collect после обновления токена
-                            const retryCollectResponse = await axiosInstance.get(`/farm/collect`);
+                            const retryCollectResponse = await axiosInstance.get(`/farm/collect?profileId=${userId}`);
                             processCollectResponse(retryCollectResponse.data);
                         } else {
                             console.error('Ошибка при запросе /farm/collect:', error);
@@ -158,7 +158,7 @@ export default function Home() {
         setStartFarmTime(new Date(collectData.startTime).getTime()); // Обновляем время старта
 
         // Запрашиваем /farm/start для продолжения
-        axiosInstance.get(`/farm/start`)
+        axiosInstance.get(`/farm/start?profileId=${userId}`)
             .then(startResponse => {
                 const startData = startResponse.data;
                 console.log("Ответ от /farm/start:", startData);
