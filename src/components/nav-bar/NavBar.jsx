@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import { IconButton } from "../buttons/icon-btn/IconButton.jsx";
 import { BigButton } from "../buttons/big-btn/BigButton.jsx";
 import { toast } from "react-toastify"; // Подключаем react-toastify
+import axiosInstance from '@/utils/axios';
 
 import home from '../../../public/main-buttons/home.png';
 import upgrades from '../../../public/main-buttons/upgrades.png';
@@ -76,7 +77,7 @@ export const NavBar = () => {
                 }
             }
         } catch (error) {
-            console.error("Ошибка при запросе /first-winners:", error);
+            console.error("Ошибка при запросе /last-games:", error);
             toast.error('Ошибка при проверке доступности игры.');
         }
     };
