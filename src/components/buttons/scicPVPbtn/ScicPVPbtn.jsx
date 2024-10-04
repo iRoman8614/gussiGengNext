@@ -17,7 +17,6 @@ export const ScicPvpBtn = ({onClick, choose}) => {
 
     useEffect(() => {
         let interval;
-
         if (choose === 3) {
             setIsAnimating(true);
             interval = setInterval(() => {

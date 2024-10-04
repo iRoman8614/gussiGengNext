@@ -35,23 +35,6 @@ export const PaperPVPbtn = ({ onClick, choose }) => {
         return () => clearInterval(interval);
     }, [choose, currentImage, paperImages.length]);
 
-    useEffect(() => {
-        let interval;
-        if (isAnimating) {
-            interval = setInterval(() => {
-                setCurrentImage((prevImage) => {
-                    if (prevImage >= paperImages.length - 1) {
-                        clearInterval(interval);
-                        setIsAnimating(false);
-                        return prevImage;
-                    }
-                    return prevImage + 1;
-                });
-            }, 200);
-        }
-        return () => clearInterval(interval);
-    }, [isAnimating]);
-
     const handleClick = () => {
         console.log('clicked');
         if (window.Telegram?.WebApp?.HapticFeedback) {
@@ -78,7 +61,7 @@ export const PaperPVPbtn = ({ onClick, choose }) => {
                 <Image
                     width={90}
                     height={90}
-                    className={styles.papSecBtnHalfActive}
+                    className={styles.papSecBtnActive}
                     onClick={handleClick}
                     src={paperImages[currentImage]}
                     alt=""
