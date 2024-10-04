@@ -101,7 +101,7 @@ export default function Page() {
     }, []);
 
 // Функция для запроса статистики
-    const fetchStats = async () => {
+    const fetchStats = async (userId) => {
         try {
             const response = await axiosInstance.get(`/profile/stats?profileId=${userId}`);
 
