@@ -48,11 +48,9 @@ export const NavBar = () => {
                 sessionStorage.removeItem('firstGame');
             }
         }
-
         try {
             const response = await axiosInstance.get(`/farm/last-games?profileId=${userId}`);
             const data = response.data;
-            console.log("Ответ от /farm/first-winners:", data);
 
             if (data.session.count < 6) {
                 router.push('/pvp');

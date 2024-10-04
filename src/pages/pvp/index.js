@@ -120,6 +120,15 @@ export default function PvpPage() {
                 setIsLoadingPvp(false);
             } catch (error) {
                 console.error('Ошибка при запросе /game/start:', error);
+                if (error.response) {
+                    const { status } = error.response;
+                    if (status === 400 || status === 504) {
+                        toast.error("Pair not found");
+                        setTimeout(() => {
+                            router.push('/');
+                        }, 5000);
+                    }
+                }
             }
         };
         if (typeof window !== 'undefined' && userId !== null) {
