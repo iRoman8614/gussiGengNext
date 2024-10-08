@@ -97,7 +97,8 @@ export default function Home() {
                         processCollectResponse(response.data); // Если успешный collect, продолжаем
                     })
                     .catch(async (error) => {
-                        if (error.response.status === 401 || error.response.status === 403) {
+                        // Проверяем наличие response в error
+                        if (error?.response?.status === 401 || error?.response?.status === 403) {
                             console.log("JWT истек, выполняем повторную инициализацию...");
                             // Если ошибка аутентификации, выполняем init с передачей userId
                             await axiosInstance.get(`/profile/init?profileId=${userId}`)
@@ -121,12 +122,12 @@ export default function Home() {
                                     console.error("Ошибка при повторной инициализации:", initError);
                                     throw initError;
                                 });
+                        } else if (!error.response) {
+                            console.error('Ошибка сети или сервер не отвечает:', error.message);
                         } else {
                             console.error('Ошибка при запросе /farm/collect:', error);
-                            throw error;
                         }
                     });
-
                 // Помечаем, что кнопка claim нажата
                 setIsClaimClicked(true);
                 setTimeout(() => {
@@ -137,6 +138,7 @@ export default function Home() {
             }
         }
     };
+
 
 // Обработка данных collect и вызов /farm/start
     const processCollectResponse = (collectData) => {
