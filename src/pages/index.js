@@ -89,6 +89,7 @@ export default function LoaderPage() {
                             console.log("Отформатированный токен:", formattedToken);
                             localStorage.setItem('GWToken', formattedToken); // Сохраняем токен в localStorage
                         }
+
                         const data = response.data;
                         const initData = {
                             group: data.group,
@@ -97,7 +98,11 @@ export default function LoaderPage() {
                         };
                         localStorage.setItem('init', JSON.stringify(initData));
                     })
-                    .then(() => checkReferralLink())
+                    .then(() => checkReferralLink()) // Проверяем реферальную ссылку
+                    .then(() => {
+                        // После сохранения init и проверки реферальной ссылки, вызываем метод start
+                        checkStartData(tgUserId);
+                    })
                     .catch(error => {
                         toast.error('Error during init request');
                         console.error('Ошибка при запросе /init:', error);
@@ -110,6 +115,7 @@ export default function LoaderPage() {
                     });
             }
         };
+
 
         // Метод для запроса /farm/start и сохранения в localStorage
         const checkStartData = (tgUserId) => {
