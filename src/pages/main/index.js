@@ -92,44 +92,61 @@ export default function Home() {
                 window.Telegram.WebApp.HapticFeedback.impactOccurred("heavy");
             }
             try {
-                const collectResponse = await axiosInstance.get(`/farm/collect?profileId=${userId}`)
+                await axiosInstance.get(`/farm/collect`)
+                    .then(response => {
+                        processCollectResponse(response.data); // Если успешный collect, продолжаем
+                    })
                     .catch(async (error) => {
-                        if (error.response.status === 400 || error.response.status === 401 || error.response.status === 403) {
-                            const initResponse = await axiosInstance.get(`/profile/init?profileId=${userId}`);
-                            const data = initResponse.data;
-                            localStorage.setItem('GWToken', data.jwt);
-                            const initData = {
-                                group: data.group,
-                                farm: data.farm,
-                                balance: data.balance,
-                            };
-                            localStorage.setItem('init', JSON.stringify(initData));
-                            const retryCollectResponse = await axiosInstance.get(`/farm/collect?profileId=${userId}`);
-                            processCollectResponse(retryCollectResponse.data);
+                        if (error.response.status === 401 || error.response.status === 403) {
+                            console.log("JWT истек, выполняем повторную инициализацию...");
+                            // Если ошибка аутентификации, выполняем init с передачей userId
+                            await axiosInstance.get(`/profile/init?profileId=${userId}`)
+                                .then(initResponse => {
+                                    const data = initResponse.data;
+                                    // Обновляем JWT токен и данные в localStorage
+                                    localStorage.setItem('GWToken', data.jwt);
+                                    const initData = {
+                                        group: data.group,
+                                        farm: data.farm,
+                                        balance: data.balance,
+                                    };
+                                    localStorage.setItem('init', JSON.stringify(initData));
+                                })
+                                .then(async () => {
+                                    // После успешной инициализации, повторяем collect запрос
+                                    const retryCollectResponse = await axiosInstance.get(`/farm/collect`);
+                                    processCollectResponse(retryCollectResponse.data); // Обрабатываем повторный collect
+                                })
+                                .catch(initError => {
+                                    console.error("Ошибка при повторной инициализации:", initError);
+                                    throw initError;
+                                });
                         } else {
                             console.error('Ошибка при запросе /farm/collect:', error);
                             throw error;
                         }
                     });
-                if (collectResponse) {
-                    processCollectResponse(collectResponse.data);
-                }
+
+                // Помечаем, что кнопка claim нажата
+                setIsClaimClicked(true);
+                setTimeout(() => {
+                    setIsClaimClicked(false);
+                }, 500);
             } catch (error) {
                 console.error("Ошибка при сборе монет:", error);
             }
-            setIsClaimClicked(true);
-            setTimeout(() => {
-                setIsClaimClicked(false);
-            }, 500);
         }
     };
 
+// Обработка данных collect и вызов /farm/start
     const processCollectResponse = (collectData) => {
         const updatedTotalCoins = Math.max(collectData.totalCoins, 0);
         setTotalCoins(updatedTotalCoins);
         setCurrentFarmCoins(0);
         setStartFarmTime(new Date(collectData.startTime).getTime());
-        axiosInstance.get(`/farm/start?profileId=${userId}`)
+
+        // Выполняем запрос /farm/start после collect
+        axiosInstance.get(`/farm/start`)
             .then(startResponse => {
                 const startData = startResponse.data;
                 console.log("Ответ от /farm/start:", startData);
@@ -137,11 +154,14 @@ export default function Home() {
                 const updatedRate = Math.max(startData.rate, 0);
                 const updatedLimit = Math.max(startData.limit, 0);
                 const updatedBalance = Math.max(startData.balance, 0);
+
+                // Обновляем состояние и localStorage с данными /farm/start
                 setTotalCoins(updatedStartTotalCoins);
                 setRate(updatedRate);
                 setLimit(updatedLimit);
                 setBalance(updatedBalance);
                 setStartFarmTime(new Date(startData.startTime).getTime());
+
                 localStorage.setItem("start", JSON.stringify({
                     totalCoins: updatedStartTotalCoins,
                     startTime: new Date(startData.startTime).toISOString(),

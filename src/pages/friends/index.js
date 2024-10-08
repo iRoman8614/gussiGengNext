@@ -78,9 +78,9 @@ export default function Page() {
     }, [router]);
 
     const handleClick = () => {
-        const linkToCopy = "https://t.me/vodoleyservicebot";
+        const referralLink = `https://t.me/vodoleyservicebot?referal=${userId}`;
         if (navigator.clipboard) {
-            navigator.clipboard.writeText(linkToCopy)
+            navigator.clipboard.writeText(referralLink)
                 .then(() => {
                     toast.success('Copied!', {
                         position: "bottom-center",
@@ -105,12 +105,12 @@ export default function Page() {
 
     const inviteClick = () => {
         const tg = window.Telegram.WebApp;
-        const webAppLink = "https://t.me/vodoleyservicebot";
-        const inviteMessage = `Join me in this awesome game!`;
+        const referralLink = `https://t.me/vodoleyservicebot?referal=${userId}`;
+        const inviteMessage = `Join me in this awesome game! Here's your referral link: ${referralLink}`;
         if (tg.HapticFeedback) {
             tg.HapticFeedback.impactOccurred('heavy');
         }
-        const shareLink = `https://t.me/share/url?url=${encodeURIComponent(webAppLink)}&text=${encodeURIComponent(inviteMessage)}`;
+        const shareLink = `https://t.me/share/url?url=${encodeURIComponent(referralLink)}&text=${encodeURIComponent(inviteMessage)}`;
         window.open(shareLink, '_blank');
     };
 

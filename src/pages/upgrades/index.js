@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import Image from "next/image";
 import {useRouter} from "next/router";
+import axiosInstance from '@/utils/axios';
 
 import {ItemPlaceholder} from "@/components/itemPlaceholder/ItemPlaceholder";
 import {TaskBtn} from "@/components/taskBtn/TaskBtn";
@@ -14,6 +15,9 @@ export default function Page() {
     const [totalCoins, setTotalCoins] = useState(0);
     const [activeTab, setActiveTab] = useState(1);
     const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const [limitLevels, setLimitLevels] = useState([]);
+    const [rateLevels, setRateLevels] = useState([]);
 
     const Tasks = {
         daily: [
@@ -62,6 +66,54 @@ export default function Page() {
             },
         ]
     };
+
+    useEffect(() => {
+        const fetchLevels = async () => {
+            try {
+                // Запрос на уровни лимита
+                const limitResponse = await axiosInstance.get(`/farm/limit-levels`);
+                console.log("Limit Levels:", limitResponse.data); // Проверка данных
+                setLimitLevels(limitResponse.data);
+
+                // Запрос на уровни прокачки
+                const rateResponse = await axiosInstance.get(`/farm/rate-levels`);
+                console.log("Rate Levels:", rateResponse.data); // Проверка данных
+                setRateLevels(rateResponse.data);
+            } catch (error) {
+                console.error('Ошибка при загрузке уровней:', error);
+            }
+        };
+        fetchLevels();
+    }, []);
+
+    // Функция для обработки клика по карточке улучшения лимита
+    const handleLimitUpgrade = async (levelId) => {
+        try {
+            const response = await axiosInstance.get(`/farm/limit-level-up?levelId=${levelId}`);
+            console.log('Улучшение лимита:', response.data);
+            // Обновление состояния после успешного улучшения
+            setLimitLevels(prevLevels => prevLevels.map(item =>
+                item.Id === levelId ? response.data : item
+            ));
+        } catch (error) {
+            console.error('Ошибка при улучшении лимита:', error);
+        }
+    };
+
+    // Функция для обработки клика по карточке улучшения прокачки
+    const handleRateUpgrade = async (levelId) => {
+        try {
+            const response = await axiosInstance.get(`/farm/rate-level-up?levelId=${levelId}`);
+            console.log('Улучшение прокачки:', response.data);
+            // Обновление состояния после успешного улучшения
+            setRateLevels(prevLevels => prevLevels.map(item =>
+                item.Id === levelId ? response.data : item
+            ));
+        } catch (error) {
+            console.error('Ошибка при улучшении прокачки:', error);
+        }
+    };
+
     const openModal = () => {
         setIsModalOpen(true);
     };
@@ -137,22 +189,14 @@ export default function Page() {
                             }}
                         >tasks</div>
                     </div>
-                    {activeTab === 1 &&<div className={styles.personalContainer}>
+                    {activeTab === 1 && <div className={styles.personalContainer}>
                         <div className={styles.list}>
-                            <ItemPlaceholder />
-                            <ItemPlaceholder />
-                            <ItemPlaceholder />
-                            <ItemPlaceholder />
-                            <ItemPlaceholder />
-                            <ItemPlaceholder />
-                            <ItemPlaceholder />
-                            <ItemPlaceholder />
-                            <ItemPlaceholder />
-                            <ItemPlaceholder />
-                            <ItemPlaceholder />
-                            <ItemPlaceholder />
-                            <ItemPlaceholder />
-                            <ItemPlaceholder />
+                            {limitLevels.map((item, index) => (
+                                <ItemPlaceholder item={item} key={index} onUpgrade={handleLimitUpgrade} />
+                            ))}
+                            {rateLevels.map((item, index) => (
+                                <ItemPlaceholder item={item} key={index} onUpgrade={handleRateUpgrade} />
+                            ))}
                         </div>
                     </div>}
                     {activeTab === 2 && <div className={styles.skinContainer}>

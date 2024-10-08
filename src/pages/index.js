@@ -46,81 +46,103 @@ export default function LoaderPage() {
                     setUserId(111); // Если userParam не найден, используем userId = 111
                 }
             } else {
-                toast.error("Telegram WebApp недоступен")
+                toast.error("Telegram WebApp недоступен");
                 setUserId(111); // Если Telegram WebApp недоступен, используем userId = 111
             }
         };
 
+        // Проверка наличия параметра referal в URL
+        const checkReferralLink = () => {
+            const { referal } = router.query;
+            if (referal) {
+                console.log(`Отправляем запрос на сервер с referal: ${referal}`);
+                return axiosInstance.get(`/profile/referal`, {
+                    params: {
+                        referal: referal
+                    }
+                }).then(response => {
+                    console.log('Ответ от сервера при передаче referal:', response.data);
+                }).catch(error => {
+                    toast.error('Ошибка при обработке реферальной ссылки');
+                    console.error('Ошибка при запросе /referal:', error);
+                });
+            } else {
+                console.log("Параметр referal отсутствует");
+                return Promise.resolve();
+            }
+        };
+
         // Проверка localStorage и запрос init
-        const checkLocalStorageAndInit = async () => {
+        const checkLocalStorageAndInit = () => {
             const tgUserId = userId || 111;
             console.log("Используемый userId для запроса:", tgUserId);
             const init = localStorage.getItem('init');
             if (!init) {
                 console.log("Данных init нет в localStorage, выполняем запрос /profile/init");
-                try {
-                    const response = await axiosInstance.get(`/profile/init?profileId=${tgUserId}`);
-                    const data = response.data;
-
-                    console.log("Ответ от /profile/init:", data);
-
-                    // Сохраняем JWT в localStorage как GWToken
-                    localStorage.setItem('GWToken', data.jwt);
-
-                    const initData = {
-                        group: data.group,
-                        farm: data.farm,
-                        balance: data.balance,
-                    };
-                    localStorage.setItem('init', JSON.stringify(initData));
-
-                    checkStartData(tgUserId);
-                } catch (error) {
-                    toast.error('Error during init request');
-                    console.log('Ошибка при запросе /init:', error);
-                }
+                axiosInstance.get(`/profile/init?profileId=${tgUserId}`)
+                    .then(response => {
+                        const data = response.data;
+                        console.log("Ответ от /profile/init:", data);
+                        // Сохраняем JWT в localStorage как GWToken
+                        localStorage.setItem('GWToken', data.jwt);
+                        const initData = {
+                            group: data.group,
+                            farm: data.farm,
+                            balance: data.balance,
+                        };
+                        localStorage.setItem('init', JSON.stringify(initData));
+                    })
+                    .then(() => {
+                        return checkReferralLink(); // После успешного init вызываем метод для обработки реферальной ссылки
+                    })
+                    .then(() => {
+                        checkStartData(tgUserId); // Затем проверяем данные start
+                    })
+                    .catch(error => {
+                        toast.error('Error during init request');
+                        console.log('Ошибка при запросе /init:', error);
+                    });
             } else {
                 console.log("Данные init уже есть в localStorage");
-                checkStartData(tgUserId);
+                checkReferralLink() // Если init уже есть, проверяем реферальную ссылку
+                    .then(() => {
+                        checkStartData(tgUserId); // И проверяем данные start
+                    });
             }
         };
 
         // Метод для запроса /farm/start и сохранения в localStorage
-        const checkStartData = async (tgUserId) => {
+        const checkStartData = (tgUserId) => {
             const start = localStorage.getItem('start');
-
             if (!start) {
                 console.log("Данных start нет в localStorage, выполняем запрос /farm/start");
-                try {
-                    const response = await axiosInstance.get(`/farm/start?profileId=${userId}`);
-                    const data = response.data;
-                    console.log("Ответ от /farm/start:", data);
-
-                    // Сохраняем в localStorage необходимые данные
-                    const startData = {
-                        startTime: data.startTime,
-                        rate: data.rate,
-                        limit: data.limit,
-                        balance: data.balance,
-                        totalCoins: data.totalBalance,
-                    };
-                    localStorage.setItem('start', JSON.stringify(startData));
-                    router.push('/getRandom');
-                } catch (error) {
-                    toast.error('Error during start request');
-                    console.error('Ошибка при запросе /start:', error);
-                }
+                axiosInstance.get(`/farm/start?profileId=${tgUserId}`)
+                    .then(response => {
+                        const data = response.data;
+                        console.log("Ответ от /farm/start:", data);
+                        const startData = {
+                            startTime: data.startTime,
+                            rate: data.rate,
+                            limit: data.limit,
+                            balance: data.balance,
+                            totalCoins: data.totalBalance,
+                        };
+                        localStorage.setItem('start', JSON.stringify(startData));
+                        router.push('/getRandom');
+                    })
+                    .catch(error => {
+                        toast.error('Error during start request');
+                        console.error('Ошибка при запросе /start:', error);
+                    });
             } else {
                 console.log("Данные start уже есть в localStorage, перенаправляем на /main");
                 router.push('/main');
             }
         };
-
         // Запускаем логику при монтировании компонента
         if (typeof window !== 'undefined') {
             window.Telegram?.WebApp.ready(); // Инициализация Telegram WebApp
             initializeTelegramWebApp();
-
             if (userId !== null) {
                 checkLocalStorageAndInit();
             } else {
@@ -131,11 +153,11 @@ export default function LoaderPage() {
                 }, 1000);
             }
         }
-
         return () => {
             window.removeEventListener('resize', setTelegramHeight);
         };
     }, [userId, router]);
+
 
     return (
         <div className={styles.root}>
