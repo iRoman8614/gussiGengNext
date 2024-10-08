@@ -3,7 +3,7 @@ import styles from './ItemPlaceholder.module.scss';
 // eslint-disable-next-line react/prop-types
 export const ItemPlaceholder = ({ item, onUpgrade }) => {
     return (
-        <div className={styles.root} onClick={() => onUpgrade(item.id)}>
+        <div className={styles.root} onClick={onUpgrade}>
             {item ? (
                 <>
                     {/*<div className={styles.icon}></div>*/}

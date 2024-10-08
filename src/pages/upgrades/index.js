@@ -192,10 +192,10 @@ export default function Page() {
                     {activeTab === 1 && <div className={styles.personalContainer}>
                         <div className={styles.list}>
                             {limitLevels.map((item, index) => (
-                                <ItemPlaceholder item={item} key={index} onUpgrade={() => handleLimitUpgrade(item.id)} />
+                                <ItemPlaceholder item={item} key={index} onUpgrade={() => handleLimitUpgrade(item.Id)} />
                             ))}
                             {rateLevels.map((item, index) => (
-                                <ItemPlaceholder item={item} key={index} onUpgrade={() => handleRateUpgrade(item.id)} />
+                                <ItemPlaceholder item={item} key={index} onUpgrade={() => handleRateUpgrade(item.Id)} />
                             ))}
                         </div>
                     </div>}
