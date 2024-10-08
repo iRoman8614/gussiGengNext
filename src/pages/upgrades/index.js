@@ -205,6 +205,7 @@ export default function Page() {
                     </div>
                     {activeTab === 1 && <div className={styles.personalContainer}>
                         <div className={styles.list}>
+                            <ItemPlaceholder onClick={() => openUpgradeModal(1)} />
                             {limitLevels.map((item, index) => (
                                 <ItemPlaceholder item={item} key={index} onClick={() => openUpgradeModal(item)} />
                             ))}

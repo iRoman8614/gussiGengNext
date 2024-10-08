@@ -191,6 +191,7 @@
   max-width: 400px;
   width: 100%;
   text-align: center;
+  margin: 20px;
 }
 
 .modalUpgrades h2 {
@@ -220,18 +221,11 @@
   cursor: pointer;
 }
 
-.btnClose.close {
+.btnClose {
   background: rgba(104, 110, 166, 0.6); // Цвет для кнопки "Close"
 }
 
-.btnClose.close:hover {
-  background: rgba(104, 110, 166, 0.8); // Более насыщенный цвет при наведении
-}
-
-.btnUpgrade.upgrade {
+.btnUpgrade {
   background: linear-gradient(180deg, #c78100 0%, #e4aa39 50.3%, #c78100 100%); // Градиент для кнопки "Upgrade"
 }
 
-.btnUpgrade.upgrade:hover {
-  background: linear-gradient(180deg, #e4aa39 0%, #c78100 50.3%, #e4aa39 100%); // Градиент при наведении
-}
