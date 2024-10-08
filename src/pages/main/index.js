@@ -100,12 +100,17 @@ export default function Home() {
                         // Проверяем наличие response в error
                         if (error?.response?.status === 401 || error?.response?.status === 403) {
                             console.log("JWT истек, выполняем повторную инициализацию...");
-                            // Если ошибка аутентификации, выполняем init с передачей userId
+
+                            // Выполняем init с передачей userId
                             await axiosInstance.get(`/profile/init?profileId=${userId}`)
                                 .then(initResponse => {
+                                    const token = initResponse.headers['authorization']; // Берем токен из заголовков
+                                    if (token) {
+                                        const formattedToken = token.replace('Bearer ', ''); // Убираем 'Bearer ' при необходимости
+                                        localStorage.setItem('GWToken', formattedToken); // Сохраняем токен в localStorage
+                                    }
+
                                     const data = initResponse.data;
-                                    // Обновляем JWT токен и данные в localStorage
-                                    localStorage.setItem('GWToken', data.jwt);
                                     const initData = {
                                         group: data.group,
                                         farm: data.farm,
@@ -128,6 +133,7 @@ export default function Home() {
                             console.error('Ошибка при запросе /farm/collect:', error);
                         }
                     });
+
                 // Помечаем, что кнопка claim нажата
                 setIsClaimClicked(true);
                 setTimeout(() => {

@@ -79,12 +79,15 @@ export default function LoaderPage() {
             const init = localStorage.getItem('init');
             if (!init) {
                 console.log("Данных init нет в localStorage, выполняем запрос /profile/init");
+                // Внутри checkLocalStorageAndInit после выполнения /profile/init
                 axiosInstance.get(`/profile/init?profileId=${tgUserId}`)
                     .then(response => {
+                        const token = response.headers['authorization']; // Берем токен из headers
+                        if (token) {
+                            const formattedToken = token.replace('Bearer ', ''); // Убираем 'Bearer ' при необходимости
+                            localStorage.setItem('GWToken', formattedToken); // Сохраняем токен в localStorage
+                        }
                         const data = response.data;
-                        console.log("Ответ от /profile/init:", data);
-                        // Сохраняем JWT в localStorage как GWToken
-                        localStorage.setItem('GWToken', data.jwt);
                         const initData = {
                             group: data.group,
                             farm: data.farm,
@@ -92,15 +95,10 @@ export default function LoaderPage() {
                         };
                         localStorage.setItem('init', JSON.stringify(initData));
                     })
-                    .then(() => {
-                        return checkReferralLink(); // После успешного init вызываем метод для обработки реферальной ссылки
-                    })
-                    .then(() => {
-                        checkStartData(tgUserId); // Затем проверяем данные start
-                    })
+                    .then(() => checkReferralLink())
                     .catch(error => {
                         toast.error('Error during init request');
-                        console.log('Ошибка при запросе /init:', error);
+                        console.error('Ошибка при запросе /init:', error);
                     });
             } else {
                 console.log("Данные init уже есть в localStorage");

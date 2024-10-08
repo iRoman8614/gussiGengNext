@@ -18,6 +18,8 @@ export default function Page() {
 
     const [limitLevels, setLimitLevels] = useState([]);
     const [rateLevels, setRateLevels] = useState([]);
+    const [isUpgradeModalOpen, setIsUpgradeModalOpen] = useState(false); // Модальное окно для апгрейда
+    const [selectedItem, setSelectedItem] = useState(null);
 
     const Tasks = {
         daily: [
@@ -86,15 +88,27 @@ export default function Page() {
         fetchLevels();
     }, []);
 
+    // Открытие модального окна для апгрейда
+    const openUpgradeModal = (item) => {
+        setSelectedItem(item);
+        setIsUpgradeModalOpen(true);
+    };
+
+    // Закрытие модального окна для апгрейда
+    const closeUpgradeModal = () => {
+        setIsUpgradeModalOpen(false);
+        setSelectedItem(null);
+    };
+
     // Функция для обработки клика по карточке улучшения лимита
     const handleLimitUpgrade = async (levelId) => {
         try {
             const response = await axiosInstance.get(`/farm/limit-level-up?levelId=${levelId}`);
             console.log('Улучшение лимита:', response.data);
-            // Обновление состояния после успешного улучшения
             setLimitLevels(prevLevels => prevLevels.map(item =>
                 item.Id === levelId ? response.data : item
             ));
+            closeUpgradeModal();
         } catch (error) {
             console.error('Ошибка при улучшении лимита:', error);
         }
@@ -105,10 +119,10 @@ export default function Page() {
         try {
             const response = await axiosInstance.get(`/farm/rate-level-up?levelId=${levelId}`);
             console.log('Улучшение прокачки:', response.data);
-            // Обновление состояния после успешного улучшения
             setRateLevels(prevLevels => prevLevels.map(item =>
                 item.Id === levelId ? response.data : item
             ));
+            closeUpgradeModal();
         } catch (error) {
             console.error('Ошибка при улучшении прокачки:', error);
         }
@@ -192,10 +206,10 @@ export default function Page() {
                     {activeTab === 1 && <div className={styles.personalContainer}>
                         <div className={styles.list}>
                             {limitLevels.map((item, index) => (
-                                <ItemPlaceholder item={item} key={index} onUpgrade={() => handleLimitUpgrade(item.Id)} />
+                                <ItemPlaceholder item={item} key={index} onClick={() => openUpgradeModal(item)} />
                             ))}
                             {rateLevels.map((item, index) => (
-                                <ItemPlaceholder item={item} key={index} onUpgrade={() => handleRateUpgrade(item.Id)} />
+                                <ItemPlaceholder item={item} key={index} onClick={() => openUpgradeModal(item)} />
                             ))}
                         </div>
                     </div>}
@@ -216,6 +230,22 @@ export default function Page() {
                         </div>
                     </div>}
                 </div>
+                {isUpgradeModalOpen && selectedItem && (
+                    <div className={styles.modalOverlay}>
+                        <div className={styles.modalUpgrades}>
+                            <h2>{selectedItem.Name}</h2>
+                            <p>Cost: {selectedItem.Cost}</p>
+                            <p>Increase per: {selectedItem.IncreasePer}</p>
+                            <p>Card level: {selectedItem.Level}</p>
+                            <div className={styles.modalButtons}>
+                                <button className={styles.btnUpgrade} onClick={() => {
+                                    selectedItem.type === 'limit' ? handleLimitUpgrade(selectedItem.Id) : handleRateUpgrade(selectedItem.Id);
+                                }}>Upgrade</button>
+                                <button className={styles.btnClose} onClick={closeUpgradeModal}>Close</button>
+                            </div>
+                        </div>
+                    </div>
+                )}
                 {isModalOpen && <div className={styles.modal}>
                     <div className={styles.label}>Daily rewards</div>
                 </div>}
