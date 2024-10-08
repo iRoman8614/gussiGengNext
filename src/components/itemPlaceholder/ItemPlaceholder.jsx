@@ -7,7 +7,9 @@ export const ItemPlaceholder = ({ item, onClick }) => {
             <div className={styles.root} onClick={onClick}>
                 {item ? (
                     <>
-                        <div className={styles.title}>{item.Name}</div>
+                        <div className={styles.title}>
+                            {item.type === 'limit' ? `limit +${item.Name}` : `rate +${item.Name}`}
+                        </div>
                         <div className={styles.details}>Cost: {item.Cost}</div>
                         <div className={styles.details}>Card level: {item.Level}</div>
                     </>

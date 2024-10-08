@@ -74,13 +74,13 @@ export default function Page() {
             try {
                 // Запрос на уровни лимита
                 const limitResponse = await axiosInstance.get(`/farm/limit-levels`);
-                console.log("Limit Levels:", limitResponse.data); // Проверка данных
-                setLimitLevels(limitResponse.data);
+                const limitLevelsWithType = limitResponse.data.map(level => ({ ...level, type: 'limit' }));
+                setLimitLevels(limitLevelsWithType);  // Добавляем тип для лимитов
 
                 // Запрос на уровни прокачки
                 const rateResponse = await axiosInstance.get(`/farm/rate-levels`);
-                console.log("Rate Levels:", rateResponse.data); // Проверка данных
-                setRateLevels(rateResponse.data);
+                const rateLevelsWithType = rateResponse.data.map(level => ({ ...level, type: 'rate' }));
+                setRateLevels(rateLevelsWithType);  // Добавляем тип для прокачек
             } catch (error) {
                 console.error('Ошибка при загрузке уровней:', error);
             }
@@ -253,7 +253,9 @@ export default function Page() {
                 {isUpgradeModalOpen && selectedItem && (
                     <div className={styles.modalOverlay}>
                         <div className={styles.modalUpgrades}>
-                            <h2>{selectedItem.Name}</h2>
+                            <h2>
+                                {selectedItem.type === 'limit' ? `limit +${selectedItem.Name}` : `rate +${selectedItem.Name}`}
+                            </h2>
                             <p>Cost: {selectedItem.Cost}</p>
                             <p>Increase per: {selectedItem.IncreasePer}</p>
                             <p>Card level: {selectedItem.Level}</p>
