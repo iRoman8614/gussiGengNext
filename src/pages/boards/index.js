@@ -229,17 +229,20 @@ export default function Page() {
             <div className={styles.winsCounter}>{`wins ${currentWins}/${ligsLimits[activeIndex]}`}</div>
             <Image src={bg} alt={''} className={styles.bg} width={450} height={1000} />
             <div className={styles.container}>
-                {leaderData[activeIndex + 1].length === 0 ? (
+                {leaderData[activeIndex + 1] && leaderData[activeIndex + 1].length === 0 ? (
                     <div className={styles.emptyState}>
                         <p>Nobody has reached this league yet.</p>
                         <p>Be the first!</p>
                     </div>
-                ) : (
+                ) : leaderData[activeIndex + 1] ? (
                     leaderData[activeIndex + 1].map((user, index) => (
                         <ListItem key={index} item={user} index={index + 1} />
                     ))
+                ) : (
+                    <div className={styles.emptyState}>Loading...</div> // Или другой индикатор загрузки
                 )}
             </div>
+
         </div>
     )
 }
