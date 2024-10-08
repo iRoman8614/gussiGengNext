@@ -195,7 +195,7 @@ export default function Home() {
         if (typeof num !== 'number') {
             return '0';
         }
-        return num.toString().replace(/(\d)(?=(\d{3})+$)/g, "$1 ");
+        return num.toFixed(2).toString().replace(/(\d)(?=(\d{3})+$)/g, "$1 ");
     }
 
     const maxWidth = 224;
@@ -228,7 +228,7 @@ export default function Home() {
             </div>
             <div className={styles.item8}>
                 <CollectBar
-                    currentCoins={formatNumberFromEnd(currentFarmCoins < 0 ? 0 : currentFarmCoins.toFixed(2))}
+                    currentCoins={formatNumberFromEnd(currentFarmCoins < 0 ? 0 : currentFarmCoins)}
                     maxCoins={Math.round(formatNumberFromEnd(limit))}
                     width={currentWidth}
                 />
