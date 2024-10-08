@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, {useCallback, useEffect, useRef, useState} from "react";
 import Image from "next/image";
 import {useRouter} from "next/router";
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -8,37 +8,109 @@ import { Navigation, Controller } from 'swiper/modules';
 import {ListItem} from "@/components/ListItem/ListItem";
 import axiosInstance from "@/utils/axios";
 
-import {ratingData} from '@/mock/ratingData'
-
 import styles from '@/styles/Boards.module.scss'
 
 const bg = '/backgrounds/leaderboardBG.png'
 
 export default function Page() {
+    const router = useRouter();
     const [activeIndex, setActiveIndex] = useState(0);
     const [teamId, setTeamId] = useState(1)
     const [currentWins, setCurrentWins] = useState(0)
     const [userId, setUserId] = useState(null);
-    const [userName, setUserName] = useState(null);
-    const [balance, setBalance] = useState(0)
     const [liga, setLiga] = useState(1)
-    const [userAvatar, setUserAvatar] = useState(null)
-    const router = useRouter();
+    const [leaderData, setLeaderData] = useState([]);
 
     const ligsLimits = ['10', '25', '50', '100', '250', '500', '500+']
     const length = currentWins / ligsLimits[activeIndex] * 100
 
+    // Кэш для данных лидеров по лигам
+    const leadersCache = useRef({});
+
+// useCallback для запроса лидеров по лиге
+    const fetchLeaderboard = useCallback(async (liga) => {
+        // Проверяем кэш
+        if (leadersCache.current[liga]) {
+            setLeaderData((prevData) => ({
+                ...prevData,
+                [liga]: leadersCache.current[liga]
+            }));
+            return;
+        }
+
+        try {
+            const response = await axiosInstance.get(`/profile/leaders?liga=${liga}`);
+            const data = response.data;
+            // Сохраняем данные в кэш
+            leadersCache.current[liga] = data;
+            setLeaderData((prevData) => ({
+                ...prevData,
+                [liga]: data
+            }));
+        } catch (error) {
+            console.error("Ошибка при запросе данных лидеров:", error);
+        }
+    }, []);
+
+    useEffect(() => {
+        const liga = activeIndex + 1;
+        if (!leaderData[liga]) {
+            fetchLeaderboard(liga);
+        }
+    }, [activeIndex, leaderData, fetchLeaderboard]);
+
+    useEffect(() => {
+        if (typeof window !== 'undefined' && window.Telegram?.WebApp) {
+            const search = window.Telegram.WebApp.initData;
+            const urlParams = new URLSearchParams(search);
+            const userParam = urlParams.get('user');
+            if (userParam) {
+                const decodedUserParam = decodeURIComponent(userParam);
+                const userObject = JSON.parse(decodedUserParam);
+                setUserId(userObject.id);
+                fetchStats(userObject.id)
+            } else {
+                setUserId(111);
+                fetchStats(111);
+            }
+        }
+    }, []);
+
+    const fetchStats = async (userId) => {
+        try {
+            const response = await axiosInstance.get(`/profile/stats`);
+            if (response.status === 400 || response.status === 401 || response.status === 403) {
+                // Вызов /profile/init для обновления токена
+                await axiosInstance.get(`/profile/init?profileId=${userId}`)
+                    .then(initResponse => {
+                        const token = initResponse.headers['authorization']; // Берем токен из заголовков
+                        if (token) {
+                            const formattedToken = token.replace('Bearer ', ''); // Убираем 'Bearer '
+                            localStorage.setItem('GWToken', formattedToken); // Сохраняем токен в localStorage
+                        }
+                    })
+                    .catch(error => {
+                        throw error;
+                    });
+                const retryResponse = await axiosInstance.get(`/profile/stats`);
+                const retryData = retryResponse.data;
+                setCurrentWins(retryData.victory);
+                setLiga(retryData.liga);
+            } else {
+                const data = response.data;
+                setCurrentWins(data.victory);
+                setLiga(data.liga);
+            }
+        } catch (error) {
+            console.error('Ошибка при получении статистики:', error);
+        }
+    };
+
     useEffect(() => {
         if (typeof window !== "undefined") {
             const init = JSON.parse(localStorage.getItem("init"));
-            const result = getAvatarAndImageByIndex(teamId);
             if (init && init.group) {
                 setTeamId(init.group.id);
-                setUserAvatar(result.avatar);
-            }
-            const start = JSON.parse(localStorage.getItem('start'));
-            if (start) {
-                setBalance(start.balance)
             }
         }
     }, [])
@@ -54,66 +126,6 @@ export default function Page() {
             };
         }
     }, [router]);
-
-    useEffect(() => {
-        if (typeof window !== 'undefined' && window.Telegram?.WebApp) {
-            const search = window.Telegram.WebApp.initData;
-            const urlParams = new URLSearchParams(search);
-            const userParam = urlParams.get('user');
-            if (userParam) {
-                const decodedUserParam = decodeURIComponent(userParam);
-                const userObject = JSON.parse(decodedUserParam);
-                setUserId(userObject.id);
-                setUserName(userObject.username);
-                fetchStats(userObject.id);
-                fetch(`/api/getAvatar?userId=${userObject.id}`)
-                    .then((res) => res.json())
-                    .then((data) => {
-                        if (data.avatar) {
-                            setUserAvatar(data.avatar);
-                        }
-                    })
-                    .catch((error) => {
-                        console.error('Error fetching avatar:', error);
-                    });
-            } else {
-                setUserId(111);
-                setUserName('you');
-                fetchStats(111);
-            }
-        }
-    }, []);
-
-    const fetchStats = async (userId) => {
-        try {
-            const response = await axiosInstance.get(`/profile/stats?profileId=${userId}`);
-            if (response.status === 400 || response.status === 401 || response.status === 403) {
-                // Вызов /profile/init для обновления токена
-                await axiosInstance.get(`/profile/init?profileId=${userId}`)
-                    .then(initResponse => {
-                        const data = initResponse.data;
-                        localStorage.setItem('GWToken', data.jwt);
-                    })
-                    .catch(error => {
-                        throw error;
-                    });
-                const retryResponse = await axiosInstance.get(`/profile/stats?profileId=${userId}`);
-                const retryData = retryResponse.data;
-                setCurrentWins(retryData.victory);
-                setLiga(retryData.liga);
-            } else {
-                const data = response.data;
-                setCurrentWins(data.victory);
-                setLiga(data.liga);
-            }
-        } catch (error) {
-            console.error('Ошибка при получении статистики:', error);
-        }
-    };
-
-    useEffect(() => {
-        console.log('Current avatar:', userAvatar);
-    }, [userAvatar]);
 
     const characters ={
         1: [
@@ -150,39 +162,6 @@ export default function Page() {
         ],
     };
 
-    function getAvatarAndImageByIndex(index) {
-        let avatar, image;
-        switch (index) {
-            case 1:
-                avatar = '/listItemsBG/avaG.png';
-                image = '/listItemsBG/1grbg.png';
-                break;
-            case 2:
-                avatar = '/listItemsBG/avaB.png';
-                image = '/listItemsBG/2bvbg.png';
-                break;
-            case 3:
-                avatar = '/listItemsBG/avaY.png';
-                image = '/listItemsBG/3yfbg.png';
-                break;
-            case 4:
-                avatar = '/listItemsBG/avaR.png';
-                image = '/listItemsBG/4rrbg.png';
-                break;
-            default:
-                throw new Error("Invalid index. Must be between 1 and 4.");
-        }
-        return { avatar, image };
-    }
-    const result = getAvatarAndImageByIndex(teamId);
-
-    const Me = {
-        avatar: userAvatar,
-        nickname: userName,
-        sum: balance,
-        image: result.image
-    }
-
     const swiperRef = useRef(null);
     const handleSlidePrev = () => {
         if (swiperRef.current) {
@@ -199,27 +178,6 @@ export default function Page() {
     const handleSlideChange = (swiper) => {
         setActiveIndex(swiper.realIndex);
     };
-
-    let startIndex = 1;
-
-    const firstPart = ratingData[activeIndex].slice(0, -2).map((item, index) => {
-        const listItemIndex = startIndex + index;
-        return <ListItem key={listItemIndex} item={item} index={listItemIndex} />;
-    });
-    startIndex += ratingData[activeIndex].length - 2;
-
-    const meElement = activeIndex + 1 === 1 && (
-        <div className={styles.me}>
-            <ListItem item={Me} index={startIndex} me={true} />
-        </div>
-    );
-    if (activeIndex + 1 === 1) {
-        startIndex++;
-    }
-    const lastPart = ratingData[activeIndex].slice(-2).map((item, index) => {
-        const listItemIndex = startIndex + index;
-        return <ListItem key={listItemIndex} item={item} index={listItemIndex} />;
-    });
 
     return(
         <div className={styles.root}>
@@ -271,13 +229,17 @@ export default function Page() {
             <div className={styles.winsCounter}>{`wins ${currentWins}/${ligsLimits[activeIndex]}`}</div>
             <Image src={bg} alt={''} className={styles.bg} width={450} height={1000} />
             <div className={styles.container}>
-                {firstPart}
-                {meElement}
-                {lastPart}
+                {leaderData[activeIndex + 1].length === 0 ? (
+                    <div className={styles.emptyState}>
+                        <p>Nobody has reached this league yet.</p>
+                        <p>Be the first!</p>
+                    </div>
+                ) : (
+                    leaderData[activeIndex + 1].map((user, index) => (
+                        <ListItem key={index} item={user} index={index + 1} />
+                    ))
+                )}
             </div>
         </div>
     )
 }
-
-
-

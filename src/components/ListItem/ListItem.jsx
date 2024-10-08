@@ -1,49 +1,34 @@
 import Image from "next/image";
-import {useEffect, useState} from "react";
-
 import styles from './Listitem.module.scss'
 
-export const ListItem = ({item, index, me}) => {
-    const [avatarUrl, setAvatarUrl] = useState(item.avatar);
-    const [nickname, setNickname] = useState(item.nickname);
+export const ListItem = ({item, index}) => {
+    // Функция для получения аватара и фона на основе teamId
+    // Объект, где ключи — teamId, а значения — соответствующие аватары и фоны
+    const teamData = {
+        1: { avatar: '/listItemsBG/avaG.png', image: '/listItemsBG/1grbg.png' },
+        2: { avatar: '/listItemsBG/avaB.png', image: '/listItemsBG/2bvbg.png' },
+        3: { avatar: '/listItemsBG/avaY.png', image: '/listItemsBG/3yfbg.png' },
+        4: { avatar: '/listItemsBG/avaR.png', image: '/listItemsBG/4rrbg.png' }
+    };
 
-    useEffect(() => {
-        const fetchUserInfo = async (userId) => {
-            try {
-                const response = await fetch(`/api/getAvatar?userId=${userId}`);
-                const data = await response.json();
+    // Получаем данные для команды на основе teamId
+    const { avatar, image } = teamData[item.teamId] || {};
 
-                if (data.avatar) {
-                    setAvatarUrl(data.avatar);
-                }
-                if (data.nickname) {
-                    setNickname(data.nickname);
-                }
-            } catch (error) {
-                console.error('Error fetching avatar or nickname:', error);
-            }
-        };
-
-        if (item.id) {
-            fetchUserInfo(item.id);
-        }
-    }, [item.id]);
-
-    return(
+    return (
         <>
-            <div className={me ? styles.rootMe : styles.root}>
+            <div className={styles.root}>
                 <div className={styles.avatar}>
-                    {avatarUrl && <Image className={styles.avatar} src={avatarUrl} alt={'avatar'} width={40} height={44} />}
+                    <Image className={styles.avatar} src={avatar} alt={'avatar'} width={40} height={44} />
                 </div>
                 <div className={styles.container}>
-                    <Image className={styles.bg} src={item.image} alt={''} width={450} height={65} />
+                    <Image className={styles.bg} src={image} alt={''} width={450} height={65} />
                     <div className={styles.content}>
-                        <div className={styles.nickname}>{nickname}</div>
-                        <div className={styles.sum}>{item.sum}</div>
+                        <div className={styles.nickname}>{item.userName || 'Anonymous'}</div>
+                        <div className={styles.sum}>{item.balance}</div>
                         {index && <div className={styles.index}>{index}</div>}
                     </div>
                 </div>
             </div>
         </>
-    )
-}
+    );
+};

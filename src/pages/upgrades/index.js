@@ -12,7 +12,7 @@ const bg = '/backgrounds/accountBG.png'
 
 export default function Page() {
     const router = useRouter();
-    const [totalCoins, setTotalCoins] = useState(0);
+    const [balance, setBalance] = useState(0);
     const [activeTab, setActiveTab] = useState(1);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -101,13 +101,21 @@ export default function Page() {
     };
 
     // Функция для обработки клика по карточке улучшения лимита
-    const handleLimitUpgrade = async (levelId) => {
+    const handleLimitUpgrade = async (levelId, cost) => {
         try {
             const response = await axiosInstance.get(`/farm/limit-level-up?levelId=${levelId}`);
             console.log('Улучшение лимита:', response.data);
             setLimitLevels(prevLevels => prevLevels.map(item =>
                 item.Id === levelId ? response.data : item
             ));
+            // Вычитаем стоимость из баланса
+            const updatedBalance = balance - cost;
+            setBalance(updatedBalance);
+
+            // Обновляем баланс в localStorage
+            const start = JSON.parse(localStorage.getItem("start"));
+            start.balance = updatedBalance;
+            localStorage.setItem("start", JSON.stringify(start));
             closeUpgradeModal();
         } catch (error) {
             console.error('Ошибка при улучшении лимита:', error);
@@ -115,13 +123,21 @@ export default function Page() {
     };
 
     // Функция для обработки клика по карточке улучшения прокачки
-    const handleRateUpgrade = async (levelId) => {
+    const handleRateUpgrade = async (levelId, cost) => {
         try {
             const response = await axiosInstance.get(`/farm/rate-level-up?levelId=${levelId}`);
             console.log('Улучшение прокачки:', response.data);
             setRateLevels(prevLevels => prevLevels.map(item =>
                 item.Id === levelId ? response.data : item
             ));
+            // Вычитаем стоимость из баланса
+            const updatedBalance = balance - cost;
+            setBalance(updatedBalance);
+
+            // Обновляем баланс в localStorage
+            const start = JSON.parse(localStorage.getItem("start"));
+            start.balance = updatedBalance;
+            localStorage.setItem("start", JSON.stringify(start));
             closeUpgradeModal();
         } catch (error) {
             console.error('Ошибка при улучшении прокачки:', error);
@@ -157,7 +173,7 @@ export default function Page() {
         if (typeof window !== "undefined") {
             const start = JSON.parse(localStorage.getItem("start"));
             if (start) {
-                setTotalCoins(start.totalCoins);
+                setBalance(start.balance);
             }
         }
     }, []);
@@ -178,7 +194,7 @@ export default function Page() {
         <div className={styles.root}>
             <Image src={bg} alt={'bg'} width={450} height={1000} className={styles.bg} />
             <div className={styles.container}>
-                <div className={styles.balance}>{totalCoins}</div>
+                <div className={styles.balance}>{balance}</div>
                 <div className={styles.block}>
                     <div className={styles.buttonSet}>
                         <div className={styles.folderBtnStats}
@@ -204,8 +220,11 @@ export default function Page() {
                         >tasks</div>
                     </div>
                     {activeTab === 1 && <div className={styles.personalContainer}>
+                        <div className={styles.warning}>
+                            Upgrades are applied after collecting the current earnings.
+                        </div>
+                        {limitLevels.length === 0 && rateLevels.length === 0 && <div className={styles.warning}>No available upgrades</div>}
                         <div className={styles.list}>
-                            <ItemPlaceholder onClick={() => openUpgradeModal(1)} />
                             {limitLevels.map((item, index) => (
                                 <ItemPlaceholder item={item} key={index} onClick={() => openUpgradeModal(item)} />
                             ))}
@@ -239,11 +258,24 @@ export default function Page() {
                             <p>Increase per: {selectedItem.IncreasePer}</p>
                             <p>Card level: {selectedItem.Level}</p>
                             <div className={styles.modalButtons}>
-                                <button className={styles.btnUpgrade} onClick={() => {
-                                    selectedItem.type === 'limit' ? handleLimitUpgrade(selectedItem.Id) : handleRateUpgrade(selectedItem.Id);
-                                }}>Upgrade</button>
+                                <button
+                                    className={styles.btnUpgrade}
+                                    onClick={() => {
+                                        if (selectedItem) {
+                                            selectedItem.type === 'limit'
+                                                ? handleLimitUpgrade(selectedItem.Id, selectedItem.Cost)
+                                                : handleRateUpgrade(selectedItem.Id, selectedItem.Cost);
+                                        }
+                                    }}
+                                    disabled={selectedItem && balance < selectedItem.Cost} // Делаем кнопку неактивной, если баланс меньше стоимости
+                                >
+                                    Upgrade
+                                </button>
                                 <button className={styles.btnClose} onClick={closeUpgradeModal}>Close</button>
                             </div>
+                            {selectedItem && balance < selectedItem.Cost && (
+                                <p className={styles.errorMessage}>Not enough coins available.</p>
+                            )}
                         </div>
                     </div>
                 )}

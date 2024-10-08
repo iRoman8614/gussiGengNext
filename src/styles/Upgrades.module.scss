@@ -222,10 +222,30 @@
 }
 
 .btnClose {
-  background: rgba(104, 110, 166, 0.6); // Цвет для кнопки "Close"
+  background: rgba(104, 110, 166, 0.6);
 }
 
 .btnUpgrade {
-  background: linear-gradient(180deg, #c78100 0%, #e4aa39 50.3%, #c78100 100%); // Градиент для кнопки "Upgrade"
+  background: linear-gradient(180deg, #c78100 0%, #e4aa39 50.3%, #c78100 100%);
 }
 
+.btnUpgrade:disabled {
+  background-color: #a9a9a9;
+  color: #ffffff;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.errorMessage {
+  color: red;
+  margin-top: 10px;
+  font-size: 14px;
+  text-align: center;
+}
+
+.warning {
+  margin: 15px;
+  font-size: auto-clamp(18, 24);
+  text-align: center;
+  color: #fff;
+}
