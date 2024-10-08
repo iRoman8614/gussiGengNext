@@ -228,8 +228,8 @@ export default function Home() {
             </div>
             <div className={styles.item8}>
                 <CollectBar
-                    currentCoins={formatNumberFromEnd(currentFarmCoins < 0 ? 0 : currentFarmCoins)}
-                    maxCoins={formatNumberFromEnd(limit)}
+                    currentCoins={formatNumberFromEnd(currentFarmCoins < 0 ? 0 : currentFarmCoins.toFixed(2))}
+                    maxCoins={Math.round(formatNumberFromEnd(limit))}
                     width={currentWidth}
                 />
             </div>
