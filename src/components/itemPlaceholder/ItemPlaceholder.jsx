@@ -37,8 +37,8 @@ export const ItemPlaceholder = ({ item, onUpgrade }) => {
                         <p>Increase per: {item.IncreasePer}</p>
                         <p>Card level: {item.Level}</p>
                         <div className={styles.modalButtons}>
-                            <button onClick={() => { onUpgrade(); closeModal(); }}>Upgrade</button>
-                            <button onClick={closeModal}>Close</button>
+                            <button className={styles.btnUpgrade} onClick={() => { onUpgrade(); closeModal(); }}>Upgrade</button>
+                            <button className={styles.btnClose} onClick={closeModal}>Close</button>
                         </div>
                     </div>
                 </div>

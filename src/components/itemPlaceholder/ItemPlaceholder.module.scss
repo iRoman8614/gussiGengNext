@@ -80,7 +80,7 @@
   margin-top: 20px;
 }
 
-button {
+.btnClose, .btnUpgrade {
   border: none;
   color: white;
   padding: 10px 20px;
@@ -91,26 +91,18 @@ button {
   transition: background 0.3s, box-shadow 0.3s;
 }
 
-button:hover {
-  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.5);
-}
-
-button:active {
-  box-shadow: none;
-}
-
-button.close {
+.btnClose.close {
   background: rgba(104, 110, 166, 0.6); // Цвет для кнопки "Close"
 }
 
-button.close:hover {
+.btnClose.close:hover {
   background: rgba(104, 110, 166, 0.8); // Более насыщенный цвет при наведении
 }
 
-button.upgrade {
+.btnUpgrade.upgrade {
   background: linear-gradient(180deg, #c78100 0%, #e4aa39 50.3%, #c78100 100%); // Градиент для кнопки "Upgrade"
 }
 
-button.upgrade:hover {
+.btnUpgrade.upgrade:hover {
   background: linear-gradient(180deg, #e4aa39 0%, #c78100 50.3%, #e4aa39 100%); // Градиент при наведении
 }
