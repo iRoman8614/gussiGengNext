@@ -83,8 +83,10 @@ export default function LoaderPage() {
                 axiosInstance.get(`/profile/init?profileId=${tgUserId}`)
                     .then(response => {
                         const token = response.headers['authorization']; // Берем токен из headers
+                        console.log("Полученный токен:", token);
                         if (token) {
                             const formattedToken = token.replace('Bearer ', ''); // Убираем 'Bearer ' при необходимости
+                            console.log("Отформатированный токен:", formattedToken);
                             localStorage.setItem('GWToken', formattedToken); // Сохраняем токен в localStorage
                         }
                         const data = response.data;
