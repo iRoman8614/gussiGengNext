@@ -6,10 +6,11 @@ export const ItemPlaceholder = ({ item, onUpgrade }) => {
         <div className={styles.root} onClick={() => onUpgrade(item.id)}>
             {item ? (
                 <>
-                    <div className={styles.icon}></div>
-                    <div className={styles.title}>{item.name}</div>
-                    <div className={styles.details}>Cost: {item.cost}</div>
-                    <div className={styles.details}>Increase per: {item.increasePer}</div>
+                    {/*<div className={styles.icon}></div>*/}
+                    <div className={styles.title}>{item.Name}</div>
+                    <div className={styles.details}>Cost: {item.Cost}</div>
+                    <div className={styles.details}>Increase per: {item.IncreasePer}</div>
+                    <div className={styles.details}>Card level: {item.Level}</div>
                 </>
             ) : (
                 <>
