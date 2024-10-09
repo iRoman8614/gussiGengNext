@@ -14,12 +14,10 @@ export default function LoaderPage() {
     const router = useRouter();
 
     useEffect(() => {
-        // Функция установки высоты экрана под Telegram WebApp
         function setTelegramHeight() {
             const availableHeight = window.innerHeight;
             document.body.style.height = `${availableHeight}px`;
         }
-
         const initializeTelegramWebApp = () => {
             if (window.Telegram?.WebApp) {
                 // Устанавливаем цвет заголовка
@@ -77,7 +75,8 @@ export default function LoaderPage() {
             const tgUserId = userId || 111;
             console.log("Используемый userId для запроса:", tgUserId);
             const init = localStorage.getItem('init');
-            if (!init) {
+            const myToken = window.localStorage.getItem('GWToken');
+            if (!init || !myToken) {
                 console.log("Данных init нет в localStorage, выполняем запрос /profile/init");
                 // Внутри checkLocalStorageAndInit после выполнения /profile/init
                 axiosInstance.get(`/profile/init?profileId=${tgUserId}`)
@@ -115,7 +114,6 @@ export default function LoaderPage() {
                     });
             }
         };
-
 
         // Метод для запроса /farm/start и сохранения в localStorage
         const checkStartData = (tgUserId) => {
