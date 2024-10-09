@@ -168,8 +168,6 @@ export default function PvpPage() {
     }, [timer, round, isLoadingPvp]);
 
     const handlePlayerChoiceTimeout = () => {
-        console.log('Тайм-аут: Отправляем ответ 10 на сервер');
-        console.log('Отправляем выбор:', choice);
         sendAnswerToServer(10);
     };
 
@@ -178,7 +176,6 @@ export default function PvpPage() {
             return;
         }
         try {
-            console.log('Отправляем выбор:', choice);
             const response = await axiosInstance.get(`/game/answer?profileId=${userId || 111}&sessionId=${sessionId}&answer=${choice}`);
             const data = response.data;
             handleRoundResult(data);
@@ -193,7 +190,6 @@ export default function PvpPage() {
         }
         if (gameOver || playerChoice !== 10) return;
         setPlayerChoice(choice);
-        console.log('clicked playerChoice', playerChoice);
         const sendAnswer = async () => {
             if (!sessionId) {
                 return;
@@ -212,8 +208,8 @@ export default function PvpPage() {
     const handleRoundResult = (data) => {
         const { player1, player2, finished } = data;
         const isPlayer1 = player1.id === userId;
-        const userAnswer = isPlayer1 ? player1.answer : player2.answer;
-        const opponentAnswer = isPlayer1 ? player2.answer : player1.answer;
+        const userAnswer = isPlayer1 ? (player1.answer === 0 ? 10 : player1.answer) : (player2.answer === 0 ? 10 : player2.answer);
+        const opponentAnswer = isPlayer1 ? (player2.answer === 0 ? 10 : player2.answer) : (player1.answer === 0 ? 10 : player1.answer);
         const userVictory = isPlayer1 ? player1.victory : player2.victory;
         const opponentVictory = isPlayer1 ? player2.victory : player1.victory;
         setPlayerChoice(userAnswer);
@@ -223,6 +219,7 @@ export default function PvpPage() {
             showGifSequence();
         }
     };
+
 
     const showGifSequence = () => {
         const timeouts = [];
