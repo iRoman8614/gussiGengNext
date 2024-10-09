@@ -39,3 +39,14 @@ html, body {
   color: #fff; /* Белый текст */
 }
 
+html, body {
+  overscroll-behavior-y: none;
+  touch-action: manipulation;
+}
+
+@media screen and (orientation: landscape) {
+  body {
+    display: none;
+  }
+}
+

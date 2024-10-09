@@ -261,6 +261,10 @@
 .row {
   display: flex;
   justify-content: space-between;
+
+  &:last-child {
+    padding-bottom: 30px;
+  }
 }
 
 .bar {
