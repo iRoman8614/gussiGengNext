@@ -45,6 +45,7 @@ export default function PvpPage() {
     const [userClan, setUserClan] = useState(1);
     const [oppClan, setOppClan] = useState(4);
     const [roundResult, setRoundResult] = useState(null);
+    const [opponentName, setOpponentName] = useState("biggie smalls")
 
     const playerGifCache = useRef({});
     const opponentGifCache = useRef({});
@@ -114,8 +115,10 @@ export default function PvpPage() {
                 const isPlayer1 = data.player1.id === userId;
                 const userClan = isPlayer1 ? data.player1.group : data.player2.group;
                 const opponentClan = isPlayer1 ? data.player2.group : data.player1.group;
+                const opponentName = isPlayer1 ? data.player2.name : data.player1.name || "biggie smalls";
                 setOppClan(opponentClan);
                 setUserClan(userClan);
+                setOpponentName(opponentName);
                 setSessionId(data.sessionId);
                 setIsLoadingPvp(false);
             } catch (error) {
@@ -272,13 +275,14 @@ export default function PvpPage() {
                 <LoaderGif />
             ) : (
                 <>
-                    {gameEnded && <WinningScreen userName={userName} playerScore={playerScore} />}
+                    {gameEnded && <WinningScreen userName={userName} playerScore={playerScore} opponentName={opponentName} />}
                     <div className={styles.root}>
                         <Image className={styles.background} src={background} width={300} height={1000}  alt={'bg'}/>
                         <div className={styles.container}>
                             <div className={styles.oppNickname}>
-                                biggie smalls
+                                {opponentName}
                             </div>
+
                             <div className={styles.optionBg}>
                                 {visibleImage === 0 && (
                                     <Image
@@ -448,10 +452,12 @@ const VictoryCounter = ({ score }) => (
 );
 
 // eslint-disable-next-line react/prop-types
-const WinningScreen = ({ userName, playerScore }) => (
+const WinningScreen = ({ userName, playerScore, opponentName  }) => (
     <div className={styles.winbg}>
         <div className={styles.winContainer}>
-            <div className={styles.winnerName}>{playerScore === 3 ? userName : 'Opponent'}</div>
+            <div className={styles.winnerName}>
+                {playerScore === 3 ? userName : opponentName}
+            </div>
             <Image width={204} height={151} className={styles.winsImage} src={wins} alt={'wins'} />
             <p className={styles.winnerName}>+5% FaRM RaTE </p>
         </div>
