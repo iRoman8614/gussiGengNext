@@ -20,7 +20,7 @@ const loader = '/loadingImg.jpg'
 export const LoaderGif = () => {
     return(
         <div className={styles.root}>
-            <Image width={450} height={1000} className={styles.video} src={loader} alt="Loading..." priority={} />
+            <Image width={450} height={1000} className={styles.video} src={loader} alt="Loading..." priority />
             <LoadingText />
         </div>
     )
