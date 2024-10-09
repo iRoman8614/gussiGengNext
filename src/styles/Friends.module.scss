@@ -256,8 +256,11 @@
   padding: 10px;
   display: flex;
   flex-direction: column;
-  padding-bottom: 20px;
-  margin-bottom: 20px;
+}
+
+.space {
+  height: 20px;
+  width: 100%;
 }
 
 .row {
