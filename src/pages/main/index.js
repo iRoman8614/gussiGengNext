@@ -111,7 +111,7 @@ export default function Home() {
                                     };
                                     localStorage.setItem('init', JSON.stringify(initData));
                                     const token = data.jwt.replace(/"/g, '');
-                                    localStorage.setItem('GWToken', JSON.stringify(token));
+                                    localStorage.setItem('GWToken', token);
                                     console.log("JWT token saved:", token);
                                 })
                                 .then(async () => {
