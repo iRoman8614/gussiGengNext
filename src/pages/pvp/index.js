@@ -1,6 +1,7 @@
 import {useEffect, useRef, useState} from "react";
 import Image from "next/image";
 import { useRouter } from 'next/router';
+import Head from 'next/head';
 
 import { IconButton } from "@/components/buttons/icon-btn/IconButton.jsx";
 import {LoaderGif} from "@/components/loader/LoaderGif.jsx";
@@ -121,6 +122,20 @@ export default function PvpPage() {
                 setOpponentName(opponentName);
                 setSessionId(data.sessionId);
                 setIsLoadingPvp(false);
+                if (data.currentRound > 1) {
+                    const lastAnswerResponse = await axiosInstance.get(`/game/last-answer?sessionId=${data.sessionId}`);
+                    const lastAnswerData = lastAnswerResponse.data;
+                    const playerVictory = isPlayer1 ? lastAnswerData.player1.victory : lastAnswerData.player2.victory;
+                    const opponentVictory = isPlayer1 ? lastAnswerData.player2.victory : lastAnswerData.player1.victory;
+                    setPlayerScore(playerVictory);
+                    setOpponentScore(opponentVictory);
+                    const totalVictory = playerVictory + opponentVictory;
+                    setRound(totalVictory + 1);
+                    if (!lastAnswerData.finished) {
+                        setPlayerChoice(isPlayer1 ? lastAnswerData.player1.answer : lastAnswerData.player2.answer);
+                        setOpponentChoice(isPlayer1 ? lastAnswerData.player2.answer : lastAnswerData.player1.answer);
+                    }
+                }
             } catch (error) {
                 console.error('Ошибка при запросе /game/start:', error);
                 if (error.response) {
@@ -138,6 +153,7 @@ export default function PvpPage() {
             startGame();
         }
     }, [userId]);
+
 
     useEffect(() => {
         let timerId;
@@ -271,6 +287,22 @@ export default function PvpPage() {
 
     return (
         <>
+            <Head>
+                <link rel="preload" href={wins} as="image" />
+                <link rel="preload" href={background} as="image" />
+                <link rel="preload" href={timerBG} as="image" />
+                <link rel="preload" href={heart} as="image" />
+                <link rel="preload" href={cross} as="image" />
+                <link rel="preload" href={gifPaths.rockAnim} as="image" />
+                <link rel="preload" href={gifPaths.scisAnim} as="image" />
+                <link rel="preload" href={gifPaths.papAnim} as="image" />
+                <link rel="preload" href={'/buttonPaper/paper01.png'} as="image" />
+                <link rel="preload" href={'/buttonPaper/paper09.png'} as="image" />
+                <link rel="preload" href={'/buttonRock/rock01.png'} as="image" />
+                <link rel="preload" href={'/buttonRock/rock09.png'} as="image" />
+                <link rel="preload" href={'/buttonScissors/scis01.png'} as="image" />
+                <link rel="preload" href={'/buttonScissors/scis09.png'} as="image" />
+            </Head>
             {isLoadingPvp ? (
                 <LoaderGif />
             ) : (
@@ -458,7 +490,7 @@ const WinningScreen = ({ userName, playerScore, opponentName  }) => (
             <div className={styles.winnerName}>
                 {playerScore === 3 ? userName : opponentName}
             </div>
-            <Image width={204} height={151} className={styles.winsImage} src={wins} alt={'wins'} />
+            <Image width={204} height={151} className={styles.winsImage} src={wins} alt={'wins'}  />
             <p className={styles.winnerName}>+5% FaRM RaTE </p>
         </div>
     </div>
