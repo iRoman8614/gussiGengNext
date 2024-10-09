@@ -111,7 +111,7 @@ export default function Home() {
                                         balance: data.balance,
                                     };
                                     localStorage.setItem('init', JSON.stringify(initData));
-                                    const token = data.JWT
+                                    const token = data.jwt;
                                     localStorage.setItem('GWToken', JSON.stringify(token));
                                 })
                                 .then(async () => {

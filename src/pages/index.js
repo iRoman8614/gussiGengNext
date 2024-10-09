@@ -85,7 +85,7 @@ export default function LoaderPage() {
                             balance: data.balance,
                         };
                         localStorage.setItem('init', JSON.stringify(initData));
-                        const token = data.JWT
+                        const token = data.jwt;
                         localStorage.setItem('GWToken', JSON.stringify(token));
                     })
                     .then(() => checkReferralLink()) // Проверяем реферальную ссылку

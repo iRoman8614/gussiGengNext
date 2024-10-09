@@ -107,7 +107,7 @@ export default function Page() {
                     .then(initResponse => {
                         const data = initResponse.data;
                         console.log("Ответ от /profile/init:", data);
-                        localStorage.setItem('GWToken', data.JWT);
+                        localStorage.setItem('GWToken', data.jwt);
                     })
                     .catch(error => {
                         console.error('Ошибка при запросе /profile/init:', error);
