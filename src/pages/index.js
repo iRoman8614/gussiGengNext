@@ -81,6 +81,7 @@ export default function LoaderPage() {
                 // Внутри checkLocalStorageAndInit после выполнения /profile/init
                 axiosInstance.get(`/profile/init?profileId=${tgUserId}`)
                     .then(response => {
+                        console.log("Заголовки ответа:", response.headers);
                         const token = response.headers['authorization']; // Берем токен из headers
                         console.log("Полученный токен:", token);
                         if (token) {
@@ -88,7 +89,6 @@ export default function LoaderPage() {
                             console.log("Отформатированный токен:", formattedToken);
                             localStorage.setItem('GWToken', formattedToken); // Сохраняем токен в localStorage
                         }
-
                         const data = response.data;
                         const initData = {
                             group: data.group,
