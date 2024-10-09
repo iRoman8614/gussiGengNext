@@ -9,6 +9,8 @@ import {useRouter} from "next/router";
 import {ItemPlaceholder} from "@/components/itemPlaceholder/ItemPlaceholder";
 
 const bg = '/backgrounds/accountBG.png'
+const money = '/money.png'
+
 export default function Page() {
     const router = useRouter();
     const [teamId, setTeamId] = useState(1)
