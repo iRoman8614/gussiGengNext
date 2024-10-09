@@ -18,28 +18,24 @@ export default function Page() {
 
     const friends = [
         {
-            avatar: '/listItemsBG/avaG.png',
+            teamId: 1,
             nickname: 'Tupacshakur',
             sum: '15M',
-            image: '/listItemsBG/1grbg.png'
         },
         {
-            avatar: '/listItemsBG/avaY.png',
+            teamId: 3,
             nickname: 'Jhonnycash',
             sum: '14.1M',
-            image: '/listItemsBG/3yfbg.png'
         },
         {
-            avatar: '/listItemsBG/avaB.png',
+            teamId: 2,
             nickname: 'missyelliot',
             sum: '70K',
-            image: '/listItemsBG/2bvbg.png'
         },
         {
-            avatar: '/listItemsBG/avaY.png',
+            teamId: 3,
             nickname: 'missyelliot',
             sum: '70K',
-            image: '/listItemsBG/3yfbg.png'
         },
     ]
 
@@ -61,7 +57,6 @@ export default function Page() {
                 setUserName('you');
             }
             const platform = window.Telegram.WebApp.platform;
-            console.log("Telegram WebApp Platform: ", platform);
         }
     }, []);
 

@@ -2,8 +2,6 @@ import Image from "next/image";
 import styles from './Listitem.module.scss'
 
 export const ListItem = ({item, index}) => {
-    // Функция для получения аватара и фона на основе teamId
-    // Объект, где ключи — teamId, а значения — соответствующие аватары и фоны
     const teamData = {
         1: { avatar: '/listItemsBG/avaG.png', image: '/listItemsBG/1grbg.png' },
         2: { avatar: '/listItemsBG/avaB.png', image: '/listItemsBG/2bvbg.png' },
@@ -11,7 +9,6 @@ export const ListItem = ({item, index}) => {
         4: { avatar: '/listItemsBG/avaR.png', image: '/listItemsBG/4rrbg.png' }
     };
 
-    // Получаем данные для команды на основе teamId
     const { avatar, image } = teamData[item.teamId] || {};
 
     return (
