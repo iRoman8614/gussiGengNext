@@ -224,7 +224,7 @@ export default function Page() {
                                     <div className={styles.hintLabel}><a>5000000 </a><Image src={money} alt={''} width={15} height={15} /></div>
                                 </div>
                             </div>
-                            <div className={styles.space} />
+                            <div className={styles.space}>...</div>
                         </div>
                     </div>
                     }

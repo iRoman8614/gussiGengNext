@@ -261,6 +261,8 @@
 .space {
   height: 20px;
   width: 100%;
+  color: rgba(56,36,111, 0.8);
+  backdrop-filter: blur(7px);
 }
 
 .row {
