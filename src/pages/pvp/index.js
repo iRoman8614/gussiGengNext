@@ -221,26 +221,34 @@ export default function PvpPage() {
         });
         setTimeout(() => {
             if (roundResult) {
-                setPlayerScore(roundResult.userVictory);
-                setOpponentScore(roundResult.opponentVictory);
+                const newPlayerScore = roundResult.userVictory;
+                const newOpponentScore = roundResult.opponentVictory;
+
+                setPlayerScore(newPlayerScore);
+                setOpponentScore(newOpponentScore);
+
                 if (roundResult.finished) {
                     handleGameEnd();
                 } else {
-                    resetRoundAfterDelay();
+                    resetRoundAfterDelay(newPlayerScore, newOpponentScore);
                 }
             }
         }, 2000);
         return () => timeouts.forEach(timeout => clearTimeout(timeout));
     };
 
-    const resetRoundAfterDelay = () => {
+    const resetRoundAfterDelay = (newPlayerScore, newOpponentScore) => {
         setPlayerChoice(10);
         setOpponentChoice(10);
         setTimer(5);
         setVisibleImage(0);
-        setRound(prev => prev + 1);
-        setRoundResult(null)
+        // Условие для увеличения раунда только если изменились очки
+        if (newPlayerScore !== playerScore || newOpponentScore !== opponentScore) {
+            setRound(prev => prev + 1);
+        }
+        setRoundResult(null);
     };
+
 
     const handleGameEnd = () => {
         setGameEnded(true);
