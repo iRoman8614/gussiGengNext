@@ -309,12 +309,11 @@ export default function PvpPage() {
                 <>
                     {gameEnded && <WinningScreen userName={userName} playerScore={playerScore} opponentName={opponentName} />}
                     <div className={styles.root}>
-                        <Image className={styles.background} src={background} width={300} height={1000}  alt={'bg'}/>
+                        <Image className={styles.background} src={background} width={300} height={1000} alt={'bg'} priority />
                         <div className={styles.container}>
                             <div className={styles.oppNickname}>
                                 {opponentName}
                             </div>
-
                             <div className={styles.optionBg}>
                                 {visibleImage === 0 && (
                                     <Image
