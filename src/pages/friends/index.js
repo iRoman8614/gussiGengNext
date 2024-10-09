@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {useRouter} from "next/router";
 import Image from "next/image";
+import axiosInstance from '@/utils/axios';
 import { toast } from 'react-toastify';
 import {ListItem} from "@/components/ListItem/ListItem";
 
@@ -15,29 +16,30 @@ export default function Page() {
     const [userId, setUserId] = useState(null);
     const [userName, setUserName] = useState('');
     const [activeTab, setActiveTab] = useState(1);
+    const [friends, setFriends] = useState([]);
 
-    const friends = [
-        {
-            teamId: 1,
-            nickname: 'Tupacshakur',
-            balance: '15M',
-        },
-        {
-            teamId: 3,
-            nickname: 'Jhonnycash',
-            balance: '14.1M',
-        },
-        {
-            teamId: 2,
-            nickname: 'missyelliot',
-            balance: '70K',
-        },
-        {
-            teamId: 3,
-            nickname: 'missyelliot',
-            balance: '70K',
-        },
-    ]
+    // const friends = [
+    //     {
+    //         teamId: 1,
+    //         nickname: 'Tupacshakur',
+    //         balance: '15M',
+    //     },
+    //     {
+    //         teamId: 3,
+    //         nickname: 'Jhonnycash',
+    //         balance: '14.1M',
+    //     },
+    //     {
+    //         teamId: 2,
+    //         nickname: 'missyelliot',
+    //         balance: '70K',
+    //     },
+    //     {
+    //         teamId: 3,
+    //         nickname: 'missyelliot',
+    //         balance: '70K',
+    //     },
+    // ]
 
     const router = useRouter();
 
@@ -71,6 +73,18 @@ export default function Page() {
             };
         }
     }, [router]);
+
+    useEffect(() => {
+        const fetchFriends = async () => {
+            try {
+                const response = await axiosInstance.get('/profile/my-invitees');
+                setFriends(response.data);
+            } catch (error) {
+                console.error('Ошибка при загрузке списка друзей:', error);
+            }
+        };
+        fetchFriends();
+    }, []);
 
     const handleClick = () => {
         const referralLink = `https://t.me/vodoleyservicebot?referal=${userId}`;
@@ -156,9 +170,15 @@ export default function Page() {
                         <div className={styles.bar}>
                             <div className={styles.progress} />
                         </div>
-                        <p className={styles.sign}>2/3</p>
+                        <p className={styles.sign}>{friends.length}/3</p>
                         <div className={styles.list}>
-                            {friends.map((item, index) => <ListItem key={index} item={item} />)}
+                            <div className={styles.list}>
+                                {friends.length === 0 ? (
+                                    <p className={styles.hintLabel}>Invite your friends</p>
+                                ) : (
+                                    friends.map((item, index) => <ListItem key={index} item={item} />)
+                                )}
+                            </div>
                         </div>
                         <div className={styles.buttonset}>
                             <button className={styles.btnInvite} onClick={inviteClick}>INVITE</button>
