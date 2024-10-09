@@ -9,6 +9,7 @@ import {TaskBtn} from "@/components/taskBtn/TaskBtn";
 import styles from '@/styles/Upgrades.module.scss'
 
 const bg = '/backgrounds/accountBG.png'
+const money = '/money.png'
 
 export default function Page() {
     const router = useRouter();
@@ -190,7 +191,7 @@ export default function Page() {
         <div className={styles.root}>
             <Image src={bg} alt={'bg'} width={450} height={1000} className={styles.bg} />
             <div className={styles.container}>
-                <div className={styles.balance}>{balance}</div>
+                <div className={styles.balance}>{balance}<Image src={money} alt={''} width={15} height={15} /></div>
                 <div className={styles.block}>
                     <div className={styles.buttonSet}>
                         <div className={styles.folderBtnStats}
