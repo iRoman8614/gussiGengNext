@@ -230,25 +230,31 @@ export default function PvpPage() {
                 if (roundResult.finished) {
                     handleGameEnd();
                 } else {
-                    resetRoundAfterDelay(newPlayerScore, newOpponentScore);
+                    resetRoundAfterDelay();
                 }
             }
         }, 2000);
         return () => timeouts.forEach(timeout => clearTimeout(timeout));
     };
 
-    const resetRoundAfterDelay = (newPlayerScore, newOpponentScore) => {
-        setPlayerChoice(10);
-        setOpponentChoice(10);
-        setTimer(5);
-        setVisibleImage(0);
-        // Условие для увеличения раунда только если изменились очки
-        if (newPlayerScore !== playerScore || newOpponentScore !== opponentScore) {
+    const resetRoundAfterDelay = () => {
+        if (playerChoice === opponentChoice) {
+            console.log("Ничья: раунд не обновляется");
+            setRoundResult(null);
+            setPlayerChoice(10);
+            setOpponentChoice(10);
+            setTimer(5);
+            setVisibleImage(0);
+        } else {
+            console.log("Обновляем раунд");
             setRound(prev => prev + 1);
+            setRoundResult(null);
+            setPlayerChoice(10);
+            setOpponentChoice(10);
+            setTimer(5);
+            setVisibleImage(0);
         }
-        setRoundResult(null);
     };
-
 
     const handleGameEnd = () => {
         setGameEnded(true);
