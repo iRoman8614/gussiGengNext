@@ -84,8 +84,9 @@ export default function Page() {
                 await axiosInstance.get(`/profile/init?profileId=${userId}`)
                     .then(initResponse => {
                         const data = initResponse.data;
-                        const token = data.jwt;
+                        const token = data.jwt.replace(/"/g, '');
                         localStorage.setItem('GWToken', JSON.stringify(token));
+                        console.log("JWT token saved:", token);
                     })
                     .catch(error => {
                         throw error;

@@ -75,7 +75,6 @@ export default function LoaderPage() {
             const myToken = window.localStorage.getItem('GWToken');
             if (!init || !myToken) {
                 console.log("Данных init нет в localStorage, выполняем запрос /profile/init");
-                // Внутри checkLocalStorageAndInit после выполнения /profile/init
                 axiosInstance.get(`/profile/init?profileId=${tgUserId}`)
                     .then(response => {
                         const data = response.data;
@@ -85,8 +84,9 @@ export default function LoaderPage() {
                             balance: data.balance,
                         };
                         localStorage.setItem('init', JSON.stringify(initData));
-                        const token = data.jwt;
+                        const token = data.jwt.replace(/"/g, '');
                         localStorage.setItem('GWToken', JSON.stringify(token));
+                        console.log("JWT token saved:", token);
                     })
                     .then(() => checkReferralLink()) // Проверяем реферальную ссылку
                     .then(() => {

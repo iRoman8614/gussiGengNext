@@ -100,7 +100,6 @@ export default function Home() {
                         // Проверяем наличие response в error
                         if (error?.response?.status === 401 || error?.response?.status === 403) {
                             console.log("JWT истек, выполняем повторную инициализацию...");
-
                             // Выполняем init с передачей userId
                             await axiosInstance.get(`/profile/init?profileId=${userId}`)
                                 .then(initResponse => {
@@ -111,8 +110,9 @@ export default function Home() {
                                         balance: data.balance,
                                     };
                                     localStorage.setItem('init', JSON.stringify(initData));
-                                    const token = data.jwt;
+                                    const token = data.jwt.replace(/"/g, '');
                                     localStorage.setItem('GWToken', JSON.stringify(token));
+                                    console.log("JWT token saved:", token);
                                 })
                                 .then(async () => {
                                     const retryCollectResponse = await axiosInstance.get(`/farm/collect`);
