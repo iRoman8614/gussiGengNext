@@ -136,6 +136,7 @@ export default function Page() {
             start.balance = updatedBalance;
             localStorage.setItem("start", JSON.stringify(start));
             closeUpgradeModal();
+            fetchLevels();
         } catch (error) {
             console.error('Ошибка при улучшении прокачки:', error);
         }
