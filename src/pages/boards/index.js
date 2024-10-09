@@ -242,7 +242,6 @@ export default function Page() {
                     <div className={styles.emptyState}>Loading...</div> // Или другой индикатор загрузки
                 )}
             </div>
-
         </div>
     )
 }

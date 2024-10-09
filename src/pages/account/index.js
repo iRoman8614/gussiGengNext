@@ -189,7 +189,7 @@ export default function Page() {
                         </div>
                         <div>
                             <div className={styles.ballanceLabel}>current balance</div>
-                            <div className={styles.balance}>{balance}<Image src={money} alt={''} width={25} height={25} /></div>
+                            <div className={styles.balance}>{balance}{' '}<Image src={money} alt={''} width={21} height={21} /></div>
                         </div>
                     </div>}
                     {activeTab === 2 && <div className={styles.skinContainer}>
