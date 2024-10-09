@@ -20,22 +20,22 @@ export default function Page() {
         {
             teamId: 1,
             nickname: 'Tupacshakur',
-            sum: '15M',
+            balance: '15M',
         },
         {
             teamId: 3,
             nickname: 'Jhonnycash',
-            sum: '14.1M',
+            balance: '14.1M',
         },
         {
             teamId: 2,
             nickname: 'missyelliot',
-            sum: '70K',
+            balance: '70K',
         },
         {
             teamId: 3,
             nickname: 'missyelliot',
-            sum: '70K',
+            balance: '70K',
         },
     ]
 
