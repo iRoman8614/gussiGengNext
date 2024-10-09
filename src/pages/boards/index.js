@@ -83,11 +83,9 @@ export default function Page() {
                 // Вызов /profile/init для обновления токена
                 await axiosInstance.get(`/profile/init?profileId=${userId}`)
                     .then(initResponse => {
-                        const token = initResponse.headers['authorization']; // Берем токен из заголовков
-                        if (token) {
-                            const formattedToken = token.replace('Bearer ', ''); // Убираем 'Bearer '
-                            localStorage.setItem('GWToken', formattedToken); // Сохраняем токен в localStorage
-                        }
+                        const data = initResponse.data;
+                        const token = data.JWT
+                        localStorage.setItem('GWToken', JSON.stringify(token));
                     })
                     .catch(error => {
                         throw error;

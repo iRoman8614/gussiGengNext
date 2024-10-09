@@ -23,16 +23,13 @@ export default function LoaderPage() {
                 // Устанавливаем цвет заголовка
                 window.Telegram.WebApp.setHeaderColor('#183256');
                 window.Telegram.WebApp.expand();
-
                 // Устанавливаем высоту под Telegram Web App
                 setTelegramHeight();
                 window.addEventListener('resize', setTelegramHeight);
-
                 // Чтение initData и получение userId
                 const search = window.Telegram.WebApp.initData;
                 const urlParams = new URLSearchParams(search);
                 const userParam = urlParams.get('user');
-
                 if (userParam) {
                     const decodedUserParam = decodeURIComponent(userParam);
                     const userObject = JSON.parse(decodedUserParam);
@@ -81,14 +78,6 @@ export default function LoaderPage() {
                 // Внутри checkLocalStorageAndInit после выполнения /profile/init
                 axiosInstance.get(`/profile/init?profileId=${tgUserId}`)
                     .then(response => {
-                        console.log("Заголовки ответа:", response.headers);
-                        const token = response.headers['authorization']; // Берем токен из headers
-                        console.log("Полученный токен:", token);
-                        if (token) {
-                            const formattedToken = token.replace('Bearer ', ''); // Убираем 'Bearer ' при необходимости
-                            console.log("Отформатированный токен:", formattedToken);
-                            localStorage.setItem('GWToken', formattedToken); // Сохраняем токен в localStorage
-                        }
                         const data = response.data;
                         const initData = {
                             group: data.group,
@@ -96,6 +85,8 @@ export default function LoaderPage() {
                             balance: data.balance,
                         };
                         localStorage.setItem('init', JSON.stringify(initData));
+                        const token = data.JWT
+                        localStorage.setItem('GWToken', JSON.stringify(token));
                     })
                     .then(() => checkReferralLink()) // Проверяем реферальную ссылку
                     .then(() => {

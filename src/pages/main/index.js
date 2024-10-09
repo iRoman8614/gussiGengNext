@@ -104,12 +104,6 @@ export default function Home() {
                             // Выполняем init с передачей userId
                             await axiosInstance.get(`/profile/init?profileId=${userId}`)
                                 .then(initResponse => {
-                                    const token = initResponse.headers['authorization']; // Берем токен из заголовков
-                                    if (token) {
-                                        const formattedToken = token.replace('Bearer ', ''); // Убираем 'Bearer ' при необходимости
-                                        localStorage.setItem('GWToken', formattedToken); // Сохраняем токен в localStorage
-                                    }
-
                                     const data = initResponse.data;
                                     const initData = {
                                         group: data.group,
@@ -117,11 +111,12 @@ export default function Home() {
                                         balance: data.balance,
                                     };
                                     localStorage.setItem('init', JSON.stringify(initData));
+                                    const token = data.JWT
+                                    localStorage.setItem('GWToken', JSON.stringify(token));
                                 })
                                 .then(async () => {
-                                    // После успешной инициализации, повторяем collect запрос
                                     const retryCollectResponse = await axiosInstance.get(`/farm/collect`);
-                                    processCollectResponse(retryCollectResponse.data); // Обрабатываем повторный collect
+                                    processCollectResponse(retryCollectResponse.data);
                                 })
                                 .catch(initError => {
                                     console.error("Ошибка при повторной инициализации:", initError);
