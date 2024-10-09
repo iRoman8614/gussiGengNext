@@ -131,10 +131,6 @@ export default function PvpPage() {
                     setOpponentScore(opponentVictory);
                     const totalVictory = playerVictory + opponentVictory;
                     setRound(totalVictory + 1);
-                    if (!lastAnswerData.finished) {
-                        setPlayerChoice(isPlayer1 ? lastAnswerData.player1.answer : lastAnswerData.player2.answer);
-                        setOpponentChoice(isPlayer1 ? lastAnswerData.player2.answer : lastAnswerData.player1.answer);
-                    }
                 }
             } catch (error) {
                 console.error('Ошибка при запросе /game/start:', error);
