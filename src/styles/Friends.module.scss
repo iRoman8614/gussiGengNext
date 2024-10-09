@@ -256,15 +256,13 @@
   padding: 10px;
   display: flex;
   flex-direction: column;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
 }
 
 .row {
   display: flex;
   justify-content: space-between;
-
-  &:last-child {
-    padding-bottom: 30px;
-  }
 }
 
 .bar {
