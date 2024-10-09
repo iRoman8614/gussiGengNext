@@ -69,22 +69,20 @@ export default function Page() {
         ]
     };
 
-    useEffect(() => {
-        const fetchLevels = async () => {
-            try {
-                // Запрос на уровни лимита
-                const limitResponse = await axiosInstance.get(`/farm/limit-levels`);
-                const limitLevelsWithType = limitResponse.data.map(level => ({ ...level, type: 'limit' }));
-                setLimitLevels(limitLevelsWithType);  // Добавляем тип для лимитов
+    const fetchLevels = async () => {
+        try {
+            const limitResponse = await axiosInstance.get(`/farm/limit-levels`);
+            const limitLevelsWithType = limitResponse.data.map(level => ({ ...level, type: 'limit' }));
+            setLimitLevels(limitLevelsWithType);
+            const rateResponse = await axiosInstance.get(`/farm/rate-levels`);
+            const rateLevelsWithType = rateResponse.data.map(level => ({ ...level, type: 'rate' }));
+            setRateLevels(rateLevelsWithType);
+        } catch (error) {
+            console.error('Ошибка при загрузке уровней:', error);
+        }
+    };
 
-                // Запрос на уровни прокачки
-                const rateResponse = await axiosInstance.get(`/farm/rate-levels`);
-                const rateLevelsWithType = rateResponse.data.map(level => ({ ...level, type: 'rate' }));
-                setRateLevels(rateLevelsWithType);  // Добавляем тип для прокачек
-            } catch (error) {
-                console.error('Ошибка при загрузке уровней:', error);
-            }
-        };
+    useEffect(() => {
         fetchLevels();
     }, []);
 
@@ -117,6 +115,7 @@ export default function Page() {
             start.balance = updatedBalance;
             localStorage.setItem("start", JSON.stringify(start));
             closeUpgradeModal();
+            fetchLevels();
         } catch (error) {
             console.error('Ошибка при улучшении лимита:', error);
         }
@@ -130,11 +129,8 @@ export default function Page() {
             setRateLevels(prevLevels => prevLevels.map(item =>
                 item.Id === levelId ? response.data : item
             ));
-            // Вычитаем стоимость из баланса
             const updatedBalance = balance - cost;
             setBalance(updatedBalance);
-
-            // Обновляем баланс в localStorage
             const start = JSON.parse(localStorage.getItem("start"));
             start.balance = updatedBalance;
             localStorage.setItem("start", JSON.stringify(start));
