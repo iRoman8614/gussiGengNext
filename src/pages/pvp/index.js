@@ -116,7 +116,9 @@ export default function PvpPage() {
                 const isPlayer1 = data.player1.id === userId;
                 const userClan = isPlayer1 ? data.player1.group : data.player2.group;
                 const opponentClan = isPlayer1 ? data.player2.group : data.player1.group;
-                const opponentName = isPlayer1 ? data.player2.name : data.player1.name || "biggie smalls";
+                const opponentName = isPlayer1 ? (data.player2.name === "" ? "biggie smalls" : data.player2.name)
+                    : (data.player1.name === "" ? "biggie smalls" : data.player1.name);
+
                 setOppClan(opponentClan);
                 setUserClan(userClan);
                 setOpponentName(opponentName);
