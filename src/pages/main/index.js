@@ -190,7 +190,7 @@ export default function Home() {
         if (typeof num !== 'number') {
             return '0';
         }
-        return num.toString().replace(/(\d)(?=(\d{3})+$)/g, "$1 ");
+        return Math.round(num).toString().replace(/(\d)(?=(\d{3})+$)/g, "$1 ");
     }
 
     function formatNumberFromEndDot(num) {
@@ -231,7 +231,7 @@ export default function Home() {
             <div className={styles.item8}>
                 <CollectBar
                     currentCoins={formatNumberFromEndDot(currentFarmCoins < 0 ? 0 : currentFarmCoins)}
-                    maxCoins={Math.round(formatNumberFromEnd(limit))}
+                    maxCoins={formatNumberFromEnd(limit)}
                     width={currentWidth}
                 />
             </div>
