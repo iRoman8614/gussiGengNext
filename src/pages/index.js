@@ -176,10 +176,9 @@ export default function LoaderPage() {
                 )
             ) : (
                 <>
-                    <Image className={styles.bg} src={bg} alt={''} width={400} height={1000} />
                     <div className={styles.placeholder}>
                         <h2>Play on your mobile</h2>
-                        <Image src={qr} alt="QR Code" width={200} height={200} />
+                        <Image className={styles.qr} src={qr} alt="QR Code" width={200} height={200} />
                         <h2>@vodoleyservicebot</h2>
                     </div>
                 </>
