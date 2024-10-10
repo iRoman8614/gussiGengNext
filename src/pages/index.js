@@ -144,17 +144,19 @@ export default function LoaderPage() {
                 router.push('/main');
             }
         };
-        if (typeof window !== 'undefined' && isMobile) {
+        if (typeof window !== 'undefined') {
             window.Telegram?.WebApp.ready();
             initializeTelegramWebApp();
-            if (userId !== null) {
-                checkLocalStorageAndInit();
-            } else {
-                setTimeout(() => {
-                    if (userId !== null) {
-                        checkLocalStorageAndInit();
-                    }
-                }, 1000);
+            if(isMobile) {
+                if (userId !== null) {
+                    checkLocalStorageAndInit();
+                } else {
+                    setTimeout(() => {
+                        if (userId !== null) {
+                            checkLocalStorageAndInit();
+                        }
+                    }, 1000);
+                }
             }
         }
         return () => {
