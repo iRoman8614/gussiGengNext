@@ -27,3 +27,21 @@
   transform: translate(-50%, 0);
   z-index: 10;
 }
+
+.bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 101;
+}
+
+.placeholder {
+  z-index: 102;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+
+  h2 {
+    color: #FFFFFF;
+  }
+}

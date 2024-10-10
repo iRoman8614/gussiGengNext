@@ -7,11 +7,14 @@ import axiosInstance from '@/utils/axios';
 import styles from '../styles/Loader.module.scss';
 
 const loaderImage = '/loadingImg.jpg';
+const qr = '/qr.png'
+const bg = '/backgrounds/randomBG.png'
 
 export default function LoaderPage() {
+    const router = useRouter();
     const [isLoading, setIsLoading] = useState(true);
     const [userId, setUserId] = useState(null);
-    const router = useRouter();
+    const [isMobile, setIsMobile] = useState(true);
 
     useEffect(() => {
         function setTelegramHeight() {
@@ -20,6 +23,13 @@ export default function LoaderPage() {
         }
         const initializeTelegramWebApp = () => {
             if (window.Telegram?.WebApp) {
+                // Проверяем платформу Telegram WebApp
+                const platform = window.Telegram.WebApp.platform;
+                console.log("Платформа:", platform);
+                // Если не мобильная платформа, устанавливаем флаг
+                if (platform !== 'ios' && platform !== 'android') {
+                    setIsMobile(false); // Устанавливаем, что это не мобильное устройство
+                }
                 // Устанавливаем цвет заголовка
                 window.Telegram.WebApp.setHeaderColor('#183256');
                 window.Telegram.WebApp.expand();
@@ -156,11 +166,23 @@ export default function LoaderPage() {
 
     return (
         <div className={styles.root}>
-            {isLoading && (
+            {isMobile ? (
+                isLoading && (
+                    <>
+                        <Image className={styles.video} src={loaderImage} alt="Loading..." width={500} height={500} />
+                        <LoadingText />
+                    </>
+                )
+            ) : (
                 <>
-                    <Image className={styles.video} src={loaderImage} alt="Loading..." width={500} height={500} />
-                    <LoadingText />
+                    <Image className={styles.bg} src={bg} alt={''} width={400} height={1000} />
+                    <div className={styles.placeholder}>
+                        <h2>Play on your mobile</h2>
+                        <Image src={qr} alt="QR Code" width={200} height={200} />
+                        <h2>@vodoleyservicebot</h2>
+                    </div>
                 </>
+
             )}
         </div>
     );
