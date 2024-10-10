@@ -188,6 +188,13 @@ export default function Page() {
         }
     }, [router]);
 
+    const handleTab = (tab) => {
+        if (window.Telegram?.WebApp?.HapticFeedback) {
+            window.Telegram.WebApp.HapticFeedback.impactOccurred('heavy');
+        }
+        setActiveTab(tab)
+    }
+
     return (
         <div className={styles.root}>
             <Image src={bg} alt={'bg'} width={450} height={1000} className={styles.bg} />
@@ -202,7 +209,7 @@ export default function Page() {
                                  borderRight:  activeTab === 1 ? '2px solid #3842a4' : 'none',
                              }}
                              onClick={() => {
-                                 setActiveTab(1)
+                                 handleTab(1)
                                  setIsModalOpen(false)
                              }}>Upgrades</div>
                         <div
@@ -212,7 +219,7 @@ export default function Page() {
                                 marginBottom:  activeTab === 2 ? '-0px' : '2px',
                             }}
                             onClick={() => {
-                                setActiveTab(2)
+                                handleTab(2)
                                 setIsModalOpen(false)
                             }}
                         >tasks</div>
@@ -261,6 +268,9 @@ export default function Page() {
                                 <button
                                     className={styles.btnUpgrade}
                                     onClick={() => {
+                                        if (window.Telegram?.WebApp?.HapticFeedback) {
+                                            window.Telegram.WebApp.HapticFeedback.impactOccurred('heavy');
+                                        }
                                         if (selectedItem) {
                                             selectedItem.type === 'limit'
                                                 ? handleLimitUpgrade(selectedItem.Id, selectedItem.Cost)

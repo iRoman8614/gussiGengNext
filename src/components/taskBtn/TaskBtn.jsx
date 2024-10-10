@@ -9,8 +9,15 @@ const Complite = '/Tasks/TaskComplited.png'
 export const TaskBtn = ({title, subtitle, desc, complite, onClick}) => {
     const [complited, setComplited] = useState(complite)
 
+    const handleClick = () => {
+        if (window.Telegram?.WebApp?.HapticFeedback) {
+            window.Telegram.WebApp.HapticFeedback.impactOccurred('heavy');
+        }
+        onClick();
+    };
+
     return(
-        <div className={styles.root} onClick={onClick}>
+        <div className={styles.root} onClick={handleClick}>
             {title && <div className={styles.title}>{title}</div>}
             {subtitle && <div className={styles.subtitle}>{subtitle}</div>}
             <div className={styles.desc}>{desc}</div>

@@ -163,12 +163,18 @@ export default function Page() {
 
     const swiperRef = useRef(null);
     const handleSlidePrev = () => {
+        if (window.Telegram?.WebApp?.HapticFeedback) {
+            window.Telegram.WebApp.HapticFeedback.impactOccurred('heavy');
+        }
         if (swiperRef.current) {
             swiperRef.current.slidePrev();
         }
     };
 
     const handleSlideNext = () => {
+        if (window.Telegram?.WebApp?.HapticFeedback) {
+            window.Telegram.WebApp.HapticFeedback.impactOccurred('heavy');
+        }
         if (swiperRef.current) {
             swiperRef.current.slideNext();
         }

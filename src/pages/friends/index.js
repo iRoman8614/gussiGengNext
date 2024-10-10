@@ -87,6 +87,9 @@ export default function Page() {
     }, []);
 
     const handleClick = () => {
+        if (window.Telegram?.WebApp?.HapticFeedback) {
+            window.Telegram.WebApp.HapticFeedback.impactOccurred('heavy');
+        }
         const referralLink = `https://t.me/vodoleyservicebot?referal=${userId}`;
         if (navigator.clipboard) {
             navigator.clipboard.writeText(referralLink)
@@ -99,7 +102,6 @@ export default function Page() {
                         pauseOnHover: false,
                         draggable: false,
                     });
-
                     if (window.Telegram?.WebApp?.HapticFeedback) {
                         window.Telegram.WebApp.HapticFeedback.impactOccurred('light');
                     }
@@ -122,6 +124,13 @@ export default function Page() {
         const shareLink = `https://t.me/share/url?url=${encodeURIComponent(referralLink)}&text=${encodeURIComponent(inviteMessage)}`;
         window.open(shareLink, '_blank');
     };
+
+    const handleTab = (tab) => {
+        if (window.Telegram?.WebApp?.HapticFeedback) {
+            window.Telegram.WebApp.HapticFeedback.impactOccurred('heavy');
+        }
+        setActiveTab(tab)
+    }
 
     return(
         <div className={styles.root}>
@@ -155,14 +164,14 @@ export default function Page() {
                                  marginBottom:  activeTab === 1 ? '0px' : '-12px',
                                  borderRight:  activeTab === 1 ? '2px solid #3842a4' : 'none',
                              }}
-                             onClick={() => setActiveTab(1)}>friends</div>
+                             onClick={() => handleTab(1)}>friends</div>
                         <div
                             className={styles.folderBtnSkins}
                             style={{
                                 zIndex: activeTab === 2 ? 113 : 110,
                                 marginBottom:  activeTab === 2 ? '-0px' : '2px',
                             }}
-                            onClick={() => setActiveTab(2)}
+                            onClick={() => handleTab(2)}
                         >info
                         </div>
                     </div>

@@ -2,9 +2,16 @@ import React from 'react';
 import styles from './ItemPlaceholder.module.scss';
 
 export const ItemPlaceholder = ({ item, onClick }) => {
+    const handleClick = () => {
+        if (window.Telegram?.WebApp?.HapticFeedback) {
+            window.Telegram.WebApp.HapticFeedback.impactOccurred('heavy');
+        }
+        onClick();
+    };
+
     return (
         <>
-            <div className={styles.root} onClick={onClick}>
+            <div className={styles.root} onClick={handleClick}>
                 {item ? (
                     <>
                         <div className={styles.title}>

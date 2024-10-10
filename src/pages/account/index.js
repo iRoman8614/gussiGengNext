@@ -128,6 +128,13 @@ export default function Page() {
 
     const progressPercentage = ((totalCoins % 100000) / 100000) * 100;
 
+    const handleTab = (tab) => {
+        if (window.Telegram?.WebApp?.HapticFeedback) {
+            window.Telegram.WebApp.HapticFeedback.impactOccurred('heavy');
+        }
+        setActiveTab(tab)
+    }
+
     return(
         <div className={styles.root}>
             <Image src={bg} alt={'bg'} width={450} height={1000} className={styles.bg} />
@@ -147,14 +154,14 @@ export default function Page() {
                                  marginBottom:  activeTab === 1 ? '0px' : '-12px',
                                  borderRight:  activeTab === 1 ? '2px solid #3842a4' : 'none',
                              }}
-                             onClick={() => setActiveTab(1)}>STATS</div>
+                             onClick={() => handleTab(1)}>STATS</div>
                         <div
                             className={styles.folderBtnSkins}
                             style={{
                                 zIndex: activeTab === 2 ? 113 : 110,
                                 marginBottom:  activeTab === 2 ? '-0px' : '2px',
                             }}
-                             onClick={() => setActiveTab(2)}
+                             onClick={() => handleTab(2)}
                         >SkinS</div>
                     </div>
                     {activeTab === 1 &&<div className={styles.personalContainer}>
