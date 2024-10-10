@@ -14,7 +14,7 @@ export default function LoaderPage() {
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(true);
     const [userId, setUserId] = useState(null);
-    const [isMobile, setIsMobile] = useState(false);
+    const [isMobile, setIsMobile] = useState(true);
 
     useEffect(() => {
         function setTelegramHeight() {
