@@ -14,7 +14,7 @@ export default function LoaderPage() {
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(true);
     const [userId, setUserId] = useState(null);
-    const [isMobile, setIsMobile] = useState(true);
+    const [isMobile, setIsMobile] = useState(false);
 
     useEffect(() => {
         function setTelegramHeight() {
@@ -27,8 +27,8 @@ export default function LoaderPage() {
                 const platform = window.Telegram.WebApp.platform;
                 console.log("Платформа:", platform);
                 // Если не мобильная платформа, устанавливаем флаг
-                if (platform !== 'ios' && platform !== 'android') {
-                    setIsMobile(false); // Устанавливаем, что это не мобильное устройство
+                if (platform === 'ios' && platform === 'android') {
+                    setIsMobile(true); // Устанавливаем, что это не мобильное устройство
                 }
                 // Устанавливаем цвет заголовка
                 window.Telegram.WebApp.setHeaderColor('#183256');
@@ -144,9 +144,8 @@ export default function LoaderPage() {
                 router.push('/main');
             }
         };
-        // Запускаем логику при монтировании компонента
-        if (typeof window !== 'undefined') {
-            window.Telegram?.WebApp.ready(); // Инициализация Telegram WebApp
+        if (typeof window !== 'undefined' && isMobile) {
+            window.Telegram?.WebApp.ready();
             initializeTelegramWebApp();
             if (userId !== null) {
                 checkLocalStorageAndInit();
