@@ -20,10 +20,10 @@ export default function LoaderPage() {
         const initializeTelegramWebApp = () => {
             if (window.Telegram?.WebApp) {
                 const platform = window.Telegram.WebApp.platform;
-                // if (platform !== 'ios' && platform !== 'android') {
-                //     router.push('/qr');
-                //     return;
-                // }
+                if (platform !== 'ios' && platform !== 'android') {
+                    router.push('/qr');
+                    return;
+                }
                 window.Telegram.WebApp.setHeaderColor('#183256');
                 window.Telegram.WebApp.expand();
                 setTelegramHeight();
@@ -38,7 +38,7 @@ export default function LoaderPage() {
                 }
             } else {
                 toast.error("Telegram WebApp недоступен");
-                // router.push('/qr');
+                router.push('/qr');
             }
         };
 
