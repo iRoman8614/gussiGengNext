@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import axiosInstance from '@/utils/axios';
 
 import styles from '@/styles/Loader.module.scss';
+import Head from "next/head";
 
 const loaderImage = '/loadingImg.jpg';
 
@@ -122,10 +123,15 @@ export default function LoaderPage() {
     }, [userId, router]);
 
     return (
-        <div className={styles.root}>
-            <Image className={styles.video} src={loaderImage} alt="Loading..." width={500} height={500}/>
-            <LoadingText/>
-        </div>
+        <>
+            <Head>
+                <link rel="preload" href="/loadingImg.jpg" as="image" />
+            </Head>
+            <div className={styles.root}>
+                <Image className={styles.video} src={loaderImage} alt="Loading..." width={500} height={500}/>
+                <LoadingText/>
+            </div>
+        </>
     );
 }
 

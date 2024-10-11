@@ -9,6 +9,7 @@ import {ListItem} from "@/components/ListItem/ListItem";
 import axiosInstance from "@/utils/axios";
 
 import styles from '@/styles/Boards.module.scss'
+import Head from "next/head";
 
 const bg = '/backgrounds/leaderboardBG.png'
 
@@ -185,68 +186,74 @@ export default function Page() {
     };
 
     return(
-        <div className={styles.root}>
-            <div className={styles.containerSwiper}>
-                <Swiper
-                    modules={[Navigation, Controller]}
-                    spaceBetween={-3}
-                    slidesPerView={3}
-                    centeredSlides={true}
-                    loop={true}
-                    onSwiper={(swiper) => {
-                        swiperRef.current = swiper;
-                    }}
-                    onSlideChange={handleSlideChange}
-                    className={styles.swiper}
-                >
-                    {characters[teamId].map((character, index) => (
-                        <SwiperSlide
-                            key={index}
-                            className={index === activeIndex ? styles.activeSlide : styles.inactiveSlide}
-                        >
-                            <div className={index === activeIndex ? styles.activeSlideImageWrapper : styles.inactiveSlideImageWrapper}>
-                                <Image
-                                    width={index === activeIndex ? 100 : 80}
-                                    height={index === activeIndex ? 194 : 155}
-                                    src={character.icon}
-                                    alt={''}
-                                    className={styles.icon}
-                                />
-                            </div>
-                        </SwiperSlide>
-                    ))}
-                </Swiper>
-            </div>
-            <div className={styles.navigation}>
-                <button className={styles.navLeft} onClick={handleSlidePrev}>
-                    <Image src={'/Arrow.png'} alt={''} width={15} height={15} />
-                </button>
-                <div className={styles.caption}>
-                    <span>{characters[teamId][activeIndex].name}</span>
+        <>
+            <Head>
+                <link rel="preload" href="/backgrounds/leaderboardBG.png" as="image" />
+                <link rel="preload" href="/Arrow.png" as="image" />
+            </Head>
+            <div className={styles.root}>
+                <div className={styles.containerSwiper}>
+                    <Swiper
+                        modules={[Navigation, Controller]}
+                        spaceBetween={-3}
+                        slidesPerView={3}
+                        centeredSlides={true}
+                        loop={true}
+                        onSwiper={(swiper) => {
+                            swiperRef.current = swiper;
+                        }}
+                        onSlideChange={handleSlideChange}
+                        className={styles.swiper}
+                    >
+                        {characters[teamId].map((character, index) => (
+                            <SwiperSlide
+                                key={index}
+                                className={index === activeIndex ? styles.activeSlide : styles.inactiveSlide}
+                            >
+                                <div className={index === activeIndex ? styles.activeSlideImageWrapper : styles.inactiveSlideImageWrapper}>
+                                    <Image
+                                        width={index === activeIndex ? 100 : 80}
+                                        height={index === activeIndex ? 194 : 155}
+                                        src={character.icon}
+                                        alt={''}
+                                        className={styles.icon}
+                                    />
+                                </div>
+                            </SwiperSlide>
+                        ))}
+                    </Swiper>
                 </div>
-                <button className={styles.navRight} onClick={handleSlideNext}>
-                    <Image src={'/Arrow.png'} alt={''} width={15} height={15} />
-                </button>
-            </div>
-            <div className={styles.progressBar}>
-                <div className={styles.progress} style={{width: `${length}%`}}></div>
-            </div>
-            <div className={styles.winsCounter}>{`wins ${currentWins}/${ligsLimits[activeIndex]}`}</div>
-            <Image src={bg} alt={''} className={styles.bg} width={450} height={1000} />
-            <div className={styles.container}>
-                {leaderData[activeIndex + 1] && leaderData[activeIndex + 1].length === 0 ? (
-                    <div className={styles.emptyState}>
-                        <p>Nobody has reached this league yet.</p>
-                        <p>Be the first!</p>
+                <div className={styles.navigation}>
+                    <button className={styles.navLeft} onClick={handleSlidePrev}>
+                        <Image src={'/Arrow.png'} alt={''} width={15} height={15} />
+                    </button>
+                    <div className={styles.caption}>
+                        <span>{characters[teamId][activeIndex].name}</span>
                     </div>
-                ) : leaderData[activeIndex + 1] ? (
-                    leaderData[activeIndex + 1].map((user, index) => (
-                        <ListItem key={index} item={user} index={index + 1} />
-                    ))
-                ) : (
-                    <div className={styles.emptyState}>Loading...</div> // Или другой индикатор загрузки
-                )}
+                    <button className={styles.navRight} onClick={handleSlideNext}>
+                        <Image src={'/Arrow.png'} alt={''} width={15} height={15} />
+                    </button>
+                </div>
+                <div className={styles.progressBar}>
+                    <div className={styles.progress} style={{width: `${length}%`}}></div>
+                </div>
+                <div className={styles.winsCounter}>{`wins ${currentWins}/${ligsLimits[activeIndex]}`}</div>
+                <Image src={bg} alt={''} className={styles.bg} width={450} height={1000} />
+                <div className={styles.container}>
+                    {leaderData[activeIndex + 1] && leaderData[activeIndex + 1].length === 0 ? (
+                        <div className={styles.emptyState}>
+                            <p>Nobody has reached this league yet.</p>
+                            <p>Be the first!</p>
+                        </div>
+                    ) : leaderData[activeIndex + 1] ? (
+                        leaderData[activeIndex + 1].map((user, index) => (
+                            <ListItem key={index} item={user} index={index + 1} />
+                        ))
+                    ) : (
+                        <div className={styles.emptyState}>Loading...</div> // Или другой индикатор загрузки
+                    )}
+                </div>
             </div>
-        </div>
+        </>
     )
 }

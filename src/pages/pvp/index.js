@@ -283,20 +283,23 @@ export default function PvpPage() {
     return (
         <>
             <Head>
-                <link rel="preload" href={wins} as="image" />
-                <link rel="preload" href={background} as="image" />
-                <link rel="preload" href={timerBG} as="image" />
-                <link rel="preload" href={heart} as="image" />
-                <link rel="preload" href={cross} as="image" />
-                <link rel="preload" href={gifPaths.rockAnim} as="image" />
-                <link rel="preload" href={gifPaths.scisAnim} as="image" />
-                <link rel="preload" href={gifPaths.papAnim} as="image" />
-                <link rel="preload" href={'/buttonPaper/paper01.png'} as="image" />
-                <link rel="preload" href={'/buttonPaper/paper09.png'} as="image" />
-                <link rel="preload" href={'/buttonRock/rock01.png'} as="image" />
-                <link rel="preload" href={'/buttonRock/rock09.png'} as="image" />
-                <link rel="preload" href={'/buttonScissors/scis01.png'} as="image" />
-                <link rel="preload" href={'/buttonScissors/scis09.png'} as="image" />
+                <link rel="preload" href="/wins.png" as="image" />
+                <link rel="preload" href="/backgrounds/backalley.png" as="image" />
+                <link rel="preload" href="/timer.png" as="image" />
+                <link rel="preload" href="/game-icons/heart.png" as="image" />
+                <link rel="preload" href="/game-icons/lose.png" as="image" />
+                <link rel="preload" href="/game-icons/animation_hand_rock.gif" as="image" />
+                <link rel="preload" href="/game-icons/animation_hand_sci.gif" as="image" />
+                <link rel="preload" href="/game-icons/animation_hand_pap.gif" as="image" />
+                <link rel="preload" href="/buttonPaper/paper01.png" as="image" />
+                <link rel="preload" href="/buttonPaper/paper09.png" as="image" />
+                <link rel="preload" href="/buttonRock/rock01.png" as="image" />
+                <link rel="preload" href="/buttonRock/rock09.png" as="image" />
+                <link rel="preload" href="/buttonScissors/scis01.png" as="image" />
+                <link rel="preload" href="/buttonScissors/scis09.png" as="image" />
+                <link rel="preload" href="/oppNickNameContainer.png" as="image" />
+                <link rel="preload" href="/roundContainer.png" as="image" />
+                <link rel="preload" href="/winsBG.png" as="image" />
             </Head>
             {isLoadingPvp ? (
                 <LoaderGif />

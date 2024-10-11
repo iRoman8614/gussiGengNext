@@ -5,6 +5,7 @@ import {CustomSelect} from '@/components/selector/Select';
 import {ToggleSwitch} from "@/components/toggleswitch/ToggleSwitch";
 
 import styles from '@/styles/Settings.module.scss'
+import Head from "next/head";
 
 const bg = '/backgrounds/settingsBG.png'
 
@@ -40,14 +41,19 @@ export default function Page() {
     };
 
     return (
-        <div className={styles.root}>
-            <Image src={bg} alt={'bg'} width={450} height={1000} className={styles.bg} />
-            <div className={styles.container}>
-                <h1 className={styles.title}>SETTINGS </h1>
-                <CustomSelect title={'select LANGUAGE'} optionsArray={languageOptions} />
-                {/*<ToggleSwitch />*/}
-                <button onClick={clearLocalStorage}>reset LocalStorage</button>
+        <>
+            <Head>
+                <link rel="preload" href="/backgrounds/settingsBG.png" as="image" />
+            </Head>
+            <div className={styles.root}>
+                <Image src={bg} alt={'bg'} width={450} height={1000} className={styles.bg} />
+                <div className={styles.container}>
+                    <h1 className={styles.title}>SETTINGS </h1>
+                    <CustomSelect title={'select LANGUAGE'} optionsArray={languageOptions} />
+                    {/*<ToggleSwitch />*/}
+                    {/*<button onClick={clearLocalStorage}>reset LocalStorage</button>*/}
+                </div>
             </div>
-        </div>
+        </>
     );
 };

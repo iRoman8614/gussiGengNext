@@ -1,4 +1,3 @@
-import styles from '@/styles/Account.module.scss'
 import Image from "next/image";
 import React, {useEffect, useState} from "react";
 import axiosInstance from '@/utils/axios';
@@ -7,6 +6,9 @@ import skinData from '@/mock/skinsData'
 import teamData from "@/mock/teamsData";
 import {useRouter} from "next/router";
 import {ItemPlaceholder} from "@/components/itemPlaceholder/ItemPlaceholder";
+
+import styles from '@/styles/Account.module.scss'
+import Head from "next/head";
 
 const bg = '/backgrounds/accountBG.png'
 const money = '/money.png'
@@ -136,90 +138,96 @@ export default function Page() {
     }
 
     return(
-        <div className={styles.root}>
-            <Image src={bg} alt={'bg'} width={450} height={1000} className={styles.bg} />
-            <div className={styles.container}>
-                <div className={styles.seasonBlock}>
-                    <div className={styles.season}>season 1</div>
-                    <div className={styles.avatarContainer}>
-                        <Image className={styles.logo} src={teamData[teamId].logo} alt={''} width={40} height={40} />
-                        <Image className={styles.character} src={skinData[teamId][level]} alt={''} width={100} height={178} />
+        <>
+            <Head>
+                <link rel="preload" href="/backgrounds/accountBG.png" as="image" />
+                <link rel="preload" href="/money.png" as="image" />
+            </Head>
+            <div className={styles.root}>
+                <Image src={bg} alt={'bg'} width={450} height={1000} className={styles.bg} />
+                <div className={styles.container}>
+                    <div className={styles.seasonBlock}>
+                        <div className={styles.season}>season 1</div>
+                        <div className={styles.avatarContainer}>
+                            <Image className={styles.logo} src={teamData[teamId].logo} alt={''} width={40} height={40} />
+                            <Image className={styles.character} src={skinData[teamId][level]} alt={''} width={100} height={178} />
+                        </div>
                     </div>
-                </div>
-                <div className={styles.block}>
-                    <div className={styles.buttonSet}>
-                        <div className={styles.folderBtnStats}
-                             style={{
-                                 zIndex: activeTab === 1 ? 112 : 110,
-                                 marginBottom:  activeTab === 1 ? '0px' : '-12px',
-                                 borderRight:  activeTab === 1 ? '2px solid #3842a4' : 'none',
-                             }}
-                             onClick={() => handleTab(1)}>STATS</div>
-                        <div
-                            className={styles.folderBtnSkins}
-                            style={{
-                                zIndex: activeTab === 2 ? 113 : 110,
-                                marginBottom:  activeTab === 2 ? '-0px' : '2px',
-                            }}
-                             onClick={() => handleTab(2)}
-                        >SkinS</div>
+                    <div className={styles.block}>
+                        <div className={styles.buttonSet}>
+                            <div className={styles.folderBtnStats}
+                                 style={{
+                                     zIndex: activeTab === 1 ? 112 : 110,
+                                     marginBottom:  activeTab === 1 ? '0px' : '-12px',
+                                     borderRight:  activeTab === 1 ? '2px solid #3842a4' : 'none',
+                                 }}
+                                 onClick={() => handleTab(1)}>STATS</div>
+                            <div
+                                className={styles.folderBtnSkins}
+                                style={{
+                                    zIndex: activeTab === 2 ? 113 : 110,
+                                    marginBottom:  activeTab === 2 ? '-0px' : '2px',
+                                }}
+                                onClick={() => handleTab(2)}
+                            >SkinS</div>
+                        </div>
+                        {activeTab === 1 &&<div className={styles.personalContainer}>
+                            <div className={styles.nickname}>
+                                {userName}
+                            </div>
+                            <div className={styles.stats}>
+                                <div className={styles.nickname}>League {stats?.liga}</div>
+                                <div className={styles.stat}>
+                                    total <p>{stats?.count}</p>
+                                </div>
+                                <div className={styles.stat}>
+                                    wins <p>{stats.victory}</p>
+                                </div>
+                                <div className={styles.stat}>
+                                    defeats <p>{stats.lost}</p>
+                                </div>
+                                <div className={styles.stat}>
+                                    winrate <p>{stats.count === 0 ? '0%' : `${((stats.victory / stats.count) * 100).toFixed(2)}%`}</p>
+                                </div>
+                            </div>
+                            <div className={styles.barBlock}>
+                                <div className={styles.ballanceLabel}>
+                                    earn a total of 100 k to get extra games
+                                </div>
+                                <div className={styles.bar}>
+                                    <div
+                                        className={styles.progress}
+                                        style={{ width: `${Math.min(progressPercentage, 100)}%` }}
+                                    ></div>
+                                </div>
+                                <div className={styles.ballanceLabel}>{totalCoins}</div>
+                            </div>
+                            <div>
+                                <div className={styles.ballanceLabel}>current balance</div>
+                                <div className={styles.balance}>{balance}{' '}<Image src={money} alt={''} width={21} height={21} /></div>
+                            </div>
+                        </div>}
+                        {activeTab === 2 && <div className={styles.skinContainer}>
+                            <div className={styles.list}>
+                                <ItemPlaceholder />
+                                <ItemPlaceholder />
+                                <ItemPlaceholder />
+                                <ItemPlaceholder />
+                                <ItemPlaceholder />
+                                <ItemPlaceholder />
+                                <ItemPlaceholder />
+                                <ItemPlaceholder />
+                                <ItemPlaceholder />
+                                <ItemPlaceholder />
+                                <ItemPlaceholder />
+                                <ItemPlaceholder />
+                                <ItemPlaceholder />
+                                <ItemPlaceholder />
+                            </div>
+                        </div>}
                     </div>
-                    {activeTab === 1 &&<div className={styles.personalContainer}>
-                        <div className={styles.nickname}>
-                            {userName}
-                        </div>
-                        <div className={styles.stats}>
-                            <div className={styles.nickname}>League {stats?.liga}</div>
-                            <div className={styles.stat}>
-                                total <p>{stats?.count}</p>
-                            </div>
-                            <div className={styles.stat}>
-                                wins <p>{stats.victory}</p>
-                            </div>
-                            <div className={styles.stat}>
-                                defeats <p>{stats.lost}</p>
-                            </div>
-                            <div className={styles.stat}>
-                                winrate <p>{stats.count === 0 ? '0%' : `${((stats.victory / stats.count) * 100).toFixed(2)}%`}</p>
-                            </div>
-                        </div>
-                        <div className={styles.barBlock}>
-                            <div className={styles.ballanceLabel}>
-                                earn a total of 100 k to get extra games
-                            </div>
-                            <div className={styles.bar}>
-                                <div
-                                    className={styles.progress}
-                                    style={{ width: `${Math.min(progressPercentage, 100)}%` }}
-                                ></div>
-                            </div>
-                            <div className={styles.ballanceLabel}>{totalCoins}</div>
-                        </div>
-                        <div>
-                            <div className={styles.ballanceLabel}>current balance</div>
-                            <div className={styles.balance}>{balance}{' '}<Image src={money} alt={''} width={21} height={21} /></div>
-                        </div>
-                    </div>}
-                    {activeTab === 2 && <div className={styles.skinContainer}>
-                        <div className={styles.list}>
-                            <ItemPlaceholder />
-                            <ItemPlaceholder />
-                            <ItemPlaceholder />
-                            <ItemPlaceholder />
-                            <ItemPlaceholder />
-                            <ItemPlaceholder />
-                            <ItemPlaceholder />
-                            <ItemPlaceholder />
-                            <ItemPlaceholder />
-                            <ItemPlaceholder />
-                            <ItemPlaceholder />
-                            <ItemPlaceholder />
-                            <ItemPlaceholder />
-                            <ItemPlaceholder />
-                        </div>
-                    </div>}
                 </div>
             </div>
-        </div>
+        </>
     )
 }

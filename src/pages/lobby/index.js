@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import Image from "next/image";
+import Head from "next/head";
 import {useRouter} from "next/router";
 
 import styles from '@/styles/Lobby.module.scss'
@@ -97,60 +98,68 @@ export default function Page() {
     };
 
     return (
-        <div className={styles.root}>
-            <Image className={styles.image} src={bg} alt={''} width={450} height={1000} />
-            <div className={styles.container}>
-                <div>
-                    <div className={styles.card}>
-                        <div className={styles.icon} onClick={handlePvpClick}>
-                            <div>battle</div>
-                            <Image className={styles.logo} src={hands} alt={''} width={150} height={75} />
-                        </div>
-                        <div className={styles.lable}>
-                            {remainingTime > 0  && <div className={styles.timer}>{formatTime(remainingTime)}</div>}
-                            <div className={styles.title}>
-                                <div>0</div>
-                                <p>passes</p>
+        <>
+            <Head>
+                <link rel="preload" href="/backgrounds/Lobby.png" as="image" />
+                <link rel="preload" href="/main-buttons/hand2.png" as="image" />
+                <link rel="preload" href="/main-buttons/rich.png" as="image" />
+            </Head>
+            <div className={styles.root}>
+                <Image className={styles.image} src={bg} alt={''} width={450} height={1000} />
+                <div className={styles.container}>
+                    <div>
+                        <div className={styles.card}>
+                            <div className={styles.icon} onClick={handlePvpClick}>
+                                <div>battle</div>
+                                <Image className={styles.logo} src={hands} alt={''} width={150} height={75} />
                             </div>
-                        </div>
-                        <div className={styles.btn} onClick={() => {
-                            if (window.Telegram?.WebApp?.HapticFeedback) {
-                                window.Telegram.WebApp.HapticFeedback.impactOccurred('heavy');
-                            }
-                            setHintOne(!hintOne)}}>?</div>
-                    </div>
-                    {hintOne && <div className={styles.hint}>
-                        Battle against others, earn rewards, and climb the ranks.
-                        <p>No luck, just skill!</p>
-                    </div>}
-                </div>
-                <div>
-                    <div className={styles.card}>
-                        <div className={styles.icon}>
-                            <div>ton</div>
-                            <p>battle</p>
-                            <Image className={styles.logo} src={rich} alt={''} width={150} height={75} />
-                        </div>
-                        <div className={styles.lable}>
-                            <div className={styles.timer}></div>
-                            <div className={styles.title}>
-                                <div>1</div>
-                                <p>ton</p>
+                            <div className={styles.lable}>
+                                {remainingTime > 0  && <div className={styles.timer}>{formatTime(remainingTime)}</div>}
+                                <div className={styles.title}>
+                                    <div>0</div>
+                                    <p>passes</p>
+                                </div>
                             </div>
                             <div className={styles.btn} onClick={() => {
                                 if (window.Telegram?.WebApp?.HapticFeedback) {
                                     window.Telegram.WebApp.HapticFeedback.impactOccurred('heavy');
                                 }
-                                setHintTwo(!hintTwo)}}>?</div>
+                                setHintOne(!hintOne)}}>?</div>
                         </div>
-
+                        {hintOne && <div className={styles.hint}>
+                            Battle against others, earn rewards, and climb the ranks.
+                            <p>No luck, just skill!</p>
+                        </div>}
                     </div>
-                    {hintTwo && <div className={styles.hint}>
-                        <p>FEELING BOLD?</p>
-                        Put your TON on the line in this high-stakes mode!
-                    </div>}
+                    <div>
+                        <div className={styles.card}>
+                            <div className={styles.icon}>
+                                <div>ton</div>
+                                <p>battle</p>
+                                <Image className={styles.logo} src={rich} alt={''} width={150} height={75} />
+                            </div>
+                            <div className={styles.lable}>
+                                <div className={styles.timer}></div>
+                                <div className={styles.title}>
+                                    <div>1</div>
+                                    <p>ton</p>
+                                </div>
+                                <div className={styles.btn} onClick={() => {
+                                    if (window.Telegram?.WebApp?.HapticFeedback) {
+                                        window.Telegram.WebApp.HapticFeedback.impactOccurred('heavy');
+                                    }
+                                    setHintTwo(!hintTwo)}}>?</div>
+                            </div>
+
+                        </div>
+                        {hintTwo && <div className={styles.hint}>
+                            <p>FEELING BOLD?</p>
+                            Put your TON on the line in this high-stakes mode!
+                        </div>}
+                    </div>
                 </div>
             </div>
-        </div>
+        </>
+
     );
 };

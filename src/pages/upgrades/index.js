@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import Image from "next/image";
+import Head from "next/head";
 import {useRouter} from "next/router";
 import axiosInstance from '@/utils/axios';
 
@@ -196,103 +197,109 @@ export default function Page() {
     }
 
     return (
-        <div className={styles.root}>
-            <Image src={bg} alt={'bg'} width={450} height={1000} className={styles.bg} />
-            <div className={styles.container}>
-                <div className={styles.balance}>{balance}{' '}<Image src={money} alt={''} width={21} height={21} /></div>
-                <div className={styles.block}>
-                    <div className={styles.buttonSet}>
-                        <div className={styles.folderBtnStats}
-                             style={{
-                                 zIndex: activeTab === 1 ? 112 : 110,
-                                 marginBottom:  activeTab === 1 ? '0px' : '-12px',
-                                 borderRight:  activeTab === 1 ? '2px solid #3842a4' : 'none',
-                             }}
-                             onClick={() => {
-                                 handleTab(1)
-                                 setIsModalOpen(false)
-                             }}>Upgrades</div>
-                        <div
-                            className={styles.folderBtnSkins}
-                            style={{
-                                zIndex: activeTab === 2 ? 113 : 110,
-                                marginBottom:  activeTab === 2 ? '-0px' : '2px',
-                            }}
-                            onClick={() => {
-                                handleTab(2)
-                                setIsModalOpen(false)
-                            }}
-                        >tasks</div>
+        <>
+            <Head>
+                <link rel="preload" href="/backgrounds/accountBG.png" as="image" />
+                <link rel="preload" href="/money.png" as="image" />
+            </Head>
+            <div className={styles.root}>
+                <Image src={bg} alt={'bg'} width={450} height={1000} className={styles.bg} />
+                <div className={styles.container}>
+                    <div className={styles.balance}>{balance}{' '}<Image src={money} alt={''} width={21} height={21} /></div>
+                    <div className={styles.block}>
+                        <div className={styles.buttonSet}>
+                            <div className={styles.folderBtnStats}
+                                 style={{
+                                     zIndex: activeTab === 1 ? 112 : 110,
+                                     marginBottom:  activeTab === 1 ? '0px' : '-12px',
+                                     borderRight:  activeTab === 1 ? '2px solid #3842a4' : 'none',
+                                 }}
+                                 onClick={() => {
+                                     handleTab(1)
+                                     setIsModalOpen(false)
+                                 }}>Upgrades</div>
+                            <div
+                                className={styles.folderBtnSkins}
+                                style={{
+                                    zIndex: activeTab === 2 ? 113 : 110,
+                                    marginBottom:  activeTab === 2 ? '-0px' : '2px',
+                                }}
+                                onClick={() => {
+                                    handleTab(2)
+                                    setIsModalOpen(false)
+                                }}
+                            >tasks</div>
+                        </div>
+                        {activeTab === 1 && <div className={styles.personalContainer}>
+                            <div className={styles.warning}>
+                                Upgrades are applied after collecting the current earnings.
+                            </div>
+                            {limitLevels.length === 0 && rateLevels.length === 0 && <div className={styles.warning}>No available upgrades</div>}
+                            <div className={styles.list}>
+                                {limitLevels.map((item, index) => (
+                                    <ItemPlaceholder item={item} key={index} onClick={() => openUpgradeModal(item)} />
+                                ))}
+                                {rateLevels.map((item, index) => (
+                                    <ItemPlaceholder item={item} key={index} onClick={() => openUpgradeModal(item)} />
+                                ))}
+                            </div>
+                        </div>}
+                        {activeTab === 2 && <div className={styles.skinContainer}>
+                            <div className={styles.col}>
+                                <div className={styles.label}>Daily</div>
+                                {Tasks.daily.map((task, index) => {
+                                    return(
+                                        <TaskBtn title={task.name} desc={task.desc} complite={task.complite} key={index} onClick={() => handleTaskClick(task)} />
+                                    )
+                                })}
+                                <div className={styles.label}>MAIn tasks</div>
+                                {Tasks.main.map((task, index) => {
+                                    return(
+                                        <TaskBtn subtitle={task.name} desc={task.desc} complite={task.complite} key={index} onClick={() => handleTaskClick(task)} />
+                                    )
+                                })}
+                            </div>
+                        </div>}
                     </div>
-                    {activeTab === 1 && <div className={styles.personalContainer}>
-                        <div className={styles.warning}>
-                            Upgrades are applied after collecting the current earnings.
+                    {isUpgradeModalOpen && selectedItem && (
+                        <div className={styles.modalOverlay}>
+                            <div className={styles.modalUpgrades}>
+                                <h2>
+                                    {selectedItem.type === 'limit' ? `limit +${selectedItem.Name}` : `rate +${selectedItem.Name}`}
+                                </h2>
+                                <p>Cost: {selectedItem.Cost}</p>
+                                <p>Increase per: {selectedItem.IncreasePer}</p>
+                                <p>Card level: {selectedItem.Level}</p>
+                                <div className={styles.modalButtons}>
+                                    <button
+                                        className={styles.btnUpgrade}
+                                        onClick={() => {
+                                            if (window.Telegram?.WebApp?.HapticFeedback) {
+                                                window.Telegram.WebApp.HapticFeedback.impactOccurred('heavy');
+                                            }
+                                            if (selectedItem) {
+                                                selectedItem.type === 'limit'
+                                                    ? handleLimitUpgrade(selectedItem.Id, selectedItem.Cost)
+                                                    : handleRateUpgrade(selectedItem.Id, selectedItem.Cost);
+                                            }
+                                        }}
+                                        disabled={selectedItem && balance < selectedItem.Cost} // Делаем кнопку неактивной, если баланс меньше стоимости
+                                    >
+                                        Upgrade
+                                    </button>
+                                    <button className={styles.btnClose} onClick={closeUpgradeModal}>Close</button>
+                                </div>
+                                {selectedItem && balance < selectedItem.Cost && (
+                                    <p className={styles.errorMessage}>Not enough coins available.</p>
+                                )}
+                            </div>
                         </div>
-                        {limitLevels.length === 0 && rateLevels.length === 0 && <div className={styles.warning}>No available upgrades</div>}
-                        <div className={styles.list}>
-                            {limitLevels.map((item, index) => (
-                                <ItemPlaceholder item={item} key={index} onClick={() => openUpgradeModal(item)} />
-                            ))}
-                            {rateLevels.map((item, index) => (
-                                <ItemPlaceholder item={item} key={index} onClick={() => openUpgradeModal(item)} />
-                            ))}
-                        </div>
-                    </div>}
-                    {activeTab === 2 && <div className={styles.skinContainer}>
-                        <div className={styles.col}>
-                            <div className={styles.label}>Daily</div>
-                            {Tasks.daily.map((task, index) => {
-                                return(
-                                    <TaskBtn title={task.name} desc={task.desc} complite={task.complite} key={index} onClick={() => handleTaskClick(task)} />
-                                )
-                            })}
-                            <div className={styles.label}>MAIn tasks</div>
-                            {Tasks.main.map((task, index) => {
-                                return(
-                                    <TaskBtn subtitle={task.name} desc={task.desc} complite={task.complite} key={index} onClick={() => handleTaskClick(task)} />
-                                )
-                            })}
-                        </div>
+                    )}
+                    {isModalOpen && <div className={styles.modal}>
+                        <div className={styles.label}>Daily rewards</div>
                     </div>}
                 </div>
-                {isUpgradeModalOpen && selectedItem && (
-                    <div className={styles.modalOverlay}>
-                        <div className={styles.modalUpgrades}>
-                            <h2>
-                                {selectedItem.type === 'limit' ? `limit +${selectedItem.Name}` : `rate +${selectedItem.Name}`}
-                            </h2>
-                            <p>Cost: {selectedItem.Cost}</p>
-                            <p>Increase per: {selectedItem.IncreasePer}</p>
-                            <p>Card level: {selectedItem.Level}</p>
-                            <div className={styles.modalButtons}>
-                                <button
-                                    className={styles.btnUpgrade}
-                                    onClick={() => {
-                                        if (window.Telegram?.WebApp?.HapticFeedback) {
-                                            window.Telegram.WebApp.HapticFeedback.impactOccurred('heavy');
-                                        }
-                                        if (selectedItem) {
-                                            selectedItem.type === 'limit'
-                                                ? handleLimitUpgrade(selectedItem.Id, selectedItem.Cost)
-                                                : handleRateUpgrade(selectedItem.Id, selectedItem.Cost);
-                                        }
-                                    }}
-                                    disabled={selectedItem && balance < selectedItem.Cost} // Делаем кнопку неактивной, если баланс меньше стоимости
-                                >
-                                    Upgrade
-                                </button>
-                                <button className={styles.btnClose} onClick={closeUpgradeModal}>Close</button>
-                            </div>
-                            {selectedItem && balance < selectedItem.Cost && (
-                                <p className={styles.errorMessage}>Not enough coins available.</p>
-                            )}
-                        </div>
-                    </div>
-                )}
-                {isModalOpen && <div className={styles.modal}>
-                    <div className={styles.label}>Daily rewards</div>
-                </div>}
             </div>
-        </div>
+        </>
     );
 };

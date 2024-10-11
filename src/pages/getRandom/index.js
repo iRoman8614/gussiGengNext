@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from "react";
 import Image from "next/image";
+import Head from "next/head";
 import {useRouter} from "next/router";
 
 import styles from '@/styles/Random.module.scss'
@@ -123,84 +124,98 @@ export default function Page() {
     };
 
     return(
-        <div className={styles.root}>
-            <Image className={styles.bg} src={bg} alt={'bg'} width={450} height={1000} />
-            {showFrase === 1 && <div className={styles.dialog}>
-                <Image src={dialog} className={styles.dialogImage} width={200} height={100} alt={''}/>
-                <div className={styles.text}>pick a card</div>
-            </div>}
-            {showFrase === 2 && <div className={styles.dialog}>
-                <Image src={dialog2} className={styles.dialog2Image} width={200} height={100} alt={''}/>
-                <div className={styles.text2}>you are now a member of the <a className={styles.gang}>{gangs[teamId].Name}</a> gang</div>
-            </div>}
-            <Image src={person} className={styles.person} width={450} height={1000} alt={''} priority />
-            <div className={styles.cardSet}>
-                <Image
-                    src={oneCard}
-                    alt={''}
-                    width={100}
-                    height={155}
-                    style={clickCount1 > 0 && { boxShadow: `0 0 20px 10px #FF9740` }}
-                    className={
-                        clickCount1 === 0
-                            ? styles.oneCard1
-                            : clickCount1 === 1
-                                ? styles.oneCard1FirstClick
-                                : styles.oneCard1SecondClick
-                    }
-                    priority
-                    onClick={handleClick1} />
-                <Image
-                    src={oneCard}
-                    alt={''}
-                    width={100}
-                    height={155}
-                    style={clickCount2 > 0 && { boxShadow: `0 0 20px 10px #FF9740` }}
-                    className={
-                        clickCount2 === 0
-                            ? styles.oneCard2
-                            : clickCount2 === 1
-                                ? styles.oneCard2FirstClick
-                                : styles.oneCard2SecondClick
-                    }
-                    priority
-                    onClick={handleClick2} />
-                <Image
-                    src={oneCard}
-                    alt={''}
-                    width={100}
-                    height={155}
-                    style={clickCount3 > 0 && { boxShadow: `0 0 20px 10px #FF9740` }}
-                    className={
-                        clickCount3 === 0
-                            ? styles.oneCard3
-                            : clickCount3 === 1
-                                ? styles.oneCard3FirstClick
-                                : styles.oneCard3SecondClick
-                    }
-                    priority
-                    onClick={handleClick3} />
-                <Image
-                    src={oneCard}
-                    alt={''}
-                    width={100}
-                    height={155}
-                    style={clickCount4 > 0 && { boxShadow: `0 0 20px 10px #FF9740` }}
-                    className={
-                        clickCount4 === 0
-                            ? styles.oneCard4
-                            : clickCount4 === 1
-                                ? styles.oneCard4FirstClick
-                                : styles.oneCard4SecondClick
-                    }
-                    priority
-                    onClick={handleClick4} />
+        <>
+            <Head>
+                <link rel="preload" href="/backgrounds/randomBG.png" as="image" />
+                <link rel="preload" href="/random/person.png" as="image" />
+                <link rel="preload" href="/random/hand.png" as="image" />
+                <link rel="preload" href="/random/dialog.png" as="image" />
+                <link rel="preload" href="/random/dialog2.png" as="image" />
+                <link rel="preload" href="/random/oneCard.png" as="image" />
+                <link rel="preload" href="/random/greenCard.png" as="image" />
+                <link rel="preload" href="/random/blueCard.png" as="image" />
+                <link rel="preload" href="/random/yellowCard.png" as="image" />
+                <link rel="preload" href="/random/redCard.png" as="image" />
+            </Head>
+            <div className={styles.root}>
+                <Image className={styles.bg} src={bg} alt={'bg'} width={450} height={1000} />
+                {showFrase === 1 && <div className={styles.dialog}>
+                    <Image src={dialog} className={styles.dialogImage} width={200} height={100} alt={''}/>
+                    <div className={styles.text}>pick a card</div>
+                </div>}
+                {showFrase === 2 && <div className={styles.dialog}>
+                    <Image src={dialog2} className={styles.dialog2Image} width={200} height={100} alt={''}/>
+                    <div className={styles.text2}>you are now a member of the <a className={styles.gang}>{gangs[teamId].Name}</a> gang</div>
+                </div>}
+                <Image src={person} className={styles.person} width={450} height={1000} alt={''} priority />
+                <div className={styles.cardSet}>
+                    <Image
+                        src={oneCard}
+                        alt={''}
+                        width={100}
+                        height={155}
+                        style={clickCount1 > 0 && { boxShadow: `0 0 20px 10px #FF9740` }}
+                        className={
+                            clickCount1 === 0
+                                ? styles.oneCard1
+                                : clickCount1 === 1
+                                    ? styles.oneCard1FirstClick
+                                    : styles.oneCard1SecondClick
+                        }
+                        priority
+                        onClick={handleClick1} />
+                    <Image
+                        src={oneCard}
+                        alt={''}
+                        width={100}
+                        height={155}
+                        style={clickCount2 > 0 && { boxShadow: `0 0 20px 10px #FF9740` }}
+                        className={
+                            clickCount2 === 0
+                                ? styles.oneCard2
+                                : clickCount2 === 1
+                                    ? styles.oneCard2FirstClick
+                                    : styles.oneCard2SecondClick
+                        }
+                        priority
+                        onClick={handleClick2} />
+                    <Image
+                        src={oneCard}
+                        alt={''}
+                        width={100}
+                        height={155}
+                        style={clickCount3 > 0 && { boxShadow: `0 0 20px 10px #FF9740` }}
+                        className={
+                            clickCount3 === 0
+                                ? styles.oneCard3
+                                : clickCount3 === 1
+                                    ? styles.oneCard3FirstClick
+                                    : styles.oneCard3SecondClick
+                        }
+                        priority
+                        onClick={handleClick3} />
+                    <Image
+                        src={oneCard}
+                        alt={''}
+                        width={100}
+                        height={155}
+                        style={clickCount4 > 0 && { boxShadow: `0 0 20px 10px #FF9740` }}
+                        className={
+                            clickCount4 === 0
+                                ? styles.oneCard4
+                                : clickCount4 === 1
+                                    ? styles.oneCard4FirstClick
+                                    : styles.oneCard4SecondClick
+                        }
+                        priority
+                        onClick={handleClick4} />
+                </div>
+                <Image src={hand} className={styles.hand} width={450} height={1000} alt={''} priority />
+                <ShownCard state={showCard} teamId={teamId} />
+                {showFrase === 2 && <button className={styles.btn} onClick={() => {
+                    router.push('/main')
+                }}>CONTinue</button>}
             </div>
-            <Image src={hand} className={styles.hand} width={450} height={1000} alt={''} priority />
-            <ShownCard state={showCard} teamId={teamId} />
-            {showFrase === 2 && <button className={styles.btn} onClick={() => {
-                router.push('/main')
-            }}>CONTinue</button>}
-        </div>
+        </>
     )
 }

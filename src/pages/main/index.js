@@ -1,5 +1,6 @@
 import {useEffect, useState} from "react";
 import Image from "next/image";
+import Head from "next/head";
 import {useRouter} from "next/router";
 import {IconButton} from "@/components/buttons/icon-btn/IconButton";
 import {NavBar} from "@/components/nav-bar/NavBar";
@@ -208,43 +209,55 @@ export default function Home() {
     const currentWidth = (currentFarmCoins / limit) * maxWidth;
 
     return (
-        <div className={styles.root}>
-            <Image className={styles.background} src={background} width={300} height={1000}  alt={'bg'}/>
-            <div className={styles.item1}>
-                <IconButton image={account} alt={'account'} title={'account'}  onClick={() => {router.push('/account')}}/>
+        <>
+            <Head>
+                <link rel="preload" href="/main-buttons/account.png" as="image" />
+                <link rel="preload" href="/main-buttons/settings.png" as="image" />
+                <link rel="preload" href="/main-buttons/boards.png" as="image" />
+                <link rel="preload" href="/main-buttons/wallet.png" as="image" />
+                <link rel="preload" href="/claimBTN.png" as="image" />
+                <link rel="preload" href="/claimBTNclicked.png" as="image" />
+                <link rel="preload" href="/totalbar.png" as="image" />
+                <link rel="preload" href="/backgrounds/nightcity.png" as="image" />
+            </Head>
+            <div className={styles.root}>
+                <Image className={styles.background} src={background} width={300} height={1000}  alt={'bg'}/>
+                <div className={styles.item1}>
+                    <IconButton image={account} alt={'account'} title={'account'}  onClick={() => {router.push('/account')}}/>
+                </div>
+                <div className={styles.item2}>
+                    <IconButton image={teamData[teamId].logo} alt={'gang'} onClick={() => {router.push('/getRandom')}}/>
+                </div>
+                <div className={styles.item3}>
+                    <IconButton image={settings} alt={'settings'} title={'settings'} onClick={() => {router.push('/settings');}}/>
+                </div>
+                <div className={styles.item4}>
+                    <IconButton image={boards} alt={'boards'} title={'board'} onClick={() => {router.push('/boards');}}/>
+                </div>
+                <div className={styles.item5}>
+                    <Image src={border} width={600} height={200} alt={'border'} className={styles.totalBarRoot}/>
+                    <div className={styles.totalText}>{formatNumberFromEnd(balance)}</div>
+                </div>
+                <div className={styles.item6}>
+                    <IconButton image={wallet} alt={'wallet'} title={'wallet'} onClick={() => {router.push('/main')}}/>
+                </div>
+                <div className={styles.item7}>
+                    <Image width={1000} height={1000} className={styles.char} alt={'character'} src={skinData[teamId][level]}/>
+                </div>
+                <div className={styles.item8}>
+                    <CollectBar
+                        currentCoins={formatNumberFromEndDot(currentFarmCoins < 0 ? 0 : currentFarmCoins)}
+                        maxCoins={formatNumberFromEnd(limit)}
+                        width={currentWidth}
+                    />
+                </div>
+                <div className={styles.item9}>
+                    <Image className={styles.claimRoot} width={600} height={200} src={isClaimClicked ? claimClicked : claim} onClick={handleClaimClick} alt={'claim'} />
+                </div>
+                <div className={styles.item10}>
+                    <NavBar/>
+                </div>
             </div>
-            <div className={styles.item2}>
-                <IconButton image={teamData[teamId].logo} alt={'gang'} onClick={() => {router.push('/getRandom')}}/>
-            </div>
-            <div className={styles.item3}>
-                <IconButton image={settings} alt={'settings'} title={'settings'} onClick={() => {router.push('/settings');}}/>
-            </div>
-            <div className={styles.item4}>
-                <IconButton image={boards} alt={'boards'} title={'board'} onClick={() => {router.push('/boards');}}/>
-            </div>
-            <div className={styles.item5}>
-                <Image src={border} width={600} height={200} alt={'border'} className={styles.totalBarRoot}/>
-                <div className={styles.totalText}>{formatNumberFromEnd(balance)}</div>
-            </div>
-            <div className={styles.item6}>
-                <IconButton image={wallet} alt={'wallet'} title={'wallet'} onClick={() => {router.push('/main')}}/>
-            </div>
-            <div className={styles.item7}>
-                <Image width={1000} height={1000} className={styles.char} alt={'character'} src={skinData[teamId][level]}/>
-            </div>
-            <div className={styles.item8}>
-                <CollectBar
-                    currentCoins={formatNumberFromEndDot(currentFarmCoins < 0 ? 0 : currentFarmCoins)}
-                    maxCoins={formatNumberFromEnd(limit)}
-                    width={currentWidth}
-                />
-            </div>
-            <div className={styles.item9}>
-                <Image className={styles.claimRoot} width={600} height={200} src={isClaimClicked ? claimClicked : claim} onClick={handleClaimClick} alt={'claim'} />
-            </div>
-            <div className={styles.item10}>
-                <NavBar/>
-            </div>
-        </div>
+        </>
     );
 }
