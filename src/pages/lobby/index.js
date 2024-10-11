@@ -21,6 +21,18 @@ export default function Page() {
     const router = useRouter();
 
     useEffect(() => {
+        if (typeof window !== 'undefined' && window.Telegram?.WebApp?.BackButton) {
+            window.Telegram.WebApp.BackButton.show();
+            window.Telegram.WebApp.BackButton.onClick(() => {
+                router.push('/');
+            });
+            return () => {
+                window.Telegram.WebApp.BackButton.hide();
+            };
+        }
+    }, [router]);
+
+    useEffect(() => {
         if (typeof window !== "undefined" && window.Telegram?.WebApp) {
             const search = window.Telegram.WebApp.initData;
             const urlParams = new URLSearchParams(search);
