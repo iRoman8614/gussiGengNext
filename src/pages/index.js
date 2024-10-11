@@ -21,7 +21,8 @@ export default function LoaderPage() {
         const initializeTelegramWebApp = () => {
             if (window.Telegram?.WebApp) {
                 const platform = window.Telegram.WebApp.platform;
-                if (platform !== 'ios' && platform !== 'android') {
+                const screenWidth = window.innerWidth;
+                if ((platform !== 'ios' && platform !== 'android') || (screenWidth > 450)) {
                     router.push('/qr');
                     return;
                 }
