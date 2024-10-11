@@ -16,7 +16,7 @@ export const BigButton = ({ image, title, alt, onClick }) => {
     return (
         <div className={styles.root} onClick={handleClick}>
             <div>
-                <Image className={styles.image} src={image} alt={alt} />
+                <Image className={styles.image} src={image} width={150} height={150} alt={alt} />
             </div>
             <div className={styles.title}>
                 {title}
