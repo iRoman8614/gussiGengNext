@@ -37,24 +37,3 @@
   z-index: 101;
   object-fit: contain;
 }
-
-.placeholder {
-  background: url('/backgrounds/randomBG.png') no-repeat center center;
-  background-size: cover;
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  gap: 25px;
-  align-items: center;
-  flex-direction: column;
-  padding-top: auto-height(60, 150);
-
-  h2 {
-    font-size: auto-clamp(25, 40);
-    color: #FFFFFF;
-  }
-}
-
-.qr {
-  border-radius: 12px;
-}

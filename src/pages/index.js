@@ -4,17 +4,13 @@ import Image from 'next/image';
 import { toast } from "react-toastify";
 import axiosInstance from '@/utils/axios';
 
-import styles from '../styles/Loader.module.scss';
+import styles from '@/styles/Loader.module.scss';
 
 const loaderImage = '/loadingImg.jpg';
-const qr = '/qr.png'
-const bg = '/backgrounds/randomBG.png'
 
 export default function LoaderPage() {
     const router = useRouter();
-    const [isLoading, setIsLoading] = useState(true);
     const [userId, setUserId] = useState(null);
-    const [isMobile, setIsMobile] = useState(true);
 
     useEffect(() => {
         function setTelegramHeight() {
@@ -23,20 +19,19 @@ export default function LoaderPage() {
         }
         const initializeTelegramWebApp = () => {
             if (window.Telegram?.WebApp) {
-                // Проверяем платформу Telegram WebApp
                 const platform = window.Telegram.WebApp.platform;
                 console.log("Платформа:", platform);
-                // Если не мобильная платформа, устанавливаем флаг
-                if (platform === 'ios' && platform === 'android') {
-                    setIsMobile(true); // Устанавливаем, что это не мобильное устройство
+
+                if (platform !== 'ios' && platform !== 'android') {
+                    router.push('/qr');
+                    return;
                 }
-                // Устанавливаем цвет заголовка
+
                 window.Telegram.WebApp.setHeaderColor('#183256');
                 window.Telegram.WebApp.expand();
-                // Устанавливаем высоту под Telegram Web App
                 setTelegramHeight();
                 window.addEventListener('resize', setTelegramHeight);
-                // Чтение initData и получение userId
+
                 const search = window.Telegram.WebApp.initData;
                 const urlParams = new URLSearchParams(search);
                 const userParam = urlParams.get('user');
@@ -45,18 +40,15 @@ export default function LoaderPage() {
                     const userObject = JSON.parse(decodedUserParam);
                     console.log("Telegram userObject:", userObject);
                     console.log("User ID from Telegram:", userObject.id);
-                    setUserId(userObject.id); // Сохраняем userId в состоянии
-                } else {
-                    console.log("Нет userParam, используем userId = 111");
-                    setUserId(111); // Если userParam не найден, используем userId = 111
+                    setUserId(userObject.id);
                 }
             } else {
                 toast.error("Telegram WebApp недоступен");
-                setUserId(111); // Если Telegram WebApp недоступен, используем userId = 111
+                setUserId(111);
+                router.push('/qr');
             }
         };
 
-        // Проверка наличия параметра referal в URL
         const checkReferralLink = () => {
             const { referal } = router.query;
             if (referal) {
@@ -77,7 +69,6 @@ export default function LoaderPage() {
             }
         };
 
-        // Проверка localStorage и запрос init
         const checkLocalStorageAndInit = () => {
             const tgUserId = userId || 111;
             console.log("Используемый userId для запроса:", tgUserId);
@@ -147,16 +138,13 @@ export default function LoaderPage() {
         if (typeof window !== 'undefined') {
             window.Telegram?.WebApp.ready();
             initializeTelegramWebApp();
-            if(isMobile) {
-                if (userId !== null) {
-                    checkLocalStorageAndInit();
-                } else {
-                    setTimeout(() => {
-                        if (userId !== null) {
-                            checkLocalStorageAndInit();
-                        }
-                    }, 1000);
-                }
+            if (userId !== null) {
+                checkLocalStorageAndInit();
+            } else {
+                setTimeout(() => {
+                    if (userId !== null) {
+                        checkLocalStorageAndInit();
+                    }}, 1000);
             }
         }
         return () => {
@@ -167,23 +155,8 @@ export default function LoaderPage() {
 
     return (
         <div className={styles.root}>
-            {isMobile ? (
-                isLoading && (
-                    <>
-                        <Image className={styles.video} src={loaderImage} alt="Loading..." width={500} height={500} />
-                        <LoadingText />
-                    </>
-                )
-            ) : (
-                <>
-                    <div className={styles.placeholder}>
-                        <h2>Play on your mobile</h2>
-                        <Image className={styles.qr} src={qr} alt="QR Code" width={200} height={200} />
-                        <h2>@vodoleyservicebot</h2>
-                    </div>
-                </>
-
-            )}
+            <Image className={styles.video} src={loaderImage} alt="Loading..." width={500} height={500}/>
+            <LoadingText/>
         </div>
     );
 }
