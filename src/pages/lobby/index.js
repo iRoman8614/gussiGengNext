@@ -101,8 +101,8 @@ export default function Page() {
             <Image className={styles.image} src={bg} alt={''} width={450} height={1000} />
             <div className={styles.container}>
                 <div>
-                    <div className={styles.card} onClick={handlePvpClick}>
-                        <div className={styles.icon}>
+                    <div className={styles.card}>
+                        <div className={styles.icon} onClick={handlePvpClick}>
                             <div>battle</div>
                             <Image className={styles.logo} src={hands} alt={''} width={150} height={75} />
                         </div>

@@ -197,7 +197,11 @@ export default function Home() {
         if (typeof num !== 'number') {
             return '0';
         }
-        return num.toFixed(2).toString().replace(/(\d)(?=(\d{3})+$)/g, "$1 ");
+        if (num < 100) {
+            return num.toFixed(2).toString().replace(/(\d)(?=(\d{3})+$)/g, "$1 ");
+        } else {
+            return Math.floor(num).toString().replace(/(\d)(?=(\d{3})+$)/g, "$1 ");
+        }
     }
 
     const maxWidth = 224;
