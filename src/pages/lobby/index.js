@@ -49,7 +49,6 @@ export default function Page() {
 
     const handlePvpClick = async () => {
         if (typeof window === "undefined") return;
-
         const firstGame = sessionStorage.getItem('firstGame');
         if (firstGame) {
             const firstGameTime = new Date(firstGame);
@@ -65,7 +64,6 @@ export default function Page() {
                 sessionStorage.removeItem('firstGame');
             }
         }
-
         try {
             const response = await axiosInstance.get(`/farm/last-games?profileId=${userId}`);
             const data = response.data;
@@ -132,7 +130,7 @@ export default function Page() {
                                 <div className={styles.title}>
                                     {/*<div>0</div>*/}
                                     {/*<p>passes</p>*/}
-                                    <div>{5 - sessionsCount}</div>
+                                    {sessionsCount <6 ? <div>{5 - sessionsCount - 1}</div> : <div>0</div>}
                                     <p>games left</p>
                                 </div>
                             </div>
