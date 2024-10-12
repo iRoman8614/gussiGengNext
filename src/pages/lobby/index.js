@@ -17,6 +17,7 @@ export default function Page() {
     const [userId, setUserId] = useState(111);
     const [remainingTime, setRemainingTime] = useState(null);
     const [timerActive, setTimerActive] = useState(false);
+    const [sessionsCount, setSessionsCount] = useState(0)
 
     const router = useRouter();
 
@@ -68,8 +69,8 @@ export default function Page() {
         try {
             const response = await axiosInstance.get(`/farm/last-games?profileId=${userId}`);
             const data = response.data;
-
-            if (data.session.count < 6) {
+            setSessionsCount(data.session.count)
+            if (data.session.count < 5) {
                 router.push('/pvp');
             } else {
                 const firstGameTime = new Date(data.session.first);
@@ -123,13 +124,16 @@ export default function Page() {
                         <div className={styles.card}>
                             <div className={styles.icon} onClick={handlePvpClick}>
                                 <div>battle</div>
+                                <p> </p>
                                 <Image className={styles.logo} src={hands} alt={''} width={150} height={75} />
                             </div>
                             <div className={styles.lable}>
                                 {remainingTime > 0  && <div className={styles.timer}>{formatTime(remainingTime)}</div>}
                                 <div className={styles.title}>
-                                    <div>0</div>
-                                    <p>passes</p>
+                                    {/*<div>0</div>*/}
+                                    {/*<p>passes</p>*/}
+                                    <div>{5 - sessionsCount}</div>
+                                    <p>games left</p>
                                 </div>
                             </div>
                             <div className={styles.btn} onClick={() => {
