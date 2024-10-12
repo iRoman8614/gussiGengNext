@@ -130,7 +130,7 @@ export default function Page() {
                                 <div className={styles.title}>
                                     {/*<div>0</div>*/}
                                     {/*<p>passes</p>*/}
-                                    {sessionsCount <6 ? <div>{5 - sessionsCount - 1}</div> : <div>0</div>}
+                                    {sessionsCount < 6 ? <div>{5 - (sessionsCount) }</div> : <div>0</div>}
                                     <p>games left</p>
                                 </div>
                             </div>
