@@ -34,6 +34,15 @@ export default function Page() {
     }, [router]);
 
     useEffect(() => {
+        const fetchLastGames = async (profileId) => {
+            try {
+                const response = await axiosInstance.get(`/farm/last-games?profileId=${profileId}`);
+                const data = response.data;
+                setSessionsCount(data.session.count);
+            } catch (error) {
+                console.error('Error fetching last games:', error);
+            }
+        };
         if (typeof window !== "undefined" && window.Telegram?.WebApp) {
             const search = window.Telegram.WebApp.initData;
             const urlParams = new URLSearchParams(search);
@@ -43,9 +52,11 @@ export default function Page() {
                 const userObject = JSON.parse(decodedUserParam);
                 console.log("User ID from Telegram:", userObject.id);
                 setUserId(userObject.id);
+                fetchLastGames(userObject.id);
             }
         }
     }, []);
+
 
     const handlePvpClick = async () => {
         if (typeof window === "undefined") return;
