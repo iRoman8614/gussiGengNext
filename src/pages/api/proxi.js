@@ -4,7 +4,7 @@ export default async function handler(req, res) {
         const { profileId } = req.query;
 
         try {
-            const response = await fetch(`https://supavpn.lol//init?profileId=${profileId}`, {
+            const response = await fetch(`https://supavpn.lol/profile/init?profileId=${profileId}`, {
                 method: 'GET',
             });
             if (!response.ok) {
