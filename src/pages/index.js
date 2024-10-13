@@ -62,6 +62,7 @@ export default function LoaderPage() {
         };
 
         const checkLocalStorageAndInit = () => {
+            localStorage.removeItem("GWToken");
             const tgUserId = userId || 111;
             const init = localStorage.getItem('init');
             const myToken = window.localStorage.getItem('GWToken');
