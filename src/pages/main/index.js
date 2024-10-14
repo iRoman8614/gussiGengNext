@@ -188,8 +188,8 @@ export default function Home() {
     }, [])
 
     function formatNumberFromEnd(num) {
-        if (typeof num !== 'number') {
-            return '0';
+        if (isNaN(num) || typeof num !== 'number') {
+            return '3600';
         }
         return Math.round(num).toString().replace(/(\d)(?=(\d{3})+$)/g, "$1 ");
     }
