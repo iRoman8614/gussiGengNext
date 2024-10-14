@@ -44,6 +44,7 @@ export default function Home() {
             if (start) {
                 setTotalCoins(start.totalCoins);
                 setRate(start.rate);
+                console.log('start.limit:', start.limit);
                 setLimit(start.limit);
                 setBalance(start.balance)
                 setStartFarmTime(new Date(start.startTime).getTime());
