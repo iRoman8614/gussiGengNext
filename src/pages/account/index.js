@@ -161,15 +161,16 @@ export default function Page() {
                                      marginBottom:  activeTab === 1 ? '0px' : '-12px',
                                      borderRight:  activeTab === 1 ? '2px solid #3842a4' : 'none',
                                  }}
-                                 onClick={() => handleTab(1)}>STATS</div>
-                            <div
-                                className={styles.folderBtnSkins}
-                                style={{
-                                    zIndex: activeTab === 2 ? 113 : 110,
-                                    marginBottom:  activeTab === 2 ? '-0px' : '2px',
-                                }}
-                                onClick={() => handleTab(2)}
-                            >SkinS</div>
+                                 onClick={() => handleTab(1)}
+                            >STATS</div>
+                            {/*<div*/}
+                            {/*    className={styles.folderBtnSkins}*/}
+                            {/*    style={{*/}
+                            {/*        zIndex: activeTab === 2 ? 113 : 110,*/}
+                            {/*        marginBottom:  activeTab === 2 ? '-0px' : '2px',*/}
+                            {/*    }}*/}
+                            {/*    onClick={() => handleTab(2)}*/}
+                            {/*>SkinS</div>*/}
                         </div>
                         {activeTab === 1 &&<div className={styles.personalContainer}>
                             <div className={styles.nickname}>
@@ -207,24 +208,24 @@ export default function Page() {
                                 <div className={styles.balance}>{balance}{' '}<Image src={money} alt={''} width={21} height={21} /></div>
                             </div>
                         </div>}
-                        {activeTab === 2 && <div className={styles.skinContainer}>
-                            <div className={styles.list}>
-                                <ItemPlaceholder />
-                                <ItemPlaceholder />
-                                <ItemPlaceholder />
-                                <ItemPlaceholder />
-                                <ItemPlaceholder />
-                                <ItemPlaceholder />
-                                <ItemPlaceholder />
-                                <ItemPlaceholder />
-                                <ItemPlaceholder />
-                                <ItemPlaceholder />
-                                <ItemPlaceholder />
-                                <ItemPlaceholder />
-                                <ItemPlaceholder />
-                                <ItemPlaceholder />
-                            </div>
-                        </div>}
+                        {/*{activeTab === 2 && <div className={styles.skinContainer}>*/}
+                        {/*    <div className={styles.list}>*/}
+                        {/*        <ItemPlaceholder />*/}
+                        {/*        <ItemPlaceholder />*/}
+                        {/*        <ItemPlaceholder />*/}
+                        {/*        <ItemPlaceholder />*/}
+                        {/*        <ItemPlaceholder />*/}
+                        {/*        <ItemPlaceholder />*/}
+                        {/*        <ItemPlaceholder />*/}
+                        {/*        <ItemPlaceholder />*/}
+                        {/*        <ItemPlaceholder />*/}
+                        {/*        <ItemPlaceholder />*/}
+                        {/*        <ItemPlaceholder />*/}
+                        {/*        <ItemPlaceholder />*/}
+                        {/*        <ItemPlaceholder />*/}
+                        {/*        <ItemPlaceholder />*/}
+                        {/*    </div>*/}
+                        {/*</div>}*/}
                     </div>
                 </div>
             </div>

@@ -23,7 +23,7 @@ export const NavBar = () => {
             <IconButton image={upgrades} alt={'upgrades'} title={'exp'} onClick={() => {router.push('/upgrades')}} />
             <BigButton image={hands} alt={'pvp'} title={'pvp'} onClick={() => {router.push('/lobby')}} />
             <IconButton image={friends} alt={'friends'} title={'friends'} onClick={() => {router.push('/friends')}} />
-            <IconButton image={bag} alt={'items'} title={'items'} onClick={() => {router.push('/main')}} />
+            <IconButton image={bag} alt={'items'} title={'items'} hidden={true} onClick={() => {router.push('/main')}} />
         </div>
     );
 };

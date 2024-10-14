@@ -240,7 +240,7 @@ export default function Home() {
                     <div className={styles.totalText}>{formatNumberFromEnd(balance)}</div>
                 </div>
                 <div className={styles.item6}>
-                    <IconButton image={wallet} alt={'wallet'} title={'wallet'} onClick={() => {router.push('/main')}}/>
+                    <IconButton image={wallet} alt={'wallet'} title={'wallet'} hidden={true} onClick={() => {router.push('/main')}}/>
                 </div>
                 <div className={styles.item7}>
                     <Image width={1000} height={1000} className={styles.char} alt={'character'} src={skinData[teamId][level]}/>
