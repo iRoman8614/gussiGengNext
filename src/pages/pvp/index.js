@@ -215,26 +215,24 @@ export default function PvpPage() {
         // Логика подстановки проигрышного значения при ответе 0
         if (opponentAnswer === 0) {
             if (userAnswer === 1) {
-                opponentAnswer = 3; // Бумага проигрывает камню
+                setOpponentChoice(3); // Бумага проигрывает камню
             } else if (userAnswer === 2) {
-                opponentAnswer = 1; // Камень проигрывает ножницам
+                setOpponentChoice(1); // Камень проигрывает ножницам
             } else if (userAnswer === 3) {
-                opponentAnswer = 2; // Ножницы проигрывают бумаге
+                setOpponentChoice(2); // Ножницы проигрывают бумаге
             }
         }
         if (userAnswer === 0) {
             if (opponentAnswer === 1) {
-                userAnswer = 3; // Бумага проигрывает камню
+                setPlayerChoice(3); // Бумага проигрывает камню
             } else if (opponentAnswer === 2) {
-                userAnswer = 1; // Камень проигрывает ножницам
+                setPlayerChoice(1); // Камень проигрывает ножницам
             } else if (opponentAnswer === 3) {
-                userAnswer = 2; // Ножницы проигрывают бумаге
+                setPlayerChoice(2); // Ножницы проигрывают бумаге
             }
         }
         const userVictory = isPlayer1 ? player1.victory : player2.victory;
         const opponentVictory = isPlayer1 ? player2.victory : player1.victory;
-        setPlayerChoice(userAnswer);
-        setOpponentChoice(opponentAnswer);
         setRoundResult({ userVictory, opponentVictory, finished });
         if (player1.answer !== null && player2.answer !== null && timer === 0) {
             showGifSequence();
