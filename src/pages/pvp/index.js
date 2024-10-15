@@ -159,11 +159,11 @@ export default function PvpPage() {
             timerId = setTimeout(() => {
                 setTimer(timer - 1);
             }, 1000);
-        } else if ((timer === 0 && playerChoice !== 0) || (timer === 0 && opponentChoice !== 0)) {
-            showGifSequence();
         } else if (timer === 0) {
             if (playerChoice === 10) {
                 handlePlayerChoiceTimeout();
+            } else {
+                showGifSequence();
             }
         }
         return () => clearTimeout(timerId);
@@ -239,7 +239,7 @@ export default function PvpPage() {
         const opponentVictory = isPlayer1 ? player2.victory : player1.victory;
         setRoundResult({ userVictory, opponentVictory, finished });
         if (timeout && player1.answer !== null && player2.answer !== null) {
-            setTimeout(showGifSequence, 500);  // Задержка для проигрывания гифок
+            setTimeout(showGifSequence, 0);  // Задержка для проигрывания гифок
         }
     };
 
