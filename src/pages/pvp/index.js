@@ -211,44 +211,33 @@ export default function PvpPage() {
         const { player1, player2, finished, timeout } = data;
         const isPlayer1 = player1.id === userId;
 
-        // Определяем ответы игроков
         let userAnswer = isPlayer1 ? player1.answer : player2.answer;
         let opponentAnswer = isPlayer1 ? player2.answer : player1.answer;
 
-        // Проверка: если один из игроков не дал ответ, подставляем проигрышное значение
         if (userAnswer === 0) {
-            // Если текущий игрок не дал ответ, подставляем проигрышное значение
             if (opponentAnswer === 1) {
-                userAnswer = 3; // Бумага проигрывает камню
+                userAnswer = 3;
             } else if (opponentAnswer === 2) {
-                userAnswer = 1; // Камень проигрывает ножницам
+                userAnswer = 1;
             } else if (opponentAnswer === 3) {
-                userAnswer = 2; // Ножницы проигрывают бумаге
+                userAnswer = 2;
             }
         }
-
         if (opponentAnswer === 0) {
-            // Если оппонент не дал ответ, подставляем проигрышное значение
             if (userAnswer === 1) {
-                opponentAnswer = 3; // Бумага проигрывает камню
+                opponentAnswer = 3;
             } else if (userAnswer === 2) {
-                opponentAnswer = 1; // Камень проигрывает ножницам
+                opponentAnswer = 1;
             } else if (userAnswer === 3) {
-                opponentAnswer = 2; // Ножницы проигрывают бумаге
+                opponentAnswer = 2;
             }
         }
 
-        // Обновляем состояние для отображения выбора
         setPlayerChoice(userAnswer);
         setOpponentChoice(opponentAnswer);
-
-        // Определяем победы и обновляем счет
         const userVictory = isPlayer1 ? player1.victory : player2.victory;
         const opponentVictory = isPlayer1 ? player2.victory : player1.victory;
-
         setRoundResult({ userVictory, opponentVictory, finished });
-
-        // Проигрывание анимации, если таймер истёк и есть оба ответа
         if (timeout && player1.answer !== null && player2.answer !== null) {
             setTimeout(showGifSequence, 500);  // Задержка для проигрывания гифок
         }
@@ -356,6 +345,9 @@ export default function PvpPage() {
                                 )}
                                 {visibleImage === 1 && (
                                     <>
+                                        {opponentChoice === 0 && (
+                                            <></>
+                                        )}
                                         {opponentChoice === 1 && (
                                             <img
                                                 className={styles.choose}
@@ -382,6 +374,9 @@ export default function PvpPage() {
                                 )}
                                 {visibleImage === 2 && (
                                     <>
+                                        {opponentChoice === 0 && (
+                                            <></>
+                                        )}
                                         {opponentChoice === 1 && (
                                             <Image
                                                 width={90}
@@ -432,6 +427,9 @@ export default function PvpPage() {
                                 )}
                                 {visibleImage === 1 && (
                                     <>
+                                        {playerChoice === 0 && (
+                                            <></>
+                                        )}
                                         {playerChoice === 1 && (
                                             <img
                                                 className={styles.mychoose}
@@ -457,6 +455,9 @@ export default function PvpPage() {
                                 )}
                                 {visibleImage === 2 && (
                                     <>
+                                        {playerChoice === 0 && (
+                                            <></>
+                                        )}
                                         {playerChoice === 1 && (
                                             <Image
                                                 width={90}
