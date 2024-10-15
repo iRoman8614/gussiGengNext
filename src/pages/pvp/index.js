@@ -159,15 +159,15 @@ export default function PvpPage() {
             timerId = setTimeout(() => {
                 setTimer(timer - 1);
             }, 1000);
+        } else if ((timer === 0 && playerChoice !== 0) || (timer === 0 && opponentChoice !== 0)) {
+            showGifSequence();
         } else if (timer === 0) {
             if (playerChoice === 10) {
                 handlePlayerChoiceTimeout();
-            } else {
-                showGifSequence();
             }
         }
         return () => clearTimeout(timerId);
-    }, [timer, round, isLoadingPvp]);
+    }, [timer, playerChoice, opponentChoice, round, isLoadingPvp]);
 
     const handlePlayerChoiceTimeout = () => {
         sendAnswerToServer(10);
@@ -210,36 +210,31 @@ export default function PvpPage() {
     const handleRoundResult = (data) => {
         const { player1, player2, finished, timeout } = data;
         const isPlayer1 = player1.id === userId;
-
         let userAnswer = isPlayer1 ? player1.answer : player2.answer;
         let opponentAnswer = isPlayer1 ? player2.answer : player1.answer;
-
         if (userAnswer === 0) {
             if (opponentAnswer === 1) {
-                userAnswer = 3;
+                setPlayerChoice(3);
             } else if (opponentAnswer === 2) {
-                userAnswer = 1;
+                setPlayerChoice(1);
             } else if (opponentAnswer === 3) {
-                userAnswer = 2;
+                setPlayerChoice(2);
             }
         }
         if (opponentAnswer === 0) {
             if (userAnswer === 1) {
-                opponentAnswer = 3;
+                setOpponentChoice(3);
             } else if (userAnswer === 2) {
-                opponentAnswer = 1;
+                setOpponentChoice(1);
             } else if (userAnswer === 3) {
-                opponentAnswer = 2;
+                setOpponentChoice(2);
             }
         }
-
-        setPlayerChoice(userAnswer);
-        setOpponentChoice(opponentAnswer);
         const userVictory = isPlayer1 ? player1.victory : player2.victory;
         const opponentVictory = isPlayer1 ? player2.victory : player1.victory;
         setRoundResult({ userVictory, opponentVictory, finished });
         if (timeout && player1.answer !== null && player2.answer !== null) {
-            setTimeout(showGifSequence, 0);  // Задержка для проигрывания гифок
+            setTimeout(showGifSequence, 0);
         }
     };
 

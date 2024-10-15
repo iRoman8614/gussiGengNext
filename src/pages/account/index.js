@@ -147,7 +147,10 @@ export default function Page() {
                 <Image src={bg} alt={'bg'} width={450} height={1000} className={styles.bg} />
                 <div className={styles.container}>
                     <div className={styles.seasonBlock}>
-                        <div className={styles.season}>season 1</div>
+                        <div className={styles.season}>
+                            season 1 <br/><br />
+                            {userName}
+                        </div>
                         <div className={styles.avatarContainer}>
                             <Image className={styles.logo} src={teamData[teamId].logo} alt={''} width={40} height={40} />
                             <Image className={styles.character} src={skinData[teamId][level]} alt={''} width={100} height={178} />
@@ -173,9 +176,6 @@ export default function Page() {
                             {/*>SkinS</div>*/}
                         </div>
                         {activeTab === 1 &&<div className={styles.personalContainer}>
-                            <div className={styles.nickname}>
-                                {userName}
-                            </div>
                             <div className={styles.stats}>
                                 <div className={styles.nickname}>League {stats?.liga}</div>
                                 <div className={styles.stat}>
@@ -192,19 +192,15 @@ export default function Page() {
                                 </div>
                             </div>
                             <div className={styles.barBlock}>
-                                <div className={styles.ballanceLabel}>
-                                    earn a total of 100 k to get extra games
-                                </div>
-                                <div className={styles.bar}>
-                                    <div
-                                        className={styles.progress}
-                                        style={{ width: `${Math.min(progressPercentage, 100)}%` }}
-                                    ></div>
-                                </div>
-                                <div className={styles.ballanceLabel}>{totalCoins}</div>
+                                <div className={styles.barItem}>total coins earned</div>
+                                <div className={styles.barItemStats}>{totalCoins}</div>
+                                <div className={styles.barItem}>total skins owned</div>
+                                <div className={styles.barItemStats}>1/11</div>
+                                <div className={styles.barItem}>friends invited</div>
+                                <div className={styles.barItemStats}>15</div>
                             </div>
                             <div>
-                                <div className={styles.ballanceLabel}>current balance</div>
+                                <div className={styles.barItem}>current balance</div>
                                 <div className={styles.balance}>{balance}{' '}<Image src={money} alt={''} width={21} height={21} /></div>
                             </div>
                         </div>}
