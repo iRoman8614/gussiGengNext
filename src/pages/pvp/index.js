@@ -242,6 +242,26 @@ export default function PvpPage() {
     const showGifSequence = () => {
         const timeouts = [];
         const durations = [0, 2000];
+        if(visibleImage === 0 ) {
+            if (opponentChoice === 0) {
+                if (playerChoice === 1) {
+                    setOpponentChoice(3); // Бумага проигрывает камню
+                } else if (playerChoice === 2) {
+                    setOpponentChoice(1); // Камень проигрывает ножницам
+                } else if (playerChoice === 3) {
+                    setOpponentChoice(2); // Ножницы проигрывают бумаге
+                }
+            }
+            if (playerChoice === 0) {
+                if (opponentChoice === 1) {
+                    setPlayerChoice(3); // Бумага проигрывает камню
+                } else if (opponentChoice === 2) {
+                    setPlayerChoice(1); // Камень проигрывает ножницам
+                } else if (opponentChoice === 3) {
+                    setPlayerChoice(2); // Ножницы проигрывают бумаге
+                }
+            }
+        }
         durations.forEach((duration, index) => {
             timeouts.push(
                 setTimeout(() => {
