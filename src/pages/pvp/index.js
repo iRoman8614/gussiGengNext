@@ -208,60 +208,56 @@ export default function PvpPage() {
     };
 
     const handleRoundResult = (data) => {
-        const { player1, player2, finished } = data;
+        const { player1, player2, finished, timeout } = data;
         const isPlayer1 = player1.id === userId;
+
+        // Определяем ответы игроков
         let userAnswer = isPlayer1 ? player1.answer : player2.answer;
         let opponentAnswer = isPlayer1 ? player2.answer : player1.answer;
-        // Логика подстановки проигрышного значения при ответе 0
-        if (opponentAnswer === 0) {
-            if (userAnswer === 1) {
-                setOpponentChoice(3); // Бумага проигрывает камню
-            } else if (userAnswer === 2) {
-                setOpponentChoice(1); // Камень проигрывает ножницам
-            } else if (userAnswer === 3) {
-                setOpponentChoice(2); // Ножницы проигрывают бумаге
-            }
-        }
+
+        // Проверка: если один из игроков не дал ответ, подставляем проигрышное значение
         if (userAnswer === 0) {
+            // Если текущий игрок не дал ответ, подставляем проигрышное значение
             if (opponentAnswer === 1) {
-                setPlayerChoice(3); // Бумага проигрывает камню
+                userAnswer = 3; // Бумага проигрывает камню
             } else if (opponentAnswer === 2) {
-                setPlayerChoice(1); // Камень проигрывает ножницам
+                userAnswer = 1; // Камень проигрывает ножницам
             } else if (opponentAnswer === 3) {
-                setPlayerChoice(2); // Ножницы проигрывают бумаге
+                userAnswer = 2; // Ножницы проигрывают бумаге
             }
         }
+
+        if (opponentAnswer === 0) {
+            // Если оппонент не дал ответ, подставляем проигрышное значение
+            if (userAnswer === 1) {
+                opponentAnswer = 3; // Бумага проигрывает камню
+            } else if (userAnswer === 2) {
+                opponentAnswer = 1; // Камень проигрывает ножницам
+            } else if (userAnswer === 3) {
+                opponentAnswer = 2; // Ножницы проигрывают бумаге
+            }
+        }
+
+        // Обновляем состояние для отображения выбора
+        setPlayerChoice(userAnswer);
+        setOpponentChoice(opponentAnswer);
+
+        // Определяем победы и обновляем счет
         const userVictory = isPlayer1 ? player1.victory : player2.victory;
         const opponentVictory = isPlayer1 ? player2.victory : player1.victory;
+
         setRoundResult({ userVictory, opponentVictory, finished });
-        if (player1.answer !== null && player2.answer !== null && timer === 0) {
-            setTimeout(showGifSequence, 500);
+
+        // Проигрывание анимации, если таймер истёк и есть оба ответа
+        if (timeout && player1.answer !== null && player2.answer !== null) {
+            setTimeout(showGifSequence, 500);  // Задержка для проигрывания гифок
         }
     };
+
 
     const showGifSequence = () => {
         const timeouts = [];
         const durations = [0, 2000];
-        if(visibleImage === 0 ) {
-            if (opponentChoice === 0) {
-                if (playerChoice === 1) {
-                    setOpponentChoice(3); // Бумага проигрывает камню
-                } else if (playerChoice === 2) {
-                    setOpponentChoice(1); // Камень проигрывает ножницам
-                } else if (playerChoice === 3) {
-                    setOpponentChoice(2); // Ножницы проигрывают бумаге
-                }
-            }
-            if (playerChoice === 0) {
-                if (opponentChoice === 1) {
-                    setPlayerChoice(3); // Бумага проигрывает камню
-                } else if (opponentChoice === 2) {
-                    setPlayerChoice(1); // Камень проигрывает ножницам
-                } else if (opponentChoice === 3) {
-                    setPlayerChoice(2); // Ножницы проигрывают бумаге
-                }
-            }
-        }
         durations.forEach((duration, index) => {
             timeouts.push(
                 setTimeout(() => {
