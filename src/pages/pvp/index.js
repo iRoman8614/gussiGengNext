@@ -235,11 +235,9 @@ export default function PvpPage() {
         const opponentVictory = isPlayer1 ? player2.victory : player1.victory;
         setRoundResult({ userVictory, opponentVictory, finished });
         if (player1.answer !== null && player2.answer !== null && timer === 0) {
-            showGifSequence();
+            setTimeout(showGifSequence, 500);
         }
     };
-
-
 
     const showGifSequence = () => {
         const timeouts = [];
