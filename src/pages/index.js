@@ -20,12 +20,12 @@ export default function LoaderPage() {
         }
         const initializeTelegramWebApp = () => {
             if (window.Telegram?.WebApp) {
-                const platform = window.Telegram.WebApp.platform;
-                const screenWidth = window.innerWidth;
-                if ((platform !== 'ios' && platform !== 'android') || (screenWidth > 450)) {
-                    router.push('/qr');
-                    return;
-                }
+                // const platform = window.Telegram.WebApp.platform;
+                // const screenWidth = window.innerWidth;
+                // if ((platform !== 'ios' && platform !== 'android') || (screenWidth > 450)) {
+                //     router.push('/qr');
+                //     return;
+                // }
                 window.Telegram.WebApp.setHeaderColor('#183256');
                 window.Telegram.WebApp.expand();
                 setTelegramHeight();
@@ -40,7 +40,7 @@ export default function LoaderPage() {
                 }
             } else {
                 toast.error("Telegram WebApp недоступен");
-                router.push('/qr');
+                // router.push('/qr');
             }
         };
 
