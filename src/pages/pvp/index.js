@@ -210,8 +210,27 @@ export default function PvpPage() {
     const handleRoundResult = (data) => {
         const { player1, player2, finished } = data;
         const isPlayer1 = player1.id === userId;
-        const userAnswer = isPlayer1 ? (player1.answer === 0 ? 10 : player1.answer) : (player2.answer === 0 ? 10 : player2.answer);
-        const opponentAnswer = isPlayer1 ? (player2.answer === 0 ? 10 : player2.answer) : (player1.answer === 0 ? 10 : player1.answer);
+        let userAnswer = isPlayer1 ? player1.answer : player2.answer;
+        let opponentAnswer = isPlayer1 ? player2.answer : player1.answer;
+        // Логика подстановки проигрышного значения при ответе 0
+        if (opponentAnswer === 0) {
+            if (userAnswer === 1) {
+                opponentAnswer = 3; // Бумага проигрывает камню
+            } else if (userAnswer === 2) {
+                opponentAnswer = 1; // Камень проигрывает ножницам
+            } else if (userAnswer === 3) {
+                opponentAnswer = 2; // Ножницы проигрывают бумаге
+            }
+        }
+        if (userAnswer === 0) {
+            if (opponentAnswer === 1) {
+                userAnswer = 3; // Бумага проигрывает камню
+            } else if (opponentAnswer === 2) {
+                userAnswer = 1; // Камень проигрывает ножницам
+            } else if (opponentAnswer === 3) {
+                userAnswer = 2; // Ножницы проигрывают бумаге
+            }
+        }
         const userVictory = isPlayer1 ? player1.victory : player2.victory;
         const opponentVictory = isPlayer1 ? player2.victory : player1.victory;
         setPlayerChoice(userAnswer);
@@ -221,6 +240,7 @@ export default function PvpPage() {
             showGifSequence();
         }
     };
+
 
 
     const showGifSequence = () => {

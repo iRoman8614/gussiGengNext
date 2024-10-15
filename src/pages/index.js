@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
+import Head from "next/head";
 import { toast } from "react-toastify";
 import axiosInstance from '@/utils/axios';
 
 import styles from '@/styles/Loader.module.scss';
-import Head from "next/head";
 
 const loaderImage = '/loadingImg.jpg';
 
@@ -48,14 +48,10 @@ export default function LoaderPage() {
             const { referal } = router.query;
             if (referal) {
                 return axiosInstance.get(`/profile/referal`, {
-                    params: {
-                        referal: referal
-                    }
+                    params: {referal: referal}
                 }).then(response => {
                     console.log('Ответ от сервера при передаче referal:', response.data);
-                }).catch(error => {
-                    console.error('Ошибка при запросе /referal:', error);
-                });
+                }).catch(error => {console.error('Ошибка при запросе /referal:', error)});
             } else {
                 return Promise.resolve();
             }
