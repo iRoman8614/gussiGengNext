@@ -159,7 +159,7 @@ export default function PvpPage() {
             timerId = setTimeout(() => {
                 setTimer(timer - 1);
             }, 1000);
-        } else if (timer === 0 && playerChoice !== 0 && opponentChoice !== 0) {
+        } else if ((timer === 0 && playerChoice !== 0) || (timer === 0 && opponentChoice !== 0)) {
             showGifSequence();
         } else if (timer === 0) {
             if (playerChoice === 10) {
