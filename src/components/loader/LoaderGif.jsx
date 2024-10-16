@@ -15,6 +15,7 @@ export const LoaderGif = () => {
 
 const LoadingText = () => {
     const [dots, setDots] = useState(0);
+    const [timer, setTimer] = useState(0);
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -24,9 +25,27 @@ const LoadingText = () => {
         return () => clearInterval(interval);
     }, []);
 
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setTimer(prevTimer => prevTimer + 1);
+        }, 1000);
+
+        return () => clearInterval(interval);
+    }, []);
+
+    const formatTime = (timeInSeconds) => {
+        const minutes = Math.floor(timeInSeconds / 60);
+        const seconds = timeInSeconds % 60;
+        return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    };
+
     return (
-        <div className={styles.loading}>
-            Loading{'.'.repeat(dots)}
+        <div className={styles.container}>
+            <div className={styles.hint}>Expected time: 20s</div>
+            <div className={styles.timer}>{formatTime(timer)}</div>
+            <div className={styles.loading}>
+                Loading{'.'.repeat(dots)}
+            </div>
         </div>
     );
 };

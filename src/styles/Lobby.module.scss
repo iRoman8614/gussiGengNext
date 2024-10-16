@@ -60,6 +60,10 @@
     margin: 0;
     font-size: auto-clamp(20, 28);
   }
+
+  .hiddenText {
+    opacity: 0;
+  }
 }
 
 .logo {

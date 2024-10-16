@@ -18,14 +18,34 @@
   object-fit: cover;
 }
 
-.loading {
-  width: 200px;
-  margin: auto;
-  font-size: 70px;
-  color: #FFFFFF;
+.container {
+  padding: 20px;
+  width: 100%;
   position: absolute;
   bottom: 60px;
   left: 50%;
   transform: translate(-50%, 0);
   z-index: 10;
+}
+
+.hint {
+  margin: auto;
+  text-align: center;
+  font-size: 28px;
+  color: #FFFFFF;
+}
+
+.timer {
+  width: 100%;
+  text-align: center;
+  font-size: 30px;
+  color: #FFFFFF;
+  padding-bottom: 20px;
+}
+
+.loading {
+  width: 200px;
+  margin: auto;
+  font-size: 70px;
+  color: #FFFFFF;
 }

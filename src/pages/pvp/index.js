@@ -5,9 +5,7 @@ import Head from 'next/head';
 
 import { IconButton } from "@/components/buttons/icon-btn/IconButton.jsx";
 import {LoaderGif} from "@/components/loader/LoaderGif.jsx";
-import {PaperPVPbtn} from "@/components/buttons/paperPVPbtn/PaperPVPbtn.jsx";
-import {RockPvpBtn} from "@/components/buttons/rockPvpBtn/RockPvpBtn";
-import {ScicPvpBtn} from "@/components/buttons/scicPVPbtn/ScicPVPbtn.jsx";
+import {PvpBtn} from "@/components/buttons/PvpBtn/PvpBtn";
 import { toast } from "react-toastify";
 import axiosInstance from '@/utils/axios';
 
@@ -27,6 +25,9 @@ const gifPaths = {
     scisAnim: '/game-icons/animation_hand_sci.gif',
     papAnim: '/game-icons/animation_hand_pap.gif',
 };
+const rock = '/game-icons/rock.png'
+const paper = '/game-icons/paper.png'
+const scis = '/game-icons/scissors.png'
 
 export default function PvpPage() {
     const router = useRouter();
@@ -487,9 +488,9 @@ export default function PvpPage() {
                                 round {round}
                             </div>
                             <div className={styles.buttonSet}>
-                                <PaperPVPbtn onClick={() => handlePlayerChoice(2)} choose={playerChoice} />
-                                <RockPvpBtn onClick={() => handlePlayerChoice(1)} choose={playerChoice} />
-                                <ScicPvpBtn onClick={() => handlePlayerChoice(3)} choose={playerChoice} />
+                                <PvpBtn title={'rock'} img={rock} value={1} onClick={() => handlePlayerChoice(1)} choose={playerChoice} />
+                                <PvpBtn title={'paper'} img={paper} value={2} onClick={() => handlePlayerChoice(2)} choose={playerChoice} />
+                                <PvpBtn title={'scissons'} img={scis} value={3} onClick={() => handlePlayerChoice(3)} choose={playerChoice} />
                             </div>
                         </div>
                     </div>

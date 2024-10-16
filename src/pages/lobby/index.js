@@ -2,10 +2,10 @@ import React, {useEffect, useState} from 'react';
 import Image from "next/image";
 import Head from "next/head";
 import {useRouter} from "next/router";
+import axiosInstance from "@/utils/axios";
 
 import styles from '@/styles/Lobby.module.scss'
 import {toast} from "react-toastify";
-import axiosInstance from "@/utils/axios";
 
 const bg = '/backgrounds/Lobby.png'
 const hands = '/main-buttons/hand2.png';
@@ -133,7 +133,7 @@ export default function Page() {
                         <div className={styles.card}>
                             <div className={styles.icon} onClick={handlePvpClick}>
                                 <div>battle</div>
-                                <p> </p>
+                                <p className={styles.hiddenText}>free</p>
                                 <Image className={styles.logo} src={hands} alt={''} width={150} height={75} />
                             </div>
                             <div className={styles.lable}>
@@ -183,6 +183,7 @@ export default function Page() {
                         </div>}
                     </div>
                 </div>
+
             </div>
         </>
 
