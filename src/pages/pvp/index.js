@@ -213,24 +213,6 @@ export default function PvpPage() {
         const isPlayer1 = player1.id === userId;
         let userAnswer = isPlayer1 ? player1.answer : player2.answer;
         let opponentAnswer = isPlayer1 ? player2.answer : player1.answer;
-        if (userAnswer === 0) {
-            if (opponentAnswer === 1) {
-                setPlayerChoice(3);
-            } else if (opponentAnswer === 2) {
-                setPlayerChoice(1);
-            } else if (opponentAnswer === 3) {
-                setPlayerChoice(2);
-            }
-        }
-        if (opponentAnswer === 0) {
-            if (userAnswer === 1) {
-                setOpponentChoice(3);
-            } else if (userAnswer === 2) {
-                setOpponentChoice(1);
-            } else if (userAnswer === 3) {
-                setOpponentChoice(2);
-            }
-        }
         const userVictory = isPlayer1 ? player1.victory : player2.victory;
         const opponentVictory = isPlayer1 ? player2.victory : player1.victory;
         setRoundResult({ userVictory, opponentVictory, finished });
