@@ -41,7 +41,7 @@ const LoadingText = () => {
 
     return (
         <div className={styles.container}>
-            <div className={styles.hint}>Expected time: 20s</div>
+            <div className={styles.hint}>Expected time: 20 sec</div>
             <div className={styles.timer}>{formatTime(timer)}</div>
             <div className={styles.loading}>
                 Loading{'.'.repeat(dots)}
