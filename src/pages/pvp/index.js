@@ -335,9 +335,6 @@ export default function PvpPage() {
                                 )}
                                 {visibleImage === 1 && (
                                     <>
-                                        {opponentChoice === 0 && (
-                                            <></>
-                                        )}
                                         {opponentChoice === 1 && (
                                             <img
                                                 className={styles.choose}
@@ -364,9 +361,6 @@ export default function PvpPage() {
                                 )}
                                 {visibleImage === 2 && (
                                     <>
-                                        {opponentChoice === 0 && (
-                                            <></>
-                                        )}
                                         {opponentChoice === 1 && (
                                             <Image
                                                 width={90}
@@ -417,9 +411,6 @@ export default function PvpPage() {
                                 )}
                                 {visibleImage === 1 && (
                                     <>
-                                        {playerChoice === 0 && (
-                                            <></>
-                                        )}
                                         {playerChoice === 1 && (
                                             <img
                                                 className={styles.mychoose}
@@ -445,9 +436,6 @@ export default function PvpPage() {
                                 )}
                                 {visibleImage === 2 && (
                                     <>
-                                        {playerChoice === 0 && (
-                                            <></>
-                                        )}
                                         {playerChoice === 1 && (
                                             <Image
                                                 width={90}
