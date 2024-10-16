@@ -308,12 +308,6 @@ export default function PvpPage() {
                 <link rel="preload" href="/game-icons/animation_hand_rock.gif" as="image" />
                 <link rel="preload" href="/game-icons/animation_hand_sci.gif" as="image" />
                 <link rel="preload" href="/game-icons/animation_hand_pap.gif" as="image" />
-                <link rel="preload" href="/buttonPaper/paper01.png" as="image" />
-                <link rel="preload" href="/buttonPaper/paper09.png" as="image" />
-                <link rel="preload" href="/buttonRock/rock01.png" as="image" />
-                <link rel="preload" href="/buttonRock/rock09.png" as="image" />
-                <link rel="preload" href="/buttonScissors/scis01.png" as="image" />
-                <link rel="preload" href="/buttonScissors/scis09.png" as="image" />
                 <link rel="preload" href="/oppNickNameContainer.png" as="image" />
                 <link rel="preload" href="/roundContainer.png" as="image" />
                 <link rel="preload" href="/winsBG.png" as="image" />
