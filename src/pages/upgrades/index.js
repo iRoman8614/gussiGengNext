@@ -71,6 +71,22 @@ export default function Page() {
         ]
     };
 
+    const rateImages = [
+        '/upgradeCards/rate/rate1.png',
+        '/upgradeCards/rate/rate2.png',
+        '/upgradeCards/rate/rate3.png',
+        '/upgradeCards/rate/rate4.png',
+        '/upgradeCards/rate/rate5.png'
+    ]
+
+    const limitImages = [
+        '/upgradeCards/limit/limit1.png',
+        '/upgradeCards/limit/limit2.png',
+        '/upgradeCards/limit/limit3.png',
+        '/upgradeCards/limit/limit4.png',
+        '/upgradeCards/limit/limit5.png'
+    ]
+
     const fetchLevels = async () => {
         try {
             const limitResponse = await axiosInstance.get(`/farm/limit-levels`);
@@ -237,10 +253,10 @@ export default function Page() {
                             {limitLevels.length === 0 && rateLevels.length === 0 && <div className={styles.warning}>No available upgrades</div>}
                             <div className={styles.list}>
                                 {limitLevels.map((item, index) => (
-                                    <ItemPlaceholder item={item} key={index} onClick={() => openUpgradeModal(item)} />
+                                    <ItemPlaceholder img={limitImages[index]} item={item} key={index} onClick={() => openUpgradeModal(item)} />
                                 ))}
                                 {rateLevels.map((item, index) => (
-                                    <ItemPlaceholder item={item} key={index} onClick={() => openUpgradeModal(item)} />
+                                    <ItemPlaceholder img={rateImages[index]} item={item} key={index} onClick={() => openUpgradeModal(item)} />
                                 ))}
                             </div>
                         </div>}
