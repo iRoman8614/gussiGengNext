@@ -72,19 +72,19 @@ export default function Page() {
     };
 
     const rateImages = [
-        '/upgradeCards/rate/rate1.png',
-        '/upgradeCards/rate/rate2.png',
-        '/upgradeCards/rate/rate3.png',
-        '/upgradeCards/rate/rate4.png',
-        '/upgradeCards/rate/rate5.png'
+        '/upgradesCards/rate/rate1.png',
+        '/upgradesCards/rate/rate2.png',
+        '/upgradesCards/rate/rate3.png',
+        '/upgradesCards/rate/rate4.png',
+        '/upgradesCards/rate/rate5.png'
     ]
 
     const limitImages = [
-        '/upgradeCards/limit/limit1.png',
-        '/upgradeCards/limit/limit2.png',
-        '/upgradeCards/limit/limit3.png',
-        '/upgradeCards/limit/limit4.png',
-        '/upgradeCards/limit/limit5.png'
+        '/upgradesCards/limit/limit1.png',
+        '/upgradesCards/limit/limit2.png',
+        '/upgradesCards/limit/limit3.png',
+        '/upgradesCards/limit/limit4.png',
+        '/upgradesCards/limit/limit5.png'
     ]
 
     const fetchLevels = async () => {
