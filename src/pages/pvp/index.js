@@ -160,7 +160,7 @@ export default function PvpPage() {
             timerId = setTimeout(() => {
                 setTimer(timer - 1);
             }, 1000);
-        } else if ((timer === 0 && playerChoice !== 0) || (timer === 0 && opponentChoice !== 0)) {
+        } else if (timer === 0 && playerChoice !== 0 && opponentChoice !== 0) {
             showGifSequence();
         } else if (timer === 0) {
             if (playerChoice === 10) {
@@ -211,8 +211,6 @@ export default function PvpPage() {
     const handleRoundResult = (data) => {
         const { player1, player2, finished, timeout } = data;
         const isPlayer1 = player1.id === userId;
-        let userAnswer = isPlayer1 ? player1.answer : player2.answer;
-        let opponentAnswer = isPlayer1 ? player2.answer : player1.answer;
         const userVictory = isPlayer1 ? player1.victory : player2.victory;
         const opponentVictory = isPlayer1 ? player2.victory : player1.victory;
         setRoundResult({ userVictory, opponentVictory, finished });
