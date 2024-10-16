@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './ItemPlaceholder.module.scss';
+import Image from "next/image";
 
 export const ItemPlaceholder = ({ item, img, onClick }) => {
     const handleClick = () => {
