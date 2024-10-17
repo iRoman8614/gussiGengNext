@@ -156,7 +156,7 @@ export default function PvpPage() {
 
     useEffect(() => {
         let timerId;
-        console.log('useEffect with [timer, round, isLoadingPvp, playerChoice]')
+        console.log('useEffect with [timer, round, isLoadingPvp, playerChoice, opponentChoice]')
         if (!isLoadingPvp && timer > 0 && !gameOver) {
             timerId = setTimeout(() => {
                 setTimer(timer - 1);
@@ -169,7 +169,7 @@ export default function PvpPage() {
             }
         }
         return () => clearTimeout(timerId);
-    }, [timer, round, isLoadingPvp, playerChoice]);
+    }, [timer, round, isLoadingPvp, playerChoice, opponentChoice]);
 
     const handlePlayerChoiceTimeout = () => {
         console.log('таймаут шлю 10')
@@ -258,7 +258,7 @@ export default function PvpPage() {
             } else {
                 console.log('no roundResult while showGifSequence')
             }
-        }, 2000);
+        }, 11000);
         return () => timeouts.forEach(timeout => clearTimeout(timeout));
     };
 
