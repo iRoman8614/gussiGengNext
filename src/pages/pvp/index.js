@@ -208,6 +208,7 @@ export default function PvpPage() {
         sendAnswer();
     };
 
+
     const handleRoundResult = (data) => {
         const { player1, player2, finished } = data;
         const isPlayer1 = player1.id === userId;
