@@ -168,7 +168,7 @@ export default function PvpPage() {
             }
         }
         return () => clearTimeout(timerId);
-    }, [timer, playerChoice, opponentChoice, round, isLoadingPvp]);
+    }, [timer, round, isLoadingPvp]);
 
     const handlePlayerChoiceTimeout = () => {
         sendAnswerToServer(10);
@@ -209,13 +209,17 @@ export default function PvpPage() {
     };
 
     const handleRoundResult = (data) => {
-        const { player1, player2, finished, timeout } = data;
+        const { player1, player2, finished } = data;
         const isPlayer1 = player1.id === userId;
+        const userAnswer = isPlayer1 ? (player1.answer === 0 ? 10 : player1.answer) : (player2.answer === 0 ? 10 : player2.answer);
+        const opponentAnswer = isPlayer1 ? (player2.answer === 0 ? 10 : player2.answer) : (player1.answer === 0 ? 10 : player1.answer);
         const userVictory = isPlayer1 ? player1.victory : player2.victory;
         const opponentVictory = isPlayer1 ? player2.victory : player1.victory;
+        setPlayerChoice(userAnswer);
+        setOpponentChoice(opponentAnswer);
         setRoundResult({ userVictory, opponentVictory, finished });
-        if (timeout && player1.answer !== null && player2.answer !== null) {
-            setTimeout(showGifSequence, 0);
+        if (player1.answer !== null && player2.answer !== null && timer === 0) {
+            showGifSequence();
         }
     };
 
