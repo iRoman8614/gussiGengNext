@@ -156,7 +156,6 @@ export default function PvpPage() {
 
     useEffect(() => {
         let timerId;
-        console.log('useEffect with [timer, round, isLoadingPvp, playerChoice, opponentChoice]')
         if (!isLoadingPvp && timer > 0 && !gameOver) {
             timerId = setTimeout(() => {
                 setTimer(timer - 1);
@@ -172,7 +171,6 @@ export default function PvpPage() {
     }, [timer, round, isLoadingPvp, playerChoice, opponentChoice]);
 
     const handlePlayerChoiceTimeout = () => {
-        console.log('таймаут шлю 10')
         sendAnswerToServer(10);
     };
 
@@ -214,21 +212,14 @@ export default function PvpPage() {
     const handleRoundResult = (data) => {
         const { player1, player2, finished } = data;
         const isPlayer1 = player1.id === userId;
-        console.log('isPlayer1: ', isPlayer1)
         const userAnswer = isPlayer1 ? (player1.answer) : (player2.answer);
         const opponentAnswer = isPlayer1 ? (player2.answer) : (player1.answer);
         const userVictory = isPlayer1 ? player1.victory : player2.victory;
         const opponentVictory = isPlayer1 ? player2.victory : player1.victory;
         setPlayerChoice(userAnswer);
-        console.log('userAnswer: ', userAnswer)
-        console.log('playerChoice: ', playerChoice)
         setOpponentChoice(opponentAnswer);
-        console.log('opponentAnswer: ', opponentAnswer)
-        console.log('opponentChoice: ', opponentChoice)
         setRoundResult({ userVictory, opponentVictory, finished })
-        console.log('setRoundResult in handleRoundResult: ', roundResult)
         if (player1.answer !== 4 && player2.answer !== 4 && timer === 0) {
-            console.log('showGifSequence in handleRoundResult + roundResult: ', roundResult)
             showGifSequence();
         }
     };
@@ -245,7 +236,6 @@ export default function PvpPage() {
         });
         setTimeout(() => {
             if (roundResult) {
-                console.log('roundResult', roundResult)
                 const newPlayerScore = roundResult.userVictory;
                 const newOpponentScore = roundResult.opponentVictory;
                 setPlayerScore(newPlayerScore);
@@ -255,8 +245,6 @@ export default function PvpPage() {
                 } else {
                     resetRoundAfterDelay();
                 }
-            } else {
-                console.log('no roundResult while showGifSequence')
             }
         }, 11000);
         return () => timeouts.forEach(timeout => clearTimeout(timeout));
