@@ -250,7 +250,7 @@ export default function PvpPage() {
             } else {
                 console.log('no roundResult while showGifSequence')
             }
-        }, 2000);
+        }, 10000);
         return () => timeouts.forEach(timeout => clearTimeout(timeout));
     };
 
