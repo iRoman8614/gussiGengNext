@@ -246,7 +246,7 @@ export default function PvpPage() {
                     resetRoundAfterDelay();
                 }
             }
-        }, 11000);
+        }, 7000); // ожидание второго ответа сервером + 2 секунды на гифку
         return () => timeouts.forEach(timeout => clearTimeout(timeout));
     };
 
