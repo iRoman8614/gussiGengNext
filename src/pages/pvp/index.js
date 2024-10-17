@@ -213,14 +213,21 @@ export default function PvpPage() {
     const handleRoundResult = (data) => {
         const { player1, player2, finished } = data;
         const isPlayer1 = player1.id === userId;
+        console.log('isPlayer1: ', isPlayer1)
         const userAnswer = isPlayer1 ? (player1.answer) : (player2.answer);
         const opponentAnswer = isPlayer1 ? (player2.answer) : (player1.answer);
         const userVictory = isPlayer1 ? player1.victory : player2.victory;
         const opponentVictory = isPlayer1 ? player2.victory : player1.victory;
         setPlayerChoice(userAnswer);
+        console.log('userAnswer: ', userAnswer)
+        console.log('playerChoice: ', playerChoice)
         setOpponentChoice(opponentAnswer);
-        setRoundResult({ userVictory, opponentVictory, finished });
+        console.log('opponentAnswer: ', opponentAnswer)
+        console.log('opponentChoice: ', opponentChoice)
+        setRoundResult({ userVictory, opponentVictory, finished })
+        console.log('setRoundResult in handleRoundResult: ', roundResult)
         if (player1.answer !== 4 && player2.answer !== 4 && timer === 0) {
+            console.log('showGifSequence in handleRoundResult + roundResult: ', roundResult)
             showGifSequence();
         }
     };
@@ -250,7 +257,7 @@ export default function PvpPage() {
             } else {
                 console.log('no roundResult while showGifSequence')
             }
-        }, 10000);
+        }, 2000);
         return () => timeouts.forEach(timeout => clearTimeout(timeout));
     };
 
