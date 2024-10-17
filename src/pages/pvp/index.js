@@ -156,6 +156,7 @@ export default function PvpPage() {
 
     useEffect(() => {
         let timerId;
+        console.log('useEffect with [timer, round, isLoadingPvp, playerChoice]')
         if (!isLoadingPvp && timer > 0 && !gameOver) {
             timerId = setTimeout(() => {
                 setTimer(timer - 1);
@@ -168,7 +169,7 @@ export default function PvpPage() {
             }
         }
         return () => clearTimeout(timerId);
-    }, [timer, round, isLoadingPvp]);
+    }, [timer, round, isLoadingPvp, playerChoice]);
 
     const handlePlayerChoiceTimeout = () => {
         console.log('таймаут шлю 10')
