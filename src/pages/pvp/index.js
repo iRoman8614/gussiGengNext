@@ -164,16 +164,16 @@ export default function PvpPage() {
             showGifSequence();
         } else if (timer === 0) {
             if (playerChoice === 4) {
-                // handlePlayerChoiceTimeout();
-                sendAnswerToServer(10);
+                handlePlayerChoiceTimeout();
             }
         }
         return () => clearTimeout(timerId);
     }, [timer, round, isLoadingPvp]);
 
-    // const handlePlayerChoiceTimeout = () => {
-    //     sendAnswerToServer(10);
-    // };
+    const handlePlayerChoiceTimeout = () => {
+        console.log('таймаут шлю 10')
+        sendAnswerToServer(10);
+    };
 
     const sendAnswerToServer = async (choice) => {
         if (!sessionId) {
@@ -224,7 +224,6 @@ export default function PvpPage() {
             showGifSequence();
         }
     };
-
 
     const showGifSequence = () => {
         const timeouts = [];
