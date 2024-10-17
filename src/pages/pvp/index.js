@@ -37,8 +37,8 @@ export default function PvpPage() {
     const [gameOver, setGameOver] = useState(false);
     const [round, setRound] = useState(1);
     const [timer, setTimer] = useState(5);
-    const [playerChoice, setPlayerChoice] = useState(10);
-    const [opponentChoice, setOpponentChoice] = useState(10);
+    const [playerChoice, setPlayerChoice] = useState(4);
+    const [opponentChoice, setOpponentChoice] = useState(4);
     const [gameEnded, setGameEnded] = useState(false);
     const [userName, setUserName] = useState(null);
     const [sessionId, setSessionId] = useState(null);
@@ -163,16 +163,17 @@ export default function PvpPage() {
         } else if (timer === 0 && playerChoice !== 0 && opponentChoice !== 0) {
             showGifSequence();
         } else if (timer === 0) {
-            if (playerChoice === 10) {
-                handlePlayerChoiceTimeout();
+            if (playerChoice === 4) {
+                // handlePlayerChoiceTimeout();
+                sendAnswerToServer(10);
             }
         }
         return () => clearTimeout(timerId);
     }, [timer, round, isLoadingPvp]);
 
-    const handlePlayerChoiceTimeout = () => {
-        sendAnswerToServer(10);
-    };
+    // const handlePlayerChoiceTimeout = () => {
+    //     sendAnswerToServer(10);
+    // };
 
     const sendAnswerToServer = async (choice) => {
         if (!sessionId) {
@@ -191,7 +192,7 @@ export default function PvpPage() {
         if (window.Telegram?.WebApp?.HapticFeedback) {
             window.Telegram.WebApp.HapticFeedback.impactOccurred('heavy');
         }
-        if (gameOver || playerChoice !== 10) return;
+        if (gameOver || playerChoice !== 4) return;
         setPlayerChoice(choice);
         const sendAnswer = async () => {
             if (!sessionId) {
@@ -212,14 +213,14 @@ export default function PvpPage() {
     const handleRoundResult = (data) => {
         const { player1, player2, finished } = data;
         const isPlayer1 = player1.id === userId;
-        const userAnswer = isPlayer1 ? (player1.answer === 0 ? 10 : player1.answer) : (player2.answer === 0 ? 10 : player2.answer);
-        const opponentAnswer = isPlayer1 ? (player2.answer === 0 ? 10 : player2.answer) : (player1.answer === 0 ? 10 : player1.answer);
+        const userAnswer = isPlayer1 ? (player1.answer) : (player2.answer);
+        const opponentAnswer = isPlayer1 ? (player2.answer) : (player1.answer);
         const userVictory = isPlayer1 ? player1.victory : player2.victory;
         const opponentVictory = isPlayer1 ? player2.victory : player1.victory;
         setPlayerChoice(userAnswer);
         setOpponentChoice(opponentAnswer);
         setRoundResult({ userVictory, opponentVictory, finished });
-        if (player1.answer !== null && player2.answer !== null && timer === 0) {
+        if (player1.answer !== 4 && player2.answer !== 4 && timer === 0) {
             showGifSequence();
         }
     };
@@ -239,10 +240,8 @@ export default function PvpPage() {
             if (roundResult) {
                 const newPlayerScore = roundResult.userVictory;
                 const newOpponentScore = roundResult.opponentVictory;
-
                 setPlayerScore(newPlayerScore);
                 setOpponentScore(newOpponentScore);
-
                 if (roundResult.finished) {
                     handleGameEnd();
                 } else {
@@ -254,22 +253,15 @@ export default function PvpPage() {
     };
 
     const resetRoundAfterDelay = () => {
-        if (playerChoice === opponentChoice) {
-            console.log("Ничья: раунд не обновляется");
-            setRoundResult(null);
-            setPlayerChoice(10);
-            setOpponentChoice(10);
-            setTimer(5);
-            setVisibleImage(0);
-        } else {
-            console.log("Обновляем раунд");
+        if (playerChoice !== opponentChoice) {
             setRound(prev => prev + 1);
-            setRoundResult(null);
-            setPlayerChoice(10);
-            setOpponentChoice(10);
-            setTimer(5);
-            setVisibleImage(0);
+            console.log("Обновляем раунд");
         }
+        setRoundResult(null);
+        setPlayerChoice(4);
+        setOpponentChoice(4);
+        setTimer(5);
+        setVisibleImage(0);
     };
 
     const handleGameEnd = () => {
@@ -314,31 +306,40 @@ export default function PvpPage() {
                                         width={90}
                                         height={190}
                                         className={styles.choose}
-                                        src={gameOptions[10].logo}
-                                        alt="First"
+                                        src={gameOptions[4].logo}
+                                        alt="1"
                                     />
                                 )}
                                 {visibleImage === 1 && (
                                     <>
+                                        {(opponentChoice === 0 || opponentChoice === 10) && (
+                                            <Image
+                                                width={90}
+                                                height={190}
+                                                className={styles.choose}
+                                                src={gameOptions[4].logo}
+                                                alt="2"
+                                            />
+                                        )}
                                         {opponentChoice === 1 && (
                                             <img
                                                 className={styles.choose}
                                                 src={opponentGifCache.current.rockAnim ? opponentGifCache.current.rockAnim.src : gifPaths.rockAnim}
-                                                alt="Third"
+                                                alt="2"
                                             />
                                         )}
                                         {opponentChoice === 2 && (
                                             <img
                                                 className={styles.choose}
                                                 src={opponentGifCache.current.papAnim ? opponentGifCache.current.papAnim.src : gifPaths.papAnim}
-                                                alt="Third"
+                                                alt="2"
                                             />
                                         )}
                                         {opponentChoice === 3 && (
                                             <img
                                                 className={styles.choose}
                                                 src={opponentGifCache.current.scisAnim ? opponentGifCache.current.scisAnim.src : gifPaths.scisAnim}
-                                                alt="Third"
+                                                alt="2"
                                             />
                                         )}
                                     </>
@@ -346,13 +347,22 @@ export default function PvpPage() {
                                 )}
                                 {visibleImage === 2 && (
                                     <>
+                                        {(opponentChoice === 0 || opponentChoice === 10) && (
+                                            <Image
+                                                width={90}
+                                                height={190}
+                                                className={styles.choose}
+                                                src={gameOptions[4].logo}
+                                                alt="3"
+                                            />
+                                        )}
                                         {opponentChoice === 1 && (
                                             <Image
                                                 width={90}
                                                 height={190}
                                                 className={styles.choose}
                                                 src={gameOptions[1].logo}
-                                                alt="Third"
+                                                alt="3"
                                             />
                                         )}
                                         {opponentChoice === 2 && (
@@ -361,7 +371,7 @@ export default function PvpPage() {
                                                 height={190}
                                                 className={styles.choose}
                                                 src={gameOptions[2].logo}
-                                                alt="Third"
+                                                alt="3"
                                             />
                                         )}
                                         {opponentChoice === 3 && (
@@ -370,7 +380,7 @@ export default function PvpPage() {
                                                 height={190}
                                                 className={styles.choose}
                                                 src={gameOptions[3].logo}
-                                                alt="Third"
+                                                alt="3"
                                             />
                                         )}
                                     </>
@@ -390,44 +400,62 @@ export default function PvpPage() {
                                         width={90}
                                         height={190}
                                         className={styles.mychoose}
-                                        src={gameOptions[10].logo}
-                                        alt="First"
+                                        src={gameOptions[4].logo}
+                                        alt="1"
                                     />
                                 )}
                                 {visibleImage === 1 && (
                                     <>
+                                        {(playerChoice === 0 || playerChoice === 10) && (
+                                            <Image
+                                                width={90}
+                                                height={190}
+                                                className={styles.mychoose}
+                                                src={gameOptions[4].logo}
+                                                alt="2"
+                                            />
+                                        )}
                                         {playerChoice === 1 && (
                                             <img
                                                 className={styles.mychoose}
                                                 src={playerGifCache.current.rockAnim ? playerGifCache.current.rockAnim.src : gifPaths.rockAnim}
-                                                alt="Third"
+                                                alt="2"
                                             />
                                         )}
                                         {playerChoice === 2 && (
                                             <img
                                                 className={styles.mychoose}
                                                 src={playerGifCache.current.papAnim ? playerGifCache.current.papAnim.src : gifPaths.papAnim}
-                                                alt="Third"
+                                                alt="2"
                                             />
                                         )}
                                         {playerChoice === 3 && (
                                             <img
                                                 className={styles.mychoose}
                                                 src={playerGifCache.current.scisAnim ? playerGifCache.current.scisAnim.src : gifPaths.scisAnim}
-                                                alt="Third"
+                                                alt="2"
                                             />
                                         )}
                                     </>
                                 )}
                                 {visibleImage === 2 && (
                                     <>
+                                        {(playerChoice === 0 || playerChoice === 10) && (
+                                            <Image
+                                                width={90}
+                                                height={190}
+                                                className={styles.mychoose}
+                                                src={gameOptions[4].logo}
+                                                alt="3"
+                                            />
+                                        )}
                                         {playerChoice === 1 && (
                                             <Image
                                                 width={90}
                                                 height={190}
                                                 className={styles.mychoose}
                                                 src={gameOptions[1].logo}
-                                                alt="Third"
+                                                alt="3"
                                             />
                                         )}
                                         {playerChoice === 2 && (
@@ -436,7 +464,7 @@ export default function PvpPage() {
                                                 height={190}
                                                 className={styles.mychoose}
                                                 src={gameOptions[2].logo}
-                                                alt="Third"
+                                                alt="3"
                                             />
                                         )}
                                         {playerChoice === 3 && (
@@ -445,7 +473,7 @@ export default function PvpPage() {
                                                 height={190}
                                                 className={styles.mychoose}
                                                 src={gameOptions[3].logo}
-                                                alt="Third"
+                                                alt="3"
                                             />
                                         )}
                                     </>
