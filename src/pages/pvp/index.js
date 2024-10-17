@@ -237,15 +237,18 @@ export default function PvpPage() {
         });
         setTimeout(() => {
             if (roundResult) {
+                console.log('roundResult', roundResult)
                 const newPlayerScore = roundResult.userVictory;
                 const newOpponentScore = roundResult.opponentVictory;
                 setPlayerScore(newPlayerScore);
                 setOpponentScore(newOpponentScore);
-                if (roundResult.finished) {
+                if (roundResult.finished === true) {
                     handleGameEnd();
                 } else {
                     resetRoundAfterDelay();
                 }
+            } else {
+                console.log('no roundResult while showGifSequence')
             }
         }, 2000);
         return () => timeouts.forEach(timeout => clearTimeout(timeout));
