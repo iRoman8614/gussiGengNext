@@ -153,7 +153,7 @@ export default function Page() {
                         </div>
                         <div className={styles.avatarContainer}>
                             <Image className={styles.logo} src={teamData[teamId].logo} alt={''} width={40} height={40} />
-                            <Image className={styles.character} src={skinData[teamId][level]} alt={''} width={100} height={178} />
+                            <Image className={styles.character} src={skinData[teamId][level].icon} alt={''} width={100} height={178} />
                         </div>
                     </div>
                     <div className={styles.block}>

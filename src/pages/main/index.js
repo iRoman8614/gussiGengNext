@@ -243,7 +243,7 @@ export default function Home() {
                     <IconButton image={wallet} alt={'wallet'} title={'wallet'} hidden={true} onClick={() => {router.push('/main')}}/>
                 </div>
                 <div className={styles.item7}>
-                    <Image width={1000} height={1000} className={styles.char} alt={'character'} src={skinData[teamId][level]}/>
+                    <Image width={1000} height={1000} className={styles.char} alt={'character'} src={skinData[teamId][level].icon}/>
                 </div>
                 <div className={styles.item8}>
                     <CollectBar

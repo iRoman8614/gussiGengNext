@@ -127,45 +127,6 @@ export default function Page() {
         }
     }, [router]);
 
-    const characters ={
-        1: [
-            { name: 'Associate', icon: '/skins/gg.png' },
-            { name: 'Street soldier', icon: '/skins/gg2.png' },
-            { name: 'Hood hustler', icon: '/skins/gg3.png' },
-            { name: 'Block boss', icon: '/skins/gg4.png' },
-            { name: 'CApo', icon: '/skins/gg5.png' },
-            { name: 'Syndicate kingpin', icon: '/skins/gg6.png' },
-            { name: 'Underworld Overlord', icon: '/skins/gg7.png' },
-        ],
-        2: [
-            { name: 'Associate', icon: '/skins/bg.png' },
-            { name: 'Street soldier', icon: '/skins/bg2.png' },
-            { name: 'Hood hustler', icon: '/skins/bg3.png' },
-            { name: 'Block boss', icon: '/skins/bg4.png' },
-            { name: 'CApo', icon: '/skins/bg5.png' },
-            { name: 'Syndicate kingpin', icon: '/skins/bg6.png' },
-            { name: 'Underworld Overlord', icon: '/skins/bg7.png' },
-        ],
-        3: [
-            { name: 'Associate', icon: '/skins/yg.png' },
-            { name: 'Street soldier', icon: '/skins/yg2.png' },
-            { name: 'Hood hustler', icon: '/skins/yg3.png' },
-            { name: 'Block boss', icon: '/skins/yg4.png' },
-            { name: 'CApo', icon: '/skins/yg5.png' },
-            { name: 'Syndicate kingpin', icon: '/skins/yg6.png' },
-            { name: 'Underworld Overlord', icon: '/skins/yg7.png' },
-        ],
-        4: [
-            { name: 'Associate', icon: '/skins/rg.png' },
-            { name: 'Street soldier', icon: '/skins/rg2.png' },
-            { name: 'Hood hustler', icon: '/skins/rg3.png' },
-            { name: 'Block boss', icon: '/skins/rg4.png' },
-            { name: 'CApo', icon: '/skins/rg5.png' },
-            { name: 'Syndicate kingpin', icon: '/skins/rg6.png' },
-            { name: 'Underworld Overlord', icon: '/skins/rg7.png' },
-        ],
-    };
-
     const ligsNames = [
         'Associate',
         'Street soldier',
@@ -219,7 +180,7 @@ export default function Page() {
                         onSlideChange={handleSlideChange}
                         className={styles.swiper}
                     >
-                        {characters[teamId].map((character, index) => (
+                        {skinData[teamId].map((character, index) => (
                             <SwiperSlide
                                 key={index}
                                 className={index === activeIndex ? styles.activeSlide : styles.inactiveSlide}
