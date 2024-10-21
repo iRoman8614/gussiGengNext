@@ -59,7 +59,7 @@ export const CustomSelect = ({ optionsArray, title }) => {
             ...provided,
             backgroundColor: state.isSelected ? '#47347d' : state.isFocused ? '#47347d' : 'transparent',
             color: state.isSelected ? '#fff' : '#fff',
-            fontSize: '18px',
+            fontSize: '16px',
             borderRadius: state.isSelected ? '10px' : 'none',
             padding: '10px 15px',
             cursor: 'pointer',
