@@ -224,9 +224,36 @@ export default function PvpPage() {
         }
     };
 
+    // const showGifSequence = () => {
+    //     const timeouts = [];
+    //     const durations = [0, 2000];
+    //     durations.forEach((duration, index) => {
+    //         timeouts.push(
+    //             setTimeout(() => {
+    //                 setVisibleImage(index + 1);
+    //             }, duration)
+    //         );
+    //     });
+    //     setTimeout(() => {
+    //         if (roundResult) {
+    //             const newPlayerScore = roundResult.userVictory;
+    //             const newOpponentScore = roundResult.opponentVictory;
+    //             setPlayerScore(newPlayerScore);
+    //             setOpponentScore(newOpponentScore);
+    //             if (roundResult.finished === true) {
+    //                 handleGameEnd();
+    //             } else {
+    //                 resetRoundAfterDelay();
+    //             }
+    //         }
+    //     }, 7000); // ожидание второго ответа сервером + 2 секунды на гифку
+    //     return () => timeouts.forEach(timeout => clearTimeout(timeout));
+    // };
+
     const showGifSequence = () => {
         const timeouts = [];
-        const durations = [0, 2000];
+        const durations = [0, 2000]; // Длительности каждого GIF
+        const totalGifDuration = 2000 + 1000; // Добавляем секунду после завершения анимации GIF
         durations.forEach((duration, index) => {
             timeouts.push(
                 setTimeout(() => {
@@ -234,21 +261,27 @@ export default function PvpPage() {
                 }, duration)
             );
         });
+        // Таймаут для завершения GIF-анимации и перехода к следующему раунду или завершению игры
         setTimeout(() => {
             if (roundResult) {
                 const newPlayerScore = roundResult.userVictory;
                 const newOpponentScore = roundResult.opponentVictory;
                 setPlayerScore(newPlayerScore);
                 setOpponentScore(newOpponentScore);
+
                 if (roundResult.finished === true) {
-                    handleGameEnd();
+                    handleGameEnd(); // Завершение игры
                 } else {
-                    resetRoundAfterDelay();
+                    setTimeout(() => {
+                        resetRoundAfterDelay(); // Переход к следующему раунду через 1 секунду после GIF
+                    }, 1000); // Задержка после окончания проигрывания GIF
                 }
             }
-        }, 7000); // ожидание второго ответа сервером + 2 секунды на гифку
+        }, totalGifDuration); // Ожидание общего времени проигрывания GIF + 1 секунда
+
         return () => timeouts.forEach(timeout => clearTimeout(timeout));
     };
+
 
     const resetRoundAfterDelay = () => {
         if (playerChoice !== opponentChoice) {
