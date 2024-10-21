@@ -2,9 +2,9 @@ name: CI/CD Pipeline
 
 on:
   push:
-    branches: [ main ]
+    branches: [ project ]
   pull_request:
-    branches: [ main ]
+    branches: [ project ]
 
 jobs:
   build-and-deploy:
@@ -28,7 +28,7 @@ jobs:
       run: npm run build
 
     - name: Deploy to server
-      if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+      if: github.ref == 'refs/heads/project' && github.event_name == 'push'
       env:
         SERVER_SSH_KEY: ${{ secrets.SERVER_SSH_KEY }}
         SERVER_IP: ${{ secrets.SERVER_IP }}
