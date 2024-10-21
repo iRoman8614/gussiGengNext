@@ -6,6 +6,7 @@ const skinData = {
         4: '/skins/gg4.png',
         5: '/skins/gg5.png',
         6: '/skins/gg6.png',
+        7: '/skins/gg7.png',
     },
     2: {
         1: '/skins/bg.png',
@@ -14,6 +15,7 @@ const skinData = {
         4: '/skins/bg4.png',
         5: '/skins/bg5.png',
         6: '/skins/bg6.png',
+        7: '/skins/bg7.png',
     },
     3: {
         1: '/skins/yg.png',
@@ -22,6 +24,7 @@ const skinData = {
         4: '/skins/yg4.png',
         5: '/skins/yg5.png',
         6: '/skins/yg6.png',
+        7: '/skins/yg7.png',
     },
     4: {
         1: '/skins/rg.png',
@@ -30,6 +33,7 @@ const skinData = {
         4: '/skins/rg4.png',
         5: '/skins/rg5.png',
         6: '/skins/rg6.png',
+        7: '/skins/rg7.png',
     },
 };
 

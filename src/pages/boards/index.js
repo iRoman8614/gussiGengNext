@@ -1,15 +1,16 @@
 import React, {useCallback, useEffect, useRef, useState} from "react";
 import Image from "next/image";
+import Head from "next/head";
 import {useRouter} from "next/router";
 import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
-import 'swiper/css/navigation';
 import { Navigation, Controller } from 'swiper/modules';
 import {ListItem} from "@/components/ListItem/ListItem";
 import axiosInstance from "@/utils/axios";
+import skinData from '@/mock/skinsData'
 
 import styles from '@/styles/Boards.module.scss'
-import Head from "next/head";
+import 'swiper/css';
+import 'swiper/css/navigation';
 
 const bg = '/backgrounds/leaderboardBG.png'
 
@@ -22,7 +23,7 @@ export default function Page() {
     const [liga, setLiga] = useState(1)
     const [leaderData, setLeaderData] = useState([]);
 
-    const ligsLimits = ['10', '25', '50', '100', '250', '500', '500+']
+    const ligsLimits = ['10', '25', '50', '100', '250', '500', '500']
     const length = currentWins / ligsLimits[activeIndex] * 100
 
     // Кэш для данных лидеров по лигам
@@ -81,7 +82,6 @@ export default function Page() {
         try {
             const response = await axiosInstance.get(`/profile/stats`);
             if (response.status === 400 || response.status === 401 || response.status === 403) {
-                // Вызов /profile/init для обновления токена
                 await axiosInstance.get(`/profile/init?profileId=${userId}`)
                     .then(initResponse => {
                         const data = initResponse.data;
@@ -135,6 +135,7 @@ export default function Page() {
             { name: 'Block boss', icon: '/skins/gg4.png' },
             { name: 'CApo', icon: '/skins/gg5.png' },
             { name: 'Syndicate kingpin', icon: '/skins/gg6.png' },
+            { name: 'Underworld Overlord', icon: '/skins/gg7.png' },
         ],
         2: [
             { name: 'Associate', icon: '/skins/bg.png' },
@@ -143,6 +144,7 @@ export default function Page() {
             { name: 'Block boss', icon: '/skins/bg4.png' },
             { name: 'CApo', icon: '/skins/bg5.png' },
             { name: 'Syndicate kingpin', icon: '/skins/bg6.png' },
+            { name: 'Underworld Overlord', icon: '/skins/bg7.png' },
         ],
         3: [
             { name: 'Associate', icon: '/skins/yg.png' },
@@ -151,6 +153,7 @@ export default function Page() {
             { name: 'Block boss', icon: '/skins/yg4.png' },
             { name: 'CApo', icon: '/skins/yg5.png' },
             { name: 'Syndicate kingpin', icon: '/skins/yg6.png' },
+            { name: 'Underworld Overlord', icon: '/skins/yg7.png' },
         ],
         4: [
             { name: 'Associate', icon: '/skins/rg.png' },
@@ -159,8 +162,19 @@ export default function Page() {
             { name: 'Block boss', icon: '/skins/rg4.png' },
             { name: 'CApo', icon: '/skins/rg5.png' },
             { name: 'Syndicate kingpin', icon: '/skins/rg6.png' },
+            { name: 'Underworld Overlord', icon: '/skins/rg7.png' },
         ],
     };
+
+    const ligsNames = [
+        'Associate',
+        'Street soldier',
+        'Hood hustler',
+        'Block boss',
+        'CApo',
+        'Syndicate kingpin',
+        'Underworld Overlord',
+    ]
 
     const swiperRef = useRef(null);
     const handleSlidePrev = () => {
@@ -228,7 +242,7 @@ export default function Page() {
                         <Image src={'/Arrow.png'} alt={''} width={15} height={15} />
                     </button>
                     <div className={styles.caption}>
-                        <span>{characters[teamId][activeIndex].name}</span>
+                        <span>{ligsNames[activeIndex]}</span>
                     </div>
                     <button className={styles.navRight} onClick={handleSlideNext}>
                         <Image src={'/Arrow.png'} alt={''} width={15} height={15} />
