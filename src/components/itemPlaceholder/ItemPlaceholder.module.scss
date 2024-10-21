@@ -16,6 +16,11 @@
   margin: auto;
 }
 
+.image {
+  width: auto;
+  object-fit: fill;
+}
+
 .icon {
   width: auto-clamp(45, 85);
   height: auto-clamp(45, 85);

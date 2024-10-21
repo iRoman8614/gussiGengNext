@@ -330,7 +330,7 @@ export default function Page() {
                             <div className={styles.list}>
                                 {activeIndex === 0 && <>
                                     {rateLevels.length !== 0 ? <>{rateLevels.map((item, index) => (
-                                        <ItemPlaceholder img={rateLevels[index]} item={item} key={index} onClick={() => openUpgradeModal(item)} />
+                                        <ItemPlaceholder img={rateImages[index]} item={item} key={index} onClick={() => openUpgradeModal(item)} />
                                     ))}</> : <div className={styles.warning}>No available rate upgrades</div>}
                                 </>}
                                 {activeIndex === 1 && <>
