@@ -8,7 +8,7 @@
 .idea
 Dockerfile
 e true
-.github
+/.github
 
 # testing
 /coverage
