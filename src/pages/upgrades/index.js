@@ -288,46 +288,46 @@ export default function Page() {
                             <div className={styles.warning}>
                                 Upgrades are applied after collecting the current earnings.
                             </div>
-                            <div className={styles.containerSwiper}>
-                                <button className={styles.navLeft} onClick={handleSlidePrev}>
-                                    <Image src={'/Arrow.png'} alt={''} width={15} height={15} />
-                                </button>
-                                <Swiper
-                                    modules={[Navigation, Controller]}
-                                    slidesPerView={1}
-                                    centeredSlides={true}
-                                    loop={true}
-                                    onSwiper={(swiper) => {
-                                        swiperRef.current = swiper;
-                                    }}
-                                    onSlideChange={handleSlideChange}
-                                    className={styles.swiper}
-                                >
-                                    {sliderImages.map((image, index) => (
-                                        <SwiperSlide
-                                            key={index}
-                                            className={styles.slide}
-                                        >
-                                            <div className={styles.slide}>
-                                                <Image
-                                                    width={index === activeIndex ? 100 : 80}
-                                                    height={index === activeIndex ? 194 : 155}
-                                                    src={image}
-                                                    alt={''}
-                                                    className={styles.icon}
-                                                />
-                                            </div>
-                                        </SwiperSlide>
-                                    ))}
-                                </Swiper>
-                                <button className={styles.navRight} onClick={handleSlideNext}>
-                                    <Image src={'/Arrow.png'} alt={''} width={15} height={15} />
-                                </button>
-                            </div>
-                            <div className={styles.caption}>
-                                <span>{upgradesList[activeIndex]}</span>
-                            </div>
                             <div className={styles.list}>
+                                <div className={styles.containerSwiper}>
+                                    <button className={styles.navLeft} onClick={handleSlidePrev}>
+                                        <Image src={'/Arrow.png'} alt={''} width={15} height={15} />
+                                    </button>
+                                    <Swiper
+                                        modules={[Navigation, Controller]}
+                                        slidesPerView={1}
+                                        centeredSlides={true}
+                                        loop={true}
+                                        onSwiper={(swiper) => {
+                                            swiperRef.current = swiper;
+                                        }}
+                                        onSlideChange={handleSlideChange}
+                                        className={styles.swiper}
+                                    >
+                                        {sliderImages.map((image, index) => (
+                                            <SwiperSlide
+                                                key={index}
+                                                className={styles.slide}
+                                            >
+                                                <div className={styles.slide}>
+                                                    <Image
+                                                        width={index === activeIndex ? 100 : 80}
+                                                        height={index === activeIndex ? 194 : 155}
+                                                        src={image}
+                                                        alt={''}
+                                                        className={styles.icon}
+                                                    />
+                                                </div>
+                                            </SwiperSlide>
+                                        ))}
+                                    </Swiper>
+                                    <button className={styles.navRight} onClick={handleSlideNext}>
+                                        <Image src={'/Arrow.png'} alt={''} width={15} height={15} />
+                                    </button>
+                                </div>
+                                <div className={styles.caption}>
+                                    <span>{upgradesList[activeIndex]}</span>
+                                </div>
                                 {activeIndex === 0 && <>
                                     {rateLevels.length !== 0 ? <>{rateLevels.map((item, index) => (
                                         <ItemPlaceholder img={rateImages[index]} item={item} key={index} onClick={() => openUpgradeModal(item)} />

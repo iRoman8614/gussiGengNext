@@ -36,7 +36,7 @@ export default function PvpPage() {
     const [opponentScore, setOpponentScore] = useState(0);
     const [gameOver, setGameOver] = useState(false);
     const [round, setRound] = useState(1);
-    const [timer, setTimer] = useState(10);
+    const [timer, setTimer] = useState(5);
     const [playerChoice, setPlayerChoice] = useState(4);
     const [opponentChoice, setOpponentChoice] = useState(4);
     const [gameEnded, setGameEnded] = useState(false);
@@ -246,7 +246,7 @@ export default function PvpPage() {
                     resetRoundAfterDelay();
                 }
             }
-        }, 11000); // ожидание второго ответа сервером + 2 секунды на гифку
+        }, 7000); // ожидание второго ответа сервером + 2 секунды на гифку
         return () => timeouts.forEach(timeout => clearTimeout(timeout));
     };
 
@@ -258,7 +258,7 @@ export default function PvpPage() {
         setRoundResult(null);
         setPlayerChoice(4);
         setOpponentChoice(4);
-        setTimer(10);
+        setTimer(5);
         setVisibleImage(0);
     };
 
