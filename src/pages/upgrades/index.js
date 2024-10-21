@@ -285,7 +285,9 @@ export default function Page() {
                             >tasks</div>
                         </div>
                         {activeTab === 1 && <div className={styles.personalContainer}>
-
+                            <div className={styles.warning}>
+                                Upgrades are applied after collecting the current earnings.
+                            </div>
                             <div className={styles.containerSwiper}>
                                 <button className={styles.navLeft} onClick={handleSlidePrev}>
                                     <Image src={'/Arrow.png'} alt={''} width={15} height={15} />
@@ -325,17 +327,17 @@ export default function Page() {
                             <div className={styles.caption}>
                                 <span>{upgradesList[activeIndex]}</span>
                             </div>
-                            <div className={styles.warning}>
-                                Upgrades are applied after collecting the current earnings.
-                            </div>
-                            {limitLevels.length === 0 && rateLevels.length === 0 && <div className={styles.warning}>No available upgrades</div>}
                             <div className={styles.list}>
-                                {limitLevels.map((item, index) => (
-                                    <ItemPlaceholder img={limitImages[index]} item={item} key={index} onClick={() => openUpgradeModal(item)} />
-                                ))}
-                                {rateLevels.map((item, index) => (
-                                    <ItemPlaceholder img={rateImages[index]} item={item} key={index} onClick={() => openUpgradeModal(item)} />
-                                ))}
+                                {activeIndex === 0 && <>
+                                    {rateLevels.length !== 0 ? <>{rateLevels.map((item, index) => (
+                                        <ItemPlaceholder img={rateLevels[index]} item={item} key={index} onClick={() => openUpgradeModal(item)} />
+                                    ))}</> : <div className={styles.warning}>No available rate upgrades</div>}
+                                </>}
+                                {activeIndex === 1 && <>
+                                    {limitLevels.length !== 0 ? <>{limitLevels.map((item, index) => (
+                                        <ItemPlaceholder img={limitImages[index]} item={item} key={index} onClick={() => openUpgradeModal(item)} />
+                                    ))}</> : <div className={styles.warning}>No available limit upgrades</div>}
+                                </>}
                             </div>
                         </div>}
                         {activeTab === 2 && <div className={styles.skinContainer}>
