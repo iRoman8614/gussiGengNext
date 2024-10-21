@@ -1,0 +1,52 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+        token: ${{ secrets.GH_PAT }}
+
+    - name: Use Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '18'
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Build
+      run: npm run build
+
+    - name: Deploy to server
+      if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+      env:
+        SERVER_SSH_KEY: ${{ secrets.SERVER_SSH_KEY }}
+        SERVER_IP: ${{ secrets.SERVER_IP }}
+      run: |
+        mkdir -p ~/.ssh
+        echo "$SERVER_SSH_KEY" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        ssh-keyscan -H $SERVER_IP >> ~/.ssh/known_hosts
+        rsync -avz --delete --exclude-from='.gitignore' --exclude='.env' ./ root@$SERVER_IP:/srv/Gang-W-Front/
+        scp Dockerfile root@$SERVER_IP:/srv/Gang-W-Front/Dockerfile
+        ssh root@$SERVER_IP '
+          cd /srv
+          docker compose -f docker-compose.yml down frontend
+          docker compose -f docker-compose.yml build --no-cache frontend
+          docker compose -f docker-compose.yml up -d frontend
+          docker ps
+        '
+
+    - name: Cleanup
+      if: always()
+      run: rm -f ~/.ssh/id_rsa
