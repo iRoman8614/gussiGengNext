@@ -2,9 +2,9 @@ name: CI/CD Pipeline
 
 on:
   push:
-    branches: [ project ]
+    branches: [ main ]
   pull_request:
-    branches: [ project ]
+    branches: [ main ]
 
 jobs:
   build-and-deploy:
@@ -12,9 +12,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-      with:
-        fetch-depth: 0
-        token: ${{ secrets.GH_PAT }}
 
     - name: Use Node.js
       uses: actions/setup-node@v2
@@ -28,7 +25,7 @@ jobs:
       run: npm run build
 
     - name: Deploy to server
-      if: github.ref == 'refs/heads/project' && github.event_name == 'push'
+      if: github.ref == 'refs/heads/main' && github.event_name == 'push'
       env:
         SERVER_SSH_KEY: ${{ secrets.SERVER_SSH_KEY }}
         SERVER_IP: ${{ secrets.SERVER_IP }}
@@ -38,7 +35,6 @@ jobs:
         chmod 600 ~/.ssh/id_rsa
         ssh-keyscan -H $SERVER_IP >> ~/.ssh/known_hosts
         rsync -avz --delete --exclude-from='.gitignore' --exclude='.env' ./ root@$SERVER_IP:/srv/Gang-W-Front/
-        scp Dockerfile root@$SERVER_IP:/srv/Gang-W-Front/Dockerfile
         ssh root@$SERVER_IP '
           cd /srv
           docker compose -f docker-compose.yml down frontend
