@@ -59,11 +59,11 @@ export const CustomSelect = ({ optionsArray, title }) => {
             ...provided,
             backgroundColor: state.isSelected ? '#47347d' : state.isFocused ? '#47347d' : 'transparent',
             color: state.isSelected ? '#fff' : '#fff',
-            fontSize: '16px',
+            fontSize: '20px',
             borderRadius: state.isSelected ? '10px' : 'none',
             padding: '10px 15px',
             cursor: 'pointer',
-            fontWeight: state.isSelected ? 'bold' : 'normal',
+            fontWeight: state.isSelected ? 'normal' : 'normal',
         }),
     };
 
