@@ -6,6 +6,7 @@ import axiosInstance from "@/utils/axios";
 
 import styles from '@/styles/Lobby.module.scss'
 import {toast} from "react-toastify";
+import Link from "next/link";
 
 const bg = '/backgrounds/Lobby.png'
 const hands = '/main-buttons/hand2.png';
@@ -158,11 +159,11 @@ export default function Page() {
                     </div>
                     <div>
                         <div className={styles.card}>
-                            <div className={styles.icon}>
+                            <Link href={'/pvpbot'} className={styles.icon}>
                                 <div>ton</div>
                                 <p>battle</p>
                                 <Image className={styles.logo} src={rich} alt={''} width={150} height={75} />
-                            </div>
+                            </Link>
                             <div className={styles.lable}>
                                 <div className={styles.timer}></div>
                                 <div className={styles.title}>
@@ -175,7 +176,6 @@ export default function Page() {
                                     }
                                     setHintTwo(!hintTwo)}}>?</div>
                             </div>
-
                         </div>
                         {hintTwo && <div className={styles.hint}>
                             <p>FEELING BOLD?</p>

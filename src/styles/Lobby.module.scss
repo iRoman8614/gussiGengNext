@@ -23,6 +23,7 @@
 }
 
 .card {
+  text-decoration: none;
   border-radius: 11px;
   background: linear-gradient(360deg, #1d002f 0%, #332954 21.8%, #4f5e85 50%, rgba(255, 206, 204, 0.83) 100%);
   stroke-width: 2px;
@@ -42,6 +43,7 @@
 }
 
 .icon {
+  text-decoration: none;
   padding: 20px 5px;
   background: rgba(38, 32, 59, 0.87);
   display: flex;
