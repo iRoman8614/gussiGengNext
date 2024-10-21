@@ -2,15 +2,15 @@ import React, {useCallback, useEffect, useRef, useState} from "react";
 import Image from "next/image";
 import Head from "next/head";
 import {useRouter} from "next/router";
-import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Controller } from 'swiper/modules';
 import {ListItem} from "@/components/ListItem/ListItem";
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/navigation';
 import axiosInstance from "@/utils/axios";
 import skinData from '@/mock/skinsData'
 
 import styles from '@/styles/Boards.module.scss'
-import 'swiper/css';
-import 'swiper/css/navigation';
 
 const bg = '/backgrounds/leaderboardBG.png'
 
@@ -173,7 +173,7 @@ export default function Page() {
         'Block boss',
         'CApo',
         'Syndicate kingpin',
-        'Underworld Overlord',
+        'Seven',
     ]
 
     const swiperRef = useRef(null);
