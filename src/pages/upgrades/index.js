@@ -1,19 +1,24 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import Image from "next/image";
 import Head from "next/head";
 import {useRouter} from "next/router";
-import axiosInstance from '@/utils/axios';
-
 import {ItemPlaceholder} from "@/components/itemPlaceholder/ItemPlaceholder";
 import {TaskBtn} from "@/components/taskBtn/TaskBtn";
+import axiosInstance from '@/utils/axios';
+import { Swiper, SwiperSlide } from 'swiper/react';
 
+import 'swiper/css';
+import 'swiper/css/navigation';
 import styles from '@/styles/Upgrades.module.scss'
+import {Controller, Navigation} from "swiper/modules";
+import skinData from "@/mock/skinsData";
 
 const bg = '/backgrounds/accountBG.png'
 const money = '/money.png'
 
 export default function Page() {
     const router = useRouter();
+    const swiperRef = useRef(null);
     const [balance, setBalance] = useState(0);
     const [activeTab, setActiveTab] = useState(1);
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -22,6 +27,7 @@ export default function Page() {
     const [rateLevels, setRateLevels] = useState([]);
     const [isUpgradeModalOpen, setIsUpgradeModalOpen] = useState(false); // Модальное окно для апгрейда
     const [selectedItem, setSelectedItem] = useState(null);
+    const [activeIndex, setActiveIndex] = useState(0);
 
     const Tasks = {
         daily: [
@@ -71,6 +77,11 @@ export default function Page() {
         ]
     };
 
+    const sliderImages = [
+        '/upgradesCards/slider/rateSlide.png',
+        '/upgradesCards/slider/limitSlide.png',
+    ]
+
     const rateImages = [
         '/upgradesCards/rate/rate1.png',
         '/upgradesCards/rate/rate2.png',
@@ -85,6 +96,11 @@ export default function Page() {
         '/upgradesCards/limit/limit3.png',
         '/upgradesCards/limit/limit4.png',
         '/upgradesCards/limit/limit5.png'
+    ]
+
+    const upgradesList = [
+        'speed upgrades',
+        'limits upgrades'
     ]
 
     const fetchLevels = async () => {
@@ -212,6 +228,28 @@ export default function Page() {
         setActiveTab(tab)
     }
 
+    const handleSlideChange = (swiper) => {
+        setActiveIndex(swiper.realIndex);
+    };
+
+    const handleSlidePrev = () => {
+        if (window.Telegram?.WebApp?.HapticFeedback) {
+            window.Telegram.WebApp.HapticFeedback.impactOccurred('heavy');
+        }
+        if (swiperRef.current) {
+            swiperRef.current.slidePrev();
+        }
+    };
+
+    const handleSlideNext = () => {
+        if (window.Telegram?.WebApp?.HapticFeedback) {
+            window.Telegram.WebApp.HapticFeedback.impactOccurred('heavy');
+        }
+        if (swiperRef.current) {
+            swiperRef.current.slideNext();
+        }
+    };
+
     return (
         <>
             <Head>
@@ -247,6 +285,46 @@ export default function Page() {
                             >tasks</div>
                         </div>
                         {activeTab === 1 && <div className={styles.personalContainer}>
+
+                            <div className={styles.containerSwiper}>
+                                <button className={styles.navLeft} onClick={handleSlidePrev}>
+                                    <Image src={'/Arrow.png'} alt={''} width={15} height={15} />
+                                </button>
+                                <Swiper
+                                    modules={[Navigation, Controller]}
+                                    slidesPerView={1}
+                                    centeredSlides={true}
+                                    loop={true}
+                                    onSwiper={(swiper) => {
+                                        swiperRef.current = swiper;
+                                    }}
+                                    onSlideChange={handleSlideChange}
+                                    className={styles.swiper}
+                                >
+                                    {sliderImages.map((image, index) => (
+                                        <SwiperSlide
+                                            key={index}
+                                            className={styles.slide}
+                                        >
+                                            <div className={styles.slide}>
+                                                <Image
+                                                    width={index === activeIndex ? 100 : 80}
+                                                    height={index === activeIndex ? 194 : 155}
+                                                    src={image}
+                                                    alt={''}
+                                                    className={styles.icon}
+                                                />
+                                            </div>
+                                        </SwiperSlide>
+                                    ))}
+                                </Swiper>
+                                <button className={styles.navRight} onClick={handleSlideNext}>
+                                    <Image src={'/Arrow.png'} alt={''} width={15} height={15} />
+                                </button>
+                            </div>
+                            <div className={styles.caption}>
+                                <span>{upgradesList[activeIndex]}</span>
+                            </div>
                             <div className={styles.warning}>
                                 Upgrades are applied after collecting the current earnings.
                             </div>

@@ -5,11 +5,11 @@ import {useRouter} from "next/router";
 import { Navigation, Controller } from 'swiper/modules';
 import {ListItem} from "@/components/ListItem/ListItem";
 import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
-import 'swiper/css/navigation';
 import axiosInstance from "@/utils/axios";
 import skinData from '@/mock/skinsData'
 
+import 'swiper/css';
+import 'swiper/css/navigation';
 import styles from '@/styles/Boards.module.scss'
 
 const bg = '/backgrounds/leaderboardBG.png'

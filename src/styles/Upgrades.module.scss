@@ -110,6 +110,56 @@
   }
 }
 
+.containerSwiper {
+  margin-top: 20px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 6px;
+}
+
+.slide {
+  width: 150px;
+  margin: auto;
+}
+
+.icon {
+  width: 150px;
+  height: auto;
+}
+
+.navRight {
+  z-index: 2;
+  background: transparent;
+  border: none;
+  font-size: 30px;
+  cursor: pointer;
+  color: white;
+  rotate: 180deg;
+}
+
+.caption {
+  border-radius: 11px;
+  width: max-content;
+  background: #686EA6;
+  font-size: auto-clamp(22, 35);
+  color: #fff;
+  z-index: 2;
+  text-align: center;
+  padding: 10px 20px;
+  white-space: nowrap;
+  margin: auto auto 15px;
+}
+
+.navLeft {
+  z-index: 2;
+  background: transparent;
+  border: none;
+  font-size: 30px;
+  cursor: pointer;
+  color: white;
+}
+
 .skinContainer {
   position: relative;
   width: 100%;
