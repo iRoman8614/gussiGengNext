@@ -296,6 +296,7 @@ export default function Page() {
                                         modules={[Navigation, Controller]}
                                         slidesPerView={1}
                                         centeredSlides={true}
+                                        spaceBetween={5}
                                         loop={true}
                                         onSwiper={(swiper) => {
                                             swiperRef.current = swiper;
