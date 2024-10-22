@@ -11,6 +11,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import styles from '@/styles/Upgrades.module.scss'
 import {Controller, Navigation} from "swiper/modules";
+import skinData from "@/mock/skinsData";
 
 const bg = '/backgrounds/accountBG.png'
 const money = '/money.png'
@@ -30,12 +31,12 @@ export default function Page() {
 
     const Tasks = {
         daily: [
-            // {
-            //     name: 'daily login',
-            //     desc: 'daily login',
-            //     complite: 'false',
-            //     action: 'modal'
-            // },
+            {
+                name: 'daily login',
+                desc: 'daily login',
+                complite: 'false',
+                action: 'modal'
+            },
             {
                 name: 'PLay 5 games',
                 desc: '4/5',
@@ -57,7 +58,7 @@ export default function Page() {
                 desc: '',
                 complite: 'true',
                 action: 'link',
-                url: 'https://x.com/gangwars_game'
+                url: 'https://twitter.com'
             },
             {
                 name: 'invite 5 friends',

@@ -1,0 +1,283 @@
+[33mc298e3d[m[33m ([m[1;31morigin/main[m[33m)[m pvp ref valvdov
+[33m9b791f9[m pvp ref valvdov4
+[33m2279e56[m pvp ref valvdov4
+[33maaff9b9[m pvp ref valvdov3
+[33me7c9e6d[m pvp ref valvdov2
+[33m17b7317[m pvp ref valvdov
+[33m5f1e4ca[m pvp ref valvdov
+[33m84d9bfa[m pvp ref4
+[33mf2ebffe[m pvp ref3
+[33m1b06ae1[m pvp ref2
+[33m89359b9[m pvp ref
+[33ma19996e[m pvp rollback
+[33m74acb60[m cards img
+[33m3dcd875[m cards
+[33m7f658f9[m pvp4
+[33m34c405d[m pvp3
+[33m5a9e5bd[m pvp
+[33mae5945d[m timer
+[33mf0948c0[m upgrades cards fix
+[33meb5a6dc[m upgrades cards fix
+[33m362b5a3[m upgrades cards fix
+[33m10a82bc[m upgrades cards fix
+[33mbc7e812[m upgrades cards fix
+[33mcdc99d3[m upgrades cards
+[33mb353b30[m upgrades cards
+[33mef187e0[m pvp btns + timer
+[33m869767b[m pvp btns + timer
+[33me9b4a8d[m pvp btns + timer
+[33m1640d0b[m account redesigne + pvp fix
+[33m685c398[m fixes pvp4
+[33m911f777[m fixes pvp3
+[33ma1daa58[m fixes pvp2
+[33m87f2875[m fixes pvp
+[33mdefad0a[m fixes pvp4
+[33m851d3c3[m fixes pvp3
+[33mf359231[m fixes pvp2
+[33md620dab[m fixes pvp
+[33m73a7196[m fixes
+[33m2e88bf6[m blocks
+[33m070c69a[m limit
+[33m6df83b3[m limit
+[33m8d991c4[m limit
+[33mfe180cd[m qr
+[33m1dba38b[m clear ls
+[33m9007178[m clear ls
+[33m765bac9[m lobby count fix2
+[33m3037aea[m lobby count fix
+[33m0a9eb21[m lobby count fix
+[33md26d823[m lobby count
+[33m1dac7f4[m proxi
+[33m6ea05f0[m proxi
+[33mf2044c8[m back
+[33m3f84fd5[m screens
+[33mae150d4[m preloads
+[33mb56bd66[m qr
+[33me2c4e4e[m qr
+[33ma2baec6[m lobby3
+[33m9c2a408[m lobby2
+[33m8b3594b[m lobby
+[33m3049a75[m block
+[33m4648f09[m sum
+[33m0f97a89[m block3
+[33m2a57ea7[m block3
+[33m3362df1[m block2
+[33md5ebdf7[m block2
+[33me645825[m block
+[33mfe8e38c[m vibro
+[33me7318c3[m jwt2
+[33m7e1e784[m jwt
+[33mcd75e99[m jwt
+[33m93ac80d[m jwt
+[33m0cb2a89[m money3
+[33mcae04d9[m money3
+[33mdfddd22[m money3
+[33m1398e1d[m money2
+[33mf606eca[m money
+[33mf060f2c[m money
+[33m9d4ba60[m spacing
+[33mffbde21[m spacing
+[33m08a7867[m scale
+[33m34b304b[m scale3
+[33m154491a[m scale2
+[33md704e54[m scale
+[33mf192391[m balances
+[33md9f71c5[m balances
+[33m86edff8[m prod
+[33mf9905cb[m prod
+[33m0152a56[m prod
+[33me6cc9fa[m pvp preload
+[33m0c812d5[m pvp preload
+[33m9987081[m pvp preload
+[33m68ac234[m pvp preload
+[33mcfee282[m pvp preload
+[33mbf27e0d[m pvp preload
+[33m4956fa2[m pvp preload
+[33m55bb37b[m pvp preload
+[33m11889b0[m pvp rounds
+[33m97c5900[m pvp rounds
+[33mb118e14[m pvp rounds
+[33me5fd422[m pvp btns
+[33m51221a3[m board + upgrades
+[33ma7b9236[m board + upgrades
+[33mf77a75c[m board + upgrades
+[33mcce47c8[m board + upgrades
+[33m3077ba5[m board + upgrades
+[33mb08b1e3[m board + upgrades
+[33m3f6eed4[m upgrades modal
+[33m02edd73[m upgrades modal
+[33mdda674c[m upgrades modal
+[33m3306ce2[m upgrades modal
+[33m179226e[m upgrades modal
+[33m8976ff8[m upgrades modal
+[33m13ddcaa[m upgrades modal
+[33m21322e4[m upgrades modal
+[33mff0736b[m upgrades
+[33ma7d528f[m upgrades
+[33m4fefd87[m upgrades
+[33mb1d1bf5[m upgrades
+[33m11c8ca6[m refactoring3
+[33mad62c47[m refactoring3
+[33mfd72d85[m refactoring3
+[33m927727a[m refactoring3
+[33m1545b2c[m refactoring3
+[33m33784aa[m refactoring3
+[33m680d910[m refactoring3
+[33mf2b25fd[m refactoring2
+[33mbafb712[m refactoring2
+[33mefe21be[m refactoring
+[33me98ce77[m check
+[33m9ff14fe[m check
+[33m87ce01e[m check
+[33ma893fd4[m axios + jwt + profId
+[33ma0d46a0[m axios + jwt + profId
+[33mc4e91ec[m axios + jwt + profId
+[33me9a8a73[m axios + jwt
+[33m2045b41[m axios + jwt
+[33m5f873bc[m friends + random
+[33mc60950f[m friends + random
+[33m3afb376[m friends
+[33m2f623c7[m friends
+[33mbf24948[m friends
+[33mb63c36a[m getRandom
+[33m616ec1c[m account fixes
+[33m654a954[m account fixes
+[33mbc1c712[m random opt
+[33m98561d5[m shared
+[33mc0360ec[m shared
+[33m9d52994[m share
+[33m0a418ba[m share
+[33me085636[m friends update
+[33m26ad0a6[m friends update
+[33mb55880c[m friends update
+[33m4ffef0c[m friends update
+[33mec216b5[m friends update
+[33mb2ba0e7[m friends update
+[33m8674b58[m friends update
+[33m671d55e[m friends update
+[33md31d12e[m friends update
+[33ma1a6318[m userAvatar
+[33m40ac9e9[m userAvatar
+[33m58b64ac[m userAvatar
+[33m9c63cd6[m userAvatar
+[33mf0cb379[m userAvatar
+[33m0c3a0ef[m userAvatar
+[33m841e1e2[m boards list fixes
+[33m44f4a6c[m settings font
+[33m5316adc[m settings font
+[33m34077da[m red logo
+[33m8c96345[m getRandom
+[33mec0b9ac[m Boards
+[33m885e0d7[m Boards
+[33m6457b03[m Boards
+[33mcab49df[m totalCoins acc
+[33ma0953a0[m totalCoins acc
+[33mf815125[m pvp check update
+[33md45e3ee[m fonts + mini fixes
+[33mef163b6[m pvp anim
+[33m7495306[m pvp anim
+[33m9098b1c[m acc + random fixes
+[33madcb643[m acc + random fixes
+[33m7f8e9e1[m acc + random fixes
+[33mda1ec9d[m account sums
+[33m3ebda00[m account sums
+[33m3be5d66[m acount + pvp
+[33m54a2f84[m acount + pvp
+[33m6af85fa[m pvp
+[33mfb99b06[m pvp
+[33meabeaff[m pvp
+[33m3009fd9[m pvp
+[33m13edc03[m pvp logos
+[33mc50fc66[m pvp logos
+[33mfb9c641[m pvp logos
+[33m6d57005[m pvp logos
+[33m5a42820[m settings + getRandom
+[33mb1a6fba[m settings + getRandom
+[33m4a06be7[m pvp preload
+[33m78ecb5a[m pvp preload
+[33ma71e4fa[m pvp preload
+[33m96abd03[m pvp preload
+[33mdd0989c[m get random fix
+[33m8c293c0[m pvp
+[33mc0c28fe[m pvp
+[33mc9b13fd[m pvp
+[33m404a63d[m pvp
+[33m650cd22[m pvp
+[33m097b6fe[m pvp
+[33mc92869e[m pvp
+[33m5e268c7[m pvp
+[33maa784d9[m pvp + boards progress
+[33m88ea3bc[m account
+[33m79ab6eb[m getRandom + account
+[33m8fe10d2[m getRandom
+[33m8b51fdd[m getRandom
+[33m97150e4[m getRandom
+[33m42aa0e4[m pvp btns
+[33m89ce21f[m pvp btns
+[33m58d281c[m pvp btns
+[33m217d49f[m pvp btns
+[33m8a2714c[m pvp btns
+[33md27cf9b[m pvp btns
+[33m031532a[m pvp btns
+[33mef3c3d5[m pvp btns
+[33mf3a088f[m pvp btns
+[33m66c77de[m boards
+[33mb046d37[m boards
+[33me611ab9[m boards
+[33m66bfa6d[m boards
+[33m2d191ff[m boards
+[33mda4fa0b[m boards
+[33maf70cda[m boards
+[33m1f6486b[m pvp btn anim
+[33mb98ffbe[m pvp btn anim
+[33m32e25c1[m boards fixing
+[33m14dd05b[m boards fixing
+[33m6c1459f[m boards fixing
+[33m01755c0[m boards fixing
+[33mf1b940b[m settings fixes
+[33md0b6f1f[m settings fixes
+[33mdf8ac5d[m actions main page fixes
+[33mf8c7308[m actions main page fixes
+[33m2ed5663[m actions main page
+[33m0bbb7bc[m actions
+[33m5c09ede[m half boards page
+[33mb1b7cac[m friends page
+[33m6765c7d[m settings
+[33m4dcbc7b[m gif
+[33m3e8f1a4[m gif
+[33md70ac38[m main claim fix
+[33m8678bd6[m main claim fix
+[33m5d55d15[m fixes btns
+[33me47bece[m fixes btns
+[33m1a27e78[m fixes btns
+[33m08b8b30[m fixes btns
+[33mf46a7a5[m fixes btns
+[33mb861efb[m fixes btns
+[33m08557a2[m fixes btns
+[33m697c830[m fixes
+[33m2ba51e8[m fixes
+[33mbadd936[m fixes
+[33m9cb4136[m fixes
+[33mc962dda[m fixes
+[33me2ecd63[m fixes
+[33mdf84788[m fixes main
+[33m6526f7c[m fixes main
+[33mce2f6cf[m fixes main
+[33me79fded[m fixes main
+[33m86d21ce[m fixes main
+[33m1a57476[m fixes main
+[33m8b52fce[m fixes main
+[33ma7ae82b[m fixes main
+[33mc1e01fb[m fixes
+[33m88ad90c[m fixes
+[33m550247e[m pvp requests
+[33m30c81c9[m pvp requests
+[33m147c459[m homepage fixes
+[33m3d37a9f[m loader for home page fixes
+[33m9907dfe[m loader for home page fix
+[33m7cd0d91[m loader for home page
+[33mc3b409b[m home page static
+[33m9637613[m home page static
+[33ma0be824[m home page static
+[33m04a3237[m home page static
+[33mc5e29c9[m Initial commit
