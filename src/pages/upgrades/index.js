@@ -9,6 +9,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 
 import 'swiper/css';
 import 'swiper/css/navigation';
+import 'swiper/css/controller';
 import styles from '@/styles/Upgrades.module.scss'
 import {Controller, Navigation} from "swiper/modules";
 
@@ -295,8 +296,8 @@ export default function Page() {
                                     <Swiper
                                         modules={[Navigation, Controller]}
                                         slidesPerView={1}
-                                        centeredSlides={true}
-                                        spaceBetween={5}
+                                        centeredSlides={false}
+                                        spaceBetween={10}
                                         loop={true}
                                         onSwiper={(swiper) => {
                                             swiperRef.current = swiper;

@@ -124,15 +124,17 @@
 
 .slide {
   width: 152px;
-  margin: auto;
+  display: flex;
+  justify-content: center;
 }
 
+
 .icon {
-  width: 152px;
+  width: 100%;
   height: auto;
-  margin-left: 2px;
-  margin-right: 2px;
+  margin: 0;
 }
+
 
 .navRight {
   z-index: 2;
