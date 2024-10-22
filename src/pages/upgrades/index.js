@@ -308,15 +308,13 @@ export default function Page() {
                                                 key={index}
                                                 className={styles.slide}
                                             >
-                                                <div className={styles.slide}>
-                                                    <Image
-                                                        width={index === activeIndex ? 100 : 80}
-                                                        height={index === activeIndex ? 194 : 155}
-                                                        src={image}
-                                                        alt={''}
-                                                        className={styles.icon}
-                                                    />
-                                                </div>
+                                                <Image
+                                                    width={100}
+                                                    height={194}
+                                                    src={image}
+                                                    alt={''}
+                                                    className={styles.icon}
+                                                />
                                             </SwiperSlide>
                                         ))}
                                     </Swiper>
