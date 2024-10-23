@@ -195,7 +195,7 @@ export default function Page() {
                             </div>
                             <div className={styles.barBlock}>
                                 <div className={styles.barItem}>total coins earned</div>
-                                <div className={styles.barItemStats}>{formatNumberFromEnd({totalCoins})}</div>
+                                <div className={styles.barItemStats}>{formatNumberFromEnd(totalCoins)}</div>
                                 <div className={styles.barItem}>total skins owned</div>
                                 <div className={styles.barItemStats}>1/11</div>
                                 <div className={styles.barItem}>friends invited</div>

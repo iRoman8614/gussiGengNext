@@ -51,7 +51,7 @@ export default function Page() {
                     <h1 className={styles.title}>SETTINGS </h1>
                     <CustomSelect title={'select LANGUAGE'} optionsArray={languageOptions} />
                     {/*<ToggleSwitch />*/}
-                    <button onClick={clearLocalStorage}>reset LocalStorage</button>
+                    {/*<button onClick={clearLocalStorage}>reset LocalStorage</button>*/}
                 </div>
             </div>
         </>
