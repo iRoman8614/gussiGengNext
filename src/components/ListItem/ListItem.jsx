@@ -11,9 +11,22 @@ export const ListItem = ({item, index}) => {
 
     const { avatar, image } = teamData[item.teamId] || {};
 
+    const formatBalance = (balance) => {
+        if (balance >= 1e12) {
+            return (balance / 1e12).toFixed(1) + 't';
+        } else if (balance >= 1e9) {
+            return (balance / 1e9).toFixed(1) + 'b';
+        } else if (balance >= 1e6) {
+            return (balance / 1e6).toFixed(1) + 'm';
+        } else if (balance >= 1e3) {
+            return (balance / 1e3).toFixed(1) + 'k';
+        }
+        return balance;
+    };
+
     return (
         <>
-            <div className={styles.root}>
+            <div className={item.profileId === myId ? styles.rootMe : styles.root}>
                 <div className={styles.avatar}>
                     <Image className={styles.avatar} src={avatar} alt={'avatar'} width={40} height={44} />
                 </div>
@@ -21,7 +34,7 @@ export const ListItem = ({item, index}) => {
                     <Image className={styles.bg} src={image} alt={''} width={450} height={65} />
                     <div className={styles.content}>
                         <div className={styles.nickname}>{item.userName || 'Anonymous'}</div>
-                        <div className={styles.sum}>{item.balance}</div>
+                        <div className={styles.sum}>{formatBalance(item.balance)}</div>
                         {index && <div className={styles.index}>{index}</div>}
                     </div>
                 </div>

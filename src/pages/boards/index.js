@@ -225,7 +225,7 @@ export default function Page() {
                             <ListItem key={index} item={user} index={index + 1} />
                         ))
                     ) : (
-                        <div className={styles.emptyState}>Loading...</div> // Или другой индикатор загрузки
+                        <div className={styles.emptyState}>Loading...</div>
                     )}
                 </div>
             </div>

@@ -128,7 +128,12 @@ export default function Page() {
         }
     };
 
-    const progressPercentage = ((totalCoins % 100000) / 100000) * 100;
+    function formatNumberFromEnd(num) {
+        if (isNaN(num) || typeof num !== 'number') {
+            return '10800';
+        }
+        return Math.round(num).toString().replace(/(\d)(?=(\d{3})+$)/g, "$1 ");
+    }
 
     const handleTab = (tab) => {
         if (window.Telegram?.WebApp?.HapticFeedback) {
@@ -193,7 +198,7 @@ export default function Page() {
                             </div>
                             <div className={styles.barBlock}>
                                 <div className={styles.barItem}>total coins earned</div>
-                                <div className={styles.barItemStats}>{totalCoins}</div>
+                                <div className={styles.barItemStats}>{formatNumberFromEnd({totalCoins})}</div>
                                 <div className={styles.barItem}>total skins owned</div>
                                 <div className={styles.barItemStats}>1/11</div>
                                 <div className={styles.barItem}>friends invited</div>

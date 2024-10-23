@@ -190,7 +190,7 @@ export default function Home() {
 
     function formatNumberFromEnd(num) {
         if (isNaN(num) || typeof num !== 'number') {
-            return '3600';
+            return '10800';
         }
         return Math.round(num).toString().replace(/(\d)(?=(\d{3})+$)/g, "$1 ");
     }
