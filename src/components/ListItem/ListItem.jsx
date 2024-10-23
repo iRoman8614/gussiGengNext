@@ -1,7 +1,10 @@
 import Image from "next/image";
 import styles from './Listitem.module.scss'
+import {useEffect, useState} from "react";
 
 export const ListItem = ({item, index}) => {
+    const[userId, setUserId] = useState(null)
+
     const teamData = {
         1: { avatar: '/listItemsBG/avaG.png', image: '/listItemsBG/1grbg.png' },
         2: { avatar: '/listItemsBG/avaB.png', image: '/listItemsBG/2bvbg.png' },
@@ -10,6 +13,22 @@ export const ListItem = ({item, index}) => {
     };
 
     const { avatar, image } = teamData[item.teamId] || {};
+
+    useEffect(() => {
+        if (typeof window !== "undefined") {
+            if (window.Telegram?.WebApp) {
+                const search = window.Telegram.WebApp.initData;
+                const urlParams = new URLSearchParams(search);
+                const userParam = urlParams.get("user");
+                if (userParam) {
+                    const decodedUserParam = decodeURIComponent(userParam);
+                    const userObject = JSON.parse(decodedUserParam);
+                    console.log("User ID from Telegram:", userObject.id);
+                    setUserId(userObject.id);
+                }
+            }
+        }
+    }, []);
 
     const formatBalance = (balance) => {
         if (balance >= 1e12) {
@@ -26,7 +45,7 @@ export const ListItem = ({item, index}) => {
 
     return (
         <>
-            <div className={item.profileId === myId ? styles.rootMe : styles.root}>
+            <div className={item.profileId === userId ? styles.rootMe : styles.root}>
                 <div className={styles.avatar}>
                     <Image className={styles.avatar} src={avatar} alt={'avatar'} width={40} height={44} />
                 </div>
