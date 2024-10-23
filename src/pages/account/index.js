@@ -129,10 +129,7 @@ export default function Page() {
     };
 
     function formatNumberFromEnd(num) {
-        if (isNaN(num) || typeof num !== 'number') {
-            return '10800';
-        }
-        return Math.round(num).toString().replace(/(\d)(?=(\d{3})+$)/g, "$1 ");
+        return num.toString().replace(/(\d)(?=(\d{3})+$)/g, "$1 ");
     }
 
     const handleTab = (tab) => {
