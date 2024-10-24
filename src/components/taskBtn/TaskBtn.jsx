@@ -7,7 +7,7 @@ const Arrow = '/Tasks/TaskArrow.png'
 const Complite = '/Tasks/TaskComplited.png'
 
 export const TaskBtn = ({title, subtitle, desc, completed, onClick}) => {
-    const [completed, setComplited] = useState(completed)
+    const [complited, setComplited] = useState(completed)
 
     const handleClick = () => {
         if (window.Telegram?.WebApp?.HapticFeedback) {
@@ -22,7 +22,7 @@ export const TaskBtn = ({title, subtitle, desc, completed, onClick}) => {
             {subtitle && <div className={styles.subtitle}>{subtitle}</div>}
             <div className={styles.desc}>{desc}</div>
             <div>
-                {completed === false ? <Image src={Arrow} width={20} height={20} alt={''} /> : <Image src={Complite} width={20} height={20} alt={''} />}
+                {complited === false ? <Image src={Arrow} width={20} height={20} alt={''} /> : <Image src={Complite} width={20} height={20} alt={''} />}
             </div>
         </div>
     )

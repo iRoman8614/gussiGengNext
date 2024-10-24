@@ -340,7 +340,7 @@ export default function Page() {
                                         <TaskBtn
                                             subtitle={task.name}
                                             desc={`${task.current} / ${task.amount}`}
-                                            completed={false}
+                                            completed={task.completed}
                                             key={index}
                                             onClick={() => handleTaskClick(task)}
                                         />
