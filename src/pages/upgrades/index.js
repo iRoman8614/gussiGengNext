@@ -87,12 +87,15 @@ export default function Page() {
                 const numFriends = friendsResponse.data.length;
                 const tasksResponse = await axiosInstance.get('/task/all');
                 let tasks = tasksResponse.data;
+                const completedTasksResponse = await axiosInstance.get('/task/completed-tasks');
+                const completedTasks = completedTasksResponse.data.map(task => task.task.id);
                 tasks = tasks.map(task => {
+                    const isCompleted = completedTasks.includes(task.id);
                     if (task.type === 1) {
                         return {
                             ...task,
                             current: numFriends,
-                            completed: numFriends >= task.amount,
+                            completed: isCompleted || numFriends >= task.amount,
                             path: '/friends'
                         };
                     } else if (task.type === 2) {
@@ -100,27 +103,29 @@ export default function Page() {
                             ...task,
                             name: mapTaskName(task.name),
                             url: task.name.includes("TG") ? "https://t.me/gang_wars_game" : "https://x.com/gangwars_game",
-                            completed: false
+                            completed: isCompleted
                         };
                     } else if (task.type === 5) {
                         return {
                             ...task,
                             current: stats.victory,
-                            completed: stats.victory >= task.amount,
+                            completed: isCompleted || stats.victory >= task.amount,
                             path: '/pvp'
                         };
                     }
-                    return task;
+                    return {
+                        ...task,
+                        completed: isCompleted
+                    };
                 });
-
                 setTasks(tasks);
             } catch (error) {
                 console.error('Ошибка при загрузке данных:', error);
             }
         };
-
         fetchTasksAndFriends();
     }, []);
+
 
 
     useEffect(() => {
