@@ -14,6 +14,14 @@ export default function LoaderPage() {
     const [userId, setUserId] = useState(null);
 
     useEffect(() => {
+        const { token } = router.query;
+        if (token) {
+            localStorage.setItem('GWToken', token);
+            console.log('Token saved:', token);
+        }
+    }, [router.query]);
+
+    useEffect(() => {
         function setTelegramHeight() {
             const availableHeight = window.innerHeight;
             document.body.style.height = `${availableHeight}px`;
@@ -44,21 +52,20 @@ export default function LoaderPage() {
             }
         };
 
-        const checkReferralLink = () => {
-            const { referal } = router.query;
-            if (referal) {
-                return axiosInstance.get(`/profile/referal`, {
-                    params: {referal: referal}
-                }).then(response => {
-                    console.log('Ответ от сервера при передаче referal:', response.data);
-                }).catch(error => {console.error('Ошибка при запросе /referal:', error)});
-            } else {
-                return Promise.resolve();
-            }
-        };
+        // const checkReferralLink = () => {
+        //     const { referal } = router.query;
+        //     if (referal) {
+        //         return axiosInstance.get(`/profile/referal`, {
+        //             params: {referal: referal}
+        //         }).then(response => {
+        //             console.log('Ответ от сервера при передаче referal:', response.data);
+        //         }).catch(error => {console.error('Ошибка при запросе /referal:', error)});
+        //     } else {
+        //         return Promise.resolve();
+        //     }
+        // };
 
         const checkLocalStorageAndInit = () => {
-            localStorage.removeItem("GWToken");
             const tgUserId = userId || 111;
             const init = localStorage.getItem('init');
             const myToken = window.localStorage.getItem('GWToken');
@@ -72,8 +79,6 @@ export default function LoaderPage() {
                             balance: data.balance,
                         };
                         localStorage.setItem('init', JSON.stringify(initData));
-                        const token = data.jwt.replace(/"/g, '');
-                        localStorage.setItem('GWToken', token);
                     })
                     .then(() => checkReferralLink())
                     .then(() => {

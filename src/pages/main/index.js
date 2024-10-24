@@ -96,13 +96,11 @@ export default function Home() {
             try {
                 await axiosInstance.get(`/farm/collect`)
                     .then(response => {
-                        processCollectResponse(response.data); // Если успешный collect, продолжаем
+                        processCollectResponse(response.data);
                     })
                     .catch(async (error) => {
-                        // Проверяем наличие response в error
                         if (error?.response?.status === 401 || error?.response?.status === 403) {
                             console.log("JWT истек, выполняем повторную инициализацию...");
-                            // Выполняем init с передачей userId
                             await axiosInstance.get(`/profile/init?profileId=${userId}`)
                                 .then(initResponse => {
                                     const data = initResponse.data;
@@ -112,9 +110,6 @@ export default function Home() {
                                         balance: data.balance,
                                     };
                                     localStorage.setItem('init', JSON.stringify(initData));
-                                    const token = data.jwt.replace(/"/g, '');
-                                    localStorage.setItem('GWToken', token);
-                                    console.log("JWT token saved:", token);
                                 })
                                 .then(async () => {
                                     const retryCollectResponse = await axiosInstance.get(`/farm/collect`);
@@ -130,8 +125,6 @@ export default function Home() {
                             console.error('Ошибка при запросе /farm/collect:', error);
                         }
                     });
-
-                // Помечаем, что кнопка claim нажата
                 setIsClaimClicked(true);
                 setTimeout(() => {
                     setIsClaimClicked(false);
@@ -150,7 +143,6 @@ export default function Home() {
         setCurrentFarmCoins(0);
         setStartFarmTime(new Date(collectData.startTime).getTime());
 
-        // Выполняем запрос /farm/start после collect
         axiosInstance.get(`/farm/start`)
             .then(startResponse => {
                 const startData = startResponse.data;
@@ -159,8 +151,6 @@ export default function Home() {
                 const updatedRate = Math.max(startData.rate, 0);
                 const updatedLimit = Math.max(startData.limit, 0);
                 const updatedBalance = Math.max(startData.balance, 0);
-
-                // Обновляем состояние и localStorage с данными /farm/start
                 setTotalCoins(updatedStartTotalCoins);
                 setRate(updatedRate);
                 setLimit(updatedLimit);
