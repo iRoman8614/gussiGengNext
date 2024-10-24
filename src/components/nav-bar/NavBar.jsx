@@ -1,9 +1,7 @@
-import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { IconButton } from "../buttons/icon-btn/IconButton.jsx";
 import { BigButton } from "../buttons/big-btn/BigButton.jsx";
 
-const home = '/main-buttons/home.png';
 const upgrades = '/main-buttons/upgrades.png';
 const hands = '/main-buttons/hands.png';
 const friends = '/main-buttons/friends.png';
@@ -11,7 +9,6 @@ const bag = '/main-buttons/bag.png';
 const FAQ = '/main-buttons/FAQ.png'
 
 import styles from './NavBar.module.scss';
-import 'react-toastify/dist/ReactToastify.css';
 
 export const NavBar = () => {
     const router = useRouter();
