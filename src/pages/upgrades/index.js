@@ -70,9 +70,9 @@ export default function Page() {
     };
 
     const mapTaskName = (originalName) => {
-        if (originalName.includes("TG канал Gang Wars")) {
+        if (originalName.includes("TG")) {
             return 'subscribe to GW telegram';
-        } else if (originalName.includes("X (twitter) Gang Wars")) {
+        } else if (originalName.includes("twitter")) {
             return 'subscribe to Gw x';
         }
         return originalName;
@@ -91,7 +91,6 @@ export default function Page() {
                     if (task.type === 1) {
                         return {
                             ...task,
-                            name: mapTaskName(task.name),
                             current: numFriends,
                             completed: numFriends >= task.amount,
                             path: '/friends'
@@ -99,6 +98,7 @@ export default function Page() {
                     } else if (task.type === 2) {
                         return {
                             ...task,
+                            name: mapTaskName(task.name),
                             url: task.name.includes("TG") ? "https://t.me/gang_wars_game" : "https://x.com/gangwars_game",
                             completed: false
                         };
