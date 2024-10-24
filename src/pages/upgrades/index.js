@@ -328,9 +328,9 @@ export default function Page() {
                                     <span>{upgradesList[activeIndex]}</span>
                                 </div>
                                 {activeIndex === 0 && <>
-                                    {rateLevels.length !== 0 ? <>{rateLevels.map((item, index) => (
+                                    {rateLevels.length !== 0 ? <div className={styles.itemsList}>{rateLevels.map((item, index) => (
                                         <ItemPlaceholder img={rateImages[index]} item={item} key={index} onClick={() => openUpgradeModal(item)} />
-                                    ))}</> : <div className={styles.warning}>No available rate upgrades</div>}
+                                    ))}</div> : <div className={styles.warning}>No available rate upgrades</div>}
                                 </>}
                                 {activeIndex === 1 && <>
                                     {limitLevels.length !== 0 ? <>{limitLevels.map((item, index) => (

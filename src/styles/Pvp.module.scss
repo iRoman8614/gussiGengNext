@@ -169,6 +169,12 @@
   align-items: center;
 }
 
+.winBorder {
+  padding: 5px;
+  border-radius: 22px;
+  background: linear-gradient(to right, #38246f 0%, #4f5e85 50%, #4c3981 100%);
+}
+
 .winContainer {
   display: flex;
   flex-direction: column;
@@ -177,7 +183,7 @@
   border-radius: 22px;
   width: 271px;
   height: 391px;
-  background: url("/winsBG.png") no-repeat;
+  background: radial-gradient(67% 67.04% at 50% 50%, rgb(56, 66, 164) 0%, rgb(21, 25, 62) 100%);
   background-size: contain;
   padding: 40px 10px 40px 10px;
 }

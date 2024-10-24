@@ -538,12 +538,14 @@ const VictoryCounter = ({ score }) => (
 // eslint-disable-next-line react/prop-types
 const WinningScreen = ({ userName, playerScore, opponentName  }) => (
     <div className={styles.winbg}>
-        <div className={styles.winContainer}>
-            <div className={styles.winnerName}>
-                {playerScore === 3 ? userName : opponentName}
+        <div className={styles.winBorder}>
+            <div className={styles.winContainer}>
+                <div className={styles.winnerName}>
+                    {playerScore === 3 ? userName : opponentName}
+                </div>
+                <Image width={204} height={151} className={styles.winsImage} src={wins} alt={'wins'}  />
+                <p className={styles.winnerName}>+5% FaRM RaTE </p>
             </div>
-            <Image width={204} height={151} className={styles.winsImage} src={wins} alt={'wins'}  />
-            <p className={styles.winnerName}>+5% FaRM RaTE </p>
         </div>
     </div>
 );
