@@ -86,9 +86,11 @@ export default function Page() {
                             completed: numFriends >= task.amount
                         };
                     } else if (task.type === 2) {
-                        task.url = task.name.includes("TG") ? "https://t.me/gang_wars_game" : "https://x.com/gangwars_game";
-                        task.completed = false
-                        return task;
+                        return {
+                            ...task,
+                            url: task.name.includes("TG") ? "https://t.me/gang_wars_game" : "https://x.com/gangwars_game",
+                            completed: false
+                        };
                     } else if (task.type === 5) {
                         return {
                             ...task,
@@ -338,7 +340,7 @@ export default function Page() {
                                         <TaskBtn
                                             subtitle={task.name}
                                             desc={`${task.current} / ${task.amount}`}
-                                            complited={false}
+                                            completed={false}
                                             key={index}
                                             onClick={() => handleTaskClick(task)}
                                         />
