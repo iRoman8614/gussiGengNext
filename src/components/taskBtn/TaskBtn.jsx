@@ -22,7 +22,7 @@ export const TaskBtn = ({title, subtitle, desc, complite, onClick}) => {
             {subtitle && <div className={styles.subtitle}>{subtitle}</div>}
             <div className={styles.desc}>{desc}</div>
             <div>
-                {complited === 'false' ? <Image src={Arrow} width={20} height={20} alt={''} /> : <Image src={Complite} width={20} height={20} alt={''} />}
+                {complited === false ? <Image src={Arrow} width={20} height={20} alt={''} /> : <Image src={Complite} width={20} height={20} alt={''} />}
             </div>
         </div>
     )
