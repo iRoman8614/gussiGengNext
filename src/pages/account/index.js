@@ -165,7 +165,7 @@ export default function Page() {
                                      borderRight:  activeTab === 1 ? '2px solid #3842a4' : 'none',
                                  }}
                                  onClick={() => handleTab(1)}
-                            >STATS</div>
+                            >stats</div>
                             {/*<div*/}
                             {/*    className={styles.folderBtnSkins}*/}
                             {/*    style={{*/}
@@ -173,7 +173,7 @@ export default function Page() {
                             {/*        marginBottom:  activeTab === 2 ? '-0px' : '2px',*/}
                             {/*    }}*/}
                             {/*    onClick={() => handleTab(2)}*/}
-                            {/*>SkinS</div>*/}
+                            {/*>skins</div>*/}
                         </div>
                         {activeTab === 1 &&<div className={styles.personalContainer}>
                             <div className={styles.stats}>

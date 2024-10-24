@@ -264,7 +264,7 @@ export default function Page() {
                                  onClick={() => {
                                      handleTab(1)
                                      setIsModalOpen(false)
-                                 }}>Upgrades</div>
+                                 }}>upgrades</div>
                             <div
                                 className={styles.folderBtnSkins}
                                 style={{
