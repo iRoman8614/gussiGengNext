@@ -12,11 +12,13 @@ const loaderImage = '/loadingImg.jpg';
 export default function LoaderPage() {
     const router = useRouter();
     const [userId, setUserId] = useState(null);
+    const [tokenSaved, setTokenSaved] = useState(false); // Флаг для проверки, что токен сохранен
 
     useEffect(() => {
         const { token } = router.query;
-        if (token && window.Telegram?.WebApp) {
+        if (token) {
             localStorage.setItem('GWToken', token);
+            setTokenSaved(true); // Установить флаг после сохранения токена
             console.log('Token saved:', token);
         }
     }, [router.query]);
@@ -26,14 +28,9 @@ export default function LoaderPage() {
             const availableHeight = window.innerHeight;
             document.body.style.height = `${availableHeight}px`;
         }
+
         const initializeTelegramWebApp = () => {
             if (window.Telegram?.WebApp) {
-                // const platform = window.Telegram.WebApp.platform;
-                // const screenWidth = window.innerWidth;
-                // if ((platform !== 'ios' && platform !== 'android') || (screenWidth > 450)) {
-                //     router.push('/qr');
-                //     return;
-                // }
                 window.Telegram.WebApp.setHeaderColor('#183256');
                 window.Telegram.WebApp.expand();
                 setTelegramHeight();
@@ -48,27 +45,13 @@ export default function LoaderPage() {
                 }
             } else {
                 toast.error("Telegram WebApp недоступен");
-                // router.push('/qr');
             }
         };
-
-        // const checkReferralLink = () => {
-        //     const { referal } = router.query;
-        //     if (referal) {
-        //         return axiosInstance.get(`/profile/referal`, {
-        //             params: {referal: referal}
-        //         }).then(response => {
-        //             console.log('Ответ от сервера при передаче referal:', response.data);
-        //         }).catch(error => {console.error('Ошибка при запросе /referal:', error)});
-        //     } else {
-        //         return Promise.resolve();
-        //     }
-        // };
 
         const checkLocalStorageAndInit = () => {
             const tgUserId = userId || 111;
             const init = localStorage.getItem('init');
-            const myToken = window.localStorage.getItem('GWToken');
+            const myToken = localStorage.getItem('GWToken');
             if (!init || !myToken) {
                 axiosInstance.get(`/profile/init?profileId=${tgUserId}`)
                     .then(response => {
@@ -80,22 +63,22 @@ export default function LoaderPage() {
                         };
                         localStorage.setItem('init', JSON.stringify(initData));
                     })
-                    // .then(() => checkReferralLink())
                     .then(() => {
-                        checkStartData(tgUserId);
+                        checkStartData(tgUserId); // Вызвать /start после успешного запроса /init
                     })
                     .catch(error => {
                         toast.error('Error during init request');
                         console.error('Ошибка при запросе /init:', error);
                     });
+            } else {
+                checkStartData(tgUserId); // Если init уже есть, сразу проверяем /start
             }
-            // else {checkReferralLink().then(() => {checkStartData(tgUserId)})}
         };
 
         const checkStartData = (tgUserId) => {
             const start = localStorage.getItem('start');
             if (!start) {
-                axiosInstance.get(`/farm/start?profileId=${tgUserId}`)
+                axiosInstance.get(`/farm/start`)
                     .then(response => {
                         const data = response.data;
                         const startData = {
@@ -106,25 +89,35 @@ export default function LoaderPage() {
                             totalCoins: data.totalBalance,
                         };
                         localStorage.setItem('start', JSON.stringify(startData));
-                        router.push('/getRandom');
+                        router.push('/getRandom'); // Перенаправление на другую страницу после успешного вызова /start
                     })
                     .catch(error => {
                         toast.error('Error during start request');
                         console.error('Ошибка при запросе /start:', error);
                     });
             } else {
-                router.push('/main');
+                router.push('/main'); // Если start уже есть, перенаправляем на главную страницу
             }
         };
+
         if (typeof window !== 'undefined') {
             window.Telegram?.WebApp.ready();
             initializeTelegramWebApp();
-            if (userId !== null) {checkLocalStorageAndInit()}
-            else {setTimeout(() => {if (userId !== null) {checkLocalStorageAndInit()}}, 1000)}}
+            if (tokenSaved && userId !== null) {
+                checkLocalStorageAndInit();
+            } else {
+                setTimeout(() => {
+                    if (tokenSaved && userId !== null) {
+                        checkLocalStorageAndInit();
+                    }
+                }, 1000);
+            }
+        }
+
         return () => {
             window.removeEventListener('resize', setTelegramHeight);
         };
-    }, [userId, router]);
+    }, [userId, tokenSaved, router]);
 
     return (
         <>
@@ -142,7 +135,7 @@ export default function LoaderPage() {
 const LoadingText = () => {
     const [dots, setDots] = useState(0);
     useEffect(() => {
-        const interval = setInterval(() => {setDots(prevDots => (prevDots + 1) % 4)}, 500);
+        const interval = setInterval(() => { setDots(prevDots => (prevDots + 1) % 4); }, 500);
         return () => clearInterval(interval);
     }, []);
     return (
