@@ -333,9 +333,9 @@ export default function Page() {
                                     ))}</div> : <div className={styles.warning}>No available rate upgrades</div>}
                                 </>}
                                 {activeIndex === 1 && <>
-                                    {limitLevels.length !== 0 ? <>{limitLevels.map((item, index) => (
+                                    {limitLevels.length !== 0 ? <div className={styles.itemsList}>{limitLevels.map((item, index) => (
                                         <ItemPlaceholder img={limitImages[index]} item={item} key={index} onClick={() => openUpgradeModal(item)} />
-                                    ))}</> : <div className={styles.warning}>No available limit upgrades</div>}
+                                    ))}</div> : <div className={styles.warning}>No available limit upgrades</div>}
                                 </>}
                             </div>
                         </div>}

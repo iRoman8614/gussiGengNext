@@ -124,24 +124,24 @@ export default function Page() {
             <div className={styles.root}>
                 <Image className={styles.bg} src={bg} alt={'bg'} width={450} height={1000} />
                 <div className={styles.container}>
-                    <div className={styles.hintBlock}>
-                        <div className={styles.bannerSet}>
-                            <div className={styles.banner}>
-                                <div className={styles.bannerMid}>
-                                    invite a friend
-                                    <p>+1 PVP pass</p>
-                                </div>
-                                <div className={styles.hintLabel}><a>+5 extra games</a></div>
+                    <div className={styles.bannerSet}>
+                        <div className={styles.banner}>
+                            <div className={styles.bannerMid}>
+                                invite a friend
+                                <p>+1 PVP pass</p>
                             </div>
-                            <div className={styles.banner}>
-                                <div className={styles.bannerMid}>
-                                    invite a
-                                    tg <Image src={star} alt={''} width={15} height={15} /> friend
-                                    <p>+2 PVP pass</p>
-                                </div>
-                                <div className={styles.hintLabel}><a>+10 extra games</a></div>
-                            </div>
+                            <div className={styles.hintLabel}><a>+5 extra games</a></div>
                         </div>
+                        <div className={styles.banner}>
+                            <div className={styles.bannerMid}>
+                                invite a
+                                tg <Image src={star} alt={''} width={15} height={15} /> friend
+                                <p>+2 PVP pass</p>
+                            </div>
+                            <div className={styles.hintLabel}><a>+10 extra games</a></div>
+                        </div>
+                    </div>
+                    <div className={styles.hintBg}>
                         <div className={styles.hintLabel}>earn <a>10%</a> of your friends <a>tasks</a> completion!</div>
                     </div>
                     <div className={styles.block}>
@@ -164,10 +164,12 @@ export default function Page() {
                             </div>
                         </div>
                         {activeTab === 1 &&<div className={styles.friendsContainer}>
-                            <div className={styles.bar}>
-                                <div className={styles.progress} />
+                            <div>
+                                <div className={styles.bar}>
+                                    <div className={styles.progress} />
+                                </div>
+                                <p className={styles.sign}>{friends.length}/3</p>
                             </div>
-                            <p className={styles.sign}>{friends.length}/3</p>
                             <div className={styles.list}>
                                 <div className={styles.list}>
                                     {friends.length === 0 ? (
