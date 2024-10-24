@@ -7,6 +7,7 @@ import { toast } from 'react-toastify';
 import {ListItem} from "@/components/ListItem/ListItem";
 
 import styles from '@/styles/Friends.module.scss'
+import Link from "next/link";
 
 
 const bg = '/backgrounds/friendsBG.png'
@@ -77,7 +78,7 @@ export default function Page() {
                 .then(() => {
                     toast.success('Copied!', {
                         position: "bottom-center",
-                        autoClose: 1000, // 1 секунда
+                        autoClose: 1000,
                         hideProgressBar: true,
                         closeOnClick: true,
                         pauseOnHover: false,
@@ -112,6 +113,26 @@ export default function Page() {
         }
         setActiveTab(tab)
     }
+
+    const thresholds = [1, 3, 5, 10, 25, 50, 100];
+
+    const getCurrentAndNextThreshold = (numFriends) => {
+        let currentThreshold = thresholds[0];
+        let nextThreshold = thresholds[1];
+
+        for (let i = 0; i < thresholds.length; i++) {
+            if (numFriends >= thresholds[i]) {
+                currentThreshold = thresholds[i];
+                nextThreshold = thresholds[i + 1] || currentThreshold;
+            } else {
+                break;
+            }
+        }
+        return { currentThreshold };
+    };
+
+    const { currentThreshold } = getCurrentAndNextThreshold(friends.length);
+    const progressPercent = (friends.length / currentThreshold) * 100
 
     return(
         <>
@@ -165,10 +186,20 @@ export default function Page() {
                         </div>
                         {activeTab === 1 &&<div className={styles.friendsContainer}>
                             <div>
-                                <div className={styles.bar}>
-                                    <div className={styles.progress} />
-                                </div>
-                                <p className={styles.sign}>{friends.length}/3</p>
+                                {progressPercent < 100 ? (
+                                    <div className={styles.bar}>
+                                        <div
+                                            className={styles.progress}
+                                            style={{ width: `${progressPercent}%` }}
+                                        />
+                                    </div>
+                                ) : (
+                                    <Link href="/upgrades" className={styles.barFull}>
+                                        <div className={styles.progressFull} style={{ width: `${progressPercent}%` }}>
+                                        </div>
+                                    </Link>
+                                )}
+                                <p className={styles.sign}>{friends.length}/{currentThreshold}</p>
                             </div>
                             <div className={styles.list}>
                                 <div className={styles.list}>
