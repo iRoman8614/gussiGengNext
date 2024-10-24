@@ -21,7 +21,7 @@ export default function Page() {
     const [clickCount3, setClickCount3] = useState(0);
     const [clickCount4, setClickCount4] = useState(0);
     const [showCard, setShowCard] = useState(false);
-    const [showFrase, setShowFrase] = useState(1)
+    const [showFrase, setShowFrase] = useState(0)
     const [teamId, setTeamId] = useState(1)
 
     useEffect(() => {
@@ -80,6 +80,7 @@ export default function Page() {
             setClickCount2(0)
             setClickCount3(0)
             setClickCount4(0)
+            setShowFrase(1)
         } else if (clickCount1 === 1) {
             setClickCount1(2);
             setShowCard(true);
@@ -92,6 +93,7 @@ export default function Page() {
             setClickCount1(0)
             setClickCount3(0)
             setClickCount4(0)
+            setShowFrase(1)
         } else if (clickCount2 === 1) {
             setClickCount2(2);
             setShowCard(true);
@@ -104,6 +106,7 @@ export default function Page() {
             setClickCount2(0)
             setClickCount1(0)
             setClickCount4(0)
+            setShowFrase(1)
         } else if (clickCount3 === 1) {
             setClickCount3(2);
             setShowCard(true);
@@ -116,6 +119,7 @@ export default function Page() {
             setClickCount2(0)
             setClickCount3(0)
             setClickCount1(0)
+            setShowFrase(1)
         } else if (clickCount4 === 1) {
             setClickCount4(2);
             setShowCard(true);
@@ -139,9 +143,13 @@ export default function Page() {
             </Head>
             <div className={styles.root}>
                 <Image className={styles.bg} src={bg} alt={'bg'} width={450} height={1000} />
-                {showFrase === 1 && <div className={styles.dialog}>
+                {showFrase === 0 && <div className={styles.dialog}>
                     <Image src={dialog} className={styles.dialogImage} width={200} height={100} alt={''}/>
                     <div className={styles.text}>pick a card</div>
+                </div>}
+                {showFrase === 1 && <div className={styles.dialog}>
+                    <Image src={dialog} className={styles.dialogImage} width={200} height={100} alt={''}/>
+                    <div className={styles.text3}>tap again to confirm</div>
                 </div>}
                 {showFrase === 2 && <div className={styles.dialog}>
                     <Image src={dialog2} className={styles.dialog2Image} width={200} height={100} alt={''}/>
