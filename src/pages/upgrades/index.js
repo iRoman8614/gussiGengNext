@@ -338,7 +338,7 @@ export default function Page() {
                                         <TaskBtn
                                             subtitle={task.name}
                                             desc={`${task.current >= task.amount}`}
-                                            complite={false}
+                                            complited={false}
                                             key={index}
                                             onClick={() => handleTaskClick(task)}
                                         />
