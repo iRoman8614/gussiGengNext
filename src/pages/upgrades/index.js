@@ -174,12 +174,12 @@ export default function Page() {
     };
     const handleTaskClick = (task) => {
         switch (task.type) {
-            case '1':
+            case 1:
                 break;
-            case '2':
+            case 2:
                 openLink(task.url);
                 break;
-            case '5':
+            case 5:
                 navigateToPage(task.path);
                 break;
             default:
