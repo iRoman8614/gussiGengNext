@@ -25,57 +25,10 @@ export default function Page() {
 
     const [limitLevels, setLimitLevels] = useState([]);
     const [rateLevels, setRateLevels] = useState([]);
-    const [isUpgradeModalOpen, setIsUpgradeModalOpen] = useState(false); // Модальное окно для апгрейда
+    const [isUpgradeModalOpen, setIsUpgradeModalOpen] = useState(false);
     const [selectedItem, setSelectedItem] = useState(null);
     const [activeIndex, setActiveIndex] = useState(0);
-
-    const Tasks = {
-        daily: [
-            // {
-            //     name: 'daily login',
-            //     desc: 'daily login',
-            //     complite: 'false',
-            //     action: 'modal'
-            // },
-            {
-                name: 'play 5 games',
-                desc: '4/5',
-                complite: 'false',
-                action: 'navigate',
-                path: '/pvp'
-            },
-        ],
-        main: [
-            {
-                name: 'subscribe to GW telegram',
-                desc: '',
-                complite: 'false',
-                action: 'link',
-                url: 'https://t.me/gang_wars_game'
-            },
-            {
-                name: 'subscribe to Gw x',
-                desc: '',
-                complite: 'true',
-                action: 'link',
-                url: 'https://x.com/gangwars_game'
-            },
-            {
-                name: 'invite 5 friends',
-                desc: '3/5',
-                complite: 'false',
-                action: 'navigate',
-                path: '/friends'
-            },
-            {
-                name: 'win 10 pvp games',
-                desc: '7/10',
-                complite: 'false',
-                action: 'navigate',
-                path: '/pvp'
-            },
-        ]
-    };
+    const [tasks, setTasks] = useState([]);
 
     const sliderImages = [
         '/upgradesCards/slider/rateSlide.png',
@@ -115,6 +68,46 @@ export default function Page() {
             console.error('Ошибка при загрузке уровней:', error);
         }
     };
+
+    useEffect(() => {
+        const fetchTasksAndFriends = async () => {
+            try {
+                // Загрузка данных о приглашенных
+                const friendsResponse = await axiosInstance.get('/profile/my-invitees');
+                const numFriends = friendsResponse.data.length; // предполагаем, что ответ содержит массив приглашенных
+
+                // Загрузка заданий
+                const tasksResponse = await axiosInstance.get('/task/all');
+                let tasks = tasksResponse.data;
+
+                // Модификация заданий
+                tasks = tasks.map(task => {
+                    if (task.type === 1) {
+                        return {
+                            ...task,
+                            completed: numFriends >= task.amount
+                        };
+                    } else if (task.type === 2) {
+                        task.url = task.name.includes("TG") ? "https://t.me/gang_wars_game" : "https://x.com/gangwars_game";
+                        return task;
+                    } else if (task.type === 5) {
+                        return {
+                            ...task,
+                            path: '/pvp'
+                        };
+                    }
+                    return task;
+                });
+
+                setTasks(tasks);
+            } catch (error) {
+                console.error('Ошибка при загрузке данных:', error);
+            }
+        };
+
+        fetchTasksAndFriends();
+    }, []);
+
 
     useEffect(() => {
         fetchLevels();
@@ -178,15 +171,14 @@ export default function Page() {
         window.open(url, '_blank');
     };
     const handleTaskClick = (task) => {
-        switch (task.action) {
-            case 'modal':
-                openModal();
+        switch (task.type) {
+            case '1':
                 break;
-            case 'navigate':
-                navigateToPage(task.path);
-                break;
-            case 'link':
+            case '2':
                 openLink(task.url);
+                break;
+            case '5':
+                navigateToPage(task.path);
                 break;
             default:
                 console.log('No action for this task.');
@@ -334,16 +326,22 @@ export default function Page() {
                         </div>}
                         {activeTab === 2 && <div className={styles.skinContainer}>
                             <div className={styles.col}>
-                                <div className={styles.label}>Daily</div>
-                                {Tasks.daily.map((task, index) => {
+                                {/*<div className={styles.label}>Daily</div>*/}
+                                {/*{Tasks.daily.map((task, index) => {*/}
+                                {/*    return(*/}
+                                {/*        <TaskBtn title={task.name} desc={task.desc} complite={task.complite} key={index} onClick={() => handleTaskClick(task)} />*/}
+                                {/*    )*/}
+                                {/*})}*/}
+                                <div className={styles.label}>main tasks</div>
+                                {tasks.map((task, index) => {
                                     return(
-                                        <TaskBtn title={task.name} desc={task.desc} complite={task.complite} key={index} onClick={() => handleTaskClick(task)} />
-                                    )
-                                })}
-                                <div className={styles.label}>MAIn tasks</div>
-                                {Tasks.main.map((task, index) => {
-                                    return(
-                                        <TaskBtn subtitle={task.name} desc={task.desc} complite={task.complite} key={index} onClick={() => handleTaskClick(task)} />
+                                        <TaskBtn
+                                            subtitle={task.name}
+                                            desc={`${task.amount}`}
+                                            complite={false}
+                                            key={index}
+                                            onClick={() => handleTaskClick(task)}
+                                        />
                                     )
                                 })}
                             </div>
