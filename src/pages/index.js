@@ -15,7 +15,7 @@ export default function LoaderPage() {
 
     useEffect(() => {
         const { token } = router.query;
-        if (token) {
+        if (token && window.Telegram?.WebApp) {
             localStorage.setItem('GWToken', token);
             console.log('Token saved:', token);
         }
@@ -80,7 +80,7 @@ export default function LoaderPage() {
                         };
                         localStorage.setItem('init', JSON.stringify(initData));
                     })
-                    .then(() => checkReferralLink())
+                    // .then(() => checkReferralLink())
                     .then(() => {
                         checkStartData(tgUserId);
                     })
@@ -88,7 +88,8 @@ export default function LoaderPage() {
                         toast.error('Error during init request');
                         console.error('Ошибка при запросе /init:', error);
                     });
-            } else {checkReferralLink().then(() => {checkStartData(tgUserId)})}
+            }
+            // else {checkReferralLink().then(() => {checkStartData(tgUserId)})}
         };
 
         const checkStartData = (tgUserId) => {
