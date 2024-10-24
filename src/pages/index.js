@@ -12,13 +12,13 @@ const loaderImage = '/loadingImg.jpg';
 export default function LoaderPage() {
     const router = useRouter();
     const [userId, setUserId] = useState(null);
-    const [tokenSaved, setTokenSaved] = useState(false); // Флаг для проверки, что токен сохранен
+    const [tokenSaved, setTokenSaved] = useState(false);
 
     useEffect(() => {
         const { token } = router.query;
         if (token) {
             localStorage.setItem('GWToken', token);
-            setTokenSaved(true); // Установить флаг после сохранения токена
+            setTokenSaved(true);
             console.log('Token saved:', token);
         }
     }, [router.query]);
@@ -64,14 +64,14 @@ export default function LoaderPage() {
                         localStorage.setItem('init', JSON.stringify(initData));
                     })
                     .then(() => {
-                        checkStartData(tgUserId); // Вызвать /start после успешного запроса /init
+                        checkStartData(tgUserId);
                     })
                     .catch(error => {
                         toast.error('Error during init request');
                         console.error('Ошибка при запросе /init:', error);
                     });
             } else {
-                checkStartData(tgUserId); // Если init уже есть, сразу проверяем /start
+                checkStartData(tgUserId);
             }
         };
 
@@ -89,14 +89,14 @@ export default function LoaderPage() {
                             totalCoins: data.totalBalance,
                         };
                         localStorage.setItem('start', JSON.stringify(startData));
-                        router.push('/getRandom'); // Перенаправление на другую страницу после успешного вызова /start
+                        router.push('/getRandom');
                     })
                     .catch(error => {
                         toast.error('Error during start request');
                         console.error('Ошибка при запросе /start:', error);
                     });
             } else {
-                router.push('/main'); // Если start уже есть, перенаправляем на главную страницу
+                router.push('/main');
             }
         };
 
@@ -113,7 +113,6 @@ export default function LoaderPage() {
                 }, 1000);
             }
         }
-
         return () => {
             window.removeEventListener('resize', setTelegramHeight);
         };

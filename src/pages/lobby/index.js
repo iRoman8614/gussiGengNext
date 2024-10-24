@@ -26,7 +26,7 @@ export default function Page() {
         if (typeof window !== 'undefined' && window.Telegram?.WebApp?.BackButton) {
             window.Telegram.WebApp.BackButton.show();
             window.Telegram.WebApp.BackButton.onClick(() => {
-                router.push('/');
+                router.push('/main');
             });
             return () => {
                 window.Telegram.WebApp.BackButton.hide();
@@ -154,7 +154,7 @@ export default function Page() {
                         </div>
                         {hintOne && <div className={styles.hint}>
                             Battle against others, earn rewards, and climb the ranks.
-                            <p>No luck, just skill!</p>
+                            <p>no luck, just skill!</p>
                         </div>}
                     </div>
                     <div>
@@ -178,8 +178,8 @@ export default function Page() {
                             </div>
                         </div>
                         {hintTwo && <div className={styles.hint}>
-                            <p>FEELING BOLD?</p>
-                            Put your TON on the line in this high-stakes mode!
+                            <p>feeling bold?</p>
+                            Put your Ton on the line in this high-stakes mode!
                         </div>}
                     </div>
                 </div>

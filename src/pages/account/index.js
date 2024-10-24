@@ -1,14 +1,13 @@
-import Image from "next/image";
 import React, {useEffect, useState} from "react";
+import Head from "next/head";
+import Image from "next/image";
 import axiosInstance from '@/utils/axios';
 
 import skinData from '@/mock/skinsData'
 import teamData from "@/mock/teamsData";
 import {useRouter} from "next/router";
-import {ItemPlaceholder} from "@/components/itemPlaceholder/ItemPlaceholder";
 
 import styles from '@/styles/Account.module.scss'
-import Head from "next/head";
 
 const bg = '/backgrounds/accountBG.png'
 const money = '/money.png'
@@ -40,7 +39,6 @@ export default function Page() {
             };
         }
     }, [router]);
-
 
     useEffect(() => {
         if (typeof window !== 'undefined') {
@@ -208,19 +206,6 @@ export default function Page() {
                         </div>}
                         {/*{activeTab === 2 && <div className={styles.skinContainer}>*/}
                         {/*    <div className={styles.list}>*/}
-                        {/*        <ItemPlaceholder />*/}
-                        {/*        <ItemPlaceholder />*/}
-                        {/*        <ItemPlaceholder />*/}
-                        {/*        <ItemPlaceholder />*/}
-                        {/*        <ItemPlaceholder />*/}
-                        {/*        <ItemPlaceholder />*/}
-                        {/*        <ItemPlaceholder />*/}
-                        {/*        <ItemPlaceholder />*/}
-                        {/*        <ItemPlaceholder />*/}
-                        {/*        <ItemPlaceholder />*/}
-                        {/*        <ItemPlaceholder />*/}
-                        {/*        <ItemPlaceholder />*/}
-                        {/*        <ItemPlaceholder />*/}
                         {/*        <ItemPlaceholder />*/}
                         {/*    </div>*/}
                         {/*</div>}*/}

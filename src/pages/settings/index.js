@@ -20,7 +20,7 @@ export default function Page() {
         if (typeof window !== 'undefined' && window.Telegram?.WebApp?.BackButton) {
             window.Telegram.WebApp.BackButton.show();
             window.Telegram.WebApp.BackButton.onClick(() => {
-                router.push('/');
+                router.push('/main');
             });
             return () => {
                 window.Telegram.WebApp.BackButton.hide();
@@ -49,7 +49,7 @@ export default function Page() {
                 <Image src={bg} alt={'bg'} width={450} height={1000} className={styles.bg} />
                 <div className={styles.container}>
                     <h1 className={styles.title}>SETTINGS </h1>
-                    <CustomSelect title={'select LANGUAGE'} optionsArray={languageOptions} />
+                    <CustomSelect title={'select language'} optionsArray={languageOptions} />
                     {/*<ToggleSwitch />*/}
                     {/*<button onClick={clearLocalStorage}>reset LocalStorage</button>*/}
                 </div>

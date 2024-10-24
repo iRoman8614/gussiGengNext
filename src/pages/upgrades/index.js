@@ -38,7 +38,7 @@ export default function Page() {
             //     action: 'modal'
             // },
             {
-                name: 'PLay 5 games',
+                name: 'play 5 games',
                 desc: '4/5',
                 complite: 'false',
                 action: 'navigate',
@@ -120,19 +120,16 @@ export default function Page() {
         fetchLevels();
     }, []);
 
-    // Открытие модального окна для апгрейда
     const openUpgradeModal = (item) => {
         setSelectedItem(item);
         setIsUpgradeModalOpen(true);
     };
 
-    // Закрытие модального окна для апгрейда
     const closeUpgradeModal = () => {
         setIsUpgradeModalOpen(false);
         setSelectedItem(null);
     };
 
-    // Функция для обработки клика по карточке улучшения лимита
     const handleLimitUpgrade = async (levelId, cost) => {
         try {
             const response = await axiosInstance.get(`/farm/limit-level-up?levelId=${levelId}`);
@@ -140,11 +137,8 @@ export default function Page() {
             setLimitLevels(prevLevels => prevLevels.map(item =>
                 item.Id === levelId ? response.data : item
             ));
-            // Вычитаем стоимость из баланса
             const updatedBalance = balance - cost;
             setBalance(updatedBalance);
-
-            // Обновляем баланс в localStorage
             const start = JSON.parse(localStorage.getItem("start"));
             start.balance = updatedBalance;
             localStorage.setItem("start", JSON.stringify(start));
@@ -155,7 +149,6 @@ export default function Page() {
         }
     };
 
-    // Функция для обработки клика по карточке улучшения прокачки
     const handleRateUpgrade = async (levelId, cost) => {
         try {
             const response = await axiosInstance.get(`/farm/rate-level-up?levelId=${levelId}`);
@@ -213,7 +206,7 @@ export default function Page() {
         if (typeof window !== 'undefined' && window.Telegram?.WebApp?.BackButton) {
             window.Telegram.WebApp.BackButton.show();
             window.Telegram.WebApp.BackButton.onClick(() => {
-                router.push('/');
+                router.push('/main');
             });
             return () => {
                 window.Telegram.WebApp.BackButton.hide();

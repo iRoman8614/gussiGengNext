@@ -26,12 +26,9 @@ export default function Page() {
     const ligsLimits = ['10', '25', '50', '100', '250', '500', '500']
     const length = currentWins / ligsLimits[activeIndex] * 100
 
-    // Кэш для данных лидеров по лигам
     const leadersCache = useRef({});
 
-// useCallback для запроса лидеров по лиге
     const fetchLeaderboard = useCallback(async (liga) => {
-        // Проверяем кэш
         if (leadersCache.current[liga]) {
             setLeaderData((prevData) => ({
                 ...prevData,
@@ -43,7 +40,6 @@ export default function Page() {
         try {
             const response = await axiosInstance.get(`/profile/leaders?liga=${liga}`);
             const data = response.data;
-            // Сохраняем данные в кэш
             leadersCache.current[liga] = data;
             setLeaderData((prevData) => ({
                 ...prevData,
@@ -119,7 +115,7 @@ export default function Page() {
         if (typeof window !== 'undefined' && window.Telegram?.WebApp?.BackButton) {
             window.Telegram.WebApp.BackButton.show();
             window.Telegram.WebApp.BackButton.onClick(() => {
-                router.push('/');
+                router.push('/main');
             });
             return () => {
                 window.Telegram.WebApp.BackButton.hide();
@@ -128,13 +124,13 @@ export default function Page() {
     }, [router]);
 
     const ligsNames = [
-        'Associate',
-        'Street soldier',
-        'Hood hustler',
-        'Block boss',
-        'CApo',
-        'Syndicate kingpin',
-        'Seven',
+        'associate',
+        'street soldier',
+        'hood hustler',
+        'block boss',
+        'capo',
+        'syndicate kingpin',
+        'seven',
     ]
 
     const swiperRef = useRef(null);
