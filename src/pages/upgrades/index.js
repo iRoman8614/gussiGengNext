@@ -72,27 +72,27 @@ export default function Page() {
     useEffect(() => {
         const fetchTasksAndFriends = async () => {
             try {
-                // Загрузка данных о приглашенных
+                const statsResponse = await axiosInstance.get('/profile/stats');
+                const stats = statsResponse.data;
                 const friendsResponse = await axiosInstance.get('/profile/my-invitees');
-                const numFriends = friendsResponse.data.length; // предполагаем, что ответ содержит массив приглашенных
-
-                // Загрузка заданий
+                const numFriends = friendsResponse.data.length;
                 const tasksResponse = await axiosInstance.get('/task/all');
                 let tasks = tasksResponse.data;
-
-                // Модификация заданий
                 tasks = tasks.map(task => {
                     if (task.type === 1) {
                         return {
                             ...task,
+                            current: numFriends,
                             completed: numFriends >= task.amount
                         };
                     } else if (task.type === 2) {
                         task.url = task.name.includes("TG") ? "https://t.me/gang_wars_game" : "https://x.com/gangwars_game";
+                        task.completed = false
                         return task;
                     } else if (task.type === 5) {
                         return {
                             ...task,
+                            completed: stats.victory >= task.amount,
                             path: '/pvp'
                         };
                     }
@@ -337,7 +337,7 @@ export default function Page() {
                                     return(
                                         <TaskBtn
                                             subtitle={task.name}
-                                            desc={`${task.amount}`}
+                                            desc={`${task.current >= task.amount}`}
                                             complite={false}
                                             key={index}
                                             onClick={() => handleTaskClick(task)}

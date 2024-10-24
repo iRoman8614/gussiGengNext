@@ -77,7 +77,7 @@ export default function Page() {
             }
         }
         try {
-            const response = await axiosInstance.get(`/farm/last-games?profileId=${userId}`);
+            const response = await axiosInstance.get(`/farm/last-games`);
             const data = response.data;
             setSessionsCount(data.session.count)
             if (data.session.count < 5) {
