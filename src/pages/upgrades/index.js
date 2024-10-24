@@ -94,6 +94,7 @@ export default function Page() {
                     } else if (task.type === 5) {
                         return {
                             ...task,
+                            current: stats.victory,
                             completed: stats.victory >= task.amount,
                             path: '/pvp'
                         };
