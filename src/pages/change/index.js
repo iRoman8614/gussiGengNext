@@ -19,6 +19,7 @@ export default function Page() {
     const[choose, setChoose] = useState(null)
     const[balance, setBalance] = useState(0)
     const[teamId, setTeamId] = useState(3)
+    const [userId, setUserId] = useState(null);
 
     useEffect(() => {
         if (typeof window !== 'undefined') {
@@ -44,6 +45,21 @@ export default function Page() {
             };
         }
     }, [router]);
+
+    useEffect(() => {
+        if (typeof window !== 'undefined' && window.Telegram?.WebApp) {
+            const search = window.Telegram.WebApp.initData;
+            const urlParams = new URLSearchParams(search);
+            const userParam = urlParams.get('user');
+            if (userParam) {
+                const decodedUserParam = decodeURIComponent(userParam);
+                const userObject = JSON.parse(decodedUserParam);
+                setUserId(userObject.id);
+            } else {
+                setUserId(111);
+            }
+        }
+    }, []);
 
     const userTeam = teamId
     const cards = [
@@ -82,7 +98,16 @@ export default function Page() {
             try {
                 const response = await axiosInstance.get(`/profile/update_group?groupId=${choose}`)
                     .then(
-                        router.push('/main')
+                        await axiosInstance.get(`/profile/init?profileId=${userId}`)
+                            .then(initResponse => {
+                                const data = initResponse.data;
+                                const initData = {
+                                    group: data.group,
+                                    farm: data.farm,
+                                    balance: data.balance,
+                                };
+                                localStorage.setItem('init', JSON.stringify(initData));
+                            }).then(router.push('/main'))
                     )
                 console.log('response', response)
             } catch (e) {
