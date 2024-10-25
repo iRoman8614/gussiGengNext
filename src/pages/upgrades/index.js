@@ -320,7 +320,7 @@ export default function Page() {
                                                 className={styles.slide}
                                             >
                                                 <Image
-                                                    width={100}
+                                                    width={120}
                                                     height={194}
                                                     src={image}
                                                     alt={''}
