@@ -15,7 +15,8 @@ const copy = '/copy.png'
 const star = '/Star.png'
 const money = '/money.png'
 
-const link = process.env.BOT_LINK
+// const link = process.env.BOT_LINK
+const link = 'https://t.me/dsx_test_bot'
 
 export default function Page() {
     const [userId, setUserId] = useState(null);
