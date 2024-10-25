@@ -217,7 +217,7 @@ export default function Home() {
                     <IconButton image={account} alt={'account'} title={'account'}  onClick={() => {router.push('/account')}}/>
                 </div>
                 <div className={styles.item2}>
-                    <IconButton image={teamData[teamId].logo} alt={'gang'} onClick={() => {router.push('/getRandom')}}/>
+                    <IconButton image={teamData[teamId].logo} alt={'gang'} onClick={() => {router.push('/change')}}/>
                 </div>
                 <div className={styles.item3}>
                     <IconButton image={settings} alt={'settings'} title={'settings'} onClick={() => {router.push('/settings');}}/>
@@ -230,7 +230,7 @@ export default function Home() {
                     <div className={styles.totalText}>{formatNumberFromEnd(balance)}</div>
                 </div>
                 <div className={styles.item6}>
-                    <IconButton image={wallet} alt={'wallet'} title={'wallet'} hidden={true} onClick={() => {router.push('/main')}}/>
+                    <IconButton image={wallet} alt={'wallet'} title={'wallet'} hidden={true} onClick={() => {router.push('/getRandom')}}/>
                 </div>
                 <div className={styles.item7}>
                     <Image width={1000} height={1000} className={styles.char} alt={'character'} src={skinData[teamId][level].icon}/>

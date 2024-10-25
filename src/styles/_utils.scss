@@ -25,7 +25,7 @@
 * на мобильном устройстве (высота экрана от 400px до 1000px)
 */
 @function vh-height($height-px) {
-  @return calc($height-px * 100 / 1000) + vh;
+  @return calc($height-px * 100 / 968) + vh;
 }
 
 /**

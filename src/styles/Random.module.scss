@@ -1,44 +1,39 @@
+@import './_utils';
+
 .root {
-  max-width: 450px;
-  min-width: 320px;
-  position: relative;
-  height: 100vh;
+  height: 100%;
 }
 
 .bg {
   position: absolute;
-  top: 0;
-  left: 0;
-  object-fit: cover;
-  z-index: -1000;
+  width: auto-clamp(320, 450);
+  height: auto-height(680, 968);
+  object-fit: fill;
 }
 
 .container {
-  max-width: 450px;
-  min-width: 320px;
-  position: relative;
-  height: 100vh;
+  position: absolute;
   width: 100%;
+  height: 100%;
+  top: 0;
   animation: slide-in-right 1s ease-out forwards;
 }
 
 .person {
-  width: 100%;
-  height: auto;
   position: absolute;
   bottom: 0;
-  left: 0;
-  object-fit: fill;
   z-index: 2;
+  width: auto-clamp(320, 450);
+  height: auto-height(680, 968);
   animation: slide-in-right 0.5s ease-out forwards;
 }
 
 .cardSet {
-  width: 100%;
-  height: 100%;
-  bottom: 0;
   position: absolute;
-  z-index: 6;
+  z-index: 3;
+  bottom: auto-height(320, 460);
+  width: auto-clamp(320, 450);
+  height: auto-height(320, 460);
   animation: slide-in-right 0.5s ease-out forwards;
 }
 
@@ -46,148 +41,146 @@
 .oneCard1 {
   position: absolute;
   z-index: 10;
-  top: 30%;
+  bottom: -5%;
   left: 25%;
   --rotate-angle: -34deg;
   transform: rotate(var(--rotate-angle));
-  transition: top 0.3s ease, left 0.3s ease, transform 0.3s ease;
+  transition: bottom 0.3s ease, left 0.3s ease, transform 0.3s ease;
 }
 .oneCard1FirstClick {
   position: absolute;
   border-radius: 10px;
   z-index: 10;
-  top: 27%;
+  bottom: 5%;
   left: 20%;
   --rotate-angle: -34deg;
   transform: rotate(var(--rotate-angle));
-  transition: top 0.3s ease, left 0.3s ease, transform 0.3s ease;
+  transition: bottom 0.3s ease, left 0.3s ease, transform 0.3s ease;
 }
 .oneCard1SecondClick {
   position: absolute;
   border-radius: 10px;
   z-index: 10;
-  top: 24%;
+  bottom: 11%;
   left: 17%;
   --rotate-angle: -34deg;
   transform: rotate(var(--rotate-angle));
   animation: fadeOut 0.3s ease-out forwards;
-  transition: top 0.3s ease, left 0.3s ease, transform 0.3s ease;
+  transition: bottom 0.3s ease, left 0.3s ease, transform 0.3s ease;
 }
 
 .oneCard2 {
   position: absolute;
   z-index: 9;
-  top: 27%;
+  bottom: 0;
   left: 36%;
   --rotate-angle: -17deg;
   transform: rotate(var(--rotate-angle));
-  transition: top 0.3s ease, left 0.3s ease, transform 0.3s ease;
+  transition: bottom 0.3s ease, left 0.3s ease, transform 0.3s ease;
 }
 .oneCard2FirstClick {
   position: absolute;
   border-radius: 10px;
   z-index: 9;
-  top: 23%;
+  bottom: 8%;
   left: 33%;
   --rotate-angle: -17deg;
   transform: rotate(var(--rotate-angle));
-  transition: top 0.3s ease, left 0.3s ease, transform 0.3s ease;
+  transition: bottom 0.3s ease, left 0.3s ease, transform 0.3s ease;
 }
 .oneCard2SecondClick {
   position: absolute;
   border-radius: 10px;
   z-index: 9;
-  top: 20%;
+  bottom: 16%;
   left: 31%;
   --rotate-angle: -17deg;
   transform: rotate(var(--rotate-angle));
   animation: fadeOut 0.3s ease-out forwards;
-  transition: top 0.3s ease, left 0.3s ease, transform 0.3s ease;
+  transition: bottom 0.3s ease, left 0.3s ease, transform 0.3s ease;
 }
 
 .oneCard3 {
   position: absolute;
   border-radius: 10px;
   z-index: 8;
-  top: 27%;
+  bottom: 0;
   left: 45%;
   --rotate-angle: 11deg;
   transform: rotate(var(--rotate-angle));
-  transition: top 0.3s ease, left 0.3s ease, transform 0.3s ease;
+  transition: bottom 0.3s ease, left 0.3s ease, transform 0.3s ease;
 }
 .oneCard3FirstClick {
   position: absolute;
   border-radius: 10px;
   z-index: 8;
-  top: 22%;
+  bottom: 8%;
   left: 48%;
   --rotate-angle: 11deg;
   transform: rotate(var(--rotate-angle));
-  transition: top 0.3s ease, left 0.3s ease, transform 0.3s ease;
+  transition: bottom 0.3s ease, left 0.3s ease, transform 0.3s ease;
 }
 .oneCard3SecondClick {
   position: absolute;
   border-radius: 10px;
   z-index: 8;
-  top: 17%;
+  bottom: 16%;
   left: 51%;
   --rotate-angle: 11deg;
   transform: rotate(var(--rotate-angle));
   animation: fadeOut 0.3s ease-out forwards;
-  transition: top 0.3s ease, left 0.3s ease, transform 0.3s ease;
+  transition: bottom 0.3s ease, left 0.3s ease, transform 0.3s ease;
 }
 
 .oneCard4 {
   position: absolute;
   z-index: 7;
-  top: 30%;
+  bottom: -5%;
   left: 55%;
   --rotate-angle: 37deg;
   transform: rotate(var(--rotate-angle));
-  transition: top 0.3s ease, left 0.3s ease, transform 0.3s ease;
+  transition: bottom 0.3s ease, left 0.3s ease, transform 0.3s ease;
 }
 .oneCard4FirstClick {
   position: absolute;
   border-radius: 10px;
   z-index: 7;
-  top: 27%;
+  bottom: 5%;
   left: 60%;
   --rotate-angle: 37deg;
   transform: rotate(var(--rotate-angle));
-  transition: top 0.3s ease, left 0.3s ease, transform 0.3s ease;
+  transition: bottom 0.3s ease, left 0.3s ease, transform 0.3s ease;
 }
 .oneCard4SecondClick {
   position: absolute;
   border-radius: 10px;
   z-index: 7;
-  top: 24%;
+  bottom: 8%;
   left: 63%;
   --rotate-angle: 37deg;
   transform: rotate(var(--rotate-angle));
   animation: fadeOut 0.3s ease-out forwards;
-  transition: top 0.3s ease, left 0.3s ease, transform 0.3s ease;
+  transition: bottom 0.3s ease, left 0.3s ease, transform 0.3s ease;
 }
 
 
 
 .hand {
-  width: 100%;
-  height: auto;
   position: absolute;
+  z-index: 4;
   bottom: 0;
-  left: 0;
-  object-fit: fill;
-  z-index: 11;
+  width: auto-clamp(320, 450);
+  height: auto-height(320, 460);
   animation: slide-in-right 0.5s ease-out forwards;
 }
 
 .dialog {
-  max-width: 450px;
-  min-width: 320px;
-  position: relative;
-  height: 100vh;
-  width: 100%;
+  position: absolute;
   z-index: 1;
+  top: auto-height(20, 100);
+  left: auto-clamp(20, 45);
+  width: auto-clamp(196, 275);
+  height: auto-height(100, 126);
 
   opacity: 0;
   animation-delay: 0.5s;
@@ -198,59 +191,47 @@
 }
 
 .dialogImage {
-  width: 186px;
+  object-fit: fill;
   opacity: 30%;
-  height: 100px;
-  position: absolute;
-  top: 5%;
-  left: 8%;
 }
 
-
-
 .text {
-  font-size: 38px;
-  color: #fff;
   position: absolute;
-  top: 5%;
-  left: 5%;
-  margin-left: 30px;
-  margin-top: 20px;
+  width: 200px;
+  z-index: 1;
+  color: #FFFFFF;
+  top: 20px;
+  left: 25px;
+  font-size: auto-clamp(32, 38);
 }
 
 .dialog2Image {
-  width: 256px;
+  object-fit: fill;
   opacity: 30%;
-  height: 100px;
-  position: absolute;
-  top: 5%;
-  left: 8%;
 }
 
 .text2 {
-  width: 232px;
-  font-size: 26px;
-  color: #fff;
+  font-size: auto-clamp(22, 24);
   position: absolute;
-  top: 4%;
-  left: 4%;
-  margin-left: 30px;
-  margin-top: 20px;
+  width: 180px;
+  z-index: 1;
+  color: #FFFFFF;
+  top: 7px;
+  left: 20px;
 }
 
 .text3 {
-  width: 150px;
-  font-size: 26px;
-  color: #fff;
+  font-size: auto-clamp(26, 30);
   position: absolute;
-  top: 4%;
-  left: 4%;
-  margin-left: 50px;
-  margin-top: 20px;
+  width: 180px;
+  z-index: 1;
+  color: #FFFFFF;
+  top: 10px;
+  left: 25px;
 }
 
 .gang {
-  font-size: 26px;
+  font-size: auto-clamp(22, 24);
   color: #FFCC26;
 }
 

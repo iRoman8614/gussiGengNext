@@ -1,0 +1,188 @@
+@import './_utils';
+
+.root {
+  height: 100%;
+}
+
+.bg {
+  position: absolute;
+  width: auto-clamp(320, 450);
+  height: auto-height(680, 968);
+  object-fit: fill;
+}
+
+.container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+}
+
+.dialog {
+  position: absolute;
+  z-index: 1;
+  top: auto-height(20, 100);
+  left: auto-clamp(20, 45);
+  width: auto-clamp(196, 275);
+  height: auto-height(100, 126);
+}
+
+.dialogImage {
+  object-fit: fill;
+  opacity: 30%;
+}
+
+.dialogText {
+  position: absolute;
+  width: 200px;
+  z-index: 1;
+  color: #FFFFFF;
+  top: 20px;
+  left: 25px;
+  font-size: auto-clamp(24, 30);
+}
+
+.person {
+  position: absolute;
+  bottom: 0;
+  z-index: 2;
+  width: auto-clamp(320, 450);
+  height: auto-height(680, 968);
+}
+
+.cardSet {
+  position: absolute;
+  z-index: 3;
+  bottom: auto-height(320, 460);
+  width: auto-clamp(320, 450);
+  height: auto-height(320, 460);
+}
+
+.oneCard1 {
+  position: absolute;
+  z-index: 10;
+  bottom: -30px;
+  left: 25%;
+  --rotate-angle: -34deg;
+  transform: rotate(var(--rotate-angle));
+  transition: top 0.3s ease, left 0.3s ease, transform 0.3s ease;
+}
+.oneCard2 {
+  position: absolute;
+  z-index: 9;
+  bottom: -10px;
+  left: 40%;
+  --rotate-angle: 0deg;
+  transform: rotate(var(--rotate-angle));
+  transition: top 0.3s ease, left 0.3s ease, transform 0.3s ease;
+}
+.oneCard3 {
+  position: absolute;
+  z-index: 7;
+  bottom: -30px;
+  left: 55%;
+  --rotate-angle: 37deg;
+  transform: rotate(var(--rotate-angle));
+  transition: top 0.3s ease, left 0.3s ease, transform 0.3s ease;
+}
+
+.hand {
+  position: absolute;
+  z-index: 4;
+  bottom: 0;
+  width: auto-clamp(320, 450);
+  height: auto-height(320, 460);
+}
+
+.myClan {
+  position: absolute;
+  z-index: 5;
+  bottom: 5%;
+  width: 50%;
+  margin-left: 25%;
+  object-fit: contain;
+}
+
+.popUp {
+  z-index: 10;
+  position: absolute;
+  top: 15%;
+  margin: 10px;
+  width: auto-clamp(300, 430);
+  height: 330px;
+  background: rgba(56, 36, 111, 0.9);
+  border-radius: 11px;
+  padding: 12px;
+}
+
+.popUpTitle {
+  color: #CDC6E0;
+  font-size: auto-clamp(36, 42);
+  text-align: center;
+}
+
+.popUpClose {
+  border-radius: 11px;
+  background: linear-gradient(360deg, #7c64bb 0%, #816fb1 100%);
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+  width: 50px;
+  height: 50px;
+  font-size: 42px;
+  padding: 5px;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.65);
+  margin-left: auto;
+  margin-top: -40px;
+}
+
+.popUpContainer {
+  width: auto-clamp(276, 404);
+  height: 172px;
+  border-radius: 11px;
+  background: #4c3981;
+  margin: 10px 0;
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  grid-template-rows: 1fr 1fr;
+}
+
+.popUpLabel {
+  color: #FFFFFF;
+  font-size: auto-clamp(20, 28);
+  text-align: center;
+  align-self: center;
+  p {
+    margin: 0;
+    padding: 0;
+    font-size: auto-clamp(26, 36);
+  }
+}
+
+.popUpIcon {
+  align-self: center;
+  justify-self: center;
+  grid-column-start: 2;
+  grid-row-start: 1;
+  grid-row-end: 3;
+}
+
+.popUpSum {
+  color: #FFCC26;
+  font-size: auto-clamp(32, 36);
+  text-align: right;
+  align-self: center;
+}
+
+.popUpConfirm {
+  width: 50%;
+  height: 58px;
+  border: none;
+  border-radius: 11px;
+  color: rgba(255, 255, 255, 0.9);
+  background: linear-gradient(360deg, #1d002f 0%, #4f5e85 50.5%, rgba(255, 206, 204, 0.83) 100%);
+  stroke-width: 2px;
+  stroke: rgba(0, 0, 0, 0.39);
+  box-shadow: 0 5px 0 0 rgba(0, 0, 0, 0.8);
+  font-size: auto-clamp(36, 40);
+  margin-left: 25%;
+}
