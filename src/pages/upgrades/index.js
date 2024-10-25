@@ -255,6 +255,10 @@ export default function Page() {
         }
     };
 
+    function formatNumberFromEnd(num) {
+        return num.toString().replace(/(\d)(?=(\d{3})+$)/g, "$1 ");
+    }
+
     return (
         <>
             <Head>
@@ -264,7 +268,7 @@ export default function Page() {
             <div className={styles.root}>
                 <Image src={bg} alt={'bg'} width={450} height={1000} className={styles.bg} />
                 <div className={styles.container}>
-                    <div className={styles.balance}>{balance}{' '}<Image src={money} alt={''} width={21} height={21} /></div>
+                    <div className={styles.balance}>{formatNumberFromEnd(balance)}{' '}<Image src={money} alt={''} width={21} height={21} /></div>
                     <div className={styles.block}>
                         <div className={styles.buttonSet}>
                             <div className={styles.folderBtnStats}
