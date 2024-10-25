@@ -72,7 +72,7 @@ export default function Page() {
         if (window.Telegram?.WebApp?.HapticFeedback) {
             window.Telegram.WebApp.HapticFeedback.impactOccurred('heavy');
         }
-        const referralLink = `https://t.me/vodoleyservicebot?start=kid${userId}`;
+        const referralLink = `${link}?start=kid${userId}`;
         if (navigator.clipboard) {
             navigator.clipboard.writeText(referralLink)
                 .then(() => {
@@ -98,7 +98,7 @@ export default function Page() {
 
     const inviteClick = () => {
         const tg = window.Telegram.WebApp;
-        const referralLink = `https://t.me/vodoleyservicebot?start=kid${userId}`;
+        const referralLink = `${link}?start=kid${userId}`;
         const inviteMessage = `Join me in this awesome game! Here's your referral link: ${referralLink}`;
         if (tg.HapticFeedback) {
             tg.HapticFeedback.impactOccurred('heavy');
