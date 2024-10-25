@@ -326,15 +326,15 @@ export default function Page() {
                                                     alt={''}
                                                     className={styles.icon}
                                                 />
+                                                <div className={styles.caption}>
+                                                    {upgradesList[activeIndex]}
+                                                </div>
                                             </SwiperSlide>
                                         ))}
                                     </Swiper>
                                     <button className={styles.navRight} onClick={handleSlideNext}>
                                         <Image src={'/Arrow.png'} alt={''} width={15} height={15} />
                                     </button>
-                                </div>
-                                <div className={styles.caption}>
-                                    <span>{upgradesList[activeIndex]}</span>
                                 </div>
                                 {activeIndex === 0 && <>
                                     {rateLevels.length !== 0 ? <div className={styles.itemsList}>{rateLevels.map((item, index) => (

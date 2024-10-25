@@ -123,15 +123,19 @@
 }
 
 .slide {
-  width: 155px;
+  position: relative;
+  width: 277px;
+  height: 67px;
   display: flex;
   justify-content: center;
 }
 
 
 .icon {
-  width: 155px;
-  height: auto;
+  position: absolute;
+  top: 0;
+  width: 277px;
+  height: 67px;
   margin: 0;
   object-fit: contain;
 }
@@ -148,14 +152,13 @@
 }
 
 .caption {
+  position: relative;
   border-radius: 11px;
   width: max-content;
-  background: #686EA6;
   font-size: auto-clamp(22, 35);
-  color: #fff;
+  color: #FFCC26;
   z-index: 2;
   text-align: center;
-  padding: 10px 20px;
   white-space: nowrap;
   margin: auto auto 15px;
 }
