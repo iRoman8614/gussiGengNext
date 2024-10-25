@@ -177,7 +177,7 @@ export default function Page() {
                         </div>
                         {activeTab === 1 &&<div className={styles.personalContainer}>
                             <div className={styles.stats}>
-                                <div className={styles.nickname}>League {stats?.liga}</div>
+                                <div className={styles.nickname}>league {stats?.liga}</div>
                                 <div className={styles.stat}>
                                     total <p>{stats?.count}</p>
                                 </div>
