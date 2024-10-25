@@ -126,7 +126,7 @@ export default function Page() {
                 <div className={styles.popUpTitle}>are you sure?</div>
                 <div className={styles.popUpClose} onClick={closePopUp}>x</div>
                 <div className={styles.popUpContainer}>
-                    <div className={styles.popUpLabel}>wanna join the <p>"{teamData[choose].Name}"?</p></div>
+                    <div className={styles.popUpLabel}>wanna join the <p>&quot;{teamData[choose].Name}&quot;?</p></div>
                     <Image className={styles.popUpIcon} src={teamData[choose].logo} alt={''} width={100} height={100}/>
                     <div className={styles.popUpSum}>
                         - 1 000 000
