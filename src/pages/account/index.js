@@ -194,14 +194,14 @@ export default function Page() {
                             <div className={styles.barBlock}>
                                 <div className={styles.barItem}>total coins earned</div>
                                 <div className={styles.barItemStats}>{formatNumberFromEnd(totalCoins)}</div>
-                                <div className={styles.barItem}>total skins owned</div>
-                                <div className={styles.barItemStats}>1/11</div>
+                                {/*<div className={styles.barItem}>total skins owned</div>*/}
+                                {/*<div className={styles.barItemStats}>1/11</div>*/}
                                 <div className={styles.barItem}>friends invited</div>
                                 <div className={styles.barItemStats}>15</div>
                             </div>
                             <div>
                                 <div className={styles.barItem}>current balance</div>
-                                <div className={styles.balance}>{balance}{' '}<Image src={money} alt={''} width={21} height={21} /></div>
+                                <div className={styles.balance}>{formatNumberFromEnd(balance)}{' '}<Image src={money} alt={''} width={21} height={21} /></div>
                             </div>
                         </div>}
                         {/*{activeTab === 2 && <div className={styles.skinContainer}>*/}
