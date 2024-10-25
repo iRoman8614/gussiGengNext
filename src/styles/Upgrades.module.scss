@@ -115,7 +115,6 @@
   display: flex;
   max-height: 230px;
   justify-content: space-between;
-  padding: 6px;
 }
 
 .swiper {
@@ -124,8 +123,8 @@
 
 .slide {
   position: relative;
-  width: 277px;
-  height: 67px;
+  width: auto-clamp(150, 277);
+  height: auto-clamp(45, 67);
   display: flex;
   justify-content: center;
 }
@@ -134,10 +133,10 @@
 .icon {
   position: absolute;
   top: 0;
-  width: 277px;
-  height: 67px;
+  width: auto-clamp(150, 277);
+  height: auto-clamp(45, 67);
   margin: 0;
-  object-fit: contain;
+  object-fit: fill;
 }
 
 
@@ -159,8 +158,9 @@
   color: #FFCC26;
   z-index: 2;
   text-align: center;
+  align-self: center;
   white-space: nowrap;
-  margin: auto auto 15px;
+  margin: auto auto;
 }
 
 .navLeft {
@@ -192,7 +192,7 @@
 .list {
   width: auto;
   height: 100%;
-  margin: 25px;
+  margin: 25px 15px;
   display: flex;
   flex-direction: column;
   align-items: center;
