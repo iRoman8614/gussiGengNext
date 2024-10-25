@@ -86,7 +86,7 @@ export default function Page() {
                     )
                 console.log('response', response)
             } catch (e) {
-                console.log(e)
+                toast.error(e)
             }
         }
     }
