@@ -74,7 +74,7 @@ export default function Page() {
 
     const handlePvpClick = async () => {
         if (typeof window === "undefined") return;
-        const firstGame = sessionStorage.getItem('firstGame');
+        const firstGame = localStorage.getItem('firstGame');
         if (firstGame) {
             const firstGameTime = new Date(firstGame);
             const now = new Date();
@@ -86,13 +86,16 @@ export default function Page() {
                 toast.warn("You have reached the maximum number of games.");
                 return;
             } else {
-                sessionStorage.removeItem('firstGame');
+                localStorage.removeItem('firstGame');
             }
         }
         try {
             const response = await axiosInstance.get(`/farm/last-games`);
             const data = response.data;
             setSessionsCount(data.session.count);
+            if (data.session.first) {
+                localStorage.setItem('firstGame', data.session.first);
+            }
             if (data.session.count < 5) {
                 router.push('/pvp');
             } else if (passes > 0) {
@@ -108,7 +111,7 @@ export default function Page() {
                     setTimerActive(true);
                     toast.warn(`The next game will be available in ${Math.floor(remainingTimeInMs / (1000 * 60 * 60))} h. ${Math.floor((remainingTimeInMs % (1000 * 60 * 60)) / (1000 * 60))} min.`);
                 } else {
-                    sessionStorage.removeItem('firstGame');
+                    localStorage.removeItem('firstGame');
                     router.push('/pvp');
                 }
             }
@@ -117,6 +120,7 @@ export default function Page() {
             toast.error('Error while checking game availability');
         }
     };
+
 
 
     useEffect(() => {
