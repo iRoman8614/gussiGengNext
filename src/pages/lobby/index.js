@@ -158,8 +158,8 @@ export default function Page() {
                         </div>}
                     </div>
                     <div>
-                        <div className={styles.card}>
-                            <Link href={'/pvpbot'} className={styles.icon}>
+                        <div className={styles.hidderRoot}><div className={styles.card}>
+                            <Link href={'/lobby'} className={styles.icon}>
                                 <div>ton</div>
                                 <p>battle</p>
                                 <Image className={styles.logo} src={rich} alt={''} width={150} height={75} />
@@ -176,7 +176,7 @@ export default function Page() {
                                     }
                                     setHintTwo(!hintTwo)}}>?</div>
                             </div>
-                        </div>
+                        </div></div>
                         {hintTwo && <div className={styles.hint}>
                             <p>feeling bold?</p>
                             Put your Ton on the line in this high-stakes mode!

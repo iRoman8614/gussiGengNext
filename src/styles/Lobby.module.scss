@@ -40,6 +40,10 @@
   animation: zoom-in 0.5s forwards ease-out;
 }
 
+.hidderRoot {
+  filter: grayscale(100%);
+}
+
 .icon {
   text-decoration: none;
   padding: 20px 5px;

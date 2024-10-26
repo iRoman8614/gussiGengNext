@@ -96,7 +96,7 @@ export default function Page() {
             toast.error("you do not have enough money");
         } else {
             try {
-                const response = await axiosInstance.get(`/profile/update_group?groupId=${choose}`)
+                const response = await axiosInstance.get(`/profile/update-group?groupId=${choose}`)
                     .then(
                         await axiosInstance.get(`/profile/init?profileId=${userId}`)
                             .then(initResponse => {

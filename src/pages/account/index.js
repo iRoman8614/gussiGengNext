@@ -19,6 +19,7 @@ export default function Page() {
     const [activeTab, setActiveTab] = useState(1);
     const [userId, setUserId] = useState(null);
     const [userName, setUserName] = useState(null);
+    const [friends, setFriends] = useState([]);
     const [stats, setStats] = useState({
         liga: 0,
         count: 0,
@@ -126,6 +127,18 @@ export default function Page() {
         }
     };
 
+    useEffect(() => {
+        const fetchFriends = async () => {
+            try {
+                const response = await axiosInstance.get('/profile/my-invitees');
+                setFriends(response.data);
+            } catch (error) {
+                console.error('Ошибка при загрузке списка друзей:', error);
+            }
+        };
+        fetchFriends();
+    }, []);
+
     function formatNumberFromEnd(num) {
         return num.toString().replace(/(\d)(?=(\d{3})+$)/g, "$1 ");
     }
@@ -197,7 +210,7 @@ export default function Page() {
                                 {/*<div className={styles.barItem}>total skins owned</div>*/}
                                 {/*<div className={styles.barItemStats}>1/11</div>*/}
                                 <div className={styles.barItem}>friends invited</div>
-                                <div className={styles.barItemStats}>15</div>
+                                <div className={styles.barItemStats}>{friends.length}</div>
                             </div>
                             <div>
                                 <div className={styles.barItem}>current balance</div>
