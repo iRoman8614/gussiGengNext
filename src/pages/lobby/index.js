@@ -52,11 +52,11 @@ export default function Page() {
             const data = response.data;
             setSessionsCount(data.session.count);
             if (data.session.count === 5) {
-                const firstGame = localStorage.getItem('firstGame');
-                if (!firstGame) {
-                    localStorage.setItem('firstGame', data.session.first);
+                const firstGame = localStorage.getItem('firstGame') || data.session.first;
+                if (!localStorage.getItem('firstGame')) {
+                    localStorage.setItem('firstGame', firstGame);
                 }
-                const firstGameTime = new Date(localStorage.getItem('firstGame'));
+                const firstGameTime = new Date(firstGame);
                 const now = new Date();
                 const timeDiffInMs = now - firstGameTime;
                 const remainingTimeInMs = (6 * 60 * 60 * 1000) - timeDiffInMs;
@@ -71,6 +71,7 @@ export default function Page() {
             console.error('Error fetching last games:', error);
         }
     };
+
 
 
     useEffect(() => {
@@ -147,7 +148,23 @@ export default function Page() {
                                 <Image className={styles.logo} src={hands} alt={''} width={150} height={75} />
                             </div>
                             <div className={styles.lable}>
-                                {remainingTime > 0  ? <div className={styles.timer}>{formatTime(remainingTime)}</div> : <>{sessionsCount < 6 ? <div className={styles.timer}>{5 - (sessionsCount) } games left</div> : <div>0 games left</div>}</>}
+                                {remainingTime > 0 ? (
+                                    <div className={styles.timer}>
+                                        {console.log("Remaining Time:", remainingTime)}
+                                        {formatTime(remainingTime)}
+                                    </div>
+                                ) : (
+                                    <>
+                                        {sessionsCount < 6 ? (
+                                            <div className={styles.timer}>
+                                                {console.log("Sessions Count:", sessionsCount)}
+                                                {5 - sessionsCount} games left
+                                            </div>
+                                        ) : (
+                                            <div>0 games left</div>
+                                        )}
+                                    </>
+                                )}
                                 <div className={styles.title}>
                                     <div>{passes}</div>
                                     <p>passes</p>
