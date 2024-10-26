@@ -61,7 +61,7 @@ export default function Page() {
                 const timeDiffInMs = now - firstGameTime;
                 const remainingTimeInMs = (6 * 60 * 60 * 1000) - timeDiffInMs;
                 if (remainingTimeInMs > 0) {
-                    setTimer(remainingTimeInMs);
+                    setRemainingTime(remainingTimeInMs);
                     setTimerActive(true);
                 } else {
                     localStorage.removeItem('firstGame');
@@ -71,8 +71,6 @@ export default function Page() {
             console.error('Error fetching last games:', error);
         }
     };
-
-
 
     useEffect(() => {
         if (typeof window !== "undefined" && window.Telegram?.WebApp) {
