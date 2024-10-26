@@ -3,7 +3,6 @@ import Head from "next/head";
 
 import styles from '@/styles/QrPage.module.scss';
 
-
 const qr = '/qr.png'
 const bg = '/backgrounds/randomBG.png'
 

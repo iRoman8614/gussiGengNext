@@ -1,17 +1,16 @@
 import React, {useEffect} from 'react';
+import Head from "next/head";
 import Image from "next/image";
 import {useRouter} from "next/router";
 import {CustomSelect} from '@/components/selector/Select';
-import {ToggleSwitch} from "@/components/toggleswitch/ToggleSwitch";
 
 import styles from '@/styles/Settings.module.scss'
-import Head from "next/head";
 
 const bg = '/backgrounds/settingsBG.png'
 
 export default function Page() {
     const languageOptions = [
-        { value: 'english', label: 'English' },
+        { value: 'english', label: 'english' },
     ];
 
     const router = useRouter();
@@ -28,18 +27,6 @@ export default function Page() {
         }
     }, [router]);
 
-    const clearLocalStorage = () => {
-        if (typeof window !== 'undefined') {
-            localStorage.removeItem("init");
-            localStorage.removeItem("start");
-            localStorage.removeItem("totalCoins");
-            localStorage.removeItem("rate");
-            localStorage.removeItem("startFarmTime");
-            localStorage.removeItem("teamId");
-            localStorage.removeItem("GWToken");
-        }
-    };
-
     return (
         <>
             <Head>
@@ -50,8 +37,6 @@ export default function Page() {
                 <div className={styles.container}>
                     <h1 className={styles.title}>SETTINGS </h1>
                     <CustomSelect title={'select language'} optionsArray={languageOptions} />
-                    {/*<ToggleSwitch />*/}
-                    {/*<button onClick={clearLocalStorage}>reset LocalStorage</button>*/}
                 </div>
             </div>
         </>

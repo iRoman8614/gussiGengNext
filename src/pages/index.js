@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import Head from "next/head";
@@ -12,120 +12,95 @@ const loaderImage = '/loadingImg.jpg';
 export default function LoaderPage() {
     const router = useRouter();
     const [userId, setUserId] = useState(null);
-    const [tokenSaved, setTokenSaved] = useState(false);
+
+    const updateBodyHeight = useCallback(() => {
+        document.body.style.height = `${window.innerHeight}px`;
+    }, []);
+
+    const initializeTelegramWebApp = useCallback(() => {
+        if (window.Telegram?.WebApp) {
+            window.Telegram.WebApp.setHeaderColor('#183256');
+            window.Telegram.WebApp.expand();
+            updateBodyHeight();
+
+            const search = window.Telegram.WebApp.initData;
+            const urlParams = new URLSearchParams(search);
+            const userParam = urlParams.get('user');
+            if (userParam) {
+                const decodedUserParam = decodeURIComponent(userParam);
+                const userObject = JSON.parse(decodedUserParam);
+                setUserId(userObject.id);
+            }
+
+            window.addEventListener('resize', updateBodyHeight);
+        } else {
+            toast.error("Telegram WebApp недоступен");
+        }
+    }, [updateBodyHeight]);
+
+    const checkLocalStorageAndRedirect = useCallback(async () => {
+        const tgUserId = userId;
+        const init = localStorage.getItem('init');
+        const start = localStorage.getItem('start');
+        const myToken = localStorage.getItem('GWToken');
+
+        if (!init || !myToken) {
+            try {
+                const response = await axiosInstance.get(`/profile/init?profileId=${tgUserId}`);
+                const data = response.data;
+                localStorage.setItem('init', JSON.stringify(data));
+                localStorage.setItem('groupId', data.group.id);
+                await checkStartData();
+            } catch (error) {
+                toast.error('Error during init request');
+            }
+        }
+        else if (!start) {
+            checkStartData();
+        }
+        else {
+            router.push('/main');
+        }
+    }, [userId, router]);
+
+    const checkStartData = useCallback(async () => {
+        try {
+            const response = await axiosInstance.get(`/farm/start`);
+            localStorage.setItem('start', JSON.stringify(response.data));
+            router.push('/getRandom');
+        } catch (error) {
+            toast.error('Error during start request');
+        }
+    }, [router]);
 
     useEffect(() => {
         const { token } = router.query;
         if (token) {
             localStorage.setItem('GWToken', token);
-            setTokenSaved(true);
-            console.log('Token saved:', token);
         }
     }, [router.query]);
 
     useEffect(() => {
-        function setTelegramHeight() {
-            const availableHeight = window.innerHeight;
-            document.body.style.height = `${availableHeight}px`;
-        }
-
-        const initializeTelegramWebApp = () => {
-            if (window.Telegram?.WebApp) {
-                window.Telegram.WebApp.setHeaderColor('#183256');
-                window.Telegram.WebApp.expand();
-                setTelegramHeight();
-                window.addEventListener('resize', setTelegramHeight);
-                const search = window.Telegram.WebApp.initData;
-                const urlParams = new URLSearchParams(search);
-                const userParam = urlParams.get('user');
-                if (userParam) {
-                    const decodedUserParam = decodeURIComponent(userParam);
-                    const userObject = JSON.parse(decodedUserParam);
-                    setUserId(userObject.id);
-                }
-            } else {
-                toast.error("Telegram WebApp недоступен");
-            }
-        };
-
-        const checkLocalStorageAndInit = () => {
-            const tgUserId = userId || 111;
-            const init = localStorage.getItem('init');
-            const myToken = localStorage.getItem('GWToken');
-            if (!init || !myToken) {
-                axiosInstance.get(`/profile/init?profileId=${tgUserId}`)
-                    .then(response => {
-                        const data = response.data;
-                        const initData = {
-                            group: data.group,
-                            farm: data.farm,
-                            balance: data.balance,
-                        };
-                        localStorage.setItem('init', JSON.stringify(initData));
-                    })
-                    .then(() => {
-                        checkStartData(tgUserId);
-                    })
-                    .catch(error => {
-                        toast.error('Error during init request');
-                        console.error('Ошибка при запросе /init:', error);
-                    });
-            } else {
-                checkStartData(tgUserId);
-            }
-        };
-
-        const checkStartData = (tgUserId) => {
-            const start = localStorage.getItem('start');
-            if (!start) {
-                axiosInstance.get(`/farm/start`)
-                    .then(response => {
-                        const data = response.data;
-                        const startData = {
-                            startTime: data.startTime,
-                            rate: data.rate,
-                            limit: data.limit,
-                            balance: data.balance,
-                            totalCoins: data.totalBalance,
-                        };
-                        localStorage.setItem('start', JSON.stringify(startData));
-                        router.push('/getRandom');
-                    })
-                    .catch(error => {
-                        toast.error('Error during start request');
-                        console.error('Ошибка при запросе /start:', error);
-                    });
-            } else {
-                router.push('/main');
-            }
-        };
-
         if (typeof window !== 'undefined') {
-            window.Telegram?.WebApp.ready();
             initializeTelegramWebApp();
-            if (tokenSaved && userId !== null) {
-                checkLocalStorageAndInit();
-            } else {
-                setTimeout(() => {
-                    if (tokenSaved && userId !== null) {
-                        checkLocalStorageAndInit();
-                    }
-                }, 1000);
+            window.Telegram?.WebApp.ready();
+            if (userId !== null) {
+                checkLocalStorageAndRedirect();
             }
         }
         return () => {
-            window.removeEventListener('resize', setTelegramHeight);
+            window.removeEventListener('resize', updateBodyHeight);
         };
-    }, [userId, tokenSaved, router]);
+    }, [initializeTelegramWebApp, checkLocalStorageAndRedirect, userId, updateBodyHeight]);
 
     return (
         <>
             <Head>
-                <link rel="preload" href="/loadingImg.jpg" as="image" />
+                <link rel="preload" href={loaderImage} as="image" />
             </Head>
             <div className={styles.root}>
-                <Image className={styles.video} src={loaderImage} alt="Loading..." width={500} height={500}/>
-                <LoadingText/>
+                <Image className={styles.video} src={loaderImage} alt="Loading..." width={500} height={500} />
+                <LoadingText />
             </div>
         </>
     );
