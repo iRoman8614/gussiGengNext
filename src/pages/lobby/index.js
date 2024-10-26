@@ -19,6 +19,8 @@ export default function Page() {
     const [remainingTime, setRemainingTime] = useState(null);
     const [timerActive, setTimerActive] = useState(false);
     const [sessionsCount, setSessionsCount] = useState(0)
+    const [passes, setPasses] = useState(0)
+    const [showPassPopup, setShowPassPopup] = useState(false);
 
     const router = useRouter();
 
@@ -34,16 +36,27 @@ export default function Page() {
         }
     }, [router]);
 
+    const fetchStats = async (userId) => {
+        try {
+            const response = await axiosInstance.get(`/profile/stats?profileId=${userId}`);
+            const data = response.data;
+            setPasses(data.pass);
+        } catch (error) {
+            console.error('Ошибка при получении статистики:', error);
+        }
+    };
+
+    const fetchLastGames = async (profileId) => {
+        try {
+            const response = await axiosInstance.get(`/farm/last-games?profileId=${profileId}`);
+            const data = response.data;
+            setSessionsCount(data.session.count);
+        } catch (error) {
+            console.error('Error fetching last games:', error);
+        }
+    };
+
     useEffect(() => {
-        const fetchLastGames = async (profileId) => {
-            try {
-                const response = await axiosInstance.get(`/farm/last-games?profileId=${profileId}`);
-                const data = response.data;
-                setSessionsCount(data.session.count);
-            } catch (error) {
-                console.error('Error fetching last games:', error);
-            }
-        };
         if (typeof window !== "undefined" && window.Telegram?.WebApp) {
             const search = window.Telegram.WebApp.initData;
             const urlParams = new URLSearchParams(search);
@@ -56,8 +69,8 @@ export default function Page() {
                 fetchLastGames(userObject.id);
             }
         }
+        fetchStats();
     }, []);
-
 
     const handlePvpClick = async () => {
         if (typeof window === "undefined") return;
@@ -79,9 +92,11 @@ export default function Page() {
         try {
             const response = await axiosInstance.get(`/farm/last-games`);
             const data = response.data;
-            setSessionsCount(data.session.count)
+            setSessionsCount(data.session.count);
             if (data.session.count < 5) {
                 router.push('/pvp');
+            } else if (passes > 0) {
+                setShowPassPopup(true);
             } else {
                 const firstGameTime = new Date(data.session.first);
                 const now = new Date();
@@ -103,6 +118,7 @@ export default function Page() {
         }
     };
 
+
     useEffect(() => {
         let timerId;
         if (remainingTime > 0 && timerActive) {
@@ -112,6 +128,12 @@ export default function Page() {
         }
         return () => clearInterval(timerId);
     }, [remainingTime, timerActive]);
+
+    const confirmPassUsage = () => {
+        setShowPassPopup(false);
+        router.push('/pvp');
+    };
+
 
     const formatTime = (ms) => {
         const hours = Math.floor(ms / (1000 * 60 * 60));
@@ -138,12 +160,10 @@ export default function Page() {
                                 <Image className={styles.logo} src={hands} alt={''} width={150} height={75} />
                             </div>
                             <div className={styles.lable}>
-                                {remainingTime > 0  && <div className={styles.timer}>{formatTime(remainingTime)}</div>}
+                                {remainingTime > 0  ? <div className={styles.timer}>{formatTime(remainingTime)}</div> : <>{sessionsCount < 6 ? <div className={styles.timer}>{5 - (sessionsCount) } games left</div> : <div>0 games left</div>}</>}
                                 <div className={styles.title}>
-                                    {/*<div>0</div>*/}
-                                    {/*<p>passes</p>*/}
-                                    {sessionsCount < 6 ? <div>{5 - (sessionsCount) }</div> : <div>0</div>}
-                                    <p>games left</p>
+                                    <div>{passes}</div>
+                                    <p>passes</p>
                                 </div>
                             </div>
                             <div className={styles.btn} onClick={() => {
@@ -182,6 +202,13 @@ export default function Page() {
                             Put your Ton on the line in this high-stakes mode!
                         </div>}
                     </div>
+                    {showPassPopup && (
+                        <div className={styles.passPopup}>
+                            <p>Spend 1 PvP pass to get 5 more games?</p>
+                            <button onClick={confirmPassUsage}>Yes</button>
+                            <button onClick={() => setShowPassPopup(false)}>No</button>
+                        </div>
+                    )}
                 </div>
             </div>
         </>

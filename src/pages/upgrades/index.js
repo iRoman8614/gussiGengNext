@@ -195,7 +195,8 @@ export default function Page() {
                 navigateToPage(task.path);
                 break;
             case 2:
-                openLink(task.url);
+                localStorage.setItem(`task_${task.id}_pending`, 'true');
+                window.open(task.url, '_blank');
                 break;
             case 5:
                 navigateToPage(task.path);
@@ -204,6 +205,23 @@ export default function Page() {
                 console.log('No action for this task.');
         }
     };
+
+    useEffect(() => {
+        const executePendingTasks = async () => {
+            for (const task of tasks) {
+                const taskPendingFlag = localStorage.getItem(`task_${task.id}_pending`);
+                if (task.type === 2 && taskPendingFlag) {
+                    try {
+                        await axiosInstance.get(`/task/execute?taskId=${task.id}`);
+                        localStorage.removeItem(`task_${task.id}_pending`);
+                    } catch (error) {
+                        console.error(`Error executing task ${task.id}:`, error);
+                    }
+                }
+            }
+        };
+        executePendingTasks();
+    }, [tasks]);
 
     useEffect(() => {
         if (typeof window !== "undefined") {
