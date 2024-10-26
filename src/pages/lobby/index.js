@@ -74,52 +74,48 @@ export default function Page() {
 
     const handlePvpClick = async () => {
         if (typeof window === "undefined") return;
-        const firstGame = localStorage.getItem('firstGame');
-        if (firstGame) {
-            const firstGameTime = new Date(firstGame);
-            const now = new Date();
-            const timeDiffInMs = now - firstGameTime;
-            const remainingTimeInMs = (6 * 60 * 60 * 1000) - timeDiffInMs;
-            if (remainingTimeInMs > 0) {
-                setTimer(remainingTimeInMs);
-                setTimerActive(true);
-                toast.warn("You have reached the maximum number of games.");
-                return;
-            } else {
-                localStorage.removeItem('firstGame');
-            }
-        }
+
         try {
             const response = await axiosInstance.get(`/farm/last-games`);
             const data = response.data;
             setSessionsCount(data.session.count);
-            if (data.session.first) {
-                localStorage.setItem('firstGame', data.session.first);
-            }
             if (data.session.count < 5) {
                 router.push('/pvp');
-            } else if (passes > 0) {
-                setShowPassPopup(true);
             } else {
-                const firstGameTime = new Date(data.session.first);
-                const now = new Date();
-                const timeDiffInMs = now - firstGameTime;
-                const remainingTimeInMs = (6 * 60 * 60 * 1000) - timeDiffInMs;
-
-                if (remainingTimeInMs > 0) {
-                    setTimer(remainingTimeInMs);
-                    setTimerActive(true);
-                    toast.warn(`The next game will be available in ${Math.floor(remainingTimeInMs / (1000 * 60 * 60))} h. ${Math.floor((remainingTimeInMs % (1000 * 60 * 60)) / (1000 * 60))} min.`);
+                const firstGame = localStorage.getItem('firstGame');
+                if (firstGame) {
+                    const firstGameTime = new Date(firstGame);
+                    const now = new Date();
+                    const timeDiffInMs = now - firstGameTime;
+                    const remainingTimeInMs = (6 * 60 * 60 * 1000) - timeDiffInMs;
+                    if (remainingTimeInMs > 0) {
+                        setTimer(remainingTimeInMs);
+                        setTimerActive(true);
+                        toast.warn(`The next game will be available in ${Math.floor(remainingTimeInMs / (1000 * 60 * 60))} h. ${Math.floor((remainingTimeInMs % (1000 * 60 * 60)) / (1000 * 60))} min.`);
+                    } else {
+                        localStorage.removeItem('firstGame');
+                        router.push('/pvp');
+                    }
                 } else {
-                    localStorage.removeItem('firstGame');
-                    router.push('/pvp');
+                    localStorage.setItem('firstGame', data.session.first);
+                    const firstGameTime = new Date(data.session.first);
+                    const now = new Date();
+                    const timeDiffInMs = now - firstGameTime;
+                    const remainingTimeInMs = (6 * 60 * 60 * 1000) - timeDiffInMs;
+
+                    if (remainingTimeInMs > 0) {
+                        setTimer(remainingTimeInMs);
+                        setTimerActive(true);
+                        toast.warn(`The next game will be available in ${Math.floor(remainingTimeInMs / (1000 * 60 * 60))} h. ${Math.floor((remainingTimeInMs % (1000 * 60 * 60)) / (1000 * 60))} min.`);
+                    }
                 }
             }
         } catch (error) {
             console.error("Error during /last-games request:", error);
-            toast.error('Error while checking game availability');
+            toast.error('Game unavailable');
         }
     };
+
 
 
 
