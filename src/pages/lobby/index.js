@@ -36,9 +36,9 @@ export default function Page() {
         }
     }, [router]);
 
-    const fetchStats = async (userId) => {
+    const fetchStats = async () => {
         try {
-            const response = await axiosInstance.get(`/profile/stats?profileId=${userId}`);
+            const response = await axiosInstance.get(`/profile/stats`);
             const data = response.data;
             setPasses(data.pass);
         } catch (error) {
@@ -46,15 +46,32 @@ export default function Page() {
         }
     };
 
-    const fetchLastGames = async (profileId) => {
+    const fetchLastGames = async () => {
         try {
-            const response = await axiosInstance.get(`/farm/last-games?profileId=${profileId}`);
+            const response = await axiosInstance.get(`/farm/last-games`);
             const data = response.data;
             setSessionsCount(data.session.count);
+            if (data.session.count === 5) {
+                const firstGame = localStorage.getItem('firstGame');
+                if (!firstGame) {
+                    localStorage.setItem('firstGame', data.session.first);
+                }
+                const firstGameTime = new Date(localStorage.getItem('firstGame'));
+                const now = new Date();
+                const timeDiffInMs = now - firstGameTime;
+                const remainingTimeInMs = (6 * 60 * 60 * 1000) - timeDiffInMs;
+                if (remainingTimeInMs > 0) {
+                    setTimer(remainingTimeInMs);
+                    setTimerActive(true);
+                } else {
+                    localStorage.removeItem('firstGame');
+                }
+            }
         } catch (error) {
             console.error('Error fetching last games:', error);
         }
     };
+
 
     useEffect(() => {
         if (typeof window !== "undefined" && window.Telegram?.WebApp) {
@@ -74,7 +91,6 @@ export default function Page() {
 
     const handlePvpClick = async () => {
         if (typeof window === "undefined") return;
-
         try {
             const response = await axiosInstance.get(`/farm/last-games`);
             const data = response.data;
@@ -82,42 +98,13 @@ export default function Page() {
             if (data.session.count < 5) {
                 router.push('/pvp');
             } else {
-                const firstGame = localStorage.getItem('firstGame');
-                if (firstGame) {
-                    const firstGameTime = new Date(firstGame);
-                    const now = new Date();
-                    const timeDiffInMs = now - firstGameTime;
-                    const remainingTimeInMs = (6 * 60 * 60 * 1000) - timeDiffInMs;
-                    if (remainingTimeInMs > 0) {
-                        setTimer(remainingTimeInMs);
-                        setTimerActive(true);
-                        toast.warn(`The next game will be available in ${Math.floor(remainingTimeInMs / (1000 * 60 * 60))} h. ${Math.floor((remainingTimeInMs % (1000 * 60 * 60)) / (1000 * 60))} min.`);
-                    } else {
-                        localStorage.removeItem('firstGame');
-                        router.push('/pvp');
-                    }
-                } else {
-                    localStorage.setItem('firstGame', data.session.first);
-                    const firstGameTime = new Date(data.session.first);
-                    const now = new Date();
-                    const timeDiffInMs = now - firstGameTime;
-                    const remainingTimeInMs = (6 * 60 * 60 * 1000) - timeDiffInMs;
-
-                    if (remainingTimeInMs > 0) {
-                        setTimer(remainingTimeInMs);
-                        setTimerActive(true);
-                        toast.warn(`The next game will be available in ${Math.floor(remainingTimeInMs / (1000 * 60 * 60))} h. ${Math.floor((remainingTimeInMs % (1000 * 60 * 60)) / (1000 * 60))} min.`);
-                    }
-                }
+                toast.warn("You have reached the maximum number of games. Please wait for the timer to expire.");
             }
         } catch (error) {
             console.error("Error during /last-games request:", error);
             toast.error('Game unavailable');
         }
     };
-
-
-
 
     useEffect(() => {
         let timerId;
