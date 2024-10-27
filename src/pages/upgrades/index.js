@@ -399,7 +399,7 @@ export default function Page() {
                                             desc={task.type !== 2 ? `${task.current} / ${task.amount}` : ''}
                                             completed={task.completed}
                                             key={index}
-                                            readyToComplete={readyToComplete}
+                                            readyToComplete={task.readyToComplete}
                                             onClick={() => handleTaskClick(task)}
                                         />
                                     )
