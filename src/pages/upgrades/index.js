@@ -414,6 +414,7 @@ export default function Page() {
                                             completed={task.completed}
                                             key={index}
                                             readyToComplete={task.readyToComplete}
+                                            reward={task.reward}
                                             onClick={() => handleTaskClick(task)}
                                         />
                                     )

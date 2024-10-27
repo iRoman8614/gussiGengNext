@@ -5,8 +5,9 @@ import styles from './TaskBtn.module.scss'
 
 const Arrow = '/Tasks/TaskArrow.png'
 const Complite = '/Tasks/TaskComplited.png'
+const money = '/Task/money2.png'
 
-export const TaskBtn = ({title, subtitle, desc, completed, onClick, readyToComplete}) => {
+export const TaskBtn = ({title, subtitle, desc, completed, onClick, readyToComplete, reward}) => {
     const [complited, setComplited] = useState(completed)
 
     const handleClick = () => {
@@ -18,8 +19,11 @@ export const TaskBtn = ({title, subtitle, desc, completed, onClick, readyToCompl
 
     return(
         <div className={readyToComplete ? styles.rootReady : styles.root} onClick={handleClick}>
-            {title && <div className={styles.title}>{title}</div>}
-            {subtitle && <div className={styles.subtitle}>{subtitle}</div>}
+            <div>
+                {title && <div className={styles.title}>{title}</div>}
+                {subtitle && <div className={styles.subtitle}>{subtitle}</div>}
+                <div className={styles.reward}><Image src={money} width={30} height={25} alt={''} />+{reward}</div>
+            </div>
             <div className={styles.desc}>{desc}</div>
             <div>
                 {complited === false ? <Image src={Arrow} width={20} height={20} alt={''} /> : <Image src={Complite} width={20} height={20} alt={''} />}
