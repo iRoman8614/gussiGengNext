@@ -5,7 +5,7 @@ import styles from './TaskBtn.module.scss'
 
 const Arrow = '/Tasks/TaskArrow.png'
 const Complite = '/Tasks/TaskComplited.png'
-const money = '/Task/money2.png'
+const money = '/Tasks/money2.png'
 
 export const TaskBtn = ({title, subtitle, desc, completed, onClick, readyToComplete, reward}) => {
     const [complited, setComplited] = useState(completed)
