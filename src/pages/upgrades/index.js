@@ -432,35 +432,37 @@ export default function Page() {
                     </div>
                     {isUpgradeModalOpen && selectedItem && (
                         <div className={styles.modalOverlay}>
-                            <div className={styles.modalUpgrades}>
-                                <h2>
-                                    {selectedItem.type === 'limit' ? `limit +${selectedItem.Name}` : `rate +${selectedItem.Name}`}
-                                </h2>
-                                <p>Cost: {selectedItem.Cost}</p>
-                                <p>Increase per: {selectedItem.IncreasePer}</p>
-                                <p>Card level: {selectedItem.Level}</p>
-                                <div className={styles.modalButtons}>
-                                    <button
-                                        className={styles.btnUpgrade}
-                                        onClick={() => {
-                                            if (window.Telegram?.WebApp?.HapticFeedback) {
-                                                window.Telegram.WebApp.HapticFeedback.impactOccurred('heavy');
-                                            }
-                                            if (selectedItem) {
-                                                selectedItem.type === 'limit'
-                                                    ? handleLimitUpgrade(selectedItem.Id, selectedItem.Cost)
-                                                    : handleRateUpgrade(selectedItem.Id, selectedItem.Cost);
-                                            }
-                                        }}
-                                        disabled={selectedItem && balance < selectedItem.Cost} // Делаем кнопку неактивной, если баланс меньше стоимости
-                                    >
-                                        Upgrade
-                                    </button>
-                                    <button className={styles.btnClose} onClick={closeUpgradeModal}>Close</button>
+                            <div className={styles.modalBorder}>
+                                <div className={styles.modalUpgrades}>
+                                    <h2>
+                                        {selectedItem.type === 'limit' ? `limit +${selectedItem.Name}` : `rate +${selectedItem.Name}`}
+                                    </h2>
+                                    <p>Cost: {selectedItem.Cost}</p>
+                                    <p>Increase per: {selectedItem.IncreasePer}</p>
+                                    <p>Card level: {selectedItem.Level}</p>
+                                    <div className={styles.modalButtons}>
+                                        <button
+                                            className={styles.btnUpgrade}
+                                            onClick={() => {
+                                                if (window.Telegram?.WebApp?.HapticFeedback) {
+                                                    window.Telegram.WebApp.HapticFeedback.impactOccurred('heavy');
+                                                }
+                                                if (selectedItem) {
+                                                    selectedItem.type === 'limit'
+                                                        ? handleLimitUpgrade(selectedItem.Id, selectedItem.Cost)
+                                                        : handleRateUpgrade(selectedItem.Id, selectedItem.Cost);
+                                                }
+                                            }}
+                                            disabled={selectedItem && balance < selectedItem.Cost}
+                                        >
+                                            Upgrade
+                                        </button>
+                                        <button className={styles.btnClose} onClick={closeUpgradeModal}>Close</button>
+                                    </div>
+                                    {selectedItem && balance < selectedItem.Cost && (
+                                        <p className={styles.errorMessage}>Not enough coins available.</p>
+                                    )}
                                 </div>
-                                {selectedItem && balance < selectedItem.Cost && (
-                                    <p className={styles.errorMessage}>Not enough coins available.</p>
-                                )}
                             </div>
                         </div>
                     )}
