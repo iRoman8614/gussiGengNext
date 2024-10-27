@@ -67,7 +67,7 @@ export default function Page() {
                 let tasks = tasksResponse.data;
                 const completedTasksResponse = await axiosInstance.get('/task/completed-tasks');
                 const completedTasks = completedTasksResponse.data.map(task => task.task.id);
-
+                const lastCompletedTaskId = completedTasks.length > 0 ? Math.max(...completedTasks) : 0;
                 tasks = tasks.map(task => {
                     const isCompleted = completedTasks.includes(task.id);
                     let readyToComplete = false;
@@ -78,7 +78,6 @@ export default function Page() {
                         readyToComplete = true;
                     }
                     const isVisible = task.type === 1 ? (lastCompletedTaskId === 0 ? task.id === 1 : task.id <= lastCompletedTaskId + 1) : true;
-
                     return {
                         ...task,
                         name: mapTaskName(task.name),
@@ -89,8 +88,6 @@ export default function Page() {
                         readyToComplete: readyToComplete
                     };
                 });
-
-                // Фильтруем задания для отображения только видимых
                 setTasks(tasks.filter(task => task.visible));
             } catch (error) {
                 console.error('Ошибка при загрузке данных:', error);
@@ -98,7 +95,6 @@ export default function Page() {
         };
         fetchTasksAndFriends();
     }, []);
-
 
     const mapTaskName = (originalName) => {
         if (originalName.includes("TG")) {
@@ -109,19 +105,20 @@ export default function Page() {
         return originalName;
     };
 
+    const fetchLevels = async () => {
+        try {
+            const limitResponse = await axiosInstance.get(`/farm/limit-levels`);
+            const limitLevelsWithType = limitResponse.data.map(level => ({ ...level, type: 'limit' }));
+            setLimitLevels(limitLevelsWithType);
+            const rateResponse = await axiosInstance.get(`/farm/rate-levels`);
+            const rateLevelsWithType = rateResponse.data.map(level => ({ ...level, type: 'rate' }));
+            setRateLevels(rateLevelsWithType);
+        } catch (error) {
+            console.error('Ошибка при загрузке уровней:', error);
+        }
+    };
+
     useEffect(() => {
-        const fetchLevels = async () => {
-            try {
-                const limitResponse = await axiosInstance.get(`/farm/limit-levels`);
-                const limitLevelsWithType = limitResponse.data.map(level => ({ ...level, type: 'limit' }));
-                setLimitLevels(limitLevelsWithType);
-                const rateResponse = await axiosInstance.get(`/farm/rate-levels`);
-                const rateLevelsWithType = rateResponse.data.map(level => ({ ...level, type: 'rate' }));
-                setRateLevels(rateLevelsWithType);
-            } catch (error) {
-                console.error('Ошибка при загрузке уровней:', error);
-            }
-        };
         fetchLevels();
     }, []);
 
