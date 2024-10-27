@@ -38,12 +38,19 @@ export default function LoaderPage() {
     }, [updateBodyHeight]);
 
     const checkLocalStorageAndRedirect = useCallback(async () => {
+        localStorage.removeItem('GWToken')
         const init = localStorage.getItem('init');
         const start = localStorage.getItem('start');
         const authToken = localStorage.getItem('authToken');
         const myToken = localStorage.getItem('GWToken');
 
-        if (!init || !myToken) {
+        if(!myToken) {
+            const response = await axiosInstance.get(`/profile/init?token=${authToken}`);
+            const data = response.data;
+            localStorage.setItem('GWToken', data.jwt)
+        }
+
+        if (!init) {
             try {
                 const response = await axiosInstance.get(`/profile/init?token=${authToken}`);
                 const data = response.data;
@@ -77,15 +84,6 @@ export default function LoaderPage() {
         if (token) {
             localStorage.setItem('authToken', token);
         }
-        const initData = async(token) => {
-            try {
-                const response = await axiosInstance.get(`/profile/init?token=${token}`);
-                localStorage.setItem('GWToken', response.data.jwt)
-            } catch (e) {
-                console.log(e)
-            }
-        }
-        initData(token)
     }, [router.query]);
 
     useEffect(() => {
