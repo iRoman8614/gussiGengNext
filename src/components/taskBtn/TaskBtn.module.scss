@@ -39,10 +39,6 @@
   width: 100%;
 }
 
-.icon {
-  padding: 5px;
-}
-
 .title {
   font-size: auto-clamp(20, 32);
   line-height: auto-clamp(20, 32);
@@ -50,8 +46,8 @@
 }
 
 .subtitle {
-  font-size: auto-clamp(18, 24);
-  line-height: auto-clamp(18, 24);
+  font-size: auto-clamp(16, 22);
+  line-height: auto-clamp(16, 22);
   color: #fff;
   width: 100%;
   white-space: nowrap;

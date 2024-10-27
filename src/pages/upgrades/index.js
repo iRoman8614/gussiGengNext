@@ -74,11 +74,11 @@ export default function Page() {
                     let icon = '';
                     if (task.type === 1 && numFriends >= task.amount && !isCompleted) {
                         readyToComplete = true;
-                        icon = '1';
+                        icon = 'ref';
                     }
                     if (task.type === 5 && stats.victory >= task.amount && !isCompleted) {
                         readyToComplete = true;
-                        icon = '5';
+                        icon = 'pvp';
                     }
                     if (task.type === 2) {
                         icon = task.name.includes("TG") ? "tg" : task.name.includes("X") ? "x" : '';
@@ -107,9 +107,9 @@ export default function Page() {
 
     const mapTaskName = (originalName) => {
         if (originalName.includes("TG")) {
-            return 'subscribe to GW telegram';
+            return 'sub to GW telegram';
         } else if (originalName.includes("twitter")) {
-            return 'subscribe to Gw x';
+            return 'sub to Gw x';
         }
         return originalName;
     };
