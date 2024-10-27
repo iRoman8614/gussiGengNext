@@ -39,16 +39,17 @@ export default function LoaderPage() {
     }, [updateBodyHeight]);
 
     const checkLocalStorageAndRedirect = useCallback(async () => {
-        const tgUserId = userId;
         const init = localStorage.getItem('init');
         const start = localStorage.getItem('start');
+        const authToken = localStorage.getItem('authToken');
         const myToken = localStorage.getItem('GWToken');
 
         if (!init || !myToken) {
             try {
-                const response = await axiosInstance.get(`/profile/init?profileId=${tgUserId}`);
+                const response = await axiosInstance.get(`/profile/init?token=${authToken}`);
                 const data = response.data;
                 localStorage.setItem('init', JSON.stringify(data));
+                localStorage.setItem('GWToken', data.jwt)
                 await checkStartData();
             } catch (error) {
                 toast.error('Error during init request');
@@ -75,7 +76,7 @@ export default function LoaderPage() {
     useEffect(() => {
         const { token } = router.query;
         if (token) {
-            localStorage.setItem('GWToken', token);
+            localStorage.setItem('authToken', token);
         }
     }, [router.query]);
 
