@@ -453,8 +453,8 @@ export default function Page() {
                                     <p>Card level: {selectedItem.Level}</p>
                                     <p>Cost: {selectedItem.Cost}</p>
                                     <p>Increase per: {selectedItem.IncreasePer}</p>
-                                    <p>Current: {selectedItem.type === 'limit' ? limit : rate}</p>
-                                    <p>Next: {Number(selectedItem.type === 'limit' ? limit : rate) * ((100 + Number(selectedItem.IncreasePer))/100)}</p>
+                                    <p>on current lvl: {selectedItem.type === 'limit' ? Number(limit).toFixed(2) : Number(rate).toFixed(2)}</p>
+                                    <p>on next lvl: {Number(selectedItem.type === 'limit' ? limit : rate).toFixed(2) * ((100 + Number(selectedItem.IncreasePer).toFixed(2))/100)}</p>
                                     {selectedItem && balance < selectedItem.Cost && (
                                         <p className={styles.errorMessage}>Not enough coins available.</p>
                                     )}
