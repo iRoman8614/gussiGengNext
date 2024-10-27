@@ -295,17 +295,11 @@
   background: radial-gradient(67% 67.04% at 50% 50%, rgb(56, 66, 164) 0%, rgb(21, 25, 62) 100%);
   width: 200px;
   height: 50px;
+  border-radius: 18px;
+  text-align: center;
 }
 
-.btnClose {
-  background: rgba(104, 110, 166, 0.6);
-}
-
-.btnUpgrade {
-  background: linear-gradient(180deg, #c78100 0%, #e4aa39 50.3%, #c78100 100%);
-}
-
-.btnUpgrade:disabled {
+.modalBtn:disabled {
   background-color: #a9a9a9;
   color: #ffffff;
   cursor: not-allowed;

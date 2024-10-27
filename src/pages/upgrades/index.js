@@ -441,7 +441,7 @@ export default function Page() {
                                     <p>Cost: {selectedItem.Cost}</p>
                                     <p>Increase per: {selectedItem.IncreasePer}</p>
                                     <p>Current: {selectedItem.Cost}</p>
-                                    <p>Next: {selectedItem.Cost}</p>
+                                    <p>Next: {Number(selectedItem.Cost) * (100 + Number(selectedItem.IncreasePer))}</p>
                                     {selectedItem && balance < selectedItem.Cost && (
                                         <p className={styles.errorMessage}>Not enough coins available.</p>
                                     )}
