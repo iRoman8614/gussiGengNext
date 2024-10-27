@@ -72,7 +72,6 @@ export default function Page() {
                     const isCompleted = completedTasks.includes(task.id);
                     let readyToComplete = false;
                     let icon = '';
-                    let amount
                     if (task.type === 1 && numFriends >= task.amount && !isCompleted) {
                         readyToComplete = true;
                         icon = '1';
@@ -80,7 +79,6 @@ export default function Page() {
                     if (task.type === 5 && stats.victory >= task.amount && !isCompleted) {
                         readyToComplete = true;
                         icon = '5';
-                        amount = task.amount * 5
                     }
                     if (task.type === 2) {
                         icon = task.name.includes("TG") ? "tg" : task.name.includes("X") ? "x" : '';
@@ -95,7 +93,6 @@ export default function Page() {
                         visible: isVisible,
                         readyToComplete: readyToComplete,
                         icon: icon,
-                        amount: amount,
                     };
                 });
 
