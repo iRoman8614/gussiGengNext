@@ -74,7 +74,7 @@ export default function Page() {
                     if (task.type === 1 && numFriends >= task.amount && !isCompleted) {
                         readyToComplete = true;
                     }
-                    if (task.type === 5 && stats.victory >= (task.amount * 5) && !isCompleted) {
+                    if (task.type === 5 && stats.victory >= task.amount && !isCompleted) {
                         readyToComplete = true;
                     }
                     const isVisible = task.type === 1 ? task.id <= lastCompletedTaskIdType1 + 1 : true;
