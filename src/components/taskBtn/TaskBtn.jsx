@@ -6,7 +6,7 @@ import styles from './TaskBtn.module.scss'
 const Arrow = '/Tasks/TaskArrow.png'
 const Complite = '/Tasks/TaskComplited.png'
 
-export const TaskBtn = ({title, subtitle, desc, completed, onClick}) => {
+export const TaskBtn = ({title, subtitle, desc, completed, onClick, readyToComplete}) => {
     const [complited, setComplited] = useState(completed)
 
     const handleClick = () => {
@@ -17,7 +17,7 @@ export const TaskBtn = ({title, subtitle, desc, completed, onClick}) => {
     };
 
     return(
-        <div className={styles.root} onClick={handleClick}>
+        <div className={readyToComplete ? styles.rootReady : styles.root} onClick={handleClick}>
             {title && <div className={styles.title}>{title}</div>}
             {subtitle && <div className={styles.subtitle}>{subtitle}</div>}
             <div className={styles.desc}>{desc}</div>

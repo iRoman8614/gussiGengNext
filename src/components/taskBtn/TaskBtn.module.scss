@@ -12,6 +12,29 @@
   cursor: pointer;
 }
 
+.rootReady {
+    width: 100%;
+    background: linear-gradient(180deg, #5c498f 0%, #47347d 100%);
+    display: flex;
+    padding: auto-clamp(10, 16);
+    border-radius: 11px;
+    margin-bottom: 5px;
+    align-items: center;
+    gap: auto-clamp(5, 12);
+    cursor: pointer;
+    border: 3px solid #FF9740;
+    animation: vibrate 0.5s infinite;
+}
+
+@keyframes vibrate {
+  0% { transform: translate(0); }
+  20% { transform: translate(-2px, 2px); }
+  40% { transform: translate(-2px, -2px); }
+  60% { transform: translate(2px, 2px); }
+  80% { transform: translate(2px, -2px); }
+  100% { transform: translate(0); }
+}
+
 .title {
   font-size: auto-clamp(20, 32);
   line-height: auto-clamp(20, 32);

@@ -56,69 +56,49 @@ export default function Page() {
         'limits upgrades'
     ]
 
-    const fetchLevels = async () => {
-        try {
-            const limitResponse = await axiosInstance.get(`/farm/limit-levels`);
-            const limitLevelsWithType = limitResponse.data.map(level => ({ ...level, type: 'limit' }));
-            setLimitLevels(limitLevelsWithType);
-            const rateResponse = await axiosInstance.get(`/farm/rate-levels`);
-            const rateLevelsWithType = rateResponse.data.map(level => ({ ...level, type: 'rate' }));
-            setRateLevels(rateLevelsWithType);
-        } catch (error) {
-            console.error('Ошибка при загрузке уровней:', error);
-        }
-    };
+    useEffect(() => {
+        const fetchTasksAndFriends = async () => {
+            try {
+                const statsResponse = await axiosInstance.get('/profile/stats');
+                const stats = statsResponse.data;
+                const friendsResponse = await axiosInstance.get('/profile/my-invitees');
+                const numFriends = friendsResponse.data.length;
+                const tasksResponse = await axiosInstance.get('/task/all');
+                let tasks = tasksResponse.data;
+                const completedTasksResponse = await axiosInstance.get('/task/completed-tasks');
+                const completedTasks = completedTasksResponse.data.map(task => task.task.id);
 
-    const fetchTasksAndFriends = async () => {
-        try {
-            const statsResponse = await axiosInstance.get('/profile/stats');
-            const stats = statsResponse.data;
-            const friendsResponse = await axiosInstance.get('/profile/my-invitees');
-            const numFriends = friendsResponse.data.length;
-            const tasksResponse = await axiosInstance.get('/task/all');
-            let tasks = tasksResponse.data;
-            const completedTasksResponse = await axiosInstance.get('/task/completed-tasks');
-            const completedTasks = completedTasksResponse.data.map(task => task.task.id);
-            const lastCompletedTaskId = Math.max(0, ...tasks.filter(t => t.type === 1 && completedTasks.includes(t.id)).map(t => t.id));
-            tasks = tasks.map(task => {
-                const isCompleted = completedTasks.includes(task.id);
-                if (task.type === 1) {
-                    const isVisible = lastCompletedTaskId === 0 ? task.id === 1 : task.id <= lastCompletedTaskId + 1;
-                    return {
-                        ...task,
-                        current: numFriends,
-                        completed: isCompleted || numFriends >= task.amount,
-                        path: '/friends',
-                        visible: isVisible
-                    };
-                } else if (task.type === 2) {
+                tasks = tasks.map(task => {
+                    const isCompleted = completedTasks.includes(task.id);
+                    let readyToComplete = false;
+                    if (task.type === 1 && numFriends >= task.amount && !isCompleted) {
+                        readyToComplete = true;
+                    }
+                    if (task.type === 5 && stats.victory >= (task.amount * 5) && !isCompleted) {
+                        readyToComplete = true;
+                    }
+                    const isVisible = task.type === 1 ? (lastCompletedTaskId === 0 ? task.id === 1 : task.id <= lastCompletedTaskId + 1) : true;
+
                     return {
                         ...task,
                         name: mapTaskName(task.name),
-                        url: task.name.includes("TG") ? "https://t.me/gang_wars_game" : "https://x.com/gangwars_game",
+                        current: task.type === 1 ? numFriends : stats.victory,
                         completed: isCompleted,
-                        visible: true
+                        path: task.type === 1 ? '/friends' : '/pvp',
+                        visible: isVisible,
+                        readyToComplete: readyToComplete
                     };
-                } else if (task.type === 5) {
-                    return {
-                        ...task,
-                        current: stats.victory,
-                        completed: isCompleted || stats.victory >= task.amount,
-                        path: '/pvp',
-                        visible: true
-                    };
-                }
-                return {
-                    ...task,
-                    completed: isCompleted,
-                    visible: true
-                };
-            });
-            setTasks(tasks.filter(task => task.visible));
-        } catch (error) {
-            console.error('Ошибка при загрузке данных:', error);
-        }
-    };
+                });
+
+                // Фильтруем задания для отображения только видимых
+                setTasks(tasks.filter(task => task.visible));
+            } catch (error) {
+                console.error('Ошибка при загрузке данных:', error);
+            }
+        };
+        fetchTasksAndFriends();
+    }, []);
+
 
     const mapTaskName = (originalName) => {
         if (originalName.includes("TG")) {
@@ -130,7 +110,18 @@ export default function Page() {
     };
 
     useEffect(() => {
-        fetchTasksAndFriends();
+        const fetchLevels = async () => {
+            try {
+                const limitResponse = await axiosInstance.get(`/farm/limit-levels`);
+                const limitLevelsWithType = limitResponse.data.map(level => ({ ...level, type: 'limit' }));
+                setLimitLevels(limitLevelsWithType);
+                const rateResponse = await axiosInstance.get(`/farm/rate-levels`);
+                const rateLevelsWithType = rateResponse.data.map(level => ({ ...level, type: 'rate' }));
+                setRateLevels(rateLevelsWithType);
+            } catch (error) {
+                console.error('Ошибка при загрузке уровней:', error);
+            }
+        };
         fetchLevels();
     }, []);
 
@@ -210,20 +201,47 @@ export default function Page() {
 
     useEffect(() => {
         const executePendingTasks = async () => {
+            let updateCompletedTasks = false;
+
             for (const task of tasks) {
-                const taskPendingFlag = localStorage.getItem(`task_${task.id}_pending`);
-                if (task.type === 2 && taskPendingFlag) {
+                if (task.type === 2 && localStorage.getItem(`task_${task.id}_pending`)) {
                     try {
                         await axiosInstance.get(`/task/execute?taskId=${task.id}`);
                         localStorage.removeItem(`task_${task.id}_pending`);
+                        updateCompletedTasks = true;
+                    } catch (error) {
+                        console.error(`Error executing task ${task.id}:`, error);
+                    }
+                }
+                if ((task.type === 1 || task.type === 5) && task.readyToComplete) {
+                    try {
+                        await axiosInstance.get(`/task/execute?taskId=${task.id}`);
+                        updateCompletedTasks = true;
                     } catch (error) {
                         console.error(`Error executing task ${task.id}:`, error);
                     }
                 }
             }
+            if (updateCompletedTasks) {
+                await fetchCompletedTasks();
+            }
         };
         executePendingTasks();
     }, [tasks]);
+
+    const fetchCompletedTasks = async () => {
+        try {
+            const response = await axiosInstance.get('/task/completed-tasks');
+            const completedTaskIds = response.data.map(task => task.task.id);
+            setTasks(tasks.map(task => ({
+                ...task,
+                completed: completedTaskIds.includes(task.id)
+            })));
+        } catch (error) {
+            console.error('Error fetching completed tasks:', error);
+        }
+    };
+
 
     useEffect(() => {
         if (typeof window !== "undefined") {
@@ -384,6 +402,7 @@ export default function Page() {
                                             desc={task.type !== 2 ? `${task.current} / ${task.amount}` : ''}
                                             completed={task.completed}
                                             key={index}
+                                            readyToComplete={readyToComplete}
                                             onClick={() => handleTaskClick(task)}
                                         />
                                     )
