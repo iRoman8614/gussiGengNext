@@ -8,6 +8,7 @@ import teamData from "@/mock/teamsData";
 import {useRouter} from "next/router";
 
 import styles from '@/styles/Account.module.scss'
+import {toast} from "react-toastify";
 
 const bg = '/backgrounds/accountBG.png'
 const money = '/money.png'
@@ -20,6 +21,7 @@ export default function Page() {
     const [userId, setUserId] = useState(null);
     const [userName, setUserName] = useState(null);
     const [friends, setFriends] = useState([]);
+    const [daily, setDaily] = useState(0)
     const [stats, setStats] = useState({
         liga: 0,
         count: 0,
@@ -66,12 +68,20 @@ export default function Page() {
                 const userObject = JSON.parse(decodedUserParam);
                 setUserId(userObject.id);
                 setUserName(userObject.username);
-            } else {
-                setUserId(111);
-                setUserName('you');
             }
         }
+        initData()
     }, []);
+
+    const initData = async () => {
+        try {
+            const response = await axiosInstance.get(`/profile/init?profileId=${tgUserId}`);
+            const data = response.data;
+            setDaily(data.delayEntries)
+        } catch (error) {
+            toast.error('Error during init request');
+        }
+    }
 
     function getRandomNumber() {
         return Math.floor(Math.random() * 6) + 1;
@@ -211,6 +221,8 @@ export default function Page() {
                                 {/*<div className={styles.barItemStats}>1/11</div>*/}
                                 <div className={styles.barItem}>friends invited</div>
                                 <div className={styles.barItemStats}>{friends.length}</div>
+                                <div className={styles.barItem}>login streak</div>
+                                <div className={styles.barItemStats}>{daily}</div>
                             </div>
                             <div>
                                 <div className={styles.barItem}>current balance</div>

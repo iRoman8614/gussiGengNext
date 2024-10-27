@@ -69,6 +69,57 @@ export default function Page() {
         }
     };
 
+    const fetchTasksAndFriends = async () => {
+        try {
+            const statsResponse = await axiosInstance.get('/profile/stats');
+            const stats = statsResponse.data;
+            const friendsResponse = await axiosInstance.get('/profile/my-invitees');
+            const numFriends = friendsResponse.data.length;
+            const tasksResponse = await axiosInstance.get('/task/all');
+            let tasks = tasksResponse.data;
+            const completedTasksResponse = await axiosInstance.get('/task/completed-tasks');
+            const completedTasks = completedTasksResponse.data.map(task => task.task.id);
+            const lastCompletedTaskId = Math.max(0, ...tasks.filter(t => t.type === 1 && completedTasks.includes(t.id)).map(t => t.id));
+            tasks = tasks.map(task => {
+                const isCompleted = completedTasks.includes(task.id);
+                if (task.type === 1) {
+                    const isVisible = lastCompletedTaskId === 0 ? task.id === 1 : task.id <= lastCompletedTaskId + 1;
+                    return {
+                        ...task,
+                        current: numFriends,
+                        completed: isCompleted || numFriends >= task.amount,
+                        path: '/friends',
+                        visible: isVisible
+                    };
+                } else if (task.type === 2) {
+                    return {
+                        ...task,
+                        name: mapTaskName(task.name),
+                        url: task.name.includes("TG") ? "https://t.me/gang_wars_game" : "https://x.com/gangwars_game",
+                        completed: isCompleted,
+                        visible: true
+                    };
+                } else if (task.type === 5) {
+                    return {
+                        ...task,
+                        current: stats.victory,
+                        completed: isCompleted || stats.victory >= task.amount,
+                        path: '/pvp',
+                        visible: true
+                    };
+                }
+                return {
+                    ...task,
+                    completed: isCompleted,
+                    visible: true
+                };
+            });
+            setTasks(tasks.filter(task => task.visible));
+        } catch (error) {
+            console.error('Ошибка при загрузке данных:', error);
+        }
+    };
+
     const mapTaskName = (originalName) => {
         if (originalName.includes("TG")) {
             return 'subscribe to GW telegram';
@@ -78,111 +129,8 @@ export default function Page() {
         return originalName;
     };
 
-    // useEffect(() => {
-    //     const fetchTasksAndFriends = async () => {
-    //         try {
-    //             const statsResponse = await axiosInstance.get('/profile/stats');
-    //             const stats = statsResponse.data;
-    //             const friendsResponse = await axiosInstance.get('/profile/my-invitees');
-    //             const numFriends = friendsResponse.data.length;
-    //             const tasksResponse = await axiosInstance.get('/task/all');
-    //             let tasks = tasksResponse.data;
-    //             const completedTasksResponse = await axiosInstance.get('/task/completed-tasks');
-    //             const completedTasks = completedTasksResponse.data.map(task => task.task.id);
-    //             tasks = tasks.map(task => {
-    //                 const isCompleted = completedTasks.includes(task.id);
-    //                 if (task.type === 1) {
-    //                     return {
-    //                         ...task,
-    //                         current: numFriends,
-    //                         completed: isCompleted || numFriends >= task.amount,
-    //                         path: '/friends'
-    //                     };
-    //                 } else if (task.type === 2) {
-    //                     return {
-    //                         ...task,
-    //                         name: mapTaskName(task.name),
-    //                         url: task.name.includes("TG") ? "https://t.me/gang_wars_game" : "https://x.com/gangwars_game",
-    //                         completed: isCompleted
-    //                     };
-    //                 } else if (task.type === 5) {
-    //                     return {
-    //                         ...task,
-    //                         current: stats.victory,
-    //                         completed: isCompleted || stats.victory >= task.amount,
-    //                         path: '/pvp'
-    //                     };
-    //                 }
-    //                 return {
-    //                     ...task,
-    //                     completed: isCompleted
-    //                 };
-    //             });
-    //             setTasks(tasks);
-    //         } catch (error) {
-    //             console.error('Ошибка при загрузке данных:', error);
-    //         }
-    //     };
-    //     fetchTasksAndFriends();
-    // }, []);
-
     useEffect(() => {
-        const fetchTasksAndFriends = async () => {
-            try {
-                const statsResponse = await axiosInstance.get('/profile/stats');
-                const stats = statsResponse.data;
-                const friendsResponse = await axiosInstance.get('/profile/my-invitees');
-                const numFriends = friendsResponse.data.length;
-                const tasksResponse = await axiosInstance.get('/task/all');
-                let tasks = tasksResponse.data;
-                const completedTasksResponse = await axiosInstance.get('/task/completed-tasks');
-                const completedTasks = completedTasksResponse.data.map(task => task.task.id);
-                const lastCompletedTaskId = Math.max(0, ...tasks.filter(t => t.type === 1 && completedTasks.includes(t.id)).map(t => t.id));
-                tasks = tasks.map(task => {
-                    const isCompleted = completedTasks.includes(task.id);
-                    if (task.type === 1) {
-                        const isVisible = lastCompletedTaskId === 0 ? task.id === 1 : task.id <= lastCompletedTaskId + 1;
-                        return {
-                            ...task,
-                            current: numFriends,
-                            completed: isCompleted || numFriends >= task.amount,
-                            path: '/friends',
-                            visible: isVisible
-                        };
-                    } else if (task.type === 2) {
-                        return {
-                            ...task,
-                            name: mapTaskName(task.name),
-                            url: task.name.includes("TG") ? "https://t.me/gang_wars_game" : "https://x.com/gangwars_game",
-                            completed: isCompleted,
-                            visible: true
-                        };
-                    } else if (task.type === 5) {
-                        return {
-                            ...task,
-                            current: stats.victory,
-                            completed: isCompleted || stats.victory >= task.amount,
-                            path: '/pvp',
-                            visible: true
-                        };
-                    }
-                    return {
-                        ...task,
-                        completed: isCompleted,
-                        visible: true
-                    };
-                });
-                setTasks(tasks.filter(task => task.visible));
-            } catch (error) {
-                console.error('Ошибка при загрузке данных:', error);
-            }
-        };
         fetchTasksAndFriends();
-    }, []);
-
-
-
-    useEffect(() => {
         fetchLevels();
     }, []);
 
