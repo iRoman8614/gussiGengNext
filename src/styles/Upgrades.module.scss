@@ -265,7 +265,7 @@
 .modalUpgrades {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+justify-content: space-around;
   align-items: center;
   border-radius: 22px;
   width: 271px;
