@@ -101,7 +101,7 @@ export default function Page() {
 
     const fetchStats = async () => {
         try {
-            const response = await axiosInstance.get(`/profile/stats}`);
+            const response = await axiosInstance.get(`/profile/stats`);
             const data = response.data;
             setStats(data);
         } catch (error) {
