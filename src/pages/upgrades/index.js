@@ -67,7 +67,7 @@ export default function Page() {
                 let tasks = tasksResponse.data;
                 const completedTasksResponse = await axiosInstance.get('/task/completed-tasks');
                 const completedTasks = completedTasksResponse.data.map(task => task.task.id);
-                const lastCompletedTaskId = completedTasks.length > 0 ? Math.max(...completedTasks) : 0;
+                const lastCompletedTaskIdType1 = Math.max(0, ...tasks.filter(task => task.type === 1 && completedTasks.includes(task.id)).map(task => task.id));
                 tasks = tasks.map(task => {
                     const isCompleted = completedTasks.includes(task.id);
                     let readyToComplete = false;
@@ -77,7 +77,7 @@ export default function Page() {
                     if (task.type === 5 && stats.victory >= (task.amount * 5) && !isCompleted) {
                         readyToComplete = true;
                     }
-                    const isVisible = task.type === 1 ? (lastCompletedTaskId === 0 ? task.id === 1 : task.id <= lastCompletedTaskId + 1) : true;
+                    const isVisible = task.type === 1 ? task.id <= lastCompletedTaskIdType1 + 1 : true;
                     return {
                         ...task,
                         name: mapTaskName(task.name),
@@ -88,6 +88,7 @@ export default function Page() {
                         readyToComplete: readyToComplete
                     };
                 });
+
                 setTasks(tasks.filter(task => task.visible));
             } catch (error) {
                 console.error('Ошибка при загрузке данных:', error);
@@ -95,6 +96,7 @@ export default function Page() {
         };
         fetchTasksAndFriends();
     }, []);
+
 
     const mapTaskName = (originalName) => {
         if (originalName.includes("TG")) {
