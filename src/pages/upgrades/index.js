@@ -83,7 +83,7 @@ export default function Page() {
                         name: mapTaskName(task.name),
                         current: task.type === 1 ? numFriends : stats.victory,
                         completed: isCompleted,
-                        path: task.type === 1 ? '/friends' : '/pvp',
+                        path: task.type === 1 ? '/friends' : '/lobby',
                         visible: isVisible,
                         readyToComplete: readyToComplete
                     };
