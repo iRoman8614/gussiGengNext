@@ -182,21 +182,34 @@ export default function Page() {
         window.open(url, '_blank');
     };
     const handleTaskClick = (task) => {
-        switch (task.type) {
-            case 1:
-                navigateToPage(task.path);
-                break;
-            case 2:
-                localStorage.setItem(`task_${task.id}_pending`, 'true');
-                window.open(task.url, '_blank');
-                break;
-            case 5:
-                navigateToPage(task.path);
-                break;
-            default:
-                console.log('No action for this task.');
+        if (task.readyToComplete) {
+            executeTask(task.id);
+        } else {
+            switch (task.type) {
+                case 1:
+                    navigateToPage(task.path);
+                    break;
+                case 2:
+                    localStorage.setItem(`task_${task.id}_pending`, 'true');
+                    window.open(task.url, '_blank');
+                    break;
+                case 5:
+                    navigateToPage(task.path);
+                    break;
+                default:
+                    console.log('No action for this task.');
+            }
         }
     };
+    const executeTask = async (taskId) => {
+        try {
+            await axiosInstance.get(`/task/execute?taskId=${taskId}`);
+            fetchCompletedTasks();
+        } catch (error) {
+            console.error(`Error executing task ${taskId}:`, error);
+        }
+    }
+
 
     useEffect(() => {
         const executePendingTasks = async () => {
