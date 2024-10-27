@@ -76,7 +76,7 @@ export default function Page() {
 
     useEffect(() => {
         initData(userId)
-        fetchStats(userId)
+        fetchStats()
         fetchFriends();
     }, [userId]);
 
@@ -99,29 +99,11 @@ export default function Page() {
         }
     };
 
-    const fetchStats = async (userId) => {
+    const fetchStats = async () => {
         try {
-            const response = await axiosInstance.get(`/profile/stats?profileId=${userId}`);
-            if (response.status === 400 || response.status === 401 || response.status === 403) {
-                console.log("Требуется обновление токена, выполняем запрос /profile/init");
-                await axiosInstance.get(`/profile/init?profileId=${userId}`)
-                    .then(initResponse => {
-                        const data = initResponse.data;
-                        const token = data.jwt.replace(/"/g, '');
-                        localStorage.setItem('GWToken', token);
-                        console.log("JWT token saved:", token);
-                    })
-                    .catch(error => {
-                        console.error('Ошибка при запросе /profile/init:', error);
-                        throw error;
-                    });
-                const retryResponse = await axiosInstance.get(`/profile/stats?profileId=${userId}`);
-                const retryData = retryResponse.data;
-                setStats(retryData);
-            } else {
-                const data = response.data;
-                setStats(data);
-            }
+            const response = await axiosInstance.get(`/profile/stats}`);
+            const data = response.data;
+            setStats(data);
         } catch (error) {
             console.error('Ошибка при получении статистики:', error);
         }
