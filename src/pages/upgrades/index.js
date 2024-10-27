@@ -64,7 +64,6 @@ export default function Page() {
             if (start) {
                 setRate(start.rate);
                 setLimit(start.limit);
-                setBalance(start.balance)
             }
         }
     }, []);
