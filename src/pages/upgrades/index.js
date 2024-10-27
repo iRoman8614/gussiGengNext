@@ -137,12 +137,11 @@ export default function Page() {
                 let tasks = tasksResponse.data;
                 const completedTasksResponse = await axiosInstance.get('/task/completed-tasks');
                 const completedTasks = completedTasksResponse.data.map(task => task.task.id);
-                const lastCompletedTaskId = Math.max(...tasks.filter(t => t.type === 1 && completedTasks.includes(t.id)).map(t => t.id));
-
+                const lastCompletedTaskId = Math.max(0, ...tasks.filter(t => t.type === 1 && completedTasks.includes(t.id)).map(t => t.id));
                 tasks = tasks.map(task => {
                     const isCompleted = completedTasks.includes(task.id);
                     if (task.type === 1) {
-                        const isVisible = task.id <= lastCompletedTaskId + 1;
+                        const isVisible = lastCompletedTaskId === 0 ? task.id === 1 : task.id <= lastCompletedTaskId + 1;
                         return {
                             ...task,
                             current: numFriends,
@@ -180,6 +179,7 @@ export default function Page() {
         };
         fetchTasksAndFriends();
     }, []);
+
 
 
     useEffect(() => {
