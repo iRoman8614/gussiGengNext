@@ -2,7 +2,7 @@ import Image from "next/image";
 import styles from './Listitem.module.scss'
 import {useEffect, useState} from "react";
 
-export const ListItem = ({item, index}) => {
+export const ListItem = ({item, index, teamId}) => {
     const[userId, setUserId] = useState(null)
 
     const teamData = {
@@ -12,7 +12,7 @@ export const ListItem = ({item, index}) => {
         4: { avatar: '/listItemsBG/avaR.png', image: '/listItemsBG/4rrbg.png' }
     };
 
-    const { avatar, image } = teamData[item.teamId] || {};
+    const { avatar, image } = teamData[teamId] || {};
 
     useEffect(() => {
         if (typeof window !== "undefined") {

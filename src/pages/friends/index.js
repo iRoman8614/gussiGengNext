@@ -207,7 +207,7 @@ export default function Page() {
                                     {friends.length === 0 ? (
                                         <p className={styles.hintLabel}>Invite your friends</p>
                                     ) : (
-                                        friends.map((item, index) => <ListItem key={index} item={item} />)
+                                        friends.map((item, index) => <ListItem teamId={item.group} key={index} item={item} />)
                                     )}
                                 </div>
                             </div>
