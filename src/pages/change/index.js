@@ -92,25 +92,40 @@ export default function Page() {
     }
 
     const changeClan = async () => {
-        if(balance < 1000000) {
-            toast.error("you do not have enough money");
-        } else {
-            try {
-                const response = await axiosInstance.get(`/profile/update-group?groupId=${choose}`)
-                    .then(initResponse => {
-                        const data = initResponse.data;
-                        const initData = {
-                            group: data.group,
-                            farm: data.farm,
-                            balance: data.balance,
-                        };
-                        localStorage.setItem('init', JSON.stringify(initData));
-                    }).then(router.push('/main'))
-            } catch (e) {
-                toast.error(e)
-            }
+        if (balance < 1000000) {
+            toast.error("You do not have enough money");
+            return;
         }
-    }
+        try {
+            const response = await axiosInstance.get(`/profile/update-group?groupId=${choose}`);
+            const data = response.data;
+            if(response.status === 400) {
+                const errorMessage = "You can change your clan only once every 5 days";
+                toast.error(errorMessage);
+                return;
+            }
+            if (data && data.group && data.farm && data.balance !== undefined) {
+                const initData = {
+                    group: data.group,
+                    farm: data.farm,
+                    balance: data.balance,
+                };
+                localStorage.setItem('init', JSON.stringify(initData));
+                router.push('/main');
+            } else {
+                throw new Error('Invalid data received from the server');
+            }
+        } catch (error) {
+            if (error.response && error.response.status === 400) {
+                const errorMessage = error.response.data.message || "Error during clan change";
+                toast.error(errorMessage);
+                return;
+            }
+            toast.error(`Failed to change clan: ${error.message || error}`);
+        }
+    };
+
+
 
     return(
         <div className={styles.root}>
