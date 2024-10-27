@@ -104,13 +104,8 @@ export default function Page() {
                 toast.error(errorMessage);
                 return;
             }
-            if (data && data.group && data.farm && data.balance !== undefined) {
-                const initData = {
-                    group: data.group,
-                    farm: data.farm,
-                    balance: data.balance,
-                };
-                localStorage.setItem('init', JSON.stringify(initData));
+            if (data) {
+                localStorage.setItem('init', JSON.stringify(data));
                 router.push('/main');
             } else {
                 throw new Error('Invalid data received from the server');
