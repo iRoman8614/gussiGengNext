@@ -24,7 +24,7 @@ export const TaskBtn = ({title, subtitle, desc, completed, onClick, readyToCompl
                     {title && <div className={styles.title}>{title}</div>}
                     {subtitle && <div className={styles.subtitle}>{subtitle}</div>}
                 </div>
-                <div className={styles.reward}><Image src={money} width={30} height={25} alt={''} />+{reward}</div>
+                <div className={styles.reward}><Image src={money} width={20} height={16} alt={''} />+{reward}</div>
             </div>
             <div className={styles.desc}>{desc}</div>
             <div>
