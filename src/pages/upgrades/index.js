@@ -437,32 +437,34 @@ export default function Page() {
                                     <h2>
                                         {selectedItem.type === 'limit' ? `limit +${selectedItem.Name}` : `rate +${selectedItem.Name}`}
                                     </h2>
+                                    <p>Card level: {selectedItem.Level}</p>
                                     <p>Cost: {selectedItem.Cost}</p>
                                     <p>Increase per: {selectedItem.IncreasePer}</p>
-                                    <p>Card level: {selectedItem.Level}</p>
-                                    <div className={styles.modalButtons}>
-                                        <button
-                                            className={styles.btnUpgrade}
-                                            onClick={() => {
-                                                if (window.Telegram?.WebApp?.HapticFeedback) {
-                                                    window.Telegram.WebApp.HapticFeedback.impactOccurred('heavy');
-                                                }
-                                                if (selectedItem) {
-                                                    selectedItem.type === 'limit'
-                                                        ? handleLimitUpgrade(selectedItem.Id, selectedItem.Cost)
-                                                        : handleRateUpgrade(selectedItem.Id, selectedItem.Cost);
-                                                }
-                                            }}
-                                            disabled={selectedItem && balance < selectedItem.Cost}
-                                        >
-                                            Upgrade
-                                        </button>
-                                        <button className={styles.btnClose} onClick={closeUpgradeModal}>Close</button>
-                                    </div>
+                                    <p>Current: {selectedItem.Cost}</p>
+                                    <p>Next: {selectedItem.Cost}</p>
                                     {selectedItem && balance < selectedItem.Cost && (
                                         <p className={styles.errorMessage}>Not enough coins available.</p>
                                     )}
                                 </div>
+                            </div>
+                            <button
+                                className={styles.modalBorder}
+                                onClick={() => {
+                                    if (window.Telegram?.WebApp?.HapticFeedback) {
+                                        window.Telegram.WebApp.HapticFeedback.impactOccurred('heavy');
+                                    }
+                                    if (selectedItem) {
+                                        selectedItem.type === 'limit'
+                                            ? handleLimitUpgrade(selectedItem.Id, selectedItem.Cost)
+                                            : handleRateUpgrade(selectedItem.Id, selectedItem.Cost);
+                                    }
+                                }}
+                                disabled={selectedItem && balance < selectedItem.Cost}
+                            >
+                                <div className={styles.modalBtn}>Upgrade</div>
+                            </button>
+                            <div className={styles.modalBorder} onClick={closeUpgradeModal}>
+                                <div className={styles.modalBtn}>Close</div>
                             </div>
                         </div>
                     )}
