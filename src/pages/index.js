@@ -39,6 +39,7 @@ export default function LoaderPage() {
     }, [updateBodyHeight]);
 
     const checkLocalStorageAndRedirect = useCallback(async () => {
+        localStorage.removeItem('GWToken')
         const init = localStorage.getItem('init');
         const start = localStorage.getItem('start');
         const authToken = localStorage.getItem('authToken');
