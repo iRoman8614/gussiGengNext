@@ -71,11 +71,19 @@ export default function Page() {
                 tasks = tasks.map(task => {
                     const isCompleted = completedTasks.includes(task.id);
                     let readyToComplete = false;
+                    let icon = '';
+                    let amount
                     if (task.type === 1 && numFriends >= task.amount && !isCompleted) {
                         readyToComplete = true;
+                        icon = '1';
                     }
                     if (task.type === 5 && stats.victory >= task.amount && !isCompleted) {
                         readyToComplete = true;
+                        icon = '5';
+                        amount = task.amount * 5
+                    }
+                    if (task.type === 2) {
+                        icon = task.name.includes("TG") ? "tg" : task.name.includes("X") ? "x" : '';
                     }
                     const isVisible = task.type === 1 ? task.id <= lastCompletedTaskIdType1 + 1 : true;
                     return {
@@ -85,7 +93,9 @@ export default function Page() {
                         completed: isCompleted,
                         path: task.type === 1 ? '/friends' : '/lobby',
                         visible: isVisible,
-                        readyToComplete: readyToComplete
+                        readyToComplete: readyToComplete,
+                        icon: icon,
+                        amount: amount,
                     };
                 });
 
@@ -413,6 +423,7 @@ export default function Page() {
                                             desc={task.type !== 2 ? `${task.current} / ${task.amount}` : ''}
                                             completed={task.completed}
                                             key={index}
+                                            icon={task.icon}
                                             readyToComplete={task.readyToComplete}
                                             reward={task.reward}
                                             onClick={() => handleTaskClick(task)}

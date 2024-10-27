@@ -6,9 +6,24 @@ import styles from './TaskBtn.module.scss'
 const Arrow = '/Tasks/TaskArrow.png'
 const Complite = '/Tasks/TaskComplited.png'
 const money = '/Tasks/money2.png'
+const Icon1 = '/Tasks/referal.png'
+const Icon5 = '/Tasks/pvp.png'
+const IconTG = '/Tasks/telegram.png'
+const IconX = '/Tasks/twitter.png'
 
-export const TaskBtn = ({title, subtitle, desc, completed, onClick, readyToComplete, reward}) => {
+
+export const TaskBtn = ({title, subtitle, desc, completed, onClick, readyToComplete, reward, icon}) => {
     const [complited, setComplited] = useState(completed)
+
+    const getIconSrc = () => {
+        switch(icon) {
+            case '1': return Icon1;
+            case '5': return Icon5;
+            case 'tg': return IconTG;
+            case 'x': return IconX;
+            default: return '';
+        }
+    }
 
     const handleClick = () => {
         if (window.Telegram?.WebApp?.HapticFeedback) {
@@ -19,6 +34,7 @@ export const TaskBtn = ({title, subtitle, desc, completed, onClick, readyToCompl
 
     return(
         <div className={readyToComplete ? styles.rootReady : styles.root} onClick={handleClick}>
+            <Image className={styles.icon} src={getIconSrc()} alt={''} width={40} height={40} />
             <div className={styles.container}>
                 <div>
                     {title && <div className={styles.title}>{title}</div>}
