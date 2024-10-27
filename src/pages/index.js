@@ -31,7 +31,6 @@ export default function LoaderPage() {
                 const userObject = JSON.parse(decodedUserParam);
                 setUserId(userObject.id);
             }
-
             window.addEventListener('resize', updateBodyHeight);
         } else {
             toast.error("Telegram WebApp недоступен");
@@ -39,7 +38,6 @@ export default function LoaderPage() {
     }, [updateBodyHeight]);
 
     const checkLocalStorageAndRedirect = useCallback(async () => {
-        localStorage.removeItem('GWToken')
         const init = localStorage.getItem('init');
         const start = localStorage.getItem('start');
         const authToken = localStorage.getItem('authToken');
@@ -79,6 +77,15 @@ export default function LoaderPage() {
         if (token) {
             localStorage.setItem('authToken', token);
         }
+        const initData = async(token) => {
+            try {
+                const response = await axiosInstance.get(`/profile/init?token=${token}`);
+                localStorage.setItem('GWToken', response.data.jwt)
+            } catch (e) {
+                console.log(e)
+            }
+        }
+        initData(token)
     }, [router.query]);
 
     useEffect(() => {
