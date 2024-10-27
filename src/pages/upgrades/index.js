@@ -454,7 +454,7 @@ export default function Page() {
                                     <p>Cost: {selectedItem.Cost}</p>
                                     <p>Increase per: {selectedItem.IncreasePer}</p>
                                     <p>on current lvl: {selectedItem.type === 'limit' ? Number(limit).toFixed(2) : Number(rate).toFixed(2)}</p>
-                                    <p>on next lvl: {((selectedItem.type === 'limit' ? Number(limit).toFixed(2) : Number(rate).toFixed(2)) * ((100 + Number(selectedItem.IncreasePer).toFixed(2))/1000)).toFixed(2)}</p>
+                                    <p>on next lvl: {((selectedItem.type === 'limit' ? Number(limit).toFixed(2) : Number(rate).toFixed(2)) * ((100 + Number(selectedItem.IncreasePer).toFixed(2))/100)/10).toFixed(2)}</p>
                                     {selectedItem && balance < selectedItem.Cost && (
                                         <p className={styles.errorMessage}>Not enough coins available.</p>
                                     )}
