@@ -121,7 +121,7 @@ export default function Page() {
                 toast.error(errorMessage);
                 return;
             }
-            toast.error(`Failed to change clan: ${error.message || error}`);
+            toast.error(`You can change your clan only once every 5 days`);
         }
     };
 
