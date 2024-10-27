@@ -178,9 +178,7 @@ export default function Page() {
     const navigateToPage = (path) => {
         router.push(path);
     };
-    const openLink = (url) => {
-        window.open(url, '_blank');
-    };
+
     const handleTaskClick = (task) => {
         if (task.readyToComplete) {
             executeTask(task.id);
