@@ -256,8 +256,8 @@
 }
 
 .modalBorder {
-  padding: 5px;
-  border-radius: 18px;
+  padding: 7px;
+  border-radius: 22px;
   border: none;
   background: linear-gradient(to right, #38246f 0%, #4f5e85 50%, #4c3981 100%);
 }
@@ -276,13 +276,13 @@
 }
 
 .modalUpgrades h2 {
-  font-size: auto-clamp(18, 24);
+  font-size: 40px;
   color: #fff;
   margin-bottom: 10px;
 }
 
 .modalUpgrades p {
-  font-size: auto-clamp(14, 18);
+  font-size: auto-clamp(20, 28);
   color: #fff;
   margin-bottom: 8px;
 }

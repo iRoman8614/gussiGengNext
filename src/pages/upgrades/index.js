@@ -22,6 +22,8 @@ export default function Page() {
     const [balance, setBalance] = useState(0);
     const [activeTab, setActiveTab] = useState(1);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [rate, setRate] = useState(1);
+    const [limit, setLimit] = useState(10800)
 
     const [limitLevels, setLimitLevels] = useState([]);
     const [rateLevels, setRateLevels] = useState([]);
@@ -55,6 +57,17 @@ export default function Page() {
         'speed upgrades',
         'limits upgrades'
     ]
+
+    useEffect(() => {
+        if (typeof window !== "undefined") {
+            const start = JSON.parse(localStorage.getItem("start"));
+            if (start) {
+                setRate(start.rate);
+                setLimit(start.limit);
+                setBalance(start.balance)
+            }
+        }
+    }, []);
 
     useEffect(() => {
         const fetchTasksAndFriends = async () => {
@@ -440,8 +453,8 @@ export default function Page() {
                                     <p>Card level: {selectedItem.Level}</p>
                                     <p>Cost: {selectedItem.Cost}</p>
                                     <p>Increase per: {selectedItem.IncreasePer}</p>
-                                    <p>Current: {selectedItem.Cost}</p>
-                                    <p>Next: {Number(selectedItem.Cost) * (100 + Number(selectedItem.IncreasePer))}</p>
+                                    <p>Current: {selectedItem.type === 'limit' ? limit : rate}</p>
+                                    <p>Next: {Number(selectedItem.type === 'limit' ? limit : rate) * ((100 + Number(selectedItem.IncreasePer))/100)}</p>
                                     {selectedItem && balance < selectedItem.Cost && (
                                         <p className={styles.errorMessage}>Not enough coins available.</p>
                                     )}

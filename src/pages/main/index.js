@@ -58,8 +58,6 @@ export default function Home() {
                     const userObject = JSON.parse(decodedUserParam);
                     console.log("User ID from Telegram:", userObject.id);
                     setUserId(userObject.id);
-                } else {
-                    setUserId(111)
                 }
             }
         }
