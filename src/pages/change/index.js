@@ -97,19 +97,15 @@ export default function Page() {
         } else {
             try {
                 const response = await axiosInstance.get(`/profile/update-group?groupId=${choose}`)
-                    .then(
-                        await axiosInstance.get(`/profile/init?profileId=${userId}`)
-                            .then(initResponse => {
-                                const data = initResponse.data;
-                                const initData = {
-                                    group: data.group,
-                                    farm: data.farm,
-                                    balance: data.balance,
-                                };
-                                localStorage.setItem('init', JSON.stringify(initData));
-                            }).then(router.push('/main'))
-                    )
-                console.log('response', response)
+                    .then(initResponse => {
+                        const data = initResponse.data;
+                        const initData = {
+                            group: data.group,
+                            farm: data.farm,
+                            balance: data.balance,
+                        };
+                        localStorage.setItem('init', JSON.stringify(initData));
+                    }).then(router.push('/main'))
             } catch (e) {
                 toast.error(e)
             }

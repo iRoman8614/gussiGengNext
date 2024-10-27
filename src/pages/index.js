@@ -49,7 +49,6 @@ export default function LoaderPage() {
                 const response = await axiosInstance.get(`/profile/init?profileId=${tgUserId}`);
                 const data = response.data;
                 localStorage.setItem('init', JSON.stringify(data));
-                localStorage.setItem('groupId', data.group.id);
                 await checkStartData();
             } catch (error) {
                 toast.error('Error during init request');
