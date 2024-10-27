@@ -35,11 +35,14 @@
   100% { transform: translate(0); }
 }
 
+.container {
+  width: 100%;
+}
+
 .title {
   font-size: auto-clamp(20, 32);
   line-height: auto-clamp(20, 32);
   color: #fff;
-  width: 100%;
 }
 
 .subtitle {

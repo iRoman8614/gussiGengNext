@@ -19,9 +19,11 @@ export const TaskBtn = ({title, subtitle, desc, completed, onClick, readyToCompl
 
     return(
         <div className={readyToComplete ? styles.rootReady : styles.root} onClick={handleClick}>
-            <div>
-                {title && <div className={styles.title}>{title}</div>}
-                {subtitle && <div className={styles.subtitle}>{subtitle}</div>}
+            <div className={styles.container}>
+                <div>
+                    {title && <div className={styles.title}>{title}</div>}
+                    {subtitle && <div className={styles.subtitle}>{subtitle}</div>}
+                </div>
                 <div className={styles.reward}><Image src={money} width={30} height={25} alt={''} />+{reward}</div>
             </div>
             <div className={styles.desc}>{desc}</div>
