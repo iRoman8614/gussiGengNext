@@ -70,44 +70,34 @@ export default function Page() {
                 setUserName(userObject.username);
             }
         }
-        initData()
+
     }, []);
 
-    const initData = async () => {
+
+    useEffect(() => {
+        initData(userId)
+        fetchStats(userId)
+        fetchFriends();
+    }, [userId]);
+
+    const initData = async (userId) => {
         try {
-            const response = await axiosInstance.get(`/profile/init?profileId=${tgUserId}`);
+            const response = await axiosInstance.get(`/profile/init?profileId=${userId}`);
             const data = response.data;
             setDaily(data.delayEntries)
         } catch (error) {
-            toast.error('Error during init request');
+            console.error(error);
         }
     }
 
-    function getRandomNumber() {
-        return Math.floor(Math.random() * 6) + 1;
-    }
-    useEffect(() => {
-        const level = getRandomNumber()
-        setLevel(level)
-    }, [])
-
-    // Получение profileId из Telegram WebApp
-    useEffect(() => {
-        if (typeof window !== 'undefined' && window.Telegram?.WebApp) {
-            const search = window.Telegram.WebApp.initData;
-            const urlParams = new URLSearchParams(search);
-            const userParam = urlParams.get('user');
-            if (userParam) {
-                const decodedUserParam = decodeURIComponent(userParam);
-                const userObject = JSON.parse(decodedUserParam);
-                setUserId(userObject.id);
-                fetchStats(userObject.id);
-            } else {
-                setUserId(111);
-                fetchStats(111);
-            }
+    const fetchFriends = async () => {
+        try {
+            const response = await axiosInstance.get('/profile/my-invitees');
+            setFriends(response.data);
+        } catch (error) {
+            console.error('Ошибка при загрузке списка друзей:', error);
         }
-    }, []);
+    };
 
     const fetchStats = async (userId) => {
         try {
@@ -137,17 +127,14 @@ export default function Page() {
         }
     };
 
+    function getRandomNumber() {
+        return Math.floor(Math.random() * 6) + 1;
+    }
     useEffect(() => {
-        const fetchFriends = async () => {
-            try {
-                const response = await axiosInstance.get('/profile/my-invitees');
-                setFriends(response.data);
-            } catch (error) {
-                console.error('Ошибка при загрузке списка друзей:', error);
-            }
-        };
-        fetchFriends();
-    }, []);
+        const level = getRandomNumber()
+        setLevel(level)
+    }, [])
+
 
     function formatNumberFromEnd(num) {
         return num.toString().replace(/(\d)(?=(\d{3})+$)/g, "$1 ");
