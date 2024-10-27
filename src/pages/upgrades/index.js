@@ -74,11 +74,9 @@ export default function Page() {
                     let icon = '';
                     if (task.type === 1 && numFriends >= task.amount && !isCompleted) {
                         readyToComplete = true;
-                        icon = 'ref';
                     }
                     if (task.type === 5 && stats.victory >= task.amount && !isCompleted) {
                         readyToComplete = true;
-                        icon = 'pvp';
                     }
                     if (task.type === 2) {
                         icon = task.name.includes("TG") ? "tg" : task.name.includes("X") ? "x" : '';
@@ -422,6 +420,7 @@ export default function Page() {
                                             completed={task.completed}
                                             key={index}
                                             icon={task.icon}
+                                            type={task.type}
                                             readyToComplete={task.readyToComplete}
                                             reward={task.reward}
                                             onClick={() => handleTaskClick(task)}

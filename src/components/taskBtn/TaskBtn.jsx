@@ -12,14 +12,17 @@ const IconTG = '/Tasks/telegram.png'
 const IconX = '/Tasks/twitter.png'
 
 
-export const TaskBtn = ({title, subtitle, desc, completed, onClick, readyToComplete, reward, icon}) => {
+export const TaskBtn = ({title, subtitle, desc, completed, onClick, readyToComplete, reward, icon, type}) => {
     const getIconSrc = () => {
         switch(icon) {
             case 'ref': return Icon1;
             case 'pvp': return Icon5;
             case 'tg': return IconTG;
             case 'x': return IconX;
-            default: return '';
+            default:
+                if (type === 1) return Icon1;
+                if (type === 5) return Icon5;
+                return '';
         }
     }
 
