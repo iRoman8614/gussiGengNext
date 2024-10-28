@@ -456,7 +456,7 @@ export default function Page() {
                             <div className={styles.modalBorder}>
                                 <div className={styles.modalUpgrades}>
                                     <h2>
-                                        {selectedItem.type === 'limit' ? `limit +${selectedItem.Name}` : `rate +${selectedItem.Name}`}
+                                        {selectedItem.type === 'limit' ? `limit +${selectedItem.Name}%` : `rate +${selectedItem.Name}%`}
                                     </h2>
                                     <p>Card level: {selectedItem.Level}</p>
                                     <p>Cost: {selectedItem.Cost}</p>
