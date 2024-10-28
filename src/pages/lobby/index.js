@@ -148,24 +148,22 @@ export default function Page() {
                             <div className={styles.lable}>
                                 {remainingTime > 0 ? (
                                     <div className={styles.timer}>
-                                        {console.log("Remaining Time:", remainingTime)}
                                         {formatTime(remainingTime)}
                                     </div>
                                 ) : (
                                     <>
                                         {sessionsCount < 6 ? (
                                             <div className={styles.timer}>
-                                                {console.log("Sessions Count:", sessionsCount)}
                                                 {5 - sessionsCount} games left
                                             </div>
                                         ) : (
-                                            <div>0 games left</div>
+                                            <div className={styles.timer}>0 games left</div>
                                         )}
                                     </>
                                 )}
                                 <div className={styles.title}>
                                     <div>{passes}</div>
-                                    <p>passes</p>
+                                    <p>pass games</p>
                                 </div>
                             </div>
                             <div className={styles.btn} onClick={() => {
@@ -180,17 +178,19 @@ export default function Page() {
                         </div>}
                     </div>
                     <div>
-                        <div className={styles.hidderRoot}><div className={styles.card}>
-                            <Link href={'/lobby'} className={styles.icon}>
-                                <div>ton</div>
-                                <p>battle</p>
-                                <Image className={styles.logo} src={rich} alt={''} width={150} height={75} />
-                            </Link>
-                            <div className={styles.lable}>
-                                <div className={styles.timer}></div>
-                                <div className={styles.title}>
-                                    <div>1</div>
-                                    <p>ton</p>
+                        <div className={styles.hidderRoot}>
+                            <div className={styles.card}>
+                                <Link href={'/lobby'} className={styles.icon}>
+                                    <div>ton</div>
+                                    <p>battle</p>
+                                    <Image className={styles.logo} src={rich} alt={''} width={150} height={75} />
+                                </Link>
+                                <div className={styles.lable}>
+                                    <div className={styles.timer}><p>{' '}</p></div>
+                                    <div className={styles.title}>
+                                        <div>1</div>
+                                        <p>ton</p>
+                                    </div>
                                 </div>
                                 <div className={styles.btn} onClick={() => {
                                     if (window.Telegram?.WebApp?.HapticFeedback) {
@@ -198,7 +198,7 @@ export default function Page() {
                                     }
                                     setHintTwo(!hintTwo)}}>?</div>
                             </div>
-                        </div></div>
+                        </div>
                         {hintTwo && <div className={styles.hint}>
                             <p>feeling bold?</p>
                             Put your Ton on the line in this high-stakes mode!
