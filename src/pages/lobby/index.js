@@ -142,19 +142,21 @@ export default function Page() {
                                         {formatTime(remainingTime)}
                                     </div>
                                 ) : (
-                                    <>
-                                        {sessionsCount < 6 ? (
-                                            <div className={styles.timer}>
-                                                {5 - sessionsCount} games left
-                                            </div>
-                                        ) : (
-                                            <div className={styles.timer}>0 games left</div>
-                                        )}
-                                    </>
+                                    <div className={styles.timer}><p>{' '}</p></div>
                                 )}
                                 <div className={styles.title}>
-                                    <div>{passes}</div>
-                                    <p>extra games</p>
+                                    {sessionsCount < 6 ? (
+                                        <>
+                                            <div>{5 - sessionsCount}</div>
+                                            <p>games left</p>
+                                        </>
+
+                                    ) : (
+                                        <>
+                                            <div>{passes}</div>
+                                            <p>extra games</p>
+                                        </>)
+                                    }
                                 </div>
                             </div>
                             <div className={styles.btn} onClick={() => {
