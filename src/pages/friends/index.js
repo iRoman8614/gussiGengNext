@@ -37,11 +37,7 @@ export default function Page() {
                 const userObject = JSON.parse(decodedUserParam);
                 setUserId(userObject.id);
                 setUserName(userObject.username);
-            } else {
-                setUserId(111);
-                setUserName('you');
             }
-            const platform = window.Telegram.WebApp.platform;
         }
     }, []);
 

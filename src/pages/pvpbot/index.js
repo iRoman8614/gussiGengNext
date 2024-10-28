@@ -91,7 +91,6 @@ export default function PvpBotPage() {
                 setUserId(userObject.id);
                 setUserName(userObject.username);
             } else {
-                setUserId(111);
                 setUserName('you');
             }
             const randomName = gangsterNames[Math.floor(Math.random() * gangsterNames.length)];

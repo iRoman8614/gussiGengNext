@@ -96,7 +96,6 @@ export default function PvpPage() {
                 setUserId(userObject.id);
                 setUserName(userObject.username);
             } else {
-                setUserId(111)
                 setUserName('you');
             }
         }
@@ -377,7 +376,7 @@ export default function PvpPage() {
                                             <Image
                                                 width={90}
                                                 height={190}
-                                                className={styles.choose}
+                                                className={`${styles.choose} ${styles.invisible}`}
                                                 src={gameOptions[4].logo}
                                                 alt="3"
                                             />
@@ -436,7 +435,7 @@ export default function PvpPage() {
                                             <Image
                                                 width={90}
                                                 height={190}
-                                                className={styles.mychoose}
+                                                className={`${styles.mychoose} ${styles.invisible}`}
                                                 src={gameOptions[4].logo}
                                                 alt="2"
                                             />

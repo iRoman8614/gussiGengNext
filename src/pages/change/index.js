@@ -55,8 +55,6 @@ export default function Page() {
                 const decodedUserParam = decodeURIComponent(userParam);
                 const userObject = JSON.parse(decodedUserParam);
                 setUserId(userObject.id);
-            } else {
-                setUserId(111);
             }
         }
     }, []);

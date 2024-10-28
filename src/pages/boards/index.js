@@ -66,15 +66,12 @@ export default function Page() {
                 const decodedUserParam = decodeURIComponent(userParam);
                 const userObject = JSON.parse(decodedUserParam);
                 setUserId(userObject.id);
-                fetchStats(userObject.id)
-            } else {
-                setUserId(111);
-                fetchStats(111);
+                fetchStats()
             }
         }
     }, []);
 
-    const fetchStats = async (userId) => {
+    const fetchStats = async () => {
         try {
             const response = await axiosInstance.get(`/profile/stats`);
             const data = response.data;

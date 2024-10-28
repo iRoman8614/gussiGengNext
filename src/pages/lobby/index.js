@@ -15,7 +15,6 @@ const rich = '/main-buttons/rich.png';
 export default function Page() {
     const [hintOne, setHintOne] = useState(false)
     const [hintTwo, setHintTwo] = useState(false)
-    const [userId, setUserId] = useState(111);
     const [remainingTime, setRemainingTime] = useState(null);
     const [timerActive, setTimerActive] = useState(false);
     const [sessionsCount, setSessionsCount] = useState(0)
@@ -137,20 +136,16 @@ export default function Page() {
                                 <Image className={styles.logo} src={hands} alt={''} width={150} height={75} />
                             </div>
                             <div className={styles.lable}>
-                                {remainingTime > 0 ? (
+                                {remainingTime > 0 &&
                                     <div className={styles.timer}>
                                         {formatTime(remainingTime)}
-                                    </div>
-                                ) : (
-                                    <div className={styles.timer}><p>{' '}</p></div>
-                                )}
+                                    </div>}
                                 <div className={styles.title}>
                                     {sessionsCount < 6 ? (
                                         <>
                                             <div>{5 - sessionsCount}</div>
                                             <p>games left</p>
                                         </>
-
                                     ) : (
                                         <>
                                             <div>{passes}</div>
