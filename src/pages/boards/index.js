@@ -77,26 +77,9 @@ export default function Page() {
     const fetchStats = async (userId) => {
         try {
             const response = await axiosInstance.get(`/profile/stats`);
-            if (response.status === 400 || response.status === 401 || response.status === 403) {
-                await axiosInstance.get(`/profile/init?profileId=${userId}`)
-                    .then(initResponse => {
-                        const data = initResponse.data;
-                        const token = data.jwt.replace(/"/g, '');
-                        localStorage.setItem('GWToken', token);
-                        console.log("JWT token saved:", token);
-                    })
-                    .catch(error => {
-                        throw error;
-                    });
-                const retryResponse = await axiosInstance.get(`/profile/stats`);
-                const retryData = retryResponse.data;
-                setCurrentWins(retryData.victory);
-                setLiga(retryData.liga);
-            } else {
-                const data = response.data;
-                setCurrentWins(data.victory);
-                setLiga(data.liga);
-            }
+            const data = response.data;
+            setCurrentWins(data.victory);
+            setLiga(data.liga);
         } catch (error) {
             console.error('Ошибка при получении статистики:', error);
         }

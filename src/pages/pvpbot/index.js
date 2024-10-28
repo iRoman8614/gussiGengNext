@@ -12,6 +12,8 @@ import { gameOptions } from '@/mock/optionData';
 
 import styles from '@/styles/Pvp.module.scss';
 import "react-toastify/dist/ReactToastify.css";
+import axios from "@/utils/axios";
+import axiosInstance from "@/utils/axios";
 
 const wins = '/wins.png';
 const background = '/backgrounds/backalley.png'
@@ -150,7 +152,7 @@ export default function PvpBotPage() {
             setPlayerScore(prev => {
                 const newScore = prev + 1;
                 if (newScore === 3) {
-                    setTimeout(() => handleGameEnd(), 3000);
+                    setTimeout(() => handleGameEnd(1), 3000);
                 }
                 return newScore;
             });
@@ -158,7 +160,7 @@ export default function PvpBotPage() {
             setOpponentScore(prev => {
                 const newScore = prev + 1;
                 if (newScore === 3) {
-                    setTimeout(() => handleGameEnd(), 3000);
+                    setTimeout(() => handleGameEnd(0), 3000);
                 }
                 return newScore;
             });
@@ -170,8 +172,18 @@ export default function PvpBotPage() {
         }
     };
 
-    const handleGameEnd = () => {
+    const endBotGame = async (vin) => {
+        try {
+            const response = await axiosInstance.get(`/game/bot?vin=${vin}`);
+            console.log('response', response)
+        } catch (e) {
+        console.log(e)}
+    }
+
+
+    const handleGameEnd = (vin) => {
         setGameEnded(true);
+        endBotGame(vin)
         setTimeout(() => {
             setGameOver(true);
         }, 3000);

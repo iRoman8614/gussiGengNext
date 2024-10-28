@@ -105,11 +105,14 @@ export default function PvpPage() {
     useEffect(() => {
         const startGame = async () => {
             try {
-                const response = await axiosInstance.get(`/game/start?profileId=${userId || 111}`);
+                const response = await axiosInstance.get(`/game/start`);
+                if(response.status === 408) {
+                    router.push('/pvpbot')
+                }
                 if (response.status === 400 || response.status === 504) {
                     toast.error("Pair not found");
                     setTimeout(() => {
-                        router.push('/');
+                        router.push('/main');
                     }, 5000);
                     return;
                 }
@@ -179,7 +182,7 @@ export default function PvpPage() {
             return;
         }
         try {
-            const response = await axiosInstance.get(`/game/answer?profileId=${userId || 111}&sessionId=${sessionId}&answer=${choice}`);
+            const response = await axiosInstance.get(`/game/answer?sessionId=${sessionId}&answer=${choice}`);
             const data = response.data;
             handleRoundResult(data);
         } catch (error) {
@@ -198,7 +201,7 @@ export default function PvpPage() {
                 return;
             }
             try {
-                const response = await axiosInstance.get(`/game/answer?profileId=${userId || 111}&sessionId=${sessionId}&answer=${choice}`);
+                const response = await axiosInstance.get(`/game/answer?sessionId=${sessionId}&answer=${choice}`);
                 const data = response.data;
                 handleRoundResult(data);
             } catch (error) {
