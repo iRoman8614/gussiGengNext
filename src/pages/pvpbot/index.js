@@ -235,7 +235,7 @@ export default function PvpBotPage() {
                                         width={90}
                                         height={190}
                                         className={styles.choose}
-                                        src={gameOptions[4].logo}
+                                        src={gameOptions[4]?.logo}
                                         alt="1"
                                     />
                                 )}
@@ -246,7 +246,7 @@ export default function PvpBotPage() {
                                                 width={90}
                                                 height={190}
                                                 className={styles.choose}
-                                                src={gameOptions[4].logo}
+                                                src={gameOptions[4]?.logo}
                                                 alt="2"
                                             />
                                         )}
@@ -281,7 +281,7 @@ export default function PvpBotPage() {
                                                 width={90}
                                                 height={190}
                                                 className={styles.choose}
-                                                src={gameOptions[4].logo}
+                                                src={gameOptions[4]?.logo}
                                                 alt="3"
                                             />
                                         )}
@@ -290,7 +290,7 @@ export default function PvpBotPage() {
                                                 width={90}
                                                 height={190}
                                                 className={styles.choose}
-                                                src={gameOptions[1].logo}
+                                                src={gameOptions[1]?.logo}
                                                 alt="3"
                                             />
                                         )}
@@ -299,7 +299,7 @@ export default function PvpBotPage() {
                                                 width={90}
                                                 height={190}
                                                 className={styles.choose}
-                                                src={gameOptions[2].logo}
+                                                src={gameOptions[2]?.logo}
                                                 alt="3"
                                             />
                                         )}
@@ -308,7 +308,7 @@ export default function PvpBotPage() {
                                                 width={90}
                                                 height={190}
                                                 className={styles.choose}
-                                                src={gameOptions[3].logo}
+                                                src={gameOptions[3]?.logo}
                                                 alt="3"
                                             />
                                         )}
@@ -316,12 +316,12 @@ export default function PvpBotPage() {
                                 )}
                             </div>
                             <VictoryCounter score={playerScore} />
-                            <IconButton image={teamData[userClan].logo} alt={'gang'} />
+                            <IconButton image={teamData[userClan]?.logo} alt={'gang'} />
                             <div className={styles.roundTimer}>
                                 <Image src={timerBG} alt={'timer'} height={144} width={144} className={styles.roundTimerBG} />
                                 <div className={styles.time}>{timer}</div>
                             </div>
-                            <IconButton image={teamData[oppClan].logo} alt={'gang'} />
+                            <IconButton image={teamData[oppClan]?.logo} alt={'gang'} />
                             <VictoryCounter score={opponentScore} />
                             <div className={styles.optionBg}>
                                 {visibleImage === 0 && (
@@ -329,7 +329,7 @@ export default function PvpBotPage() {
                                         width={90}
                                         height={190}
                                         className={styles.mychoose}
-                                        src={gameOptions[4].logo}
+                                        src={gameOptions[4]?.logo}
                                         alt="1"
                                     />
                                 )}
@@ -340,7 +340,7 @@ export default function PvpBotPage() {
                                                 width={90}
                                                 height={190}
                                                 className={styles.mychoose}
-                                                src={gameOptions[4].logo}
+                                                src={gameOptions[4]?.logo}
                                                 alt="2"
                                             />
                                         )}
@@ -374,7 +374,7 @@ export default function PvpBotPage() {
                                                 width={90}
                                                 height={190}
                                                 className={styles.mychoose}
-                                                src={gameOptions[4].logo}
+                                                src={gameOptions[4]?.logo}
                                                 alt="3"
                                             />
                                         )}
@@ -383,7 +383,7 @@ export default function PvpBotPage() {
                                                 width={90}
                                                 height={190}
                                                 className={styles.mychoose}
-                                                src={gameOptions[1].logo}
+                                                src={gameOptions[1]?.logo}
                                                 alt="3"
                                             />
                                         )}
@@ -392,7 +392,7 @@ export default function PvpBotPage() {
                                                 width={90}
                                                 height={190}
                                                 className={styles.mychoose}
-                                                src={gameOptions[2].logo}
+                                                src={gameOptions[2]?.logo}
                                                 alt="3"
                                             />
                                         )}
@@ -401,7 +401,7 @@ export default function PvpBotPage() {
                                                 width={90}
                                                 height={190}
                                                 className={styles.mychoose}
-                                                src={gameOptions[3].logo}
+                                                src={gameOptions[3]?.logo}
                                                 alt="3"
                                             />
                                         )}
