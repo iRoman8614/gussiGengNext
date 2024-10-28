@@ -4,7 +4,8 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Head from "next/head";
 import MobileGuard from "@/components/guard/Guard";
-import { AssetsCacheProvider } from "@/context/AssetsCacheContext";
+import {AssetsCacheProvider, useAssetsCache} from "@/context/AssetsCacheContext";
+import {useEffect} from "react";
 
 export default function App({ Component, pageProps }) {
     return(
@@ -29,6 +30,59 @@ export default function App({ Component, pageProps }) {
             />
             <MobileGuard />
             <Component {...pageProps} />
+            <BackgroundPreloader />
         </AssetsCacheProvider>
     );
+}
+
+const upgradesCardsAssets = [
+    '/upgradesCards/limit/limit1.png', '/upgradesCards/limit/limit2.png',
+    '/upgradesCards/limit/limit3.png', '/upgradesCards/limit/limit4.png',
+    '/upgradesCards/limit/limit5.png',
+    '/upgradesCards/rate/rate1.png', '/upgradesCards/rate/rate2.png',
+    '/upgradesCards/rate/rate3.png', '/upgradesCards/rate/rate4.png',
+    '/upgradesCards/rate/rate5.png',
+    '/upgradesCards/slider/limitSlide.png', '/upgradesCards/slider/rateSlide.png',
+    '/upgradesCards/Arrow.png', '/upgradesCards/claimBTN.png',
+    '/upgradesCards/claimBTNclicked.png', '/upgradesCards/copy.png',
+    '/upgradesCards/farm_border.png', '/upgradesCards/loadingImg.jpg',
+    '/upgradesCards/money.png', '/upgradesCards/oppNickNameContainer.png',
+    '/upgradesCards/progress.png', '/upgradesCards/qr.png',
+    '/upgradesCards/roundContainer.png', '/upgradesCards/Star.png',
+    '/upgradesCards/timer.png', '/upgradesCards/totalbar.png',
+    '/upgradesCards/wins.png', '/upgradesCards/winsBG.png'
+];
+
+const otherAssets = [
+    '/skins/bg.png', '/skins/bg2.png', '/skins/bg3.png', '/skins/bg4.png',
+    '/skins/bg5.png', '/skins/bg6.png', '/skins/bg7.png',
+    '/skins/gg.png', '/skins/gg2.png', '/skins/gg3.png', '/skins/gg4.png',
+    '/skins/gg5.png', '/skins/gg6.png', '/skins/gg7.png',
+    '/skins/rg.png', '/skins/rg2.png', '/skins/rg3.png', '/skins/rg4.png',
+    '/skins/rg5.png', '/skins/rg6.png', '/skins/rg7.png',
+    '/skins/yg.png', '/skins/yg2.png', '/skins/yg3.png', '/skins/yg4.png',
+    '/skins/yg5.png', '/skins/yg6.png', '/skins/yg7.png',
+    '/Tasks/daily.png', '/Tasks/money2.png', '/Tasks/pvp.png',
+    '/Tasks/referal.png', '/Tasks/TaskArrow.png', '/Tasks/TaskComplited.png',
+    '/Tasks/telegram.png', '/Tasks/twitter.png',
+    '/gangs-logos/blue-logo.png', '/gangs-logos/green-logo.png',
+    '/gangs-logos/red-logo.png', '/gangs-logos/yellow-logo.png',
+    '/listItemsBG/1grbg.png', '/listItemsBG/2bvbg.png', '/listItemsBG/3yfbg.png',
+    '/listItemsBG/4rrbg.png', '/listItemsBG/avaB.png', '/listItemsBG/avaG.png',
+    '/listItemsBG/avaR.png', '/listItemsBG/avaY.png','/random/blueCard.png',
+    '/random/card.png', '/random/dialog.png', '/random/dialog2.png',
+    '/random/greenCard.png', '/random/hand.png', '/random/oneCard.png',
+    '/random/person.png', '/random/redCard.png', '/random/yellowCard.png'
+];
+
+function BackgroundPreloader() {
+    const { preloadAssets } = useAssetsCache();
+
+    useEffect(() => {
+        preloadAssets(gameIconsAssets)
+            .then(() => preloadAssets(upgradesCardsAssets))
+            .then(() => preloadAssets(otherAssets));
+    }, [preloadAssets]);
+
+    return null;
 }

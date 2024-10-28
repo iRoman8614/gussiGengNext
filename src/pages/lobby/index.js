@@ -5,12 +5,27 @@ import Head from "next/head";
 import {useRouter} from "next/router";
 import axiosInstance from "@/utils/axios";
 import {toast} from "react-toastify";
+import { useAssetsCache } from "@/context/AssetsCacheContext";
 
 import styles from '@/styles/Lobby.module.scss'
 
 const bg = '/backgrounds/Lobby.png'
 const hands = '/main-buttons/hand2.png';
 const rich = '/main-buttons/rich.png';
+
+const gameIconsAssets = [
+    '/game-icons/animation_hand_pap.gif',
+    '/game-icons/animation_hand_rock.gif',
+    '/game-icons/animation_hand_sci.gif',
+    '/game-icons/hand_pap.png',
+    '/game-icons/hand_rock.png',
+    '/game-icons/hand_sci.png',
+    '/game-icons/heart.png',
+    '/game-icons/lose.png',
+    '/game-icons/paper.png',
+    '/game-icons/rock.png',
+    '/game-icons/scissors.png'
+];
 
 export default function Page() {
     const [hintOne, setHintOne] = useState(false)
@@ -22,6 +37,11 @@ export default function Page() {
     const [showPassPopup, setShowPassPopup] = useState(false);
 
     const router = useRouter();
+    const { preloadAssets } = useAssetsCache();
+
+    useEffect(() => {
+        preloadAssets(gameIconsAssets);
+    }, [preloadAssets]);
 
     useEffect(() => {
         if (typeof window !== 'undefined' && window.Telegram?.WebApp?.BackButton) {
