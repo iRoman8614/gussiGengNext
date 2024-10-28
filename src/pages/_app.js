@@ -45,18 +45,14 @@ function BackgroundPreloader() {
         '/upgradesCards/rate/rate1.png', '/upgradesCards/rate/rate2.png',
         '/upgradesCards/rate/rate3.png', '/upgradesCards/rate/rate4.png',
         '/upgradesCards/rate/rate5.png',
-        '/upgradesCards/slider/limitSlide.png', '/upgradesCards/slider/rateSlide.png',
-        '/upgradesCards/Arrow.png', '/upgradesCards/claimBTN.png',
-        '/upgradesCards/claimBTNclicked.png', '/upgradesCards/copy.png',
-        '/upgradesCards/farm_border.png', '/upgradesCards/loadingImg.jpg',
-        '/upgradesCards/money.png', '/upgradesCards/oppNickNameContainer.png',
-        '/upgradesCards/progress.png', '/upgradesCards/qr.png',
-        '/upgradesCards/roundContainer.png', '/upgradesCards/Star.png',
-        '/upgradesCards/timer.png', '/upgradesCards/totalbar.png',
-        '/upgradesCards/wins.png', '/upgradesCards/winsBG.png'
+        '/upgradesCards/slider/limitSlide.png', '/upgradesCards/slider/rateSlide.png'
     ];
 
     const otherAssets = [
+        '/Arrow.png', '/claimBTN.png', '/claimBTNclicked.png', '/copy.png',
+        '/farm_border.png', '/money.png', '/oppNickNameContainer.png',
+        '/progress.png', '/qr.png', '/upgradesCards/roundContainer.png',
+        '/Star.png', '/timer.png', '/totalbar.png', '/wins.png',
         '/skins/bg.png', '/skins/bg2.png', '/skins/bg3.png', '/skins/bg4.png',
         '/skins/bg5.png', '/skins/bg6.png', '/skins/bg7.png',
         '/skins/gg.png', '/skins/gg2.png', '/skins/gg3.png', '/skins/gg4.png',
