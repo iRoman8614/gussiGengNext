@@ -96,7 +96,7 @@ export default function PvpPage() {
                 setUserId(userObject.id);
                 setUserName(userObject.username);
             } else {
-                setUserId(111);
+                setUserId(111)
                 setUserName('you');
             }
         }
@@ -172,6 +172,7 @@ export default function PvpPage() {
         if (typeof window !== 'undefined' && userId !== null) {
             startGame();
         }
+        return () => clearTimeout(timeoutId);
     }, [userId]);
 
 
