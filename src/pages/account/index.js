@@ -75,14 +75,15 @@ export default function Page() {
 
 
     useEffect(() => {
-        initData(userId)
+        const authToken = localStorage.getItem('authToken');
+        initData(authToken)
         fetchStats()
         fetchFriends();
     }, [userId]);
 
     const initData = async (userId) => {
         try {
-            const response = await axiosInstance.get(`/profile/init?profileId=${userId}`);
+            const response = await axiosInstance.get(`/profile/init?token=${authToken}`);
             const data = response.data;
             setDaily(data.delayEntries)
         } catch (error) {

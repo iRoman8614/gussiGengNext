@@ -96,33 +96,6 @@ export default function Home() {
                     .then(response => {
                         processCollectResponse(response.data);
                     })
-                    .catch(async (error) => {
-                        if (error?.response?.status === 401 || error?.response?.status === 403) {
-                            console.log("JWT истек, выполняем повторную инициализацию...");
-                            await axiosInstance.get(`/profile/init?profileId=${userId}`)
-                                .then(initResponse => {
-                                    const data = initResponse.data;
-                                    const initData = {
-                                        group: data.group,
-                                        farm: data.farm,
-                                        balance: data.balance,
-                                    };
-                                    localStorage.setItem('init', JSON.stringify(initData));
-                                })
-                                .then(async () => {
-                                    const retryCollectResponse = await axiosInstance.get(`/farm/collect`);
-                                    processCollectResponse(retryCollectResponse.data);
-                                })
-                                .catch(initError => {
-                                    console.error("Ошибка при повторной инициализации:", initError);
-                                    throw initError;
-                                });
-                        } else if (!error.response) {
-                            console.error('Ошибка сети или сервер не отвечает:', error.message);
-                        } else {
-                            console.error('Ошибка при запросе /farm/collect:', error);
-                        }
-                    });
                 setIsClaimClicked(true);
                 setTimeout(() => {
                     setIsClaimClicked(false);

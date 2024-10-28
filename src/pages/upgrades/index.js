@@ -208,7 +208,7 @@ export default function Page() {
                     navigateToPage(task.path);
                     break;
                 case 2:
-                    const url = task.name.includes("tg") ? "https://t.me/gang_wars_game" : "https://x.com/gangwars_game";
+                    const url = task.name.toLowerCase().includes("tg") ? "https://t.me/gang_wars_game" : "https://x.com/gangwars_game";
                     localStorage.setItem(`task_${task.id}_pending`, 'true');
                     window.open(url, '_blank');
                     break;

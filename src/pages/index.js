@@ -41,8 +41,8 @@ export default function LoaderPage() {
         localStorage.removeItem('GWToken')
         const init = localStorage.getItem('init');
         const start = localStorage.getItem('start');
-        const authToken = localStorage.getItem('authToken');
         const myToken = localStorage.getItem('GWToken');
+        const authToken = localStorage.getItem('authToken');
 
         if(!myToken) {
             const response = await axiosInstance.get(`/profile/init?token=${authToken}`);
