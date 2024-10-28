@@ -114,9 +114,8 @@ export default function PvpPage() {
                 const response = await axiosInstance.get(`/game/start`, {
                     signal: controller.signal
                 });
-                if(response.status === 408) {
-                    router.push('/pvpbot')
-                }
+                clearTimeout(timeoutId);
+
                 if (response.status === 400 || response.status === 504) {
                     toast.error("Pair not found");
                     setTimeout(() => {
@@ -153,10 +152,6 @@ export default function PvpPage() {
                 clearTimeout(timeoutId);
             } catch (error) {
                 console.error('Ошибка при запросе /game/start:', error);
-                if (error.name === 'AbortError' || (error.response && error.response.status === 408)) {
-                    console.log("Запрос был отменен из-за тайм-аута");
-                    router.push('/pvpbot');
-                }
                 if (error.response) {
                     const { status } = error.response;
                     if(status === 408) {
