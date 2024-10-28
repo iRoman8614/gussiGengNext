@@ -219,6 +219,7 @@
 }
 
 .banner {
+  box-sizing: border-box;
   width: 124px;
   max-height: 211px;
   padding: 5px;
@@ -230,7 +231,7 @@
 .bannerMid {
   background: rgba(38, 32, 59, 0.87);
   border-radius: 11px;
-  width: 114px;
+  width: 110px;
   max-height: 143px;
   font-size: auto-clamp(18, 22);
   text-align: center;
