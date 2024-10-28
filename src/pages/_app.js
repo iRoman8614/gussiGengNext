@@ -28,7 +28,7 @@ export default function App({ Component, pageProps }) {
                 draggable
                 pauseOnHover
             />
-            <MobileGuard />
+            {/*<MobileGuard />*/}
             <Component {...pageProps} />
             <BackgroundPreloader />
         </AssetsCacheProvider>
@@ -79,8 +79,7 @@ function BackgroundPreloader() {
     const { preloadAssets } = useAssetsCache();
 
     useEffect(() => {
-        preloadAssets(gameIconsAssets)
-            .then(() => preloadAssets(upgradesCardsAssets))
+        preloadAssets(upgradesCardsAsset)
             .then(() => preloadAssets(otherAssets));
     }, [preloadAssets]);
 
