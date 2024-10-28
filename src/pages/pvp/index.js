@@ -142,6 +142,9 @@ export default function PvpPage() {
                 console.error('Ошибка при запросе /game/start:', error);
                 if (error.response) {
                     const { status } = error.response;
+                    if(status === 408) {
+                        router.push('/pvpbot');
+                    }
                     if (status === 400 || status === 504) {
                         toast.error("Pair not found");
                         setTimeout(() => {
