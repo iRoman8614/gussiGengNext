@@ -73,18 +73,7 @@ export default function Page() {
     };
 
     useEffect(() => {
-        if (typeof window !== "undefined" && window.Telegram?.WebApp) {
-            const search = window.Telegram.WebApp.initData;
-            const urlParams = new URLSearchParams(search);
-            const userParam = urlParams.get("user");
-            if (userParam) {
-                const decodedUserParam = decodeURIComponent(userParam);
-                const userObject = JSON.parse(decodedUserParam);
-                console.log("User ID from Telegram:", userObject.id);
-                setUserId(userObject.id);
-                fetchLastGames(userObject.id);
-            }
-        }
+        fetchLastGames();
         fetchStats();
     }, []);
 
@@ -95,6 +84,8 @@ export default function Page() {
             const data = response.data;
             setSessionsCount(data.session.count);
             if (data.session.count < 5) {
+                router.push('/pvp');
+            } else if(data.session.count >= 5 && passes > 0) {
                 router.push('/pvp');
             } else {
                 toast.warn("You have reached the maximum number of games. Please wait for the timer to expire.");
