@@ -51,7 +51,7 @@ function BackgroundPreloader() {
     const otherAssets = [
         '/Arrow.png', '/claimBTN.png', '/claimBTNclicked.png', '/copy.png',
         '/farm_border.png', '/money.png', '/oppNickNameContainer.png',
-        '/progress.png', '/qr.png', '/upgradesCards/roundContainer.png',
+        '/progress.png', '/qr.png', '/roundContainer.png',
         '/Star.png', '/timer.png', '/totalbar.png', '/wins.png',
         '/skins/bg.png', '/skins/bg2.png', '/skins/bg3.png', '/skins/bg4.png',
         '/skins/bg5.png', '/skins/bg6.png', '/skins/bg7.png',
