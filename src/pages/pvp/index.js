@@ -163,6 +163,9 @@ export default function PvpPage() {
                     }
                 }
             }
+            finally {
+                clearTimeout(timeoutId);
+            }
         };
         if (typeof window !== 'undefined' && userId !== null) {
             startGame();
