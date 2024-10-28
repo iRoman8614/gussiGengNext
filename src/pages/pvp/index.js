@@ -103,9 +103,15 @@ export default function PvpPage() {
     }, []);
 
     useEffect(() => {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => {
+            controller.abort();
+        }, 25000);
         const startGame = async () => {
             try {
-                const response = await axiosInstance.get(`/game/start`);
+                const response = await axiosInstance.get(`/game/start`, {
+                    signal: controller.signal
+                });
                 if(response.status === 408) {
                     router.push('/pvpbot')
                 }
@@ -140,6 +146,10 @@ export default function PvpPage() {
                 }
             } catch (error) {
                 console.error('Ошибка при запросе /game/start:', error);
+                if (error.name === 'AbortError') {
+                    console.log("Запрос был отменен из-за тайм-аута");
+                    router.push('/pvpbot');
+                }
                 if (error.response) {
                     const { status } = error.response;
                     if(status === 408) {
@@ -230,36 +240,10 @@ export default function PvpPage() {
         }
     };
 
-    // const showGifSequence = () => {
-    //     const timeouts = [];
-    //     const durations = [0, 2000];
-    //     durations.forEach((duration, index) => {
-    //         timeouts.push(
-    //             setTimeout(() => {
-    //                 setVisibleImage(index + 1);
-    //             }, duration)
-    //         );
-    //     });
-    //     setTimeout(() => {
-    //         if (roundResult) {
-    //             const newPlayerScore = roundResult.userVictory;
-    //             const newOpponentScore = roundResult.opponentVictory;
-    //             setPlayerScore(newPlayerScore);
-    //             setOpponentScore(newOpponentScore);
-    //             if (roundResult.finished === true) {
-    //                 handleGameEnd();
-    //             } else {
-    //                 resetRoundAfterDelay();
-    //             }
-    //         }
-    //     }, 7000); // ожидание второго ответа сервером + 2 секунды на гифку
-    //     return () => timeouts.forEach(timeout => clearTimeout(timeout));
-    // };
-
     const showGifSequence = () => {
         const timeouts = [];
-        const durations = [0, 2000]; // Длительности каждого GIF
-        const totalGifDuration = 2000 + 1000; // Добавляем секунду после завершения анимации GIF
+        const durations = [0, 2000];
+        const totalGifDuration = 2000 + 1000;
         durations.forEach((duration, index) => {
             timeouts.push(
                 setTimeout(() => {
@@ -267,7 +251,6 @@ export default function PvpPage() {
                 }, duration)
             );
         });
-        // Таймаут для завершения GIF-анимации и перехода к следующему раунду или завершению игры
         setTimeout(() => {
             if (roundResult) {
                 const newPlayerScore = roundResult.userVictory;
@@ -276,14 +259,14 @@ export default function PvpPage() {
                 setOpponentScore(newOpponentScore);
 
                 if (roundResult.finished === true) {
-                    handleGameEnd(); // Завершение игры
+                    handleGameEnd();
                 } else {
                     setTimeout(() => {
-                        resetRoundAfterDelay(); // Переход к следующему раунду через 1 секунду после GIF
-                    }, 1000); // Задержка после окончания проигрывания GIF
+                        resetRoundAfterDelay();
+                    }, 1000);
                 }
             }
-        }, totalGifDuration); // Ожидание общего времени проигрывания GIF + 1 секунда
+        }, totalGifDuration);
 
         return () => timeouts.forEach(timeout => clearTimeout(timeout));
     };
