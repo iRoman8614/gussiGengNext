@@ -203,13 +203,11 @@ export default function Page() {
                                 <p className={styles.sign}>{friends.length}/{currentThreshold}</p>
                             </div>
                             <div className={styles.list}>
-                                <div className={styles.list}>
                                     {friends.length === 0 ? (
                                         <p className={styles.hintLabel}>Invite your friends</p>
                                     ) : (
                                         friends.map((item, index) => <ListItem teamId={item.group} key={index} item={item} />)
                                     )}
-                                </div>
                             </div>
                             <div className={styles.buttonset}>
                                 <button className={styles.btnInvite} onClick={inviteClick}>INVITE</button>
