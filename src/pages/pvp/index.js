@@ -125,7 +125,9 @@ export default function PvpPage() {
                     return;
                 }
                 const data = response.data;
-                clearTimeout(timeoutId);
+                if(response.data) {
+                    clearTimeout(timeoutId);
+                }
                 const isPlayer1 = data.player1.id === userId;
                 const userClan = isPlayer1 ? data.player1.group : data.player2.group;
                 const opponentClan = isPlayer1 ? data.player2.group : data.player1.group;
