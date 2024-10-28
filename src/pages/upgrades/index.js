@@ -208,7 +208,7 @@ export default function Page() {
                     navigateToPage(task.path);
                     break;
                 case 2:
-                    const url = task.name.includes("TG") ? "https://t.me/gang_wars_game" : "https://x.com/gangwars_game";
+                    const url = task.name.includes("tg") ? "https://t.me/gang_wars_game" : "https://x.com/gangwars_game";
                     localStorage.setItem(`task_${task.id}_pending`, 'true');
                     window.open(url, '_blank');
                     break;
@@ -354,7 +354,7 @@ export default function Page() {
                                      borderRight:  activeTab === '1' ? '2px solid #3842a4' : 'none',
                                  }}
                                  onClick={() => {
-                                     handleTab(1)
+                                     handleTab('1')
                                      setIsModalOpen(false)
                                  }}>upgrades</div>
                             <div
@@ -364,7 +364,7 @@ export default function Page() {
                                     marginBottom:  activeTab === '2' ? '-0px' : '2px',
                                 }}
                                 onClick={() => {
-                                    handleTab(2)
+                                    handleTab('2')
                                     setIsModalOpen(false)
                                 }}
                             >tasks</div>
@@ -443,7 +443,7 @@ export default function Page() {
                                             icon={task.icon}
                                             type={task.type}
                                             readyToComplete={task.readyToComplete}
-                                            reward={task.reward}
+                                            reward={formatNumberFromEnd(task.reward)}
                                             onClick={() => handleTaskClick(task)}
                                         />
                                     )

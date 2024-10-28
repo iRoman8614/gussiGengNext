@@ -164,7 +164,7 @@ export default function Page() {
                         {' '}<Image src={money} alt={''} width={21} height={21}/>
                     </div>
                 </div>
-                <button className={styles.popUpConfirm} onClick={changeClan}>cofirm</button>
+                <button className={styles.popUpConfirm} onClick={changeClan}>confirm</button>
             </div>}
         </div>
     )

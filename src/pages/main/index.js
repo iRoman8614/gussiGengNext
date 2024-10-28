@@ -29,7 +29,7 @@ export default function Home() {
     const [rate, setRate] = useState(1);
     const [limit, setLimit] = useState(3600)
     const [startFarmTime, setStartFarmTime] = useState(Date.now());
-    const [teamId, setTeamId] = useState(1)
+    const [teamId, setTeamId] = useState(null)
     const [isClaimClicked, setIsClaimClicked] = useState(false);
     const [userId, setUserId] = useState(null);
     const [level, setLevel] = useState(1)
