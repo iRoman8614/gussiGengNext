@@ -154,7 +154,7 @@ export default function Page() {
                                 )}
                                 <div className={styles.title}>
                                     <div>{passes}</div>
-                                    <p>pass games</p>
+                                    <p>extra games</p>
                                 </div>
                             </div>
                             <div className={styles.btn} onClick={() => {
