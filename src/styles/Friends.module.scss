@@ -5,6 +5,7 @@
   min-width: 320px;
   position: relative;
   height: 100vh;
+  background: linear-gradient(180deg, #25253d 0%, #6363a3 100%);
 }
 
 .bg {
@@ -223,6 +224,7 @@
   padding: 5px;
   border-radius: 11px;
   background: linear-gradient(360deg, #38246f 0%, #4f5e85 50%, rgba(76, 57, 129, 0.83) 100%);
+  border: 2px solid #3842a4;
 }
 
 .bannerMid {

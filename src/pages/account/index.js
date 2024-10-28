@@ -10,7 +10,7 @@ import {useRouter} from "next/router";
 import styles from '@/styles/Account.module.scss'
 import {toast} from "react-toastify";
 
-const bg = '/backgrounds/accountBG.png'
+// const bg = '/backgrounds/accountBG.png'
 const money = '/money.png'
 
 export default function Page() {
@@ -137,7 +137,7 @@ export default function Page() {
                 <link rel="preload" href="/money.png" as="image" />
             </Head>
             <div className={styles.root}>
-                <Image src={bg} alt={'bg'} width={450} height={1000} className={styles.bg} />
+                {/*<Image src={bg} alt={'bg'} width={450} height={1000} className={styles.bg} />*/}
                 <div className={styles.container}>
                     <div className={styles.seasonBlock}>
                         <div className={styles.season}>

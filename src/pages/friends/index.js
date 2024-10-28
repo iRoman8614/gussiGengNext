@@ -10,7 +10,7 @@ import styles from '@/styles/Friends.module.scss'
 import Link from "next/link";
 
 
-const bg = '/backgrounds/friendsBG.png'
+// const bg = '/backgrounds/friendsBG.png'
 const copy = '/copy.png'
 const star = '/Star.png'
 const money = '/money.png'
@@ -138,7 +138,7 @@ export default function Page() {
                 <link rel="preload" href="/money.png" as="image" />
             </Head>
             <div className={styles.root}>
-                <Image className={styles.bg} src={bg} alt={'bg'} width={450} height={1000} />
+                {/*<Image className={styles.bg} src={bg} alt={'bg'} width={450} height={1000} />*/}
                 <div className={styles.container}>
                     <div className={styles.bannerSet}>
                         <div className={styles.banner}>

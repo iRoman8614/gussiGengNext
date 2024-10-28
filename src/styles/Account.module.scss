@@ -6,6 +6,7 @@
   position: relative;
   background: black;
   height: 100vh;
+  background: linear-gradient(180deg, #25253d 0%, #6363a3 100%);
 }
 
 .bg {
@@ -64,6 +65,7 @@
   align-items: center;
   padding: 25px;
   margin-bottom: 5px;
+  border: 2px solid #3842a4;
 
   transform: translateY(-100%);
   opacity: 0;

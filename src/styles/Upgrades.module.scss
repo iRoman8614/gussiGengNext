@@ -6,6 +6,7 @@
   position: relative;
   background: black;
   height: 100vh;
+  background: linear-gradient(180deg, #25253d 0%, #6363a3 100%);
 }
 
 .bg {
@@ -29,7 +30,7 @@
 }
 
 .balance {
-  width: auto-clamp(160, 210);
+  width: auto;
   height: 55px;
   border-radius: 11px;
   background: #38246f;
