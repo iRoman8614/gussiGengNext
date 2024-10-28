@@ -195,7 +195,7 @@ export default function Page() {
                                         />
                                     </div>
                                 ) : (
-                                    <Link href="/upgrades" className={styles.barFull}>
+                                    <Link href="/upgrades?tab=2" className={styles.barFull}>
                                         <div className={styles.progressFull} style={{ width: `${progressPercent}%` }}>
                                         </div>
                                     </Link>

@@ -18,9 +18,11 @@ const money = '/money.png'
 
 export default function Page() {
     const router = useRouter();
+    const { tab } = router.query;
+    const [activeTab, setActiveTab] = useState(tab || '1');
+
     const swiperRef = useRef(null);
     const [balance, setBalance] = useState(0);
-    const [activeTab, setActiveTab] = useState(1);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [rate, setRate] = useState(1);
     const [limit, setLimit] = useState(10800)
@@ -293,12 +295,19 @@ export default function Page() {
         }
     }, [router]);
 
-    const handleTab = (tab) => {
-        if (window.Telegram?.WebApp?.HapticFeedback) {
-            window.Telegram.WebApp.HapticFeedback.impactOccurred('heavy');
+    const handleTab = (newTab) => {
+        setActiveTab(newTab);
+        router.push({
+            pathname: router.pathname,
+            query: { ...router.query, tab: newTab },
+        });
+    };
+
+    useEffect(() => {
+        if (tab) {
+            setActiveTab(tab);
         }
-        setActiveTab(tab)
-    }
+    }, [tab]);
 
     const handleSlideChange = (swiper) => {
         setActiveIndex(swiper.realIndex);
@@ -340,9 +349,9 @@ export default function Page() {
                         <div className={styles.buttonSet}>
                             <div className={styles.folderBtnStats}
                                  style={{
-                                     zIndex: activeTab === 1 ? 112 : 110,
-                                     marginBottom:  activeTab === 1 ? '0px' : '-12px',
-                                     borderRight:  activeTab === 1 ? '2px solid #3842a4' : 'none',
+                                     zIndex: activeTab === '1' ? 112 : 110,
+                                     marginBottom:  activeTab === '1' ? '0px' : '-12px',
+                                     borderRight:  activeTab === '1' ? '2px solid #3842a4' : 'none',
                                  }}
                                  onClick={() => {
                                      handleTab(1)
@@ -351,8 +360,8 @@ export default function Page() {
                             <div
                                 className={styles.folderBtnSkins}
                                 style={{
-                                    zIndex: activeTab === 2 ? 113 : 110,
-                                    marginBottom:  activeTab === 2 ? '-0px' : '2px',
+                                    zIndex: activeTab === '2' ? 113 : 110,
+                                    marginBottom:  activeTab === '2' ? '-0px' : '2px',
                                 }}
                                 onClick={() => {
                                     handleTab(2)
@@ -360,7 +369,7 @@ export default function Page() {
                                 }}
                             >tasks</div>
                         </div>
-                        {activeTab === 1 && <div className={styles.personalContainer}>
+                        {activeTab === '1' && <div className={styles.personalContainer}>
                             <div className={styles.warning}>
                                 Upgrades are applied after collecting the current earnings.
                             </div>
@@ -415,7 +424,7 @@ export default function Page() {
                                 </>}
                             </div>
                         </div>}
-                        {activeTab === 2 && <div className={styles.skinContainer}>
+                        {activeTab === '2' && <div className={styles.skinContainer}>
                             <div className={styles.col}>
                                 {/*<div className={styles.label}>Daily</div>*/}
                                 {/*{Tasks.daily.map((task, index) => {*/}
