@@ -179,8 +179,8 @@ export default function Page() {
                                 <div className={styles.lable}>
                                     <div className={styles.timer}><p>{' '}</p></div>
                                     <div className={styles.title}>
-                                        <div>1</div>
-                                        <p>ton</p>
+                                        <div>Soon</div>
+                                        {/*<p>ton</p>*/}
                                     </div>
                                 </div>
                                 <div className={styles.btn} onClick={() => {
