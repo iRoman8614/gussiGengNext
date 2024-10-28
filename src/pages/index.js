@@ -20,32 +20,33 @@ const backgroundAssets = [
 
 const newPlayerAssets = [
     ...backgroundAssets,
-    '/random/blueCard.png',
-    '/random/card.png',
-    '/random/dialog.png',
-    '/random/dialog2.png',
-    '/random/greenCard.png',
-    '/random/hand.png',
-    '/random/oneCard.png',
-    '/random/person.png',
-    '/random/redCard.png',
-    '/random/yellowCard.png'
+    '/random/blueCard.png', '/random/card.png',
+    '/random/dialog.png', '/random/dialog2.png',
+    '/random/greenCard.png', '/random/hand.png',
+    '/random/oneCard.png', '/random/person.png',
+    '/random/redCard.png', '/random/yellowCard.png',
+    '/upgradesCards/limit/limit1.png', '/upgradesCards/limit/limit2.png',
+    '/upgradesCards/limit/limit3.png', '/upgradesCards/limit/limit4.png',
+    '/upgradesCards/limit/limit5.png', '/upgradesCards/rate/rate1.png',
+    '/upgradesCards/rate/rate2.png', '/upgradesCards/rate/rate3.png',
+    '/upgradesCards/rate/rate4.png', '/upgradesCards/rate/rate5.png',
+    '/upgradesCards/slider/limitSlide.png', '/upgradesCards/slider/rateSlide.png'
 ];
 
 const experiencedPlayerAssets = [
     ...backgroundAssets,
-    '/main-buttons/account.png',
-    '/main-buttons/bag.png',
-    '/main-buttons/boards.png',
-    '/main-buttons/FAQ.png',
-    '/main-buttons/friends.png',
-    '/main-buttons/hand2.png',
-    '/main-buttons/hands.png',
-    '/main-buttons/home.png',
-    '/main-buttons/rich.png',
-    '/main-buttons/settings.png',
-    '/main-buttons/upgrades.png',
-    '/main-buttons/wallet.png'
+    '/main-buttons/account.png', '/main-buttons/bag.png',
+    '/main-buttons/boards.png', '/main-buttons/FAQ.png',
+    '/main-buttons/friends.png', '/main-buttons/hand2.png',
+    '/main-buttons/hands.png', '/main-buttons/home.png',
+    '/main-buttons/rich.png', '/main-buttons/settings.png',
+    '/main-buttons/upgrades.png', '/main-buttons/wallet.png',
+    '/upgradesCards/limit/limit1.png', '/upgradesCards/limit/limit2.png',
+    '/upgradesCards/limit/limit3.png', '/upgradesCards/limit/limit4.png',
+    '/upgradesCards/limit/limit5.png', '/upgradesCards/rate/rate1.png',
+    '/upgradesCards/rate/rate2.png', '/upgradesCards/rate/rate3.png',
+    '/upgradesCards/rate/rate4.png', '/upgradesCards/rate/rate5.png',
+    '/upgradesCards/slider/limitSlide.png', '/upgradesCards/slider/rateSlide.png'
 ];
 
 export default function LoaderPage() {
