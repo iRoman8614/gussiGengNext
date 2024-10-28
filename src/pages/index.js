@@ -4,13 +4,53 @@ import Image from 'next/image';
 import Head from "next/head";
 import { toast } from "react-toastify";
 import axiosInstance from '@/utils/axios';
+import { useAssetsCache } from '@/context/AssetsCacheContext';
 
 import styles from '@/styles/Loader.module.scss';
 
 const loaderImage = '/loadingImg.jpg';
 
+const backgroundAssets = [
+    '/backgrounds/backalley.png',
+    '/backgrounds/leaderboardBG.png',
+    '/backgrounds/Lobby.png',
+    '/backgrounds/nightcity.png',
+    '/backgrounds/randomBG.png'
+];
+
+const newPlayerAssets = [
+    ...backgroundAssets,
+    '/random/blueCard.png',
+    '/random/card.png',
+    '/random/dialog.png',
+    '/random/dialog2.png',
+    '/random/greenCard.png',
+    '/random/hand.png',
+    '/random/oneCard.png',
+    '/random/person.png',
+    '/random/redCard.png',
+    '/random/yellowCard.png'
+];
+
+const experiencedPlayerAssets = [
+    ...backgroundAssets,
+    '/main-buttons/account.png',
+    '/main-buttons/bag.png',
+    '/main-buttons/boards.png',
+    '/main-buttons/FAQ.png',
+    '/main-buttons/friends.png',
+    '/main-buttons/hand2.png',
+    '/main-buttons/hands.png',
+    '/main-buttons/home.png',
+    '/main-buttons/rich.png',
+    '/main-buttons/settings.png',
+    '/main-buttons/upgrades.png',
+    '/main-buttons/wallet.png'
+];
+
 export default function LoaderPage() {
     const router = useRouter();
+    const { preloadAssets } = useAssetsCache();
     const [userId, setUserId] = useState(null);
 
     const updateBodyHeight = useCallback(() => {
@@ -60,11 +100,10 @@ export default function LoaderPage() {
             } catch (error) {
                 toast.error('Error during init request');
             }
-        }
-        else if (!start) {
+        } else if (!start) {
             checkStartData();
-        }
-        else {
+        } else {
+            await preloadAssets(experiencedPlayerAssets);
             router.push('/main');
         }
     }, [userId, router]);
@@ -73,6 +112,7 @@ export default function LoaderPage() {
         try {
             const response = await axiosInstance.get(`/farm/start`);
             localStorage.setItem('start', JSON.stringify(response.data));
+            await preloadAssets(newPlayerAssets);
             router.push('/getRandom');
         } catch (error) {
             toast.error('Error during start request');
