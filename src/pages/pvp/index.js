@@ -150,6 +150,7 @@ export default function PvpPage() {
                     const totalVictory = playerVictory + opponentVictory;
                     setRound(totalVictory + 1);
                 }
+                clearTimeout(timeoutId);
             } catch (error) {
                 console.error('Ошибка при запросе /game/start:', error);
                 if (error.name === 'AbortError' || (error.response && error.response.status === 408)) {
