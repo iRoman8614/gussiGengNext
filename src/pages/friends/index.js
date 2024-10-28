@@ -126,7 +126,7 @@ export default function Page() {
         return thresholds[thresholds.length - 1];
     };
 
-    const { currentThreshold } = getCurrentThreshold(friends.length);
+    const currentThreshold = getCurrentThreshold(friends.length);
     const progressPercent = Math.min((friends.length / currentThreshold) * 100, 100);
 
     return(

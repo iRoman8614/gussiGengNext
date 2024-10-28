@@ -48,7 +48,6 @@ export default function LoaderPage() {
             const response = await axiosInstance.get(`/profile/init?token=${authToken}`);
             const data = response.data;
             localStorage.setItem('GWToken', data.jwt)
-            localStorage.setItem('init', JSON.stringify(data));
         }
 
         if (!init) {
