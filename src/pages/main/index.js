@@ -29,7 +29,7 @@ export default function Home() {
     const [rate, setRate] = useState(1);
     const [limit, setLimit] = useState(3600)
     const [startFarmTime, setStartFarmTime] = useState(Date.now());
-    const [teamId, setTeamId] = useState(null)
+    const [teamId, setTeamId] = useState(0)
     const [isClaimClicked, setIsClaimClicked] = useState(false);
     const [userId, setUserId] = useState(null);
     const [level, setLevel] = useState(1)
@@ -231,7 +231,7 @@ export default function Home() {
                     <IconButton image={wallet} alt={'wallet'} title={'wallet'} hidden={true} onClick={() => {router.push('/getRandom')}}/>
                 </div>
                 <div className={styles.item7}>
-                    <Image width={1000} height={1000} className={styles.char} alt={'character'} src={skinData[teamId][level].icon}/>
+                    <Image width={1000} height={1000} className={styles.char} alt={'character'} src={skinData[teamId]?.[level]?.icon}/>
                 </div>
                 <div className={styles.item8}>
                     <CollectBar

@@ -15,6 +15,11 @@ const teamData = {
         Name: 'Red Razors',
         Description: 'Red Razors',
         logo: '/gangs-logos/red-logo.png' },
+    0: {
+        Name: '',
+        Description: '',
+        logo: ''
+    }
 };
 
 export default teamData;
