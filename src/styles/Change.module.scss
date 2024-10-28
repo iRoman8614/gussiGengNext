@@ -46,14 +46,15 @@
   position: absolute;
   bottom: 0;
   z-index: 2;
-  width: auto-clamp(320, 450);
-  height: auto-height(680, 968);
+  margin: auto;
+  width: auto-clamp(230, 450);
+  height: auto-height(495, 968);
 }
 
 .cardSet {
   position: absolute;
   z-index: 3;
-  bottom: auto-height(320, 460);
+  bottom: auto-height(230, 460);
   width: auto-clamp(320, 450);
   height: auto-height(320, 460);
 }
@@ -90,8 +91,8 @@
   position: absolute;
   z-index: 4;
   bottom: 0;
-  width: auto-clamp(320, 450);
-  height: auto-height(320, 460);
+  width: auto-clamp(230, 450);
+  height: auto-height(234, 460);
 }
 
 .myClan {
@@ -99,6 +100,7 @@
   z-index: 5;
   bottom: 5%;
   width: 50%;
+  height: auto;
   margin-left: 25%;
   object-fit: contain;
 }

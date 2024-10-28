@@ -222,7 +222,7 @@ export default function Page() {
                 <ShownCard state={showCard} teamId={teamId} />
                 {showFrase === 2 && <button className={styles.btn} onClick={() => {
                     router.push('/main')
-                }}>CONTinue</button>}
+                }}>continue</button>}
             </div>
         </>
     )

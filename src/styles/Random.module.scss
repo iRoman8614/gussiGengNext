@@ -23,15 +23,15 @@
   position: absolute;
   bottom: 0;
   z-index: 2;
-  width: auto-clamp(320, 450);
-  height: auto-height(680, 968);
+  width: auto-clamp(230, 450);
+  height: auto-height(495, 968);
   animation: slide-in-right 0.5s ease-out forwards;
 }
 
 .cardSet {
   position: absolute;
   z-index: 3;
-  bottom: auto-height(320, 460);
+  bottom: auto-height(230, 460);
   width: auto-clamp(320, 450);
   height: auto-height(320, 460);
   animation: slide-in-right 0.5s ease-out forwards;
@@ -169,8 +169,8 @@
   position: absolute;
   z-index: 4;
   bottom: 0;
-  width: auto-clamp(320, 450);
-  height: auto-height(320, 460);
+  width: auto-clamp(230, 450);
+  height: auto-height(234, 460);
   animation: slide-in-right 0.5s ease-out forwards;
 }
 
@@ -217,7 +217,7 @@
   z-index: 1;
   color: #FFFFFF;
   top: 7px;
-  left: 20px;
+  left: 14px;
 }
 
 .text3 {
@@ -263,7 +263,7 @@
   stroke: rgba(0, 0, 0, 0.39);
   box-shadow: 0 5px 0 0 #69470d;
   z-index: 120;
-  bottom: 10%;
+  bottom: 5%;
   left: 50%;
   transform: translate(-50%, -50%);
   height: 70px;
