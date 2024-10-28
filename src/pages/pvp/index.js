@@ -106,6 +106,8 @@ export default function PvpPage() {
         const controller = new AbortController();
         const timeoutId = setTimeout(() => {
             controller.abort();
+            clearTimeout(timeoutId);
+            router.push('/pvpbot');
         }, 25000);
         const startGame = async () => {
             try {
@@ -134,6 +136,7 @@ export default function PvpPage() {
                 setOpponentName(opponentName);
                 setSessionId(data.sessionId);
                 setIsLoadingPvp(false);
+
                 if (data.currentRound > 1) {
                     const lastAnswerResponse = await axiosInstance.get(`/game/last-answer?sessionId=${data.sessionId}`);
                     const lastAnswerData = lastAnswerResponse.data;
@@ -146,7 +149,7 @@ export default function PvpPage() {
                 }
             } catch (error) {
                 console.error('Ошибка при запросе /game/start:', error);
-                if (error.name === 'AbortError') {
+                if (error.name === 'AbortError' || (error.response && error.response.status === 408)) {
                     console.log("Запрос был отменен из-за тайм-аута");
                     router.push('/pvpbot');
                 }

@@ -12,7 +12,6 @@ import { gameOptions } from '@/mock/optionData';
 
 import styles from '@/styles/Pvp.module.scss';
 import "react-toastify/dist/ReactToastify.css";
-import axios from "@/utils/axios";
 import axiosInstance from "@/utils/axios";
 
 const wins = '/wins.png';
