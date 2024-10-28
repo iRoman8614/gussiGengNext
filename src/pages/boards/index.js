@@ -23,7 +23,7 @@ export default function Page() {
     const [liga, setLiga] = useState(1)
     const [leaderData, setLeaderData] = useState([]);
 
-    const ligsLimits = ['10', '25', '50', '100', '250', '500', '500']
+    const ligsLimits = ['10', '25', '50', '100', '250', '500', '1000']
     const length = currentWins / ligsLimits[activeIndex] * 100
 
     const leadersCache = useRef({});
@@ -191,7 +191,7 @@ export default function Page() {
                 <div className={styles.progressBar}>
                     <div className={styles.progress} style={{width: `${length}%`}}></div>
                 </div>
-                <div className={styles.winsCounter}>{`wins ${currentWins}/${ligsLimits[activeIndex]}`}</div>
+                <div className={styles.winsCounter}>{`wins ${currentWins}/${ligsLimits[activeIndex]}+`}</div>
                 <Image src={bg} alt={''} className={styles.bg} width={450} height={1000} />
                 <div className={styles.container}>
                     {leaderData[activeIndex + 1] && leaderData[activeIndex + 1].length === 0 ? (
