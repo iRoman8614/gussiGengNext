@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import Image from "next/image";
 
 import styles from './TaskBtn.module.scss'
@@ -45,7 +45,7 @@ export const TaskBtn = ({title, subtitle, desc, completed, onClick, readyToCompl
             </div>
             <div className={styles.desc}>{desc}</div>
             <div>
-                {completed === false ? <Image src={Arrow} width={20} height={20} alt={''} /> : <Image src={Complite} width={20} height={20} alt={''} />}
+                {completed === false ? <Image src={Arrow} width={20} height={20} alt={''} /> : <Image src={Complite} width={30} height={30} alt={''} />}
             </div>
         </div>
     )

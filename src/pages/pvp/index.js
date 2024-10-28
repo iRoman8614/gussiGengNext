@@ -229,7 +229,6 @@ export default function PvpPage() {
         sendAnswer();
     };
 
-
     const handleRoundResult = (data) => {
         const { player1, player2, finished } = data;
         const isPlayer1 = player1.id === userId;
@@ -272,10 +271,8 @@ export default function PvpPage() {
                 }
             }
         }, totalGifDuration);
-
         return () => timeouts.forEach(timeout => clearTimeout(timeout));
     };
-
 
     const resetRoundAfterDelay = () => {
         if (playerChoice !== opponentChoice) {

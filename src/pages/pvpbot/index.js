@@ -30,7 +30,6 @@ const scis = '/game-icons/scissors.png'
 
 export default function PvpBotPage() {
     const router = useRouter();
-    const [userId, setUserId] = useState(null);
     const [visibleImage, setVisibleImage] = useState(0);
     const [playerScore, setPlayerScore] = useState(0);
     const [opponentScore, setOpponentScore] = useState(0);
@@ -44,6 +43,7 @@ export default function PvpBotPage() {
     const [userClan, setUserClan] = useState(1);
     const [oppClan, setOppClan] = useState(4);
     const [opponentName, setOpponentName] = useState("biggie smalls")
+    const [resetSequence, setResetSequence] = useState(false);
 
     const playerGifCache = useRef({});
     const opponentGifCache = useRef({});
@@ -88,7 +88,6 @@ export default function PvpBotPage() {
             if (userParam) {
                 const decodedUserParam = decodeURIComponent(userParam);
                 const userObject = JSON.parse(decodedUserParam);
-                setUserId(userObject.id);
                 setUserName(userObject.username);
             } else {
                 setUserName('you');
@@ -178,7 +177,6 @@ export default function PvpBotPage() {
         console.log(e)}
     }
 
-
     const handleGameEnd = (vin) => {
         setGameEnded(true);
         endBotGame(vin)
@@ -190,7 +188,6 @@ export default function PvpBotPage() {
         }, 2000);
     };
 
-    const [resetSequence, setResetSequence] = useState(false);
 
     const resetRoundAfterDelay = () => {
         if(playerChoice !== opponentChoice) {
@@ -202,8 +199,6 @@ export default function PvpBotPage() {
         setVisibleImage(0);
         setResetSequence(!resetSequence);
     };
-
-
 
     return (
         <>

@@ -13,7 +13,6 @@ import 'swiper/css/controller';
 import styles from '@/styles/Upgrades.module.scss'
 import {Controller, Navigation} from "swiper/modules";
 
-// const bg = '/backgrounds/accountBG.png'
 const money = '/money.png'
 
 export default function Page() {
@@ -338,11 +337,9 @@ export default function Page() {
     return (
         <>
             <Head>
-                <link rel="preload" href="/backgrounds/accountBG.png" as="image" />
                 <link rel="preload" href="/money.png" as="image" />
             </Head>
             <div className={styles.root}>
-                {/*<Image src={bg} alt={'bg'} width={450} height={1000} className={styles.bg} />*/}
                 <div className={styles.container}>
                     <div className={styles.balance}>{formatNumberFromEnd(balance)}{' '}<Image src={money} alt={''} width={21} height={21} /></div>
                     <div className={styles.block}>

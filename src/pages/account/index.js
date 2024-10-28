@@ -1,21 +1,19 @@
-import React, {useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import Head from "next/head";
+import {useRouter} from "next/router";
 import Image from "next/image";
 import axiosInstance from '@/utils/axios';
 
 import skinData from '@/mock/skinsData'
 import teamData from "@/mock/teamsData";
-import {useRouter} from "next/router";
 
 import styles from '@/styles/Account.module.scss'
-import {toast} from "react-toastify";
 
-// const bg = '/backgrounds/accountBG.png'
 const money = '/money.png'
 
 export default function Page() {
     const router = useRouter();
-    const [teamId, setTeamId] = useState(1)
+    const [teamId, setTeamId] = useState(null)
     const [level, setLevel] = useState(1)
     const [activeTab, setActiveTab] = useState(1);
     const [userId, setUserId] = useState(null);
@@ -81,7 +79,7 @@ export default function Page() {
         fetchFriends();
     }, [userId]);
 
-    const initData = async (userId) => {
+    const initData = async (authToken) => {
         try {
             const response = await axiosInstance.get(`/profile/init?token=${authToken}`);
             const data = response.data;
@@ -133,11 +131,9 @@ export default function Page() {
     return(
         <>
             <Head>
-                <link rel="preload" href="/backgrounds/accountBG.png" as="image" />
                 <link rel="preload" href="/money.png" as="image" />
             </Head>
             <div className={styles.root}>
-                {/*<Image src={bg} alt={'bg'} width={450} height={1000} className={styles.bg} />*/}
                 <div className={styles.container}>
                     <div className={styles.seasonBlock}>
                         <div className={styles.season}>
@@ -145,8 +141,8 @@ export default function Page() {
                             {userName}
                         </div>
                         <div className={styles.avatarContainer}>
-                            <Image className={styles.logo} src={teamData[teamId].logo} alt={''} width={40} height={40} />
-                            <Image className={styles.character} src={skinData[teamId][level].icon} alt={''} width={100} height={178} />
+                            <Image className={styles.logo} src={teamData[teamId]?.logo} alt={''} width={40} height={40} />
+                            <Image className={styles.character} src={skinData[teamId]?.[level]?.icon} alt={''} width={100} height={178} />
                         </div>
                     </div>
                     <div className={styles.block}>

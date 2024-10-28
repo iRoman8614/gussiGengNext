@@ -31,7 +31,6 @@ export default function Home() {
     const [startFarmTime, setStartFarmTime] = useState(Date.now());
     const [teamId, setTeamId] = useState(0)
     const [isClaimClicked, setIsClaimClicked] = useState(false);
-    const [userId, setUserId] = useState(null);
     const [level, setLevel] = useState(1)
 
     useEffect(() => {
@@ -48,17 +47,6 @@ export default function Home() {
                 setLimit(start.limit);
                 setBalance(start.balance)
                 setStartFarmTime(new Date(start.startTime).getTime());
-            }
-            if (window.Telegram?.WebApp) {
-                const search = window.Telegram.WebApp.initData;
-                const urlParams = new URLSearchParams(search);
-                const userParam = urlParams.get("user");
-                if (userParam) {
-                    const decodedUserParam = decodeURIComponent(userParam);
-                    const userObject = JSON.parse(decodedUserParam);
-                    console.log("User ID from Telegram:", userObject.id);
-                    setUserId(userObject.id);
-                }
             }
         }
     }, []);
@@ -106,8 +94,6 @@ export default function Home() {
         }
     };
 
-
-// Обработка данных collect и вызов /farm/start
     const processCollectResponse = (collectData) => {
         const updatedTotalCoins = Math.max(collectData.totalCoins, 0);
         setTotalCoins(updatedTotalCoins);

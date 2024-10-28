@@ -1,12 +1,12 @@
-import React, {useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 import Image from "next/image";
+import Link from "next/link";
 import Head from "next/head";
 import {useRouter} from "next/router";
 import axiosInstance from "@/utils/axios";
+import {toast} from "react-toastify";
 
 import styles from '@/styles/Lobby.module.scss'
-import {toast} from "react-toastify";
-import Link from "next/link";
 
 const bg = '/backgrounds/Lobby.png'
 const hands = '/main-buttons/hand2.png';
@@ -109,7 +109,6 @@ export default function Page() {
         setShowPassPopup(false);
         router.push('/pvp');
     };
-
 
     const formatTime = (ms) => {
         const hours = Math.floor(ms / (1000 * 60 * 60));

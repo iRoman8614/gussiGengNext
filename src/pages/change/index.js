@@ -1,11 +1,12 @@
-import styles from '@/styles/Change.module.scss'
+import {useEffect, useState} from "react";
 import Image from "next/image";
-import React, {useEffect, useState} from "react";
+import {useRouter} from "next/router";
 import { toast } from 'react-toastify';
 
 import teamData from '@/mock/teamsData'
 import axiosInstance from "@/utils/axios";
-import {useRouter} from "next/router";
+
+import styles from '@/styles/Change.module.scss'
 
 const bg = '/backgrounds/randomBG.png'
 const dialog = '/random/dialog.png'
@@ -19,7 +20,6 @@ export default function Page() {
     const[choose, setChoose] = useState(null)
     const[balance, setBalance] = useState(0)
     const[teamId, setTeamId] = useState(3)
-    const [userId, setUserId] = useState(null);
 
     useEffect(() => {
         if (typeof window !== 'undefined') {
@@ -45,19 +45,6 @@ export default function Page() {
             };
         }
     }, [router]);
-
-    useEffect(() => {
-        if (typeof window !== 'undefined' && window.Telegram?.WebApp) {
-            const search = window.Telegram.WebApp.initData;
-            const urlParams = new URLSearchParams(search);
-            const userParam = urlParams.get('user');
-            if (userParam) {
-                const decodedUserParam = decodeURIComponent(userParam);
-                const userObject = JSON.parse(decodedUserParam);
-                setUserId(userObject.id);
-            }
-        }
-    }, []);
 
     const userTeam = teamId
     const cards = [

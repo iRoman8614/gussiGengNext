@@ -9,8 +9,6 @@ import {ListItem} from "@/components/ListItem/ListItem";
 import styles from '@/styles/Friends.module.scss'
 import Link from "next/link";
 
-
-// const bg = '/backgrounds/friendsBG.png'
 const copy = '/copy.png'
 const star = '/Star.png'
 const money = '/money.png'
@@ -20,7 +18,6 @@ const link = 'https://t.me/gwtestbot_bot'
 
 export default function Page() {
     const [userId, setUserId] = useState(null);
-    const [userName, setUserName] = useState('');
     const [activeTab, setActiveTab] = useState(1);
     const [friends, setFriends] = useState([]);
 
@@ -31,12 +28,10 @@ export default function Page() {
             const search = window.Telegram.WebApp.initData;
             const urlParams = new URLSearchParams(search);
             const userParam = urlParams.get('user');
-
             if (userParam) {
                 const decodedUserParam = decodeURIComponent(userParam);
                 const userObject = JSON.parse(decodedUserParam);
                 setUserId(userObject.id);
-                setUserName(userObject.username);
             }
         }
     }, []);
@@ -128,13 +123,11 @@ export default function Page() {
     return(
         <>
             <Head>
-                <link rel="preload" href="/backgrounds/friendsBG.png" as="image" />
                 <link rel="preload" href="/copy.png" as="image" />
                 <link rel="preload" href="/Star.png" as="image" />
                 <link rel="preload" href="/money.png" as="image" />
             </Head>
             <div className={styles.root}>
-                {/*<Image className={styles.bg} src={bg} alt={'bg'} width={450} height={1000} />*/}
                 <div className={styles.container}>
                     <div className={styles.bannerSet}>
                         <div className={styles.banner}>

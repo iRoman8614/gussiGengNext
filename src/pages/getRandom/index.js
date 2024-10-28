@@ -1,7 +1,8 @@
-import React, {useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import Image from "next/image";
 import Head from "next/head";
 import {useRouter} from "next/router";
+import gangs from '@/mock/teamsData'
 
 import styles from '@/styles/Random.module.scss'
 
@@ -11,8 +12,6 @@ const hand = '/random/hand.png'
 const dialog = '/random/dialog.png'
 const dialog2 = '/random/dialog2.png'
 const oneCard = '/random/oneCard.png'
-
-import gangs from '@/mock/teamsData'
 
 export default function Page() {
     const router = useRouter();

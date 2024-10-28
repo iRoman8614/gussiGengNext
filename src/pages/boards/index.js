@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useRef, useState} from "react";
+import {useCallback, useEffect, useRef, useState} from "react";
 import Image from "next/image";
 import Head from "next/head";
 import {useRouter} from "next/router";
@@ -17,9 +17,8 @@ const bg = '/backgrounds/leaderboardBG.png'
 export default function Page() {
     const router = useRouter();
     const [activeIndex, setActiveIndex] = useState(0);
-    const [teamId, setTeamId] = useState(1)
+    const [teamId, setTeamId] = useState(null)
     const [currentWins, setCurrentWins] = useState(0)
-    const [userId, setUserId] = useState(null);
     const [liga, setLiga] = useState(1)
     const [leaderData, setLeaderData] = useState([]);
 
@@ -36,7 +35,6 @@ export default function Page() {
             }));
             return;
         }
-
         try {
             const response = await axiosInstance.get(`/profile/leaders?liga=${liga}`);
             const data = response.data;
@@ -58,17 +56,7 @@ export default function Page() {
     }, [activeIndex, leaderData, fetchLeaderboard]);
 
     useEffect(() => {
-        if (typeof window !== 'undefined' && window.Telegram?.WebApp) {
-            const search = window.Telegram.WebApp.initData;
-            const urlParams = new URLSearchParams(search);
-            const userParam = urlParams.get('user');
-            if (userParam) {
-                const decodedUserParam = decodeURIComponent(userParam);
-                const userObject = JSON.parse(decodedUserParam);
-                setUserId(userObject.id);
-                fetchStats()
-            }
-        }
+        fetchStats()
     }, []);
 
     const fetchStats = async () => {
@@ -156,7 +144,7 @@ export default function Page() {
                         onSlideChange={handleSlideChange}
                         className={styles.swiper}
                     >
-                        {skinData[teamId].map((character, index) => (
+                        {skinData[teamId]?.map((character, index) => (
                             <SwiperSlide
                                 key={index}
                                 className={index === activeIndex ? styles.activeSlide : styles.inactiveSlide}
