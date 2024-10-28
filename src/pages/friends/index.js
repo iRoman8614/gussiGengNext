@@ -117,23 +117,17 @@ export default function Page() {
 
     const thresholds = [1, 3, 5, 10, 25, 50, 100];
 
-    const getCurrentAndNextThreshold = (numFriends) => {
-        let currentThreshold = thresholds[0];
-        let nextThreshold = thresholds[1];
-
+    const getCurrentThreshold = (friendsCount) => {
         for (let i = 0; i < thresholds.length; i++) {
-            if (numFriends >= thresholds[i]) {
-                currentThreshold = thresholds[i];
-                nextThreshold = thresholds[i + 1] || currentThreshold;
-            } else {
-                break;
+            if (friendsCount <= thresholds[i]) {
+                return thresholds[i];
             }
         }
-        return { currentThreshold };
+        return thresholds[thresholds.length - 1];
     };
 
-    const { currentThreshold } = getCurrentAndNextThreshold(friends.length);
-    const progressPercent = (friends.length / currentThreshold) * 100
+    const { currentThreshold } = getCurrentThreshold(friends.length);
+    const progressPercent = Math.min((friends.length / currentThreshold) * 100, 100);
 
     return(
         <>

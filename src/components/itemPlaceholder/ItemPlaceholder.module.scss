@@ -1,10 +1,10 @@
 @import "../../styles/_utils.scss";
 
 .root {
-  width: auto-clamp(213, 313);
+  width: auto-clamp(193, 293);
   height: auto;
   border-radius: 7px;
-  background: linear-gradient(360deg, #1d002f 0%, #4f5e85 50.5%, rgba(255, 206, 204, 0.83) 100%);
+  background: linear-gradient(360deg, rgba(29, 0, 47, 0.8) 0%, rgba(79, 94, 133, 0.8) 50.5%, rgba(255, 206, 204, 0.66) 100%);
   box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
   display: flex;
   flex-direction: column;
