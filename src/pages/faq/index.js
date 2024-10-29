@@ -51,6 +51,10 @@ export default function Page() {
             text: 'pvp screen',
             link: '/faq/pvp'
         },
+        {
+            text: 'back to game',
+            link: '/main'
+        },
     ]
 
     const swiperRef = useRef(null);

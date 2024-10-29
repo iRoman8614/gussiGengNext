@@ -181,7 +181,6 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 25px;
   padding: 5px;
 }
 
@@ -190,6 +189,9 @@
 }
 
 .navRight {
+  padding: 5px;
+  display: flex;
+  align-self: center;
   width: 50px;
   z-index: 2;
   background: transparent;
@@ -202,6 +204,9 @@
 }
 
 .navLeft {
+  padding: 5px;
+  display: flex;
+  align-self: center;
   width: 50px;
   z-index: 2;
   background: transparent;

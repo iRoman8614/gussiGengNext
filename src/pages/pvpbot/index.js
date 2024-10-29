@@ -1,8 +1,6 @@
 import {useEffect, useRef, useState} from "react";
 import Image from "next/image";
 import { useRouter } from 'next/router';
-import Head from 'next/head';
-
 import { IconButton } from "@/components/buttons/icon-btn/IconButton.jsx";
 import {PvpBtn} from "@/components/buttons/PvpBtn/PvpBtn";
 
