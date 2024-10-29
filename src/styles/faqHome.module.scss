@@ -1,3 +1,5 @@
+@import './_utils';
+
 .root {
   height: 100vh;
   min-width: 319px;
@@ -175,7 +177,7 @@
   background: #4c3981;
   height: 30%;
   border-radius: 18px;
-  margin: 5px;
+  margin: 5px 5px 65px 5px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -245,14 +247,14 @@
   justify-content: space-around;
   color: #FFFFFF;
   font-family: 'Oswald';
-  font-size: auto-clamp(20, 24);
+  font-size: auto-clamp(16, 24);
 
   div:first-child {
     padding-left: 15px;
   }
 
   div:last-child {
-      padding-left: 115px;
+      padding-left: auto-clamp(0, 80);
   }
 }
 
