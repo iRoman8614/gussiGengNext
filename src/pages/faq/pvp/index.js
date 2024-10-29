@@ -112,7 +112,7 @@ export default function PvpBotPage() {
                 </div>
             </div>
             <div className={styles.filter}>
-                <div className={slide === 4 ? `${styles.tutorial4} ${styles.visible}` : styles.tutorial}>
+                <div className={slide === 4 ? styles.tutorial4 : styles.tutorial}>
                     <div className={styles.col}>
                         <div className={styles.dot}>1</div>
                         <div className={styles.navLeft} onClick={prevSlide}>
