@@ -140,9 +140,9 @@ export default function Home() {
                 <div className={styles.tutorial}>
                     <div className={styles.col}>
                         <div className={styles.dot}>.</div>
-                        <button className={styles.navLeft} onClick={prevSlide}>
+                        <div className={styles.navLeft} onClick={prevSlide}>
                             <Image src={'/ArrowWhite.png'} alt={''} width={24} height={24} />
-                        </button>
+                        </div>
                         <div className={styles.dot}>.</div>
                     </div>
                     <div className={styles.caption}>
@@ -150,9 +150,9 @@ export default function Home() {
                     </div>
                     <div className={styles.col}>
                         <div className={styles.dot}>.</div>
-                        <button className={styles.navRight} onClick={nextSlide}>
+                        <div className={styles.navRight} onClick={nextSlide}>
                             <Image src={'/ArrowWhite.png'} alt={''} width={24} height={24} />
-                        </button>
+                        </div>
                         <div className={styles.pagination}>{slide+1}/7</div>
                     </div>
                 </div>
