@@ -107,7 +107,7 @@ export default function PvpPage() {
             controller.abort();
             clearTimeout(timeoutId);
             router.push('/pvpbot');
-        }, 25000);
+        }, 10000);
         const startGame = async () => {
             try {
                 const response = await axiosInstance.get(`/game/start`, {
@@ -522,7 +522,7 @@ const WinningScreen = ({ userName, playerScore, opponentName  }) => (
                     {playerScore === 3 ? userName : opponentName}
                 </div>
                 <Image width={204} height={151} className={styles.winsImage} src={wins} alt={'wins'}  />
-                <p className={styles.winnerName}>+5% FaRM RaTE </p>
+                <p className={styles.winnerName}>+5% farm</p>
             </div>
         </div>
     </div>
