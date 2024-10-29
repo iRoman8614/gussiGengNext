@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useRouter} from "next/router";
 import Image from "next/image";
-import Head from "next/head";
 import axiosInstance from '@/utils/axios';
 import { toast } from 'react-toastify';
 import {ListItem} from "@/components/ListItem/ListItem";
@@ -121,13 +120,7 @@ export default function Page() {
     const progressPercent = Math.min((friends.length / currentThreshold) * 100, 100);
 
     return(
-        <>
-            <Head>
-                <link rel="preload" href="/copy.png" as="image" />
-                <link rel="preload" href="/Star.png" as="image" />
-                <link rel="preload" href="/money.png" as="image" />
-            </Head>
-            <div className={styles.root}>
+        <div className={styles.root}>
                 <div className={styles.container}>
                     <div className={styles.bannerSet}>
                         <div className={styles.banner}>
@@ -243,6 +236,5 @@ export default function Page() {
                     </div>
                 </div>
             </div>
-        </>
     )
 }

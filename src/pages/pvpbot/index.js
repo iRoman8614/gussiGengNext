@@ -202,20 +202,6 @@ export default function PvpBotPage() {
 
     return (
         <>
-            <Head>
-                <link rel="preload" href="/wins.png" as="image" />
-                <link rel="preload" href="/backgrounds/backalley.png" as="image" />
-                <link rel="preload" href="/timer.png" as="image" />
-                <link rel="preload" href="/game-icons/heart.png" as="image" />
-                <link rel="preload" href="/game-icons/lose.png" as="image" />
-                <link rel="preload" href="/game-icons/animation_hand_rock.gif" as="image" />
-                <link rel="preload" href="/game-icons/animation_hand_sci.gif" as="image" />
-                <link rel="preload" href="/game-icons/animation_hand_pap.gif" as="image" />
-                <link rel="preload" href="/oppNickNameContainer.png" as="image" />
-                <link rel="preload" href="/roundContainer.png" as="image" />
-                <link rel="preload" href="/winsBG.png" as="image" />
-            </Head>
-            <>
                 {gameEnded && <WinningScreen userName={userName} playerScore={playerScore} opponentName={opponentName} />}
                     <div className={styles.root}>
                         <Image className={styles.background} src={background} width={300} height={1000} alt={'bg'} priority />
@@ -413,7 +399,6 @@ export default function PvpBotPage() {
                         </div>
                     </div>
             </>
-        </>
     )
 }
 

@@ -1,6 +1,5 @@
 import {useEffect, useState} from "react";
 import Image from "next/image";
-import Head from "next/head";
 import {useRouter} from "next/router";
 import gangs from '@/mock/teamsData'
 
@@ -127,20 +126,7 @@ export default function Page() {
     };
 
     return(
-        <>
-            <Head>
-                <link rel="preload" href="/backgrounds/randomBG.png" as="image" />
-                <link rel="preload" href="/random/person.png" as="image" />
-                <link rel="preload" href="/random/hand.png" as="image" />
-                <link rel="preload" href="/random/dialog.png" as="image" />
-                <link rel="preload" href="/random/dialog2.png" as="image" />
-                <link rel="preload" href="/random/oneCard.png" as="image" />
-                <link rel="preload" href="/random/greenCard.png" as="image" />
-                <link rel="preload" href="/random/blueCard.png" as="image" />
-                <link rel="preload" href="/random/yellowCard.png" as="image" />
-                <link rel="preload" href="/random/redCard.png" as="image" />
-            </Head>
-            <div className={styles.root}>
+        <div className={styles.root}>
                 <Image className={styles.bg} src={bg} alt={'bg'} width={450} height={1000} />
                 {showFrase === 0 && <div className={styles.dialog}>
                     <Image src={dialog} className={styles.dialogImage} width={200} height={100} alt={''}/>
@@ -220,9 +206,8 @@ export default function Page() {
                 <Image src={hand} className={styles.hand} width={450} height={1000} alt={''} priority />
                 <ShownCard state={showCard} teamId={teamId} />
                 {showFrase === 2 && <button className={styles.btn} onClick={() => {
-                    router.push('/main')
+                    router.push('/faq')
                 }}>continue</button>}
             </div>
-        </>
     )
 }

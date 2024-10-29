@@ -335,11 +335,7 @@ export default function Page() {
     }
 
     return (
-        <>
-            <Head>
-                <link rel="preload" href="/money.png" as="image" />
-            </Head>
-            <div className={styles.root}>
+        <div className={styles.root}>
                 <div className={styles.container}>
                     <div className={styles.balance}>{formatNumberFromEnd(balance)}{' '}<Image src={money} alt={''} width={21} height={21} /></div>
                     <div className={styles.block}>
@@ -489,6 +485,5 @@ export default function Page() {
                     </div>}
                 </div>
             </div>
-        </>
     );
 };

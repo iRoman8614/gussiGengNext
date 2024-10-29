@@ -8,16 +8,10 @@ const bg = '/backgrounds/randomBG.png'
 
 export default function QrPage() {
     return (
-        <>
-            <Head>
-                <link rel="preload" href="/qr.png" as="image" />
-                <link rel="preload" href="/backgrounds/randomBG.png" as="image" />
-            </Head>
-            <div className={styles.placeholder}>
-                <h2>Play on your mobile</h2>
-                <Image className={styles.qr} src={qr} alt="QR Code" width={200} height={200} />
-                <h2>@gwprod_bot</h2>
-            </div>
-        </>
+        <div className={styles.placeholder}>
+            <h2>Play on your mobile</h2>
+            <Image className={styles.qr} src={qr} alt="QR Code" width={200} height={200} />
+            <h2>@gwprod_bot</h2>
+        </div>
     );
 }

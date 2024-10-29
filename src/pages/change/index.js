@@ -105,8 +105,6 @@ export default function Page() {
         }
     };
 
-
-
     return(
         <div className={styles.root}>
             <Image className={styles.bg} src={bg} alt={''} width={450} height={968} />

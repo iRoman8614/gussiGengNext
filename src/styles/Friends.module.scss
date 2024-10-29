@@ -1,4 +1,8 @@
 @import './_utils';
+@font-face {
+  font-family: 'Oswald';
+  src: url("../pages/fonts/Oswald.ttf");
+}
 
 .root {
   max-width: 450px;
@@ -69,12 +73,17 @@
 }
 
 .listInfo {
+  font-family: 'Oswald';
   display: flex;
   flex-direction: column;
   gap: auto-clamp(5, 25);
   max-height: 300px;
   height: auto;
   margin-bottom: 20px;
+
+  div {
+    font-size: auto-clamp(18, 24);;
+  }
 }
 
 .buttonset {
@@ -85,6 +94,7 @@
 }
 
 .btnInvite, .btnCopy {
+  font-family: 'Pricedown' !important;
   border-radius: 11px;
   border: none;
   cursor: pointer;

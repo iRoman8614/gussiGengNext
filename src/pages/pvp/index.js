@@ -298,19 +298,6 @@ export default function PvpPage() {
 
     return (
         <>
-            <Head>
-                <link rel="preload" href="/wins.png" as="image" />
-                <link rel="preload" href="/backgrounds/backalley.png" as="image" />
-                <link rel="preload" href="/timer.png" as="image" />
-                <link rel="preload" href="/game-icons/heart.png" as="image" />
-                <link rel="preload" href="/game-icons/lose.png" as="image" />
-                <link rel="preload" href="/game-icons/animation_hand_rock.gif" as="image" />
-                <link rel="preload" href="/game-icons/animation_hand_sci.gif" as="image" />
-                <link rel="preload" href="/game-icons/animation_hand_pap.gif" as="image" />
-                <link rel="preload" href="/oppNickNameContainer.png" as="image" />
-                <link rel="preload" href="/roundContainer.png" as="image" />
-                <link rel="preload" href="/winsBG.png" as="image" />
-            </Head>
             {isLoadingPvp ? (
                 <LoaderGif />
             ) : (

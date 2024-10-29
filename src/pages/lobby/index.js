@@ -1,7 +1,6 @@
 import {useEffect, useState} from 'react';
 import Image from "next/image";
 import Link from "next/link";
-import Head from "next/head";
 import {useRouter} from "next/router";
 import axiosInstance from "@/utils/axios";
 import {toast} from "react-toastify";
@@ -138,13 +137,7 @@ export default function Page() {
     };
 
     return (
-        <>
-            <Head>
-                <link rel="preload" href="/backgrounds/Lobby.png" as="image" />
-                <link rel="preload" href="/main-buttons/hand2.png" as="image" />
-                <link rel="preload" href="/main-buttons/rich.png" as="image" />
-            </Head>
-            <div className={styles.root}>
+        <div className={styles.root}>
                 <Image className={styles.image} src={bg} alt={''} width={450} height={1000} />
                 <div className={styles.container}>
                     <div>
@@ -220,7 +213,5 @@ export default function Page() {
                     )}
                 </div>
             </div>
-        </>
-
     );
 };

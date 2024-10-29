@@ -1,6 +1,5 @@
 import {useEffect, useState} from "react";
 import Image from "next/image";
-import Head from "next/head";
 import {useRouter} from "next/router";
 import {IconButton} from "@/components/buttons/icon-btn/IconButton";
 import {NavBar} from "@/components/nav-bar/NavBar";
@@ -157,18 +156,7 @@ export default function Home() {
     const currentWidth = (currentFarmCoins / limit) * maxWidth;
 
     return (
-        <>
-            <Head>
-                <link rel="preload" href="/main-buttons/account.png" as="image" />
-                <link rel="preload" href="/main-buttons/settings.png" as="image" />
-                <link rel="preload" href="/main-buttons/boards.png" as="image" />
-                <link rel="preload" href="/main-buttons/wallet.png" as="image" />
-                <link rel="preload" href="/claimBTN.png" as="image" />
-                <link rel="preload" href="/claimBTNclicked.png" as="image" />
-                <link rel="preload" href="/totalbar.png" as="image" />
-                <link rel="preload" href="/backgrounds/nightcity.png" as="image" />
-            </Head>
-            <div className={styles.root}>
+        <div className={styles.root}>
                 <Image className={styles.background} src={background} width={300} height={1000}  alt={'bg'}/>
                 <div className={styles.item1}>
                     <IconButton image={account} alt={'account'} title={'account'}  onClick={() => {router.push('/account')}}/>
@@ -206,6 +194,5 @@ export default function Home() {
                     <NavBar/>
                 </div>
             </div>
-        </>
     );
 }

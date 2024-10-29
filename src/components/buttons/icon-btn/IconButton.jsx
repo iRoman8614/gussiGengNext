@@ -8,7 +8,7 @@ export const IconButton = ({image, title, alt, onClick, hidden}) => {
         if (window.Telegram?.WebApp?.HapticFeedback) {
             window.Telegram.WebApp.HapticFeedback.impactOccurred('heavy');
         }
-        onClick();
+        if(onClick) {onClick()}
     };
     return(
         <div className={hidden ? styles.hidderRoot : styles.root} onClick={handleClick}>

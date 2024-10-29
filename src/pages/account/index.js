@@ -1,5 +1,4 @@
 import {useEffect, useState} from "react";
-import Head from "next/head";
 import {useRouter} from "next/router";
 import Image from "next/image";
 import axiosInstance from '@/utils/axios';
@@ -129,11 +128,7 @@ export default function Page() {
     }
 
     return(
-        <>
-            <Head>
-                <link rel="preload" href="/money.png" as="image" />
-            </Head>
-            <div className={styles.root}>
+        <div className={styles.root}>
                 <div className={styles.container}>
                     <div className={styles.seasonBlock}>
                         <div className={styles.season}>
@@ -203,6 +198,5 @@ export default function Page() {
                     </div>
                 </div>
             </div>
-        </>
     )
 }

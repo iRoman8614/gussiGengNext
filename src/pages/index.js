@@ -30,7 +30,8 @@ const newPlayerAssets = [
     '/upgradesCards/limit/limit5.png', '/upgradesCards/rate/rate1.png',
     '/upgradesCards/rate/rate2.png', '/upgradesCards/rate/rate3.png',
     '/upgradesCards/rate/rate4.png', '/upgradesCards/rate/rate5.png',
-    '/upgradesCards/slider/limitSlide.png', '/upgradesCards/slider/rateSlide.png'
+    '/upgradesCards/slider/limitSlide.png', '/upgradesCards/slider/rateSlide.png',
+    '/ArrowWhite.png', '/faq/faqHomeBg.png', '/faq/homeslide.png', '/faq/pvpslide.png'
 ];
 
 const experiencedPlayerAssets = [
