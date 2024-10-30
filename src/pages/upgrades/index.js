@@ -468,7 +468,9 @@ export default function Page() {
                                             :
                                             scale(1, selectedItem.IncreasePer, selectedItem.Level).toFixed(2)}
                                         </a>
+                                        {' '}
                                         <Image src={'/ArrowWhite.png'} alt={''} width={15} height={15} className={styles.navRight} />
+                                        {' '}
                                         <a className={styles.green}>
                                             {
                                                 ((selectedItem.type === 'limit'
