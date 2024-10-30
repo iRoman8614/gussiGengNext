@@ -290,7 +290,7 @@
   background: #4c3981;
   height: fit-content;
   border-radius: 18px;
-  margin: 180px 5px 0 5px;
+  margin: 160px 5px 0 5px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -344,9 +344,10 @@
 }
 
 .pagination {
+  font-family: 'Oswald';
   color: #FFFFFF;
   font-size: 20px;
-  text-align: right;
+  text-align: center;
 }
 
 .dot {

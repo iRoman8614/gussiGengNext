@@ -63,20 +63,20 @@ export default function Home() {
 
     const slideContent = [
         <div className={styles.slideContent1} key={'slideContent1'}>
-            <div>this is your <br/> current <a className={styles.green}>balance</a></div>
+            <div>This is your <br/> current <a className={styles.green}>balance</a></div>
             <div>and that is your <br/> limited farm <a className={styles.yellow}>pool</a></div>
         </div>,
         <div className={styles.slideContent2} key={'slideContent2'}>
-            <div>this is your claim button. use it to <a className={styles.yellow}>claim</a> money from the limited <a className={styles.yellow}>farm pool</a> and add it to your current <a className={styles.green}>balance</a> </div>
+            <div>This is your claim button. Use it to <a className={styles.yellow}>claim</a> money from the limited <a className={styles.yellow}>farm pool</a> and add it to your current <a className={styles.green}>balance</a> </div>
         </div>,
         <div className={styles.slideContent3} key={'slideContent3'}>
             <div><a className={styles.green}>Account</a> - check your stats and customise your profile</div>
             <div><a className={styles.green}>Ganglogo</a> - swap your gang here</div>
-            <div><a className={styles.green}>Settings</a> - change your language and ui prefferences</div>
+            <div><a className={styles.green}>Settings</a> - change your language and ui preferences</div>
         </div>,
         <div className={styles.slideContent4} key={'slideContent4'}>
             <div><a className={styles.green}>Leaderboard</a> - check out your  rank and leaderboard standings</div>
-            <div><a className={styles.yellow}>wallet</a> - link your cryptowallet</div>
+            <div><a className={styles.yellow}>Wallet</a> - link your cryptowallet</div>
         </div>,
         <div className={styles.slideContent5} key={'slideContent5'}>
             <div>PVP - <a className={styles.yellow}>battle</a> your way to the top of the <a className={styles.yellow}>ranks</a> or test your skills for <a className={styles.yellow}>ton</a></div>
@@ -89,8 +89,8 @@ export default function Home() {
                 Exp -  upgrade your <a className={styles.yellow}>farming rate</a> and <a className={styles.green}>farming limit</a></div>
         </div>,
         <div className={styles.slideContent7} key={'slideContent7'}>
-            <div>friends - <a className={styles.yellow}>invite</a> yor friends and <a className={styles.green}>gain</a> bonuses</div>
-            <div>faq - wouldnt be here without it</div>
+            <div>Friends - <a className={styles.yellow}>invite</a> your friends and <a className={styles.green}>gain</a> bonuses</div>
+            <div>FAQ - wouldn&apos;t be here without it</div>
         </div>,
     ];
 

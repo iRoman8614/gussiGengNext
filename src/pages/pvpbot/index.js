@@ -38,13 +38,24 @@ export default function PvpBotPage() {
     const [opponentChoice, setOpponentChoice] = useState(3);
     const [gameEnded, setGameEnded] = useState(false);
     const [userName, setUserName] = useState('you');
-    const [userClan, setUserClan] = useState(1);
-    const [oppClan, setOppClan] = useState(4);
+    const [userClan, setUserClan] = useState(null);
+    const [oppClan, setOppClan] = useState(null);
     const [opponentName, setOpponentName] = useState("biggie smalls")
     const [resetSequence, setResetSequence] = useState(false);
 
     const playerGifCache = useRef({});
     const opponentGifCache = useRef({});
+
+
+    useEffect(() => {
+        if (typeof window !== "undefined") {
+            const init = JSON.parse(localStorage.getItem("init"));
+            if (init && init.group) {
+                setUserClan(init.group.id);
+            }
+        }
+    }, [])
+
     const preloadPlayerGifs = () => {
         const cache = {};
         if (typeof window !== 'undefined') {
@@ -97,7 +108,7 @@ export default function PvpBotPage() {
 
     useEffect(() => {
         if (userClan !== null) {
-            const randomOpponentTeamId = getRandomTeamIdExceptCurrent(userClan, Object.keys(teamData).length);
+            const randomOpponentTeamId = getRandomTeamIdExceptCurrent(userClan);
             setOppClan(randomOpponentTeamId);
         }
     }, [userClan]);
@@ -404,11 +415,14 @@ function getRandomOption() {
     const result = Math.floor(Math.random() * 3) + 1
     return(result);
 }
-function getRandomTeamIdExceptCurrent(currentTeamId, totalTeams = 3) {
-    const teamIds = Array.from({ length: totalTeams }, (_, i) => i + 1);
-    const filteredTeamIds = teamIds.filter(id => id !== currentTeamId);
-    const randomIndex = Math.floor(Math.random() * filteredTeamIds.length);
-    return filteredTeamIds[randomIndex];
+function getRandomTeamIdExceptCurrent(userNumber) {
+    const numbers = [1, 2, 3, 4];
+    const remainingNumbers = numbers.filter(num => num !== userNumber);
+    if (remainingNumbers.length === 0) {
+        return null;
+    }
+    const randomIndex = Math.floor(Math.random() * remainingNumbers.length);
+    return remainingNumbers[randomIndex];
 }
 
 // eslint-disable-next-line react/prop-types

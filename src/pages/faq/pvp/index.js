@@ -49,22 +49,22 @@ export default function PvpBotPage() {
             <div>This is <a className={styles.green}>you</a></div>
         </div>,
         <div className={styles.slideContent3} key={'slideContent3'}>
-            <div>your hp</div>
-            <div>opponents hp</div>
+            <div>Your HP</div>
+            <div>Opponents HP</div>
         </div>,
         <div className={styles.slideContent4} key={'slideContent4'}>
-            <div>Make your move! pick one! rock/paper/scissors</div>
+            <div>Make your move! Pick one! Rock/Paper/Scissors</div>
         </div>,
         <div className={styles.slideContent5} key={'slideContent5'}>
-            <div><a className={styles.green}>time left</a></div>
-            <div><a className={styles.yellow}>roundcount</a></div>
+            <div><a className={styles.green}>Time left</a></div>
+            <div><a className={styles.yellow}>Round count</a></div>
         </div>,
         <div className={styles.slideContent6} key={'slideContent6'}>
-            <div>first to <a className={styles.yellow}>3</a> wins the match
-                good luck playerid</div>
+            <div>First to <a className={styles.yellow}>3</a> wins the match <br/>
+                Good luck player</div>
         </div>,
         <div className={styles.slideContent6} key={'slideContent7'}>
-            <Image src={trio} alt={''} width={180} height={150} />
+            <Image src={trio} alt={''} width={200} height={180} />
         </div>
     ];
 

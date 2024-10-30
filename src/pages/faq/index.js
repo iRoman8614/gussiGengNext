@@ -115,13 +115,13 @@ export default function Page() {
                 </div>
                 <div className={styles.navigation}>
                     <button className={styles.navLeft} onClick={handleSlidePrev}>
-                        <Image src={'/Arrow.png'} alt={''} width={15} height={15} />
+                        <Image src={'/ArrowWhite.png'} alt={''} width={15} height={15} />
                     </button>
                     <div className={styles.caption}>
                         <span>{slideNames[activeIndex].text}</span>
                     </div>
                     <button className={styles.navRight} onClick={handleSlideNext}>
-                        <Image src={'/Arrow.png'} alt={''} width={15} height={15} />
+                        <Image src={'/ArrowWhite.png'} alt={''} width={15} height={15} />
                     </button>
                 </div>
                 <Image src={bg} alt={''} className={styles.bg} width={450} height={1000} />
