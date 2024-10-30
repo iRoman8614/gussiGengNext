@@ -470,13 +470,11 @@ export default function Page() {
                                         </a>
                                         <Image src={'/ArrowWhite.png'} alt={''} width={15} height={15} className={styles.navRight} />
                                         <a className={styles.green}>
-                                            {((selectedItem.type === 'limit'
-                                            ?
-                                            Number(limit.toFixed(2))
-                                            :
-                                            Number(rate.toFixed(2)))
-                                            *
-                                            ((100 + Number(selectedItem.IncreasePer.toFixed(2)))/100)).toFixed(2)}
+                                            {
+                                                ((selectedItem.type === 'limit'
+                                            ? scale(10800, selectedItem.IncreasePer, selectedItem.Level+1).toFixed(2)
+                                            : scale(1, selectedItem.IncreasePer, selectedItem.Level+1).toFixed(2)))
+                                            }
                                         </a>
                                         {selectedItem && balance < selectedItem.Cost && (
                                             toast.error('Not enough coins available.')
