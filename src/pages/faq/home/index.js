@@ -47,7 +47,7 @@ export default function Home() {
 
     const nextSlide = () => {
         if(slide === 6) {
-            router.push('/faq')
+            router.push('/faq/pvp')
         } else {
             setSlide((prev) => prev + 1);
         }
@@ -91,7 +91,7 @@ export default function Home() {
         <div className={styles.slideContent7} key={'slideContent7'}>
             <div>Friends - <a className={styles.yellow}>invite</a> your friends and <a className={styles.green}>gain</a> bonuses</div>
             <div>FAQ - wouldn&apos;t be here without it</div>
-        </div>,
+        </div>
     ];
 
     return (

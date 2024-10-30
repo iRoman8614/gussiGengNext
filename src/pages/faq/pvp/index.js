@@ -26,7 +26,7 @@ export default function PvpBotPage() {
 
     const nextSlide = () => {
         if(slide === 6) {
-            router.push('/faq')
+            router.push('/main')
         } else {
             setSlide((prev) => prev + 1);
         }

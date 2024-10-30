@@ -447,12 +447,12 @@ export default function Page() {
                         <div className={styles.modalOverlay}>
                             <div className={styles.modalBorder}>
                                 <div className={styles.modalUpgrades}>
-                                    <h2>
+                                    <h3>
                                         {selectedItem.type === 'limit' ? `limit +${selectedItem.Name}%` : `rate +${selectedItem.Name}%`}
-                                    </h2>
+                                    </h3>
                                     <p>Card level: {selectedItem.Level}</p>
                                     <p>Cost: {selectedItem.Cost}</p>
-                                    <p>{selectedItem.type === 'limit' ? Number(limit).toFixed(2) : Number(rate).toFixed(2)} <Image src={'/Arrow.png'} alt={''} width={15} height={15} className={styles.navRight} /> {((selectedItem.type === 'limit' ? Number(limit.toFixed(2)) : Number(rate.toFixed(2))) * ((100 + Number(selectedItem.IncreasePer.toFixed(2)))/100)).toFixed(2)}</p>
+                                    <p>{selectedItem.type === 'limit' ? Number(limit).toFixed(2) : Number(rate).toFixed(2)} <Image src={'/ArrowWhite.png'} alt={''} width={15} height={15} className={styles.navRight} /> {((selectedItem.type === 'limit' ? Number(limit.toFixed(2)) : Number(rate.toFixed(2))) * ((100 + Number(selectedItem.IncreasePer.toFixed(2)))/100)).toFixed(2)}</p>
                                     {selectedItem && balance < selectedItem.Cost && (
                                         <p className={styles.errorMessage}>Not enough coins available.</p>
                                     )}

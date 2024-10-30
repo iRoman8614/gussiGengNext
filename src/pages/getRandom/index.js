@@ -206,7 +206,7 @@ export default function Page() {
                 <Image src={hand} className={styles.hand} width={450} height={1000} alt={''} priority />
                 <ShownCard state={showCard} teamId={teamId} />
                 {showFrase === 2 && <button className={styles.btn} onClick={() => {
-                    router.push('/faq')
+                    router.push('/faq/home')
                 }}>continue</button>}
             </div>
     )
