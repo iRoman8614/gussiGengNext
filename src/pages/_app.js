@@ -28,7 +28,7 @@ export default function App({ Component, pageProps }) {
                 draggable
                 pauseOnHover
             />
-            {/*<MobileGuard />*/}
+            <MobileGuard />
             <Component {...pageProps} />
             <BackgroundPreloader />
         </AssetsCacheProvider>
@@ -62,7 +62,8 @@ function BackgroundPreloader() {
         '/random/person.png', '/random/redCard.png', '/random/yellowCard.png',
         '/backgrounds/backalley.png', '/backgrounds/leaderboardBG.png',
         '/backgrounds/Lobby.png', '/backgrounds/nightcity.png', '/backgrounds/randomBG.png',
-        '/ArrowWhite.png', '/faq/faqHomeBg.png', '/faq/homeslide.png', '/faq/pvpslide.png'
+        '/ArrowWhite.png', '/faq/faqHomeBg.png', '/faq/homeslide.png', '/faq/pvpslide.png',
+        '/faq/trio.png'
     ];
     const { preloadAssets } = useAssetsCache();
 

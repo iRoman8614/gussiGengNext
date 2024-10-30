@@ -11,6 +11,7 @@ import 'swiper/css/navigation';
 import 'swiper/css/controller';
 import styles from '@/styles/Upgrades.module.scss'
 import {Controller, Navigation} from "swiper/modules";
+import {toast} from "react-toastify";
 
 const money = '/money.png'
 
@@ -333,6 +334,13 @@ export default function Page() {
         return num.toString().replace(/(\d)(?=(\d{3})+$)/g, "$1 ");
     }
 
+    function scale(initialValue, coefficient, exponent) {
+        const decimalCoefficient = coefficient / 100;
+        const finalValue = initialValue * Math.pow(1 + decimalCoefficient, exponent);
+        return finalValue;
+    }
+
+
     return (
         <div className={styles.root}>
                 <div className={styles.container}>
@@ -452,10 +460,28 @@ export default function Page() {
                                     </h3>
                                     <p>Card level: {selectedItem.Level}</p>
                                     <p>Cost: {selectedItem.Cost}</p>
-                                    <p>{selectedItem.type === 'limit' ? Number(limit).toFixed(2) : Number(rate).toFixed(2)} <Image src={'/ArrowWhite.png'} alt={''} width={15} height={15} className={styles.navRight} /> {((selectedItem.type === 'limit' ? Number(limit.toFixed(2)) : Number(rate.toFixed(2))) * ((100 + Number(selectedItem.IncreasePer.toFixed(2)))/100)).toFixed(2)}</p>
-                                    {selectedItem && balance < selectedItem.Cost && (
-                                        <p className={styles.errorMessage}>Not enough coins available.</p>
-                                    )}
+                                    <p>
+                                        <a>
+                                            {selectedItem.type === 'limit'
+                                            ?
+                                            scale(10800, selectedItem.IncreasePer, selectedItem.Level).toFixed(2)
+                                            :
+                                            scale(1, selectedItem.IncreasePer, selectedItem.Level).toFixed(2)}
+                                        </a>
+                                        <Image src={'/ArrowWhite.png'} alt={''} width={15} height={15} className={styles.navRight} />
+                                        <a className={styles.green}>
+                                            {((selectedItem.type === 'limit'
+                                            ?
+                                            Number(limit.toFixed(2))
+                                            :
+                                            Number(rate.toFixed(2)))
+                                            *
+                                            ((100 + Number(selectedItem.IncreasePer.toFixed(2)))/100)).toFixed(2)}
+                                        </a>
+                                        {selectedItem && balance < selectedItem.Cost && (
+                                            toast.error('Not enough coins available.')
+                                        )}
+                                    </p>
                                 </div>
                             </div>
                             <button

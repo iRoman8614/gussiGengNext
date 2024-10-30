@@ -282,9 +282,17 @@
   margin-bottom: 10px;
 }
 
-.modalUpgrades p {
+.modalUpgrades p, .modalUpgrades p a {
   font-size: auto-clamp(20, 28);
   color: #fff;
+  padding: 0;
+  margin-top: 0;
+  margin-bottom: 8px;
+}
+
+.green {
+  font-size: auto-clamp(20, 28);
+  color: #57E22C;
   padding: 0;
   margin-top: 0;
   margin-bottom: 8px;
