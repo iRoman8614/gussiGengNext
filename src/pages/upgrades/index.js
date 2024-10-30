@@ -453,6 +453,9 @@ export default function Page() {
                     </div>
                     {isUpgradeModalOpen && selectedItem && (
                         <div className={styles.modalOverlay}>
+                            {selectedItem && balance < selectedItem.Cost && (
+                                toast.error('Not enough coins available.')
+                            )}
                             <div className={styles.modalBorder}>
                                 <div className={styles.modalUpgrades}>
                                     <h3>
@@ -478,9 +481,6 @@ export default function Page() {
                                             : scale(1, selectedItem.IncreasePer, selectedItem.Level+1).toFixed(2)))
                                             }
                                         </a>
-                                        {selectedItem && balance < selectedItem.Cost && (
-                                            toast.error('Not enough coins available.')
-                                        )}
                                     </p>
                                 </div>
                             </div>
