@@ -28,7 +28,7 @@ export default function App({ Component, pageProps }) {
                 draggable
                 pauseOnHover
             />
-            {/*<MobileGuard />*/}
+            <MobileGuard />
             <Component {...pageProps} />
             <BackgroundPreloader />
         </AssetsCacheProvider>
