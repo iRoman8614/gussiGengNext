@@ -69,7 +69,7 @@ export default function Page() {
             const response = await axiosInstance.get(`/farm/last-games`);
             const data = response.data;
             setSessionsCount(data.session.count);
-            if (data.session.count === 5) {
+            if (data.session.count >= 5) {
                 const firstGame = localStorage.getItem('firstGame') || data.session.first;
                 if (!localStorage.getItem('firstGame')) {
                     localStorage.setItem('firstGame', firstGame);
@@ -153,7 +153,7 @@ export default function Page() {
                                         {formatTime(remainingTime)}
                                     </div>}
                                 <div className={styles.title}>
-                                    {sessionsCount < 6 ? (
+                                    {sessionsCount < 5 ? (
                                         <>
                                             <div>{5 - sessionsCount}</div>
                                             <p>games left</p>
