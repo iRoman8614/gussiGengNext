@@ -206,6 +206,8 @@
 }
 
 .navRight {
+  display: flex;
+  align-self: center;
   z-index: 2;
   background: transparent;
   border: none;
@@ -217,6 +219,8 @@
 }
 
 .navLeft {
+  display: flex;
+  align-self: center;
   z-index: 2;
   background: transparent;
   border: none;

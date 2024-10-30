@@ -1,6 +1,5 @@
 import React, {useEffect, useRef, useState} from 'react';
 import Image from "next/image";
-import Head from "next/head";
 import {useRouter} from "next/router";
 import {ItemPlaceholder} from "@/components/itemPlaceholder/ItemPlaceholder";
 import {TaskBtn} from "@/components/taskBtn/TaskBtn";
