@@ -2,6 +2,8 @@ import {useEffect, useState} from "react";
 import Image from "next/image";
 
 import styles from './Loader.module.scss'
+import {useRouter} from "next/router";
+import {toast} from "react-toastify";
 
 const loader = '/loadingImg.jpg'
 export const LoaderGif = () => {
@@ -14,6 +16,7 @@ export const LoaderGif = () => {
 }
 
 const LoadingText = () => {
+    const router = useRouter();
     const [dots, setDots] = useState(0);
     const [timer, setTimer] = useState(0);
 
@@ -32,6 +35,16 @@ const LoadingText = () => {
 
         return () => clearInterval(interval);
     }, []);
+
+    useEffect(() => {
+        if(time === 25) {
+            toast.error("Pair not found");
+            setTimeout(() => {
+                router.push('/main');
+            }, 5000);
+        }
+        return () => clearInterval(interval);
+    })
 
     const formatTime = (timeInSeconds) => {
         const minutes = Math.floor(timeInSeconds / 60);
