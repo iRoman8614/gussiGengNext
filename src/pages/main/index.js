@@ -124,7 +124,7 @@ export default function Home() {
             if(liga === 0) {
                 setLige(1)
             }
-            setLige(liga);
+            setLige(liga-1);
         } catch (error) {
             console.error('Ошибка при получении статистики:', error);
         }

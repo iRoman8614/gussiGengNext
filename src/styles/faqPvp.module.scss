@@ -346,7 +346,7 @@
 .pagination {
   font-family: 'Oswald';
   color: #FFFFFF;
-  font-size: 20px;
+  font-size: auto-clamp(14, 20);
   text-align: center;
 }
 
