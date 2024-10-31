@@ -54,9 +54,18 @@
   max-height: 75px;
   max-width: 227px;
   position: relative;
-  transform: scale(0.5);
-  animation: zoom-in 0.5s forwards ease-out;
-  color: #57E22C !important;
+  color: #FFFFFF;
+  animation: changeColorYellow 1s forwards;
+  animation-delay: 1s;
+}
+
+@keyframes changeColorYellow {
+  from {
+    color: #FFFFFF;
+  }
+  to {
+    color: #57E22C;
+  }
 }
 
 .totalBarRoot {
@@ -112,7 +121,18 @@
   grid-column: 4 / 8;
   max-height: 75px;
   max-width: 227px;
-  color: #FFCC26 !important;
+  color: #FFFFFF;
+  animation: changeColorGreen 1s forwards;
+  animation-delay: 1s;
+}
+
+@keyframes changeColorGreen {
+  from {
+    color: #FFFFFF;
+  }
+  to {
+    color: #FFCC26;
+  }
 }
 
 .item9 {
@@ -170,6 +190,18 @@
   height: 100vh;
   display: flex;
   align-items: center;
+  opacity: 0;
+  animation: fadeIn 1s forwards;
+  animation-delay: 1s;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .tutorial {
