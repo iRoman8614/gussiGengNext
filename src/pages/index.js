@@ -54,6 +54,8 @@ export default function LoaderPage() {
     const router = useRouter();
     const { preloadAssets } = useAssetsCache();
     const [userId, setUserId] = useState(null);
+    const CURRENT_VERSION = process.env.NEXT_PUBLIC_CURRENT_VERSION;
+    console.log('CURRENT_VERSION:', CURRENT_VERSION)
 
     const updateBodyHeight = useCallback(() => {
         document.body.style.height = `${window.innerHeight}px`;
@@ -80,6 +82,13 @@ export default function LoaderPage() {
     }, [updateBodyHeight]);
 
     const checkLocalStorageAndRedirect = useCallback(async () => {
+        const savedVersion = localStorage.getItem('version');
+
+        if (savedVersion !== CURRENT_VERSION) {
+            localStorage.clear();
+            localStorage.setItem('version', CURRENT_VERSION);
+        }
+
         localStorage.removeItem('GWToken')
         const init = localStorage.getItem('init');
         const start = localStorage.getItem('start');
