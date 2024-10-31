@@ -152,17 +152,14 @@
 .block2 {
   padding: 20px 5px;
   height: 57%;
-  transform: translateY(100%) scale(0.5);
   animation: rise-and-zoom 0.5s forwards ease-out;
 }
 
 @keyframes rise-and-zoom {
   0% {
-    opacity: 0;
     height: 57%;
   }
   100% {
-    opacity: 1;
     height: 100vh;
   }
 }
