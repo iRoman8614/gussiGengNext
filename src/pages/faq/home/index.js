@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import Image from "next/image";
-import {IconButton} from "@/components/buttons/icon-btn/IconButton";
+import {FaqIconButton} from "@/components/buttons/icon-btn/FaqIconButton";
 import {CollectBar} from "@/components/bars/CollectBar";
 
 import teamData from "@/mock/teamsData.js";
@@ -107,23 +107,23 @@ export default function Home() {
             <div className={styles.root}>
                 <Image className={styles.background} src={background} width={300} height={1000}  alt={'bg'}/>
                 <div className={slide === 2 ? `${styles.item1} ${styles.visible}` : styles.item1}>
-                    <IconButton image={account} alt={'account'} title={'account'} />
+                    <FaqIconButton image={account} alt={'account'} title={'account'} />
                 </div>
                 <div className={slide === 2 ? `${styles.item2} ${styles.visible}` : styles.item2}>
-                    <IconButton image={teamData[groupId]?.logo} alt={'gang'}/>
+                    <FaqIconButton image={teamData[groupId]?.logo} alt={'gang'}/>
                 </div>
                 <div className={slide === 2 ? `${styles.item3} ${styles.visible}` : styles.item3}>
-                    <IconButton image={settings} alt={'settings'} title={'settings'} />
+                    <FaqIconButton image={settings} alt={'settings'} title={'settings'} />
                 </div>
                 <div className={slide === 3 ? `${styles.item4} ${styles.visible}` : styles.item4}>
-                    <IconButton image={boards} alt={'boards'} title={'board'} />
+                    <FaqIconButton image={boards} alt={'boards'} title={'board'} />
                 </div>
                 <div className={slide === 0 ? `${styles.item5} ${styles.visible}` : styles.item5}>
                     <Image src={border} width={600} height={200} alt={'border'} className={styles.totalBarRoot}/>
                     <div className={styles.totalText}>525 000 000</div>
                 </div>
                 <div className={slide === 3 ? `${styles.item6} ${styles.visible}` : styles.item6}>
-                    <IconButton image={wallet} alt={'wallet'} title={'wallet'} />
+                    <FaqIconButton image={wallet} alt={'wallet'} title={'wallet'} />
                 </div>
                 <div className={styles.item7}>
                     <Image width={1000} height={1000} className={styles.char} alt={'character'} src={skinData[groupId]?.[liga]?.icon}/>
@@ -138,11 +138,11 @@ export default function Home() {
                 <div className={slide === 1 ? `${styles.item9} ${styles.visible}` : styles.item9}>
                     <Image className={styles.claimRoot} width={600} height={200} src={claim} alt={'claim'} />
                 </div>
-                <div className={slide === 5 ? `${styles.item10} ${styles.visible}` : styles.item10}><IconButton image={bag} alt={'items'} title={'items'} /></div>
-                <div className={slide === 5 ? `${styles.item11} ${styles.visible}` : styles.item11}><IconButton image={upgrades} alt={'upgrades'} title={'exp'} /></div>
+                <div className={slide === 5 ? `${styles.item10} ${styles.visible}` : styles.item10}><FaqIconButton image={bag} alt={'items'} title={'items'} /></div>
+                <div className={slide === 5 ? `${styles.item11} ${styles.visible}` : styles.item11}><FaqIconButton image={upgrades} alt={'upgrades'} title={'exp'} /></div>
                 <div className={slide === 4 ? `${styles.item12} ${styles.visible}` : styles.item12}><BigButton image={hands} alt={'pvp'} title={'pvp'} /></div>
-                <div className={slide === 6 ? `${styles.item13} ${styles.visible}` : styles.item13}><IconButton image={friends} alt={'friends'} title={'friends'} /></div>
-                <div className={slide === 6 ? `${styles.item14} ${styles.visible}` : styles.item14}><IconButton image={FAQ} alt={'home'} title={'FAQ'} /></div>
+                <div className={slide === 6 ? `${styles.item13} ${styles.visible}` : styles.item13}><FaqIconButton image={friends} alt={'friends'} title={'friends'} /></div>
+                <div className={slide === 6 ? `${styles.item14} ${styles.visible}` : styles.item14}><FaqIconButton image={FAQ} alt={'home'} title={'FAQ'} /></div>
             </div>
             <div className={styles.filter}>
                 <div className={styles.tutorial}>
