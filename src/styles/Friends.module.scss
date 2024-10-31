@@ -241,6 +241,16 @@
   }
 }
 
+.hintLabel2 {
+  font-size: auto-clamp(10, 30) !important;
+  text-align: center;
+  color: #fff;
+
+  a {
+    color: #ffcc26;
+  }
+}
+
 .bannerSet {
   display: flex;
   justify-content: space-around;
@@ -280,7 +290,6 @@
   font-size: auto-clamp(16,36) !important;
   line-height: auto-clamp(16,36);
   color: #fff;
-  margin-top: -12px;
 }
 
 .rewards {
@@ -356,6 +365,11 @@
   .hintLabel {
     font-size: 14px !important;
   }
+
+  .title {
+    margin-top: -12px;
+  }
+
   .btnCopy {
     width: 60px;
     height: 60px;
