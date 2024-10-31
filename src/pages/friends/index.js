@@ -142,7 +142,7 @@ export default function Page() {
                 {activeTab === 1 && <div className={styles.hintBg}>
                     <div className={styles.hintLabel}>earn <a>10%</a> of your friends <a>tasks</a> completion!</div>
                 </div>}
-                <div className={styles.block}>
+                <div className={activeTab === 1 ? styles.block : styles.block2}>
                     <div className={styles.buttonSet}>
                         <div className={styles.folderBtnStats}
                              style={{
