@@ -38,15 +38,15 @@ export default function PvpBotPage() {
 
     const nextSlide = () => {
         if(slide === 6) {
-            router.push('/main')
+            router.push('/lobby')
         } else {
             setSlide((prev) => prev + 1);
         }
     }
 
     const prevSlide = () => {
-        if(slide === -1) {
-            router.push('/main')
+        if(slide === 0) {
+            return;
         } else {
             setSlide((prev) => prev - 1);
         }
