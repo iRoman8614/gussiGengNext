@@ -309,91 +309,125 @@ export default function PvpPage() {
                             <div className={styles.oppNickname}>
                                 {opponentName}
                             </div>
-                            <div className={styles.optionBg}>
-                                {visibleImage === 0 && (
-                                    <Image
-                                        width={90}
-                                        height={190}
-                                        className={styles.choose}
-                                        src={gameOptions[4].logo}
-                                        alt="1"
-                                    />
-                                )}
-                                {visibleImage === 1 && (
-                                    <>
-                                        {(opponentChoice === 0 || opponentChoice === 10) && (
-                                            <Image
-                                                width={90}
-                                                height={190}
-                                                className={styles.choose}
-                                                src={gameOptions[4].logo}
-                                                alt="2"
-                                            />
-                                        )}
-                                        {opponentChoice === 1 && (
-                                            <img
-                                                className={styles.choose}
-                                                src={opponentGifCache.current.rockAnim ? opponentGifCache.current.rockAnim.src : gifPaths.rockAnim}
-                                                alt="2"
-                                            />
-                                        )}
-                                        {opponentChoice === 2 && (
-                                            <img
-                                                className={styles.choose}
-                                                src={opponentGifCache.current.papAnim ? opponentGifCache.current.papAnim.src : gifPaths.papAnim}
-                                                alt="2"
-                                            />
-                                        )}
-                                        {opponentChoice === 3 && (
-                                            <img
-                                                className={styles.choose}
-                                                src={opponentGifCache.current.scisAnim ? opponentGifCache.current.scisAnim.src : gifPaths.scisAnim}
-                                                alt="2"
-                                            />
-                                        )}
-                                    </>
+                            {/*<div className={styles.optionBg}>*/}
+                            {/*    {visibleImage === 0 && (*/}
+                            {/*        <Image*/}
+                            {/*            width={90}*/}
+                            {/*            height={190}*/}
+                            {/*            className={styles.choose}*/}
+                            {/*            src={gameOptions[4].logo}*/}
+                            {/*            alt="1"*/}
+                            {/*        />*/}
+                            {/*    )}*/}
+                            {/*    {visibleImage === 1 && (*/}
+                            {/*        <>*/}
+                            {/*            {(opponentChoice === 0 || opponentChoice === 10) && (*/}
+                            {/*                <Image*/}
+                            {/*                    width={90}*/}
+                            {/*                    height={190}*/}
+                            {/*                    className={styles.choose}*/}
+                            {/*                    src={gameOptions[4].logo}*/}
+                            {/*                    alt="2"*/}
+                            {/*                />*/}
+                            {/*            )}*/}
+                            {/*            {opponentChoice === 1 && (*/}
+                            {/*                <img*/}
+                            {/*                    className={styles.choose}*/}
+                            {/*                    src={opponentGifCache.current.rockAnim ? opponentGifCache.current.rockAnim.src : gifPaths.rockAnim}*/}
+                            {/*                    alt="2"*/}
+                            {/*                />*/}
+                            {/*            )}*/}
+                            {/*            {opponentChoice === 2 && (*/}
+                            {/*                <img*/}
+                            {/*                    className={styles.choose}*/}
+                            {/*                    src={opponentGifCache.current.papAnim ? opponentGifCache.current.papAnim.src : gifPaths.papAnim}*/}
+                            {/*                    alt="2"*/}
+                            {/*                />*/}
+                            {/*            )}*/}
+                            {/*            {opponentChoice === 3 && (*/}
+                            {/*                <img*/}
+                            {/*                    className={styles.choose}*/}
+                            {/*                    src={opponentGifCache.current.scisAnim ? opponentGifCache.current.scisAnim.src : gifPaths.scisAnim}*/}
+                            {/*                    alt="2"*/}
+                            {/*                />*/}
+                            {/*            )}*/}
+                            {/*        </>*/}
 
-                                )}
-                                {visibleImage === 2 && (
-                                    <>
-                                        {(opponentChoice === 0 || opponentChoice === 10) && (
-                                            <Image
-                                                width={90}
-                                                height={190}
-                                                className={`${styles.choose} ${styles.invisible}`}
-                                                src={gameOptions[4].logo}
-                                                alt="3"
-                                            />
-                                        )}
-                                        {opponentChoice === 1 && (
-                                            <Image
-                                                width={90}
-                                                height={190}
-                                                className={styles.choose}
-                                                src={gameOptions[1].logo}
-                                                alt="3"
-                                            />
-                                        )}
-                                        {opponentChoice === 2 && (
-                                            <Image
-                                                width={90}
-                                                height={190}
-                                                className={styles.choose}
-                                                src={gameOptions[2].logo}
-                                                alt="3"
-                                            />
-                                        )}
-                                        {opponentChoice === 3 && (
-                                            <Image
-                                                width={90}
-                                                height={190}
-                                                className={styles.choose}
-                                                src={gameOptions[3].logo}
-                                                alt="3"
-                                            />
-                                        )}
-                                    </>
-                                )}
+                            {/*    )}*/}
+                            {/*    {visibleImage === 2 && (*/}
+                            {/*        <>*/}
+                            {/*            {(opponentChoice === 0 || opponentChoice === 10) && (*/}
+                            {/*                <Image*/}
+                            {/*                    width={90}*/}
+                            {/*                    height={190}*/}
+                            {/*                    className={`${styles.choose} ${styles.invisible}`}*/}
+                            {/*                    src={gameOptions[4].logo}*/}
+                            {/*                    alt="3"*/}
+                            {/*                />*/}
+                            {/*            )}*/}
+                            {/*            {opponentChoice === 1 && (*/}
+                            {/*                <Image*/}
+                            {/*                    width={90}*/}
+                            {/*                    height={190}*/}
+                            {/*                    className={styles.choose}*/}
+                            {/*                    src={gameOptions[1].logo}*/}
+                            {/*                    alt="3"*/}
+                            {/*                />*/}
+                            {/*            )}*/}
+                            {/*            {opponentChoice === 2 && (*/}
+                            {/*                <Image*/}
+                            {/*                    width={90}*/}
+                            {/*                    height={190}*/}
+                            {/*                    className={styles.choose}*/}
+                            {/*                    src={gameOptions[2].logo}*/}
+                            {/*                    alt="3"*/}
+                            {/*                />*/}
+                            {/*            )}*/}
+                            {/*            {opponentChoice === 3 && (*/}
+                            {/*                <Image*/}
+                            {/*                    width={90}*/}
+                            {/*                    height={190}*/}
+                            {/*                    className={styles.choose}*/}
+                            {/*                    src={gameOptions[3].logo}*/}
+                            {/*                    alt="3"*/}
+                            {/*                />*/}
+                            {/*            )}*/}
+                            {/*        </>*/}
+                            {/*    )}*/}
+                            {/*</div>*/}
+                            <div className={styles.optionBg}>
+                                <img
+                                    className={`${styles.choose} ${visibleImage === 1 ? styles.visible : styles.hidden}`}
+                                    src={
+                                        opponentChoice === 1
+                                            ? opponentGifCache.current.rockAnim?.src || gifPaths.rockAnim
+                                            : opponentChoice === 2
+                                                ? opponentGifCache.current.papAnim?.src || gifPaths.papAnim
+                                                : opponentChoice === 3
+                                                    ? opponentGifCache.current.scisAnim?.src || gifPaths.scisAnim
+                                                    : null
+                                    }
+                                    alt="game choice animation"
+                                />
+                                <Image
+                                    width={90}
+                                    height={190}
+                                    layout="fixed"
+                                    objectFit="contain"
+                                    className={`${styles.choose} ${visibleImage !== 1 ? styles.visible : styles.hidden}`}
+                                    src={
+                                        visibleImage === 0
+                                            ? gameOptions[4]?.logo
+                                            : opponentChoice === 0 || opponentChoice === 10
+                                                ? gameOptions[4]?.logo
+                                                : opponentChoice === 1
+                                                    ? gameOptions[1]?.logo
+                                                    : opponentChoice === 2
+                                                        ? gameOptions[2]?.logo
+                                                        : gameOptions[3]?.logo
+                                    }
+                                    alt="game choice"
+                                />
                             </div>
                             <VictoryCounter score={playerScore} />
                             <IconButton image={teamData[userClan].logo} alt={'gang'} />
@@ -403,90 +437,124 @@ export default function PvpPage() {
                             </div>
                             <IconButton image={teamData[oppClan].logo} alt={'gang'} />
                             <VictoryCounter score={opponentScore} />
+                            {/*<div className={styles.optionBg}>*/}
+                            {/*    {visibleImage === 0 && (*/}
+                            {/*        <Image*/}
+                            {/*            width={90}*/}
+                            {/*            height={190}*/}
+                            {/*            className={styles.mychoose}*/}
+                            {/*            src={gameOptions[4].logo}*/}
+                            {/*            alt="1"*/}
+                            {/*        />*/}
+                            {/*    )}*/}
+                            {/*    {visibleImage === 1 && (*/}
+                            {/*        <>*/}
+                            {/*            {(playerChoice === 0 || playerChoice === 10) && (*/}
+                            {/*                <Image*/}
+                            {/*                    width={90}*/}
+                            {/*                    height={190}*/}
+                            {/*                    className={`${styles.mychoose} ${styles.invisible}`}*/}
+                            {/*                    src={gameOptions[4].logo}*/}
+                            {/*                    alt="2"*/}
+                            {/*                />*/}
+                            {/*            )}*/}
+                            {/*            {playerChoice === 1 && (*/}
+                            {/*                <img*/}
+                            {/*                    className={styles.mychoose}*/}
+                            {/*                    src={playerGifCache.current.rockAnim ? playerGifCache.current.rockAnim.src : gifPaths.rockAnim}*/}
+                            {/*                    alt="2"*/}
+                            {/*                />*/}
+                            {/*            )}*/}
+                            {/*            {playerChoice === 2 && (*/}
+                            {/*                <img*/}
+                            {/*                    className={styles.mychoose}*/}
+                            {/*                    src={playerGifCache.current.papAnim ? playerGifCache.current.papAnim.src : gifPaths.papAnim}*/}
+                            {/*                    alt="2"*/}
+                            {/*                />*/}
+                            {/*            )}*/}
+                            {/*            {playerChoice === 3 && (*/}
+                            {/*                <img*/}
+                            {/*                    className={styles.mychoose}*/}
+                            {/*                    src={playerGifCache.current.scisAnim ? playerGifCache.current.scisAnim.src : gifPaths.scisAnim}*/}
+                            {/*                    alt="2"*/}
+                            {/*                />*/}
+                            {/*            )}*/}
+                            {/*        </>*/}
+                            {/*    )}*/}
+                            {/*    {visibleImage === 2 && (*/}
+                            {/*        <>*/}
+                            {/*            {(playerChoice === 0 || playerChoice === 10) && (*/}
+                            {/*                <Image*/}
+                            {/*                    width={90}*/}
+                            {/*                    height={190}*/}
+                            {/*                    className={styles.mychoose}*/}
+                            {/*                    src={gameOptions[4].logo}*/}
+                            {/*                    alt="3"*/}
+                            {/*                />*/}
+                            {/*            )}*/}
+                            {/*            {playerChoice === 1 && (*/}
+                            {/*                <Image*/}
+                            {/*                    width={90}*/}
+                            {/*                    height={190}*/}
+                            {/*                    className={styles.mychoose}*/}
+                            {/*                    src={gameOptions[1].logo}*/}
+                            {/*                    alt="3"*/}
+                            {/*                />*/}
+                            {/*            )}*/}
+                            {/*            {playerChoice === 2 && (*/}
+                            {/*                <Image*/}
+                            {/*                    width={90}*/}
+                            {/*                    height={190}*/}
+                            {/*                    className={styles.mychoose}*/}
+                            {/*                    src={gameOptions[2].logo}*/}
+                            {/*                    alt="3"*/}
+                            {/*                />*/}
+                            {/*            )}*/}
+                            {/*            {playerChoice === 3 && (*/}
+                            {/*                <Image*/}
+                            {/*                    width={90}*/}
+                            {/*                    height={190}*/}
+                            {/*                    className={styles.mychoose}*/}
+                            {/*                    src={gameOptions[3].logo}*/}
+                            {/*                    alt="3"*/}
+                            {/*                />*/}
+                            {/*            )}*/}
+                            {/*        </>*/}
+                            {/*    )}*/}
+                            {/*</div>*/}
                             <div className={styles.optionBg}>
-                                {visibleImage === 0 && (
-                                    <Image
-                                        width={90}
-                                        height={190}
-                                        className={styles.mychoose}
-                                        src={gameOptions[4].logo}
-                                        alt="1"
-                                    />
-                                )}
-                                {visibleImage === 1 && (
-                                    <>
-                                        {(playerChoice === 0 || playerChoice === 10) && (
-                                            <Image
-                                                width={90}
-                                                height={190}
-                                                className={`${styles.mychoose} ${styles.invisible}`}
-                                                src={gameOptions[4].logo}
-                                                alt="2"
-                                            />
-                                        )}
-                                        {playerChoice === 1 && (
-                                            <img
-                                                className={styles.mychoose}
-                                                src={playerGifCache.current.rockAnim ? playerGifCache.current.rockAnim.src : gifPaths.rockAnim}
-                                                alt="2"
-                                            />
-                                        )}
-                                        {playerChoice === 2 && (
-                                            <img
-                                                className={styles.mychoose}
-                                                src={playerGifCache.current.papAnim ? playerGifCache.current.papAnim.src : gifPaths.papAnim}
-                                                alt="2"
-                                            />
-                                        )}
-                                        {playerChoice === 3 && (
-                                            <img
-                                                className={styles.mychoose}
-                                                src={playerGifCache.current.scisAnim ? playerGifCache.current.scisAnim.src : gifPaths.scisAnim}
-                                                alt="2"
-                                            />
-                                        )}
-                                    </>
-                                )}
-                                {visibleImage === 2 && (
-                                    <>
-                                        {(playerChoice === 0 || playerChoice === 10) && (
-                                            <Image
-                                                width={90}
-                                                height={190}
-                                                className={styles.mychoose}
-                                                src={gameOptions[4].logo}
-                                                alt="3"
-                                            />
-                                        )}
-                                        {playerChoice === 1 && (
-                                            <Image
-                                                width={90}
-                                                height={190}
-                                                className={styles.mychoose}
-                                                src={gameOptions[1].logo}
-                                                alt="3"
-                                            />
-                                        )}
-                                        {playerChoice === 2 && (
-                                            <Image
-                                                width={90}
-                                                height={190}
-                                                className={styles.mychoose}
-                                                src={gameOptions[2].logo}
-                                                alt="3"
-                                            />
-                                        )}
-                                        {playerChoice === 3 && (
-                                            <Image
-                                                width={90}
-                                                height={190}
-                                                className={styles.mychoose}
-                                                src={gameOptions[3].logo}
-                                                alt="3"
-                                            />
-                                        )}
-                                    </>
-                                )}
+                                <img
+                                    className={`${styles.mychoose} ${visibleImage === 1 ? styles.visible : styles.hidden}`}
+                                    src={
+                                        playerChoice === 1
+                                            ? playerGifCache.current.rockAnim?.src || gifPaths.rockAnim
+                                            : playerChoice === 2
+                                                ? playerGifCache.current.papAnim?.src || gifPaths.papAnim
+                                                : playerChoice === 3
+                                                    ? playerGifCache.current.scisAnim?.src || gifPaths.scisAnim
+                                                    : null
+                                    }
+                                    alt="game choice animation"
+                                />
+                                <Image
+                                    width={90}
+                                    height={190}
+                                    layout="fixed"
+                                    objectFit="contain"
+                                    className={`${styles.mychoose} ${visibleImage !== 1 ? styles.visible : styles.hidden}`}
+                                    src={
+                                        visibleImage === 0
+                                            ? gameOptions[4]?.logo
+                                            : playerChoice === 0 || playerChoice === 10
+                                                ? gameOptions[4]?.logo
+                                                : playerChoice === 1
+                                                    ? gameOptions[1]?.logo
+                                                    : playerChoice === 2
+                                                        ? gameOptions[2]?.logo
+                                                        : gameOptions[3]?.logo
+                                    }
+                                    alt="game choice"
+                                />
                             </div>
                             <div className={styles.round}>
                                 round {round}
