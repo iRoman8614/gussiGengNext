@@ -92,8 +92,9 @@ export default function LoaderPage() {
             const liga = response.data.liga;
             if(liga === 0) {
                 setLiga(0)
+            } else {
+                setLiga(liga-1);
             }
-            setLiga(liga-1);
         } catch (error) {
             console.error('Ошибка при получении статистики:', error);
         }
