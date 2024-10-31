@@ -7,10 +7,12 @@ import {toast} from "react-toastify";
 import { useAssetsCache } from "@/context/AssetsCacheContext";
 
 import styles from '@/styles/Lobby.module.scss'
+import {IconButton} from "@/components/buttons/icon-btn/IconButton";
 
 const bg = '/backgrounds/Lobby.png'
 const hands = '/main-buttons/hand2.png';
 const rich = '/main-buttons/rich.png';
+const FAQ = '/main-buttons/FAQ.png'
 
 const gameIconsAssets = [
     '/game-icons/animation_hand_pap.gif',
@@ -33,7 +35,6 @@ export default function Page() {
     const [timerActive, setTimerActive] = useState(false);
     const [sessionsCount, setSessionsCount] = useState(0)
     const [passes, setPasses] = useState(0)
-    const [showPassPopup, setShowPassPopup] = useState(false);
 
     const router = useRouter();
     const { preloadAssets } = useAssetsCache();
@@ -124,11 +125,6 @@ export default function Page() {
         return () => clearInterval(timerId);
     }, [remainingTime, timerActive]);
 
-    const confirmPassUsage = () => {
-        setShowPassPopup(false);
-        router.push('/pvp');
-    };
-
     const formatTime = (ms) => {
         const hours = Math.floor(ms / (1000 * 60 * 60));
         const minutes = Math.floor((ms % (1000 * 60 * 60)) / (1000 * 60));
@@ -170,14 +166,14 @@ export default function Page() {
                                 if (window.Telegram?.WebApp?.HapticFeedback) {
                                     window.Telegram.WebApp.HapticFeedback.impactOccurred('heavy');
                                 }
-                                router.push('/faq/pvp')
-                                // setHintOne(!hintOne)
+                                // router.push('/faq/pvp')
+                                setHintOne(!hintOne)
                             }}>?</div>
                         </div>
-                        {/*{hintOne && <div className={styles.hint}>*/}
-                        {/*    Battle against others, earn rewards, and climb the ranks.*/}
-                        {/*    <p>no luck, just skill!</p>*/}
-                        {/*</div>}*/}
+                        {hintOne && <div className={styles.hint}>
+                            Battle against others, earn rewards, and climb the ranks.
+                            <p>no luck, just skill!</p>
+                        </div>}
                     </div>
                     <div>
                         <div className={styles.hidderRoot}>
@@ -206,13 +202,9 @@ export default function Page() {
                             Put your Ton on the line in this high-stakes mode!
                         </div>}
                     </div>
-                    {showPassPopup && (
-                        <div className={styles.passPopup}>
-                            <p>Spend 1 PvP pass to get 5 more games?</p>
-                            <button onClick={confirmPassUsage}>Yes</button>
-                            <button onClick={() => setShowPassPopup(false)}>No</button>
-                        </div>
-                    )}
+                </div>
+                <div className={styles.faq}>
+                    <IconButton image={FAQ} alt={'home'} title={'faq'} onClick={() => {router.push('/faq/pvp')}} />
                 </div>
             </div>
     );
