@@ -81,14 +81,14 @@ export default function Page() {
                 const completedTasksResponse = await axiosInstance.get('/task/completed-tasks');
                 const completedTasks = completedTasksResponse.data.map(task => task.task.id);
                 const lastCompletedTaskIdType1 = Math.max(0, ...tasks.filter(task => task.type === 1 && completedTasks.includes(task.id)).map(task => task.id));
-                tasks = tasks.map(task => {
+                tasks = tasks = tasks.filter(task => task.type !== 4).map(task => {
                     const isCompleted = completedTasks.includes(task.id);
                     let readyToComplete = false;
                     let icon = '';
                     if (task.type === 1 && numFriends >= task.amount && !isCompleted) {
                         readyToComplete = true;
                     }
-                    if (task.type === 5 && stats.victory >= task.amount && !isCompleted) {
+                    if (task.type === 3 && stats.victory >= task.amount && !isCompleted) {
                         readyToComplete = true;
                     }
                     if (task.type === 2) {
@@ -211,7 +211,7 @@ export default function Page() {
                     localStorage.setItem(`task_${task.id}_pending`, 'true');
                     window.open(url, '_blank');
                     break;
-                case 5:
+                case 3:
                     navigateToPage(task.path);
                     break;
                 default:
@@ -234,6 +234,9 @@ export default function Page() {
             let updateCompletedTasks = false;
 
             for (const task of tasks) {
+                if (task.type === 4) {
+                    continue;
+                }
                 if (task.type === 2 && localStorage.getItem(`task_${task.id}_pending`)) {
                     try {
                         await axiosInstance.get(`/task/execute?taskId=${task.id}`);
@@ -243,7 +246,7 @@ export default function Page() {
                         console.error(`Error executing task ${task.id}:`, error);
                     }
                 }
-                if ((task.type === 1 || task.type === 5) && task.readyToComplete) {
+                if ((task.type === 1 || task.type === 3) && task.readyToComplete) {
                     try {
                         await axiosInstance.get(`/task/execute?taskId=${task.id}`);
                         updateCompletedTasks = true;

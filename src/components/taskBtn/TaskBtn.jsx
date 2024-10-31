@@ -7,7 +7,7 @@ const Arrow = '/Tasks/TaskArrow.png'
 const Complite = '/Tasks/TaskComplited.png'
 const money = '/Tasks/money2.png'
 const Icon1 = '/Tasks/referal.png'
-const Icon5 = '/Tasks/pvp.png'
+const Icon3 = '/Tasks/pvp.png'
 const IconTG = '/Tasks/telegram.png'
 const IconX = '/Tasks/twitter.png'
 
@@ -21,7 +21,7 @@ export const TaskBtn = ({title, subtitle, desc, completed, onClick, readyToCompl
             case 'x': return IconX;
             default:
                 if (type === 1) return Icon1;
-                if (type === 5) return Icon5;
+                if (type === 3) return Icon5;
                 return '';
         }
     }
