@@ -80,29 +80,21 @@ export default function Page() {
                 let tasks = tasksResponse.data;
                 const completedTasksResponse = await axiosInstance.get('/task/completed-tasks');
                 const completedTasks = completedTasksResponse.data.map(task => task.task.id);
-                const lastCompletedTaskIdType1 = Math.max(
-                    0,
-                    ...tasks.filter(task => task.type === 1 && completedTasks.includes(task.id)).map(task => task.id)
-                );
-
-                // Filter out tasks with type 4
-                tasks = tasks.filter(task => task.type !== 4).map(task => {
+                const lastCompletedTaskIdType1 = Math.max(0, ...tasks.filter(task => task.type === 1 && completedTasks.includes(task.id)).map(task => task.id));
+                tasks = tasks.map(task => {
                     const isCompleted = completedTasks.includes(task.id);
                     let readyToComplete = false;
                     let icon = '';
-
                     if (task.type === 1 && numFriends >= task.amount && !isCompleted) {
                         readyToComplete = true;
                     }
-                    if (task.type === 3 && stats.victory >= task.amount && !isCompleted) {
+                    if (task.type === 5 && stats.victory >= task.amount && !isCompleted) {
                         readyToComplete = true;
                     }
                     if (task.type === 2) {
                         icon = task.name.includes("TG") ? "tg" : task.name.includes("X") ? "x" : '';
                     }
-                    console.log(`Task ${task.id} icon: ${icon}`);
                     const isVisible = task.type === 1 ? task.id <= lastCompletedTaskIdType1 + 1 : true;
-
                     return {
                         ...task,
                         name: mapTaskName(task.name),
@@ -122,8 +114,6 @@ export default function Page() {
         };
         fetchTasksAndFriends();
     }, []);
-
-
 
     const mapTaskName = (originalName) => {
         if (originalName.includes("TG")) {
@@ -242,8 +232,6 @@ export default function Page() {
             let updateCompletedTasks = false;
 
             for (const task of tasks) {
-                if (task.type === 4) continue;
-
                 if (task.type === 2 && localStorage.getItem(`task_${task.id}_pending`)) {
                     try {
                         await axiosInstance.get(`/task/execute?taskId=${task.id}`);
@@ -446,17 +434,20 @@ export default function Page() {
                                 <div className={styles.label}>main tasks</div>
                                 {tasks.map((task, index) => {
                                     return(
-                                        <TaskBtn
-                                            subtitle={task.name}
-                                            desc={task.type !== 2 ? `${task.current} / ${task.amount}` : ''}
-                                            completed={task.completed}
-                                            key={index}
-                                            icon={task.icon}
-                                            type={task.type}
-                                            readyToComplete={task.readyToComplete}
-                                            reward={formatNumberFromEnd(task.reward)}
-                                            onClick={() => handleTaskClick(task)}
-                                        />
+                                        <>
+                                            {task.type !== 4 && <TaskBtn
+                                                subtitle={task.name}
+                                                desc={task.type !== 2 ? `${task.current} / ${task.amount}` : ''}
+                                                completed={task.completed}
+                                                key={index}
+                                                icon={task.icon}
+                                                type={task.type}
+                                                readyToComplete={task.readyToComplete}
+                                                reward={formatNumberFromEnd(task.reward)}
+                                                onClick={() => handleTaskClick(task)}
+                                            />}
+                                        </>
+
                                     )
                                 })}
                             </div>
