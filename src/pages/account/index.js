@@ -43,7 +43,7 @@ export default function Page() {
         if (typeof window !== 'undefined') {
             const start = JSON.parse(localStorage.getItem('start'));
             if (start) {
-                setTotalCoins(start.totalBalance);
+                setTotalCoins(start.totalBalance ? start.totalBalance : start.totalCoins);
                 setBalance(start.balance)
             }
         }
