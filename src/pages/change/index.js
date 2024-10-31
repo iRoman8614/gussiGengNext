@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import Image from "next/image";
 import {useRouter} from "next/router";
 import { toast } from 'react-toastify';
@@ -76,6 +76,15 @@ export default function Page() {
         setShowPopUp(false)
     }
 
+    const checkStartData = useCallback(async () => {
+        try {
+            const response = await axiosInstance.get(`/farm/start`);
+            localStorage.setItem('start', JSON.stringify(response.data));
+        } catch (error) {
+            console.log(error)
+        }
+    }, [router]);
+
     const changeClan = async () => {
         if (balance < 1000000) {
             toast.error("You do not have enough money");
@@ -91,6 +100,8 @@ export default function Page() {
             }
             if (data) {
                 localStorage.setItem('init', JSON.stringify(data));
+                checkStartData()
+
                 router.push('/main');
             } else {
                 throw new Error('Invalid data received from the server');

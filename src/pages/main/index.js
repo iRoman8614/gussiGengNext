@@ -30,7 +30,7 @@ export default function Home() {
     const [startFarmTime, setStartFarmTime] = useState(Date.now());
     const [teamId, setTeamId] = useState(0)
     const [isClaimClicked, setIsClaimClicked] = useState(false);
-    const [level, setLevel] = useState(1)
+    const [liga, setLige] = useState()
 
     useEffect(() => {
         if (typeof window !== "undefined") {
@@ -49,15 +49,6 @@ export default function Home() {
             }
         }
     }, []);
-
-    useEffect(() => {
-        if (typeof window !== "undefined") {
-            const now = Date.now();
-            const secondsPassed = Math.floor((now - startFarmTime) / 1000);
-            const accumulatedCoins = Math.min(rate * secondsPassed, limit);
-            setCurrentFarmCoins(accumulatedCoins);
-        }
-    }, [rate, startFarmTime, limit])
 
     useEffect(() => {
         if (typeof window !== "undefined") {
@@ -126,12 +117,18 @@ export default function Home() {
             });
     };
 
-    function getRandomNumber() {
-        return Math.floor(Math.random() * 6) + 1;
-    }
+    const fetchStats = async () => {
+        try {
+            const response = await axiosInstance.get(`/profile/stats`);
+            const data = response.data;
+            setLige(data);
+        } catch (error) {
+            console.error('Ошибка при получении статистики:', error);
+        }
+    };
+
     useEffect(() => {
-        const level = getRandomNumber()
-        setLevel(level)
+        fetchStats()
     }, [])
 
     function formatNumberFromEnd(num) {
@@ -178,7 +175,7 @@ export default function Home() {
                     <IconButton image={wallet} alt={'wallet'} title={'wallet'} hidden={true} onClick={() => {router.push('/getRandom')}}/>
                 </div>
                 <div className={styles.item7}>
-                    <Image width={1000} height={1000} className={styles.char} alt={'character'} src={skinData[teamId]?.[level]?.icon}/>
+                    <Image width={1000} height={1000} className={styles.char} alt={'character'} src={skinData[teamId]?.[liga]?.icon}/>
                 </div>
                 <div className={styles.item8}>
                     <CollectBar
