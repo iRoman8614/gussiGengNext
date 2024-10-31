@@ -152,6 +152,8 @@
   padding: 20px 5px;
   height: 57%;
   margin-top: auto;
+  overflow: hidden;
+  border-radius: 11px;
   animation: stretch-up 0.5s forwards ease-out;
 }
 @keyframes stretch-up {
