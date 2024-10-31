@@ -47,7 +47,7 @@ export default function Home() {
 
     const nextSlide = () => {
         if(slide === 6) {
-            router.push('/faq/pvp')
+            router.push('/main')
         } else {
             setSlide((prev) => prev + 1);
         }

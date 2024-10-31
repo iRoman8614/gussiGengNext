@@ -46,7 +46,7 @@ export default function PvpBotPage() {
 
     const prevSlide = () => {
         if(slide === -1) {
-            router.push('/faq/home')
+            router.push('/main')
         } else {
             setSlide((prev) => prev - 1);
         }
