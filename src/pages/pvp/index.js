@@ -124,7 +124,7 @@ export default function PvpPage() {
                     return;
                 }
                 const data = response.data;
-                if(response.data.code === 502 || response.data.code === 504 || response.data.code === 400) {
+                if(data.code === 502 || data.code === 504 || data.code === 400) {
                     toast.error("Pair not found");
                     setTimeout(() => {
                         router.push('/main');
