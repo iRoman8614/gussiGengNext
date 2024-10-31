@@ -120,6 +120,10 @@ export default function LoaderPage() {
                 toast.error('error during init request')
                 return
             }
+            if(!data.group.id) {
+                toast.error('error during init request')
+                return
+            }
             setGroupId(data.group.id)
             console.log('setGroupId', setGroupId)
             localStorage.setItem('GWToken', data.jwt)
