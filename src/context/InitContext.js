@@ -2,8 +2,8 @@ import React, { createContext, useContext, useState } from 'react';
 const InitContext = createContext();
 
 export const InitProvider = ({ children }) => {
-    const [groupId, setGroupId] = useState(null);
-    const [liga, setLiga] = useState(null);
+    const [groupId, setGroupId] = useState(0);
+    const [liga, setLiga] = useState(0);
     const [lang, setLang] = useState('en');
     const [userId, setUserId] = useState(null);
     const initState = {
