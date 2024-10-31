@@ -193,9 +193,9 @@ export default function Page() {
                     </div>}
                     {activeTab === 2 && <div className={styles.infoContainer}>
                         <div className={styles.listInfo}>
-                            <div className={styles.hintLabel}>- Each <a>referral</a> gives you <a>+1 PvP pass.</a></div>
-                            <div className={styles.hintLabel}>- <a>PvP Pass</a> – allows <a>5 extra PvP games</a>, bypassing the 6-hour cooldown.</div>
-                            <div className={styles.hintLabel}>- If the referral has <a>Telegram Premium</a>, you get <a>+2 PvP passes</a>.</div>
+                            <div className={styles.hintLabel}>-Each <a>referral</a> gives you <a>+1 PvP pass.</a></div>
+                            <div className={styles.hintLabel}>-<a>PvP Pass</a> – allows <a>5 extra PvP games</a>, bypassing the 6-hour cooldown.</div>
+                            <div className={styles.hintLabel}>-If the referral has <a>Telegram Premium</a>, you get <a>+2 PvP passes</a>.</div>
                             <div className={styles.hintLabel}>Referrals <a>score 10,000 </a> <Image src={money} alt={''} width={15} height={15} />    just for <a>signing up</a> (joining the bot) through your referral link!</div>
                             <div className={styles.title}>rewards</div>
                             <div className={styles.rewards}>
