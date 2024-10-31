@@ -232,7 +232,7 @@
 }
 
 .hintLabel {
-  font-size: auto-clamp(8, 20) !important;
+  font-size: auto-clamp(8, 26) !important;
   text-align: center;
   color: #fff;
 
@@ -340,17 +340,6 @@
   margin: 5px;
 }
 
-@media (max-width: 360px) {
-  .btnCopy {
-    width: 60px;
-    height: 60px;
-    padding: 5px;
-  }
-  .btnInvite {
-    height: 60px;
-  }
-}
-
 @media (min-width: 361px) and (max-width: 400px) {
   .btnCopy {
     width: 70px;
@@ -359,5 +348,20 @@
   }
   .btnInvite {
     height: 70px;
+  }
+}
+
+
+@media (max-width: 360px) {
+  .hintLabel {
+    font-size: 14px !important;
+  }
+  .btnCopy {
+    width: 60px;
+    height: 60px;
+    padding: 5px;
+  }
+  .btnInvite {
+    height: 60px;
   }
 }
