@@ -30,7 +30,7 @@ export default function Home() {
     const [startFarmTime, setStartFarmTime] = useState(Date.now());
     const [teamId, setTeamId] = useState(0)
     const [isClaimClicked, setIsClaimClicked] = useState(false);
-    const [liga, setLige] = useState()
+    const [liga, setLige] = useState(1)
 
     useEffect(() => {
         if (typeof window !== "undefined") {
