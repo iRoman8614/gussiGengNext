@@ -158,12 +158,10 @@
 
 @keyframes rise-and-zoom {
   0% {
-    transform: translateY(43%) scale(1);
     opacity: 0;
     height: 57%;
   }
   100% {
-    transform: translateY(0) scale(1);
     opacity: 1;
     height: 100vh;
   }
