@@ -157,7 +157,7 @@ export default function PvpPage() {
                     if(status === 408) {
                         router.push('/pvpbot');
                     }
-                    if (status === 400 || status === 504) {
+                    if (status === 400 || status === 504 || response.status === 502) {
                         toast.error("Pair not found");
                         setTimeout(() => {
                             router.push('/');
