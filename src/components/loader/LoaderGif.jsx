@@ -37,14 +37,14 @@ const LoadingText = () => {
     }, []);
 
     useEffect(() => {
-        if(time === 25) {
+        if(timer === 25) {
             toast.error("Pair not found");
             setTimeout(() => {
                 router.push('/main');
             }, 5000);
         }
         return () => clearInterval(interval);
-    })
+    }, [timer])
 
     const formatTime = (timeInSeconds) => {
         const minutes = Math.floor(timeInSeconds / 60);
