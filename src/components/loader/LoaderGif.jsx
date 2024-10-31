@@ -39,6 +39,8 @@ const LoadingText = () => {
     useEffect(() => {
         if(timer === 20) {
             toast.error("Pair not found");
+        }
+        if(timer === 22) {
             router.push('/main');
         }
         return;
