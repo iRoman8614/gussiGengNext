@@ -170,12 +170,14 @@ export default function Page() {
                                 if (window.Telegram?.WebApp?.HapticFeedback) {
                                     window.Telegram.WebApp.HapticFeedback.impactOccurred('heavy');
                                 }
-                                setHintOne(!hintOne)}}>?</div>
+                                router.push('/faq/pvp')
+                                // setHintOne(!hintOne)
+                            }}>?</div>
                         </div>
-                        {hintOne && <div className={styles.hint}>
-                            Battle against others, earn rewards, and climb the ranks.
-                            <p>no luck, just skill!</p>
-                        </div>}
+                        {/*{hintOne && <div className={styles.hint}>*/}
+                        {/*    Battle against others, earn rewards, and climb the ranks.*/}
+                        {/*    <p>no luck, just skill!</p>*/}
+                        {/*</div>}*/}
                     </div>
                     <div>
                         <div className={styles.hidderRoot}>

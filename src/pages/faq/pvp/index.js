@@ -54,7 +54,9 @@ export default function PvpBotPage() {
 
     const slideContent = [
         <div className={styles.slideContent1} key={'slideContent1'}>
-            <div>Welcome to gang wars PvP battle mode! Let s get you battle-ready!</div>
+            {/*<div>Welcome to gang wars PvP battle mode! Let s get you battle-ready!</div>*/}
+            <div>Battle against others, earn rewards, and climb the ranks.</div>
+            <div><a className={styles.yellow}>No luck, Just skill!</a></div>
         </div>,
         <div className={styles.slideContent2} key={'slideContent2'}>
             <div>This is your <a className={styles.yellow}>opponent</a></div>
