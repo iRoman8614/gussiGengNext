@@ -53,6 +53,11 @@
   text-overflow: ellipsis;
 }
 
+.icon {
+  width: auto-clamp(40, 60);
+  height: auto-clamp(40, 60);
+}
+
 .desc {
   font-size: auto-clamp(14, 18);
   line-height: auto-clamp(18, 24);
