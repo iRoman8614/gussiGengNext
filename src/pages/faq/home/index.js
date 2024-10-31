@@ -31,7 +31,7 @@ export default function Home() {
         if (typeof window !== 'undefined' && window.Telegram?.WebApp?.BackButton) {
             window.Telegram.WebApp.BackButton.show();
             window.Telegram.WebApp.BackButton.onClick(() => {
-                router.push('/faq');
+                router.push('/main');
             });
             return () => {
                 window.Telegram.WebApp.BackButton.hide();

@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import Image from "next/image";
 import { useRouter } from 'next/router';
 import { IconButton } from "@/components/buttons/icon-btn/IconButton.jsx";
@@ -24,6 +24,18 @@ export default function PvpBotPage() {
     const router = useRouter();
     const [slide, setSlide] = useState(0)
 
+    useEffect(() => {
+        if (typeof window !== 'undefined' && window.Telegram?.WebApp?.BackButton) {
+            window.Telegram.WebApp.BackButton.show();
+            window.Telegram.WebApp.BackButton.onClick(() => {
+                router.push('/main');
+            });
+            return () => {
+                window.Telegram.WebApp.BackButton.hide();
+            };
+        }
+    }, [router]);
+
     const nextSlide = () => {
         if(slide === 6) {
             router.push('/main')
@@ -33,8 +45,8 @@ export default function PvpBotPage() {
     }
 
     const prevSlide = () => {
-        if(slide === 0) {
-            return
+        if(slide === -1) {
+            router.push('/faq/home')
         } else {
             setSlide((prev) => prev - 1);
         }
