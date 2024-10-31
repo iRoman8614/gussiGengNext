@@ -49,8 +49,9 @@
   font-size: auto-clamp(16, 22);
   line-height: auto-clamp(16, 22);
   color: #fff;
-  width: 100%;
+  width: auto;
   white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .desc {
