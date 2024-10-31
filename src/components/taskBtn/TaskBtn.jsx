@@ -21,7 +21,7 @@ export const TaskBtn = ({title, subtitle, desc, completed, onClick, readyToCompl
             case 'x': return IconX;
             default:
                 if (type === 1) return Icon1;
-                if (type === 3) return Icon5;
+                if (type === 3) return Icon3;
                 return '';
         }
     }
