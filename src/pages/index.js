@@ -87,9 +87,9 @@ export default function LoaderPage() {
             const response = await axiosInstance.get(`/profile/stats`);
             const liga = response.data.liga;
             if(liga === 0) {
-                setLige(0)
+                setLiga(0)
             }
-            setLige(liga-1);
+            setLiga(liga-1);
         } catch (error) {
             console.error('Ошибка при получении статистики:', error);
         }
@@ -115,8 +115,7 @@ export default function LoaderPage() {
             setLang(data.lang)
             setGroupId(data.group.id)
             localStorage.setItem('GWToken', data.jwt)
-            const stats = await fetchStats()
-            setLiga(stats.data.liga)
+            fetchStats()
         }
 
         if (!init) {
