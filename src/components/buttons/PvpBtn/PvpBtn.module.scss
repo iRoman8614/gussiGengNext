@@ -1,3 +1,5 @@
+@import '../../../styles/_utils';
+
 .root, .rootChosen {
   margin: 0;
   padding: 5px;
@@ -17,7 +19,7 @@
 
 .container, .containerChosen {
   margin: 0;
-  padding: 10px 0 0 0;
+  padding: auto-clamp(0, 10) 0 0 0;
   width: 90px;
   height: 90px;
   border-radius: 11px;
@@ -53,14 +55,19 @@
   background: rgba(105, 71, 13, 0.6);
 }
 
+.icon {
+  width: auto-clamp(40, 50);
+  height: auto-height(30, 40);
+}
+
 @media (max-width: 360px) {
   .root, .rootChosen {
-    height: 80px;
-    width: 80px;
-  }
-  .container, .containerChosen {
     height: 70px;
     width: 70px;
+  }
+  .container, .containerChosen {
+    height: 60px;
+    width: 60px;
   }
   .title, .titleChosen {
     font-size: 16px;

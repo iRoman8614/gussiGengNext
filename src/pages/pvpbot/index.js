@@ -305,7 +305,6 @@ export default function PvpBotPage() {
                             {/*    )}*/}
                             {/*</div>*/}
                             <div className={styles.optionBg}>
-                                {/* GIF анимация */}
                                 <img
                                     className={`${styles.choose} ${visibleImage === 1 ? styles.visible : styles.hidden}`}
                                     src={

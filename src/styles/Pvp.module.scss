@@ -4,7 +4,7 @@
   height: 100vh;
   min-width: 319px;
   max-width: 450px;
-  min-height: 550px;
+  min-height: 495px;
   width: 100%;
   color: #FFFFFF;
   display: flex;
@@ -29,24 +29,24 @@
 
 .container {
   width: 100%;
-  height: 100%;
+  height: 100vh;
   display: grid;
   grid-template-columns: 1fr 3fr 1fr;
-  grid-template-rows: 2fr 5fr 4fr 5fr 2fr 3fr;
+  grid-template-rows: 2fr 4fr 1fr 4fr 1fr 2fr;
   align-items: center;
   justify-items: center;
 }
 
 .optionBg {
   grid-column-start: 2;
-  border-radius: 38px;
   background: linear-gradient(359deg, rgba(21, 25, 62, 0.45) 0%, rgba(56, 66, 164, 0.45) 100%);
   backdrop-filter: blur(8px);
-  width: 150px;
-  max-height: 100%;
+  width: auto-clamp(100, 150);
+  height: auto-height(100, 250);
   display: flex;
   justify-content: center;
   align-items: center;
+  border-radius: auto-clamp(18, 38);
 }
 
 .oppNickname {
@@ -56,7 +56,7 @@
   align-items: center;
   justify-content: center;
   background: url("/oppNickNameContainer.png") no-repeat;
-  background-size: 100%;
+  background-size: 100% 100%;
   max-width: 202px;
   width: 100%;
   height: 100%;
@@ -68,13 +68,11 @@
 }
 
 .choose {
-  width: 92px;
-  height: 184px;
+  width: auto-clamp(100, 150);
+  height: auto-height(110, 240);
   object-fit: contain;
+  padding: 10px;
   rotate: 180deg;
-  transform: scale(1.5);
-  padding-top: 10px;
-  padding-left: 5px;
 }
 
 .hidden {
@@ -93,50 +91,50 @@
 }
 
 .mychoose{
-  width: 92px;
-  height: 184px;
+  width: auto-clamp(100, 150);
+  height: auto-height(110, 240);
   object-fit: contain;
-  transform: scale(1.5);
-  padding-top: 10px;
-  padding-left: 5px;
+  padding: 10px;
 }
 
 .roundTimer {
-  width: 144px;
-  height: 144px;
+  width: auto-clamp(80, 124);
+  height: auto-height(80, 144);
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-bottom: 10px;
-  padding-right: 5px;
   margin: auto;
   position: relative;
 }
 
 .roundTimerBG {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
+  display: flex;
+  padding-left: 5px;
+  align-self: center;
+  justify-self: center;
+  object-fit: fill;
+  width: auto-clamp(80, 124);
+  height: auto-height(80, 144);
   z-index: -1;
 }
 
 .time {
-  width: 30px;
-  height: 34px;
+  position: absolute;
+  width: 100%;
   text-align: center;
-  font-size: 34px;
+  height: 34px;
+  font-size: auto-clamp(24, 34);
   line-height: 34px;
+  padding-left: 3px;
 }
 
 .round {
   grid-row-start: 5;
   grid-column-start: 2;
   background: url("/roundContainer.png") no-repeat;
-  background-size: contain;
+  background-size: 100% 100%;
   width: auto-clamp(100, 120);
-  height: auto-clamp(44, 52);
+  height: auto-height(34, 52);
   text-align: center;
   line-height: auto-clamp(16, 27);
   font-size: auto-clamp(20, 32);
@@ -148,7 +146,7 @@
 .buttonSet {
   grid-row-start: 6;
   grid-column: 1/4;
-  height: 94px;
+  height: fit-content;
   padding: 2px;
   width: 100%;
   display: flex;
@@ -163,7 +161,7 @@
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  height: auto-clamp(130, 185);
+  height: auto-height(120, 185);
   max-width: 56px;
   width: auto;
   justify-self: center;
@@ -216,57 +214,6 @@
 }
 
 .heart {
-  width: auto-clamp(40, 55);
-  height: auto-clamp(40, 55);
-}
-
-@media (max-width: 360px) {
-  .middleBar {
-    height: 60px;
-  }
-  .roundTimer {
-    width: 100px;
-    height: 100px;
-  }
-  .time {
-    height: 24px;
-    font-size: 24px;
-    line-height: 24px;
-  }
-  .choose, .mychoose {
-    height: 110px;
-    object-fit: contain;
-    transform: scale(1.1);
-  }
-  .optionBg {
-    height: 130px;
-    width: 100px;
-    border-radius: 18px;
-  }
-}
-
-@media (min-width: 361px) and (max-width: 400px) {
-  .middleBar {
-    height: 80px;
-  }
-  .roundTimer {
-    width: 120px;
-    height: 122px;
-  }
-  .time {
-    height: 28px;
-    font-size: 28px;
-    line-height: 28px;
-  }
-  .choose, .mychoose {
-    height: 130px;
-    object-fit: contain;
-    border-radius: 6px;
-    transform: scale(1.2);
-  }
-  .optionBg {
-    height: 150px;
-    width: 115px;
-    border-radius: 18px;
-  }
+  width: auto-clamp(30, 45);
+  height: auto-height(30, 55);
 }

@@ -13,7 +13,7 @@ export const PvpBtn = ({ onClick, choose, img, title, value }) => {
     return (
         <div className={value === choose ? styles.rootChosen : styles.root} onClick={handleClick}>
             <div className={value === choose ? styles.containerChosen : styles.container}>
-                <Image src={img} alt={'rock'} width={47} height={39} />
+                <Image className={styles.icon} src={img} alt={'rock'} width={42} height={33} />
                 <div className={value === choose ? styles.titleChosen : styles.title}>{title}</div>
             </div>
         </div>
