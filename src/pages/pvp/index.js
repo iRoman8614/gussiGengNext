@@ -116,7 +116,7 @@ export default function PvpPage() {
                 });
                 clearTimeout(timeoutId);
 
-                if (response.status === 400 || response.status === 504) {
+                if (response.status === 400 || response.status === 504 || response.status === 502) {
                     toast.error("Pair not found");
                     setTimeout(() => {
                         router.push('/main');
