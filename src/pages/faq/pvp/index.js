@@ -28,7 +28,7 @@ export default function PvpBotPage() {
         if (typeof window !== 'undefined' && window.Telegram?.WebApp?.BackButton) {
             window.Telegram.WebApp.BackButton.show();
             window.Telegram.WebApp.BackButton.onClick(() => {
-                router.push('/main');
+                router.push('/lobby');
             });
             return () => {
                 window.Telegram.WebApp.BackButton.hide();
@@ -37,6 +37,9 @@ export default function PvpBotPage() {
     }, [router]);
 
     const nextSlide = () => {
+        if (window.Telegram?.WebApp?.HapticFeedback) {
+            window.Telegram.WebApp.HapticFeedback.impactOccurred("heavy");
+        }
         if(slide === 6) {
             router.push('/lobby')
         } else {
@@ -45,6 +48,9 @@ export default function PvpBotPage() {
     }
 
     const prevSlide = () => {
+        if (window.Telegram?.WebApp?.HapticFeedback) {
+            window.Telegram.WebApp.HapticFeedback.impactOccurred("heavy");
+        }
         if(slide === 0) {
             return;
         } else {

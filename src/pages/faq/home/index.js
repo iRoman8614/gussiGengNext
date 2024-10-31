@@ -46,6 +46,9 @@ export default function Home() {
     }
 
     const nextSlide = () => {
+        if (window.Telegram?.WebApp?.HapticFeedback) {
+            window.Telegram.WebApp.HapticFeedback.impactOccurred("heavy");
+        }
         if(slide === 6) {
             router.push('/main')
         } else {
@@ -54,6 +57,9 @@ export default function Home() {
     }
 
     const prevSlide = () => {
+        if (window.Telegram?.WebApp?.HapticFeedback) {
+            window.Telegram.WebApp.HapticFeedback.impactOccurred("heavy");
+        }
         if(slide === 0) {
             return
         } else {
