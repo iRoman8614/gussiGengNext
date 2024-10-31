@@ -158,8 +158,7 @@ export default function Page() {
                                 marginBottom:  activeTab === 2 ? '-0px' : '2px',
                             }}
                             onClick={() => handleTab(2)}
-                        >info
-                        </div>
+                        >info</div>
                     </div>
                     {activeTab === 1 && <div className={styles.friendsContainer}>
                         <div>
@@ -192,48 +191,46 @@ export default function Page() {
                             </button>
                         </div>
                     </div>}
-                        {activeTab === 2 && <div className={styles.infoContainer}>
-                            <div className={styles.listInfo}>
-                                <div className={styles.hintLabel}>- Each <a>referral</a> gives you <a>+1 PvP pass.</a></div>
-                                <div className={styles.hintLabel}>- <a>PvP Pass</a> – allows <a>5 extra PvP games</a>, bypassing the 6-hour cooldown.</div>
-                                <div className={styles.hintLabel}>- If the referral has <a>Telegram Premium</a>, you get <a>+2 PvP passes</a>.</div>
-                                <div className={styles.hintLabel}>Referrals <a>score 10,000 </a> <Image src={money} alt={''} width={15} height={15} />    just for <a>signing up</a> (joining the bot) through your referral link!</div>
-                                <div className={styles.title}>rewards</div>
-                                <div className={styles.rewards}>
-                                    <div className={styles.row}>
-                                        <div className={styles.hintLabel}><a>1</a> referral</div>
-                                        <div className={styles.hintLabel}><a>10000 </a><Image src={money} alt={''} width={15} height={15} /></div>
-                                    </div>
-                                    <div className={styles.row}>
-                                        <div className={styles.hintLabel}><a>3</a> referrals</div>
-                                        <div className={styles.hintLabel}><a>50000 </a><Image src={money} alt={''} width={15} height={15} /></div>
-                                    </div>
-                                    <div className={styles.row}>
-                                        <div className={styles.hintLabel}><a>5</a> referrals</div>
-                                        <div className={styles.hintLabel}><a>100000 </a><Image src={money} alt={''} width={15} height={15} /></div>
-                                    </div>
-                                    <div className={styles.row}>
-                                        <div className={styles.hintLabel}><a>10</a> referrals</div>
-                                        <div className={styles.hintLabel}><a>250000 </a><Image src={money} alt={''} width={15} height={15} /></div>
-                                    </div>
-                                    <div className={styles.row}>
-                                        <div className={styles.hintLabel}><a>25</a> referrals</div>
-                                        <div className={styles.hintLabel}><a>750000 </a><Image src={money} alt={''} width={15} height={15} /></div>
-                                    </div>
-                                    <div className={styles.row}>
-                                        <div className={styles.hintLabel}><a>50</a> referrals</div>
-                                        <div className={styles.hintLabel}><a>1500000 </a><Image src={money} alt={''} width={15} height={15} /></div>
-                                    </div>
-                                    <div className={styles.row}>
-                                        <div className={styles.hintLabel}><a>100</a> referrals</div>
-                                        <div className={styles.hintLabel}><a>5000000 </a><Image src={money} alt={''} width={15} height={15} /></div>
-                                    </div>
+                    {activeTab === 2 && <div className={styles.infoContainer}>
+                        <div className={styles.listInfo}>
+                            <div className={styles.hintLabel}>- Each <a>referral</a> gives you <a>+1 PvP pass.</a></div>
+                            <div className={styles.hintLabel}>- <a>PvP Pass</a> – allows <a>5 extra PvP games</a>, bypassing the 6-hour cooldown.</div>
+                            <div className={styles.hintLabel}>- If the referral has <a>Telegram Premium</a>, you get <a>+2 PvP passes</a>.</div>
+                            <div className={styles.hintLabel}>Referrals <a>score 10,000 </a> <Image src={money} alt={''} width={15} height={15} />    just for <a>signing up</a> (joining the bot) through your referral link!</div>
+                            <div className={styles.title}>rewards</div>
+                            <div className={styles.rewards}>
+                                <div className={styles.row}>
+                                    <div className={styles.hintLabel}><a>1</a> referral</div>
+                                    <div className={styles.hintLabel}><a>10000 </a><Image src={money} alt={''} width={15} height={15} /></div>
                                 </div>
-                                {/*<div className={styles.space}>...</div>*/}
+                                <div className={styles.row}>
+                                    <div className={styles.hintLabel}><a>3</a> referrals</div>
+                                    <div className={styles.hintLabel}><a>50000 </a><Image src={money} alt={''} width={15} height={15} /></div>
+                                </div>
+                                <div className={styles.row}>
+                                    <div className={styles.hintLabel}><a>5</a> referrals</div>
+                                    <div className={styles.hintLabel}><a>100000 </a><Image src={money} alt={''} width={15} height={15} /></div>
+                                </div>
+                                <div className={styles.row}>
+                                    <div className={styles.hintLabel}><a>10</a> referrals</div>
+                                    <div className={styles.hintLabel}><a>250000 </a><Image src={money} alt={''} width={15} height={15} /></div>
+                                </div>
+                                <div className={styles.row}>
+                                    <div className={styles.hintLabel}><a>25</a> referrals</div>
+                                    <div className={styles.hintLabel}><a>750000 </a><Image src={money} alt={''} width={15} height={15} /></div>
+                                </div>
+                                <div className={styles.row}>
+                                    <div className={styles.hintLabel}><a>50</a> referrals</div>
+                                    <div className={styles.hintLabel}><a>1500000 </a><Image src={money} alt={''} width={15} height={15} /></div>
+                                </div>
+                                <div className={styles.row}>
+                                    <div className={styles.hintLabel}><a>100</a> referrals</div>
+                                    <div className={styles.hintLabel}><a>5000000 </a><Image src={money} alt={''} width={15} height={15} /></div>
+                                </div>
                             </div>
                         </div>
-                        }
-                    </div>
+                    </div>}
+                </div>
             </div>
         </div>
     )
