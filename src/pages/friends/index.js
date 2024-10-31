@@ -121,77 +121,77 @@ export default function Page() {
 
     return(
         <div className={styles.root}>
-                <div className={styles.container}>
-                    <div className={styles.bannerSet}>
-                        <div className={styles.banner}>
-                            <div className={styles.bannerMid}>
-                                invite a friend
-                                <p>+1 PVP pass</p>
-                            </div>
-                            <div className={styles.hintLabel}><a>+5 extra games</a></div>
+            <div className={styles.container}>
+                {activeTab === 1 && <div className={styles.bannerSet}>
+                    <div className={styles.banner}>
+                        <div className={styles.bannerMid}>
+                            invite a friend
+                            <p>+1 PVP pass</p>
                         </div>
-                        <div className={styles.banner}>
-                            <div className={styles.bannerMid}>
-                                invite a
-                                tg <Image src={star} alt={''} width={15} height={15} /> friend
-                                <p>+2 PVP pass</p>
-                            </div>
-                            <div className={styles.hintLabel}><a>+10 extra games</a></div>
+                        <div className={styles.hintLabel}><a>+5 extra games</a></div>
+                    </div>
+                    <div className={styles.banner}>
+                        <div className={styles.bannerMid}>
+                            invite a
+                            tg <Image src={star} alt={''} width={15} height={15}/> friend
+                            <p>+2 PVP pass</p>
+                        </div>
+                        <div className={styles.hintLabel}><a>+10 extra games</a></div>
+                    </div>
+                </div>}
+                {activeTab === 1 && <div className={styles.hintBg}>
+                    <div className={styles.hintLabel}>earn <a>10%</a> of your friends <a>tasks</a> completion!</div>
+                </div>}
+                <div className={styles.block}>
+                    <div className={styles.buttonSet}>
+                        <div className={styles.folderBtnStats}
+                             style={{
+                                 zIndex: activeTab === 1 ? 112 : 110,
+                                 marginBottom:  activeTab === 1 ? '0px' : '-12px',
+                                 borderRight:  activeTab === 1 ? '2px solid #3842a4' : 'none',
+                             }}
+                             onClick={() => handleTab(1)}>friends</div>
+                        <div
+                            className={styles.folderBtnSkins}
+                            style={{
+                                zIndex: activeTab === 2 ? 113 : 110,
+                                marginBottom:  activeTab === 2 ? '-0px' : '2px',
+                            }}
+                            onClick={() => handleTab(2)}
+                        >info
                         </div>
                     </div>
-                    <div className={styles.hintBg}>
-                        <div className={styles.hintLabel}>earn <a>10%</a> of your friends <a>tasks</a> completion!</div>
-                    </div>
-                    <div className={styles.block}>
-                        <div className={styles.buttonSet}>
-                            <div className={styles.folderBtnStats}
-                                 style={{
-                                     zIndex: activeTab === 1 ? 112 : 110,
-                                     marginBottom:  activeTab === 1 ? '0px' : '-12px',
-                                     borderRight:  activeTab === 1 ? '2px solid #3842a4' : 'none',
-                                 }}
-                                 onClick={() => handleTab(1)}>friends</div>
-                            <div
-                                className={styles.folderBtnSkins}
-                                style={{
-                                    zIndex: activeTab === 2 ? 113 : 110,
-                                    marginBottom:  activeTab === 2 ? '-0px' : '2px',
-                                }}
-                                onClick={() => handleTab(2)}
-                            >info
-                            </div>
-                        </div>
-                        {activeTab === 1 &&<div className={styles.friendsContainer}>
-                            <div>
-                                {progressPercent < 100 ? (
-                                    <div className={styles.bar}>
-                                        <div
-                                            className={styles.progress}
-                                            style={{ width: `${progressPercent}%` }}
-                                        />
+                    {activeTab === 1 && <div className={styles.friendsContainer}>
+                        <div>
+                            {progressPercent < 100 ? (
+                                <div className={styles.bar}>
+                                    <div
+                                        className={styles.progress}
+                                        style={{ width: `${progressPercent}%` }}
+                                    />
+                                </div>
+                            ) : (
+                                <Link href="/upgrades?tab=2" className={styles.barFull}>
+                                    <div className={styles.progressFull} style={{ width: `${progressPercent}%` }}>
                                     </div>
-                                ) : (
-                                    <Link href="/upgrades?tab=2" className={styles.barFull}>
-                                        <div className={styles.progressFull} style={{ width: `${progressPercent}%` }}>
-                                        </div>
-                                    </Link>
-                                )}
-                                <p className={styles.sign}>{friends.length}/{currentThreshold}</p>
-                            </div>
-                            <div className={styles.list}>
-                                    {friends.length === 0 ? (
-                                        <p className={styles.hintLabel}>Invite your friends</p>
-                                    ) : (
-                                        friends.map((item, index) => <ListItem teamId={item.group} key={index} item={item} />)
-                                    )}
-                            </div>
-                            <div className={styles.buttonset}>
-                                <button className={styles.btnInvite} onClick={inviteClick}>INVITE</button>
-                                <button className={styles.btnCopy} onClick={handleClick}>
-                                    <Image src={copy} alt={'copy'} height={50} width={50} />
-                                </button>
-                            </div>
-                        </div>}
+                                </Link>
+                            )}
+                            <p className={styles.sign}>{friends.length}/{currentThreshold}</p>
+                        </div>
+                        <div className={styles.list}>
+                            {friends.length === 0 ? (
+                                <p className={styles.hintLabel}>Invite your friends</p>
+                            ) : (
+                                friends.map((item, index) => <ListItem teamId={item.group} key={index} item={item} />)
+                            )}
+                        </div>
+                        <div className={styles.buttonset}>
+                            <button className={styles.btnInvite} onClick={inviteClick}>INVITE</button>
+                            <button className={styles.btnCopy} onClick={handleClick}>
+                                <Image src={copy} alt={'copy'} height={50} width={50} />
+                            </button>
+                        </div>
+                    </div>}
                         {activeTab === 2 && <div className={styles.infoContainer}>
                             <div className={styles.listInfo}>
                                 <div className={styles.hintLabel}>- Each <a>referral</a> gives you <a>+1 PvP pass.</a></div>
@@ -229,12 +229,12 @@ export default function Page() {
                                         <div className={styles.hintLabel}><a>5000000 </a><Image src={money} alt={''} width={15} height={15} /></div>
                                     </div>
                                 </div>
-                                <div className={styles.space}>...</div>
+                                {/*<div className={styles.space}>...</div>*/}
                             </div>
                         </div>
                         }
                     </div>
-                </div>
             </div>
+        </div>
     )
 }
