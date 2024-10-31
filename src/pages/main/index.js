@@ -120,8 +120,11 @@ export default function Home() {
     const fetchStats = async () => {
         try {
             const response = await axiosInstance.get(`/profile/stats`);
-            const data = response.data;
-            setLige(data);
+            const liga = response.data.liga;
+            if(liga === 0) {
+                setLige(1)
+            }
+            setLige(liga);
         } catch (error) {
             console.error('Ошибка при получении статистики:', error);
         }
