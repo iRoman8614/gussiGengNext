@@ -48,7 +48,7 @@ export default function Page() {
             }
             const start = JSON.parse(localStorage.getItem('start'));
             if (start) {
-                setTotalCoins(start.totalBalance);
+                setTotalCoins(start.totalCoins);
                 setBalance(start.balance)
             }
         }
