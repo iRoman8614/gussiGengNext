@@ -96,6 +96,7 @@ export default function PvpPage() {
                 setUserId(userObject.id);
                 setUserName(userObject.username);
             } else {
+                setUserId(111)
                 setUserName('you');
             }
         }
