@@ -85,6 +85,10 @@ export default function LoaderPage() {
     const fetchStats = async () => {
         try {
             const response = await axiosInstance.get(`/profile/stats`);
+            if(!response || !response.data)  {
+                toast.error('error during init request')
+                return
+            }
             const liga = response.data.liga;
             if(liga === 0) {
                 setLiga(0)
@@ -112,8 +116,12 @@ export default function LoaderPage() {
         if(!myToken) {
             const response = await axiosInstance.get(`/profile/init?token=${authToken}`);
             const data = response.data;
-            setLang(data.lang)
+            if(!response || !response.data)  {
+                toast.error('error during init request')
+                return
+            }
             setGroupId(data.group.id)
+            console.log('setGroupId', setGroupId)
             localStorage.setItem('GWToken', data.jwt)
             fetchStats()
         }
@@ -139,6 +147,10 @@ export default function LoaderPage() {
     const checkStartData = useCallback(async () => {
         try {
             const response = await axiosInstance.get(`/farm/start`);
+            if(!response || !response.data)  {
+                toast.error('error during start request')
+                return
+            }
             localStorage.setItem('start', JSON.stringify(response.data));
             await preloadAssets(newPlayerAssets);
             router.push('/getRandom');
