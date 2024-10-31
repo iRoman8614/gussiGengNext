@@ -2,6 +2,7 @@ import {useEffect, useState} from "react";
 import {useRouter} from "next/router";
 import Image from "next/image";
 import axiosInstance from '@/utils/axios';
+import { useInit } from '@/context/InitContext';
 
 import skinData from '@/mock/skinsData'
 import teamData from "@/mock/teamsData";
@@ -12,15 +13,13 @@ const money = '/money.png'
 
 export default function Page() {
     const router = useRouter();
-    const [teamId, setTeamId] = useState(null)
-    const [level, setLevel] = useState(1)
+    const { groupId, liga } = useInit();
     const [activeTab, setActiveTab] = useState(1);
     const [userId, setUserId] = useState(null);
     const [userName, setUserName] = useState(null);
     const [friends, setFriends] = useState([]);
     const [daily, setDaily] = useState(0)
     const [stats, setStats] = useState({
-        liga: 0,
         count: 0,
         victory: 0,
         lost: 0,
@@ -42,10 +41,6 @@ export default function Page() {
 
     useEffect(() => {
         if (typeof window !== 'undefined') {
-            const init = JSON.parse(localStorage.getItem('init'));
-            if (init && init.group) {
-                setTeamId(init.group.id);
-            }
             const start = JSON.parse(localStorage.getItem('start'));
             if (start) {
                 setTotalCoins(start.totalBalance);
@@ -107,15 +102,6 @@ export default function Page() {
         }
     };
 
-    function getRandomNumber() {
-        return Math.floor(Math.random() * 6) + 1;
-    }
-    useEffect(() => {
-        const level = getRandomNumber()
-        setLevel(level)
-    }, [])
-
-
     function formatNumberFromEnd(num) {
         return num.toString().replace(/(\d)(?=(\d{3})+$)/g, "$1 ");
     }
@@ -136,8 +122,8 @@ export default function Page() {
                             {userName}
                         </div>
                         <div className={styles.avatarContainer}>
-                            <Image className={styles.logo} src={teamData[teamId]?.logo} alt={''} width={40} height={40} />
-                            <Image className={styles.character} src={skinData[teamId]?.[level]?.icon} alt={''} width={100} height={178} />
+                            <Image className={styles.logo} src={teamData[groupId]?.logo} alt={''} width={40} height={40} />
+                            <Image className={styles.character} src={skinData[groupId]?.[liga]?.icon} alt={''} width={100} height={178} />
                         </div>
                     </div>
                     <div className={styles.block}>
