@@ -80,11 +80,17 @@ export default function Page() {
                 let tasks = tasksResponse.data;
                 const completedTasksResponse = await axiosInstance.get('/task/completed-tasks');
                 const completedTasks = completedTasksResponse.data.map(task => task.task.id);
-                const lastCompletedTaskIdType1 = Math.max(0, ...tasks.filter(task => task.type === 1 && completedTasks.includes(task.id)).map(task => task.id));
-                tasks = tasks = tasks.filter(task => task.type !== 4).map(task => {
+                const lastCompletedTaskIdType1 = Math.max(
+                    0,
+                    ...tasks.filter(task => task.type === 1 && completedTasks.includes(task.id)).map(task => task.id)
+                );
+
+                // Filter out tasks with type 4
+                tasks = tasks.filter(task => task.type !== 4).map(task => {
                     const isCompleted = completedTasks.includes(task.id);
                     let readyToComplete = false;
                     let icon = '';
+
                     if (task.type === 1 && numFriends >= task.amount && !isCompleted) {
                         readyToComplete = true;
                     }
@@ -96,6 +102,7 @@ export default function Page() {
                     }
                     console.log(`Task ${task.id} icon: ${icon}`);
                     const isVisible = task.type === 1 ? task.id <= lastCompletedTaskIdType1 + 1 : true;
+
                     return {
                         ...task,
                         name: mapTaskName(task.name),
@@ -115,6 +122,7 @@ export default function Page() {
         };
         fetchTasksAndFriends();
     }, []);
+
 
 
     const mapTaskName = (originalName) => {
@@ -234,9 +242,8 @@ export default function Page() {
             let updateCompletedTasks = false;
 
             for (const task of tasks) {
-                if (task.type === 4) {
-                    continue;
-                }
+                if (task.type === 4) continue;
+
                 if (task.type === 2 && localStorage.getItem(`task_${task.id}_pending`)) {
                     try {
                         await axiosInstance.get(`/task/execute?taskId=${task.id}`);
@@ -261,6 +268,7 @@ export default function Page() {
         };
         executePendingTasks();
     }, [tasks]);
+
 
     const fetchCompletedTasks = async () => {
         try {
