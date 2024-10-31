@@ -141,7 +141,7 @@ export default function Home() {
                     <IconButton image={account} alt={'account'} title={'account'}  onClick={() => {router.push('/account')}}/>
                 </div>
                 <div className={styles.item2}>
-                    <IconButton image={teamData[groupId].logo} alt={'gang'} onClick={() => {router.push('/change')}}/>
+                    <IconButton image={teamData[groupId]?.logo} alt={'gang'} onClick={() => {router.push('/change')}}/>
                 </div>
                 <div className={styles.item3}>
                     <IconButton image={settings} alt={'settings'} title={'settings'} onClick={() => {router.push('/settings');}}/>
