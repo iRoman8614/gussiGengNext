@@ -30,7 +30,7 @@ export default function Home() {
     const [startFarmTime, setStartFarmTime] = useState(Date.now());
     const [teamId, setTeamId] = useState(0)
     const [isClaimClicked, setIsClaimClicked] = useState(false);
-    const [liga, setLige] = useState(1)
+    const [liga, setLige] = useState(0)
 
     useEffect(() => {
         if (typeof window !== "undefined") {
@@ -122,7 +122,7 @@ export default function Home() {
             const response = await axiosInstance.get(`/profile/stats`);
             const liga = response.data.liga;
             if(liga === 0) {
-                setLige(1)
+                setLige(0)
             }
             setLige(liga-1);
         } catch (error) {
