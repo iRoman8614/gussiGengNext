@@ -30,6 +30,7 @@
   flex-direction: column;
   justify-content: space-between;
   gap: 3px;
+  position: relative;
 }
 
 .hintBlock {
@@ -152,7 +153,9 @@
 .block2 {
   padding: 20px 5px;
   height: 57%;
-  animation: rise-and-zoom 0.5s forwards ease-out;
+  animation: rise-and-zoom 2s forwards ease-out;
+  position: absolute;
+  bottom: 10px;
 }
 
 @keyframes rise-and-zoom {
