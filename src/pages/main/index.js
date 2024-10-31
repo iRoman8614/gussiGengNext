@@ -26,7 +26,7 @@ export default function Home() {
     const { groupId, liga } = useInit();
     const [totalCoins, setTotalCoins] = useState(0);
     const [balance, setBalance] = useState(0)
-    const [currentFarmCoins, setCurrentFarmCoins] = useState(1000);
+    const [currentFarmCoins, setCurrentFarmCoins] = useState(0);
     const [rate, setRate] = useState(1);
     const [limit, setLimit] = useState(3600)
     const [startFarmTime, setStartFarmTime] = useState(Date.now());
