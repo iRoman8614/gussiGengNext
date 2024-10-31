@@ -5,6 +5,7 @@ import {IconButton} from "@/components/buttons/icon-btn/IconButton";
 import {NavBar} from "@/components/nav-bar/NavBar";
 import {CollectBar} from "@/components/bars/CollectBar";
 import axiosInstance from '@/utils/axios';
+import { useInit } from '@/context/InitContext';
 
 import teamData from "@/mock/teamsData.js";
 import skinData from '@/mock/skinsData'
@@ -22,22 +23,17 @@ const background = '/backgrounds/nightcity.png'
 
 export default function Home() {
     const router = useRouter();
+    const { groupId, liga } = useInit();
     const [totalCoins, setTotalCoins] = useState(0);
     const [balance, setBalance] = useState(0)
     const [currentFarmCoins, setCurrentFarmCoins] = useState(1000);
     const [rate, setRate] = useState(1);
     const [limit, setLimit] = useState(3600)
     const [startFarmTime, setStartFarmTime] = useState(Date.now());
-    const [teamId, setTeamId] = useState(0)
     const [isClaimClicked, setIsClaimClicked] = useState(false);
-    const [liga, setLige] = useState(0)
 
     useEffect(() => {
         if (typeof window !== "undefined") {
-            const init = JSON.parse(localStorage.getItem("init"));
-            if (init && init.group) {
-                setTeamId(init.group.id);
-            }
             const start = JSON.parse(localStorage.getItem("start"));
             if (start) {
                 setTotalCoins(start.totalCoins);
@@ -117,23 +113,6 @@ export default function Home() {
             });
     };
 
-    const fetchStats = async () => {
-        try {
-            const response = await axiosInstance.get(`/profile/stats`);
-            const liga = response.data.liga;
-            if(liga === 0) {
-                setLige(0)
-            }
-            setLige(liga-1);
-        } catch (error) {
-            console.error('Ошибка при получении статистики:', error);
-        }
-    };
-
-    useEffect(() => {
-        fetchStats()
-    }, [])
-
     function formatNumberFromEnd(num) {
         if (isNaN(num) || typeof num !== 'number') {
             return '10800';
@@ -162,7 +141,7 @@ export default function Home() {
                     <IconButton image={account} alt={'account'} title={'account'}  onClick={() => {router.push('/account')}}/>
                 </div>
                 <div className={styles.item2}>
-                    <IconButton image={teamData[teamId].logo} alt={'gang'} onClick={() => {router.push('/change')}}/>
+                    <IconButton image={teamData[groupId].logo} alt={'gang'} onClick={() => {router.push('/change')}}/>
                 </div>
                 <div className={styles.item3}>
                     <IconButton image={settings} alt={'settings'} title={'settings'} onClick={() => {router.push('/settings');}}/>
@@ -178,7 +157,7 @@ export default function Home() {
                     <IconButton image={wallet} alt={'wallet'} title={'wallet'} hidden={true} onClick={() => {router.push('/getRandom')}}/>
                 </div>
                 <div className={styles.item7}>
-                    <Image width={1000} height={1000} className={styles.char} alt={'character'} src={skinData[teamId]?.[liga]?.icon}/>
+                    <Image width={1000} height={1000} className={styles.char} alt={'character'} src={skinData[groupId]?.[liga]?.icon}/>
                 </div>
                 <div className={styles.item8}>
                     <CollectBar

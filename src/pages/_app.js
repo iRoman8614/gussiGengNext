@@ -5,33 +5,36 @@ import 'react-toastify/dist/ReactToastify.css';
 import Head from "next/head";
 import MobileGuard from "@/components/guard/Guard";
 import {AssetsCacheProvider, useAssetsCache} from "@/context/AssetsCacheContext";
+import { InitProvider } from '@/context/InitContext';
 import {useEffect} from "react";
 
 export default function App({ Component, pageProps }) {
     return(
-        <AssetsCacheProvider>
-            <Head>
-                <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-            </Head>
-            <Script
-                src="https://telegram.org/js/telegram-web-app.js"
-                strategy="beforeInteractive"
-            />
-            <ToastContainer
-                position="top-center"
-                autoClose={5000}
-                hideProgressBar
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-            />
-            {/*<MobileGuard />*/}
-            <Component {...pageProps} />
-            <BackgroundPreloader />
-        </AssetsCacheProvider>
+        <InitProvider>
+            <AssetsCacheProvider>
+                <Head>
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+                </Head>
+                <Script
+                    src="https://telegram.org/js/telegram-web-app.js"
+                    strategy="beforeInteractive"
+                />
+                <ToastContainer
+                    position="top-center"
+                    autoClose={5000}
+                    hideProgressBar
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                />
+                {/*<MobileGuard />*/}
+                <Component {...pageProps} />
+                <BackgroundPreloader />
+            </AssetsCacheProvider>
+        </InitProvider>
     );
 }
 

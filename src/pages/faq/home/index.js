@@ -9,6 +9,7 @@ import skinData from '@/mock/skinsData'
 import styles from "@/styles/faqHome.module.scss";
 import {BigButton} from "@/components/buttons/big-btn/BigButton";
 import {useRouter} from "next/router";
+import { useInit } from '@/context/InitContext';
 
 const account = "/main-buttons/account.png";
 const settings = "/main-buttons/settings.png";
@@ -26,6 +27,7 @@ const FAQ = '/main-buttons/FAQ.png'
 export default function Home() {
     const router = useRouter()
     const [slide, setSlide] = useState(0)
+    const { groupId, liga } = useInit();
 
     useEffect(() => {
         if (typeof window !== 'undefined' && window.Telegram?.WebApp?.BackButton) {
@@ -108,7 +110,7 @@ export default function Home() {
                     <IconButton image={account} alt={'account'} title={'account'} />
                 </div>
                 <div className={slide === 2 ? `${styles.item2} ${styles.visible}` : styles.item2}>
-                    <IconButton image={teamData[4].logo} alt={'gang'}/>
+                    <IconButton image={teamData[groupId].logo} alt={'gang'}/>
                 </div>
                 <div className={slide === 2 ? `${styles.item3} ${styles.visible}` : styles.item3}>
                     <IconButton image={settings} alt={'settings'} title={'settings'} />
@@ -124,7 +126,7 @@ export default function Home() {
                     <IconButton image={wallet} alt={'wallet'} title={'wallet'} />
                 </div>
                 <div className={styles.item7}>
-                    <Image width={1000} height={1000} className={styles.char} alt={'character'} src={skinData[1][0].icon}/>
+                    <Image width={1000} height={1000} className={styles.char} alt={'character'} src={skinData[groupId][liga].icon}/>
                 </div>
                 <div className={slide === 0 ? `${styles.item8} ${styles.visible}` : styles.item8}>
                     <CollectBar

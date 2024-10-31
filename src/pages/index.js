@@ -5,6 +5,7 @@ import Head from "next/head";
 import { toast } from "react-toastify";
 import axiosInstance from '@/utils/axios';
 import { useAssetsCache } from '@/context/AssetsCacheContext';
+import { useInit } from '@/context/InitContext';
 
 import styles from '@/styles/Loader.module.scss';
 
@@ -53,7 +54,7 @@ const experiencedPlayerAssets = [
 export default function LoaderPage() {
     const router = useRouter();
     const { preloadAssets } = useAssetsCache();
-    const [userId, setUserId] = useState(null);
+    const { userId, setGroupId, setLiga, setLang, setUserId } = useInit();
     const CURRENT_VERSION = process.env.NEXT_PUBLIC_CURRENT_VERSION;
     console.log('CURRENT_VERSION:', CURRENT_VERSION)
 
@@ -81,6 +82,19 @@ export default function LoaderPage() {
         }
     }, [updateBodyHeight]);
 
+    const fetchStats = async () => {
+        try {
+            const response = await axiosInstance.get(`/profile/stats`);
+            const liga = response.data.liga;
+            if(liga === 0) {
+                setLige(0)
+            }
+            setLige(liga-1);
+        } catch (error) {
+            console.error('Ошибка при получении статистики:', error);
+        }
+    };
+
     const checkLocalStorageAndRedirect = useCallback(async () => {
         const savedVersion = localStorage.getItem('version');
 
@@ -98,7 +112,11 @@ export default function LoaderPage() {
         if(!myToken) {
             const response = await axiosInstance.get(`/profile/init?token=${authToken}`);
             const data = response.data;
+            setLang(data.lang)
+            setGroupId(data.group.id)
             localStorage.setItem('GWToken', data.jwt)
+            const stats = await fetchStats()
+            setLiga(stats.data.liga)
         }
 
         if (!init) {
