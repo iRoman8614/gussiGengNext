@@ -16,7 +16,7 @@ export const TaskBtn = ({title, subtitle, desc, completed, onClick, readyToCompl
     const getIconSrc = () => {
         switch(icon) {
             case 'ref': return Icon1;
-            case 'pvp': return Icon5;
+            case 'pvp': return Icon3;
             case 'tg': return IconTG;
             case 'x': return IconX;
             default:
