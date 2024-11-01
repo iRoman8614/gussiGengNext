@@ -428,7 +428,7 @@ export default function PvpPage() {
                                     src={
                                         visibleImage === 0
                                             ? gameOptions[4]?.logo
-                                            : opponentChoice === 0 || opponentChoice === 10
+                                            : (opponentChoice === 0 || opponentChoice === 10)
                                                 ? gameOptions[4]?.logo
                                                 : opponentChoice === 1
                                                     ? gameOptions[1]?.logo
@@ -555,7 +555,7 @@ export default function PvpPage() {
                                     src={
                                         visibleImage === 0
                                             ? gameOptions[4]?.logo
-                                            : playerChoice === 0 || playerChoice === 10
+                                            : (playerChoice === 0 || playerChoice === 10)
                                                 ? gameOptions[4]?.logo
                                                 : playerChoice === 1
                                                     ? gameOptions[1]?.logo
