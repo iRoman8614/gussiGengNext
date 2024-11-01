@@ -161,7 +161,7 @@ export default function Page() {
             const updatedBalance = balance - cost;
             setBalance(updatedBalance);
             const start = JSON.parse(localStorage.getItem("start"));
-            start.balance = updatedBalance;
+            start.coins = updatedBalance;
             localStorage.setItem("start", JSON.stringify(start));
             closeUpgradeModal();
             fetchLevels();
@@ -180,7 +180,7 @@ export default function Page() {
             const updatedBalance = balance - cost;
             setBalance(updatedBalance);
             const start = JSON.parse(localStorage.getItem("start"));
-            start.balance = updatedBalance;
+            start.coins = updatedBalance;
             localStorage.setItem("start", JSON.stringify(start));
             closeUpgradeModal();
             fetchLevels();
@@ -276,7 +276,7 @@ export default function Page() {
         if (typeof window !== "undefined") {
             const start = JSON.parse(localStorage.getItem("start"));
             if (start) {
-                setBalance(start.balance);
+                setBalance(start.coins);
             }
         }
     }, []);

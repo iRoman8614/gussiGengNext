@@ -40,7 +40,7 @@ export default function Home() {
                 setRate(start.rate);
                 console.log('start.limit:', start.limit);
                 setLimit(start.limit);
-                setBalance(start.balance)
+                setBalance(start.coins)
                 setStartFarmTime(new Date(start.startTime).getTime());
             }
         }
@@ -90,10 +90,10 @@ export default function Home() {
             .then(startResponse => {
                 const startData = startResponse.data;
                 console.log("Ответ от /farm/start:", startData);
-                const updatedStartTotalCoins = Math.max(startData.totalBalance, 0);
+                const updatedStartTotalCoins = Math.max(startData.totalCoins, 0);
                 const updatedRate = Math.max(startData.rate, 0);
                 const updatedLimit = Math.max(startData.limit, 0);
-                const updatedBalance = Math.max(startData.balance, 0);
+                const updatedBalance = Math.max(startData.coins, 0);
                 setTotalCoins(updatedStartTotalCoins);
                 setRate(updatedRate);
                 setLimit(updatedLimit);

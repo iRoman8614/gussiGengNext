@@ -29,7 +29,7 @@ export default function Page() {
             }
             const start = JSON.parse(localStorage.getItem('start'));
             if (start) {
-                setBalance(start.balance)
+                setBalance(start.coins)
             }
         }
     }, []);
