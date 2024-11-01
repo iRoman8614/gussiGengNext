@@ -54,7 +54,7 @@ const experiencedPlayerAssets = [
 export default function LoaderPage() {
     const router = useRouter();
     const { preloadAssets } = useAssetsCache();
-    const { userId, setGroupId, setLiga, setLang, setUserId } = useInit();
+    const { userId, setGroupId, setLiga, setLimit, setRate, setUserId } = useInit();
     const CURRENT_VERSION = process.env.NEXT_PUBLIC_CURRENT_VERSION;
     console.log('CURRENT_VERSION:', CURRENT_VERSION)
 
@@ -125,6 +125,8 @@ export default function LoaderPage() {
                 toast.error('error during init request')
                 return
             }
+            setLimit(data.farm.limit)
+            setRate(data.farm.rate)
             setGroupId(data.group.id)
             console.log('setGroupId', setGroupId)
             localStorage.setItem('GWToken', data.jwt)
@@ -136,6 +138,9 @@ export default function LoaderPage() {
                 const response = await axiosInstance.get(`/profile/init?token=${authToken}`);
                 const data = response.data;
                 localStorage.setItem('init', JSON.stringify(data));
+                setLimit(data.farm.limit)
+                setRate(data.farm.rate)
+                setGroupId(data.group.id)
                 localStorage.setItem('GWToken', data.jwt)
                 await checkStartData();
             } catch (error) {
@@ -156,6 +161,7 @@ export default function LoaderPage() {
                 toast.error('error during start request')
                 return
             }
+
             localStorage.setItem('start', JSON.stringify(response.data));
             await preloadAssets(newPlayerAssets);
             router.push('/getRandom');

@@ -23,12 +23,10 @@ const background = '/backgrounds/nightcity.png'
 
 export default function Home() {
     const router = useRouter();
-    const { groupId, liga } = useInit();
+    const { groupId, liga, rate, limit, setRate, setLimit } = useInit();
     const [totalCoins, setTotalCoins] = useState(0);
     const [balance, setBalance] = useState(0)
     const [currentFarmCoins, setCurrentFarmCoins] = useState(0);
-    const [rate, setRate] = useState(1);
-    const [limit, setLimit] = useState(3600)
     const [startFarmTime, setStartFarmTime] = useState(Date.now());
     const [isClaimClicked, setIsClaimClicked] = useState(false);
 
@@ -37,9 +35,7 @@ export default function Home() {
             const start = JSON.parse(localStorage.getItem("start"));
             if (start) {
                 setTotalCoins(start.totalCoins);
-                setRate(start.rate);
                 console.log('start.limit:', start.limit);
-                setLimit(start.limit);
                 setBalance(start.coins)
                 setStartFarmTime(new Date(start.startTime).getTime());
             }
@@ -95,7 +91,7 @@ export default function Home() {
                 const updatedLimit = Math.max(startData.limit, 0);
                 const updatedBalance = Math.max(startData.coins, 0);
                 setTotalCoins(updatedStartTotalCoins);
-                setRate(updatedRate);
+                setRate(updatedRate)
                 setLimit(updatedLimit);
                 setBalance(updatedBalance);
                 setStartFarmTime(new Date(startData.startTime).getTime());

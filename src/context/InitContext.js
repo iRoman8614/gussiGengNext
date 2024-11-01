@@ -6,6 +6,8 @@ export const InitProvider = ({ children }) => {
     const [liga, setLiga] = useState(0);
     const [lang, setLang] = useState('en');
     const [userId, setUserId] = useState(null);
+    const [limit, setLimit] = useState(0);
+    const [rate, setRate] = useState(1);
     const initState = {
         groupId,
         setGroupId,
@@ -15,6 +17,10 @@ export const InitProvider = ({ children }) => {
         setLang,
         userId,
         setUserId,
+        limit,
+        setLimit,
+        rate,
+        setRate
     };
 
     return (
