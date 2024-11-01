@@ -101,7 +101,7 @@ export default function Home() {
                     startTime: new Date(startData.startTime).toISOString(),
                     rate: updatedRate,
                     limit: updatedLimit,
-                    balance: updatedBalance,
+                    coins: updatedBalance,
                 }));
             })
             .catch(error => {
