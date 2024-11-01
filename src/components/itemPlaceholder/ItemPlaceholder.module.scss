@@ -19,7 +19,7 @@
 }
 
 .image {
-  width: auto;
+  width: auto-clamp(230, 260);
   object-fit: fill;
 }
 
