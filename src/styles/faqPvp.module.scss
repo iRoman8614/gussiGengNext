@@ -65,7 +65,18 @@
   line-height:  auto-clamp(16, 27);
   padding:2px 16px;
   max-height: 52px;
-  color: #FFCC26;
+  color: #FFFFFF;
+  animation: changeColorGreen 1s forwards;
+  animation-delay: 1s;
+}
+
+@keyframes changeColorGreen {
+  from {
+    color: #FFFFFF;
+  }
+  to {
+    color: #FFCC26;
+  }
 }
 
 .choose {
@@ -121,6 +132,33 @@
   color: #57E22C;
 }
 
+.round2 {
+  grid-row-start: 5;
+  grid-column-start: 2;
+  background: url("/roundContainer.png") no-repeat;
+  background-size: contain;
+  width: auto-clamp(100, 120);
+  height: auto-clamp(44, 52);
+  text-align: center;
+  line-height: auto-clamp(16, 27);
+  font-size: auto-clamp(20, 32);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #FFFFFF;
+  animation: changeColorYellow 1s forwards;
+  animation-delay: 1s;
+}
+
+@keyframes changeColorYellow {
+  from {
+    color: #FFFFFF;
+  }
+  to {
+    color: #57E22C;
+  }
+}
+
 .round {
   grid-row-start: 5;
   grid-column-start: 2;
@@ -134,7 +172,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  color: #57E22C;
+  color: #FFFFFF;
 }
 
 .round4 {
@@ -270,6 +308,18 @@
   height: 100vh;
   display: flex;
   align-items: center;
+  opacity: 0;
+  animation: fadeIn 1s forwards;
+  animation-delay: 1s;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .filter0 {

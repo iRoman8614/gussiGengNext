@@ -121,7 +121,7 @@ export default function PvpBotPage() {
                             alt="3"
                         />
                     </div>
-                    <div className={slide === 1 ? `${styles.round} ${styles.visible}` : (slide === 4 ? `${styles.round4} ${styles.visible}` : styles.round)}>
+                    <div className={slide === 1 ? `${styles.round2} ${styles.visible}` : (slide === 4 ? `${styles.round4} ${styles.visible}` : styles.round)}>
                         {slide === 1 ? 'your side' : 'round 3'}
                     </div>
                     <div className={slide === 3 ? `${styles.buttonSet2} ${styles.visible}` : styles.buttonSet}>
