@@ -415,7 +415,7 @@ export default function PvpPage() {
                                                 ? opponentGifCache.current.papAnim?.src || gifPaths.papAnim
                                                 : opponentChoice === 3
                                                     ? opponentGifCache.current.scisAnim?.src || gifPaths.scisAnim
-                                                    : null
+                                                    : gameOptions[4]?.logo
                                     }
                                     alt="game choice animation"
                                 />
@@ -542,7 +542,7 @@ export default function PvpPage() {
                                                 ? playerGifCache.current.papAnim?.src || gifPaths.papAnim
                                                 : playerChoice === 3
                                                     ? playerGifCache.current.scisAnim?.src || gifPaths.scisAnim
-                                                    : null
+                                                    : gameOptions[4]?.logo
                                     }
                                     alt="game choice animation"
                                 />
