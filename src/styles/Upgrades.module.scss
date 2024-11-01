@@ -203,11 +203,13 @@
 }
 
 .itemsList {
+  width: 100%;
   padding: 5px;
   background: radial-gradient(circle at center, rgb(21, 25, 62) 0%, rgb(56, 66, 164) 58%);
   border-radius: 11px;
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 20px;
 }
 
