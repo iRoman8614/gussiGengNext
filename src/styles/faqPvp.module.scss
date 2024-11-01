@@ -272,6 +272,16 @@
   align-items: center;
 }
 
+.filter0 {
+  position: absolute;
+  top: 0;
+  z-index: 10;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+}
+
 .tutorial {
   width: 100%;
   background: #4c3981;

@@ -131,7 +131,7 @@ export default function PvpBotPage() {
                     </div>
                 </div>
             </div>
-            <div className={slide !== 0 && styles.filter}>
+            <div className={slide === 0 ? styles.filter0 : styles.filter}>
                 <div className={slide === 4 ? styles.tutorial4 : styles.tutorial}>
                     <div className={styles.col}>
                         <div className={styles.dot}>1</div>
