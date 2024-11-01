@@ -16,7 +16,7 @@ export const ItemPlaceholder = ({ item, img, onClick }) => {
         <>
             <div className={styles.root} onClick={handleClick}>
                 <div className={styles.imageContainer}>
-                    <Image className={styles.image} width={190} height={130} alt={''} src={img} />
+                    <Image className={styles.image} width={260} height={170} alt={''} src={img} />
                     <div className={styles.level}>lvl {item.Level}</div>
                 </div>
                 <div className={styles.title}>{item.Cost}{' '}<Image src={money} alt={''} width={15} height={15} /></div>
