@@ -1,7 +1,8 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, {createContext, useContext, useEffect, useState} from 'react';
 const InitContext = createContext();
 
 export const InitProvider = ({ children }) => {
+    const savedLang = localStorage.getItem('appLanguage') || 'en';
     const [groupId, setGroupId] = useState(0);
     const [liga, setLiga] = useState(0);
     const [lang, setLang] = useState('en');
@@ -22,6 +23,12 @@ export const InitProvider = ({ children }) => {
         rate,
         setRate
     };
+
+    useEffect(() => {
+        if (lang !== savedLang) {
+            localStorage.setItem('appLanguage', lang);
+        }
+    }, [lang]);
 
     return (
         <InitContext.Provider value={initState}>

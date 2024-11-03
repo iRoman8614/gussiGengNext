@@ -91,9 +91,13 @@ export default function LoaderPage() {
             }
             const liga = response.data.liga;
             if(liga === 0) {
-                setLiga(0)
+                const level = 0
+                setLiga(level)
+                localStorage.setItem('liga', level)
             } else {
-                setLiga(liga-1);
+                const level = liga-1
+                setLiga(level);
+                localStorage.setItem('liga', level)
             }
         } catch (error) {
             console.error('Ошибка при получении статистики:', error);

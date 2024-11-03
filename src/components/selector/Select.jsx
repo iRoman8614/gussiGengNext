@@ -3,7 +3,7 @@ import Select from 'react-select';
 
 import styles from './Select.module.scss'
 
-export const CustomSelect = ({ optionsArray, title }) => {
+export const CustomSelect = ({ optionsArray, title, onChange  }) => {
     const [selectedOption, setSelectedOption] = useState(optionsArray[0] || null);
 
     useEffect(() => {
@@ -11,6 +11,13 @@ export const CustomSelect = ({ optionsArray, title }) => {
             setSelectedOption(optionsArray[0]);
         }
     }, [optionsArray]);
+
+    const handleChange = (option) => {
+        setSelectedOption(option);
+        if (onChange) {
+            onChange(option);
+        }
+    };
 
     const customStyles = {
         control: (provided) => ({
@@ -72,7 +79,7 @@ export const CustomSelect = ({ optionsArray, title }) => {
             <div className={styles.label}>{title}</div>
             <Select
                 value={selectedOption}
-                onChange={setSelectedOption}
+                onChange={handleChange}
                 options={optionsArray}
                 styles={customStyles}
                 placeholder="Select Language"
