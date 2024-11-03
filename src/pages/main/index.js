@@ -21,6 +21,7 @@ const border = '/totalbar.png'
 const claimClicked = '/claimBTNclicked.png'
 const background = '/backgrounds/nightcity.png'
 
+
 export default function Home() {
     const router = useRouter();
     const { groupId, liga, rate, limit, setRate, setLimit } = useInit();
