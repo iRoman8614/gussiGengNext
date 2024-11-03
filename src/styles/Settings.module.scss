@@ -48,3 +48,11 @@
   width: 100%;
   text-align: center;
 }
+
+.buttonset {
+  position: absolute;
+  bottom: 10px;
+  z-index: 110;
+  display: flex;
+  justify-content: space-around;
+}

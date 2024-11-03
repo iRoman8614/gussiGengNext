@@ -58,7 +58,7 @@ export default function Page() {
                 <h1 className={styles.title}>settings</h1>
                 <CustomSelect title={'select language'} optionsArray={languageOptions} onChange={handleLanguageChange} />
             </div>
-            <div>
+            <div className={styles.buttonset}>
                 <div>
                     <button onClick={handleClickLight}>light</button>
                 </div>
