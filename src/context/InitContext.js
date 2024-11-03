@@ -2,7 +2,7 @@ import React, {createContext, useContext, useEffect, useState} from 'react';
 const InitContext = createContext();
 
 export const InitProvider = ({ children }) => {
-    const savedLang = localStorage.getItem('appLanguage') || 'en';
+    let savedLang
     const [groupId, setGroupId] = useState(0);
     const [liga, setLiga] = useState(0);
     const [lang, setLang] = useState('en');
@@ -24,9 +24,15 @@ export const InitProvider = ({ children }) => {
         setRate
     };
 
+    if(typeof window !== 'undefined') {
+        savedLang = localStorage.getItem('appLanguage') || 'en';
+    }
+
     useEffect(() => {
-        if (lang !== savedLang) {
-            localStorage.setItem('appLanguage', lang);
+        if(typeof window !== 'undefined') {
+            if (lang !== savedLang) {
+                localStorage.setItem('appLanguage', lang);
+            }
         }
     }, [lang]);
 
