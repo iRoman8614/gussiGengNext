@@ -51,8 +51,10 @@
 
 .buttonset {
   position: absolute;
-  bottom: 10px;
+  bottom: 50px;
+  left: 50px;
   z-index: 110;
   display: flex;
+  gap: 30px;
   justify-content: space-around;
 }
