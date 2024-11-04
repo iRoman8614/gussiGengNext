@@ -36,38 +36,11 @@ export default function Page() {
         localStorage.setItem('appLanguage', newLang);
     };
 
-    const handleClickLight = () => {
-        if (window.Telegram?.WebApp?.HapticFeedback) {
-            window.Telegram.WebApp.HapticFeedback.impactOccurred('light');
-        }
-    };
-    const handleClickMedium = () => {
-        if (window.Telegram?.WebApp?.HapticFeedback) {
-            window.Telegram.WebApp.HapticFeedback.impactOccurred('medium');
-        }
-    };
-    const handleClickHeavy = () => {
-        if (window.Telegram?.WebApp?.HapticFeedback) {
-            window.Telegram.WebApp.HapticFeedback.impactOccurred('heavy');
-        }
-    };
-
     return (
         <div className={styles.root}>
             <div className={styles.container}>
                 <h1 className={styles.title}>settings</h1>
                 <CustomSelect title={'select language'} optionsArray={languageOptions} onChange={handleLanguageChange} />
-            </div>
-            <div className={styles.buttonset}>
-                <div>
-                    <button onClick={handleClickLight}>light</button>
-                </div>
-                <div>
-                    <button onClick={handleClickMedium}>medium</button>
-                </div>
-                <div>
-                    <button onClick={handleClickHeavy}>heavy</button>
-                </div>
             </div>
         </div>
     );
