@@ -64,9 +64,9 @@ export default function Home() {
                 window.Telegram.WebApp.HapticFeedback.impactOccurred("heavy");
             }
             await collectAndStart();
-            updateContext();
             setCurrentFarmCoins(0)
             triggerClaimAnimation()
+            updateContext();
         } catch (error) {
             console.error("Ошибка при сборе монет:", error);
         }
