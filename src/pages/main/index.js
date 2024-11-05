@@ -67,7 +67,7 @@ export default function Home() {
             const updatedBalance = collectData.totalCoins;
             setBalance(updatedBalance);
             setCurrentFarmCoins(0)
-            const farm = localStorage.getItem('farm')
+            const farm = JSON.parse(localStorage.getItem('farm')) || {}
             const updatedFarmData = {
                 ...farm,
                 coins: updatedBalance,
