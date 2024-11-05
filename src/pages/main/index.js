@@ -4,8 +4,8 @@ import {useRouter} from "next/router";
 import {IconButton} from "@/components/buttons/icon-btn/IconButton";
 import {NavBar} from "@/components/nav-bar/NavBar";
 import {CollectBar} from "@/components/bars/CollectBar";
-import axiosInstance from '@/utils/axios';
 import { useInit } from '@/context/InitContext';
+import { useFarmCollect } from "@/utils/api";
 
 import teamData from "@/mock/teamsData.js";
 import skinData from '@/mock/skinsData'
@@ -24,91 +24,67 @@ const background = '/backgrounds/nightcity.png'
 
 export default function Home() {
     const router = useRouter();
-    const { groupId, liga, rate, limit, setRate, setLimit } = useInit();
-    const [totalCoins, setTotalCoins] = useState(0);
+    const { groupId, liga, rate, limit, updateContext } = useInit();
     const [balance, setBalance] = useState(0)
     const [currentFarmCoins, setCurrentFarmCoins] = useState(0);
     const [startFarmTime, setStartFarmTime] = useState(Date.now());
     const [isClaimClicked, setIsClaimClicked] = useState(false);
 
+    const { collectAndStart } = useFarmCollect();
+
     useEffect(() => {
+        updateContext();
         if (typeof window !== "undefined") {
             const start = JSON.parse(localStorage.getItem("start"));
             if (start) {
-                setTotalCoins(start.totalCoins);
-                console.log('start.limit:', start.limit);
                 setBalance(start.coins)
+            }
+            const startTime = JSON.parse(localStorage.getItem("startTime"));
+            if(startTime) {
                 setStartFarmTime(new Date(start.startTime).getTime());
             }
         }
-    }, []);
+    }, [balance]);
 
     useEffect(() => {
         if (typeof window !== "undefined") {
             const interval = setInterval(() => {
-                const now = Date.now();
-                const secondsPassed = Math.floor((now - startFarmTime) / 1000);
+                const secondsPassed = Math.floor((Date.now() - startFarmTime) / 1000);
                 const accumulatedCoins = Math.min(rate * secondsPassed, limit);
-
                 setCurrentFarmCoins(accumulatedCoins);
             }, 1000);
-
             return () => clearInterval(interval);
         }
     }, [rate, startFarmTime, limit]);
 
     const handleClaimClick = async () => {
-        if (typeof window !== "undefined") {
-            if (window.Telegram?.WebApp?.HapticFeedback) {
+        try {
+            if (typeof window !== "undefined" && window.Telegram?.WebApp?.HapticFeedback) {
                 window.Telegram.WebApp.HapticFeedback.impactOccurred("heavy");
             }
-            try {
-                await axiosInstance.get(`/farm/collect`)
-                    .then(response => {
-                        processCollectResponse(response.data);
-                    })
-                setIsClaimClicked(true);
-                setTimeout(() => {
-                    setIsClaimClicked(false);
-                }, 500);
-            } catch (error) {
-                console.error("Ошибка при сборе монет:", error);
-            }
+            await collectAndStart();
+            updateContext();
+            triggerClaimAnimation()
+        } catch (error) {
+            console.error("Ошибка при сборе монет:", error);
         }
     };
 
-    const processCollectResponse = (collectData) => {
-        const updatedTotalCoins = Math.max(collectData.totalCoins, 0);
-        setTotalCoins(updatedTotalCoins);
-        setCurrentFarmCoins(0);
-        setStartFarmTime(new Date(collectData.startTime).getTime());
-
-        axiosInstance.get(`/farm/start`)
-            .then(startResponse => {
-                const startData = startResponse.data;
-                console.log("Ответ от /farm/start:", startData);
-                const updatedStartTotalCoins = Math.max(startData.totalCoins, 0);
-                const updatedRate = Math.max(startData.rate, 0);
-                const updatedLimit = Math.max(startData.limit, 0);
-                const updatedBalance = Math.max(startData.coins, 0);
-                setTotalCoins(updatedStartTotalCoins);
-                setRate(updatedRate)
-                setLimit(updatedLimit);
-                setBalance(updatedBalance);
-                setStartFarmTime(new Date(startData.startTime).getTime());
-
-                localStorage.setItem("start", JSON.stringify({
-                    totalCoins: updatedStartTotalCoins,
-                    startTime: new Date(startData.startTime).toISOString(),
-                    rate: updatedRate,
-                    limit: updatedLimit,
-                    coins: updatedBalance,
-                }));
-            })
-            .catch(error => {
-                console.error("Ошибка при запросе /farm/start:", error);
-            });
+    let claimTimeout;
+    const triggerClaimAnimation = () => {
+        setIsClaimClicked(true);
+        claimTimeout = setTimeout(() => {
+            setIsClaimClicked(false);
+        }, 500);
     };
+
+    useEffect(() => {
+        return () => {
+            if (claimTimeout) {
+                clearTimeout(claimTimeout);
+            }
+        };
+    }, [])
 
     function formatNumberFromEnd(num) {
         if (isNaN(num) || typeof num !== 'number') {
