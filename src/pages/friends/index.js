@@ -81,7 +81,7 @@ export default function Page() {
         if (tg.HapticFeedback) {
             tg.HapticFeedback.impactOccurred('heavy');
         }
-        const shareLink = `https://t.me/share/url?url=${encodeURIComponent(referralLink)}&text=${encodeURIComponent(`${inviteMessage} ${referralLink}`)}`;
+        const shareLink = `https://t.me/share/url?text=${encodeURIComponent(`${inviteMessage} ${referralLink}`)}`;
         window.open(shareLink, '_blank');
     };
 
