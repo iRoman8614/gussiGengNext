@@ -64,14 +64,13 @@ export default function Home() {
                 window.Telegram.WebApp.HapticFeedback.impactOccurred("heavy");
             }
             const collectData = await collectAndStart();
-            const updatedBalance = collectData.coins;
+            const updatedBalance = collectData.totalCoins;
             setBalance(updatedBalance);
             setCurrentFarmCoins(0)
+            const farm = localStorage.getItem('farm')
             const updatedFarmData = {
+                ...farm,
                 coins: updatedBalance,
-                totalCoins: collectData.totalCoins,
-                farmRate: collectData.rate,
-                farmLimit: limit,
             };
             localStorage.setItem('farm', JSON.stringify(updatedFarmData));
             triggerClaimAnimation()
