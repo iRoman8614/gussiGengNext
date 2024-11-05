@@ -129,6 +129,8 @@ export const InitProvider = ({ children }) => {
         setCoins,
         totalCoins,
         setTotalCoins,
+        dailyEntries,
+        setDailyEntries,
         updateContext
     };
 

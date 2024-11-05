@@ -21,9 +21,9 @@ export const useProfileInit = (token) => {
             };
             localStorage.setItem('farm', JSON.stringify(farmData));
             const initData = {
-                lang,
+                lang: lang,
                 groupId: group.id,
-                delayEntries
+                delayEntries: delayEntries
             };
             localStorage.setItem('init', JSON.stringify(initData));
 
@@ -51,7 +51,7 @@ export const useFarmStart = () => {
         try {
             const response = await axios.get(`/farm/start`);
             const { coins, totalCoins, startTime, rate, limit } = response.data;
-            const initData = JSON.parse(localStorage.getItem('init')) || {};
+            const initData = JSON.parse(localStorage.getItem('farm')) || {};
             const updatedInitData = {
                 ...initData,
                 coins,
@@ -59,7 +59,7 @@ export const useFarmStart = () => {
                 farmRate: rate,
                 farmLimit: limit,
             };
-            localStorage.setItem('init', JSON.stringify(updatedInitData));
+            localStorage.setItem('farm', JSON.stringify(updatedInitData));
             localStorage.setItem('startTime', startTime);
 
             setData(prevData => ({
