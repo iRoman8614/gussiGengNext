@@ -123,9 +123,11 @@ export default function LoaderPage() {
     const fetchData = useCallback(async () => {
         if (!dataFetched) {
             try {
-                await fetchProfileInit();
-                await fetchProfileStats();
-                await fetchFarmStart();
+                await Promise.all([
+                    fetchProfileInit(),
+                    fetchProfileStats(),
+                    fetchFarmStart(),
+                ]);
                 setDataFetched(true);
             } catch (error) {
                 toast.error('Ошибка при выполнении запросов');
