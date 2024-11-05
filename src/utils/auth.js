@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import { useProfileInit } from './api';
 
 export const refreshJwtToken = async () => {
     const authToken = localStorage.getItem('authToken');
@@ -8,9 +7,25 @@ export const refreshJwtToken = async () => {
         toast.error("unauthorized");
         return;
     }
-    const { fetchProfileInit } = useProfileInit(authToken);
     try {
-        await fetchProfileInit();
+        const response = await axios.get(`https://supavpn.lol/profile/init?token=${authToken}`);
+        const { jwt, balance, lang, group, farm, delayEntries } = response.data;
+
+        localStorage.setItem('GWToken', jwt);
+        const farmData = {
+            coins: balance,
+            totalCoins: balance,
+            farmRate: farm.rate,
+            farmLimit: farm.limit,
+        };
+        localStorage.setItem('farm', JSON.stringify(farmData));
+        const initData = {
+            lang,
+            groupId: group.id,
+            delayEntries
+        };
+        localStorage.setItem('init', JSON.stringify(initData));
+
     } catch (error) {
         toast.error("Failed to authenticate.");
         console.error("Error refreshing JWT token:", error);
