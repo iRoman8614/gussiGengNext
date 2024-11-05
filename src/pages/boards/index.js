@@ -10,19 +10,26 @@ import skinData from '@/mock/skinsData'
 import 'swiper/css';
 import 'swiper/css/navigation';
 import styles from '@/styles/Boards.module.scss'
+import {useInit} from "@/context/InitContext";
+import {useProfileStats} from "@/utils/api";
 
 const bg = '/backgrounds/leaderboardBG.png'
 
 export default function Page() {
     const router = useRouter();
+    const { groupId, liga } = useInit();
     const [activeIndex, setActiveIndex] = useState(0);
-    const [teamId, setTeamId] = useState(null)
-    const [currentWins, setCurrentWins] = useState(0)
-    const [liga, setLiga] = useState(1)
     const [leaderData, setLeaderData] = useState([]);
 
+    const { fetchProfileStats, data: stats } = useProfileStats();
+
+    useEffect(() => {
+        fetchProfileStats()
+        updateContext()
+    }, []);
+
     const ligsLimits = ['10', '25', '50', '100', '250', '500', '1000']
-    const length = currentWins / ligsLimits[activeIndex] * 100
+    const length = stats?.victory / ligsLimits[activeIndex] * 100
 
     const leadersCache = useRef({});
 
@@ -58,25 +65,6 @@ export default function Page() {
         fetchStats()
     }, []);
 
-    const fetchStats = async () => {
-        try {
-            const response = await axiosInstance.get(`/profile/stats`);
-            const data = response.data;
-            setCurrentWins(data.victory);
-            setLiga(data.liga);
-        } catch (error) {
-            console.error('Ошибка при получении статистики:', error);
-        }
-    };
-
-    useEffect(() => {
-        if (typeof window !== "undefined") {
-            const init = JSON.parse(localStorage.getItem("init"));
-            if (init && init.group) {
-                setTeamId(init.group.id);
-            }
-        }
-    }, [])
 
     useEffect(() => {
         if (typeof window !== 'undefined' && window.Telegram?.WebApp?.BackButton) {
@@ -138,7 +126,7 @@ export default function Page() {
                         onSlideChange={handleSlideChange}
                         className={styles.swiper}
                     >
-                        {skinData[teamId]?.map((character, index) => (
+                        {skinData[groupId]?.map((character, index) => (
                             <SwiperSlide
                                 key={index}
                                 className={index === activeIndex ? styles.activeSlide : styles.inactiveSlide}
@@ -170,7 +158,7 @@ export default function Page() {
                 <div className={styles.progressBar}>
                     <div className={styles.progress} style={{width: `${length}%`}}></div>
                 </div>
-                <div className={styles.winsCounter}>{`wins ${currentWins}/${ligsLimits[activeIndex]}+`}</div>
+                <div className={styles.winsCounter}>{`wins ${stats?.victory}}/${ligsLimits[activeIndex]}+`}</div>
                 <Image src={bg} alt={''} className={styles.bg} width={450} height={1000} />
                 <div className={styles.container}>
                     {leaderData[activeIndex + 1] && leaderData[activeIndex + 1].length === 0 ? (
@@ -180,7 +168,7 @@ export default function Page() {
                         </div>
                     ) : leaderData[activeIndex + 1] ? (
                         leaderData[activeIndex + 1].map((user, index) => (
-                            <ListItem key={index} teamId={user.teamId} item={user} index={index + 1} />
+                            <ListItem key={index} teamId={user.groupId} item={user} index={index + 1} />
                         ))
                     ) : (
                         <div className={styles.emptyState}>Loading...</div>
