@@ -8,6 +8,7 @@ import { useAssetsCache } from "@/context/AssetsCacheContext";
 
 import styles from '@/styles/Lobby.module.scss'
 import {IconButton} from "@/components/buttons/icon-btn/IconButton";
+import {useLastGames, useProfileStats} from "@/utils/api";
 
 const bg = '/backgrounds/Lobby.png'
 const hands = '/main-buttons/hand2.png';
@@ -34,10 +35,16 @@ export default function Page() {
     const [remainingTime, setRemainingTime] = useState(null);
     const [timerActive, setTimerActive] = useState(false);
     const [sessionsCount, setSessionsCount] = useState(0)
-    const [passes, setPasses] = useState(0)
 
     const router = useRouter();
     const { preloadAssets } = useAssetsCache();
+
+    const { fetchProfileStats, data: stats } = useProfileStats();
+    const { data: lastGamesData } = useLastGames()
+
+    useEffect(() => {
+        fetchProfileStats()
+    }, [])
 
     useEffect(() => {
         preloadAssets(gameIconsAssets);
@@ -55,23 +62,14 @@ export default function Page() {
         }
     }, [router]);
 
-    const fetchStats = async () => {
-        try {
-            const response = await axiosInstance.get(`/profile/stats`);
-            const data = response.data;
-            setPasses(data.pass);
-        } catch (error) {
-            console.error('Ошибка при получении статистики:', error);
-        }
-    };
 
-    const fetchLastGames = async () => {
-        try {
-            const response = await axiosInstance.get(`/farm/last-games`);
-            const data = response.data;
-            setSessionsCount(data.session.count);
-            if (data.session.count >= 5) {
-                const firstGame = localStorage.getItem('firstGame') || data.session.first;
+    useEffect(() => {
+        if (lastGamesData) {
+            const { session } = lastGamesData;
+            setSessionsCount(session.count);
+
+            if (session.count >= 5) {
+                const firstGame = localStorage.getItem('firstGame') || session.first;
                 if (!localStorage.getItem('firstGame')) {
                     localStorage.setItem('firstGame', firstGame);
                 }
@@ -86,25 +84,20 @@ export default function Page() {
                     localStorage.removeItem('firstGame');
                 }
             }
-        } catch (error) {
-            console.error('Error fetching last games:', error);
         }
-    };
-
-    useEffect(() => {
-        fetchLastGames();
-        fetchStats();
-    }, []);
+    }, [lastGamesData]);
 
     const handlePvpClick = async () => {
         if (typeof window === "undefined") return;
+
         try {
             const response = await axiosInstance.get(`/farm/last-games`);
             const data = response.data;
             setSessionsCount(data.session.count);
+
             if (data.session.count < 5) {
                 router.push('/pvp');
-            } else if(data.session.count >= 5 && passes > 0) {
+            } else if (data.session.count >= 5 && stats.passes > 0) {
                 router.push('/pvp');
             } else {
                 toast.warn("You have reached the maximum number of games. Please wait for the timer to expire.");
@@ -156,7 +149,7 @@ export default function Page() {
                                         </>
                                     ) : (
                                         <>
-                                            <div>{passes}</div>
+                                            <div>{stats.passes}</div>
                                             <p>extra games</p>
                                         </>)
                                     }
