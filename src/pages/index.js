@@ -69,6 +69,9 @@ export default function LoaderPage() {
         if (token) {
             localStorage.setItem('authToken', token);
         }
+        if(!token) {
+            return
+        }
     }, [router.query]);
 
     const updateBodyHeight = useCallback(() => {
@@ -191,6 +194,7 @@ export default function LoaderPage() {
                 }
             } else {
                 toast.error("unauthorized");
+                return
             }
         }
     }, [checkVersion, router.query]);
