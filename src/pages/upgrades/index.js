@@ -205,9 +205,12 @@ export default function Page() {
                     navigateToPage(task.path);
                     break;
                 case 2:
-                    const url = task.name.toLowerCase().includes("tg") ? "https://t.me/gang_wars_game" : "https://x.com/gangwars_game";
-                    localStorage.setItem(`task_${task.id}_pending`, 'true');
-                    window.open(url, '_blank');
+                    let url;
+                    if (task.name.toLowerCase().includes("tg")) {
+                        url = "https://t.me/gang_wars_game";
+                    } else if (task.name.toLowerCase().includes("x") || task.name.toLowerCase().includes("twitter")) {
+                        url = "https://x.com/gangwars_game";
+                    }window.open(url, '_blank');
                     break;
                 case 3:
                     navigateToPage(task.path);
@@ -225,38 +228,6 @@ export default function Page() {
             console.error(`Error executing task ${taskId}:`, error);
         }
     }
-
-
-    useEffect(() => {
-        const executePendingTasks = async () => {
-            let updateCompletedTasks = false;
-
-            for (const task of tasks) {
-                if (task.type === 2 && localStorage.getItem(`task_${task.id}_pending`)) {
-                    try {
-                        await axiosInstance.get(`/task/execute?taskId=${task.id}`);
-                        localStorage.removeItem(`task_${task.id}_pending`);
-                        updateCompletedTasks = true;
-                    } catch (error) {
-                        console.error(`Error executing task ${task.id}:`, error);
-                    }
-                }
-                if ((task.type === 1 || task.type === 3) && task.readyToComplete) {
-                    try {
-                        await axiosInstance.get(`/task/execute?taskId=${task.id}`);
-                        updateCompletedTasks = true;
-                    } catch (error) {
-                        console.error(`Error executing task ${task.id}:`, error);
-                    }
-                }
-            }
-            if (updateCompletedTasks) {
-                await fetchCompletedTasks();
-            }
-        };
-        executePendingTasks();
-    }, [tasks]);
-
 
     const fetchCompletedTasks = async () => {
         try {
