@@ -72,6 +72,10 @@ export default function Page() {
     }, []);
 
     useEffect(() => {
+        updateContext()
+    }, [rate, limit])
+
+    useEffect(() => {
         const fetchTasksAndFriends = async () => {
             try {
                 const statsResponse = await axiosInstance.get('/profile/stats');
@@ -166,9 +170,9 @@ export default function Page() {
             start.coins = updatedBalance;
             localStorage.setItem("start", JSON.stringify(start));
             await collectAndStart();
-            updateContext()
             // closeUpgradeModal();
             fetchLevels();
+            updateContext()
         } catch (error) {
             console.error('Ошибка при улучшении лимита:', error);
         }
@@ -187,9 +191,9 @@ export default function Page() {
             start.coins = updatedBalance;
             localStorage.setItem("start", JSON.stringify(start));
             await collectAndStart();
-            updateContext()
             // closeUpgradeModal();
             fetchLevels();
+            updateContext()
         } catch (error) {
             console.error('Ошибка при улучшении прокачки:', error);
         }

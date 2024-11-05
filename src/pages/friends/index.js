@@ -77,7 +77,7 @@ export default function Page() {
     const inviteClick = () => {
         const tg = window.Telegram.WebApp;
         const referralLink = `${link}?start=kid${userId}`;
-        const inviteMessage = `Join me in this awesome game! Here's your referral link`;
+        const inviteMessage = `Tap the link to join me`;
         if (tg.HapticFeedback) {
             tg.HapticFeedback.impactOccurred('heavy');
         }
