@@ -4,8 +4,8 @@ import {useRouter} from "next/router";
 import {IconButton} from "@/components/buttons/icon-btn/IconButton";
 import {NavBar} from "@/components/nav-bar/NavBar";
 import {CollectBar} from "@/components/bars/CollectBar";
-import { useInit } from '@/context/InitContext';
-import { useFarmCollect } from "@/utils/api";
+import {useInit} from '@/context/InitContext';
+import {useFarmCollect} from "@/utils/api";
 
 import teamData from "@/mock/teamsData.js";
 import skinData from '@/mock/skinsData'
@@ -39,9 +39,9 @@ export default function Home() {
             if (start) {
                 setBalance(start.coins)
             }
-            const startTime = JSON.parse(localStorage.getItem("startTime"));
+            const startTime = localStorage.getItem("startTime")
             if(startTime) {
-                setStartFarmTime(new Date(start.startTime).getTime());
+                setStartFarmTime(new Date(startTime).getTime());
             }
         }
     }, [balance]);
