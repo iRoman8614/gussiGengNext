@@ -131,7 +131,7 @@ export default function LoaderPage() {
                 toast.error('Ошибка при выполнении запросов');
             }
         }
-    }, [fetchProfileInit, fetchProfileStats, fetchFarmStart, dataFetched]);
+    }, [dataFetched]);
 
     const loadAssets = useCallback(async () => {
         if (isNewPlayer) {
