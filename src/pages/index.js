@@ -56,6 +56,7 @@ export default function LoaderPage() {
     const { preloadAssets } = useAssetsCache();
     const { updateContext, setUserId } = useInit();
     const [isNewPlayer, setIsNewPlayer] = useState(false);
+    const [dataFetched, setDataFetched] = useState(false);
 
     const CURRENT_VERSION = process.env.NEXT_PUBLIC_CURRENT_VERSION;
 
@@ -120,14 +121,17 @@ export default function LoaderPage() {
     }, []);
 
     const fetchData = useCallback(async () => {
-        try {
-            await fetchProfileInit();
-            await fetchProfileStats();
-            await fetchFarmStart();
-        } catch (error) {
-            toast.error('Ошибка при выполнении запросов');
+        if (!dataFetched) {
+            try {
+                await fetchProfileInit();
+                await fetchProfileStats();
+                await fetchFarmStart();
+                setDataFetched(true);
+            } catch (error) {
+                toast.error('Ошибка при выполнении запросов');
+            }
         }
-    }, [fetchProfileInit, fetchProfileStats, fetchFarmStart]);
+    }, [fetchProfileInit, fetchProfileStats, fetchFarmStart, dataFetched]);
 
     const loadAssets = useCallback(async () => {
         if (isNewPlayer) {
