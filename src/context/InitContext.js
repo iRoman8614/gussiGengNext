@@ -62,7 +62,7 @@ export const InitProvider = ({ children }) => {
     const [dailyEntries, setDailyEntries] = useState(() => {
         if (typeof window !== 'undefined') {
             const savedInit = JSON.parse(localStorage.getItem('init')) || {};
-            return savedInit.delayEntries || 0;
+            return savedInit.dailyEntries || 0;
         }
         return 0;
     });
@@ -73,7 +73,7 @@ export const InitProvider = ({ children }) => {
             setGroupId(savedInit.groupId || 0);
             setLiga(savedInit.liga || 0);
             setLang(savedInit.lang || 'en');
-            setDailyEntries(savedInit.delayEntries || 0);
+            setDailyEntries(savedInit.dailyEntries || 0);
 
             const savedFarm = JSON.parse(localStorage.getItem('farm')) || {};
             setLimit(savedFarm.farmLimit || 0);
@@ -88,10 +88,10 @@ export const InitProvider = ({ children }) => {
             groupId,
             liga,
             lang,
-            delayEntries
+            dailyEntries
         };
         localStorage.setItem('init', JSON.stringify(initData));
-    }, [groupId, liga, lang, delayEntries]);
+    }, [groupId, liga, lang, dailyEntries]);
 
     useEffect(() => {
         const farmData = {

@@ -12,7 +12,7 @@ const money = '/money.png'
 
 export default function Page() {
     const router = useRouter();
-    const { groupId, liga, delayEntries, coins, totalCoins, updateContext } = useInit();
+    const { groupId, liga, dailyEntries, coins, totalCoins, updateContext } = useInit();
     const [activeTab, setActiveTab] = useState(1);
     const [userName, setUserName] = useState(null);
 
@@ -117,7 +117,7 @@ export default function Page() {
                                 <div className={styles.barItem}>friends invited</div>
                                 <div className={styles.barItemStats}>{friends.length}</div>
                                 <div className={styles.barItem}>login streak</div>
-                                <div className={styles.barItemStats}>{delayEntries}</div>
+                                <div className={styles.barItemStats}>{dailyEntries}</div>
                             </div>
                             <div>
                                 <div className={styles.barItem}>current balance</div>

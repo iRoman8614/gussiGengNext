@@ -11,7 +11,7 @@ export const useProfileInit = (token) => {
         setLoading(true);
         try {
             const response = await axios.get(`/profile/init?token=${token}`);
-            const { jwt, balance, lang, group, farm, delayEntries } = response.data;
+            const { jwt, balance, lang, group, farm, dailyEntries } = response.data;
             localStorage.setItem('GWToken', jwt);
             const farmData = {
                 coins: balance,
@@ -23,7 +23,7 @@ export const useProfileInit = (token) => {
             const initData = {
                 lang: lang,
                 groupId: group.id,
-                delayEntries: delayEntries
+                dailyEntries: dailyEntries
             };
             localStorage.setItem('init', JSON.stringify(initData));
 

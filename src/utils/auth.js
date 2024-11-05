@@ -9,7 +9,7 @@ export const refreshJwtToken = async () => {
     }
     try {
         const response = await axios.get(`https://supavpn.lol/profile/init?token=${authToken}`);
-        const { jwt, balance, lang, group, farm, delayEntries } = response.data;
+        const { jwt, balance, lang, group, farm, dailyEntries } = response.data;
 
         localStorage.setItem('GWToken', jwt);
         const farmData = {
@@ -22,7 +22,7 @@ export const refreshJwtToken = async () => {
         const initData = {
             lang: lang,
             groupId: group.id,
-            delayEntries: delayEntries
+            dailyEntries: dailyEntries
         };
         localStorage.setItem('init', JSON.stringify(initData));
 
