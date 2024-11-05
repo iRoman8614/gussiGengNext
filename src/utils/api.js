@@ -40,6 +40,7 @@ export const useProfileInit = (token) => {
             } else {
                 // Если ответ не успешен, пытаемся извлечь текст ошибки
                 const errorMessage = await response.text();
+                console.log('errorMessage', errorMessage)
                 setError(errorMessage || 'Failed to login');
             }
         } catch (err) {
