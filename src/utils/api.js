@@ -9,34 +9,51 @@ export const useProfileInit = (token) => {
 
     const fetchProfileInit = useCallback(async () => {
         setLoading(true);
+        setError(null); // Очищаем предыдущие ошибки перед новым запросом
         try {
             const response = await axios.get(`/profile/init?token=${token}`);
-            const { jwt, balance, lang, group, farm, dailyEntries } = response.data;
-            localStorage.setItem('GWToken', jwt);
-            const farmData = {
-                coins: balance,
-                totalCoins: balance,
-                farmRate: farm.rate,
-                farmLimit: farm.limit,
-            };
-            localStorage.setItem('farm', JSON.stringify(farmData));
-            const initData = {
-                lang: lang,
-                groupId: group.id,
-                dailyEntries: dailyEntries
-            };
-            localStorage.setItem('init', JSON.stringify(initData));
 
-            setData({
-                farm: farmData,
-                init: initData
-            });
+            // Проверяем, является ли ответ успешным
+            if (response.status >= 200 && response.status < 300) {
+                const { jwt, balance, lang, group, farm, dailyEntries } = response.data;
+
+                // Сохранение в localStorage
+                localStorage.setItem('GWToken', jwt);
+                const farmData = {
+                    coins: balance,
+                    totalCoins: balance,
+                    farmRate: farm.rate,
+                    farmLimit: farm.limit,
+                };
+                localStorage.setItem('farm', JSON.stringify(farmData));
+                const initData = {
+                    lang: lang,
+                    groupId: group.id,
+                    dailyEntries: dailyEntries
+                };
+                localStorage.setItem('init', JSON.stringify(initData));
+
+                setData({
+                    farm: farmData,
+                    init: initData
+                });
+            } else {
+                // Если ответ не успешен, пытаемся извлечь текст ошибки
+                const errorMessage = await response.text();
+                setError(errorMessage || 'Failed to login');
+            }
         } catch (err) {
-            setError(err);
+            // Проверяем, есть ли у ошибки текст ответа
+            if (err.response && err.response.data) {
+                setError(err.response.data); // Если есть текст ошибки от сервера
+            } else {
+                setError('An unexpected error occurred');
+            }
         } finally {
             setLoading(false);
         }
-    }, [token, loading]);
+    }, [token]);
+
     return { data, loading, error, fetchProfileInit };
 };
 
