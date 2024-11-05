@@ -158,11 +158,8 @@ export default function LoaderPage() {
                 });
             });
         } else {
-            fetchData().then(() => {
-                loadAssets().then(() => {
-                    updateAndRedirect();
-                });
-            });
+            loadAssets()
+                .then(updateAndRedirect);
         }
     }, [checkVersion, checkLocalStorage, fetchData, loadAssets, updateAndRedirect]);
 
