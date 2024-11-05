@@ -126,12 +126,7 @@ export default function LoaderPage() {
     const fetchData = useCallback(async () => {
         if (!dataFetched) {
             try {
-                const { error: initError } = await fetchProfileInit();
-                if (initError) {
-                    toast.error(initError || 'Failed to initialize profile');
-                    return;
-                }
-
+                await fetchProfileInit();
                 await fetchProfileStats()
                 await fetchFarmStart()
                 setDataFetched(true);
@@ -158,10 +153,11 @@ export default function LoaderPage() {
 
         const isExperiencedPlayer = savedInit && savedFarm
 
-        updateContext();
         if(isNewPlayer) {
+            updateContext();
             router.push('/getRandom');
         } else if (isExperiencedPlayer) {
+            updateContext();
             router.push('/main');
         } else {
             toast.error("Failed to verify player state.");
