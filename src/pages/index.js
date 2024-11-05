@@ -165,7 +165,7 @@ export default function LoaderPage() {
             loadAssets()
                 .then(updateAndRedirect);
         }
-    }, [checkLocalStorage]);
+    }, [checkVersion]);
 
     return (
         <>
