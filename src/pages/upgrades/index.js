@@ -339,6 +339,10 @@ export default function Page() {
         return num.toString().replace(/(\d)(?=(\d{3})+$)/g, "$1 ");
     }
 
+    console.log('coins', coins)
+    console.log('rate', rate)
+    console.log('limit', limit)
+
     return (
         <div className={styles.root}>
             <div className={styles.container}>
