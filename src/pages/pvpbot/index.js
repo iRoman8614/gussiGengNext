@@ -3,14 +3,14 @@ import Image from "next/image";
 import { useRouter } from 'next/router';
 import { IconButton } from "@/components/buttons/icon-btn/IconButton.jsx";
 import {PvpBtn} from "@/components/buttons/PvpBtn/PvpBtn";
-
+import {useTriggerBotGame} from "@/utils/api";
 import teamData from '@/mock/teamsData.js';
 import gangsterNames from '@/mock/gangstersNames.js'
+import axiosInstance from "@/utils/axios";
 import { gameOptions } from '@/mock/optionData';
 
 import styles from '@/styles/Pvp.module.scss';
 import "react-toastify/dist/ReactToastify.css";
-import axiosInstance from "@/utils/axios";
 
 const wins = '/wins.png';
 const background = '/backgrounds/backalley.png'
@@ -28,6 +28,7 @@ const scis = '/game-icons/scissors.png'
 
 export default function PvpBotPage() {
     const router = useRouter();
+    const { triggerBotGame } = useTriggerBotGame();
     const [visibleImage, setVisibleImage] = useState(0);
     const [playerScore, setPlayerScore] = useState(0);
     const [opponentScore, setOpponentScore] = useState(0);
@@ -121,7 +122,6 @@ export default function PvpBotPage() {
             }, 1000);
         } else if (timer === 0 && playerChoice !== null) {
             const randomOpponentChoice = getRandomOption();
-            console.log('randomOpponentChoice', randomOpponentChoice)
             setOpponentChoice(randomOpponentChoice);
             showGifSequence();
             setTimeout(() => {
@@ -150,6 +150,9 @@ export default function PvpBotPage() {
 
         if (playerMove === opponentMove) {
             // Ничья — обновляем раунд сразу после анимации
+            setTimeout(() => {
+                resetRoundAfterDelay();
+            }, 2000);
         } else if (
             (playerMove === 'paper' && opponentMove === 'rock') ||
             (playerMove === 'rock' && opponentMove === 'scis') ||
@@ -178,15 +181,8 @@ export default function PvpBotPage() {
         }
     };
 
-    const endBotGame = async (vin) => {
-        try {
-            const response = await axiosInstance.get(`/game/bot?vin=${vin}`);
-            console.log('response', response)
-        } catch (e) {
-        console.log(e)}
-    }
-
-    const handleGameEnd = (vin) => {
+    const handleGameEnd = async (vin) => {
+        if (gameEnded) return;
         setGameEnded(true);
         endBotGame(vin)
         setTimeout(() => {
@@ -196,12 +192,15 @@ export default function PvpBotPage() {
             router.push('/main');
         }, 2000);
     };
-
+    const endBotGame = async (vin) => {
+        try {
+            await triggerBotGame(vin);
+        } catch (e) {
+            console.log(e)
+        }
+    }
 
     const resetRoundAfterDelay = () => {
-        if(playerChoice !== opponentChoice) {
-            setRound(prev => prev + 1);
-        }
         setPlayerChoice(null);
         setOpponentChoice(null);
         setTimer(5);
@@ -218,92 +217,6 @@ export default function PvpBotPage() {
                             <div className={styles.oppNickname}>
                                 {opponentName}
                             </div>
-                            {/*<div className={styles.optionBg}>*/}
-                            {/*    {visibleImage === 0 && (*/}
-                            {/*        <Image*/}
-                            {/*            width={90}*/}
-                            {/*            height={190}*/}
-                            {/*            className={styles.choose}*/}
-                            {/*            src={gameOptions[4]?.logo}*/}
-                            {/*            alt="1"*/}
-                            {/*        />*/}
-                            {/*    )}*/}
-                            {/*    {visibleImage === 1 && (*/}
-                            {/*        <>*/}
-                            {/*            {(opponentChoice === 0 || opponentChoice === 10) && (*/}
-                            {/*                <Image*/}
-                            {/*                    width={90}*/}
-                            {/*                    height={190}*/}
-                            {/*                    className={styles.choose}*/}
-                            {/*                    src={gameOptions[4]?.logo}*/}
-                            {/*                    alt="2"*/}
-                            {/*                />*/}
-                            {/*            )}*/}
-                            {/*            {opponentChoice === 1 && (*/}
-                            {/*                <img*/}
-                            {/*                    className={styles.choose}*/}
-                            {/*                    src={opponentGifCache.current.rockAnim ? opponentGifCache.current.rockAnim.src : gifPaths.rockAnim}*/}
-                            {/*                    alt="2"*/}
-                            {/*                />*/}
-                            {/*            )}*/}
-                            {/*            {opponentChoice === 2 && (*/}
-                            {/*                <img*/}
-                            {/*                    className={styles.choose}*/}
-                            {/*                    src={opponentGifCache.current.papAnim ? opponentGifCache.current.papAnim.src : gifPaths.papAnim}*/}
-                            {/*                    alt="2"*/}
-                            {/*                />*/}
-                            {/*            )}*/}
-                            {/*            {opponentChoice === 3 && (*/}
-                            {/*                <img*/}
-                            {/*                    className={styles.choose}*/}
-                            {/*                    src={opponentGifCache.current.scisAnim ? opponentGifCache.current.scisAnim.src : gifPaths.scisAnim}*/}
-                            {/*                    alt="2"*/}
-                            {/*                />*/}
-                            {/*            )}*/}
-                            {/*        </>*/}
-
-                            {/*    )}*/}
-                            {/*    {visibleImage === 2 && (*/}
-                            {/*        <>*/}
-                            {/*            {(opponentChoice === 0 || opponentChoice === 10) && (*/}
-                            {/*                <Image*/}
-                            {/*                    width={90}*/}
-                            {/*                    height={190}*/}
-                            {/*                    className={styles.choose}*/}
-                            {/*                    src={gameOptions[4]?.logo}*/}
-                            {/*                    alt="3"*/}
-                            {/*                />*/}
-                            {/*            )}*/}
-                            {/*            {opponentChoice === 1 && (*/}
-                            {/*                <Image*/}
-                            {/*                    width={90}*/}
-                            {/*                    height={190}*/}
-                            {/*                    className={styles.choose}*/}
-                            {/*                    src={gameOptions[1]?.logo}*/}
-                            {/*                    alt="3"*/}
-                            {/*                />*/}
-                            {/*            )}*/}
-                            {/*            {opponentChoice === 2 && (*/}
-                            {/*                <Image*/}
-                            {/*                    width={90}*/}
-                            {/*                    height={190}*/}
-                            {/*                    className={styles.choose}*/}
-                            {/*                    src={gameOptions[2]?.logo}*/}
-                            {/*                    alt="3"*/}
-                            {/*                />*/}
-                            {/*            )}*/}
-                            {/*            {opponentChoice === 3 && (*/}
-                            {/*                <Image*/}
-                            {/*                    width={90}*/}
-                            {/*                    height={190}*/}
-                            {/*                    className={styles.choose}*/}
-                            {/*                    src={gameOptions[3]?.logo}*/}
-                            {/*                    alt="3"*/}
-                            {/*                />*/}
-                            {/*            )}*/}
-                            {/*        </>*/}
-                            {/*    )}*/}
-                            {/*</div>*/}
                             <div className={styles.optionBg}>
                                 <img
                                     className={`${styles.choose} ${visibleImage === 1 ? styles.visible : styles.hidden}`}
@@ -346,91 +259,6 @@ export default function PvpBotPage() {
                             </div>
                             <IconButton image={teamData[oppClan]?.logo} alt={'gang'} />
                             <VictoryCounter score={opponentScore} />
-                            {/*<div className={styles.optionBg}>*/}
-                            {/*    {visibleImage === 0 && (*/}
-                            {/*        <Image*/}
-                            {/*            width={90}*/}
-                            {/*            height={190}*/}
-                            {/*            className={styles.mychoose}*/}
-                            {/*            src={gameOptions[4]?.logo}*/}
-                            {/*            alt="1"*/}
-                            {/*        />*/}
-                            {/*    )}*/}
-                            {/*    {visibleImage === 1 && (*/}
-                            {/*        <>*/}
-                            {/*            {(playerChoice === 0 || playerChoice === 10) && (*/}
-                            {/*                <Image*/}
-                            {/*                    width={90}*/}
-                            {/*                    height={190}*/}
-                            {/*                    className={styles.mychoose}*/}
-                            {/*                    src={gameOptions[4]?.logo}*/}
-                            {/*                    alt="2"*/}
-                            {/*                />*/}
-                            {/*            )}*/}
-                            {/*            {playerChoice === 1 && (*/}
-                            {/*                <img*/}
-                            {/*                    className={styles.mychoose}*/}
-                            {/*                    src={playerGifCache.current.rockAnim ? playerGifCache.current.rockAnim.src : gifPaths.rockAnim}*/}
-                            {/*                    alt="2"*/}
-                            {/*                />*/}
-                            {/*            )}*/}
-                            {/*            {playerChoice === 2 && (*/}
-                            {/*                <img*/}
-                            {/*                    className={styles.mychoose}*/}
-                            {/*                    src={playerGifCache.current.papAnim ? playerGifCache.current.papAnim.src : gifPaths.papAnim}*/}
-                            {/*                    alt="2"*/}
-                            {/*                />*/}
-                            {/*            )}*/}
-                            {/*            {playerChoice === 3 && (*/}
-                            {/*                <img*/}
-                            {/*                    className={styles.mychoose}*/}
-                            {/*                    src={playerGifCache.current.scisAnim ? playerGifCache.current.scisAnim.src : gifPaths.scisAnim}*/}
-                            {/*                    alt="2"*/}
-                            {/*                />*/}
-                            {/*            )}*/}
-                            {/*        </>*/}
-                            {/*    )}*/}
-                            {/*    {visibleImage === 2 && (*/}
-                            {/*        <>*/}
-                            {/*            {(playerChoice === 0 || playerChoice === 10) && (*/}
-                            {/*                <Image*/}
-                            {/*                    width={90}*/}
-                            {/*                    height={190}*/}
-                            {/*                    className={styles.mychoose}*/}
-                            {/*                    src={gameOptions[4]?.logo}*/}
-                            {/*                    alt="3"*/}
-                            {/*                />*/}
-                            {/*            )}*/}
-                            {/*            {playerChoice === 1 && (*/}
-                            {/*                <Image*/}
-                            {/*                    width={90}*/}
-                            {/*                    height={190}*/}
-                            {/*                    className={styles.mychoose}*/}
-                            {/*                    src={gameOptions[1]?.logo}*/}
-                            {/*                    alt="3"*/}
-                            {/*                />*/}
-                            {/*            )}*/}
-                            {/*            {playerChoice === 2 && (*/}
-                            {/*                <Image*/}
-                            {/*                    width={90}*/}
-                            {/*                    height={190}*/}
-                            {/*                    className={styles.mychoose}*/}
-                            {/*                    src={gameOptions[2]?.logo}*/}
-                            {/*                    alt="3"*/}
-                            {/*                />*/}
-                            {/*            )}*/}
-                            {/*            {playerChoice === 3 && (*/}
-                            {/*                <Image*/}
-                            {/*                    width={90}*/}
-                            {/*                    height={190}*/}
-                            {/*                    className={styles.mychoose}*/}
-                            {/*                    src={gameOptions[3]?.logo}*/}
-                            {/*                    alt="3"*/}
-                            {/*                />*/}
-                            {/*            )}*/}
-                            {/*        </>*/}
-                            {/*    )}*/}
-                            {/*</div>*/}
                             <div className={styles.optionBg}>
                                 <img
                                     className={`${styles.mychoose} ${visibleImage === 1 ? styles.visible : styles.hidden}`}
@@ -466,7 +294,7 @@ export default function PvpBotPage() {
                                 />
                             </div>
                             <div className={styles.round}>
-                                round {round}
+                                round {playerScore+opponentScore+1}
                             </div>
                             <div className={styles.buttonSet}>
                                 <PvpBtn title={'rock'} img={rock} value={1} onClick={() => setPlayerChoice(1)} choose={playerChoice} />

@@ -255,3 +255,22 @@ export const useLastGames = () => {
     }, []);
     return { data, loading, error };
 }
+
+// Хук для /game/bot с динамическим параметром vin
+export const useTriggerBotGame = () => {
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
+
+    const triggerBotGame = useCallback(async (vin) => {
+        setLoading(true);
+        try {
+            await axios.get(`/game/bot?vin=${vin}`);
+        } catch (err) {
+            setError(err);
+        } finally {
+            setLoading(false);
+        }
+    }, []);
+
+    return { loading, error, triggerBotGame };
+};

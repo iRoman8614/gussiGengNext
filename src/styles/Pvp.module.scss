@@ -124,8 +124,7 @@
   text-align: center;
   height: 34px;
   font-size: auto-clamp(24, 34);
-  line-height: 34px;
-  padding-left: 3px;
+  line-height: auto-clamp(24, 34);
 }
 
 .round {
