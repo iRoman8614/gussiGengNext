@@ -153,6 +153,7 @@ export default function LoaderPage() {
 
 
     useEffect(() => {
+        initializeTelegramWebApp()
         const tokenFromQuery = router.query.token;
         if (tokenFromQuery) {
             localStorage.setItem('authToken', tokenFromQuery);
