@@ -125,13 +125,13 @@ export default function Page() {
                 <div className={styles.winsCounter}>{`wins ${stats?.victory}/${ligsLimits[activeIndex]}+`}</div>
                 <Image src={bg} alt={''} className={styles.bg} width={450} height={1000} />
                 <div className={styles.container}>
-                    {leaderData[activeIndex + 1] && leaderData[activeIndex + 1].length === 0 ? (
+                    {leaderData && leaderData.length === 0 ? (
                         <div className={styles.emptyState}>
                             <p>Nobody has reached this league yet.</p>
                             <p>Be the first!</p>
                         </div>
-                    ) : leaderData[activeIndex + 1] ? (
-                        leaderData[activeIndex + 1].map((user, index) => (
+                    ) : leaderData ? (
+                        leaderData.map((user, index) => (
                             <ListItem key={index} teamId={user.teamId} item={user} index={index + 1} />
                         ))
                     ) : (
