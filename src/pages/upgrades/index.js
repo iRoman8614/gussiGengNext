@@ -206,13 +206,18 @@ export default function Page() {
                     navigateToPage(task.path);
                     break;
                 case 2:
-                    let url;
-                    if (task.name.toLowerCase().includes("tg")) {
+                    let url = '';
+                    if (task.name && task.name.toLowerCase().includes("tg")) {
                         url = "https://t.me/gang_wars_game";
-                    } else if (task.name.toLowerCase().includes("x") || task.name.toLowerCase().includes("twitter")) {
+                    } else if (task.name && (task.name.toLowerCase().includes("x") || task.name.toLowerCase().includes("twitter"))) {
                         url = "https://x.com/gangwars_game";
-                    }window.open(url, '_blank');
-                    timerRef.current = setTimeout(() => executeTask(task.id), 100);
+                    } else {
+                        console.error('URL could not be determined. Task name:', task.name);
+                    }
+                    if (url) {
+                        window.open(url, '_blank');
+                        timerRef.current = setTimeout(() => executeTask(task.id), 500);
+                    }
                     break;
                 case 3:
                     navigateToPage(task.path);
