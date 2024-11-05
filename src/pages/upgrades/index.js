@@ -167,14 +167,6 @@ export default function Page() {
             const collectData = await collectAndStart();
             const updatedBalance = collectData.totalCoins;
             setBalance(updatedBalance);
-            const farm = JSON.parse(localStorage.getItem('farm')) || {}
-            const updatedFarmData = {
-                ...farm,
-                coins: updatedBalance,
-                farmRate: collectData.rate,
-                farmLimit: limit,
-            };
-            localStorage.setItem('farm', JSON.stringify(updatedFarmData));
             closeUpgradeModal();
             fetchLevels();
             updateContext()
@@ -193,14 +185,6 @@ export default function Page() {
             const collectData = await collectAndStart();
             const updatedBalance = collectData.totalCoins;
             setBalance(updatedBalance);
-            const farm = JSON.parse(localStorage.getItem('farm')) || {}
-            const updatedFarmData = {
-                ...farm,
-                coins: updatedBalance,
-                farmRate: collectData.rate,
-                farmLimit: limit,
-            };
-            localStorage.setItem('farm', JSON.stringify(updatedFarmData));
             closeUpgradeModal();
             fetchLevels();
             updateContext()
@@ -478,9 +462,9 @@ export default function Page() {
                                     <a className={styles.green}>
                                         {
                                             (selectedItem.type === 'limit' ?
-                                                (Number(limit) * (1 + (Number(selectedItem.Name)/100))).toFixed(3)
+                                                (Number(limit) * (1 + (Number(selectedItem.IncreasePer)/100))).toFixed(3)
                                             :
-                                                (Number(rate) * (1 + (Number(selectedItem.Name)/100)))).toFixed(3)
+                                                (Number(rate) * (1 + (Number(selectedItem.IncreasePer)/100)))).toFixed(3)
                                         }
                                     </a>
                                 </p>
