@@ -71,6 +71,8 @@ export default function Home() {
             const updatedFarmData = {
                 ...farm,
                 coins: updatedBalance,
+                farmRate: collectData.rate,
+                farmLimit: limit,
             };
             localStorage.setItem('farm', JSON.stringify(updatedFarmData));
             triggerClaimAnimation()
