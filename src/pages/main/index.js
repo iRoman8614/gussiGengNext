@@ -21,7 +21,6 @@ const border = '/totalbar.png'
 const claimClicked = '/claimBTNclicked.png'
 const background = '/backgrounds/nightcity.png'
 
-
 export default function Home() {
     const router = useRouter();
     const { groupId, liga, rate, limit, updateContext } = useInit();
@@ -64,6 +63,7 @@ export default function Home() {
             }
             await collectAndStart();
             updateContext();
+            setCurrentFarmCoins(0)
             triggerClaimAnimation()
         } catch (error) {
             console.error("Ошибка при сборе монет:", error);

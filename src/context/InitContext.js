@@ -51,6 +51,38 @@ export const InitProvider = ({ children }) => {
         return 1;
     });
 
+    const [coins, setCoins] = useState(() => {
+        if (typeof window !== 'undefined') {
+            const savedFarm = JSON.parse(localStorage.getItem('farm')) || {};
+            return savedFarm.coins || 0;
+        }
+        return 0;
+    });
+
+    const [totalCoins, setTotalCoins] = useState(() => {
+        if (typeof window !== 'undefined') {
+            const savedFarm = JSON.parse(localStorage.getItem('farm')) || {};
+            return savedFarm.totalCoins || 0;
+        }
+        return 0;
+    });
+
+    const updateContext = () => {
+        if (typeof window !== 'undefined') {
+            const savedInit = JSON.parse(localStorage.getItem('init')) || {};
+            setGroupId(savedInit.groupId || 0);
+            setLiga(savedInit.liga || 0);
+            setLang(savedInit.lang || 'en');
+            setUserId(savedInit.userId || null);
+
+            const savedFarm = JSON.parse(localStorage.getItem('farm')) || {};
+            setLimit(savedFarm.farmLimit || 0);
+            setRate(savedFarm.farmRate || 1);
+            setCoins(savedFarm.coins || 0);
+            setTotalCoins(savedFarm.totalCoins || 0);
+        }
+    };
+
     useEffect(() => {
         const initData = {
             groupId,
@@ -64,7 +96,9 @@ export const InitProvider = ({ children }) => {
     useEffect(() => {
         const farmData = {
             farmLimit: limit,
-            farmRate: rate
+            farmRate: rate,
+            coins,
+            totalCoins
         };
         localStorage.setItem('farm', JSON.stringify(farmData));
     }, [limit, rate]);
@@ -82,21 +116,11 @@ export const InitProvider = ({ children }) => {
         setLimit,
         rate,
         setRate,
+        coins,
+        setCoins,
+        totalCoins,
+        setTotalCoins,
         updateContext
-    };
-
-    const updateContext = () => {
-        if (typeof window !== 'undefined') {
-            const savedInit = JSON.parse(localStorage.getItem('init')) || {};
-            setGroupId(savedInit.groupId || 0);
-            setLiga(savedInit.liga || 0);
-            setLang(savedInit.lang || 'en');
-            setUserId(savedInit.userId || null);
-
-            const savedFarm = JSON.parse(localStorage.getItem('farm')) || {};
-            setLimit(savedFarm.farmLimit || 0);
-            setRate(savedFarm.farmRate || 1);
-        }
     };
 
     return (
