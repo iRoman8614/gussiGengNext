@@ -463,7 +463,7 @@ export default function Page() {
                                     <a className={styles.green}>
                                         {
                                             (selectedItem.type === 'limit' ?
-                                                (Number(limit) * (1 + (Number(selectedItem.IncreasePer)/100)))
+                                                (Number(limit) * (1 + (Number(selectedItem.IncreasePer)/100))).toFixed(3)
                                             :
                                                 (Number(rate) * (1 + (Number(selectedItem.IncreasePer)/100)))).toFixed(3)
                                         }
