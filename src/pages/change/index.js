@@ -1,10 +1,10 @@
-import {useCallback, useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import Image from "next/image";
 import {useRouter} from "next/router";
 import { toast } from 'react-toastify';
 import {useInit} from "@/context/InitContext";
+import {useUpdateGroup} from "@/utils/api";
 import teamData from '@/mock/teamsData'
-import axiosInstance from "@/utils/axios";
 
 import styles from '@/styles/Change.module.scss'
 
@@ -16,19 +16,9 @@ const money = '/money.png'
 
 export default function Page() {
     const router = useRouter();
-    const { groupId } = useInit();
+    const { groupId, coins, updateContext } = useInit();
     const[showPopUp, setShowPopUp] = useState(false)
     const[choose, setChoose] = useState(null)
-    const[balance, setBalance] = useState(0)
-
-    useEffect(() => {
-        if (typeof window !== 'undefined') {
-            const start = JSON.parse(localStorage.getItem('start'));
-            if (start) {
-                setBalance(start.coins)
-            }
-        }
-    }, []);
 
     useEffect(() => {
         if (typeof window !== 'undefined' && window.Telegram?.WebApp?.BackButton) {
@@ -41,6 +31,8 @@ export default function Page() {
             };
         }
     }, [router]);
+
+    const { updateGroupData, data: updatedGroup, loading, error } = useUpdateGroup();
 
     const userTeam = groupId
     const cards = [
@@ -71,44 +63,29 @@ export default function Page() {
     const closePopUp = () => {
         setShowPopUp(false)
     }
-
-    const checkStartData = useCallback(async () => {
-        try {
-            const response = await axiosInstance.get(`/farm/start`);
-            localStorage.setItem('start', JSON.stringify(response.data));
-        } catch (error) {
-            console.log(error)
-        }
-    }, [router]);
-
     const changeClan = async () => {
-        if (balance < 1000000) {
+        if (coins < 1000000) {
             toast.error("You do not have enough money");
             return;
         }
         try {
-            const response = await axiosInstance.get(`/profile/update-group?groupId=${choose}`);
-            const data = response.data;
-            if(response.status === 400) {
-                const errorMessage = "You can change your clan only once every 5 days";
-                toast.error(errorMessage);
+            await updateGroupData(choose);
+            if (loading) return;
+            if (error) {
+                if (error.response && error.response.status === 400) {
+                    toast.error("You can change your clan only once every 5 days");
+                    return;
+                }
+                toast.error("Error during clan change");
                 return;
             }
-            if (data) {
-                localStorage.setItem('init', JSON.stringify(data));
-                checkStartData()
-
+            if (updatedGroup) {
+                toast.success("Clan changed successfully");
+                updateContext();
                 router.push('/main');
-            } else {
-                throw new Error('Invalid data received from the server');
             }
         } catch (error) {
-            if (error.response && error.response.status === 400) {
-                const errorMessage = error.response.data.message || "Error during clan change";
-                toast.error(errorMessage);
-                return;
-            }
-            toast.error(`You can change your clan only once every 5 days`);
+            toast.error("Error while changing clan");
         }
     };
 
