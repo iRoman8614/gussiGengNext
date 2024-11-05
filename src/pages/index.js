@@ -91,7 +91,7 @@ export default function LoaderPage() {
             }
             window.addEventListener('resize', updateBodyHeight);
         } else {
-            toast.error("Telegram WebApp недоступен");
+            toast.error("Telegram WebApp unavailable");
         }
     }, [updateBodyHeight]);
 
@@ -129,7 +129,7 @@ export default function LoaderPage() {
                 await fetchFarmStart()
                 setDataFetched(true);
             } catch (error) {
-                toast.error('Ошибка при выполнении запросов');
+                toast.error('error during init request');
             }
         }
     }, [dataFetched]);
@@ -165,8 +165,11 @@ export default function LoaderPage() {
                     });
                 });
             } else {
-                loadAssets()
-                    .then(updateAndRedirect);
+                fetchData().then(() => {
+                    loadAssets().then(() => {
+                        updateAndRedirect();
+                    });
+                });
             }
         } else {
             const tokenFromLocalStorage = localStorage.getItem('authToken');
@@ -180,11 +183,14 @@ export default function LoaderPage() {
                         });
                     });
                 } else {
-                    loadAssets()
-                        .then(updateAndRedirect);
+                    fetchData().then(() => {
+                        loadAssets().then(() => {
+                            updateAndRedirect();
+                        });
+                    });
                 }
             } else {
-                toast.error("Токен не найден. Пожалуйста, авторизуйтесь.");
+                toast.error("unauthorized");
             }
         }
     }, [checkVersion, router.query]);
