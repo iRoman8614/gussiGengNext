@@ -17,7 +17,7 @@ const bg = '/backgrounds/leaderboardBG.png'
 
 export default function Page() {
     const router = useRouter();
-    const { groupId, liga } = useInit();
+    const { groupId, updateContext } = useInit();
     const [activeIndex, setActiveIndex] = useState(0);
     const [leaderData, setLeaderData] = useState([]);
 
