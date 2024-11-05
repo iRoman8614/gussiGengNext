@@ -132,11 +132,14 @@ export default function LoaderPage() {
                 setDataFetched(true);
             } catch (error) {
                 toast.error('error during init request');
+                return;
             }
         }
     }, [dataFetched]);
 
     const loadAssets = useCallback(async () => {
+
+
         if (isNewPlayer) {
             await preloadAssets(newPlayerAssets);
         } else {
@@ -145,14 +148,21 @@ export default function LoaderPage() {
     }, [isNewPlayer, preloadAssets]);
 
     const updateAndRedirect = useCallback(() => {
+        const savedInit = JSON.parse(localStorage.getItem('init'));
+        const savedFarm = JSON.parse(localStorage.getItem('farm'));
+
+        const isExperiencedPlayer = savedInit && savedFarm
+
         updateContext();
         if(isNewPlayer) {
             router.push('/getRandom');
-        } else {
+        } else if (isExperiencedPlayer) {
             router.push('/main');
+        } else {
+            toast.error("Failed to verify player state.");
+            return
         }
     }, [isNewPlayer, router, updateContext]);
-
 
     useEffect(() => {
         initializeTelegramWebApp()
