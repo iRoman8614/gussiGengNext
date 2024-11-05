@@ -3,9 +3,9 @@ import { useRouter } from 'next/router';
 import Image from 'next/image';
 import Head from "next/head";
 import { toast } from "react-toastify";
-import axiosInstance from '@/utils/axios';
 import { useAssetsCache } from '@/context/AssetsCacheContext';
 import { useInit } from '@/context/InitContext';
+import { useProfileInit, useProfileStats, useFarmStart } from '@/utils/hooks';
 
 import styles from '@/styles/Loader.module.scss';
 
@@ -54,9 +54,21 @@ const experiencedPlayerAssets = [
 export default function LoaderPage() {
     const router = useRouter();
     const { preloadAssets } = useAssetsCache();
-    const { userId, setGroupId, setLiga, setLimit, setRate, setUserId } = useInit();
+    const { updateContext, setUserId } = useInit();
+    const [isNewPlayer, setIsNewPlayer] = useState(false);
+
     const CURRENT_VERSION = process.env.NEXT_PUBLIC_CURRENT_VERSION;
-    console.log('CURRENT_VERSION:', CURRENT_VERSION)
+
+    const { fetchProfileInit } = useProfileInit(localStorage.getItem('authToken'));
+    const { fetchProfileStats } = useProfileStats();
+    const { fetchFarmStart } = useFarmStart();
+
+    useEffect(() => {
+        const { token } = router.query;
+        if (token) {
+            localStorage.setItem('authToken', token);
+        }
+    }, [router.query]);
 
     const updateBodyHeight = useCallback(() => {
         document.body.style.height = `${window.innerHeight}px`;
@@ -82,117 +94,72 @@ export default function LoaderPage() {
         }
     }, [updateBodyHeight]);
 
-    const fetchStats = async () => {
-        try {
-            const response = await axiosInstance.get(`/profile/stats`);
-            if(!response || !response.data)  {
-                toast.error('error during init request')
-                return
-            }
-            const liga = response.data.liga;
-            if(liga === 0) {
-                const level = 0
-                setLiga(level)
-                localStorage.setItem('liga', level)
-            } else {
-                const level = liga-1
-                setLiga(level);
-                localStorage.setItem('liga', level)
-            }
-        } catch (error) {
-            console.error('Ошибка при получении статистики:', error);
-        }
-    };
-
-    const checkLocalStorageAndRedirect = useCallback(async () => {
+    const checkVersion = useCallback(() => {
         const savedVersion = localStorage.getItem('version');
-
         if (savedVersion !== CURRENT_VERSION) {
             localStorage.clear();
             localStorage.setItem('version', CURRENT_VERSION);
         }
+    }, [CURRENT_VERSION]);
 
-        localStorage.removeItem('GWToken')
+    const checkLocalStorage = useCallback(() => {
         const init = localStorage.getItem('init');
         const start = localStorage.getItem('start');
-        const myToken = localStorage.getItem('GWToken');
-        const authToken = localStorage.getItem('authToken');
+        const GWToken = localStorage.getItem('GWToken');
 
-        if(!myToken) {
-            const response = await axiosInstance.get(`/profile/init?token=${authToken}`);
-            const data = response.data;
-            if(!response || !response.data)  {
-                toast.error('error during init request')
-                return
-            }
-            if(!data.group.id) {
-                toast.error('error during init request')
-                return
-            }
-            setLimit(data.farm.limit)
-            setRate(data.farm.rate)
-            setGroupId(data.group.id)
-            console.log('setGroupId', setGroupId)
-            localStorage.setItem('GWToken', data.jwt)
-            fetchStats()
+        if (!init || !start || !GWToken) {
+            setIsNewPlayer(true);
+            return false;
         }
+        return true;
+    }, []);
 
-        if (!init) {
-            try {
-                const response = await axiosInstance.get(`/profile/init?token=${authToken}`);
-                const data = response.data;
-                localStorage.setItem('init', JSON.stringify(data));
-                setLimit(data.farm.limit)
-                setRate(data.farm.rate)
-                setGroupId(data.group.id)
-                localStorage.setItem('GWToken', data.jwt)
-                await checkStartData();
-            } catch (error) {
-                toast.error('Error during init request');
-            }
-        } else if (!start) {
-            checkStartData();
+    const fetchData = useCallback(async () => {
+        try {
+            await useProfileInit(localStorage.getItem('authToken'));
+            await useProfileStats();
+            await fetchFarmStart();
+        } catch (error) {
+            toast.error('Ошибка при выполнении запросов');
+        }
+    }, [fetchProfileInit, fetchProfileStats, fetchFarmStart]);
+
+    const loadAssets = useCallback(async () => {
+        if (isNewPlayer) {
+            await preloadAssets(newPlayerAssets);
         } else {
             await preloadAssets(experiencedPlayerAssets);
+        }
+    }, [isNewPlayer, preloadAssets]);
+
+    const updateAndRedirect = useCallback(() => {
+        updateContext();
+        if (isNewPlayer) {
+            router.push('/getRandom');
+        } else {
             router.push('/main');
         }
-    }, [userId, router]);
+    }, [isNewPlayer, router, updateContext]);
 
-    const checkStartData = useCallback(async () => {
-        try {
-            const response = await axiosInstance.get(`/farm/start`);
-            if(!response || !response.data)  {
-                toast.error('error during start request')
-                return
-            }
-
-            localStorage.setItem('start', JSON.stringify(response.data));
-            await preloadAssets(newPlayerAssets);
-            router.push('/getRandom');
-        } catch (error) {
-            toast.error('Error during start request');
-        }
-    }, [router]);
 
     useEffect(() => {
-        const { token } = router.query;
-        if (token) {
-            localStorage.setItem('authToken', token);
+        initializeTelegramWebApp();
+        checkVersion();
+        const hasData = checkLocalStorage();
+        if (!hasData) {
+            fetchData().then(() => {
+                loadAssets().then(() => {
+                    updateAndRedirect();
+                });
+            });
+        } else {
+            fetchData().then(() => {
+                loadAssets().then(() => {
+                    updateAndRedirect();
+                });
+            });
         }
-    }, [router.query]);
-
-    useEffect(() => {
-        if (typeof window !== 'undefined') {
-            initializeTelegramWebApp();
-            window.Telegram?.WebApp.ready();
-            if (userId !== null) {
-                checkLocalStorageAndRedirect();
-            }
-        }
-        return () => {
-            window.removeEventListener('resize', updateBodyHeight);
-        };
-    }, [initializeTelegramWebApp, checkLocalStorageAndRedirect, userId, updateBodyHeight]);
+    }, [checkVersion, checkLocalStorage, fetchData, loadAssets, updateAndRedirect]);
 
     return (
         <>

@@ -1,14 +1,74 @@
-import React, {createContext, useContext, useEffect, useState} from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
+
 const InitContext = createContext();
 
 export const InitProvider = ({ children }) => {
-    let savedLang
-    const [groupId, setGroupId] = useState(0);
-    const [liga, setLiga] = useState(0);
-    const [lang, setLang] = useState('en');
-    const [userId, setUserId] = useState(null);
-    const [limit, setLimit] = useState(0);
-    const [rate, setRate] = useState(1);
+    const [groupId, setGroupId] = useState(() => {
+        if (typeof window !== 'undefined') {
+            const savedInit = JSON.parse(localStorage.getItem('init')) || {};
+            return savedInit.groupId || 0;
+        }
+        return 0;
+    });
+
+    const [liga, setLiga] = useState(() => {
+        if (typeof window !== 'undefined') {
+            const savedInit = JSON.parse(localStorage.getItem('init')) || {};
+            return savedInit.liga || 0;
+        }
+        return 0;
+    });
+
+    const [lang, setLang] = useState(() => {
+        if (typeof window !== 'undefined') {
+            const savedInit = JSON.parse(localStorage.getItem('init')) || {};
+            return savedInit.lang || 'en';
+        }
+        return 'en';
+    });
+
+    const [userId, setUserId] = useState(() => {
+        if (typeof window !== 'undefined') {
+            const savedInit = JSON.parse(localStorage.getItem('init')) || {};
+            return savedInit.userId || null;
+        }
+        return null;
+    });
+
+    const [limit, setLimit] = useState(() => {
+        if (typeof window !== 'undefined') {
+            const savedFarm = JSON.parse(localStorage.getItem('farm')) || {};
+            return savedFarm.farmLimit || 0;
+        }
+        return 0;
+    });
+
+    const [rate, setRate] = useState(() => {
+        if (typeof window !== 'undefined') {
+            const savedFarm = JSON.parse(localStorage.getItem('farm')) || {};
+            return savedFarm.farmRate || 1;
+        }
+        return 1;
+    });
+
+    useEffect(() => {
+        const initData = {
+            groupId,
+            liga,
+            lang,
+            userId
+        };
+        localStorage.setItem('init', JSON.stringify(initData));
+    }, [groupId, liga, lang, userId]);
+
+    useEffect(() => {
+        const farmData = {
+            farmLimit: limit,
+            farmRate: rate
+        };
+        localStorage.setItem('farm', JSON.stringify(farmData));
+    }, [limit, rate]);
+
     const initState = {
         groupId,
         setGroupId,
@@ -21,20 +81,23 @@ export const InitProvider = ({ children }) => {
         limit,
         setLimit,
         rate,
-        setRate
+        setRate,
+        updateContext
     };
 
-    if(typeof window !== 'undefined') {
-        savedLang = localStorage.getItem('appLanguage') || 'en';
-    }
+    const updateContext = () => {
+        if (typeof window !== 'undefined') {
+            const savedInit = JSON.parse(localStorage.getItem('init')) || {};
+            setGroupId(savedInit.groupId || 0);
+            setLiga(savedInit.liga || 0);
+            setLang(savedInit.lang || 'en');
+            setUserId(savedInit.userId || null);
 
-    useEffect(() => {
-        if(typeof window !== 'undefined') {
-            if (lang !== savedLang) {
-                localStorage.setItem('appLanguage', lang);
-            }
+            const savedFarm = JSON.parse(localStorage.getItem('farm')) || {};
+            setLimit(savedFarm.farmLimit || 0);
+            setRate(savedFarm.farmRate || 1);
         }
-    }, [lang]);
+    };
 
     return (
         <InitContext.Provider value={initState}>
