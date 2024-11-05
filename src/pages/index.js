@@ -5,7 +5,7 @@ import Head from "next/head";
 import { toast } from "react-toastify";
 import { useAssetsCache } from '@/context/AssetsCacheContext';
 import { useInit } from '@/context/InitContext';
-import { useProfileInit, useProfileStats, useFarmStart } from '@/utils/hooks';
+import { useProfileInit, useProfileStats, useFarmStart } from '@/utils/api';
 
 import styles from '@/styles/Loader.module.scss';
 
@@ -59,7 +59,7 @@ export default function LoaderPage() {
 
     const CURRENT_VERSION = process.env.NEXT_PUBLIC_CURRENT_VERSION;
 
-    const { fetchProfileInit } = useProfileInit(localStorage.getItem('authToken'));
+    const { fetchProfileInit } = useProfileInit(typeof window !== 'undefined' ? localStorage.getItem('authToken') : null);
     const { fetchProfileStats } = useProfileStats();
     const { fetchFarmStart } = useFarmStart();
 
@@ -95,29 +95,34 @@ export default function LoaderPage() {
     }, [updateBodyHeight]);
 
     const checkVersion = useCallback(() => {
-        const savedVersion = localStorage.getItem('version');
-        if (savedVersion !== CURRENT_VERSION) {
-            localStorage.clear();
-            localStorage.setItem('version', CURRENT_VERSION);
+        if (typeof window !== 'undefined') {
+            const savedVersion = localStorage.getItem('version');
+            if (savedVersion !== CURRENT_VERSION) {
+                localStorage.clear();
+                localStorage.setItem('version', CURRENT_VERSION);
+            }
         }
     }, [CURRENT_VERSION]);
 
     const checkLocalStorage = useCallback(() => {
-        const init = localStorage.getItem('init');
-        const start = localStorage.getItem('start');
-        const GWToken = localStorage.getItem('GWToken');
+        if (typeof window !== 'undefined') {
+            const init = localStorage.getItem('init');
+            const start = localStorage.getItem('start');
+            const GWToken = localStorage.getItem('GWToken');
 
-        if (!init || !start || !GWToken) {
-            setIsNewPlayer(true);
-            return false;
+            if (!init || !start || !GWToken) {
+                setIsNewPlayer(true);
+                return false;
+            }
+            return true;
         }
-        return true;
+        return false;
     }, []);
 
     const fetchData = useCallback(async () => {
         try {
-            await useProfileInit(localStorage.getItem('authToken'));
-            await useProfileStats();
+            await fetchProfileInit();
+            await fetchProfileStats();
             await fetchFarmStart();
         } catch (error) {
             toast.error('Ошибка при выполнении запросов');
