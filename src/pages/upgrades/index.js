@@ -200,6 +200,7 @@ export default function Page() {
     const handleTaskClick = (task) => {
         if (task.readyToComplete) {
             executeTask(task.id);
+            task.readyToComplete = false
         } else {
             switch (task.type) {
                 case 1:
