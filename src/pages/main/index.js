@@ -63,8 +63,17 @@ export default function Home() {
             if (typeof window !== "undefined" && window.Telegram?.WebApp?.HapticFeedback) {
                 window.Telegram.WebApp.HapticFeedback.impactOccurred("heavy");
             }
-            await collectAndStart();
+            const collectData = await collectAndStart();
+            const updatedBalance = collectData.coins;
+            setBalance(updatedBalance);
             setCurrentFarmCoins(0)
+            const updatedFarmData = {
+                coins: updatedBalance,
+                totalCoins: collectData.totalCoins,
+                farmRate: collectData.rate,
+                farmLimit: limit,
+            };
+            localStorage.setItem('farm', JSON.stringify(updatedFarmData));
             triggerClaimAnimation()
             updateContext();
         } catch (error) {
