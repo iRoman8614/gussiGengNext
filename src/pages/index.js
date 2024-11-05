@@ -165,8 +165,10 @@ export default function LoaderPage() {
                     });
                 });
             } else {
-                loadAssets().then(() => {
-                    updateAndRedirect();
+                fetchData().then(() => {
+                    loadAssets().then(() => {
+                        updateAndRedirect();
+                    });
                 });
             }
         } else {
@@ -181,8 +183,10 @@ export default function LoaderPage() {
                         });
                     });
                 } else {
-                    loadAssets().then(() => {
-                        updateAndRedirect();
+                    fetchData().then(() => {
+                        loadAssets().then(() => {
+                            updateAndRedirect();
+                        });
                     });
                 }
             } else {
