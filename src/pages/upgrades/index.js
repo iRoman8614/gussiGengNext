@@ -463,9 +463,9 @@ export default function Page() {
                                 <p>
                                     <a>
                                         {selectedItem.type === 'limit' ?
-                                            limit
+                                            Number(limit).toFixed(3)
                                             :
-                                            rate
+                                            Number(rate).toFixed(3)
                                         }
                                     </a>
                                     {' '}
@@ -474,9 +474,9 @@ export default function Page() {
                                     <a className={styles.green}>
                                         {
                                             (selectedItem.type === 'limit' ?
-                                                (limit * (1 + (Number(selectedItem.Name)/100))).toFixed(3)
+                                                (Number(limit) * (1 + (Number(selectedItem.Name)/100))).toFixed(3)
                                             :
-                                                (rate * (1 + (Number(selectedItem.Name)/100)))).toFixed(3)
+                                                (Number(rate) * (1 + (Number(selectedItem.Name)/100)))).toFixed(3)
                                         }
                                     </a>
                                 </p>
