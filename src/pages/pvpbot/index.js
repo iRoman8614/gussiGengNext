@@ -6,11 +6,11 @@ import {PvpBtn} from "@/components/buttons/PvpBtn/PvpBtn";
 import {useTriggerBotGame} from "@/utils/api";
 import teamData from '@/mock/teamsData.js';
 import gangsterNames from '@/mock/gangstersNames.js'
-import axiosInstance from "@/utils/axios";
 import { gameOptions } from '@/mock/optionData';
 
 import styles from '@/styles/Pvp.module.scss';
 import "react-toastify/dist/ReactToastify.css";
+import {useInit} from "@/context/InitContext";
 
 const wins = '/wins.png';
 const background = '/backgrounds/backalley.png'
@@ -28,34 +28,23 @@ const scis = '/game-icons/scissors.png'
 
 export default function PvpBotPage() {
     const router = useRouter();
+    const { groupId, updateContext } = useInit();
     const { triggerBotGame } = useTriggerBotGame();
     const [visibleImage, setVisibleImage] = useState(0);
     const [playerScore, setPlayerScore] = useState(0);
     const [opponentScore, setOpponentScore] = useState(0);
     const [gameOver, setGameOver] = useState(false);
-    const [round, setRound] = useState(1);
     const [timer, setTimer] = useState(5);
     const [playerChoice, setPlayerChoice] = useState(null);
     const [opponentChoice, setOpponentChoice] = useState(3);
     const [gameEnded, setGameEnded] = useState(false);
     const [userName, setUserName] = useState('you');
-    const [userClan, setUserClan] = useState(null);
     const [oppClan, setOppClan] = useState(null);
     const [opponentName, setOpponentName] = useState("biggie smalls")
     const [resetSequence, setResetSequence] = useState(false);
 
     const playerGifCache = useRef({});
     const opponentGifCache = useRef({});
-
-
-    useEffect(() => {
-        if (typeof window !== "undefined") {
-            const init = JSON.parse(localStorage.getItem("init"));
-            if (init && init.group) {
-                setUserClan(init.group.id);
-            }
-        }
-    }, [])
 
     const preloadPlayerGifs = () => {
         const cache = {};
@@ -88,6 +77,7 @@ export default function PvpBotPage() {
             playerGifCache.current = preloadPlayerGifs();
             opponentGifCache.current = preloadOpponentGifs();
         }
+        updateContext()
     }, []);
 
     useEffect(() => {
@@ -108,11 +98,11 @@ export default function PvpBotPage() {
     }, []);
 
     useEffect(() => {
-        if (userClan !== null) {
-            const randomOpponentTeamId = getRandomTeamIdExceptCurrent(userClan);
+        if (groupId !== null) {
+            const randomOpponentTeamId = getRandomTeamIdExceptCurrent(groupId);
             setOppClan(randomOpponentTeamId);
         }
-    }, [userClan]);
+    }, [groupId]);
 
     useEffect(() => {
         let timerId;
@@ -252,7 +242,7 @@ export default function PvpBotPage() {
                                 />
                             </div>
                             <VictoryCounter score={playerScore} />
-                            <IconButton image={teamData[userClan]?.logo} alt={'gang'} />
+                            <IconButton image={teamData[groupId]?.logo} alt={'gang'} />
                             <div className={styles.roundTimer}>
                                 <Image src={timerBG} alt={'timer'} height={144} width={144} className={styles.roundTimerBG} />
                                 <div className={styles.time}>{timer}</div>
