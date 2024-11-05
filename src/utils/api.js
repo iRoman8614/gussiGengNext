@@ -51,8 +51,6 @@ export const useFarmStart = () => {
         try {
             const response = await axios.get(`/farm/start`);
             const { coins, totalCoins, startTime, rate, limit } = response.data;
-
-            // Обновляем localStorage
             const initData = JSON.parse(localStorage.getItem('init')) || {};
             const updatedInitData = {
                 ...initData,
@@ -84,10 +82,12 @@ export const useFarmStart = () => {
 };
 
 // Хук для /farm/collect, который выполняет collect, а затем start
-export const useFarmCollect = (fetchFarmStart) => {
+export const useFarmCollect = () => {
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
+
+    const { fetchFarmStart } = useFarmStart();
 
     const collectAndStart = useCallback(async () => {
         if (loading) return;
