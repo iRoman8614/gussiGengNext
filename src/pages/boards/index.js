@@ -20,7 +20,7 @@ export default function Page() {
     const [activeIndex, setActiveIndex] = useState(0);
 
     const { fetchProfileStats, data: stats } = useProfileStats();
-    const { data: leaderData, loading, error } = useProfileLeaders(activeIndex + 1);
+    const { data: leaderData } = useProfileLeaders(activeIndex + 1);
 
     useEffect(() => {
         fetchProfileStats()

@@ -163,7 +163,6 @@ export const useProfileLeaders = (liga) => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const cache = useRef({});
-
     useEffect(() => {
         const fetchLeadersData = async () => {
             if (cache.current[liga]) {
