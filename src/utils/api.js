@@ -203,7 +203,6 @@ export const useMyInvitees = () => {
                 setLoading(false);
             }
         };
-
         fetchInviteesData();
     }, []);
     return { data, loading, error };

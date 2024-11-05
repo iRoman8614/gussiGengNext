@@ -1,24 +1,23 @@
-import React, {useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 import {useRouter} from "next/router";
 import Image from "next/image";
-import axiosInstance from '@/utils/axios';
 import { toast } from 'react-toastify';
 import {ListItem} from "@/components/ListItem/ListItem";
 
 import styles from '@/styles/Friends.module.scss'
 import Link from "next/link";
+import {useMyInvitees} from "@/utils/api";
 
 const copy = '/copy.png'
 const star = '/Star.png'
 const money = '/money.png'
 
-// const link = process.env.BOT_LINK
-const link = 'https://t.me/gwtestbot_bot'
+const link = process.env.NEXT_PUBLIC_BOT_LINK
 
 export default function Page() {
     const [userId, setUserId] = useState(null);
     const [activeTab, setActiveTab] = useState(1);
-    const [friends, setFriends] = useState([]);
+    const { data: friends } = useMyInvitees();
 
     const router = useRouter();
 
@@ -46,18 +45,6 @@ export default function Page() {
             };
         }
     }, [router]);
-
-    useEffect(() => {
-        const fetchFriends = async () => {
-            try {
-                const response = await axiosInstance.get('/profile/my-invitees');
-                setFriends(response.data);
-            } catch (error) {
-                console.error('Ошибка при загрузке списка друзей:', error);
-            }
-        };
-        fetchFriends();
-    }, []);
 
     const handleClick = () => {
         if (window.Telegram?.WebApp?.HapticFeedback) {
@@ -94,7 +81,7 @@ export default function Page() {
         if (tg.HapticFeedback) {
             tg.HapticFeedback.impactOccurred('heavy');
         }
-        const shareLink = `https://t.me/share/url?url=${encodeURIComponent(referralLink)}&text=${encodeURIComponent(inviteMessage)}`;
+        const shareLink = `text=${encodeURIComponent(inviteMessage)}`;
         window.open(shareLink, '_blank');
     };
 
