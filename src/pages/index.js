@@ -108,7 +108,7 @@ export default function LoaderPage() {
     const checkLocalStorage = useCallback(() => {
         if (typeof window !== 'undefined') {
             const init = localStorage.getItem('init');
-            const start = localStorage.getItem('start');
+            const start = localStorage.getItem('farm');
             const GWToken = localStorage.getItem('GWToken');
 
             if (!init || !start || !GWToken) {

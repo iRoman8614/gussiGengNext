@@ -36,7 +36,7 @@ export const useProfileInit = (token) => {
         } finally {
             setLoading(false);
         }
-    }, [token]);
+    }, [token, loading]);
     return { data, loading, error, fetchProfileInit };
 };
 
@@ -78,7 +78,7 @@ export const useFarmStart = () => {
         } finally {
             setLoading(false);
         }
-    }, []);
+    }, [loading]);
 
     return { data, loading, error, fetchFarmStart };
 };
@@ -144,7 +144,7 @@ export const useProfileStats = () => {
         } finally {
             setLoading(false);
         }
-    }, []);
+    }, [loading]);
 
     return {data, loading, error, fetchProfileStats};
 }
