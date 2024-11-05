@@ -1,17 +1,16 @@
-import {useCallback, useEffect, useRef, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import Image from "next/image";
 import {useRouter} from "next/router";
 import { Navigation, Controller } from 'swiper/modules';
 import {ListItem} from "@/components/ListItem/ListItem";
+import {useInit} from "@/context/InitContext";
+import {useProfileStats, useProfileLeaders} from "@/utils/api";
 import { Swiper, SwiperSlide } from 'swiper/react';
-import axiosInstance from "@/utils/axios";
 import skinData from '@/mock/skinsData'
 
 import 'swiper/css';
 import 'swiper/css/navigation';
 import styles from '@/styles/Boards.module.scss'
-import {useInit} from "@/context/InitContext";
-import {useProfileStats} from "@/utils/api";
 
 const bg = '/backgrounds/leaderboardBG.png'
 
@@ -19,9 +18,9 @@ export default function Page() {
     const router = useRouter();
     const { groupId, updateContext } = useInit();
     const [activeIndex, setActiveIndex] = useState(0);
-    const [leaderData, setLeaderData] = useState([]);
 
     const { fetchProfileStats, data: stats } = useProfileStats();
+    const { data: leaderData, loading, error } = useProfileLeaders(activeIndex + 1);
 
     useEffect(() => {
         fetchProfileStats()
@@ -30,38 +29,6 @@ export default function Page() {
 
     const ligsLimits = ['10', '25', '50', '100', '250', '500', '1000']
     const length = stats?.victory / ligsLimits[activeIndex] * 100
-
-    const leadersCache = useRef({});
-
-    const fetchLeaderboard = useCallback(async (liga) => {
-        if (leadersCache.current[liga]) {
-            setLeaderData((prevData) => ({
-                ...prevData,
-                [liga]: leadersCache.current[liga]
-            }));
-            return;
-        }
-        try {
-            const response = await axiosInstance.get(`/profile/leaders?liga=${liga}`);
-            const data = response.data;
-            leadersCache.current[liga] = data;
-            setLeaderData((prevData) => ({
-                ...prevData,
-                [liga]: data
-            }));
-        } catch (error) {
-            console.error("Ошибка при запросе данных лидеров:", error);
-        }
-    }, []);
-
-    useEffect(() => {
-        const liga = activeIndex + 1;
-        if (!leaderData[liga]) {
-            fetchLeaderboard(liga);
-        }
-    }, [activeIndex, leaderData, fetchLeaderboard]);
-
-
 
     useEffect(() => {
         if (typeof window !== 'undefined' && window.Telegram?.WebApp?.BackButton) {
