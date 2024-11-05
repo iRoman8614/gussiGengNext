@@ -126,7 +126,12 @@ export default function LoaderPage() {
     const fetchData = useCallback(async () => {
         if (!dataFetched) {
             try {
-                await fetchProfileInit()
+                const { error: initError } = await fetchProfileInit();
+                if (initError) {
+                    toast.error(initError || 'Failed to initialize profile');
+                    return;
+                }
+
                 await fetchProfileStats()
                 await fetchFarmStart()
                 setDataFetched(true);
