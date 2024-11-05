@@ -153,11 +153,15 @@ export default function LoaderPage() {
 
         const isExperiencedPlayer = savedInit && savedFarm
 
+        updateContext();
+
+        if (savedInit.groupId === 0 || savedFarm.farmLimit === 0) {
+            return;
+        }
+
         if(isNewPlayer) {
-            updateContext();
             router.push('/getRandom');
         } else if (isExperiencedPlayer) {
-            updateContext();
             router.push('/main');
         } else {
             toast.error("Failed to verify player state.");
