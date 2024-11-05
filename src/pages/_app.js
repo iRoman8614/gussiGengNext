@@ -66,7 +66,7 @@ function BackgroundPreloader() {
         '/backgrounds/backalley.png', '/backgrounds/leaderboardBG.png',
         '/backgrounds/Lobby.png', '/backgrounds/nightcity.png', '/backgrounds/randomBG.png',
         '/ArrowWhite.png', '/faq/faqHomeBg.png', '/faq/homeslide.png', '/faq/pvpslide.png',
-        '/faq/trio.png'
+        '/faq/trio.png', '/lose.png'
     ];
     const { preloadAssets } = useAssetsCache();
 

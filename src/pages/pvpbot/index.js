@@ -13,6 +13,7 @@ import "react-toastify/dist/ReactToastify.css";
 import {useInit} from "@/context/InitContext";
 
 const wins = '/wins.png';
+const lose = '/lose.png'
 const background = '/backgrounds/backalley.png'
 const timerBG = '/timer.png'
 const heart = '/game-icons/heart.png'
@@ -326,10 +327,15 @@ const WinningScreen = ({ userName, playerScore, opponentName  }) => (
         <div className={styles.winBorder}>
             <div className={styles.winContainer}>
                 <div className={styles.winnerName}>
-                    {playerScore === 3 ? userName : opponentName}
+                    {playerScore === 3 && userName}
                 </div>
-                <Image width={204} height={151} className={styles.winsImage} src={wins} alt={'wins'}  />
-                <p className={styles.winnerName}>+5% farm </p>
+                {playerScore === 3
+                    ?
+                    <Image width={204} height={151} className={styles.winsImage} src={wins} alt={'wins'}  />
+                    :
+                    <Image width={204} height={204} className={styles.winsImage} src={lose} alt={'you lose'} />
+                }
+                {playerScore === 3 ? <p className={styles.winnerName}>+5% farm </p> : <p></p>}
             </div>
         </div>
     </div>

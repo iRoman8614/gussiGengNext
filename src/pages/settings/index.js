@@ -12,7 +12,7 @@ export default function Page() {
 
     const languageOptions = [
         { value: 'en', label: 'English' },
-        { value: 'ru', label: 'Русский' },
+        // { value: 'ru', label: 'Русский' },
     ];
 
     const router = useRouter();
