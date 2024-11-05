@@ -2,7 +2,7 @@ import {useCallback, useEffect, useState} from "react";
 import Image from "next/image";
 import {useRouter} from "next/router";
 import { toast } from 'react-toastify';
-
+import {useInit} from "@/context/InitContext";
 import teamData from '@/mock/teamsData'
 import axiosInstance from "@/utils/axios";
 
@@ -16,17 +16,13 @@ const money = '/money.png'
 
 export default function Page() {
     const router = useRouter();
+    const { groupId } = useInit();
     const[showPopUp, setShowPopUp] = useState(false)
     const[choose, setChoose] = useState(null)
     const[balance, setBalance] = useState(0)
-    const[teamId, setTeamId] = useState(3)
 
     useEffect(() => {
         if (typeof window !== 'undefined') {
-            const init = JSON.parse(localStorage.getItem('init'));
-            if (init && init.group) {
-                setTeamId(init.group.id);
-            }
             const start = JSON.parse(localStorage.getItem('start'));
             if (start) {
                 setBalance(start.coins)
@@ -46,7 +42,7 @@ export default function Page() {
         }
     }, [router]);
 
-    const userTeam = teamId
+    const userTeam = groupId
     const cards = [
         {
             id: 1,
