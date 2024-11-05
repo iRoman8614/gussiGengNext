@@ -16,7 +16,7 @@ export default function Page() {
     const [activeTab, setActiveTab] = useState(1);
     const [userName, setUserName] = useState(null);
 
-    const { data: stats } = useProfileStats();
+    const { fetchProfileStats, data: stats } = useProfileStats();
     const { data: friends } = useMyInvitees();
 
     useEffect(() => {
@@ -32,6 +32,7 @@ export default function Page() {
     }, [router]);
 
     useEffect(() => {
+        fetchProfileStats()
         updateContext()
     }, []);
 
