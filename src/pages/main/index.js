@@ -23,7 +23,7 @@ const background = '/backgrounds/nightcity.png'
 
 export default function Home() {
     const router = useRouter();
-    const { groupId, liga, rate, limit, updateContext } = useInit();
+    const { groupId, liga, rate, limit, updateContext, coins } = useInit();
     const [balance, setBalance] = useState(0)
     const [currentFarmCoins, setCurrentFarmCoins] = useState(0);
     const [startFarmTime, setStartFarmTime] = useState(Date.now());
@@ -34,9 +34,11 @@ export default function Home() {
     useEffect(() => {
         updateContext();
         if (typeof window !== "undefined") {
-            const start = JSON.parse(localStorage.getItem("start"));
+            const start = JSON.parse(localStorage.getItem("farm"));
             if (start) {
                 setBalance(start.coins)
+            } else {
+                setBalance(coins)
             }
             const startTime = localStorage.getItem("startTime")
             if(startTime) {
