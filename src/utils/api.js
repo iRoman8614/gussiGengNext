@@ -95,8 +95,8 @@ export const useFarmCollect = () => {
         try {
             const response = await axios.get(`/farm/collect`);
             const { coins, totalCoins, startTime, endTime, rate, winsGames, winsRate } = response.data;
-            setData(prevData => ({
-                ...prevData,
+
+            const newData = {
                 coins,
                 totalCoins,
                 startTime,
@@ -104,11 +104,15 @@ export const useFarmCollect = () => {
                 rate,
                 winsGames,
                 winsRate
-            }));
+            };
+
+            setData(newData);
             await fetchFarmStart();
+            return newData;
 
         } catch (err) {
             setError(err);
+            return null;
         } finally {
             setLoading(false);
         }
