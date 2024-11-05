@@ -61,9 +61,6 @@ export default function Page() {
         }
     }, [activeIndex, leaderData, fetchLeaderboard]);
 
-    useEffect(() => {
-        fetchStats()
-    }, []);
 
 
     useEffect(() => {
