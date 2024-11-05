@@ -54,7 +54,7 @@ const experiencedPlayerAssets = [
 export default function LoaderPage() {
     const router = useRouter();
     const { preloadAssets } = useAssetsCache();
-    const { updateContext, setUserId } = useInit();
+    const { updateContext } = useInit();
     const [isNewPlayer, setIsNewPlayer] = useState(false);
     const [dataFetched, setDataFetched] = useState(false);
 
@@ -87,7 +87,6 @@ export default function LoaderPage() {
             if (userParam) {
                 const decodedUserParam = decodeURIComponent(userParam);
                 const userObject = JSON.parse(decodedUserParam);
-                setUserId(userObject.id);
             }
             window.addEventListener('resize', updateBodyHeight);
         } else {

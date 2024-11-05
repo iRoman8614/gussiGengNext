@@ -88,7 +88,7 @@ export const InitProvider = ({ children }) => {
             groupId,
             liga,
             lang,
-            dailyEntries
+            dailyEntries,
         };
         localStorage.setItem('init', JSON.stringify(initData));
     }, [groupId, liga, lang, dailyEntries]);
@@ -98,7 +98,7 @@ export const InitProvider = ({ children }) => {
             farmLimit: limit,
             farmRate: rate,
             coins,
-            totalCoins
+            totalCoins,
         };
         localStorage.setItem('farm', JSON.stringify(farmData));
     }, [limit, rate]);
