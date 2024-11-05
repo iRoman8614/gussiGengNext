@@ -149,6 +149,7 @@ export default function Page() {
 
     const openUpgradeModal = (item) => {
         setSelectedItem(item);
+        updateContext()
         setIsUpgradeModalOpen(true);
     };
 
