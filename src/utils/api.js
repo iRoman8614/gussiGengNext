@@ -62,7 +62,6 @@ export const useFarmStart = () => {
             localStorage.setItem('init', JSON.stringify(updatedInitData));
             localStorage.setItem('startTime', startTime);
 
-            // Сохраняем данные в состояние
             setData(prevData => ({
                 ...prevData,
                 coins,
@@ -89,7 +88,7 @@ export const useFarmCollect = () => {
 
     const { fetchFarmStart } = useFarmStart();
 
-    const collectAndStart = useCallback(async () => {
+    const collectAndStart = async () => {
         if (loading) return;
 
         setLoading(true);
@@ -113,7 +112,7 @@ export const useFarmCollect = () => {
         } finally {
             setLoading(false);
         }
-    }, [fetchFarmStart, loading]);
+    };
 
     return { data, loading, error, collectAndStart };
 };
