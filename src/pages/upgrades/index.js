@@ -92,7 +92,6 @@ export default function Page() {
                         readyToComplete = true;
                     }
                     if (task.type === 2) {
-                        readyToComplete = true;
                         icon = task.name.includes("TG") ? "tg" : task.name.includes("X") ? "x" : '';
                     }
                     const isVisible = task.type === 1 ? task.id <= lastCompletedTaskIdType1 + 1 : true;
@@ -197,6 +196,7 @@ export default function Page() {
         router.push(path);
     };
 
+    const timerRef = useRef(null);
     const handleTaskClick = (task) => {
         if (task.readyToComplete) {
             executeTask(task.id);
@@ -212,6 +212,7 @@ export default function Page() {
                     } else if (task.name.toLowerCase().includes("x") || task.name.toLowerCase().includes("twitter")) {
                         url = "https://x.com/gangwars_game";
                     }window.open(url, '_blank');
+                    timerRef.current = setTimeout(() => executeTask(task.id), 100);
                     break;
                 case 3:
                     navigateToPage(task.path);
@@ -221,6 +222,13 @@ export default function Page() {
             }
         }
     };
+    useEffect(() => {
+        return () => {
+            if (timerRef.current) {
+                clearTimeout(timerRef.current);
+            }
+        };
+    }, []);
     const executeTask = async (taskId) => {
         try {
             await axiosInstance.get(`/task/execute?taskId=${taskId}`);
