@@ -76,7 +76,7 @@ export const useFarmStart = () => {
         } finally {
             setLoading(false);
         }
-    }, [loading]);
+    }, []);
 
     return { data, loading, error, fetchFarmStart };
 };
