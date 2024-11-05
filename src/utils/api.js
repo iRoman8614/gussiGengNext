@@ -130,14 +130,18 @@ export const useProfileStats = () => {
             const response = await axios.get(`/profile/stats`);
             const {id, count, lost, victory, type, liga, pass} = response.data;
             const initData = JSON.parse(localStorage.getItem('init')) || {};
+            let lige;
+            if(liga === 0) {
+                lige = liga
+            } else {
+                lige = liga - 1
+            }
             const updatedInitData = {
                 ...initData,
-                liga,
+                liga: lige,
                 pass
             };
             localStorage.setItem('init', JSON.stringify(updatedInitData));
-
-            // Сохраняем данные в состояние
             setData({id, count, lost, victory, type, liga, pass});
         } catch (err) {
             setError(err);
