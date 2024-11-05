@@ -12,19 +12,21 @@ import 'swiper/css/controller';
 import styles from '@/styles/Upgrades.module.scss'
 import {Controller, Navigation} from "swiper/modules";
 import {toast} from "react-toastify";
+import {useInit} from "@/context/InitContext";
+import {useFarmCollect} from "@/utils/api";
 
 const money = '/money.png'
 
 export default function Page() {
     const router = useRouter();
+    const { coins, updateContext, limit, rate } = useInit();
     const { tab } = router.query;
     const [activeTab, setActiveTab] = useState(tab || '1');
+    const { collectAndStart } = useFarmCollect();
 
     const swiperRef = useRef(null);
     const [balance, setBalance] = useState(0);
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [rate, setRate] = useState(1);
-    const [limit, setLimit] = useState(10800)
 
     const [limitLevels, setLimitLevels] = useState([]);
     const [rateLevels, setRateLevels] = useState([]);
@@ -158,11 +160,13 @@ export default function Page() {
             setLimitLevels(prevLevels => prevLevels.map(item =>
                 item.Id === levelId ? response.data : item
             ));
-            const updatedBalance = balance - cost;
+            const updatedBalance = coins - cost;
             setBalance(updatedBalance);
             const start = JSON.parse(localStorage.getItem("start"));
             start.coins = updatedBalance;
             localStorage.setItem("start", JSON.stringify(start));
+            await collectAndStart();
+            updateContext()
             closeUpgradeModal();
             fetchLevels();
         } catch (error) {
@@ -177,11 +181,13 @@ export default function Page() {
             setRateLevels(prevLevels => prevLevels.map(item =>
                 item.Id === levelId ? response.data : item
             ));
-            const updatedBalance = balance - cost;
+            const updatedBalance = coins - cost;
             setBalance(updatedBalance);
             const start = JSON.parse(localStorage.getItem("start"));
             start.coins = updatedBalance;
             localStorage.setItem("start", JSON.stringify(start));
+            await collectAndStart();
+            updateContext()
             closeUpgradeModal();
             fetchLevels();
         } catch (error) {
@@ -328,175 +334,172 @@ export default function Page() {
 
     return (
         <div className={styles.root}>
-                <div className={styles.container}>
-                    <div className={styles.balance}>{formatNumberFromEnd(balance)}{' '}<Image src={money} alt={''} width={21} height={21} /></div>
-                    <div className={styles.block}>
-                        <div className={styles.buttonSet}>
-                            <div className={styles.folderBtnStats}
-                                 style={{
-                                     zIndex: activeTab === '1' ? 112 : 110,
-                                     marginBottom:  activeTab === '1' ? '0px' : '-12px',
-                                     borderRight:  activeTab === '1' ? '2px solid #3842a4' : 'none',
-                                 }}
-                                 onClick={() => {
-                                     handleTab('1')
-                                     setIsModalOpen(false)
-                                 }}>upgrades</div>
-                            <div
-                                className={styles.folderBtnSkins}
-                                style={{
-                                    zIndex: activeTab === '2' ? 113 : 110,
-                                    marginBottom:  activeTab === '2' ? '-0px' : '2px',
-                                }}
-                                onClick={() => {
-                                    handleTab('2')
-                                    setIsModalOpen(false)
-                                }}
-                            >tasks</div>
-                        </div>
-                        {activeTab === '1' && <div className={styles.personalContainer}>
-                            <div className={styles.warning}>
-                                Upgrades are applied after collecting the current earnings.
-                            </div>
-                            <div className={styles.list}>
-                                <div className={styles.containerSwiper}>
-                                    <button className={styles.navLeft} onClick={handleSlidePrev}>
-                                        <Image src={'/Arrow.png'} alt={''} width={15} height={15} />
-                                    </button>
-                                    <Swiper
-                                        modules={[Navigation, Controller]}
-                                        slidesPerView={1}
-                                        centeredSlides={false}
-                                        spaceBetween={10}
-                                        loop={true}
-                                        onSwiper={(swiper) => {
-                                            swiperRef.current = swiper;
-                                        }}
-                                        onSlideChange={handleSlideChange}
-                                        className={styles.swiper}
-                                    >
-                                        {sliderImages.map((image, index) => (
-                                            <SwiperSlide
-                                                key={index}
-                                                className={styles.slide}
-                                            >
-                                                <Image
-                                                    width={120}
-                                                    height={194}
-                                                    src={image}
-                                                    alt={''}
-                                                    className={styles.icon}
-                                                />
-                                                <div className={styles.caption}>
-                                                    {upgradesList[activeIndex]}
-                                                </div>
-                                            </SwiperSlide>
-                                        ))}
-                                    </Swiper>
-                                    <button className={styles.navRight} onClick={handleSlideNext}>
-                                        <Image src={'/Arrow.png'} alt={''} width={15} height={15} />
-                                    </button>
-                                </div>
-                                {activeIndex === 0 && <>
-                                    {rateLevels.length !== 0 ? <div className={styles.itemsList}>{rateLevels.map((item, index) => (
-                                        <ItemPlaceholder img={rateImages[index]} item={item} key={index} onClick={() => openUpgradeModal(item)} />
-                                    ))}</div> : <div className={styles.warning}>No available rate upgrades</div>}
-                                </>}
-                                {activeIndex === 1 && <>
-                                    {limitLevels.length !== 0 ? <div className={styles.itemsList}>{limitLevels.map((item, index) => (
-                                        <ItemPlaceholder img={limitImages[index]} item={item} key={index} onClick={() => openUpgradeModal(item)} />
-                                    ))}</div> : <div className={styles.warning}>No available limit upgrades</div>}
-                                </>}
-                            </div>
-                        </div>}
-                        {activeTab === '2' && <div className={styles.skinContainer}>
-                            <div className={styles.col}>
-                                {/*<div className={styles.label}>Daily</div>*/}
-                                {/*{Tasks.daily.map((task, index) => {*/}
-                                {/*    return(*/}
-                                {/*        <TaskBtn title={task.name} desc={task.desc} complite={task.complite} key={index} onClick={() => handleTaskClick(task)} />*/}
-                                {/*    )*/}
-                                {/*})}*/}
-                                <div className={styles.label}>main tasks</div>
-                                {tasks.map((task, index) => {
-                                    return(
-                                        <>
-                                            {task.type !== 4 && <TaskBtn
-                                                subtitle={task.name}
-                                                desc={task.type !== 2 ? `${task.current} / ${task.amount}` : ''}
-                                                completed={task.completed}
-                                                key={index}
-                                                icon={task.icon}
-                                                type={task.type}
-                                                readyToComplete={task.readyToComplete}
-                                                reward={formatNumberFromEnd(task.reward)}
-                                                onClick={() => handleTaskClick(task)}
-                                            />}
-                                        </>
-
-                                    )
-                                })}
-                            </div>
-                        </div>}
+            <div className={styles.container}>
+                <div className={styles.balance}>{formatNumberFromEnd(coins)}{' '}<Image src={money} alt={''} width={21} height={21} /></div>
+                <div className={styles.block}>
+                    <div className={styles.buttonSet}>
+                        <div className={styles.folderBtnStats}
+                             style={{
+                                 zIndex: activeTab === '1' ? 112 : 110,
+                                 marginBottom:  activeTab === '1' ? '0px' : '-12px',
+                                 borderRight:  activeTab === '1' ? '2px solid #3842a4' : 'none',
+                             }}
+                             onClick={() => {
+                                 handleTab('1')
+                                 setIsModalOpen(false)
+                             }}>upgrades</div>
+                        <div
+                            className={styles.folderBtnSkins}
+                            style={{
+                                zIndex: activeTab === '2' ? 113 : 110,
+                                marginBottom:  activeTab === '2' ? '-0px' : '2px',
+                            }}
+                            onClick={() => {
+                                handleTab('2')
+                                setIsModalOpen(false)
+                            }}
+                        >tasks</div>
                     </div>
-                    {isUpgradeModalOpen && selectedItem && (
-                        <div className={styles.modalOverlay}>
-                            {selectedItem && balance < selectedItem.Cost && (
-                                toast.error('Not enough coins available.')
-                            )}
-                            <div className={styles.modalBorder}>
-                                <div className={styles.modalUpgrades}>
-                                    <h3>
-                                        {selectedItem.type === 'limit' ? `limit +${selectedItem.Name}%` : `rate +${selectedItem.Name}%`}
-                                    </h3>
-                                    <p>Card level: {selectedItem.Level}</p>
-                                    <p>Cost: {selectedItem.Cost}</p>
-                                    <p>
-                                        <a>
-                                            {selectedItem.type === 'limit'
-                                            ?
-                                            scale(10800, selectedItem.IncreasePer, selectedItem.Level).toFixed(2)
-                                            :
-                                            scale(1, selectedItem.IncreasePer, selectedItem.Level).toFixed(2)}
-                                        </a>
-                                        {' '}
-                                        <Image src={'/ArrowWhite.png'} alt={''} width={15} height={15} className={styles.navRight} />
-                                        {' '}
-                                        <a className={styles.green}>
-                                            {
-                                                ((selectedItem.type === 'limit'
-                                            ? scale(10800, selectedItem.IncreasePer, selectedItem.Level+1).toFixed(2)
-                                            : scale(1, selectedItem.IncreasePer, selectedItem.Level+1).toFixed(2)))
-                                            }
-                                        </a>
-                                    </p>
-                                </div>
+                    {activeTab === '1' && <div className={styles.personalContainer}>
+                        <div className={styles.list}>
+                            <div className={styles.containerSwiper}>
+                                <button className={styles.navLeft} onClick={handleSlidePrev}>
+                                    <Image src={'/Arrow.png'} alt={''} width={15} height={15} />
+                                </button>
+                                <Swiper
+                                    modules={[Navigation, Controller]}
+                                    slidesPerView={1}
+                                    centeredSlides={false}
+                                    spaceBetween={10}
+                                    loop={true}
+                                    onSwiper={(swiper) => {
+                                        swiperRef.current = swiper;
+                                    }}
+                                    onSlideChange={handleSlideChange}
+                                    className={styles.swiper}
+                                >
+                                    {sliderImages.map((image, index) => (
+                                        <SwiperSlide
+                                            key={index}
+                                            className={styles.slide}
+                                        >
+                                            <Image
+                                                width={120}
+                                                height={194}
+                                                src={image}
+                                                alt={''}
+                                                className={styles.icon}
+                                            />
+                                            <div className={styles.caption}>
+                                                {upgradesList[activeIndex]}
+                                            </div>
+                                        </SwiperSlide>
+                                    ))}
+                                </Swiper>
+                                <button className={styles.navRight} onClick={handleSlideNext}>
+                                    <Image src={'/Arrow.png'} alt={''} width={15} height={15} />
+                                </button>
                             </div>
-                            <button
-                                className={styles.modalBorder}
-                                onClick={() => {
-                                    if (window.Telegram?.WebApp?.HapticFeedback) {
-                                        window.Telegram.WebApp.HapticFeedback.impactOccurred('heavy');
-                                    }
-                                    if (selectedItem) {
-                                        selectedItem.type === 'limit'
-                                            ? handleLimitUpgrade(selectedItem.Id, selectedItem.Cost)
-                                            : handleRateUpgrade(selectedItem.Id, selectedItem.Cost);
-                                    }
-                                }}
-                                disabled={selectedItem && balance < selectedItem.Cost}
-                            >
-                                <div className={styles.modalBtn}>Upgrade</div>
-                            </button>
-                            <div className={styles.modalBorder} onClick={closeUpgradeModal}>
-                                <div className={styles.modalBtn}>Close</div>
-                            </div>
+                            {activeIndex === 0 && <>
+                                {rateLevels.length !== 0 ? <div className={styles.itemsList}>{rateLevels.map((item, index) => (
+                                    <ItemPlaceholder img={rateImages[index]} item={item} key={index} onClick={() => openUpgradeModal(item)} />
+                                ))}</div> : <div className={styles.warning}>No available rate upgrades</div>}
+                            </>}
+                            {activeIndex === 1 && <>
+                                {limitLevels.length !== 0 ? <div className={styles.itemsList}>{limitLevels.map((item, index) => (
+                                    <ItemPlaceholder img={limitImages[index]} item={item} key={index} onClick={() => openUpgradeModal(item)} />
+                                ))}</div> : <div className={styles.warning}>No available limit upgrades</div>}
+                            </>}
                         </div>
-                    )}
-                    {isModalOpen && <div className={styles.modal}>
-                        <div className={styles.label}>Daily rewards</div>
+                    </div>}
+                    {activeTab === '2' && <div className={styles.skinContainer}>
+                        <div className={styles.col}>
+                            {/*<div className={styles.label}>Daily</div>*/}
+                            {/*{Tasks.daily.map((task, index) => {*/}
+                            {/*    return(*/}
+                            {/*        <TaskBtn title={task.name} desc={task.desc} complite={task.complite} key={index} onClick={() => handleTaskClick(task)} />*/}
+                            {/*    )*/}
+                            {/*})}*/}
+                            <div className={styles.label}>main tasks</div>
+                            {tasks.map((task, index) => {
+                                return(
+                                    <>
+                                        {task.type !== 4 && <TaskBtn
+                                            subtitle={task.name}
+                                            desc={task.type !== 2 ? `${task.current} / ${task.amount}` : ''}
+                                            completed={task.completed}
+                                            key={index}
+                                            icon={task.icon}
+                                            type={task.type}
+                                            readyToComplete={task.readyToComplete}
+                                            reward={formatNumberFromEnd(task.reward)}
+                                            onClick={() => handleTaskClick(task)}
+                                        />}
+                                    </>
+                                )
+                            })}
+                        </div>
                     </div>}
                 </div>
+                {isUpgradeModalOpen && selectedItem && (
+                    <div className={styles.modalOverlay}>
+                        {selectedItem && coins < selectedItem.Cost && (
+                            toast.error('Not enough coins available.')
+                        )}
+                        <div className={styles.modalBorder}>
+                            <div className={styles.modalUpgrades}>
+                                <h3>
+                                    {selectedItem.type === 'limit' ? `limit +${selectedItem.Name}%` : `rate +${selectedItem.Name}%`}
+                                </h3>
+                                <p>Card level: {selectedItem.Level}</p>
+                                <p>Cost: {selectedItem.Cost}</p>
+                                <p>
+                                    <a>
+                                        {selectedItem.type === 'limit' ?
+                                            limit
+                                            :
+                                            rate
+                                        }
+                                    </a>
+                                    {' '}
+                                    <Image src={'/ArrowWhite.png'} alt={''} width={15} height={15} className={styles.navRight} />
+                                    {' '}
+                                    <a className={styles.green}>
+                                        {
+                                            (selectedItem.type === 'limit' ?
+                                                limit * (1 + (Number(selectedItem.Name)/100))
+                                            :
+                                                rate * (1 + (Number(selectedItem.Name)/100)))
+                                        }
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
+                        <button
+                            className={styles.modalBorder}
+                            onClick={() => {
+                                if (window.Telegram?.WebApp?.HapticFeedback) {
+                                    window.Telegram.WebApp.HapticFeedback.impactOccurred('heavy');
+                                }
+                                if (selectedItem) {
+                                    selectedItem.type === 'limit'
+                                        ? handleLimitUpgrade(selectedItem.Id, selectedItem.Cost)
+                                        : handleRateUpgrade(selectedItem.Id, selectedItem.Cost);
+                                    }
+                            }}
+                            disabled={selectedItem && coins < selectedItem.Cost}
+                        >
+                            <div className={styles.modalBtn}>Upgrade</div>
+                        </button>
+                        <div className={styles.modalBorder} onClick={closeUpgradeModal}>
+                            <div className={styles.modalBtn}>Close</div>
+                        </div>
+                    </div>
+                )}
+                {isModalOpen && <div className={styles.modal}>
+                    <div className={styles.label}>Daily rewards</div>
+                </div>}
             </div>
+        </div>
     );
 };
