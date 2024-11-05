@@ -1,6 +1,7 @@
 import {useEffect, useState} from "react";
 import Image from "next/image";
 import {useRouter} from "next/router";
+import {useInit} from "@/context/InitContext";
 import gangs from '@/mock/teamsData'
 
 import styles from '@/styles/Random.module.scss'
@@ -14,25 +15,16 @@ const oneCard = '/random/oneCard.png'
 
 export default function Page() {
     const router = useRouter();
+    const { groupId } = useInit();
     const [clickCount1, setClickCount1] = useState(0);
     const [clickCount2, setClickCount2] = useState(0);
     const [clickCount3, setClickCount3] = useState(0);
     const [clickCount4, setClickCount4] = useState(0);
     const [showCard, setShowCard] = useState(false);
     const [showFrase, setShowFrase] = useState(0)
-    const [teamId, setTeamId] = useState(1)
 
-    useEffect(() => {
-        if (typeof window !== "undefined") {
-            const init = JSON.parse(localStorage.getItem("init"));
-            if (init && init.group) {
-                setTeamId(init.group.id);
-            }
-        }
-    }, [])
-
-    const getBoxShadowColor = (teamId) => {
-        switch (teamId) {
+    const getBoxShadowColor = (groupId) => {
+        switch (groupId) {
             case 1:
                 return 'rgba(0,167,0)';
             case 2:
@@ -56,7 +48,7 @@ export default function Page() {
         }
     }, [router]);
 
-    const ShownCard = ({state, teamId}) => {
+    const ShownCard = ({state, groupId}) => {
         const greenCard = '/random/greenCard.png'
         const blueCard = '/random/blueCard.png'
         const yellowCard = '/random/yellowCard.png'
@@ -64,10 +56,10 @@ export default function Page() {
 
         return(
             <>
-                {teamId === 1 && <Image className={state ? styles.cardImage : styles.hidden} style={{ boxShadow: `0 0 20px 10px ${getBoxShadowColor(teamId)}` }} src={greenCard} alt={''} width={200} height={340} loading="lazy" />}
-                {teamId === 2 && <Image className={state ? styles.cardImage : styles.hidden} style={{ boxShadow: `0 0 20px 10px ${getBoxShadowColor(teamId)}` }} src={blueCard} alt={''} width={200} height={340} loading="lazy" />}
-                {teamId === 3 && <Image className={state ? styles.cardImage : styles.hidden} style={{ boxShadow: `0 0 20px 10px ${getBoxShadowColor(teamId)}` }} src={yellowCard} alt={''} width={200} height={340} loading="lazy" />}
-                {teamId === 4 && <Image className={state ? styles.cardImage : styles.hidden} style={{ boxShadow: `0 0 20px 10px ${getBoxShadowColor(teamId)}` }} src={redCard} alt={''} width={200} height={340} loading="lazy" />}
+                {groupId === 1 && <Image className={state ? styles.cardImage : styles.hidden} style={{ boxShadow: `0 0 20px 10px ${getBoxShadowColor(groupId)}` }} src={greenCard} alt={''} width={200} height={340} loading="lazy" />}
+                {groupId === 2 && <Image className={state ? styles.cardImage : styles.hidden} style={{ boxShadow: `0 0 20px 10px ${getBoxShadowColor(groupId)}` }} src={blueCard} alt={''} width={200} height={340} loading="lazy" />}
+                {groupId === 3 && <Image className={state ? styles.cardImage : styles.hidden} style={{ boxShadow: `0 0 20px 10px ${getBoxShadowColor(groupId)}` }} src={yellowCard} alt={''} width={200} height={340} loading="lazy" />}
+                {groupId === 4 && <Image className={state ? styles.cardImage : styles.hidden} style={{ boxShadow: `0 0 20px 10px ${getBoxShadowColor(groupId)}` }} src={redCard} alt={''} width={200} height={340} loading="lazy" />}
             </>
         )
     }
@@ -138,7 +130,7 @@ export default function Page() {
                 </div>}
                 {showFrase === 2 && <div className={styles.dialog}>
                     <Image src={dialog2} className={styles.dialog2Image} width={200} height={100} alt={''}/>
-                    <div className={styles.text2}>you are now a member of the <a className={styles.gang}>{gangs[teamId].Name}</a> gang</div>
+                    <div className={styles.text2}>you are now a member of the <a className={styles.gang}>{gangs[groupId].Name}</a> gang</div>
                 </div>}
                 <Image src={person} className={styles.person} width={450} height={1000} alt={''} priority />
                 <div className={styles.cardSet}>
@@ -204,7 +196,7 @@ export default function Page() {
                         onClick={handleClick4} />
                 </div>
                 <Image src={hand} className={styles.hand} width={450} height={1000} alt={''} priority />
-                <ShownCard state={showCard} teamId={teamId} />
+                <ShownCard state={showCard} groupId={groupId} />
                 {showFrase === 2 && <button className={styles.btn} onClick={() => {
                     router.push('/faq/home')
                 }}>continue</button>}
