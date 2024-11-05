@@ -12,7 +12,8 @@ export const useProfileInit = (token) => {
         setError(null); // Очищаем предыдущие ошибки перед новым запросом
         try {
             const response = await axios.get(`/profile/init?token=${token}`);
-
+            console.log('response.status', response.status)
+            console.log('response', response)
             // Проверяем, является ли ответ успешным
             if (response.status >= 200 && response.status < 300) {
                 const { jwt, balance, lang, group, farm, dailyEntries } = response.data;
