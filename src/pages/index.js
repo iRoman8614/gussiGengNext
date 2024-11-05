@@ -32,7 +32,7 @@ const newPlayerAssets = [
     '/upgradesCards/rate/rate2.png', '/upgradesCards/rate/rate3.png',
     '/upgradesCards/rate/rate4.png', '/upgradesCards/rate/rate5.png',
     '/upgradesCards/slider/limitSlide.png', '/upgradesCards/slider/rateSlide.png',
-    '/ArrowWhite.png', '/faq/faqHomeBg.png', '/faq/homeslide.png', '/faq/pvpslide.png'
+    '/ArrowWhite.png',
 ];
 
 const experiencedPlayerAssets = [
@@ -58,7 +58,7 @@ export default function LoaderPage() {
     const [isNewPlayer, setIsNewPlayer] = useState(false);
     const [dataFetched, setDataFetched] = useState(false);
 
-    const CURRENT_VERSION = process.env.NEXT_PUBLIC_CURRENT_VERSION;
+    const CURRENT_VERSION = process.env.NEXT_PUBLIC_CURRENT_VERSION
 
     const { fetchProfileInit } = useProfileInit(typeof window !== 'undefined' ? localStorage.getItem('authToken') : null);
     const { fetchProfileStats } = useProfileStats();
@@ -138,8 +138,6 @@ export default function LoaderPage() {
     }, [dataFetched]);
 
     const loadAssets = useCallback(async () => {
-
-
         if (isNewPlayer) {
             await preloadAssets(newPlayerAssets);
         } else {
@@ -170,49 +168,29 @@ export default function LoaderPage() {
     }, [isNewPlayer, router, updateContext]);
 
     useEffect(() => {
-        initializeTelegramWebApp()
-        const tokenFromQuery = router.query.token;
-        if (tokenFromQuery) {
-            localStorage.setItem('authToken', tokenFromQuery);
+        const { token } = router.query;
+        const executeAfterToken = async (token) => {
+            initializeTelegramWebApp()
+            localStorage.setItem('authToken', token);
             checkVersion();
             const hasData = checkLocalStorage();
             if (!hasData) {
-                fetchData().then(() => {
-                    loadAssets().then(() => {
-                        updateAndRedirect();
-                    });
-                });
-            } else {
-                fetchData().then(() => {
-                    loadAssets().then(() => {
-                        updateAndRedirect();
-                    });
-                });
+                await fetchData();
+                await loadAssets();
             }
+            updateAndRedirect();
+        };
+        if (token) {
+            executeAfterToken(token);
         } else {
             const tokenFromLocalStorage = localStorage.getItem('authToken');
             if (tokenFromLocalStorage) {
-                checkVersion();
-                const hasData = checkLocalStorage();
-                if (!hasData) {
-                    fetchData().then(() => {
-                        loadAssets().then(() => {
-                            updateAndRedirect();
-                        });
-                    });
-                } else {
-                    fetchData().then(() => {
-                        loadAssets().then(() => {
-                            updateAndRedirect();
-                        });
-                    });
-                }
+                executeAfterToken(tokenFromLocalStorage);
             } else {
-                toast.error("unauthorized");
-                return
+                toast.error("unauthorized"); // Ошибка, если токена нигде нет
             }
         }
-    }, [checkVersion, router.query]);
+    }, []);
 
 
     return (
