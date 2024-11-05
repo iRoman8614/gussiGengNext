@@ -123,11 +123,9 @@ export default function LoaderPage() {
     const fetchData = useCallback(async () => {
         if (!dataFetched) {
             try {
-                await Promise.all([
-                    fetchProfileInit(),
-                    fetchProfileStats(),
-                    fetchFarmStart(),
-                ]);
+                await fetchProfileInit()
+                await fetchProfileStats()
+                await fetchFarmStart()
                 setDataFetched(true);
             } catch (error) {
                 toast.error('Ошибка при выполнении запросов');
@@ -167,7 +165,7 @@ export default function LoaderPage() {
             loadAssets()
                 .then(updateAndRedirect);
         }
-    }, [checkVersion, checkLocalStorage, fetchData, loadAssets, updateAndRedirect]);
+    }, []);
 
     return (
         <>
