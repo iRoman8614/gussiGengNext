@@ -167,7 +167,7 @@ export default function Page() {
             localStorage.setItem("start", JSON.stringify(start));
             await collectAndStart();
             updateContext()
-            closeUpgradeModal();
+            // closeUpgradeModal();
             fetchLevels();
         } catch (error) {
             console.error('Ошибка при улучшении лимита:', error);
@@ -188,7 +188,7 @@ export default function Page() {
             localStorage.setItem("start", JSON.stringify(start));
             await collectAndStart();
             updateContext()
-            closeUpgradeModal();
+            // closeUpgradeModal();
             fetchLevels();
         } catch (error) {
             console.error('Ошибка при улучшении прокачки:', error);
@@ -325,13 +325,6 @@ export default function Page() {
         return num.toString().replace(/(\d)(?=(\d{3})+$)/g, "$1 ");
     }
 
-    function scale(initialValue, coefficient, exponent) {
-        const decimalCoefficient = coefficient / 100;
-        const finalValue = initialValue * Math.pow(1 + decimalCoefficient, exponent);
-        return finalValue;
-    }
-
-
     return (
         <div className={styles.root}>
             <div className={styles.container}>
@@ -467,9 +460,9 @@ export default function Page() {
                                     <a className={styles.green}>
                                         {
                                             (selectedItem.type === 'limit' ?
-                                                limit * (1 + (Number(selectedItem.Name)/100))
+                                                (limit * (1 + (Number(selectedItem.Name)/100))).toFixed(3)
                                             :
-                                                rate * (1 + (Number(selectedItem.Name)/100)))
+                                                (rate * (1 + (Number(selectedItem.Name)/100)))).toFixed(3)
                                         }
                                     </a>
                                 </p>
