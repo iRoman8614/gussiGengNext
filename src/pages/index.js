@@ -152,20 +152,42 @@ export default function LoaderPage() {
 
 
     useEffect(() => {
-        initializeTelegramWebApp();
-        checkVersion();
-        const hasData = checkLocalStorage();
-        if (!hasData) {
-            fetchData().then(() => {
-                loadAssets().then(() => {
-                    updateAndRedirect();
+        const tokenFromQuery = router.query.token;
+        if (tokenFromQuery) {
+            localStorage.setItem('authToken', tokenFromQuery);
+            checkVersion();
+            const hasData = checkLocalStorage();
+            if (!hasData) {
+                fetchData().then(() => {
+                    loadAssets().then(() => {
+                        updateAndRedirect();
+                    });
                 });
-            });
+            } else {
+                loadAssets()
+                    .then(updateAndRedirect);
+            }
         } else {
-            loadAssets()
-                .then(updateAndRedirect);
+            const tokenFromLocalStorage = localStorage.getItem('authToken');
+            if (tokenFromLocalStorage) {
+                checkVersion();
+                const hasData = checkLocalStorage();
+                if (!hasData) {
+                    fetchData().then(() => {
+                        loadAssets().then(() => {
+                            updateAndRedirect();
+                        });
+                    });
+                } else {
+                    loadAssets()
+                        .then(updateAndRedirect);
+                }
+            } else {
+                toast.error("Токен не найден. Пожалуйста, авторизуйтесь.");
+            }
         }
-    }, [checkVersion]);
+    }, [router.query]);
+
 
     return (
         <>
