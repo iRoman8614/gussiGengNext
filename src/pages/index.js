@@ -144,7 +144,7 @@ export default function LoaderPage() {
 
     const updateAndRedirect = useCallback(() => {
         updateContext();
-        if (isNewPlayer) {
+        if(isNewPlayer) {
             router.push('/getRandom');
         } else {
             router.push('/main');
@@ -187,7 +187,7 @@ export default function LoaderPage() {
                 toast.error("Токен не найден. Пожалуйста, авторизуйтесь.");
             }
         }
-    }, [router.query]);
+    }, [checkVersion, router.query]);
 
 
     return (
