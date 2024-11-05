@@ -190,7 +190,7 @@ export default function LoaderPage() {
                 toast.error("unauthorized"); // Ошибка, если токена нигде нет
             }
         }
-    }, []);
+    }, [router.query]);
 
 
     return (
