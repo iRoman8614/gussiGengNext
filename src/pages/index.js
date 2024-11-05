@@ -76,9 +76,14 @@ export default function LoaderPage() {
         const { token } = router.query;
         if (token) {
             localStorage.setItem('authToken', token);
-        }
-        if(!token) {
-            return
+            setAuthToken(token);
+        } else {
+            const tokenFromLocalStorage = localStorage.getItem('authToken');
+            if (tokenFromLocalStorage) {
+                setAuthToken(tokenFromLocalStorage);
+            } else {
+                toast.error("Unauthorized");
+            }
         }
     }, [router.query]);
 
@@ -143,7 +148,7 @@ export default function LoaderPage() {
                 return;
             }
         }
-    }, [dataFetched]);
+    }, [dataFetched, authToken]);
 
     const loadAssets = useCallback(async () => {
         if (isNewPlayer) {
@@ -200,7 +205,7 @@ export default function LoaderPage() {
                 toast.error("unauthorized");
             }
         }
-    }, []);
+    }, [router.query, authToken]);
 
 
     return (
