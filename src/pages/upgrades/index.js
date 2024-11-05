@@ -92,6 +92,7 @@ export default function Page() {
                         readyToComplete = true;
                     }
                     if (task.type === 2) {
+                        readyToComplete = true;
                         icon = task.name.includes("TG") ? "tg" : task.name.includes("X") ? "x" : '';
                     }
                     const isVisible = task.type === 1 ? task.id <= lastCompletedTaskIdType1 + 1 : true;
