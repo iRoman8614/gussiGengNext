@@ -20,9 +20,9 @@ export const refreshJwtToken = async () => {
         };
         localStorage.setItem('farm', JSON.stringify(farmData));
         const initData = {
-            lang,
+            lang: lang,
             groupId: group.id,
-            delayEntries
+            delayEntries: delayEntries
         };
         localStorage.setItem('init', JSON.stringify(initData));
 

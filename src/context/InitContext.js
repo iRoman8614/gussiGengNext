@@ -27,14 +27,6 @@ export const InitProvider = ({ children }) => {
         return 'en';
     });
 
-    const [userId, setUserId] = useState(() => {
-        if (typeof window !== 'undefined') {
-            const savedInit = JSON.parse(localStorage.getItem('init')) || {};
-            return savedInit.userId || null;
-        }
-        return null;
-    });
-
     const [limit, setLimit] = useState(() => {
         if (typeof window !== 'undefined') {
             const savedFarm = JSON.parse(localStorage.getItem('farm')) || {};
@@ -81,7 +73,6 @@ export const InitProvider = ({ children }) => {
             setGroupId(savedInit.groupId || 0);
             setLiga(savedInit.liga || 0);
             setLang(savedInit.lang || 'en');
-            setUserId(savedInit.userId || null);
             setDailyEntries(savedInit.delayEntries || 0);
 
             const savedFarm = JSON.parse(localStorage.getItem('farm')) || {};
@@ -97,10 +88,10 @@ export const InitProvider = ({ children }) => {
             groupId,
             liga,
             lang,
-            userId
+            delayEntries
         };
         localStorage.setItem('init', JSON.stringify(initData));
-    }, [groupId, liga, lang, userId]);
+    }, [groupId, liga, lang, delayEntries]);
 
     useEffect(() => {
         const farmData = {
@@ -119,8 +110,6 @@ export const InitProvider = ({ children }) => {
         setLiga,
         lang,
         setLang,
-        userId,
-        setUserId,
         limit,
         setLimit,
         rate,
