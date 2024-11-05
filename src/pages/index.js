@@ -95,6 +95,17 @@ export default function LoaderPage() {
         }
     }, [updateBodyHeight]);
 
+    const checkVersion = useCallback(() => {
+        if (typeof window !== 'undefined') {
+            const savedVersion = localStorage.getItem('version');
+            if (savedVersion !== CURRENT_VERSION) {
+                localStorage.clear();
+                setIsNewPlayer(true);
+                localStorage.setItem('version', CURRENT_VERSION);
+            }
+        }
+    }, [CURRENT_VERSION]);
+
     const checkLocalStorage = useCallback(() => {
         if (typeof window !== 'undefined') {
             const init = localStorage.getItem('init');
@@ -140,48 +151,44 @@ export default function LoaderPage() {
         }
     }, [isNewPlayer, router, updateContext]);
 
+
     useEffect(() => {
         const tokenFromQuery = router.query.token;
-        const handleFetchAndRedirect = () => {
-            fetchData().then(() => {
-                loadAssets().then(() => {
-                    updateAndRedirect();
-                });
-            });
-        };
-
-        const checkVersionAndProceed = () => {
-            const savedVersion = localStorage.getItem('version');
-            if (savedVersion !== CURRENT_VERSION) {
-                localStorage.clear();
-                localStorage.setItem('version', CURRENT_VERSION);
-                handleFetchAndRedirect();
-            } else {
-                const hasData = checkLocalStorage();
-                if (!hasData) {
-                    handleFetchAndRedirect();
-                } else {
-                    loadAssets().then(() => {
-                        fetchData().then(() => {
-                            updateAndRedirect();
-                        });
-                    });
-                }
-            }
-        };
-
         if (tokenFromQuery) {
             localStorage.setItem('authToken', tokenFromQuery);
-            checkVersionAndProceed();
+            checkVersion();
+            const hasData = checkLocalStorage();
+            if (!hasData) {
+                fetchData().then(() => {
+                    loadAssets().then(() => {
+                        updateAndRedirect();
+                    });
+                });
+            } else {
+                loadAssets()
+                    .then(updateAndRedirect);
+            }
         } else {
             const tokenFromLocalStorage = localStorage.getItem('authToken');
             if (tokenFromLocalStorage) {
-                checkVersionAndProceed();
+                checkVersion();
+                const hasData = checkLocalStorage();
+                if (!hasData) {
+                    fetchData().then(() => {
+                        loadAssets().then(() => {
+                            updateAndRedirect();
+                        });
+                    });
+                } else {
+                    loadAssets()
+                        .then(updateAndRedirect);
+                }
             } else {
                 toast.error("Токен не найден. Пожалуйста, авторизуйтесь.");
             }
         }
     }, [router.query]);
+
 
     return (
         <>
