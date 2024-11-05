@@ -45,7 +45,7 @@ export default function Home() {
                 setStartFarmTime(new Date(startTime).getTime());
             }
         }
-    }, [balance]);
+    }, [balance, startFarmTime]);
 
     useEffect(() => {
         if (typeof window !== "undefined") {
