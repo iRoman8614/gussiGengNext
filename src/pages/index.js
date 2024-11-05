@@ -202,7 +202,7 @@ export default function LoaderPage() {
             if (tokenFromLocalStorage) {
                 executeAfterToken(tokenFromLocalStorage);
             } else {
-                toast.error("unauthorized");
+                console.error("unauthorized");
             }
         }
     }, [router.query, authToken]);
