@@ -155,7 +155,7 @@ export default function Page() {
                 <div className={styles.progressBar}>
                     <div className={styles.progress} style={{width: `${length}%`}}></div>
                 </div>
-                <div className={styles.winsCounter}>{`wins ${stats?.victory}}/${ligsLimits[activeIndex]}+`}</div>
+                <div className={styles.winsCounter}>{`wins ${stats?.victory}/${ligsLimits[activeIndex]}+`}</div>
                 <Image src={bg} alt={''} className={styles.bg} width={450} height={1000} />
                 <div className={styles.container}>
                     {leaderData[activeIndex + 1] && leaderData[activeIndex + 1].length === 0 ? (
@@ -165,7 +165,7 @@ export default function Page() {
                         </div>
                     ) : leaderData[activeIndex + 1] ? (
                         leaderData[activeIndex + 1].map((user, index) => (
-                            <ListItem key={index} teamId={user.groupId} item={user} index={index + 1} />
+                            <ListItem key={index} teamId={user.teamId} item={user} index={index + 1} />
                         ))
                     ) : (
                         <div className={styles.emptyState}>Loading...</div>
