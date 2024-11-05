@@ -127,7 +127,7 @@ export default function Page() {
                         return(
                             <Image
                                 key={index}
-                                src={team.logo}
+                                src={team?.logo}
                                 alt={''}
                                 width={100}
                                 height={155}
@@ -141,14 +141,14 @@ export default function Page() {
                     })}
                     </div>
                 <Image className={styles.hand} src={hand} alt={''} width={450} height={404} />
-                <Image className={styles.myClan} src={cards[userTeam-1].logo} alt={''} width={200} height={340} />
+                <Image className={styles.myClan} src={cards[userTeam-1]?.logo} alt={''} width={200} height={340} />
             </div>
             {showPopUp && <div className={styles.popUp}>
                 <div className={styles.popUpTitle}>are you sure?</div>
                 <div className={styles.popUpClose} onClick={closePopUp}>x</div>
                 <div className={styles.popUpContainer}>
                     <div className={styles.popUpLabel}>wanna join the <p>&quot;{teamData[choose].Name}&quot;?</p></div>
-                    <Image className={styles.popUpIcon} src={teamData[choose].logo} alt={''} width={100} height={100}/>
+                    <Image className={styles.popUpIcon} src={teamData[choose]?.logo} alt={''} width={100} height={100}/>
                     <div className={styles.popUpSum}>
                         - 1 000 000
                         {' '}<Image src={money} alt={''} width={21} height={21}/>
