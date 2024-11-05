@@ -164,13 +164,18 @@ export default function Page() {
             setLimitLevels(prevLevels => prevLevels.map(item =>
                 item.Id === levelId ? response.data : item
             ));
-            const updatedBalance = coins - cost;
+            const collectData = await collectAndStart();
+            const updatedBalance = collectData.totalCoins;
             setBalance(updatedBalance);
-            const start = JSON.parse(localStorage.getItem("start"));
-            start.coins = updatedBalance;
-            localStorage.setItem("start", JSON.stringify(start));
-            await collectAndStart();
-            // closeUpgradeModal();
+            const farm = JSON.parse(localStorage.getItem('farm')) || {}
+            const updatedFarmData = {
+                ...farm,
+                coins: updatedBalance,
+                farmRate: collectData.rate,
+                farmLimit: limit,
+            };
+            localStorage.setItem('farm', JSON.stringify(updatedFarmData));
+            closeUpgradeModal();
             fetchLevels();
             updateContext()
         } catch (error) {
@@ -185,13 +190,18 @@ export default function Page() {
             setRateLevels(prevLevels => prevLevels.map(item =>
                 item.Id === levelId ? response.data : item
             ));
-            const updatedBalance = coins - cost;
+            const collectData = await collectAndStart();
+            const updatedBalance = collectData.totalCoins;
             setBalance(updatedBalance);
-            const start = JSON.parse(localStorage.getItem("start"));
-            start.coins = updatedBalance;
-            localStorage.setItem("start", JSON.stringify(start));
-            await collectAndStart();
-            // closeUpgradeModal();
+            const farm = JSON.parse(localStorage.getItem('farm')) || {}
+            const updatedFarmData = {
+                ...farm,
+                coins: updatedBalance,
+                farmRate: collectData.rate,
+                farmLimit: limit,
+            };
+            localStorage.setItem('farm', JSON.stringify(updatedFarmData));
+            closeUpgradeModal();
             fetchLevels();
             updateContext()
         } catch (error) {
