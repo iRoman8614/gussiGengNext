@@ -1,9 +1,8 @@
 import {useEffect, useState} from "react";
 import {useRouter} from "next/router";
 import Image from "next/image";
-import axiosInstance from '@/utils/axios';
 import { useInit } from '@/context/InitContext';
-
+import { useProfileStats, useMyInvitees } from '@/utils/api';
 import skinData from '@/mock/skinsData'
 import teamData from "@/mock/teamsData";
 
@@ -13,19 +12,12 @@ const money = '/money.png'
 
 export default function Page() {
     const router = useRouter();
-    const { groupId, liga } = useInit();
+    const { groupId, liga, delayEntries, coins, totalCoins, updateContext } = useInit();
     const [activeTab, setActiveTab] = useState(1);
-    const [userId, setUserId] = useState(null);
     const [userName, setUserName] = useState(null);
-    const [friends, setFriends] = useState([]);
-    const [daily, setDaily] = useState(0)
-    const [stats, setStats] = useState({
-        count: 0,
-        victory: 0,
-        lost: 0,
-    });
-    const [totalCoins, setTotalCoins] = useState(0);
-    const [balance, setBalance] = useState(0)
+
+    const { data: stats } = useProfileStats();
+    const { data: friends } = useMyInvitees();
 
     useEffect(() => {
         if (typeof window !== 'undefined' && window.Telegram?.WebApp?.BackButton) {
@@ -40,13 +32,7 @@ export default function Page() {
     }, [router]);
 
     useEffect(() => {
-        if (typeof window !== 'undefined') {
-            const start = JSON.parse(localStorage.getItem('start'));
-            if (start) {
-                setTotalCoins(start.totalCoins ? start.totalCoins : start.totalBalance);
-                setBalance(start.coins)
-            }
-        }
+        updateContext()
     }, []);
 
     useEffect(() => {
@@ -58,49 +44,11 @@ export default function Page() {
             if (userParam) {
                 const decodedUserParam = decodeURIComponent(userParam);
                 const userObject = JSON.parse(decodedUserParam);
-                setUserId(userObject.id);
                 setUserName(userObject.username);
             }
         }
 
     }, []);
-
-
-    useEffect(() => {
-        const authToken = localStorage.getItem('authToken');
-        initData(authToken)
-        fetchStats()
-        fetchFriends();
-    }, [userId]);
-
-    const initData = async (authToken) => {
-        try {
-            const response = await axiosInstance.get(`/profile/init?token=${authToken}`);
-            const data = response.data;
-            setDaily(data.delayEntries)
-        } catch (error) {
-            console.error(error);
-        }
-    }
-
-    const fetchFriends = async () => {
-        try {
-            const response = await axiosInstance.get('/profile/my-invitees');
-            setFriends(response.data);
-        } catch (error) {
-            console.error('Ошибка при загрузке списка друзей:', error);
-        }
-    };
-
-    const fetchStats = async () => {
-        try {
-            const response = await axiosInstance.get(`/profile/stats`);
-            const data = response.data;
-            setStats(data);
-        } catch (error) {
-            console.error('Ошибка при получении статистики:', error);
-        }
-    };
 
     function formatNumberFromEnd(num) {
         return num.toString().replace(/(\d)(?=(\d{3})+$)/g, "$1 ");
@@ -169,11 +117,11 @@ export default function Page() {
                                 <div className={styles.barItem}>friends invited</div>
                                 <div className={styles.barItemStats}>{friends.length}</div>
                                 <div className={styles.barItem}>login streak</div>
-                                <div className={styles.barItemStats}>{daily}</div>
+                                <div className={styles.barItemStats}>{delayEntries}</div>
                             </div>
                             <div>
                                 <div className={styles.barItem}>current balance</div>
-                                <div className={styles.balance}>{formatNumberFromEnd(balance)}{' '}<Image src={money} alt={''} width={21} height={21} /></div>
+                                <div className={styles.balance}>{formatNumberFromEnd(coins)}{' '}<Image src={money} alt={''} width={21} height={21} /></div>
                             </div>
                         </div>}
                         {/*{activeTab === 2 && <div className={styles.skinContainer}>*/}

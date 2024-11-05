@@ -67,6 +67,14 @@ export const InitProvider = ({ children }) => {
         return 0;
     });
 
+    const [dailyEntries, setDailyEntries] = useState(() => {
+        if (typeof window !== 'undefined') {
+            const savedInit = JSON.parse(localStorage.getItem('init')) || {};
+            return savedInit.delayEntries || 0;
+        }
+        return 0;
+    });
+
     const updateContext = () => {
         if (typeof window !== 'undefined') {
             const savedInit = JSON.parse(localStorage.getItem('init')) || {};
@@ -74,6 +82,7 @@ export const InitProvider = ({ children }) => {
             setLiga(savedInit.liga || 0);
             setLang(savedInit.lang || 'en');
             setUserId(savedInit.userId || null);
+            setDailyEntries(savedInit.delayEntries || 0);
 
             const savedFarm = JSON.parse(localStorage.getItem('farm')) || {};
             setLimit(savedFarm.farmLimit || 0);
