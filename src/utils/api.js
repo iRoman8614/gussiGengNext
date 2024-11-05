@@ -156,7 +156,6 @@ export const useProfileStats = () => {
     return {data, loading, error, fetchProfileStats};
 }
 
-
 // Хук для запроса /profile/leaders
 export const useProfileLeaders = (liga) => {
     const [data, setData] = useState([]);
@@ -185,7 +184,6 @@ export const useProfileLeaders = (liga) => {
     }, [liga]);
     return { data, loading, error };
 };
-
 
 // Хук для /profile/my-invitees
 export const useMyInvitees = () => {

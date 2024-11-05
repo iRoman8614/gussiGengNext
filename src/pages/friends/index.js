@@ -77,13 +77,14 @@ export default function Page() {
     const inviteClick = () => {
         const tg = window.Telegram.WebApp;
         const referralLink = `${link}?start=kid${userId}`;
-        const inviteMessage = `Join me in this awesome game! Here's your referral link: ${referralLink}`;
+        const inviteMessage = `Join me in this awesome game! Here's your referral link:`;
         if (tg.HapticFeedback) {
             tg.HapticFeedback.impactOccurred('heavy');
         }
-        const shareLink = `text=${encodeURIComponent(inviteMessage)}`;
+        const shareLink = `https://t.me/share/url?url=${encodeURIComponent(referralLink)}&text=${encodeURIComponent(`${inviteMessage} ${referralLink}`)}`;
         window.open(shareLink, '_blank');
     };
+
 
     const handleTab = (tab) => {
         if (window.Telegram?.WebApp?.HapticFeedback) {
