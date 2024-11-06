@@ -34,7 +34,7 @@ export const useProfileInit = (token) => {
                 init: initData
             });
         } catch (err) {
-            console.log(error)
+            console.log('init error', error)
             toast.error('error during init request, restart app')
             setError(err);
         } finally {
@@ -75,6 +75,8 @@ export const useFarmStart = () => {
                 startTime
             }));
         } catch (err) {
+            console.log('start error', error)
+            toast.error('error during start request')
             setError(err);
         } finally {
             setLoading(false);
@@ -151,6 +153,8 @@ export const useProfileStats = () => {
             localStorage.setItem('init', JSON.stringify(updatedInitData));
             setData({id, count, lost, victory, type, liga, pass});
         } catch (err) {
+            console.log('stats error', error)
+            toast.error('error during stats request')
             setError(err);
         } finally {
             setLoading(false);
