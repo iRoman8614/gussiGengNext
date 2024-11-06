@@ -27,12 +27,9 @@ const newPlayerAssets = [
     '/random/oneCard.png', '/random/person.png',
     '/random/redCard.png', '/random/yellowCard.png',
     '/upgradesCards/limit/limit1.png', '/upgradesCards/limit/limit2.png',
-    '/upgradesCards/limit/limit3.png', '/upgradesCards/limit/limit4.png',
-    '/upgradesCards/limit/limit5.png', '/upgradesCards/rate/rate1.png',
+    '/upgradesCards/limit/limit3.png', '/upgradesCards/rate/rate1.png',
     '/upgradesCards/rate/rate2.png', '/upgradesCards/rate/rate3.png',
-    '/upgradesCards/rate/rate4.png', '/upgradesCards/rate/rate5.png',
     '/upgradesCards/slider/limitSlide.png', '/upgradesCards/slider/rateSlide.png',
-    '/ArrowWhite.png',
 ];
 
 const experiencedPlayerAssets = [
@@ -44,10 +41,8 @@ const experiencedPlayerAssets = [
     '/main-buttons/rich.png', '/main-buttons/settings.png',
     '/main-buttons/upgrades.png', '/main-buttons/wallet.png',
     '/upgradesCards/limit/limit1.png', '/upgradesCards/limit/limit2.png',
-    '/upgradesCards/limit/limit3.png', '/upgradesCards/limit/limit4.png',
-    '/upgradesCards/limit/limit5.png', '/upgradesCards/rate/rate1.png',
+    '/upgradesCards/limit/limit3.png', '/upgradesCards/rate/rate1.png',
     '/upgradesCards/rate/rate2.png', '/upgradesCards/rate/rate3.png',
-    '/upgradesCards/rate/rate4.png', '/upgradesCards/rate/rate5.png',
     '/upgradesCards/slider/limitSlide.png', '/upgradesCards/slider/rateSlide.png'
 ];
 
