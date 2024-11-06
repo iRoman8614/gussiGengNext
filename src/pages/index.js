@@ -8,6 +8,7 @@ import { useInit } from '@/context/InitContext';
 import { useProfileInit, useProfileStats, useFarmStart } from '@/utils/api';
 
 import styles from '@/styles/Loader.module.scss';
+import {toKey} from "react-select/dist/declarations/src/utils";
 
 const loaderImage = '/loadingImg.jpg';
 
@@ -77,15 +78,8 @@ export default function LoaderPage() {
         if (token) {
             localStorage.setItem('authToken', token);
             setAuthToken(token);
-        } else {
-            const tokenFromLocalStorage = localStorage.getItem('authToken');
-            if (tokenFromLocalStorage) {
-                setAuthToken(tokenFromLocalStorage);
-            } else {
-                console.error("Unauthorized");
-            }
         }
-    }, [router.query]);
+    }, [router.query, authToken]);
 
     const updateBodyHeight = useCallback(() => {
         document.body.style.height = `${window.innerHeight}px`;
