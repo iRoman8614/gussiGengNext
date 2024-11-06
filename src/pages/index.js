@@ -191,7 +191,7 @@ export default function LoaderPage() {
         } else {
             return
         }
-    }, [router.query]);
+    }, [router.query, authToken]);
 
 
     return (
