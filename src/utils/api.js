@@ -1,5 +1,6 @@
 import {useState, useEffect, useCallback, useRef} from 'react';
-import axios from '@/utils/axios';
+import instance from '@/utils/axios';
+import axios from "axios";
 
 // Хук для /profile/init
 export const useProfileInit = (token) => {
@@ -49,7 +50,7 @@ export const useFarmStart = () => {
     const fetchFarmStart = useCallback(async () => {
         setLoading(true);
         try {
-            const response = await axios.get(`/farm/start`);
+            const response = await instance.get(`/farm/start`);
             const { coins, totalCoins, startTime, rate, limit } = response.data;
             const initData = JSON.parse(localStorage.getItem('farm')) || {};
             const updatedInitData = {
@@ -93,7 +94,7 @@ export const useFarmCollect = () => {
 
         setLoading(true);
         try {
-            const response = await axios.get(`/farm/collect`);
+            const response = await instance.get(`/farm/collect`);
             const { coins, totalCoins, startTime, endTime, rate, winsGames, winsRate } = response.data;
 
             const newData = {
@@ -130,7 +131,7 @@ export const useProfileStats = () => {
     const fetchProfileStats = useCallback(async () => {
         setLoading(true);
         try {
-            const response = await axios.get(`/profile/stats`);
+            const response = await instance.get(`/profile/stats`);
             const {id, count, lost, victory, type, liga, pass} = response.data;
             const initData = JSON.parse(localStorage.getItem('init')) || {};
             let lige;
@@ -171,7 +172,7 @@ export const useProfileLeaders = (liga) => {
             }
             setLoading(true);
             try {
-                const response = await axios.get(`/profile/leaders?liga=${liga}`);
+                const response = await instance.get(`/profile/leaders?liga=${liga}`);
                 cache.current[liga] = response.data;
                 setData(response.data);
             } catch (err) {
@@ -193,7 +194,7 @@ export const useMyInvitees = () => {
     useEffect(() => {
         const fetchInviteesData = async () => {
             try {
-                const response = await axios.get(`/profile/my-invitees`);
+                const response = await instance.get(`/profile/my-invitees`);
                 setData(response.data);
             } catch (err) {
                 setError(err);
@@ -214,7 +215,7 @@ export const useUpdateGroup = () => {
     const updateGroupData = useCallback(async (groupId) => {
         setLoading(true);
         try {
-            const response = await axios.get(`/profile/update-group?groupId=${groupId}`);
+            const response = await instance.get(`/profile/update-group?groupId=${groupId}`);
             const { group } = response.data;
             const initData = JSON.parse(localStorage.getItem('init')) || {};
             const updatedInitData = {
@@ -242,7 +243,7 @@ export const useLastGames = () => {
     useEffect(() => {
         const fetchLastGamesData = async () => {
             try {
-                const response = await axios.get(`/farm/last-games`);
+                const response = await instance.get(`/farm/last-games`);
                 const { winner, session } = response.data;
                 setData({ winner, session });
             } catch (err) {
@@ -264,7 +265,7 @@ export const useTriggerBotGame = () => {
     const triggerBotGame = useCallback(async (vin) => {
         setLoading(true);
         try {
-            await axios.get(`/game/bot?vin=${vin}`);
+            await instance.get(`/game/bot?vin=${vin}`);
         } catch (err) {
             setError(err);
         } finally {
