@@ -135,7 +135,7 @@ export default function LoaderPage() {
                     setDataFetched(true);
                 }
             } catch (error) {
-                toast.error('error during init request, restart app');
+                toast.error('error during init request');
                 return;
             }
         }
