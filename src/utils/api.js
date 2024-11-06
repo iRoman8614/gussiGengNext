@@ -75,7 +75,6 @@ export const useFarmStart = () => {
             }));
         } catch (err) {
             console.log('start error', err)
-            toast.error('error during start request')
             setError(err);
         } finally {
             setLoading(false);
@@ -153,7 +152,6 @@ export const useProfileStats = () => {
             setData({id, count, lost, victory, type, liga, pass});
         } catch (err) {
             console.log('stats error', error)
-            toast.error('error during stats request')
             setError(err);
         } finally {
             setLoading(false);

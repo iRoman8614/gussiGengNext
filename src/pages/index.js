@@ -125,8 +125,8 @@ export default function LoaderPage() {
     const fetchData = useCallback(async () => {
         if (!dataFetched && authToken) {
             try {
-                const { data, error } = await fetchProfileInit();
-                if (error) {
+                const { data, error: initError } = await fetchProfileInit();
+                if (initError) {
                     throw new Error('Initialization failed, restart app');
                 }
                 if(data) {
@@ -135,7 +135,7 @@ export default function LoaderPage() {
                     setDataFetched(true);
                 }
             } catch (error) {
-                toast.error('error during init request');
+                toast.error('error during init request, restart app');
                 return;
             }
         }
