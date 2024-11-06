@@ -127,7 +127,7 @@ export default function LoaderPage() {
             try {
                 const { data, error: initError } = await fetchProfileInit();
                 if (initError) {
-                    throw new Error('Initialization failed, restart app');
+                    throw new Error('Initialization failed');
                 }
                 if(data) {
                     await fetchProfileStats()
@@ -135,7 +135,7 @@ export default function LoaderPage() {
                     setDataFetched(true);
                 }
             } catch (error) {
-                toast.error('error during init request');
+                toast.error('error during init request, restart app');
                 return;
             }
         }
