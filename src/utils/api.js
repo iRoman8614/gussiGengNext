@@ -35,7 +35,7 @@ export const useProfileInit = (token) => {
             });
         } catch (err) {
             console.log(error)
-            toast.error('unauthorize')
+            toast.error('error during init request, restart app')
             setError(err);
         } finally {
             setLoading(false);
