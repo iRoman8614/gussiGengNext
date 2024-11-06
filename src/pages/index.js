@@ -139,7 +139,10 @@ export default function LoaderPage() {
     const fetchData = useCallback(async () => {
         if (!dataFetched && authToken) {
             try {
-                await fetchProfileInit();
+                const { error } = await fetchProfileInit();
+                if (error) {
+                    throw new Error('Initialization failed, restart app');
+                }
                 await fetchProfileStats()
                 await fetchFarmStart()
                 setDataFetched(true);
@@ -205,7 +208,7 @@ export default function LoaderPage() {
                 console.error("unauthorized");
             }
         }
-    }, [router.query, authToken]);
+    }, [authToken]);
 
 
     return (

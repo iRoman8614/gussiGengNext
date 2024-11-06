@@ -75,7 +75,7 @@ export const useFarmStart = () => {
                 startTime
             }));
         } catch (err) {
-            console.log('start error', error)
+            console.log('start error', err)
             toast.error('error during start request')
             setError(err);
         } finally {
