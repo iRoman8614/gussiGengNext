@@ -8,7 +8,6 @@ import { useInit } from '@/context/InitContext';
 import { useProfileInit, useProfileStats, useFarmStart } from '@/utils/api';
 
 import styles from '@/styles/Loader.module.scss';
-import {toKey} from "react-select/dist/declarations/src/utils";
 
 const loaderImage = '/loadingImg.jpg';
 
