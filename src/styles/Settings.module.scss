@@ -66,17 +66,20 @@
   z-index: 110;
   width: 200px;
   height: 200px;
-  animation: gradient-color-shift 8s ease infinite;
+  animation: gradient-color-shift 15s linear infinite;
 }
 
 @keyframes gradient-color-shift {
-  0% {
+  0%, 100% {
     background-image: linear-gradient(to right, #6a11cb, #2575fc);
   }
-  50% {
+  25% {
     background-image: linear-gradient(to right, #ff512f, #dd2476);
   }
-  100% {
-    background-image: linear-gradient(to right, #6a11cb, #2575fc);
+  50% {
+    background-image: linear-gradient(to right, #24C6DC, #514A9D);
+  }
+  75% {
+    background-image: linear-gradient(to right, #FFD200, #F7971E);
   }
 }
