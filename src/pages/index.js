@@ -61,13 +61,6 @@ export default function LoaderPage() {
 
     const CURRENT_VERSION = process.env.NEXT_PUBLIC_CURRENT_VERSION
 
-    useEffect(() => {
-        const tokenFromStorage = localStorage.getItem('authToken');
-        if (tokenFromStorage) {
-            setAuthToken(tokenFromStorage);
-        }
-    }, []);
-
     const { fetchProfileInit } = useProfileInit(authToken);
     const { fetchProfileStats } = useProfileStats();
     const { fetchFarmStart } = useFarmStart();
