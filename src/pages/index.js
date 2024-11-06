@@ -203,14 +203,9 @@ export default function LoaderPage() {
         if (token) {
             executeAfterToken(token);
         } else {
-            const tokenFromLocalStorage = localStorage.getItem('authToken');
-            if (tokenFromLocalStorage) {
-                executeAfterToken(tokenFromLocalStorage);
-            } else {
-                console.error("unauthorized");
-            }
+            return
         }
-    }, [router.query, authToken]);
+    }, [router.query]);
 
 
     return (
