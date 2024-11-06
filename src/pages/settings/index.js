@@ -42,8 +42,6 @@ export default function Page() {
                 <h1 className={styles.title}>settings</h1>
                 <CustomSelect title={'select language'} optionsArray={languageOptions} onChange={handleLanguageChange} />
             </div>
-            <div className={styles.block}></div>
-
         </div>
     );
 };
