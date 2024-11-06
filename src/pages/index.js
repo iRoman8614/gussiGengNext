@@ -210,7 +210,7 @@ export default function LoaderPage() {
                 console.error("unauthorized");
             }
         }
-    }, [authToken]);
+    }, [router.query, authToken]);
 
 
     return (
