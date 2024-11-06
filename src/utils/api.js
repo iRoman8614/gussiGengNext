@@ -1,6 +1,7 @@
 import {useState, useEffect, useCallback, useRef} from 'react';
 import instance from '@/utils/axios';
 import axios from "axios";
+import {toast} from "react-toastify";
 
 // Хук для /profile/init
 export const useProfileInit = (token) => {
@@ -33,6 +34,8 @@ export const useProfileInit = (token) => {
                 init: initData
             });
         } catch (err) {
+            console.log(error)
+            toast.error('unauthorize')
             setError(err);
         } finally {
             setLoading(false);
