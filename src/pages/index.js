@@ -123,6 +123,10 @@ export default function LoaderPage() {
                 toast.error('Unauthorized: Please check your token and try again.');
             } else {
                 toast.error('Error during data fetching. Please try again.');
+                if (window.Telegram?.WebApp) {
+                    window.Telegram.WebApp.close();
+                }
+                return
             }
         }
     }, [dataFetched, authToken]);
