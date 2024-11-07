@@ -89,6 +89,7 @@ export default function LoaderPage() {
         } else {
             toast.error("Telegram WebApp unavailable");
         }
+        checkVersion();
     }, [updateBodyHeight]);
 
     const checkVersion = useCallback(() => {
@@ -171,7 +172,6 @@ export default function LoaderPage() {
         const { token } = router.query;
         const executeAfterToken = async (token) => {
             initializeTelegramWebApp()
-            checkVersion();
             localStorage.setItem('authToken', token);
             await new Promise((resolve) => {
                 localStorage.setItem('authToken', token);
