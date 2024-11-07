@@ -159,8 +159,9 @@ export default function PvpBotPage() {
                 const newScore = prev + 1;
                 if (newScore === 3) {
                     setTimeout(() => handleGameEnd(1), 3000);
+                } else {
+                    setShowChanger(true)
                 }
-                setShowChanger(true)
                 return newScore;
             });
         } else {
@@ -168,8 +169,9 @@ export default function PvpBotPage() {
                 const newScore = prev + 1;
                 if (newScore === 3) {
                     setTimeout(() => handleGameEnd(0), 3000);
+                } else {
+                    setShowChanger(true)
                 }
-                setShowChanger(true)
                 return newScore;
             });
         }
