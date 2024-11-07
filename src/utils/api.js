@@ -146,7 +146,7 @@ export const useProfileStats = () => {
             const updatedInitData = {
                 ...initData,
                 liga: lige,
-                pass
+                pass: pass,
             };
             localStorage.setItem('init', JSON.stringify(updatedInitData));
             setData({id, count, lost, victory, type, liga, pass});
