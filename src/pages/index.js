@@ -77,6 +77,7 @@ export default function LoaderPage() {
             window.Telegram.WebApp.setHeaderColor('#183256');
             window.Telegram.WebApp.expand();
             updateBodyHeight();
+
             // const search = window.Telegram.WebApp.initData;
             // const urlParams = new URLSearchParams(search);
             // const userParam = urlParams.get('user');
@@ -130,7 +131,10 @@ export default function LoaderPage() {
                     setDataFetched(true);
                 }
             } catch (error) {
-                toast.error('error during init request, restart app');
+                if(error.status === 401) {
+                    toast.error('error during init request, restart app');
+                    return;
+                }
                 return;
             }
         }

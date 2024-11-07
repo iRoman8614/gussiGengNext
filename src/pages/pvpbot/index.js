@@ -4,13 +4,13 @@ import { useRouter } from 'next/router';
 import { IconButton } from "@/components/buttons/icon-btn/IconButton.jsx";
 import {PvpBtn} from "@/components/buttons/PvpBtn/PvpBtn";
 import {useTriggerBotGame} from "@/utils/api";
+import {useInit} from "@/context/InitContext";
 import teamData from '@/mock/teamsData.js';
 import gangsterNames from '@/mock/gangstersNames.js'
 import { gameOptions } from '@/mock/optionData';
 
 import styles from '@/styles/Pvp.module.scss';
 import "react-toastify/dist/ReactToastify.css";
-import {useInit} from "@/context/InitContext";
 
 const wins = '/wins.png';
 const lose = '/lose.png'
@@ -305,7 +305,6 @@ export default function PvpBotPage() {
                     </div>
                 </div>
             </div>
-            {(playerScore + opponentScore) === 1 && <RoundChanger round={playerScore + opponentScore + 1}/>}
             {showChanger && <RoundChanger round={playerScore + opponentScore + 1}/>}
         </>
     )

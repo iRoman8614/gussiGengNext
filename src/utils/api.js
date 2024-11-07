@@ -33,9 +33,9 @@ export const useProfileInit = (token) => {
                 farm: farmData,
                 init: initData
             });
-        } catch (err) {
+        } catch (error) {
             console.log('init error', error)
-            setError(err);
+            setError(error);
         } finally {
             setLoading(false);
         }
