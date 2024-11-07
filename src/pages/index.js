@@ -108,13 +108,17 @@ export default function LoaderPage() {
 
     const fetchData = useCallback(async () => {
         try {
-            await fetchProfileInit();
+            const {data, error} = await fetchProfileInit();
+            if (error || !data) {
+                throw new Error('Error during profile initialization');
+            }
             await fetchFarmStart();
             await fetchProfileStats();
             setDataFetched(true);
             setHasError(false);
         } catch (error) {
             setHasError(true);
+            setDataFetched(false);
             if (error.response?.status === 401 || error?.status === 401 ) {
                 toast.error('Unauthorized: Please check your token and try again.');
             } else {
