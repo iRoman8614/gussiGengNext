@@ -80,6 +80,7 @@ export default function LoaderPage() {
 
             const search = window.Telegram.WebApp.initData;
             const urlParams = new URLSearchParams(search);
+            console.log('urlParams', urlParams)
             const userParam = urlParams.get('user');
             if (userParam) {
                 const decodedUserParam = decodeURIComponent(userParam);

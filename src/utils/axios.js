@@ -2,7 +2,8 @@ import axios from "axios";
 import { refreshJwtToken } from './auth';
 
 const instance = axios.create({
-    baseURL: 'https://supavpn.lol/'
+    // baseURL: 'https://supavpn.lol/'
+    baseURL: '85.192.42.16:8080/'
 });
 
 instance.interceptors.request.use(config => {

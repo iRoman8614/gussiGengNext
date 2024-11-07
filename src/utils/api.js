@@ -12,7 +12,8 @@ export const useProfileInit = (token) => {
     const fetchProfileInit = useCallback(async () => {
         setLoading(true);
         try {
-            const response = await axios.get(`https://supavpn.lol/profile/init?token=${token}`);
+            // const response = await axios.get(`https://supavpn.lol/profile/init?token=${token}`);
+            const response = await axios.get(`85.192.42.16:8080/profile/init?token=${authToken}`);
             const { jwt, balance, lang, group, farm, dailyEntries } = response.data;
             localStorage.setItem('GWToken', jwt);
             const farmData = {
