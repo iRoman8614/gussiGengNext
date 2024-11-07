@@ -86,6 +86,7 @@ export default function LoaderPage() {
             if (userParam) {
                 const decodedUserParam = decodeURIComponent(userParam);
                 const userObject = JSON.parse(decodedUserParam);
+                console.log('userObject', userObject)
             }
             window.addEventListener('resize', updateBodyHeight);
         } else {
