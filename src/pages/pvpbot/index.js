@@ -26,6 +26,8 @@ const gifPaths = {
 const rock = '/game-icons/rock.png'
 const paper = '/game-icons/paper.png'
 const scis = '/game-icons/scissors.png'
+const changerF = '/game-icons/roundAnimFront.png'
+const changerB = '/game-icons/roundAnimBack.png'
 
 export default function PvpBotPage() {
     const router = useRouter();
@@ -35,7 +37,7 @@ export default function PvpBotPage() {
     const [playerScore, setPlayerScore] = useState(0);
     const [opponentScore, setOpponentScore] = useState(0);
     const [gameOver, setGameOver] = useState(false);
-    const [timer, setTimer] = useState(5);
+    const [timer, setTimer] = useState(3);
     const [playerChoice, setPlayerChoice] = useState(null);
     const [opponentChoice, setOpponentChoice] = useState(3);
     const [gameEnded, setGameEnded] = useState(false);
@@ -43,6 +45,7 @@ export default function PvpBotPage() {
     const [oppClan, setOppClan] = useState(null);
     const [opponentName, setOpponentName] = useState("biggie smalls")
     const [resetSequence, setResetSequence] = useState(false);
+    const [showChanger, setShowChanger] = useState(false)
 
     const playerGifCache = useRef({});
     const opponentGifCache = useRef({});
@@ -109,6 +112,9 @@ export default function PvpBotPage() {
         let timerId;
         if (timer > 0 && !gameOver) {
             timerId = setTimeout(() => {
+                if (window.Telegram?.WebApp?.HapticFeedback) {
+                    window.Telegram.WebApp.HapticFeedback.impactOccurred('light');
+                }
                 setTimer(timer - 1);
             }, 1000);
         } else if (timer === 0 && playerChoice !== null) {
@@ -116,7 +122,7 @@ export default function PvpBotPage() {
             setOpponentChoice(randomOpponentChoice);
             showGifSequence();
             setTimeout(() => {
-                updateScores(playerChoice, randomOpponentChoice);
+                updateScores(playerChoice, randomOpponentChoice)
             }, 1000);
         }
         return () => clearTimeout(timerId);
@@ -154,6 +160,7 @@ export default function PvpBotPage() {
                 if (newScore === 3) {
                     setTimeout(() => handleGameEnd(1), 3000);
                 }
+                setShowChanger(true)
                 return newScore;
             });
         } else {
@@ -162,6 +169,7 @@ export default function PvpBotPage() {
                 if (newScore === 3) {
                     setTimeout(() => handleGameEnd(0), 3000);
                 }
+                setShowChanger(true)
                 return newScore;
             });
         }
@@ -194,107 +202,109 @@ export default function PvpBotPage() {
     const resetRoundAfterDelay = () => {
         setPlayerChoice(null);
         setOpponentChoice(null);
-        setTimer(5);
+        setTimer(3);
         setVisibleImage(0);
         setResetSequence(!resetSequence);
+        setShowChanger(false)
     };
 
     return (
         <>
-                {gameEnded && <WinningScreen userName={userName} playerScore={playerScore} opponentName={opponentName} />}
-                    <div className={styles.root}>
-                        <Image className={styles.background} src={background} width={300} height={1000} alt={'bg'} priority />
-                        <div className={styles.container}>
-                            <div className={styles.oppNickname}>
-                                {opponentName}
-                            </div>
-                            <div className={styles.optionBg}>
-                                <img
-                                    className={`${styles.choose} ${visibleImage === 1 ? styles.visible : styles.hidden}`}
-                                    src={
-                                        opponentChoice === 1
-                                            ? opponentGifCache.current.rockAnim?.src || gifPaths.rockAnim
-                                            : opponentChoice === 2
-                                                ? opponentGifCache.current.papAnim?.src || gifPaths.papAnim
-                                                : opponentChoice === 3
-                                                    ? opponentGifCache.current.scisAnim?.src || gifPaths.scisAnim
-                                                    : null
-                                    }
-                                    alt="game choice animation"
-                                />
-                                <Image
-                                    width={90}
-                                    height={190}
-                                    layout="fixed"
-                                    objectFit="contain"
-                                    className={`${styles.choose} ${visibleImage !== 1 ? styles.visible : styles.hidden}`}
-                                    src={
-                                        visibleImage === 0
-                                            ? gameOptions[4]?.logo
-                                            : opponentChoice === 0 || opponentChoice === 10
-                                                ? gameOptions[4]?.logo
-                                                : opponentChoice === 1
-                                                    ? gameOptions[1]?.logo
-                                                    : opponentChoice === 2
-                                                        ? gameOptions[2]?.logo
-                                                        : gameOptions[3]?.logo
-                                    }
-                                    alt="game choice"
-                                />
-                            </div>
-                            <VictoryCounter score={playerScore} />
-                            <IconButton image={teamData[groupId]?.logo} alt={'gang'} />
-                            <div className={styles.roundTimer}>
-                                <Image src={timerBG} alt={'timer'} height={144} width={144} className={styles.roundTimerBG} />
-                                <div className={styles.time}>{timer}</div>
-                            </div>
-                            <IconButton image={teamData[oppClan]?.logo} alt={'gang'} />
-                            <VictoryCounter score={opponentScore} />
-                            <div className={styles.optionBg}>
-                                <img
-                                    className={`${styles.mychoose} ${visibleImage === 1 ? styles.visible : styles.hidden}`}
-                                    src={
-                                        playerChoice === 1
-                                            ? playerGifCache.current.rockAnim?.src || gifPaths.rockAnim
-                                            : playerChoice === 2
-                                                ? playerGifCache.current.papAnim?.src || gifPaths.papAnim
-                                                : playerChoice === 3
-                                                    ? playerGifCache.current.scisAnim?.src || gifPaths.scisAnim
-                                                    : null
-                                    }
-                                    alt="game choice animation"
-                                />
-                                <Image
-                                    width={90}
-                                    height={190}
-                                    layout="fixed"
-                                    objectFit="contain"
-                                    className={`${styles.mychoose} ${visibleImage !== 1 ? styles.visible : styles.hidden}`}
-                                    src={
-                                        visibleImage === 0
-                                            ? gameOptions[4]?.logo
-                                            : playerChoice === 0 || playerChoice === 10
-                                                ? gameOptions[4]?.logo
-                                                : playerChoice === 1
-                                                    ? gameOptions[1]?.logo
-                                                    : playerChoice === 2
-                                                        ? gameOptions[2]?.logo
-                                                        : gameOptions[3]?.logo
-                                    }
-                                    alt="game choice"
-                                />
-                            </div>
-                            <div className={styles.round}>
-                                round {playerScore+opponentScore+1}
-                            </div>
-                            <div className={styles.buttonSet}>
-                                <PvpBtn title={'rock'} img={rock} value={1} onClick={() => setPlayerChoice(1)} choose={playerChoice} />
-                                <PvpBtn title={'paper'} img={paper} value={2} onClick={() => setPlayerChoice(2)} choose={playerChoice} />
-                                <PvpBtn title={'scissons'} img={scis} value={3} onClick={() => setPlayerChoice(3)} choose={playerChoice} />
-                            </div>
-                        </div>
+            {gameEnded && <WinningScreen userName={userName} playerScore={playerScore} />}
+            <div className={styles.root}>
+                <Image className={styles.background} src={background} width={300} height={1000} alt={'bg'} priority />
+                <div className={styles.container}>
+                    <div className={styles.oppNickname}>
+                        {opponentName}
                     </div>
-            </>
+                    <div className={styles.optionBg}>
+                        <img
+                            className={`${styles.choose} ${visibleImage === 1 ? styles.visible : styles.hidden}`}
+                            src={
+                            opponentChoice === 1
+                                ? opponentGifCache.current.rockAnim?.src || gifPaths.rockAnim
+                                : opponentChoice === 2
+                                    ? opponentGifCache.current.papAnim?.src || gifPaths.papAnim
+                                    : opponentChoice === 3
+                                        ? opponentGifCache.current.scisAnim?.src || gifPaths.scisAnim
+                                        : gameOptions[4]?.logo
+                        }
+                            alt="game choice animation"
+                        />
+                        <Image
+                            width={90}
+                            height={190}
+                            layout="fixed"
+                            objectFit="contain"
+                            className={`${styles.choose} ${visibleImage !== 1 ? styles.visible : styles.hidden}`}
+                            src={
+                            visibleImage === 0
+                                ? gameOptions[4]?.logo
+                                : opponentChoice === 0 || opponentChoice === 10
+                                    ? gameOptions[4]?.logo
+                                    : opponentChoice === 1
+                                        ? gameOptions[1]?.logo
+                                        : opponentChoice === 2
+                                            ? gameOptions[2]?.logo
+                                            : gameOptions[3]?.logo
+                        }
+                            alt="game choice"
+                        />
+                    </div>
+                    <VictoryCounter score={playerScore} />
+                    <IconButton image={teamData[groupId]?.logo} alt={'gang'} />
+                    <div className={styles.roundTimer}>
+                        <Image src={timerBG} alt={'timer'} height={144} width={144} className={styles.roundTimerBG} />
+                        <div className={styles.time}>{timer}</div>
+                    </div>
+                    <IconButton image={teamData[oppClan]?.logo} alt={'gang'} />
+                    <VictoryCounter score={opponentScore} />
+                    <div className={styles.optionBg}>
+                        <img
+                            className={`${styles.mychoose} ${visibleImage === 1 ? styles.visible : styles.hidden}`}
+                            src={
+                            playerChoice === 1
+                                ? playerGifCache.current.rockAnim?.src || gifPaths.rockAnim
+                                : playerChoice === 2
+                                    ? playerGifCache.current.papAnim?.src || gifPaths.papAnim
+                                    : playerChoice === 3
+                                        ? playerGifCache.current.scisAnim?.src || gifPaths.scisAnim
+                                        : gameOptions[4]?.logo
+                        }
+                            alt="game choice animation"
+                        />
+                        <Image
+                            width={90}
+                            height={190}
+                            layout="fixed"
+                            objectFit="contain"
+                            className={`${styles.mychoose} ${visibleImage !== 1 ? styles.visible : styles.hidden}`}
+                            src={
+                            visibleImage === 0
+                                ? gameOptions[4]?.logo
+                                : playerChoice === 0 || playerChoice === 10
+                                    ? gameOptions[4]?.logo
+                                    : playerChoice === 1
+                                        ? gameOptions[1]?.logo
+                                        : playerChoice === 2
+                                            ? gameOptions[2]?.logo
+                                            : gameOptions[3]?.logo
+                        }
+                            alt="game choice"
+                        />
+                    </div>
+                    <div className={styles.round}>
+                        round {playerScore+opponentScore+1}
+                    </div>
+                    <div className={styles.buttonSet}>
+                        <PvpBtn title={'rock'} img={rock} value={1} onClick={() => setPlayerChoice(1)} choose={playerChoice} />
+                        <PvpBtn title={'paper'} img={paper} value={2} onClick={() => setPlayerChoice(2)} choose={playerChoice} />
+                        <PvpBtn title={'scissons'} img={scis} value={3} onClick={() => setPlayerChoice(3)} choose={playerChoice} />
+                    </div>
+                </div>
+            </div>
+            {showChanger && <RoundChanger round={playerScore + opponentScore + 1}/>}
+        </>
     )
 }
 
@@ -322,7 +332,7 @@ const VictoryCounter = ({ score }) => (
 );
 
 // eslint-disable-next-line react/prop-types
-const WinningScreen = ({ userName, playerScore, opponentName  }) => (
+const WinningScreen = ({ userName, playerScore  }) => (
     <div className={styles.winbg}>
         <div className={styles.winBorder}>
             <div className={styles.winContainer}>
@@ -341,3 +351,13 @@ const WinningScreen = ({ userName, playerScore, opponentName  }) => (
     </div>
 );
 
+
+const RoundChanger = ({round}) => (
+    <div className={styles.changerRoot}>
+        <div className={styles.changerContainer}>
+            <Image className={styles.animF} src={changerF} alt={''} width={700} height={150} />
+            <Image className={styles.animB} src={changerB} alt={''} width={700} height={150} />
+            <div className={styles.changerText}>round {round}</div>
+        </div>
+    </div>
+)

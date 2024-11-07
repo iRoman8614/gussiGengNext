@@ -61,7 +61,7 @@ export default function Home() {
     const handleClaimClick = async () => {
         try {
             if (typeof window !== "undefined" && window.Telegram?.WebApp?.HapticFeedback) {
-                window.Telegram.WebApp.HapticFeedback.impactOccurred("heavy");
+                window.Telegram.WebApp.HapticFeedback.impactOccurred("medium");
             }
             const collectData = await collectAndStart();
             const updatedBalance = collectData.totalCoins;

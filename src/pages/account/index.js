@@ -57,7 +57,7 @@ export default function Page() {
 
     const handleTab = (tab) => {
         if (window.Telegram?.WebApp?.HapticFeedback) {
-            window.Telegram.WebApp.HapticFeedback.impactOccurred('heavy');
+            window.Telegram.WebApp.HapticFeedback.impactOccurred('light');
         }
         setActiveTab(tab)
     }

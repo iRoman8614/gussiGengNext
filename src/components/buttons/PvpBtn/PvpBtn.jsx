@@ -5,7 +5,7 @@ import styles from './PvpBtn.module.scss';
 export const PvpBtn = ({ onClick, choose, img, title, value }) => {
     const handleClick = () => {
         if (window.Telegram?.WebApp?.HapticFeedback) {
-            window.Telegram.WebApp.HapticFeedback.impactOccurred('heavy');
+            window.Telegram.WebApp.HapticFeedback.impactOccurred('meduim');
         }
         onClick();
     };

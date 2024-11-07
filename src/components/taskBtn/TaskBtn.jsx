@@ -28,7 +28,7 @@ export const TaskBtn = ({title, subtitle, desc, completed, onClick, readyToCompl
 
     const handleClick = () => {
         if (window.Telegram?.WebApp?.HapticFeedback) {
-            window.Telegram.WebApp.HapticFeedback.impactOccurred('heavy');
+            window.Telegram.WebApp.HapticFeedback.impactOccurred('light');
         }
         onClick();
     };

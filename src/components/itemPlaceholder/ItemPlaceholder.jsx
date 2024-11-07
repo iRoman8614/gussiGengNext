@@ -7,7 +7,7 @@ const money = '/money.png'
 export const ItemPlaceholder = ({ item, img, onClick }) => {
     const handleClick = () => {
         if (window.Telegram?.WebApp?.HapticFeedback) {
-            window.Telegram.WebApp.HapticFeedback.impactOccurred('heavy');
+            window.Telegram.WebApp.HapticFeedback.impactOccurred('light');
         }
         onClick();
     };

@@ -304,7 +304,7 @@ export default function Page() {
 
     const handleSlidePrev = () => {
         if (window.Telegram?.WebApp?.HapticFeedback) {
-            window.Telegram.WebApp.HapticFeedback.impactOccurred('heavy');
+            window.Telegram.WebApp.HapticFeedback.impactOccurred('light');
         }
         if (swiperRef.current) {
             swiperRef.current.slidePrev();
@@ -313,7 +313,7 @@ export default function Page() {
 
     const handleSlideNext = () => {
         if (window.Telegram?.WebApp?.HapticFeedback) {
-            window.Telegram.WebApp.HapticFeedback.impactOccurred('heavy');
+            window.Telegram.WebApp.HapticFeedback.impactOccurred('light');
         }
         if (swiperRef.current) {
             swiperRef.current.slideNext();
@@ -475,7 +475,7 @@ export default function Page() {
                             className={styles.modalBorder}
                             onClick={() => {
                                 if (window.Telegram?.WebApp?.HapticFeedback) {
-                                    window.Telegram.WebApp.HapticFeedback.impactOccurred('heavy');
+                                    window.Telegram.WebApp.HapticFeedback.impactOccurred('medium');
                                 }
                                 if (selectedItem) {
                                     selectedItem.type === 'limit'

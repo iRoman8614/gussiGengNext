@@ -1,7 +1,6 @@
 import {useEffect, useRef, useState} from "react";
 import Image from "next/image";
 import { useRouter } from 'next/router';
-import Head from 'next/head';
 
 import { IconButton } from "@/components/buttons/icon-btn/IconButton.jsx";
 import {LoaderGif} from "@/components/loader/LoaderGif.jsx";
@@ -28,6 +27,8 @@ const gifPaths = {
 const rock = '/game-icons/rock.png'
 const paper = '/game-icons/paper.png'
 const scis = '/game-icons/scissors.png'
+const changerF = '/game-icons/roundAnimFront.png'
+const changerB = '/game-icons/roundAnimBack.png'
 
 export default function PvpPage() {
     const router = useRouter();
@@ -36,7 +37,7 @@ export default function PvpPage() {
     const [opponentScore, setOpponentScore] = useState(0);
     const [gameOver, setGameOver] = useState(false);
     const [round, setRound] = useState(1);
-    const [timer, setTimer] = useState(5);
+    const [timer, setTimer] = useState(3);
     const [playerChoice, setPlayerChoice] = useState(4);
     const [opponentChoice, setOpponentChoice] = useState(4);
     const [gameEnded, setGameEnded] = useState(false);
@@ -48,6 +49,7 @@ export default function PvpPage() {
     const [oppClan, setOppClan] = useState(4);
     const [roundResult, setRoundResult] = useState(null);
     const [opponentName, setOpponentName] = useState("biggie smalls")
+    const [showChanger, setShowChanger] = useState(false)
 
     const playerGifCache = useRef({});
     const opponentGifCache = useRef({});
@@ -189,6 +191,9 @@ export default function PvpPage() {
         let timerId;
         if (!isLoadingPvp && timer > 0 && !gameOver) {
             timerId = setTimeout(() => {
+                if (window.Telegram?.WebApp?.HapticFeedback) {
+                    window.Telegram.WebApp.HapticFeedback.impactOccurred('light');
+                }
                 setTimer(timer - 1);
             }, 1000);
         } else if (timer === 0) {
@@ -220,7 +225,7 @@ export default function PvpPage() {
 
     const handlePlayerChoice = (choice) => {
         if (window.Telegram?.WebApp?.HapticFeedback) {
-            window.Telegram.WebApp.HapticFeedback.impactOccurred('heavy');
+            window.Telegram.WebApp.HapticFeedback.impactOccurred('medium');
         }
         if (gameOver || playerChoice !== 4) return;
         setPlayerChoice(choice);
@@ -287,13 +292,15 @@ export default function PvpPage() {
     const resetRoundAfterDelay = () => {
         if (playerChoice !== opponentChoice) {
             setRound(prev => prev + 1);
+            setShowChanger(true)
             console.log("Обновляем раунд");
         }
         setRoundResult(null);
         setPlayerChoice(4);
         setOpponentChoice(4);
-        setTimer(5);
+        setTimer(3);
         setVisibleImage(0);
+        setShowChanger(false)
     };
 
     const handleGameEnd = () => {
@@ -405,6 +412,7 @@ export default function PvpPage() {
                             </div>
                         </div>
                     </div>
+                    {showChanger && <RoundChanger round={round}/>}
                 </>
             )}
         </>
@@ -435,3 +443,12 @@ const WinningScreen = ({ userName, playerScore, opponentName  }) => (
     </div>
 );
 
+const RoundChanger = ({round}) => (
+    <div className={styles.changerRoot}>
+        <div className={styles.changerContainer}>
+            <Image className={styles.animF} src={changerF} alt={''} width={700} height={150} />
+            <Image className={styles.animB} src={changerB} alt={''} width={700} height={150} />
+            <div className={styles.changerText}>round {round}</div>
+        </div>
+    </div>
+)

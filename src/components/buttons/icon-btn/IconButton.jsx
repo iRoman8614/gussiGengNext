@@ -6,7 +6,7 @@ import styles from './IconButton.module.scss'
 export const IconButton = ({image, title, alt, onClick, hidden}) => {
     const handleClick = () => {
         if (window.Telegram?.WebApp?.HapticFeedback) {
-            window.Telegram.WebApp.HapticFeedback.impactOccurred('heavy');
+            window.Telegram.WebApp.HapticFeedback.impactOccurred('light');
         }
         if(onClick) {onClick()}
     };

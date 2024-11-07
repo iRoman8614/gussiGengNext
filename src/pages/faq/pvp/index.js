@@ -38,7 +38,7 @@ export default function PvpBotPage() {
 
     const nextSlide = () => {
         if (window.Telegram?.WebApp?.HapticFeedback) {
-            window.Telegram.WebApp.HapticFeedback.impactOccurred("heavy");
+            window.Telegram.WebApp.HapticFeedback.impactOccurred("light");
         }
         if(slide === 6) {
             router.push('/lobby')
@@ -49,7 +49,7 @@ export default function PvpBotPage() {
 
     const prevSlide = () => {
         if (window.Telegram?.WebApp?.HapticFeedback) {
-            window.Telegram.WebApp.HapticFeedback.impactOccurred("heavy");
+            window.Telegram.WebApp.HapticFeedback.impactOccurred("light");
         }
         if(slide === 0) {
             return;

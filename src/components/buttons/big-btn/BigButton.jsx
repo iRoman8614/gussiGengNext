@@ -6,7 +6,7 @@ import styles from './BigButton.module.scss';
 export const BigButton = ({ image, title, alt, onClick }) => {
     const handleClick = () => {
         if (window.Telegram?.WebApp?.HapticFeedback) {
-            window.Telegram.WebApp.HapticFeedback.impactOccurred('heavy');
+            window.Telegram.WebApp.HapticFeedback.impactOccurred('medium');
         }
         if (onClick) {
             onClick();

@@ -157,7 +157,7 @@ export default function Page() {
                             </div>
                             <div className={styles.btn} onClick={() => {
                                 if (window.Telegram?.WebApp?.HapticFeedback) {
-                                    window.Telegram.WebApp.HapticFeedback.impactOccurred('heavy');
+                                    window.Telegram.WebApp.HapticFeedback.impactOccurred('light');
                                 }
                                 // router.push('/faq/pvp')
                                 setHintOne(!hintOne)
@@ -185,7 +185,7 @@ export default function Page() {
                                 </div>
                                 <div className={styles.btn} onClick={() => {
                                     if (window.Telegram?.WebApp?.HapticFeedback) {
-                                        window.Telegram.WebApp.HapticFeedback.impactOccurred('heavy');
+                                        window.Telegram.WebApp.HapticFeedback.impactOccurred('light');
                                     }
                                     setHintTwo(!hintTwo)}}>?</div>
                             </div>

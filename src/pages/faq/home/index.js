@@ -49,7 +49,7 @@ export default function Home() {
 
     const nextSlide = () => {
         if (window.Telegram?.WebApp?.HapticFeedback) {
-            window.Telegram.WebApp.HapticFeedback.impactOccurred("heavy");
+            window.Telegram.WebApp.HapticFeedback.impactOccurred("light");
         }
         if(slide === 6) {
             router.push('/main')
@@ -60,7 +60,7 @@ export default function Home() {
 
     const prevSlide = () => {
         if (window.Telegram?.WebApp?.HapticFeedback) {
-            window.Telegram.WebApp.HapticFeedback.impactOccurred("heavy");
+            window.Telegram.WebApp.HapticFeedback.impactOccurred("light");
         }
         if(slide === 0) {
             return

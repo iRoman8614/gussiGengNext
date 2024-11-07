@@ -48,7 +48,7 @@ export default function Page() {
 
     const handleClick = () => {
         if (window.Telegram?.WebApp?.HapticFeedback) {
-            window.Telegram.WebApp.HapticFeedback.impactOccurred('heavy');
+            window.Telegram.WebApp.HapticFeedback.impactOccurred('medium');
         }
         const referralLink = `${link}?start=kid${userId}`;
         if (navigator.clipboard) {
@@ -79,7 +79,7 @@ export default function Page() {
         const referralLink = `${link}?start=kid${userId}`;
         const inviteMessage = `Tap the link to join me`;
         if (tg.HapticFeedback) {
-            tg.HapticFeedback.impactOccurred('heavy');
+            tg.HapticFeedback.impactOccurred('medium');
         }
         const shareLink = `https://t.me/share/url?url=${encodeURIComponent(referralLink)}&text=${encodeURIComponent(`${inviteMessage}`)}`;
         window.open(shareLink, '_blank');
@@ -87,7 +87,7 @@ export default function Page() {
 
     const handleTab = (tab) => {
         if (window.Telegram?.WebApp?.HapticFeedback) {
-            window.Telegram.WebApp.HapticFeedback.impactOccurred('heavy');
+            window.Telegram.WebApp.HapticFeedback.impactOccurred('light');
         }
         setActiveTab(tab)
     }
