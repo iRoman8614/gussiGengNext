@@ -53,6 +53,7 @@ export default function LoaderPage() {
     const [isNewPlayer, setIsNewPlayer] = useState(false);
     const [dataFetched, setDataFetched] = useState(false);
     const [authToken, setAuthToken] = useState(null);
+    const [hasError, setHasError] = useState(false);
 
     const CURRENT_VERSION = process.env.NEXT_PUBLIC_CURRENT_VERSION
 
@@ -111,10 +112,13 @@ export default function LoaderPage() {
             await fetchFarmStart();
             await fetchProfileStats();
             setDataFetched(true);
+            setHasError(false);
         } catch (error) {
-            if (error.status === 401) {
-                console.log('error.status', error.status)
-                toast.error('Error during init request, restart app');
+            setHasError(true);
+            if (error.response?.status === 401 || error?.status === 401 ) {
+                toast.error('Unauthorized: Please check your token and try again.');
+            } else {
+                toast.error('Error during data fetching. Please try again.');
             }
         }
     }, [dataFetched, authToken]);
@@ -146,8 +150,10 @@ export default function LoaderPage() {
                 checkLocalStorage();
                 const loadDataAndAssets = async () => {
                     await fetchData();
-                    await loadAssets();
-                    updateAndRedirect();
+                    if (!hasError) {
+                        await loadAssets();
+                        updateAndRedirect();
+                    }
                 };
                 loadDataAndAssets();
             }
