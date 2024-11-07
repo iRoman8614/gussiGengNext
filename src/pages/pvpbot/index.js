@@ -45,7 +45,7 @@ export default function PvpBotPage() {
     const [oppClan, setOppClan] = useState(null);
     const [opponentName, setOpponentName] = useState("biggie smalls")
     const [resetSequence, setResetSequence] = useState(false);
-    const [showChanger, setShowChanger] = useState(true)
+    const [showChanger, setShowChanger] = useState(false)
 
     const playerGifCache = useRef({});
     const opponentGifCache = useRef({});
@@ -83,10 +83,6 @@ export default function PvpBotPage() {
         }
         updateContext()
     }, []);
-
-    useEffect(() => {
-        setShowChanger(false)
-    }, [showChanger])
 
     useEffect(() => {
         if (typeof window !== 'undefined' && window.Telegram?.WebApp) {
@@ -309,6 +305,7 @@ export default function PvpBotPage() {
                     </div>
                 </div>
             </div>
+            {(playerScore + opponentScore) === 1 && <RoundChanger round={playerScore + opponentScore + 1}/>}
             {showChanger && <RoundChanger round={playerScore + opponentScore + 1}/>}
         </>
     )
