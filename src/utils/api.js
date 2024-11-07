@@ -4,8 +4,6 @@ import axios from "axios";
 import {toast} from "react-toastify";
 
 // Хук для /profile/init
-import { useState, useCallback } from 'react';
-import axios from 'axios';
 
 export const useProfileInit = (token) => {
     const [data, setData] = useState(null);
