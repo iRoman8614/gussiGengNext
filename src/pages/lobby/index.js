@@ -97,7 +97,7 @@ export default function Page() {
 
             if (data?.session?.count < 5) {
                 router.push('/pvp');
-            } else if (data?.session?.count >= 5 && stats?.passes > 0) {
+            } else if (data?.session?.count >= 5 && stats?.pass > 0) {
                 router.push('/pvp');
             } else {
                 toast.warn("You have reached the maximum number of games");
@@ -149,7 +149,7 @@ export default function Page() {
                                         </>
                                     ) : (
                                         <>
-                                            <div>{stats.passes}</div>
+                                            <div>{stats.pass}</div>
                                             <p>extra games</p>
                                         </>)
                                     }
