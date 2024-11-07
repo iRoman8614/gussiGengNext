@@ -109,7 +109,7 @@ export default function LoaderPage() {
     const fetchData = useCallback(async () => {
         try {
             const {data, error} = await fetchProfileInit();
-            if (error || !data) {
+            if (error) {
                 throw new Error('Error during profile initialization');
             }
             await fetchFarmStart();
@@ -133,7 +133,7 @@ export default function LoaderPage() {
                 return
             }
         }
-    }, [dataFetched, authToken]);
+    }, [dataFetched, authToken, fetchProfileInit, fetchFarmStart, fetchProfileStats]);
 
     const loadAssets = useCallback(async () => {
         await preloadAssets(isNewPlayer ? newPlayerAssets : experiencedPlayerAssets);
