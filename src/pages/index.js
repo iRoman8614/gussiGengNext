@@ -171,13 +171,12 @@ export default function LoaderPage() {
         const { token } = router.query;
         const executeAfterToken = async (token) => {
             initializeTelegramWebApp()
+            checkVersion();
             localStorage.setItem('authToken', token);
             await new Promise((resolve) => {
                 localStorage.setItem('authToken', token);
                 resolve();
             });
-
-            checkVersion();
             const hasData = checkLocalStorage();
             if (!hasData) {
                 await fetchData();
