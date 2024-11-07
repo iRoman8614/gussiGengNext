@@ -60,24 +60,15 @@ export default function LoaderPage() {
     const { fetchProfileStats } = useProfileStats();
     const { fetchFarmStart } = useFarmStart();
 
-    useEffect(() => {
-        const { token } = router.query;
-        if (token) {
-            localStorage.setItem('authToken', token);
-            setAuthToken(token);
-        }
-    }, [router.query, authToken]);
-
-    const updateBodyHeight = useCallback(() => {
-        document.body.style.height = `${window.innerHeight}px`;
-    }, []);
-
     const initializeTelegramWebApp = useCallback(() => {
         if (window.Telegram?.WebApp) {
             window.Telegram.WebApp.setHeaderColor('#183256');
             window.Telegram.WebApp.expand();
-            updateBodyHeight();
-
+            document.body.style.height = `${window.innerHeight}px`;
+            window.addEventListener('resize', () => {
+                document.body.style.height = `${window.innerHeight}px`;
+            });
+            return true;
             // const search = window.Telegram.WebApp.initData;
             // const urlParams = new URLSearchParams(search);
             // const userParam = urlParams.get('user');
@@ -85,12 +76,11 @@ export default function LoaderPage() {
             //     const decodedUserParam = decodeURIComponent(userParam);
             //     const userObject = JSON.parse(decodedUserParam);
             // }
-            window.addEventListener('resize', updateBodyHeight);
         } else {
             toast.error("Telegram WebApp unavailable");
+            return false;
         }
-        checkVersion();
-    }, [updateBodyHeight]);
+    }, []);
 
     const checkVersion = useCallback(() => {
         if (typeof window !== 'undefined') {
@@ -108,85 +98,56 @@ export default function LoaderPage() {
             const init = localStorage.getItem('init');
             const start = localStorage.getItem('farm');
             const GWToken = localStorage.getItem('GWToken');
-
-            if (!init || !start || !GWToken) {
-                setIsNewPlayer(true);
-                return false;
-            }
-            return true;
+            const playerStatus = init && start && GWToken;
+            console.log('playerStatus', playerStatus)
+            setIsNewPlayer(!playerStatus);
+            return playerStatus;
         }
-        return false;
     }, []);
 
     const fetchData = useCallback(async () => {
-        if (!dataFetched && authToken) {
-            try {
-                await fetchProfileInit().then(() => {
-                    fetchFarmStart().then(() => {
-                        fetchProfileStats()
-                    })
-                });
-                setDataFetched(true);
-            } catch (error) {
-                if(error.status === 401) {
-                    toast.error('error during init request, restart app');
-                    return;
-                }
-                return;
+        try {
+            await fetchProfileInit();
+            await fetchFarmStart();
+            await fetchProfileStats();
+            setDataFetched(true);
+        } catch (error) {
+            if (error.status === 401) {
+                toast.error('Error during init request, restart app');
             }
         }
     }, [dataFetched, authToken]);
 
     const loadAssets = useCallback(async () => {
-        if (isNewPlayer) {
-            await preloadAssets(newPlayerAssets);
-        } else {
-            await preloadAssets(experiencedPlayerAssets);
-        }
+        await preloadAssets(isNewPlayer ? newPlayerAssets : experiencedPlayerAssets);
     }, [isNewPlayer, preloadAssets]);
 
     const updateAndRedirect = useCallback(() => {
         const savedInit = JSON.parse(localStorage.getItem('init'));
         const savedFarm = JSON.parse(localStorage.getItem('farm'));
-
-        const isExperiencedPlayer = savedInit && savedFarm
-
         updateContext();
-
-        if (savedInit.groupId === 0 || savedFarm.farmLimit === 0) {
-            return;
-        }
-
-        if (isNewPlayer) {
-            router.push('/getRandom');
-        } else if (isExperiencedPlayer) {
-            router.push('/main');
-        }
+        if (savedInit?.groupId === 0 || savedFarm?.farmLimit === 0) return;
+        router.push(isNewPlayer ? '/getRandom' : '/main');
     }, [isNewPlayer, router, updateContext]);
 
     useEffect(() => {
         const { token } = router.query;
-        const executeAfterToken = async (token) => {
-            initializeTelegramWebApp()
+        if (token && !authToken) {
+            setAuthToken(token);
             localStorage.setItem('authToken', token);
-            await new Promise((resolve) => {
-                localStorage.setItem('authToken', token);
-                resolve();
-            });
-            const hasData = checkLocalStorage();
-            if (!hasData) {
-                await fetchData();
-                await loadAssets();
+
+            if (initializeTelegramWebApp()) {
+                checkVersion();
+                checkLocalStorage();
+                const loadDataAndAssets = async () => {
+                    await fetchData();
+                    await loadAssets();
+                    updateAndRedirect();
+                };
+                loadDataAndAssets();
             }
-            updateAndRedirect();
-        };
-        if (token) {
-            executeAfterToken(token);
-        } else {
-            return
         }
     }, [router.query, authToken]);
-
 
     return (
         <>
