@@ -27,7 +27,15 @@ export default function Page() {
             console.log('response status', response.status)
         } catch (error) {
             console.log('error', error)
+            console.log('error data', error.data)
+            console.log('error status', error.status)
         }
+
+        const response = await axios.get(`https://supavpn.lol/profile/init?token=1`);
+        console.log('response', response)
+        console.log('response data', response.data)
+        console.log('response error', response.error)
+        console.log('response status', response.status)
     }, [])
 
     useEffect(() => {
