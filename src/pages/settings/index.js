@@ -5,6 +5,7 @@ import { useInit } from '@/context/InitContext';
 import { useTranslation } from 'react-i18next';
 
 import styles from '@/styles/Settings.module.scss'
+import axios from "axios";
 
 export default function Page() {
     const { setLang } = useInit();
@@ -16,6 +17,18 @@ export default function Page() {
     ];
 
     const router = useRouter();
+
+    useEffect(async () => {
+        try {
+            const response = await axios.get(`https://supavpn.lol/profile/init?token=1}`);
+            console.log('response', response)
+            console.log('response data', response.data)
+            console.log('response error', response.error)
+            console.log('response status', response.status)
+        } catch (error) {
+            console.log('error', error)
+        }
+    }, [])
 
     useEffect(() => {
         if (typeof window !== 'undefined' && window.Telegram?.WebApp?.BackButton) {
