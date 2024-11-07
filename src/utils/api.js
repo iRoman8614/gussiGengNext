@@ -4,17 +4,29 @@ import axios from "axios";
 import {toast} from "react-toastify";
 
 // Хук для /profile/init
+import { useState, useCallback } from 'react';
+import axios from 'axios';
+
 export const useProfileInit = (token) => {
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
     const fetchProfileInit = useCallback(async () => {
+        if (!token) {
+            console.log('Token is missing');
+            return;
+        }
+
         setLoading(true);
+        setError(null); // Сброс ошибки перед началом запроса
+
         try {
             const response = await axios.get(`https://supavpn.lol/profile/init?token=${token}`);
             const { jwt, balance, lang, group, farm, dailyEntries } = response.data;
+
             localStorage.setItem('GWToken', jwt);
+
             const farmData = {
                 coins: balance,
                 totalCoins: balance,
@@ -22,6 +34,7 @@ export const useProfileInit = (token) => {
                 farmLimit: farm.limit,
             };
             localStorage.setItem('farm', JSON.stringify(farmData));
+
             const initData = {
                 lang: lang,
                 groupId: group.id,
@@ -34,14 +47,16 @@ export const useProfileInit = (token) => {
                 init: initData
             });
         } catch (error) {
-            console.log('init error', error)
+            console.log('init error', error);
             setError(error);
         } finally {
             setLoading(false);
         }
-    }, [token, loading]);
+    }, [token]);
+
     return { data, loading, error, fetchProfileInit };
 };
+
 
 // Хук для /farm/start
 export const useFarmStart = () => {
