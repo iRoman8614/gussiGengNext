@@ -37,7 +37,7 @@ export default function PvpBotPage() {
     const [playerScore, setPlayerScore] = useState(0);
     const [opponentScore, setOpponentScore] = useState(0);
     const [gameOver, setGameOver] = useState(false);
-    const [timer, setTimer] = useState(3);
+    const [timer, setTimer] = useState(4);
     const [playerChoice, setPlayerChoice] = useState(null);
     const [opponentChoice, setOpponentChoice] = useState(3);
     const [gameEnded, setGameEnded] = useState(false);
@@ -45,7 +45,7 @@ export default function PvpBotPage() {
     const [oppClan, setOppClan] = useState(null);
     const [opponentName, setOpponentName] = useState("biggie smalls")
     const [resetSequence, setResetSequence] = useState(false);
-    const [showChanger, setShowChanger] = useState(false)
+    const [showChanger, setShowChanger] = useState(true)
 
     const playerGifCache = useRef({});
     const opponentGifCache = useRef({});
