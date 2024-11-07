@@ -236,6 +236,7 @@
   left: -200%;
   z-index: 1002;
   animation: flyInOutFront 1s forwards;
+  animation-delay: 1s;
 }
 
 @keyframes flyInOutFront {
@@ -261,6 +262,7 @@
   right: -200%;
   z-index: 1001;
   animation: flyInOutBack 1s forwards;
+  animation-delay: 1s;
 }
 
 @keyframes flyInOutBack {
@@ -291,6 +293,7 @@
   color: #FFFFFF;
   font-size: auto-clamp(35, 50);
   animation: flyInOutText 1s forwards;
+  animation-delay: 1s;
   text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.5);
 }
 
