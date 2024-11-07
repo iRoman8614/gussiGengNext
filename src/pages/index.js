@@ -79,14 +79,11 @@ export default function LoaderPage() {
             updateBodyHeight();
 
             const search = window.Telegram.WebApp.initData;
-            console.log('search', search)
             const urlParams = new URLSearchParams(search);
-            console.log('urlParams', urlParams)
             const userParam = urlParams.get('user');
             if (userParam) {
                 const decodedUserParam = decodeURIComponent(userParam);
                 const userObject = JSON.parse(decodedUserParam);
-                console.log('userObject', userObject)
             }
             window.addEventListener('resize', updateBodyHeight);
         } else {
