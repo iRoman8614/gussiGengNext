@@ -37,7 +37,7 @@ export default function PvpBotPage() {
     const [playerScore, setPlayerScore] = useState(0);
     const [opponentScore, setOpponentScore] = useState(0);
     const [gameOver, setGameOver] = useState(false);
-    const [timer, setTimer] = useState(4);
+    const [timer, setTimer] = useState(3);
     const [playerChoice, setPlayerChoice] = useState(null);
     const [opponentChoice, setOpponentChoice] = useState(3);
     const [gameEnded, setGameEnded] = useState(false);
@@ -85,6 +85,10 @@ export default function PvpBotPage() {
     }, []);
 
     useEffect(() => {
+        setShowChanger(false)
+    }, [showChanger])
+
+    useEffect(() => {
         if (typeof window !== 'undefined' && window.Telegram?.WebApp) {
             const search = window.Telegram.WebApp.initData;
             const urlParams = new URLSearchParams(search);
@@ -123,7 +127,7 @@ export default function PvpBotPage() {
             showGifSequence();
             setTimeout(() => {
                 updateScores(playerChoice, randomOpponentChoice)
-            }, 2000);
+            }, 2500);
         }
         return () => clearTimeout(timerId);
     }, [timer, gameOver, playerChoice]);
