@@ -123,7 +123,7 @@ export default function PvpBotPage() {
             showGifSequence();
             setTimeout(() => {
                 updateScores(playerChoice, randomOpponentChoice)
-            }, 1000);
+            }, 2000);
         }
         return () => clearTimeout(timerId);
     }, [timer, gameOver, playerChoice]);
