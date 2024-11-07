@@ -113,6 +113,7 @@ export default function LoaderPage() {
             setDataFetched(true);
         } catch (error) {
             if (error.status === 401) {
+                console.log('error.status', error.status)
                 toast.error('Error during init request, restart app');
             }
         }
@@ -132,10 +133,14 @@ export default function LoaderPage() {
 
     useEffect(() => {
         const { token } = router.query;
-        if (token && !authToken) {
-            setAuthToken(token);
+        if (token) {
             localStorage.setItem('authToken', token);
+            setAuthToken(token);
+        }
+    }, [router.query, authToken]);
 
+    useEffect(() => {
+        if (authToken) {
             if (initializeTelegramWebApp()) {
                 checkVersion();
                 checkLocalStorage();
