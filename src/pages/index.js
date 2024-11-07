@@ -77,14 +77,13 @@ export default function LoaderPage() {
             window.Telegram.WebApp.setHeaderColor('#183256');
             window.Telegram.WebApp.expand();
             updateBodyHeight();
-
-            const search = window.Telegram.WebApp.initData;
-            const urlParams = new URLSearchParams(search);
-            const userParam = urlParams.get('user');
-            if (userParam) {
-                const decodedUserParam = decodeURIComponent(userParam);
-                const userObject = JSON.parse(decodedUserParam);
-            }
+            // const search = window.Telegram.WebApp.initData;
+            // const urlParams = new URLSearchParams(search);
+            // const userParam = urlParams.get('user');
+            // if (userParam) {
+            //     const decodedUserParam = decodeURIComponent(userParam);
+            //     const userObject = JSON.parse(decodedUserParam);
+            // }
             window.addEventListener('resize', updateBodyHeight);
         } else {
             toast.error("Telegram WebApp unavailable");
@@ -122,6 +121,7 @@ export default function LoaderPage() {
             try {
                 const { data, error: initError } = await fetchProfileInit();
                 if (initError) {
+                    console.error('initError', initError)
                     throw new Error('Initialization failed');
                 }
                 if(data) {
