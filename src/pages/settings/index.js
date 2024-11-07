@@ -3,13 +3,25 @@ import {useRouter} from "next/router";
 import {CustomSelect} from '@/components/selector/Select';
 import { useInit } from '@/context/InitContext';
 import { useTranslation } from 'react-i18next';
+import CryptoJS from 'crypto-js';
 
 import styles from '@/styles/Settings.module.scss'
-import axios from "axios";
 
 export default function Page() {
     const { setLang } = useInit();
     const { i18n } = useTranslation();
+
+    useEffect(() => {
+        function encryptStringWithSalt(input, salt) {
+            const hash = CryptoJS.SHA256(input + salt);
+            return hash.toString(CryptoJS.enc.Hex);
+        }
+
+        const input = "557540399";
+        const salt = "your_salt_here";
+        const encryptedString = encryptStringWithSalt(input, salt);
+        console.log('crypto-js', encryptedString);
+    }, [])
 
     const languageOptions = [
         { value: 'en', label: 'English' },
