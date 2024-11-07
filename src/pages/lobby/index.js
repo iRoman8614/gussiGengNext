@@ -66,7 +66,7 @@ export default function Page() {
     useEffect(() => {
         if (lastGamesData) {
             const { session } = lastGamesData;
-            setSessionsCount(session?.count);
+            setSessionsCount(session.count);
 
             if (session.count >= 5) {
                 const firstGame = localStorage.getItem('firstGame') || session.first;
@@ -93,11 +93,11 @@ export default function Page() {
         try {
             const response = await axiosInstance.get(`/farm/last-games`);
             const data = response.data;
-            setSessionsCount(data?.session?.count);
+            setSessionsCount(data.session.count);
 
-            if (data?.session?.count < 5) {
+            if (data.session.count < 5) {
                 router.push('/pvp');
-            } else if (data?.session?.count >= 5 && stats?.pass > 0) {
+            } else if (data.session.count >= 5 && stats.pass > 0) {
                 router.push('/pvp');
             } else {
                 toast.warn("You have reached the maximum number of games");
