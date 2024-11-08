@@ -24,10 +24,14 @@ export default function LoaderPage() {
     const router = useRouter();
     const { updateContext } = useInit();
     const [isNewPlayer, setIsNewPlayer] = useState(() => {
-        const init = localStorage.getItem('init');
-        const start = localStorage.getItem('farm');
-        const GWToken = localStorage.getItem('GWToken');
-        return !init || !start || !GWToken;
+        if (typeof window !== 'undefined') {
+            const init = localStorage.getItem('init');
+            const start = localStorage.getItem('farm');
+            const GWToken = localStorage.getItem('GWToken');
+            return !init || !start || !GWToken;
+        } else {
+            return true
+        }
     });
 
     const CURRENT_VERSION = process.env.NEXT_PUBLIC_CURRENT_VERSION
@@ -119,8 +123,7 @@ export default function LoaderPage() {
     useEffect(() => {
         const executeAfterToken = async () => {
             initializeTelegramWebApp()
-            const hasData = checkLocalStorage();
-            if (!hasData) {
+            if (isNewPlayer) {
                 await fetchData();
             }
             updateAndRedirect();
