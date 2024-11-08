@@ -41,14 +41,6 @@ export default function LoaderPage() {
             window.Telegram.WebApp.setHeaderColor('#183256');
             window.Telegram.WebApp.expand();
             updateBodyHeight();
-            const search = window.Telegram.WebApp.initData;
-            const urlParams = new URLSearchParams(search);
-            const userParam = urlParams.get('user');
-            if (userParam) {
-                const decodedUserParam = decodeURIComponent(userParam);
-                const userObject = JSON.parse(decodedUserParam);
-                let userId = (userObject.id);
-            }
             window.addEventListener('resize', updateBodyHeight);
         } else {
             toast.error("Telegram WebApp unavailable");
@@ -122,7 +114,7 @@ export default function LoaderPage() {
                 return;
             }
         }
-    }, [dataFetched, authToken]);
+    }, [dataFetched]);
 
 
     const updateAndRedirect = useCallback(() => {
@@ -144,14 +136,8 @@ export default function LoaderPage() {
     }, [isNewPlayer]);
 
     useEffect(() => {
-        const { token } = router.query;
-        const executeAfterToken = async (token) => {
+        const executeAfterToken = async () => {
             initializeTelegramWebApp()
-            localStorage.setItem('authToken', token);
-            await new Promise((resolve) => {
-                localStorage.setItem('authToken', token);
-                resolve();
-            });
             const hasData = checkLocalStorage();
             if (!hasData) {
                 await fetchData();
@@ -159,12 +145,11 @@ export default function LoaderPage() {
             updateAndRedirect();
         };
         if (token) {
-            executeAfterToken(token);
+            executeAfterToken();
         } else {
             return
         }
-    }, [router.query, authToken]);
-
+    }, []);
 
     return (
         <>
