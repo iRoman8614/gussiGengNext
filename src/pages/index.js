@@ -28,8 +28,8 @@ export default function LoaderPage() {
     const CURRENT_VERSION = process.env.NEXT_PUBLIC_CURRENT_VERSION
 
     const token = createEncryptedToken();
-    const { fetchProfileInit } = useProfileInit(token);
-    const { fetchFarmStart } = useFarmStart();
+    const { data: profileData, loading: profileLoading, error: profileError, fetchProfileInit } = useProfileInit(token);
+    const { data: farmData, loading: farmLoading, error: farmError, fetchFarmStart } = useFarmStart();
 
     const updateBodyHeight = useCallback(() => {
         document.body.style.height = `${window.innerHeight}px`;
@@ -93,10 +93,13 @@ export default function LoaderPage() {
 
     const fetchData = useCallback(async () => {
         try {
-            const { error: initError } = await fetchProfileInit()
-            await fetchFarmStart()
-            if (initError) {
+            await fetchProfileInit()
+            await fetchFarmStart();
+            if (profileError) {
                 throw new Error('Initialization failed, restart app');
+            }
+            if (farmError) {
+                throw new Error('Farm start failed, restart app');
             }
         } catch (error) {
             if(error.status === 401) {
@@ -120,7 +123,7 @@ export default function LoaderPage() {
         } else if (isExperiencedPlayer) {
             router.push('/main');
         }
-    }, []);
+    }, [isNewPlayer]);
 
     useEffect(() => {
         const executeAfterToken = async () => {
