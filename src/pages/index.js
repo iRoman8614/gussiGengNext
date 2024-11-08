@@ -110,12 +110,11 @@ export default function LoaderPage() {
         try {
             const {data: initData, error: initError} = await fetchProfileInit();
             console.log('initData', initData)
-            await fetchFarmStart();
-            await fetchProfileStats();
             if (initError) {
                 throw new Error('Error during profile initialization');
                 setHasError(true);
             }
+            await fetchFarmStart();
             setHasError(false);
         } catch (error) {
             setHasError(true);
@@ -157,7 +156,6 @@ export default function LoaderPage() {
                 const loadDataAndAssets = async () => {
                     await fetchData();
                     if (!hasError) {
-                        await loadAssets();
                         updateAndRedirect();
                     }
                 };
