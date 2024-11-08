@@ -33,7 +33,7 @@ export default function Page() {
                 const decodedUserParam = decodeURIComponent(userParam);
                 const userObject = JSON.parse(decodedUserParam);
                 const userId = userObject.id.toString();
-                const salt = process.env.NEXT_PUBLIC_SALT;
+                const salt = String(process.env.NEXT_PUBLIC_SALT);
                 const hash = CryptoJS.SHA256(userId + salt);
                 const encryptedString = hash.toString(CryptoJS.enc.Hex);
                 return `${userId}-${encryptedString}`;
