@@ -24,7 +24,6 @@ export default function LoaderPage() {
     const router = useRouter();
     const { updateContext } = useInit();
     const [isNewPlayer, setIsNewPlayer] = useState(false);
-    const [dataFetched, setDataFetched] = useState(false);
 
     const CURRENT_VERSION = process.env.NEXT_PUBLIC_CURRENT_VERSION
 
@@ -50,7 +49,6 @@ export default function LoaderPage() {
 
     const checkVersion = useCallback(() => {
         if (typeof window !== 'undefined') {
-            console.log('проверка версии бд')
             const savedVersion = localStorage.getItem('version');
             if (savedVersion !== CURRENT_VERSION) {
                 localStorage.clear();
@@ -62,11 +60,9 @@ export default function LoaderPage() {
 
     const checkLocalStorage = useCallback(() => {
         if (typeof window !== 'undefined') {
-            console.log("проверка ls")
             const init = localStorage.getItem('init');
             const start = localStorage.getItem('farm');
             const GWToken = localStorage.getItem('GWToken');
-
             if (!init || !start || !GWToken) {
                 setIsNewPlayer(true);
                 return false;
@@ -74,7 +70,7 @@ export default function LoaderPage() {
             return true;
         }
         return false;
-    }, []);
+    }, [isNewPlayer]);
 
     function createEncryptedToken() {
         if (typeof window !== 'undefined' && window.Telegram?.WebApp) {
@@ -85,9 +81,7 @@ export default function LoaderPage() {
                 const decodedUserParam = decodeURIComponent(userParam);
                 const userObject = JSON.parse(decodedUserParam);
                 const userId = userObject.id.toString();
-                console.log('userId', userId)
                 const salt = String(process.env.NEXT_PUBLIC_SALT);
-                console.log('salt', salt)
                 const hash = CryptoJS.SHA256(userId + salt);
                 const encryptedString = hash.toString(CryptoJS.enc.Hex);
                 localStorage.setItem('authToken', encryptedString)
@@ -98,24 +92,20 @@ export default function LoaderPage() {
     }
 
     const fetchData = useCallback(async () => {
-        if (!dataFetched) {
-            try {
-                const { error: initError } = await fetchProfileInit()
-                await fetchFarmStart()
-                if (initError) {
-                    throw new Error('Initialization failed, restart app');
-                }
-                setDataFetched(true);
-            } catch (error) {
-                if(error.status === 401) {
-                    toast.error('error during init request, restart app');
-                    return;
-                }
+        try {
+            const { error: initError } = await fetchProfileInit()
+            await fetchFarmStart()
+            if (initError) {
+                throw new Error('Initialization failed, restart app');
+            }
+        } catch (error) {
+            if(error.status === 401) {
+                toast.error('error during init request, restart app');
                 return;
             }
+            return;
         }
-    }, [dataFetched]);
-
+    }, []);
 
     const updateAndRedirect = useCallback(() => {
         const savedInit = JSON.parse(localStorage.getItem('init'));
