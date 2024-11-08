@@ -23,7 +23,12 @@ const newPlayerAssets = [
 export default function LoaderPage() {
     const router = useRouter();
     const { updateContext } = useInit();
-    const [isNewPlayer, setIsNewPlayer] = useState(false);
+    const [isNewPlayer, setIsNewPlayer] = useState(() => {
+        const init = localStorage.getItem('init');
+        const start = localStorage.getItem('farm');
+        const GWToken = localStorage.getItem('GWToken');
+        return !init || !start || !GWToken;
+    });
 
     const CURRENT_VERSION = process.env.NEXT_PUBLIC_CURRENT_VERSION
 
@@ -57,20 +62,6 @@ export default function LoaderPage() {
             }
         }
     }, [CURRENT_VERSION]);
-
-    const checkLocalStorage = useCallback(() => {
-        if (typeof window !== 'undefined') {
-            const init = localStorage.getItem('init');
-            const start = localStorage.getItem('farm');
-            const GWToken = localStorage.getItem('GWToken');
-            if (!init || !start || !GWToken) {
-                setIsNewPlayer(true);
-                return false;
-            }
-            return true;
-        }
-        return false;
-    }, [isNewPlayer]);
 
     function createEncryptedToken() {
         if (typeof window !== 'undefined' && window.Telegram?.WebApp) {
@@ -120,7 +111,7 @@ export default function LoaderPage() {
         }
         if (isNewPlayer) {
             router.push('/getRandom');
-        } else if (isExperiencedPlayer) {
+        } else if (!isNewPlayer && isExperiencedPlayer) {
             router.push('/main');
         }
     }, [isNewPlayer]);
