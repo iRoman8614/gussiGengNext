@@ -23,7 +23,16 @@ const newPlayerAssets = [
 export default function LoaderPage() {
     const router = useRouter();
     const { updateContext } = useInit();
-    const [isNewPlayer, setIsNewPlayer] = useState(false);
+    const [isNewPlayer, setIsNewPlayer] = useState(() => {
+        if(typeof window !== "undefined") {
+            const init = localStorage.getItem('init');
+            const start = localStorage.getItem('farm');
+            const GWToken = localStorage.getItem('GWToken');
+            return !init || !start || !GWToken;
+        } else {
+            return true;
+        }
+    });
 
     const CURRENT_VERSION = process.env.NEXT_PUBLIC_CURRENT_VERSION
 
@@ -34,10 +43,6 @@ export default function LoaderPage() {
     const updateBodyHeight = useCallback(() => {
         document.body.style.height = `${window.innerHeight}px`;
     }, []);
-
-    useEffect(() => {
-        checkVersion();
-    }, [])
 
     const initializeTelegramWebApp = useCallback(() => {
         if (window.Telegram?.WebApp) {
@@ -50,6 +55,11 @@ export default function LoaderPage() {
         }
         checkVersion();
     }, [updateBodyHeight]);
+
+    useEffect(() => {
+        checkVersion();
+        initializeTelegramWebApp();
+    }, [checkVersion, initializeTelegramWebApp]);
 
     const checkVersion = useCallback(() => {
         if (typeof window !== 'undefined') {
