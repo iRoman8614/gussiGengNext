@@ -5,6 +5,7 @@ import Head from "next/head";
 import { toast } from "react-toastify";
 import { useInit } from '@/context/InitContext';
 import { useProfileInit, useFarmStart } from '@/utils/api';
+import CryptoJS from 'crypto-js';
 
 import styles from '@/styles/Loader.module.scss';
 
@@ -24,22 +25,12 @@ export default function LoaderPage() {
     const { updateContext } = useInit();
     const [isNewPlayer, setIsNewPlayer] = useState(false);
     const [dataFetched, setDataFetched] = useState(false);
-    const [authToken, setAuthToken] = useState(null);
 
     const CURRENT_VERSION = process.env.NEXT_PUBLIC_CURRENT_VERSION
 
-    const { fetchProfileInit } = useProfileInit(authToken);
+    const token = createEncryptedToken();
+    const { fetchProfileInit } = useProfileInit(token);
     const { fetchFarmStart } = useFarmStart();
-
-    useEffect(() => {
-        const { token } = router.query;
-        if (token) {
-            localStorage.setItem('authToken', token);
-            setAuthToken(token);
-        } else {
-            console.error("Unauthorized");
-        }
-    }, [router.query]);
 
     const updateBodyHeight = useCallback(() => {
         document.body.style.height = `${window.innerHeight}px`;
@@ -93,11 +84,31 @@ export default function LoaderPage() {
         return false;
     }, []);
 
+    function createEncryptedToken() {
+        if (typeof window !== 'undefined' && window.Telegram?.WebApp) {
+            const search = window.Telegram.WebApp.initData;
+            const urlParams = new URLSearchParams(search);
+            const userParam = urlParams.get('user');
+            if (userParam) {
+                const decodedUserParam = decodeURIComponent(userParam);
+                const userObject = JSON.parse(decodedUserParam);
+                const userId = userObject.id.toString();
+                console.log('userId', userId)
+                const salt = String(process.env.NEXT_PUBLIC_SALT);
+                console.log('salt', salt)
+                const hash = CryptoJS.SHA256(userId + salt);
+                const encryptedString = hash.toString(CryptoJS.enc.Hex);
+                return `${userId}-${encryptedString}`;
+            }
+        }
+        return null;
+    }
+
     const fetchData = useCallback(async () => {
-        if (!dataFetched && authToken) {
+        if (!dataFetched) {
             console.log('запросы')
             try {
-                const {data, error: initError } = await fetchProfileInit()
+                const { error: initError } = await fetchProfileInit()
                 if (initError) {
                     throw new Error('Initialization failed, restart app');
                 }
