@@ -90,6 +90,7 @@ export default function LoaderPage() {
                 console.log('salt', salt)
                 const hash = CryptoJS.SHA256(userId + salt);
                 const encryptedString = hash.toString(CryptoJS.enc.Hex);
+                localStorage.setItem('authToken', encryptedString)
                 return `${userId}-${encryptedString}`;
             }
         }
@@ -98,13 +99,12 @@ export default function LoaderPage() {
 
     const fetchData = useCallback(async () => {
         if (!dataFetched) {
-            console.log('запросы')
             try {
                 const { error: initError } = await fetchProfileInit()
+                await fetchFarmStart()
                 if (initError) {
                     throw new Error('Initialization failed, restart app');
                 }
-                await fetchFarmStart()
                 setDataFetched(true);
             } catch (error) {
                 if(error.status === 401) {
@@ -118,7 +118,6 @@ export default function LoaderPage() {
 
 
     const updateAndRedirect = useCallback(() => {
-        console.log('upadete ls')
         const savedInit = JSON.parse(localStorage.getItem('init'));
         const savedFarm = JSON.parse(localStorage.getItem('farm'));
         const isExperiencedPlayer = savedInit && savedFarm
@@ -127,13 +126,11 @@ export default function LoaderPage() {
             return;
         }
         if (isNewPlayer) {
-            console.log('to getRandom')
             router.push('/getRandom');
         } else if (isExperiencedPlayer) {
-            console.log('to main')
             router.push('/main');
         }
-    }, [isNewPlayer]);
+    }, []);
 
     useEffect(() => {
         const executeAfterToken = async () => {
