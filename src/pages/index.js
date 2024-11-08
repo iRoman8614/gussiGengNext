@@ -84,7 +84,7 @@ export default function LoaderPage() {
                 const salt = String(process.env.NEXT_PUBLIC_SALT);
                 const hash = CryptoJS.SHA256(userId + salt);
                 const encryptedString = hash.toString(CryptoJS.enc.Hex);
-                localStorage.setItem('authToken', encryptedString)
+                localStorage.setItem('authToken', `${userId}-${encryptedString}`)
                 return `${userId}-${encryptedString}`;
             }
         }
