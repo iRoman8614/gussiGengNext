@@ -17,7 +17,6 @@ export default function Page() {
             const hash = CryptoJS.SHA256(input + salt);
             return hash.toString(CryptoJS.enc.Hex);
         }
-
         const input = "557540399";
         const salt = "your_salt_here";
         const encryptedString = encryptStringWithSalt(input, salt);
@@ -33,7 +32,9 @@ export default function Page() {
                 const decodedUserParam = decodeURIComponent(userParam);
                 const userObject = JSON.parse(decodedUserParam);
                 const userId = userObject.id.toString();
+                console.log('userId', userId)
                 const salt = String(process.env.NEXT_PUBLIC_SALT);
+                console.log('salt', salt)
                 const hash = CryptoJS.SHA256(userId + salt);
                 const encryptedString = hash.toString(CryptoJS.enc.Hex);
                 return `${userId}-${encryptedString}`;
