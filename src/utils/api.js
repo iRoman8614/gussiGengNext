@@ -9,22 +9,17 @@ export const useProfileInit = (token) => {
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
-
     const fetchProfileInit = useCallback(async () => {
         if (!token) {
             console.log('Token is missing');
             return;
         }
-
         setLoading(true);
-        setError(null); // Сброс ошибки перед началом запроса
-
+        setError(null);
         try {
             const response = await axios.get(`https://supavpn.lol/profile/init?token=${token}`);
             const { jwt, balance, lang, group, farm, dailyEntries } = response.data;
-
             localStorage.setItem('GWToken', jwt);
-
             const farmData = {
                 coins: balance,
                 totalCoins: balance,
@@ -32,14 +27,12 @@ export const useProfileInit = (token) => {
                 farmLimit: farm.limit,
             };
             localStorage.setItem('farm', JSON.stringify(farmData));
-
             const initData = {
                 lang: lang,
                 groupId: group.id,
                 dailyEntries: dailyEntries
             };
             localStorage.setItem('init', JSON.stringify(initData));
-
             setData({
                 farm: farmData,
                 init: initData
@@ -51,7 +44,6 @@ export const useProfileInit = (token) => {
             setLoading(false);
         }
     }, [token]);
-
     return { data, loading, error, fetchProfileInit };
 };
 
