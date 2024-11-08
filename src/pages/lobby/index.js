@@ -4,11 +4,11 @@ import Link from "next/link";
 import {useRouter} from "next/router";
 import axiosInstance from "@/utils/axios";
 import {toast} from "react-toastify";
-import { useAssetsCache } from "@/context/AssetsCacheContext";
 
 import styles from '@/styles/Lobby.module.scss'
 import {IconButton} from "@/components/buttons/icon-btn/IconButton";
 import {useLastGames, useProfileStats} from "@/utils/api";
+import Head from "next/head";
 
 const bg = '/backgrounds/Lobby.png'
 const hands = '/main-buttons/hand2.png';
@@ -37,7 +37,6 @@ export default function Page() {
     const [sessionsCount, setSessionsCount] = useState(0)
 
     const router = useRouter();
-    const { preloadAssets } = useAssetsCache();
 
     const { fetchProfileStats, data: stats } = useProfileStats();
     const { data: lastGamesData } = useLastGames()
@@ -45,10 +44,6 @@ export default function Page() {
     useEffect(() => {
         fetchProfileStats()
     }, [])
-
-    useEffect(() => {
-        preloadAssets(gameIconsAssets);
-    }, [preloadAssets]);
 
     useEffect(() => {
         if (typeof window !== 'undefined' && window.Telegram?.WebApp?.BackButton) {
@@ -126,79 +121,87 @@ export default function Page() {
     };
 
     return (
-        <div className={styles.root}>
-                <Image className={styles.image} src={bg} alt={''} width={450} height={1000} />
-                <div className={styles.container}>
-                    <div>
-                        <div className={styles.card}>
-                            <div className={styles.icon} onClick={handlePvpClick}>
-                                <div>battle</div>
-                                <p className={styles.hiddenText}>free</p>
-                                <Image className={styles.logo} src={hands} alt={''} width={150} height={75} />
+        <>
+            <Head>
+                {gameIconsAssets.map((src, index) => (
+                    <link key={index} rel="preload" href={src} as="image" />
+                ))}
+            </Head>
+            <div className={styles.root}>
+            <Image className={styles.image} src={bg} alt={''} width={450} height={1000} />
+            <div className={styles.container}>
+                <div>
+                    <div className={styles.card}>
+                        <div className={styles.icon} onClick={handlePvpClick}>
+                            <div>battle</div>
+                            <p className={styles.hiddenText}>free</p>
+                            <Image className={styles.logo} src={hands} alt={''} width={150} height={75} />
+                        </div>
+                        <div className={styles.lable}>
+                            {remainingTime > 0 &&
+                                <div className={styles.timer}>
+                                    {formatTime(remainingTime)}
+                                </div>}
+                            <div className={styles.title}>
+                                {sessionsCount < 5 ? (
+                                    <>
+                                        <div>{5 - sessionsCount}</div>
+                                        <p>games left</p>
+                                    </>
+                                ) : (
+                                    <>
+                                        <div>{stats.pass}</div>
+                                        <p>extra games</p>
+                                    </>)
+                                }
                             </div>
+                        </div>
+                        <div className={styles.btn} onClick={() => {
+                            if (window.Telegram?.WebApp?.HapticFeedback) {
+                                window.Telegram.WebApp.HapticFeedback.impactOccurred('light');
+                            }
+                            // router.push('/faq/pvp')
+                            setHintOne(!hintOne)
+                        }}>?</div>
+                    </div>
+                    {hintOne && <div className={styles.hint}>
+                        Battle against others, earn rewards, and climb the ranks.
+                        <p>no luck, just skill!</p>
+                    </div>}
+                </div>
+                <div>
+                    <div className={styles.hidderRoot}>
+                        <div className={styles.card}>
+                            <Link href={'/lobby'} className={styles.icon}>
+                                <div>ton</div>
+                                <p>battle</p>
+                                <Image className={styles.logo} src={rich} alt={''} width={150} height={75} />
+                            </Link>
                             <div className={styles.lable}>
-                                {remainingTime > 0 &&
-                                    <div className={styles.timer}>
-                                        {formatTime(remainingTime)}
-                                    </div>}
+                                <div className={styles.timer}><p>{' '}</p></div>
                                 <div className={styles.title}>
-                                    {sessionsCount < 5 ? (
-                                        <>
-                                            <div>{5 - sessionsCount}</div>
-                                            <p>games left</p>
-                                        </>
-                                    ) : (
-                                        <>
-                                            <div>{stats.pass}</div>
-                                            <p>extra games</p>
-                                        </>)
-                                    }
+                                    <div>Soon</div>
+                                    {/*<p>ton</p>*/}
                                 </div>
                             </div>
                             <div className={styles.btn} onClick={() => {
                                 if (window.Telegram?.WebApp?.HapticFeedback) {
                                     window.Telegram.WebApp.HapticFeedback.impactOccurred('light');
                                 }
-                                // router.push('/faq/pvp')
-                                setHintOne(!hintOne)
-                            }}>?</div>
+                                setHintTwo(!hintTwo)}}>?</div>
                         </div>
-                        {hintOne && <div className={styles.hint}>
-                            Battle against others, earn rewards, and climb the ranks.
-                            <p>no luck, just skill!</p>
-                        </div>}
                     </div>
-                    <div>
-                        <div className={styles.hidderRoot}>
-                            <div className={styles.card}>
-                                <Link href={'/lobby'} className={styles.icon}>
-                                    <div>ton</div>
-                                    <p>battle</p>
-                                    <Image className={styles.logo} src={rich} alt={''} width={150} height={75} />
-                                </Link>
-                                <div className={styles.lable}>
-                                    <div className={styles.timer}><p>{' '}</p></div>
-                                    <div className={styles.title}>
-                                        <div>Soon</div>
-                                        {/*<p>ton</p>*/}
-                                    </div>
-                                </div>
-                                <div className={styles.btn} onClick={() => {
-                                    if (window.Telegram?.WebApp?.HapticFeedback) {
-                                        window.Telegram.WebApp.HapticFeedback.impactOccurred('light');
-                                    }
-                                    setHintTwo(!hintTwo)}}>?</div>
-                            </div>
-                        </div>
-                        {hintTwo && <div className={styles.hint}>
-                            <p>feeling bold?</p>
-                            Put your Ton on the line in this high-stakes mode!
-                        </div>}
-                    </div>
-                </div>
-                <div className={styles.faq}>
-                    <IconButton image={FAQ} alt={'home'} title={'faq'} onClick={() => {router.push('/faq/pvp')}} />
+                    {hintTwo && <div className={styles.hint}>
+                        <p>feeling bold?</p>
+                        Put your Ton on the line in this high-stakes mode!
+                    </div>}
                 </div>
             </div>
+            <div className={styles.faq}>
+                <IconButton image={FAQ} alt={'home'} title={'faq'} onClick={() => {router.push('/faq/pvp')}} />
+            </div>
+        </div>
+        </>
+
     );
 };

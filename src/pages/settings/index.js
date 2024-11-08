@@ -4,8 +4,8 @@ import {CustomSelect} from '@/components/selector/Select';
 import { useInit } from '@/context/InitContext';
 import { useTranslation } from 'react-i18next';
 import CryptoJS from 'crypto-js';
-
 import { useProfileInit } from '@/utils/api'
+
 import styles from '@/styles/Settings.module.scss'
 
 export default function Page() {
@@ -25,7 +25,7 @@ export default function Page() {
     }, [])
 
     function createEncryptedToken() {
-        if (window.Telegram?.WebApp) {
+        if (typeof window !== 'undefined' && window.Telegram?.WebApp) {
             const search = window.Telegram.WebApp.initData;
             const urlParams = new URLSearchParams(search);
             const userParam = urlParams.get('user');
@@ -43,9 +43,8 @@ export default function Page() {
     }
 
     const token = createEncryptedToken(); // Получаем token
-    const { data, loading, error, fetchProfileInit } = useProfileInit(token);
+    const { data,  fetchProfileInit } = useProfileInit(token);
 
-    // Вызов fetchProfileInit при наличии token
     useEffect(() => {
         if (token) {
             fetchProfileInit();
@@ -60,16 +59,6 @@ export default function Page() {
     ];
 
     const router = useRouter();
-
-    // useEffect(async () => {
-    //     try {
-    //         const response = await axios.get(`https://supavpn.lol/profile/init?token=1`);
-    //         console.log('response data', response.data)
-    //     } catch (error) {
-    //         console.log('error status', error.status)
-    //     }
-    // }, [])
-
     useEffect(() => {
         if (typeof window !== 'undefined' && window.Telegram?.WebApp?.BackButton) {
             window.Telegram.WebApp.BackButton.show();
