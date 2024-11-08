@@ -59,7 +59,7 @@ export default function LoaderPage() {
     useEffect(() => {
         checkVersion();
         initializeTelegramWebApp();
-    }, [checkVersion, initializeTelegramWebApp]);
+    }, [isNewPlayer, initializeTelegramWebApp]);
 
     const checkVersion = useCallback(() => {
         if (typeof window !== 'undefined') {
