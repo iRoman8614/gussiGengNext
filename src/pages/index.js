@@ -123,9 +123,7 @@ export default function LoaderPage() {
     useEffect(() => {
         const executeAfterToken = async () => {
             initializeTelegramWebApp()
-            if (isNewPlayer) {
-                await fetchData();
-            }
+            await fetchData();
             updateAndRedirect();
         };
         if (token) {
