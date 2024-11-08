@@ -56,11 +56,6 @@ export default function LoaderPage() {
         checkVersion();
     }, [updateBodyHeight]);
 
-    useEffect(() => {
-        checkVersion();
-        initializeTelegramWebApp();
-    }, [isNewPlayer, initializeTelegramWebApp]);
-
     const checkVersion = useCallback(() => {
         if (typeof window !== 'undefined') {
             const savedVersion = localStorage.getItem('version');
@@ -111,10 +106,19 @@ export default function LoaderPage() {
     }, []);
 
     const updateAndRedirect = useCallback(() => {
+        const init = localStorage.getItem('init');
+        const start = localStorage.getItem('farm');
+        const GWToken = localStorage.getItem('GWToken');
         const savedInit = JSON.parse(localStorage.getItem('init'));
         const savedFarm = JSON.parse(localStorage.getItem('farm'));
-        const isExperiencedPlayer = savedInit && savedFarm
+        let isExperiencedPlayer = false
+        if (!init || !start || !GWToken) {
+            setIsNewPlayer(true);
+        } else {
+            isExperiencedPlayer = savedInit && savedFarm
+        }
         updateContext();
+
         if (savedInit.groupId === 0 || savedFarm.farmLimit === 0) {
             return;
         }
@@ -123,7 +127,7 @@ export default function LoaderPage() {
         } else if (!isNewPlayer && isExperiencedPlayer) {
             router.push('/main');
         }
-    }, [isNewPlayer]);
+    }, []);
 
     useEffect(() => {
         const executeAfterToken = async () => {
