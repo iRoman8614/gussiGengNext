@@ -23,16 +23,7 @@ const newPlayerAssets = [
 export default function LoaderPage() {
     const router = useRouter();
     const { updateContext } = useInit();
-    const [isNewPlayer, setIsNewPlayer] = useState(() => {
-        if (typeof window !== 'undefined') {
-            const init = localStorage.getItem('init');
-            const start = localStorage.getItem('farm');
-            const GWToken = localStorage.getItem('GWToken');
-            return !init || !start || !GWToken;
-        } else {
-            return true
-        }
-    });
+    const [isNewPlayer, setIsNewPlayer] = useState(false);
 
     const CURRENT_VERSION = process.env.NEXT_PUBLIC_CURRENT_VERSION
 
@@ -63,6 +54,12 @@ export default function LoaderPage() {
                 localStorage.clear();
                 setIsNewPlayer(true);
                 localStorage.setItem('version', CURRENT_VERSION);
+            }
+            else {
+                const init = localStorage.getItem('init');
+                const farm = localStorage.getItem('farm');
+                const GWToken = localStorage.getItem('GWToken');
+                setIsNewPlayer(!init || !farm || !GWToken);
             }
         }
     }, [CURRENT_VERSION]);
