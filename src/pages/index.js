@@ -121,15 +121,9 @@ export default function LoaderPage() {
             setHasError(true);
             if (error.response?.status === 401 || error?.status === 401 ) {
                 toast.error('Unauthorized: Please check your token and try again.');
-                if (window.Telegram?.WebApp) {
-                    window.Telegram.WebApp.close();
-                }
                 return
             } else {
                 toast.error('Error during data fetching. Please try again.');
-                if (window.Telegram?.WebApp) {
-                    window.Telegram.WebApp.close();
-                }
                 return
             }
         }
