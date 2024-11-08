@@ -55,14 +55,8 @@ export default function LoaderPage() {
                 setIsNewPlayer(true);
                 localStorage.setItem('version', CURRENT_VERSION);
             }
-            else {
-                const init = localStorage.getItem('init');
-                const farm = localStorage.getItem('farm');
-                const GWToken = localStorage.getItem('GWToken');
-                setIsNewPlayer(!init || !farm || !GWToken);
-            }
         }
-    }, [CURRENT_VERSION]);
+    }, [CURRENT_VERSION, isNewPlayer]);
 
     function createEncryptedToken() {
         if (typeof window !== 'undefined' && window.Telegram?.WebApp) {
