@@ -35,6 +35,10 @@ export default function LoaderPage() {
         document.body.style.height = `${window.innerHeight}px`;
     }, []);
 
+    useEffect(() => {
+        checkVersion();
+    }, [])
+
     const initializeTelegramWebApp = useCallback(() => {
         if (window.Telegram?.WebApp) {
             window.Telegram.WebApp.setHeaderColor('#183256');
@@ -56,7 +60,7 @@ export default function LoaderPage() {
                 localStorage.setItem('version', CURRENT_VERSION);
             }
         }
-    }, [CURRENT_VERSION, isNewPlayer]);
+    }, [CURRENT_VERSION]);
 
     function createEncryptedToken() {
         if (typeof window !== 'undefined' && window.Telegram?.WebApp) {
