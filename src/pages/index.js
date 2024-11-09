@@ -4,7 +4,7 @@ import Image from 'next/image';
 import Head from "next/head";
 import { toast } from "react-toastify";
 import { useInit } from '@/context/InitContext';
-import { useProfileInit, useFarmStart } from '@/utils/api';
+import {useProfileInit, useFarmStart, useProfileStats} from '@/utils/api';
 import CryptoJS from 'crypto-js';
 
 import styles from '@/styles/Loader.module.scss';
@@ -39,6 +39,7 @@ export default function LoaderPage() {
     const token = createEncryptedToken();
     const { data: profileData, loading: profileLoading, error: profileError, fetchProfileInit } = useProfileInit(token);
     const { data: farmData, loading: farmLoading, error: farmError, fetchFarmStart } = useFarmStart();
+    const { data: statsData, loading: statsLoading, error, statsError, fetchProfileStats } = useProfileStats()
 
     const updateBodyHeight = useCallback(() => {
         document.body.style.height = `${window.innerHeight}px`;
@@ -90,6 +91,7 @@ export default function LoaderPage() {
         try {
             await fetchProfileInit()
             await fetchFarmStart();
+            await fetchProfileStats();
             if (profileError) {
                 throw new Error('Initialization failed, restart app');
             }
