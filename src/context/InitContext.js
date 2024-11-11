@@ -80,6 +80,7 @@ export const InitProvider = ({ children }) => {
             setRate(savedFarm.farmRate || 1);
             setCoins(savedFarm.coins || 0);
             setTotalCoins(savedFarm.totalCoins || 0);
+            setDailyEntries(savedInit.dailyEntries || 0);
         }
     };
 
