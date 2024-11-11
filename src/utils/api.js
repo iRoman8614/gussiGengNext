@@ -66,7 +66,7 @@ export const useFarmStart = () => {
                 totalCoins,
                 farmRate: rate,
                 farmLimit: limit,
-                delayEntries: delayEntries
+                dailyEntries: delayEntries
             };
             localStorage.setItem('farm', JSON.stringify(updatedInitData));
             localStorage.setItem('startTime', startTime);
