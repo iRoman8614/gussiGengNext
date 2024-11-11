@@ -7,6 +7,7 @@ import { useProfileInit, useFarmStart, useProfileStats } from '@/utils/api';
 import { useTranslation } from "react-i18next";
 import { useCachedAssets } from '@/utils/cache';
 import assetData from "@/mock/assets.json";
+import CryptoJS from 'crypto-js';
 
 import styles from '@/styles/Loader.module.scss';
 
