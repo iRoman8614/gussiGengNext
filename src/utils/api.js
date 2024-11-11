@@ -58,7 +58,7 @@ export const useFarmStart = () => {
         setLoading(true);
         try {
             const response = await instance.get(`/farm/start`);
-            const { coins, totalCoins, startTime, rate, limit } = response.data;
+            const { coins, totalCoins, startTime, rate, limit, delayEntries } = response.data;
             const initData = JSON.parse(localStorage.getItem('farm')) || {};
             const updatedInitData = {
                 ...initData,
@@ -66,6 +66,7 @@ export const useFarmStart = () => {
                 totalCoins,
                 farmRate: rate,
                 farmLimit: limit,
+                delayEntries: delayEntries
             };
             localStorage.setItem('farm', JSON.stringify(updatedInitData));
             localStorage.setItem('startTime', startTime);
