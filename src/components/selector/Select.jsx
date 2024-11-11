@@ -1,24 +1,8 @@
-import React, { useState, useEffect } from 'react';
 import Select from 'react-select';
 
 import styles from './Select.module.scss'
-
-export const CustomSelect = ({ optionsArray, title, onChange  }) => {
-    const [selectedOption, setSelectedOption] = useState(optionsArray[0] || null);
-
-    useEffect(() => {
-        if (optionsArray.length > 0) {
-            setSelectedOption(optionsArray[0]);
-        }
-    }, [optionsArray]);
-
-    const handleChange = (option) => {
-        setSelectedOption(option);
-        if (onChange) {
-            onChange(option);
-        }
-    };
-
+// eslint-disable-next-line react/prop-types
+export const CustomSelect = ({ optionsArray, title, onChange, value  }) => {
     const customStyles = {
         control: (provided) => ({
             ...provided,
@@ -78,13 +62,12 @@ export const CustomSelect = ({ optionsArray, title, onChange  }) => {
         <div className={styles.root}>
             <div className={styles.label}>{title}</div>
             <Select
-                value={selectedOption}
-                onChange={handleChange}
+                onChange={onChange}
                 options={optionsArray}
                 styles={customStyles}
                 placeholder="Select Language"
                 isSearchable={false}
-                defaultValue={optionsArray[0]}
+                value={value}
             />
         </div>
 
