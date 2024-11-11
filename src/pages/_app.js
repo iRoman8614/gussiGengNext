@@ -3,10 +3,70 @@ import Script from "next/script";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Head from "next/head";
-import MobileGuard from "@/components/guard/Guard";
 import { InitProvider } from '@/context/InitContext';
+import assetData from "@/mock/assets.json";
+import {useEffect} from "react";
 
 export default function App({ Component, pageProps }) {
+    useEffect(() => {
+        if (typeof window === "undefined") return;
+
+        const worker = new Worker(new URL("../workers/assetWorker.js", import.meta.url));
+        const assetGroups = [
+            { group: "backgrounds", assets: assetData.backgrounds },
+            { group: "skins", assets: Object.values(assetData.skins).flat() },
+            { group: "icons", assets: assetData.icons },
+            { group: "gameItems", assets: assetData.gameItems },
+            { group: "upgrades", assets: Object.values(assetData.upgrades).flat() },
+            { group: "others", assets: assetData.others },
+            { group: "newPlayerAssets", assets: assetData.newPlayerAssets }
+        ];
+
+        let currentGroupIndex = 0;
+
+        // Проверка на наличие группы в кэше
+        const isGroupCached = async (cacheName) => {
+            const cache = await caches.open(cacheName);
+            const keys = await cache.keys();
+            return keys.length > 0;
+        };
+
+        const loadNextGroup = async () => {
+            if (currentGroupIndex >= assetGroups.length) {
+                console.log("All asset groups loaded");
+                return;
+            }
+
+            const { group, assets } = assetGroups[currentGroupIndex];
+            const cacheName = `assets-cache-${group}`;
+
+            if (await isGroupCached(cacheName)) {
+                console.log(`Группа ${group} уже загружена, пропускаем.`);
+                currentGroupIndex++;
+                loadNextGroup();
+            } else {
+                console.log(`Загружаем группу: ${group}`);
+                worker.postMessage({ assets, cacheName });
+            }
+        };
+
+        worker.onmessage = (event) => {
+            const { status, cacheName, asset, error } = event.data;
+            if (status === "loaded") {
+                console.log(`Asset ${asset} загружен`);
+            } else if (status === "error") {
+                console.error(`Ошибка загрузки ассета ${asset}: ${error}`);
+            } else if (status === "complete") {
+                console.log(`Группа ${cacheName} загружена`);
+                currentGroupIndex++;
+                loadNextGroup();
+            }
+        };
+
+        loadNextGroup();
+        return () => worker.terminate();
+    }, []);
+
     return(
         <InitProvider>
             <Head>

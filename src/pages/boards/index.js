@@ -2,20 +2,24 @@ import {useEffect, useRef, useState} from "react";
 import Image from "next/image";
 import {useRouter} from "next/router";
 import { Navigation, Controller } from 'swiper/modules';
-import {ListItem} from "@/components/ListItem/ListItem";
+import {useTranslation} from "react-i18next";
 import {useInit} from "@/context/InitContext";
 import {useProfileStats, useProfileLeaders} from "@/utils/api";
+import {ListItem} from "@/components/ListItem/ListItem";
 import { Swiper, SwiperSlide } from 'swiper/react';
+
 import skinData from '@/mock/skinsData'
 
 import 'swiper/css';
 import 'swiper/css/navigation';
 import styles from '@/styles/Boards.module.scss'
 
-const bg = '/backgrounds/leaderboardBG.png'
+const bg = "/backgrounds/leaderboardBG.png"
+const arrowWhite = "/ArrowWhite.png"
 
 export default function Page() {
     const router = useRouter();
+    const { t } = useTranslation();
     const { groupId, updateContext } = useInit();
     const [activeIndex, setActiveIndex] = useState(0);
 
@@ -77,67 +81,68 @@ export default function Page() {
 
     return(
         <div className={styles.root}>
-                <div className={styles.containerSwiper}>
-                    <Swiper
-                        modules={[Navigation, Controller]}
-                        spaceBetween={-3}
-                        slidesPerView={3}
-                        centeredSlides={true}
-                        loop={true}
-                        onSwiper={(swiper) => {
-                            swiperRef.current = swiper;
-                        }}
-                        onSlideChange={handleSlideChange}
-                        className={styles.swiper}
-                    >
-                        {skinData[groupId]?.map((character, index) => (
-                            <SwiperSlide
-                                key={index}
-                                className={index === activeIndex ? styles.activeSlide : styles.inactiveSlide}
-                            >
-                                <div className={index === activeIndex ? styles.activeSlideImageWrapper : styles.inactiveSlideImageWrapper}>
-                                    <Image
-                                        width={index === activeIndex ? 100 : 80}
-                                        height={index === activeIndex ? 194 : 155}
-                                        src={character.icon}
-                                        alt={''}
-                                        className={styles.icon}
-                                    />
-                                </div>
-                            </SwiperSlide>
-                        ))}
-                    </Swiper>
-                </div>
-                <div className={styles.navigation}>
-                    <button className={styles.navLeft} onClick={handleSlidePrev}>
-                        <Image src={'/ArrowWhite.png'} alt={''} width={15} height={15} />
-                    </button>
-                    <div className={styles.caption}>
-                        <span>{ligsNames[activeIndex]}</span>
-                    </div>
-                    <button className={styles.navRight} onClick={handleSlideNext}>
-                        <Image src={'/ArrowWhite.png'} alt={''} width={15} height={15} />
-                    </button>
-                </div>
-                <div className={styles.progressBar}>
-                    <div className={styles.progress} style={{width: `${length}%`}}></div>
-                </div>
-                <div className={styles.winsCounter}>{`wins ${stats?.victory}/${ligsLimits[activeIndex]}+`}</div>
-                <Image src={bg} alt={''} className={styles.bg} width={450} height={1000} />
-                <div className={styles.container}>
-                    {leaderData && leaderData.length === 0 ? (
-                        <div className={styles.emptyState}>
-                            <p>Nobody has reached this league yet.</p>
-                            <p>Be the first!</p>
-                        </div>
-                    ) : leaderData ? (
-                        leaderData.map((user, index) => (
-                            <ListItem key={index} teamId={user.teamId} item={user} index={index + 1} />
-                        ))
-                    ) : (
-                        <div className={styles.emptyState}>Loading...</div>
-                    )}
-                </div>
+            <div className={styles.containerSwiper}>
+                <Swiper
+                    modules={[Navigation, Controller]}
+                    spaceBetween={-3}
+                    slidesPerView={3}
+                    centeredSlides={true}
+                    loop={true}
+                    onSwiper={(swiper) => {
+                        swiperRef.current = swiper;
+                    }}
+                    onSlideChange={handleSlideChange}
+                    className={styles.swiper}
+                >
+                    {skinData[groupId]?.map((character, index) => (
+                        <SwiperSlide
+                            key={index}
+                            className={index === activeIndex ? styles.activeSlide : styles.inactiveSlide}
+                        >
+                            <div className={index === activeIndex ? styles.activeSlideImageWrapper : styles.inactiveSlideImageWrapper}>
+                                <Image
+                                    width={index === activeIndex ? 100 : 80}
+                                    height={index === activeIndex ? 194 : 155}
+                                    src={character.icon}
+                                    alt={''}
+                                    className={styles.icon}
+                                    loading="lazy"
+                                />
+                            </div>
+                        </SwiperSlide>
+                    ))}
+                </Swiper>
             </div>
+            <div className={styles.navigation}>
+                <button className={styles.navLeft} onClick={handleSlidePrev}>
+                    <Image src={arrowWhite} alt={''} width={15} height={15} loading="lazy" />
+                </button>
+                <div className={styles.caption}>
+                    <span>{ligsNames[activeIndex]}</span>
+                </div>
+                <button className={styles.navRight} onClick={handleSlideNext}>
+                    <Image src={arrowWhite} alt={''} width={15} height={15} loading="lazy" />
+                </button>
+            </div>
+            <div className={styles.progressBar}>
+                <div className={styles.progress} style={{width: `${length}%`}}></div>
+            </div>
+            <div className={styles.winsCounter}>{`${t('boards.wins')} ${stats?.victory}/${ligsLimits[activeIndex]}+`}</div>
+            <Image src={bg} alt={''} className={styles.bg} width={450} height={1000} loading="lazy" />
+            <div className={styles.container}>
+                {leaderData && leaderData.length === 0 ? (
+                    <div className={styles.emptyState}>
+                        <p>{t('boards.nobody')}</p>
+                        <p>{t('boards.first')}</p>
+                    </div>
+                ) : leaderData ? (
+                    leaderData.map((user, index) => (
+                        <ListItem key={index} teamId={user.teamId} item={user} index={index + 1} />
+                    ))
+                ) : (
+                    <div className={styles.emptyState}>Loading...</div>
+                )}
+            </div>
+        </div>
     )
 }

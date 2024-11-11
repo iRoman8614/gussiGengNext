@@ -1,3 +1,4 @@
+
 import {useEffect, useRef, useState} from "react";
 import Image from "next/image";
 import { useRouter } from 'next/router';
@@ -7,6 +8,7 @@ import {LoaderGif} from "@/components/loader/LoaderGif.jsx";
 import {PvpBtn} from "@/components/buttons/PvpBtn/PvpBtn";
 import { toast } from "react-toastify";
 import axiosInstance from '@/utils/axios';
+import {useTranslation} from "react-i18next";
 
 import teamData from '@/mock/teamsData.js';
 import { gameOptions } from '@/mock/optionData';
@@ -32,6 +34,7 @@ const changerB = '/game-icons/roundAnimBack.png'
 
 export default function PvpPage() {
     const router = useRouter();
+    const { t } = useTranslation();
     const [visibleImage, setVisibleImage] = useState(0);
     const [playerScore, setPlayerScore] = useState(0);
     const [opponentScore, setOpponentScore] = useState(0);
@@ -292,15 +295,14 @@ export default function PvpPage() {
     const resetRoundAfterDelay = () => {
         if (playerChoice !== opponentChoice) {
             setRound(prev => prev + 1);
-            setShowChanger(true)
-            console.log("Обновляем раунд");
+            setShowChanger(true);
+            setTimeout(() => setShowChanger(false), 1000);
         }
         setRoundResult(null);
         setPlayerChoice(4);
         setOpponentChoice(4);
         setTimer(3);
         setVisibleImage(0);
-        setShowChanger(false)
     };
 
     const handleGameEnd = () => {
@@ -358,12 +360,13 @@ export default function PvpPage() {
                                                         : gameOptions[3]?.logo
                                     }
                                     alt="game choice"
+                                    loading="lazy"
                                 />
                             </div>
                             <VictoryCounter score={playerScore} />
                             <IconButton image={teamData[userClan].logo} alt={'gang'} />
                             <div className={styles.roundTimer}>
-                                <Image src={timerBG} alt={'timer'} height={144} width={144} className={styles.roundTimerBG} />
+                                <Image src={timerBG} alt={'timer'} height={144} width={144} className={styles.roundTimerBG} loading="lazy" />
                                 <div className={styles.time}>{timer}</div>
                             </div>
                             <IconButton image={teamData[oppClan].logo} alt={'gang'} />
@@ -400,15 +403,16 @@ export default function PvpPage() {
                                                         : gameOptions[3]?.logo
                                     }
                                     alt="game choice"
+                                    loading="lazy"
                                 />
                             </div>
                             <div className={styles.round}>
-                                round {round}
+                                {t('PVP.rounds')} {round}
                             </div>
                             <div className={styles.buttonSet}>
-                                <PvpBtn title={'rock'} img={rock} value={1} onClick={() => handlePlayerChoice(1)} choose={playerChoice} />
-                                <PvpBtn title={'paper'} img={paper} value={2} onClick={() => handlePlayerChoice(2)} choose={playerChoice} />
-                                <PvpBtn title={'scissons'} img={scis} value={3} onClick={() => handlePlayerChoice(3)} choose={playerChoice} />
+                                <PvpBtn title={t('PVP.rock')} img={rock} value={1} onClick={() => handlePlayerChoice(1)} choose={playerChoice} />
+                                <PvpBtn title={t('PVP.paper')} img={paper} value={2} onClick={() => handlePlayerChoice(2)} choose={playerChoice} />
+                                <PvpBtn title={t('PVP.scissors')} img={scis} value={3} onClick={() => handlePlayerChoice(3)} choose={playerChoice} />
                             </div>
                         </div>
                     </div>
@@ -422,9 +426,9 @@ export default function PvpPage() {
 // eslint-disable-next-line react/prop-types
 const VictoryCounter = ({ score }) => (
     <div className={styles.counter}>
-        {(score >= 1) ? <Image className={styles.heart} src={cross} alt={''} width={55} height={55}  /> : <Image className={styles.heart} src={heart} alt={''} width={55} height={55}  />}
-        {(score >= 2) ? <Image className={styles.heart} src={cross} alt={''} width={55} height={55}  /> : <Image className={styles.heart} src={heart} alt={''} width={55} height={55}  />}
-        {(score >= 3) ? <Image className={styles.heart} src={cross} alt={''} width={55} height={55}  /> : <Image className={styles.heart} src={heart} alt={''} width={55} height={55}  />}
+        {(score >= 1) ? <Image className={styles.heart} src={cross} alt={''} width={55} height={55} loading="lazy" /> : <Image className={styles.heart} src={heart} alt={''} width={55} height={55} loading="lazy" />}
+        {(score >= 2) ? <Image className={styles.heart} src={cross} alt={''} width={55} height={55} loading="lazy" /> : <Image className={styles.heart} src={heart} alt={''} width={55} height={55} loading="lazy" />}
+        {(score >= 3) ? <Image className={styles.heart} src={cross} alt={''} width={55} height={55} loading="lazy" /> : <Image className={styles.heart} src={heart} alt={''} width={55} height={55} loading="lazy" />}
     </div>
 );
 
@@ -443,12 +447,14 @@ const WinningScreen = ({ userName, playerScore, opponentName  }) => (
     </div>
 );
 
-const RoundChanger = ({round}) => (
-    <div className={styles.changerRoot}>
-        <div className={styles.changerContainer}>
-            <Image className={styles.animF} src={changerF} alt={''} width={700} height={150} />
-            <Image className={styles.animB} src={changerB} alt={''} width={700} height={150} />
-            <div className={styles.changerText}>round {round}</div>
+const RoundChanger = ({round}) => {
+    const {t} = useTranslation();
+    return(
+        <div className={styles.changerRoot}>
+            <div className={styles.changerContainer}>
+                <Image className={styles.animF} src={changerF} alt={''} width={700} height={150} />
+                <Image className={styles.animB} src={changerB} alt={''} width={700} height={150} />
+                <div className={styles.changerText}>{t('PVP.rounds')} {round}</div>
+            </div>
         </div>
-    </div>
-)
+    )}

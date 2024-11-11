@@ -2,6 +2,7 @@ import {useEffect, useState} from "react";
 import Image from "next/image";
 import {FaqIconButton} from "@/components/buttons/icon-btn/FaqIconButton";
 import {CollectBar} from "@/components/bars/CollectBar";
+import {useTranslation} from "react-i18next";
 
 import teamData from "@/mock/teamsData.js";
 import skinData from '@/mock/skinsData'
@@ -26,6 +27,7 @@ const FAQ = '/main-buttons/FAQ.png'
 
 export default function Home() {
     const router = useRouter()
+    const { t } = useTranslation();
     const [slide, setSlide] = useState(0)
     const { groupId, liga } = useInit();
 
@@ -49,7 +51,7 @@ export default function Home() {
 
     const nextSlide = () => {
         if (window.Telegram?.WebApp?.HapticFeedback) {
-            window.Telegram.WebApp.HapticFeedback.impactOccurred("light");
+            window.Telegram.WebApp.HapticFeedback.impactOccurred("heavy");
         }
         if(slide === 6) {
             router.push('/main')
@@ -60,7 +62,7 @@ export default function Home() {
 
     const prevSlide = () => {
         if (window.Telegram?.WebApp?.HapticFeedback) {
-            window.Telegram.WebApp.HapticFeedback.impactOccurred("light");
+            window.Telegram.WebApp.HapticFeedback.impactOccurred("heavy");
         }
         if(slide === 0) {
             return
@@ -71,62 +73,62 @@ export default function Home() {
 
     const slideContent = [
         <div className={styles.slideContent1} key={'slideContent1'}>
-            <div>This is your <br/> current <a className={styles.green}>balance</a></div>
-            <div>and that is your <br/> limited farm <a className={styles.yellow}>pool</a></div>
+            <div>{t('FAQ.1.current')} <br/><a className={styles.green}>{t('FAQ.1.balance')}</a></div>
+            <div>{t('FAQ.1.farmPool')} <a className={styles.yellow}> {t('FAQ.1.pool')}</a> {t('FAQ.1.end')}</div>
         </div>,
         <div className={styles.slideContent2} key={'slideContent2'}>
-            <div>This is your claim button. Use it to <a className={styles.yellow}>claim</a> money from the limited <a className={styles.yellow}>farm pool</a> and add it to your current <a className={styles.green}>balance</a> </div>
+            <div>{t('FAQ.2.btn')} <a className={styles.yellow}>{t('FAQ.2.claim')}</a>{t('FAQ.2.money')} <a className={styles.yellow}>{t('FAQ.2.farm')}</a> {t('FAQ.2.add')} <a className={styles.green}>{t('FAQ.2.balance')}</a> </div>
         </div>,
         <div className={styles.slideContent3} key={'slideContent3'}>
-            <div><a className={styles.green}>Account</a> - check your stats and customise your profile</div>
-            <div><a className={styles.green}>Ganglogo</a> - swap your gang here</div>
-            <div><a className={styles.green}>Settings</a> - change your language and ui preferences</div>
+            <div><a className={styles.green}>{t('FAQ.3.account')}</a> - {t('FAQ.3.check')}</div>
+            <div><a className={styles.green}>{t('FAQ.3.gl')}</a> - {t('FAQ.3.swap')}</div>
+            <div><a className={styles.green}>{t('FAQ.3.settings')}</a> - {t('FAQ.3.change')}</div>
         </div>,
         <div className={styles.slideContent4} key={'slideContent4'}>
-            <div><a className={styles.green}>Leaderboard</a> - check out your  rank and leaderboard standings</div>
-            <div><a className={styles.yellow}>Wallet</a> - link your cryptowallet</div>
+            <div><a className={styles.green}>{t('FAQ.4.boards')}</a> - {t('FAQ.4.check')}</div>
+            <div><a className={styles.yellow}>{t('FAQ.4.wallet')}</a> - {t('FAQ.4.link')}</div>
         </div>,
         <div className={styles.slideContent5} key={'slideContent5'}>
-            <div>PVP - <a className={styles.yellow}>battle</a> your way to the top of the <a className={styles.yellow}>ranks</a> or test your skills for <a className={styles.yellow}>ton</a></div>
+            <div>{t('FAQ.5.pvp')} <a className={styles.yellow}>{t('FAQ.5.battle')}</a> {t('FAQ.5.way')} <a className={styles.yellow}>{t('FAQ.5.ranks')}</a> {t('FAQ.5.test')} <a className={styles.yellow}>{t('FAQ.5.ton')}</a> {t('FAQ.5.soon')}</div>
         </div>,
         <div className={styles.slideContent6} key={'slideContent6'}>
             <div>
-                Items - bling out your <a className={styles.yellow}>battle avatar</a> with earned and bought items
-                </div>
+                {t('FAQ.6.items')} <a className={styles.yellow}>{t('FAQ.6.ava')}</a> {t('FAQ.6.earned')}
+            </div>
             <div>
-                Exp -  upgrade your <a className={styles.yellow}>farming rate</a> and <a className={styles.green}>farming limit</a></div>
+                {t('FAQ.6.exp')} <a className={styles.yellow}>{t('FAQ.6.rate')}</a> {t('FAQ.6.and')} <a className={styles.green}>{t('FAQ.6.limit')}</a></div>
         </div>,
         <div className={styles.slideContent7} key={'slideContent7'}>
-            <div>Friends - <a className={styles.yellow}>invite</a> your friends and <a className={styles.green}>gain</a> bonuses</div>
-            <div>FAQ - wouldn&apos;t be here without it</div>
+            <div>{t('FAQ.7.friends')} <a className={styles.yellow}>{t('FAQ.7.invite')}</a> {t('FAQ.7.your')} <a className={styles.green}>{t('FAQ.7.gain')}</a> {t('FAQ.7.bonuses')}</div>
+            <div>{t('FAQ.7.faq')}</div>
         </div>
     ];
 
     return (
         <>
             <div className={styles.root}>
-                <Image className={styles.background} src={background} width={300} height={1000}  alt={'bg'}/>
+                <Image className={styles.background} src={background} width={300} height={1000} alt={'bg'} loading="lazy"/>
                 <div className={slide === 2 ? `${styles.item1} ${styles.visible}` : styles.item1}>
-                    <FaqIconButton image={account} alt={'account'} title={'account'} />
+                    <FaqIconButton image={account} alt={'account'} title={t('main.account')} />
                 </div>
                 <div className={slide === 2 ? `${styles.item2} ${styles.visible}` : styles.item2}>
                     <FaqIconButton image={teamData[groupId]?.logo} alt={'gang'}/>
                 </div>
                 <div className={slide === 2 ? `${styles.item3} ${styles.visible}` : styles.item3}>
-                    <FaqIconButton image={settings} alt={'settings'} title={'settings'} />
+                    <FaqIconButton image={settings} alt={'settings'} title={t('main.settings')} />
                 </div>
                 <div className={slide === 3 ? `${styles.item4} ${styles.visible}` : styles.item4}>
-                    <FaqIconButton image={boards} alt={'boards'} title={'board'} />
+                    <FaqIconButton image={boards} alt={'boards'} title={t('main.boards')} />
                 </div>
                 <div className={slide === 0 ? `${styles.item5} ${styles.visible}` : styles.item5}>
-                    <Image src={border} width={600} height={200} alt={'border'} className={styles.totalBarRoot}/>
+                    <Image src={border} width={600} height={200} alt={'border'} className={styles.totalBarRoot} loading="lazy"/>
                     <div className={styles.totalText}>525 000 000</div>
                 </div>
                 <div className={slide === 3 ? `${styles.item6} ${styles.visible}` : styles.item6}>
-                    <FaqIconButton image={wallet} alt={'wallet'} title={'wallet'} />
+                    <FaqIconButton image={wallet} alt={'wallet'} title={t('main.wallet')} />
                 </div>
                 <div className={styles.item7}>
-                    <Image width={1000} height={1000} className={styles.char} alt={'character'} src={skinData[groupId]?.[liga]?.icon}/>
+                    <Image width={1000} height={1000} className={styles.char} alt={'character'} src={skinData[groupId]?.[liga]?.icon} loading="lazy"/>
                 </div>
                 <div className={slide === 0 ? `${styles.item8} ${styles.visible}` : styles.item8}>
                     <CollectBar
@@ -136,20 +138,20 @@ export default function Home() {
                     />
                 </div>
                 <div className={slide === 1 ? `${styles.item9} ${styles.visible}` : styles.item9}>
-                    <Image className={styles.claimRoot} width={600} height={200} src={claim} alt={'claim'} />
+                    <Image className={styles.claimRoot} width={600} height={200} src={claim} alt={'claim'} loading="lazy" />
                 </div>
-                <div className={slide === 5 ? `${styles.item10} ${styles.visible}` : styles.item10}><FaqIconButton image={bag} alt={'items'} title={'items'} /></div>
-                <div className={slide === 5 ? `${styles.item11} ${styles.visible}` : styles.item11}><FaqIconButton image={upgrades} alt={'upgrades'} title={'exp'} /></div>
-                <div className={slide === 4 ? `${styles.item12} ${styles.visible}` : styles.item12}><BigButton image={hands} alt={'pvp'} title={'pvp'} /></div>
-                <div className={slide === 6 ? `${styles.item13} ${styles.visible}` : styles.item13}><FaqIconButton image={friends} alt={'friends'} title={'friends'} /></div>
-                <div className={slide === 6 ? `${styles.item14} ${styles.visible}` : styles.item14}><FaqIconButton image={FAQ} alt={'home'} title={'FAQ'} /></div>
+                <div className={slide === 5 ? `${styles.item10} ${styles.visible}` : styles.item10}><FaqIconButton image={bag} alt={'items'} title={t('main.items')} /></div>
+                <div className={slide === 5 ? `${styles.item11} ${styles.visible}` : styles.item11}><FaqIconButton image={upgrades} alt={'upgrades'} title={t('main.exp')} /></div>
+                <div className={slide === 4 ? `${styles.item12} ${styles.visible}` : styles.item12}><BigButton image={hands} alt={'pvp'} title={t('main.pvp')} /></div>
+                <div className={slide === 6 ? `${styles.item13} ${styles.visible}` : styles.item13}><FaqIconButton image={friends} alt={'friends'} title={t('main.friends')} /></div>
+                <div className={slide === 6 ? `${styles.item14} ${styles.visible}` : styles.item14}><FaqIconButton image={FAQ} alt={'home'} title={t('main.faq')} /></div>
             </div>
             <div className={styles.filter}>
                 <div className={styles.tutorial}>
                     <div className={styles.col}>
                         <div className={styles.dot}>.</div>
                         <div className={styles.navLeft} onClick={prevSlide}>
-                            <Image src={'/ArrowWhite.png'} alt={''} width={24} height={24} />
+                            <Image src={'/ArrowWhite.png'} alt={''} width={24} height={24} loading="lazy" />
                         </div>
                         <div className={styles.dot}>.</div>
                     </div>
@@ -159,7 +161,7 @@ export default function Home() {
                     <div className={styles.col}>
                         <div className={styles.dot}>.</div>
                         <div className={styles.navRight} onClick={nextSlide}>
-                            <Image src={'/ArrowWhite.png'} alt={''} width={24} height={24} />
+                            <Image src={'/ArrowWhite.png'} alt={''} width={24} height={24} loading="lazy" />
                         </div>
                         <div className={styles.pagination}>{slide+1}/7</div>
                     </div>

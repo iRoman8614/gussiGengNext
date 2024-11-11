@@ -1,18 +1,27 @@
-import {useEffect} from 'react';
+import {useEffect, useState} from 'react';
 import {useRouter} from "next/router";
+import { useTranslation } from 'react-i18next';
+import i18next from 'i18next';
 import {CustomSelect} from '@/components/selector/Select';
 import { useInit } from '@/context/InitContext';
-import { useTranslation } from 'react-i18next';
 
 import styles from '@/styles/Settings.module.scss'
 
 export default function Page() {
     const { setLang } = useInit();
-    const { i18n } = useTranslation();
+    const { t } = useTranslation();
+
+    let lang = false
+    if(typeof window !== "undefined") {
+        lang = localStorage.getItem('appLanguage')
+    }
+
+    const initialLang = lang || i18next.language;
+    const [selectedLanguage, setSelectedLanguage] = useState(initialLang);
 
     const languageOptions = [
         { value: 'en', label: 'English' },
-        // { value: 'ru', label: 'Русский' },
+        { value: 'ru', label: 'Русский' },
     ];
 
     const router = useRouter();
@@ -28,18 +37,30 @@ export default function Page() {
         }
     }, [router]);
 
+    useEffect(() => {
+        i18next.changeLanguage(selectedLanguage);
+        setLang(selectedLanguage);
+        localStorage.setItem('appLanguage', selectedLanguage);
+    }, [selectedLanguage, setLang]);
+
     const handleLanguageChange = (selectedOption) => {
         const newLang = selectedOption.value;
+        setSelectedLanguage(newLang);
         setLang(newLang);
-        i18n.changeLanguage(newLang);
+        i18next.changeLanguage(newLang);
         localStorage.setItem('appLanguage', newLang);
     };
 
     return (
         <div className={styles.root}>
             <div className={styles.container}>
-                <h1 className={styles.title}>settings</h1>
-                <CustomSelect title={'select language'} optionsArray={languageOptions} onChange={handleLanguageChange} />
+                <h1 className={styles.title}>{t('settingsPage.title')}</h1>
+                <CustomSelect
+                    title={t('settingsPage.selectLanguage')}
+                    optionsArray={languageOptions}
+                    value={languageOptions.find(opt => opt.value === selectedLanguage)}
+                    onChange={handleLanguageChange}
+                />
             </div>
         </div>
     );

@@ -18,7 +18,7 @@ export const useProfileInit = (token) => {
         setError(null);
         try {
             const response = await axios.get(`https://supavpn.lol/profile/init?token=${token}`);
-            const { jwt, balance, lang, group, farm, dailyEntries } = response.data;
+            const { jwt, balance, lang, group, farm, delayEntries } = response.data;
             localStorage.setItem('GWToken', jwt);
             const farmData = {
                 coins: balance,
@@ -30,7 +30,7 @@ export const useProfileInit = (token) => {
             const initData = {
                 lang: lang,
                 groupId: group.id,
-                dailyEntries: dailyEntries
+                dailyEntries: delayEntries
             };
             localStorage.setItem('init', JSON.stringify(initData));
             setData({

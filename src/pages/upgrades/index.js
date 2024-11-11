@@ -5,6 +5,7 @@ import {ItemPlaceholder} from "@/components/itemPlaceholder/ItemPlaceholder";
 import {TaskBtn} from "@/components/taskBtn/TaskBtn";
 import axiosInstance from '@/utils/axios';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import {useTranslation} from "react-i18next";
 
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -19,6 +20,7 @@ const money = '/money.png'
 
 export default function Page() {
     const router = useRouter();
+    const { t } = useTranslation();
     const { coins, updateContext, limit, rate } = useInit();
     const { tab } = router.query;
     const [activeTab, setActiveTab] = useState(tab || '1');
@@ -57,8 +59,8 @@ export default function Page() {
     ]
 
     const upgradesList = [
-        'speed upgrades',
-        'limits upgrades'
+        t('EXP.speeds'),
+        t('EXP.limits')
     ]
 
     useEffect(() => {
@@ -161,7 +163,6 @@ export default function Page() {
     const handleLimitUpgrade = async (levelId, cost) => {
         try {
             const response = await axiosInstance.get(`/farm/limit-level-up?levelId=${levelId}`);
-            console.log('Улучшение лимита:', response.data);
             setLimitLevels(prevLevels => prevLevels.map(item =>
                 item.Id === levelId ? response.data : item
             ));
@@ -179,7 +180,6 @@ export default function Page() {
     const handleRateUpgrade = async (levelId, cost) => {
         try {
             const response = await axiosInstance.get(`/farm/rate-level-up?levelId=${levelId}`);
-            console.log('Улучшение прокачки:', response.data);
             setRateLevels(prevLevels => prevLevels.map(item =>
                 item.Id === levelId ? response.data : item
             ));
@@ -324,14 +324,10 @@ export default function Page() {
         return num.toString().replace(/(\d)(?=(\d{3})+$)/g, "$1 ");
     }
 
-    console.log('coins', coins)
-    console.log('rate', rate)
-    console.log('limit', limit)
-
     return (
         <div className={styles.root}>
             <div className={styles.container}>
-                <div className={styles.balance}>{formatNumberFromEnd(coins)}{' '}<Image src={money} alt={''} width={21} height={21} /></div>
+                <div className={styles.balance}>{formatNumberFromEnd(coins)}{' '}<Image src={money} alt={''} width={21} height={21} loading="lazy" /></div>
                 <div className={styles.block}>
                     <div className={styles.buttonSet}>
                         <div className={styles.folderBtnStats}
@@ -343,7 +339,7 @@ export default function Page() {
                              onClick={() => {
                                  handleTab('1')
                                  setIsModalOpen(false)
-                             }}>upgrades</div>
+                             }}>{t('EXP.upgrades')}</div>
                         <div
                             className={styles.folderBtnSkins}
                             style={{
@@ -354,13 +350,13 @@ export default function Page() {
                                 handleTab('2')
                                 setIsModalOpen(false)
                             }}
-                        >tasks</div>
+                        >{t('EXP.tasks')}</div>
                     </div>
                     {activeTab === '1' && <div className={styles.personalContainer}>
                         <div className={styles.list}>
                             <div className={styles.containerSwiper}>
                                 <button className={styles.navLeft} onClick={handleSlidePrev}>
-                                    <Image src={'/Arrow.png'} alt={''} width={15} height={15} />
+                                    <Image src={'/Arrow.png'} alt={''} width={15} height={15} loading="lazy" />
                                 </button>
                                 <Swiper
                                     modules={[Navigation, Controller]}
@@ -385,6 +381,7 @@ export default function Page() {
                                                 src={image}
                                                 alt={''}
                                                 className={styles.icon}
+                                                loading="lazy"
                                             />
                                             <div className={styles.caption}>
                                                 {upgradesList[activeIndex]}
@@ -393,18 +390,18 @@ export default function Page() {
                                     ))}
                                 </Swiper>
                                 <button className={styles.navRight} onClick={handleSlideNext}>
-                                    <Image src={'/Arrow.png'} alt={''} width={15} height={15} />
+                                    <Image src={'/Arrow.png'} alt={''} width={15} height={15} loading="lazy" />
                                 </button>
                             </div>
                             {activeIndex === 0 && <>
                                 {rateLevels.length !== 0 ? <div className={styles.itemsList}>{rateLevels.map((item, index) => (
                                     <ItemPlaceholder img={rateImages[index]} item={item} key={index} onClick={() => openUpgradeModal(item)} />
-                                ))}</div> : <div className={styles.warning}>No available rate upgrades</div>}
+                                ))}</div> : <div className={styles.warning}>{t('EXP.noups')}</div>}
                             </>}
                             {activeIndex === 1 && <>
                                 {limitLevels.length !== 0 ? <div className={styles.itemsList}>{limitLevels.map((item, index) => (
                                     <ItemPlaceholder img={limitImages[index]} item={item} key={index} onClick={() => openUpgradeModal(item)} />
-                                ))}</div> : <div className={styles.warning}>No available limit upgrades</div>}
+                                ))}</div> : <div className={styles.warning}>{t('EXP.noups')}</div>}
                             </>}
                         </div>
                     </div>}
@@ -416,7 +413,7 @@ export default function Page() {
                             {/*        <TaskBtn title={task.name} desc={task.desc} complite={task.complite} key={index} onClick={() => handleTaskClick(task)} />*/}
                             {/*    )*/}
                             {/*})}*/}
-                            <div className={styles.label}>main tasks</div>
+                            <div className={styles.label}>{t('EXP.main')}</div>
                             {tasks.map((task, index) => {
                                 return(
                                     <>
@@ -445,10 +442,10 @@ export default function Page() {
                         <div className={styles.modalBorder}>
                             <div className={styles.modalUpgrades}>
                                 <h3>
-                                    {selectedItem.type === 'limit' ? `limit +${selectedItem.Name}%` : `rate +${selectedItem.Name}%`}
+                                    {selectedItem.type === 'limit' ? `${t('EXP.limit')} +${selectedItem.Name}%` : `${t('EXP.rate')} +${selectedItem.Name}%`}
                                 </h3>
-                                <p>Card level: {selectedItem.Level}</p>
-                                <p>Cost: {selectedItem.Cost}</p>
+                                <p>{t('EXP.lvl')}: {selectedItem.Level}</p>
+                                <p>{t('EXP.cost')}: {selectedItem.Cost}</p>
                                 <p>
                                     <a>
                                         {selectedItem.type === 'limit' ?
@@ -458,13 +455,13 @@ export default function Page() {
                                         }
                                     </a>
                                     {' '}
-                                    <Image src={'/ArrowWhite.png'} alt={''} width={15} height={15} className={styles.navRight} />
+                                    <Image src={'/ArrowWhite.png'} alt={''} width={15} height={15} className={styles.navRight} loading="lazy" />
                                     {' '}
                                     <a className={styles.green}>
                                         {
                                             (selectedItem.type === 'limit' ?
                                                 (Number(limit) * (1 + (Number(selectedItem.IncreasePer)/100)))
-                                            :
+                                                :
                                                 (Number(rate) * (1 + (Number(selectedItem.IncreasePer)/100)))).toFixed(3)
                                         }
                                     </a>
@@ -481,19 +478,19 @@ export default function Page() {
                                     selectedItem.type === 'limit'
                                         ? handleLimitUpgrade(selectedItem.Id, selectedItem.Cost)
                                         : handleRateUpgrade(selectedItem.Id, selectedItem.Cost);
-                                    }
+                                }
                             }}
                             disabled={selectedItem && coins < selectedItem.Cost}
                         >
-                            <div className={styles.modalBtn}>Upgrade</div>
+                            <div className={styles.modalBtn}>{t('EXP.upgrade')}</div>
                         </button>
                         <div className={styles.modalBorder} onClick={closeUpgradeModal}>
-                            <div className={styles.modalBtn}>Close</div>
+                            <div className={styles.modalBtn}>{t('EXP.close')}</div>
                         </div>
                     </div>
                 )}
                 {isModalOpen && <div className={styles.modal}>
-                    <div className={styles.label}>Daily rewards</div>
+                    <div className={styles.label}>{t('EXP.close')}</div>
                 </div>}
             </div>
         </div>

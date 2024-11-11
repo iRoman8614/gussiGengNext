@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
+import i18n from '@/utils/i18n.js';
 
 const InitContext = createContext();
 
@@ -26,6 +27,12 @@ export const InitProvider = ({ children }) => {
         }
         return 'en';
     });
+
+    useEffect(() => {
+        if (i18n.isInitialized && lang) {
+            i18n.changeLanguage(lang);
+        }
+    }, [lang]);
 
     const [limit, setLimit] = useState(() => {
         if (typeof window !== 'undefined') {
@@ -80,7 +87,6 @@ export const InitProvider = ({ children }) => {
             setRate(savedFarm.farmRate || 1);
             setCoins(savedFarm.coins || 0);
             setTotalCoins(savedFarm.totalCoins || 0);
-            setDailyEntries(savedInit.dailyEntries || 0);
         }
     };
 

@@ -1,3 +1,4 @@
+
 import {useEffect, useRef, useState} from "react";
 import Image from "next/image";
 import { useRouter } from 'next/router';
@@ -8,6 +9,7 @@ import {useInit} from "@/context/InitContext";
 import teamData from '@/mock/teamsData.js';
 import gangsterNames from '@/mock/gangstersNames.js'
 import { gameOptions } from '@/mock/optionData';
+import {useTranslation} from "react-i18next";
 
 import styles from '@/styles/Pvp.module.scss';
 import "react-toastify/dist/ReactToastify.css";
@@ -31,6 +33,7 @@ const changerB = '/game-icons/roundAnimBack.png'
 
 export default function PvpBotPage() {
     const router = useRouter();
+    const { t } = useTranslation();
     const { groupId, updateContext } = useInit();
     const { triggerBotGame } = useTriggerBotGame();
     const [visibleImage, setVisibleImage] = useState(0);
@@ -202,12 +205,12 @@ export default function PvpBotPage() {
     }
 
     const resetRoundAfterDelay = () => {
+        setShowChanger(false);
         setPlayerChoice(null);
         setOpponentChoice(null);
         setTimer(3);
         setVisibleImage(0);
         setResetSequence(!resetSequence);
-        setShowChanger(false)
     };
 
     return (
@@ -223,14 +226,14 @@ export default function PvpBotPage() {
                         <img
                             className={`${styles.choose} ${visibleImage === 1 ? styles.visible : styles.hidden}`}
                             src={
-                            opponentChoice === 1
-                                ? opponentGifCache.current.rockAnim?.src || gifPaths.rockAnim
-                                : opponentChoice === 2
-                                    ? opponentGifCache.current.papAnim?.src || gifPaths.papAnim
-                                    : opponentChoice === 3
-                                        ? opponentGifCache.current.scisAnim?.src || gifPaths.scisAnim
-                                        : gameOptions[4]?.logo
-                        }
+                                opponentChoice === 1
+                                    ? opponentGifCache.current.rockAnim?.src || gifPaths.rockAnim
+                                    : opponentChoice === 2
+                                        ? opponentGifCache.current.papAnim?.src || gifPaths.papAnim
+                                        : opponentChoice === 3
+                                            ? opponentGifCache.current.scisAnim?.src || gifPaths.scisAnim
+                                            : gameOptions[4]?.logo
+                            }
                             alt="game choice animation"
                         />
                         <Image
@@ -240,23 +243,24 @@ export default function PvpBotPage() {
                             objectFit="contain"
                             className={`${styles.choose} ${visibleImage !== 1 ? styles.visible : styles.hidden}`}
                             src={
-                            visibleImage === 0
-                                ? gameOptions[4]?.logo
-                                : opponentChoice === 0 || opponentChoice === 10
+                                visibleImage === 0
                                     ? gameOptions[4]?.logo
-                                    : opponentChoice === 1
-                                        ? gameOptions[1]?.logo
-                                        : opponentChoice === 2
-                                            ? gameOptions[2]?.logo
-                                            : gameOptions[3]?.logo
-                        }
+                                    : opponentChoice === 0 || opponentChoice === 10
+                                        ? gameOptions[4]?.logo
+                                        : opponentChoice === 1
+                                            ? gameOptions[1]?.logo
+                                            : opponentChoice === 2
+                                                ? gameOptions[2]?.logo
+                                                : gameOptions[3]?.logo
+                            }
                             alt="game choice"
+                            loading="lazy"
                         />
                     </div>
                     <VictoryCounter score={playerScore} />
                     <IconButton image={teamData[groupId]?.logo} alt={'gang'} />
                     <div className={styles.roundTimer}>
-                        <Image src={timerBG} alt={'timer'} height={144} width={144} className={styles.roundTimerBG} />
+                        <Image src={timerBG} alt={'timer'} height={144} width={144} className={styles.roundTimerBG} loading="lazy" />
                         <div className={styles.time}>{timer}</div>
                     </div>
                     <IconButton image={teamData[oppClan]?.logo} alt={'gang'} />
@@ -265,14 +269,14 @@ export default function PvpBotPage() {
                         <img
                             className={`${styles.mychoose} ${visibleImage === 1 ? styles.visible : styles.hidden}`}
                             src={
-                            playerChoice === 1
-                                ? playerGifCache.current.rockAnim?.src || gifPaths.rockAnim
-                                : playerChoice === 2
-                                    ? playerGifCache.current.papAnim?.src || gifPaths.papAnim
-                                    : playerChoice === 3
-                                        ? playerGifCache.current.scisAnim?.src || gifPaths.scisAnim
-                                        : gameOptions[4]?.logo
-                        }
+                                playerChoice === 1
+                                    ? playerGifCache.current.rockAnim?.src || gifPaths.rockAnim
+                                    : playerChoice === 2
+                                        ? playerGifCache.current.papAnim?.src || gifPaths.papAnim
+                                        : playerChoice === 3
+                                            ? playerGifCache.current.scisAnim?.src || gifPaths.scisAnim
+                                            : gameOptions[4]?.logo
+                            }
                             alt="game choice animation"
                         />
                         <Image
@@ -282,26 +286,27 @@ export default function PvpBotPage() {
                             objectFit="contain"
                             className={`${styles.mychoose} ${visibleImage !== 1 ? styles.visible : styles.hidden}`}
                             src={
-                            visibleImage === 0
-                                ? gameOptions[4]?.logo
-                                : playerChoice === 0 || playerChoice === 10
+                                visibleImage === 0
                                     ? gameOptions[4]?.logo
-                                    : playerChoice === 1
-                                        ? gameOptions[1]?.logo
-                                        : playerChoice === 2
-                                            ? gameOptions[2]?.logo
-                                            : gameOptions[3]?.logo
-                        }
+                                    : playerChoice === 0 || playerChoice === 10
+                                        ? gameOptions[4]?.logo
+                                        : playerChoice === 1
+                                            ? gameOptions[1]?.logo
+                                            : playerChoice === 2
+                                                ? gameOptions[2]?.logo
+                                                : gameOptions[3]?.logo
+                            }
                             alt="game choice"
+                            loading="lazy"
                         />
                     </div>
                     <div className={styles.round}>
-                        round {playerScore+opponentScore+1}
+                        {t('PVP.rounds')} {playerScore+opponentScore+1}
                     </div>
                     <div className={styles.buttonSet}>
-                        <PvpBtn title={'rock'} img={rock} value={1} onClick={() => setPlayerChoice(1)} choose={playerChoice} />
-                        <PvpBtn title={'paper'} img={paper} value={2} onClick={() => setPlayerChoice(2)} choose={playerChoice} />
-                        <PvpBtn title={'scissons'} img={scis} value={3} onClick={() => setPlayerChoice(3)} choose={playerChoice} />
+                        <PvpBtn title={t('PVP.rock')} img={rock} value={1} onClick={() => setPlayerChoice(1)} choose={playerChoice} />
+                        <PvpBtn title={t('PVP.paper')} img={paper} value={2} onClick={() => setPlayerChoice(2)} choose={playerChoice} />
+                        <PvpBtn title={t('PVP.scissors')} img={scis} value={3} onClick={() => setPlayerChoice(3)} choose={playerChoice} />
                     </div>
                 </div>
             </div>
@@ -327,9 +332,9 @@ function getRandomTeamIdExceptCurrent(userNumber) {
 // eslint-disable-next-line react/prop-types
 const VictoryCounter = ({ score }) => (
     <div className={styles.counter}>
-        {(score >= 1) ? <Image className={styles.heart} src={cross} alt={''} width={55} height={55}  /> : <Image className={styles.heart} src={heart} alt={''} width={55} height={55}  />}
-        {(score >= 2) ? <Image className={styles.heart} src={cross} alt={''} width={55} height={55}  /> : <Image className={styles.heart} src={heart} alt={''} width={55} height={55}  />}
-        {(score >= 3) ? <Image className={styles.heart} src={cross} alt={''} width={55} height={55}  /> : <Image className={styles.heart} src={heart} alt={''} width={55} height={55}  />}
+        {(score >= 1) ? <Image className={styles.heart} src={cross} alt={''} width={55} height={55} loading="lazy" /> : <Image className={styles.heart} src={heart} alt={''} width={55} height={55} loading="lazy" />}
+        {(score >= 2) ? <Image className={styles.heart} src={cross} alt={''} width={55} height={55} loading="lazy" /> : <Image className={styles.heart} src={heart} alt={''} width={55} height={55} loading="lazy" />}
+        {(score >= 3) ? <Image className={styles.heart} src={cross} alt={''} width={55} height={55} loading="lazy" /> : <Image className={styles.heart} src={heart} alt={''} width={55} height={55} loading="lazy" />}
     </div>
 );
 
@@ -343,9 +348,9 @@ const WinningScreen = ({ userName, playerScore  }) => (
                 </div>
                 {playerScore === 3
                     ?
-                    <Image width={204} height={151} className={styles.winsImage} src={wins} alt={'wins'}  />
+                    <Image width={204} height={151} className={styles.winsImage} src={wins} alt={'wins'} loading="lazy" />
                     :
-                    <Image width={204} height={204} className={styles.winsImage} src={lose} alt={'you lose'} />
+                    <Image width={204} height={204} className={styles.winsImage} src={lose} alt={'you lose'} loading="lazy" />
                 }
                 {playerScore === 3 ? <p className={styles.winnerName}>+5% farm </p> : <p></p>}
             </div>
@@ -353,13 +358,14 @@ const WinningScreen = ({ userName, playerScore  }) => (
     </div>
 );
 
-
-const RoundChanger = ({round}) => (
-    <div className={styles.changerRoot}>
-        <div className={styles.changerContainer}>
-            <Image className={styles.animF} src={changerF} alt={''} width={700} height={150} />
-            <Image className={styles.animB} src={changerB} alt={''} width={700} height={150} />
-            <div className={styles.changerText}>round {round}</div>
+const RoundChanger = ({round}) => {
+    const {t} = useTranslation();
+    return(
+        <div className={styles.changerRoot}>
+            <div className={styles.changerContainer}>
+                <Image className={styles.animF} src={changerF} alt={''} width={700} height={150} />
+                <Image className={styles.animB} src={changerB} alt={''} width={700} height={150} />
+                <div className={styles.changerText}>{t('PVP.rounds')} {round}</div>
+            </div>
         </div>
-    </div>
-)
+    )}

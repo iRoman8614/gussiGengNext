@@ -1,22 +1,28 @@
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
+import { useRouter } from "next/router";
+import { toast } from "react-toastify";
+import { useTranslation } from "react-i18next";
+import { useCachedAssets } from '@/utils/cache';
 
-import styles from './Loader.module.scss'
-import {useRouter} from "next/router";
-import {toast} from "react-toastify";
+import styles from './Loader.module.scss';
 
-const loader = '/loadingImg.jpg'
+const loader = '/loadingImg.jpg';
+
 export const LoaderGif = () => {
-    return(
+    const cachedAssets = useCachedAssets({ loader }, 'assets-cache-backgrounds');
+
+    return (
         <div className={styles.root}>
-            <Image width={450} height={1000} className={styles.video} src={loader} alt="Loading..." priority />
+            <Image width={450} height={1000} className={styles.video} src={cachedAssets.loader} alt="Loading..." priority />
             <LoadingText />
         </div>
-    )
-}
+    );
+};
 
 const LoadingText = () => {
     const router = useRouter();
+    const { t } = useTranslation();
     const [dots, setDots] = useState(0);
     const [timer, setTimer] = useState(0);
 
@@ -24,7 +30,6 @@ const LoadingText = () => {
         const interval = setInterval(() => {
             setDots(prevDots => (prevDots + 1) % 4);
         }, 500);
-
         return () => clearInterval(interval);
     }, []);
 
@@ -32,19 +37,17 @@ const LoadingText = () => {
         const interval = setInterval(() => {
             setTimer(prevTimer => prevTimer + 1);
         }, 1000);
-
         return () => clearInterval(interval);
     }, []);
 
     useEffect(() => {
-        if(timer === 20) {
+        if (timer === 20) {
             toast.error("Pair not found");
         }
-        if(timer === 22) {
+        if (timer === 22) {
             router.push('/main');
         }
-        return;
-    }, [timer])
+    }, [timer, router]);
 
     const formatTime = (timeInSeconds) => {
         const minutes = Math.floor(timeInSeconds / 60);
@@ -54,10 +57,10 @@ const LoadingText = () => {
 
     return (
         <div className={styles.container}>
-            <div className={styles.hint}>Expected time: 20 sec</div>
+            <div className={styles.hint}>{t('PVP.expected')}</div>
             <div className={styles.timer}>{formatTime(timer)}</div>
             <div className={styles.loading}>
-                Loading{'.'.repeat(dots)}
+                {t('loading')}{'.'.repeat(dots)}
             </div>
         </div>
     );

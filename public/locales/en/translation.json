@@ -1,0 +1,204 @@
+{
+  "main" : {
+    "account": "account",
+    "settings": "settings",
+    "boards": "boards",
+    "wallet": "wallet",
+    "items": "items",
+    "exp": "exp",
+    "pvp": "pvp",
+    "friends": "friends",
+    "faq": "faq"
+  },
+  "settingsPage": {
+    "title": "Settings",
+    "selectLanguage": "Select Language"
+  },
+  "account": {
+    "season": "season 1",
+    "stats": "stats",
+    "league": "league",
+    "total": "total",
+    "wins": "wins",
+    "defeats": "defeats",
+    "winRate": "win rate",
+    "Total": "total coins earned",
+    "friends": "friends invited",
+    "login": "login streak",
+    "balance": "current balance"
+  },
+  "change": {
+    "destiny": "you wanna change your destiny?",
+    "sure": "are you sure?",
+    "join": "wanna join the",
+    "confirm": "confirm",
+    "noMoney": "you do not have enough money"
+  },
+  "boards": {
+    "wins": "wins",
+    "nobody": "nobody has reached this league yet",
+    "first": "be the first"
+  },
+  "FAQ": {
+    "1": {
+      "current": "This is your current",
+      "balance": "balance",
+      "farmPool": "and this is your limited farm",
+      "pool": "pool",
+      "end": ""
+    },
+    "2": {
+      "btn": "This is your claim button. Use it to",
+      "claim": "claim",
+      "money": "money from the limited",
+      "farm": "farm pool",
+      "add": "and add it to your current",
+      "balance": "balance"
+    },
+    "3": {
+      "account": "Account",
+      "check": "check your stats",
+      "gl": "Ganglogo",
+      "swap": "swap your gang here",
+      "settings": "Settings",
+      "change": "change your language"
+    },
+    "4": {
+      "boards": "Leaderboard",
+      "check": "check out your rank and leaderboard standing",
+      "wallet": "Wallet",
+      "link": "link your cryptowallet (soon)"
+    },
+    "5": {
+      "pvp": "PvP - ",
+      "battle": "battle",
+      "way": "your way to the top of the",
+      "ranks": "ranks",
+      "test": "or test your skills for",
+      "ton": "TON",
+      "soon": "(soon)"
+    },
+    "6": {
+      "items": "Items - bling out your",
+      "ava": "battle avatar",
+      "earned": "with earned and bought items",
+      "exp": "Exp - upgrade your",
+      "rate": "farming rate",
+      "and": "and",
+      "limit": "farming limit"
+    },
+    "7": {
+      "friends": "Friends -",
+      "invite": "invite",
+      "your": "your friends and",
+      "gain": "gain",
+      "bonuses": "bonuses",
+      "faq": "FAQ - wouldn't be here without it"
+    }
+  },
+  "EXP": {
+    "upgrades": "upgrades",
+    "tasks": "tasks",
+    "speeds": "speed upgrades",
+    "limits": "limit upgrades",
+    "upgrade": "upgrade",
+    "close": "close",
+    "rate": "rate",
+    "limit": "limit",
+    "lvl": "card level",
+    "cost": "cost",
+    "main": "main tasks",
+    "referral": "referral",
+    "tg": "sub to GW telegram",
+    "x": "sub to GW X",
+    "pvp": "win 5 pvp battles",
+    "noups": "no available upgrades"
+  },
+  "friends": {
+    "inviteFriends": "invite a",
+    "aFriend": "friend",
+    "pass": "PvP Pass",
+    "extra": "extra games",
+    "earn": {
+      "earn": "earn",
+      "10%": "10%",
+      "completed": "of your friends",
+      "tasks": "tasks",
+      "friends": "completion"
+    },
+    "friends": "friends",
+    "info": "info",
+    "invite": "invite",
+    "noone": "Invite your friends",
+    "referral": {
+      "each": "each",
+      "referral": "referral",
+      "gives": "gives you"
+    },
+    "passes": {
+      "passes": "pvp passes",
+      "allows": "allows",
+      "extra": "5 extra pvp games",
+      "cooldown": ", bypassing the 6-hour cooldown"
+    },
+    "premium": {
+      "if": "if the referral has",
+      "tgp": "Telegram premium",
+      "you": "you get",
+      "passes": "+2 pvp passes"
+    },
+    "score": {
+      "referrals": "referrals",
+      "score": "score 10 000",
+      "for": "just for",
+      "signing": "signing up",
+      "link": "(joining the bot) through your referral link!"
+    },
+    "rewards": "Rewards",
+    "ref": {
+      "1": "referral",
+      "3": "referrals",
+      "5": "referrals"
+    }
+  },
+  "PVP": {
+    "battle": "battle",
+    "left": "games left",
+    "skill": "battle against others, earn rewards, and climb the ranks.",
+    "luck":"No luck, just skill!",
+    "opponent": "your",
+    "opp": "opponent",
+    "this": "this is",
+    "you": "you",
+    "your": "you",
+    "rounds": "round",
+    "hp": "your hp",
+    "opphp": "opponents hp",
+    "move": "make your move! pick one! rock/paper/scissors",
+    "time": "time left",
+    "round": "round count",
+    "3wins": {
+      "first": "first to",
+      "3": "3",
+      "wins": "wins the match"
+    },
+    "gl": "good luck player",
+    "pr": "paper beats rock",
+    "rs": "rock beats scissors",
+    "sp": "scissors beats paper",
+    "expected": "expected time: 20 sec",
+    "rock": "rock",
+    "paper": "paper",
+    "scissors": "scissors",
+    "extra": "extra games"
+  },
+  "random": {
+    "pick":"pick a card",
+    "tap": "tap again to confirm",
+    "member": "you are now a member of the",
+    "gang": "gang",
+    "continue": "continue"
+  },
+  "qr": "Play on your mobile",
+  "loading": "loading"
+}

@@ -1,19 +1,26 @@
+
 import {useEffect, useState} from 'react';
 import Image from "next/image";
-import Link from "next/link";
+import Head from "next/head";
 import {useRouter} from "next/router";
-import axiosInstance from "@/utils/axios";
 import {toast} from "react-toastify";
-
-import styles from '@/styles/Lobby.module.scss'
+import {useTranslation} from "react-i18next";
+import axiosInstance from "@/utils/axios";
 import {IconButton} from "@/components/buttons/icon-btn/IconButton";
 import {useLastGames, useProfileStats} from "@/utils/api";
-import Head from "next/head";
+import { useCachedAssets } from '@/utils/cache';
 
-const bg = '/backgrounds/Lobby.png'
-const hands = '/main-buttons/hand2.png';
-const rich = '/main-buttons/rich.png';
-const FAQ = '/main-buttons/FAQ.png'
+import styles from '@/styles/Lobby.module.scss'
+
+
+const assetPaths = {
+    bg: '/backgrounds/Lobby.png'
+};
+const mainButtonAssets = {
+    hands: '/main-buttons/hand2.png',
+    rich: '/main-buttons/rich.png',
+    FAQ: '/main-buttons/FAQ.png'
+};
 
 const gameIconsAssets = [
     '/game-icons/animation_hand_pap.gif',
@@ -30,11 +37,16 @@ const gameIconsAssets = [
 ];
 
 export default function Page() {
+    const { t } = useTranslation();
     const [hintOne, setHintOne] = useState(false)
     const [hintTwo, setHintTwo] = useState(false)
     const [remainingTime, setRemainingTime] = useState(null);
     const [timerActive, setTimerActive] = useState(false);
     const [sessionsCount, setSessionsCount] = useState(0)
+
+    const cachedAssets = useCachedAssets(assetPaths, 'assets-cache-backgrounds');
+    const cachedMainButtons = useCachedAssets(mainButtonAssets, 'assets-cache-icons');
+
 
     const router = useRouter();
 
@@ -95,10 +107,9 @@ export default function Page() {
             } else if (data.session.count >= 5 && stats.pass > 0) {
                 router.push('/pvp');
             } else {
-                toast.warn("You have reached the maximum number of games");
+                toast.warn("You have reached the maximum number of games. Please wait for the timer to expire.");
             }
         } catch (error) {
-            console.error("Error during /last-games request:", error);
             toast.error('Game unavailable');
         }
     };
@@ -128,79 +139,83 @@ export default function Page() {
                 ))}
             </Head>
             <div className={styles.root}>
-            <Image className={styles.image} src={bg} alt={''} width={450} height={1000} />
-            <div className={styles.container}>
-                <div>
-                    <div className={styles.card}>
-                        <div className={styles.icon} onClick={handlePvpClick}>
-                            <div>battle</div>
-                            <p className={styles.hiddenText}>free</p>
-                            <Image className={styles.logo} src={hands} alt={''} width={150} height={75} />
-                        </div>
-                        <div className={styles.lable}>
-                            {remainingTime > 0 &&
-                                <div className={styles.timer}>
-                                    {formatTime(remainingTime)}
-                                </div>}
-                            <div className={styles.title}>
-                                {sessionsCount < 5 ? (
-                                    <>
-                                        <div>{5 - sessionsCount}</div>
-                                        <p>games left</p>
-                                    </>
-                                ) : (
-                                    <>
-                                        <div>{stats.pass}</div>
-                                        <p>extra games</p>
-                                    </>)
-                                }
-                            </div>
-                        </div>
-                        <div className={styles.btn} onClick={() => {
-                            if (window.Telegram?.WebApp?.HapticFeedback) {
-                                window.Telegram.WebApp.HapticFeedback.impactOccurred('light');
-                            }
-                            // router.push('/faq/pvp')
-                            setHintOne(!hintOne)
-                        }}>?</div>
-                    </div>
-                    {hintOne && <div className={styles.hint}>
-                        Battle against others, earn rewards, and climb the ranks.
-                        <p>no luck, just skill!</p>
-                    </div>}
-                </div>
-                <div>
-                    <div className={styles.hidderRoot}>
+                <Image className={styles.image} src={cachedAssets.bg} alt={''} width={450} height={1000} loading="lazy"/>
+                <div className={styles.container}>
+                    <div>
                         <div className={styles.card}>
-                            <Link href={'/lobby'} className={styles.icon}>
-                                <div>ton</div>
-                                <p>battle</p>
-                                <Image className={styles.logo} src={rich} alt={''} width={150} height={75} />
-                            </Link>
+                            <div className={styles.icon} onClick={handlePvpClick}>
+                                <div>{t('PVP.battle')}</div>
+                                <p className={styles.hiddenText}>free</p>
+                                <Image className={styles.logo} src={cachedMainButtons.hands} alt={''} width={150} height={75} loading="lazy"/>
+                            </div>
                             <div className={styles.lable}>
-                                <div className={styles.timer}><p>{' '}</p></div>
+                                {remainingTime > 0 &&
+                                    <div className={styles.timer}>
+                                        {formatTime(remainingTime)}
+                                    </div>}
                                 <div className={styles.title}>
-                                    <div>Soon</div>
-                                    {/*<p>ton</p>*/}
+                                    {sessionsCount < 5 ? (
+                                        <>
+                                            <div>{5 - sessionsCount}</div>
+                                            <p>{t('PVP.left')}</p>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <div>{stats.pass}</div>
+                                            <p>{t('PVP.extra')}</p>
+                                        </>)
+                                    }
                                 </div>
                             </div>
                             <div className={styles.btn} onClick={() => {
                                 if (window.Telegram?.WebApp?.HapticFeedback) {
                                     window.Telegram.WebApp.HapticFeedback.impactOccurred('light');
                                 }
-                                setHintTwo(!hintTwo)}}>?</div>
+                                // router.push('/faq/pvp')
+                                setHintOne(!hintOne)
+                            }}>?</div>
                         </div>
+                        {hintOne && <div className={styles.hint}>
+                            {t('PVP.skill')}
+                            <p>{t('PVP.luck')}</p>
+                        </div>}
                     </div>
-                    {hintTwo && <div className={styles.hint}>
-                        <p>feeling bold?</p>
-                        Put your Ton on the line in this high-stakes mode!
-                    </div>}
+                    <div>
+                        <div className={styles.hidderRoot}>
+                            <div className={styles.card}>
+                                <div className={styles.icon}>
+                                    <div>ton</div>
+                                    <p>{t('PVP.battle')}</p>
+                                    <Image className={styles.logo} src={cachedMainButtons.rich} alt={''} width={150} height={75} loading="lazy"/>
+                                </div>
+                                <div className={styles.lable}>
+                                    <div className={styles.timer}>
+                                        <p>{' '}</p>
+                                    </div>
+                                    <div className={styles.title}>
+                                        <div>Soon</div>
+                                        {/*<p>ton</p>*/}
+                                    </div>
+                                </div>
+                                <div className={styles.btn}
+                                    //  onClick={() => {
+                                    // if (window.Telegram?.WebApp?.HapticFeedback) {
+                                    //     window.Telegram.WebApp.HapticFeedback.impactOccurred('light');
+                                    // }
+                                    // setHintTwo(!hintTwo)}}
+                                >?</div>
+                            </div>
+                        </div>
+                        {hintTwo && <div className={styles.hint}>
+                            <p>feeling bold?</p>
+                            Put your Ton on the line in this high-stakes mode!
+                        </div>}
+                    </div>
+                </div>
+                <div className={styles.faq}>
+                    <IconButton image={cachedMainButtons.FAQ} alt={'home'} title={'faq'} onClick={() => {router.push('/faq/pvp')}} />
                 </div>
             </div>
-            <div className={styles.faq}>
-                <IconButton image={FAQ} alt={'home'} title={'faq'} onClick={() => {router.push('/faq/pvp')}} />
-            </div>
-        </div>
         </>
 
     );

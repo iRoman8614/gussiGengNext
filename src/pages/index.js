@@ -1,38 +1,29 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
-import Head from "next/head";
 import { toast } from "react-toastify";
 import { useInit } from '@/context/InitContext';
-import {useProfileInit, useFarmStart, useProfileStats} from '@/utils/api';
-import CryptoJS from 'crypto-js';
+import { useProfileInit, useFarmStart, useProfileStats } from '@/utils/api';
+import { useTranslation } from "react-i18next";
+import { useCachedAssets } from '@/utils/cache';
+import assetData from "@/mock/assets.json";
 
 import styles from '@/styles/Loader.module.scss';
 
-const loaderImage = '/loadingImg.jpg';
-
-const newPlayerAssets = [
-    '/backgrounds/backalley.png', '/backgrounds/leaderboardBG.png',
-    '/backgrounds/Lobby.png', '/backgrounds/nightcity.png',
-    '/backgrounds/randomBG.png', '/random/blueCard.png',
-    '/random/card.png', '/random/dialog.png', '/random/dialog2.png',
-    '/random/greenCard.png', '/random/hand.png', '/random/oneCard.png',
-    '/random/person.png', '/random/redCard.png', '/random/yellowCard.png',
-];
+const assetPaths = {
+    loaderImage: '/loadingImg.jpg'
+};
 
 export default function LoaderPage() {
     const router = useRouter();
     const { updateContext } = useInit();
-    const [isNewPlayer, setIsNewPlayer] = useState(() => {
-        if(typeof window !== "undefined") {
-            const init = localStorage.getItem('init');
-            const start = localStorage.getItem('farm');
-            const GWToken = localStorage.getItem('GWToken');
-            return !init || !start || !GWToken;
-        } else {
-            return true;
-        }
-    });
+    const [dataFetched, setDataFetched] = useState(false);
+    const [authToken, setAuthToken] = useState(null);
+    const [groupId, setGroupId] = useState(null);
+    const [liga, setLiga] = useState(null);
+    const [loadingComplete, setLoadingComplete] = useState(false);
+    let isNewPlayer = false;
+    const cachedAssets = useCachedAssets(assetPaths, 'assets-cache-backgrounds');
 
     const CURRENT_VERSION = process.env.NEXT_PUBLIC_CURRENT_VERSION
 
@@ -62,7 +53,7 @@ export default function LoaderPage() {
             const savedVersion = localStorage.getItem('version');
             if (savedVersion !== CURRENT_VERSION) {
                 localStorage.clear();
-                setIsNewPlayer(true);
+                isNewPlayer = true;
                 localStorage.setItem('version', CURRENT_VERSION);
             }
         }
@@ -87,11 +78,24 @@ export default function LoaderPage() {
         return null;
     }
 
+    const loadAssets = (group, assets) => {
+        const cacheName = `assets-cache-${group}`;
+        worker.postMessage({ assets, cacheName });
+    };
+
+
     const fetchData = useCallback(async () => {
         try {
-            await fetchProfileInit()
+            const initData = await fetchProfileInit()
             await fetchFarmStart();
             await fetchProfileStats();
+            if (initData.data.init.groupId) {
+                const skinGroup = `skins.${groupId}`;
+                loadAssets(skinGroup, assetData.skins[groupId]);
+            }
+            if (isNewPlayer) {
+                loadAssets('newPlayerAssets', assetData.newPlayerAssets);
+            }
             if (profileError) {
                 throw new Error('Initialization failed, restart app');
             }
@@ -107,6 +111,8 @@ export default function LoaderPage() {
         }
     }, []);
 
+    const worker = typeof window !== "undefined" ? new Worker(new URL("../workers/assetWorker.js", import.meta.url)) : null;
+
     const updateAndRedirect = useCallback(() => {
         const init = localStorage.getItem('init');
         const start = localStorage.getItem('farm');
@@ -115,7 +121,7 @@ export default function LoaderPage() {
         const savedFarm = JSON.parse(localStorage.getItem('farm'));
         let isExperiencedPlayer = false
         if (!init || !start || !GWToken) {
-            setIsNewPlayer(true);
+            isNewPlayer = true;
         } else {
             isExperiencedPlayer = savedInit && savedFarm
         }
@@ -144,31 +150,42 @@ export default function LoaderPage() {
         }
     }, []);
 
+    useEffect(() => {
+        if (worker) {
+            worker.onmessage = (event) => {
+                const { status, asset, error } = event.data;
+                if (status === "loaded") {
+                    console.log(`Asset ${asset} загружен`);
+                } else if (status === "error") {
+                    console.error(`Ошибка загрузки ассета ${asset}: ${error}`);
+                } else if (status === "complete") {
+                    console.log(`Группа ассетов загружена`);
+                }
+            };
+        }
+        return () => {
+            if (worker) worker.terminate();
+        };
+    }, [worker]);
+
     return (
-        <>
-            <Head>
-                <link rel="preload" href={loaderImage} as="image" />
-                {newPlayerAssets.map((src, index) => (
-                    <link key={index} rel="preload" href={src} as="image" />
-                ))}
-            </Head>
-            <div className={styles.root}>
-                <Image className={styles.video} src={loaderImage} alt="Loading..." width={500} height={500} priority />
-                <LoadingText />
-            </div>
-        </>
+        <div className={styles.root}>
+            <Image className={styles.video} src={cachedAssets.loaderImage} alt="Loading..." width={500} height={500} priority />
+            <LoadingText />
+        </div>
     );
 }
 
 const LoadingText = () => {
     const [dots, setDots] = useState(0);
+    const { t } = useTranslation();
     useEffect(() => {
         const interval = setInterval(() => { setDots(prevDots => (prevDots + 1) % 4); }, 500);
         return () => clearInterval(interval);
     }, []);
     return (
         <div className={styles.loading}>
-            Loading{'.'.repeat(dots)}
+            {t('loading')}{'.'.repeat(dots)}
         </div>
     );
 };

@@ -1,17 +1,19 @@
 import Image from 'next/image';
-import Head from "next/head";
+import {useTranslation} from "react-i18next";
+import {useCachedAssets} from "@/utils/cache";
 
 import styles from '@/styles/QrPage.module.scss';
 
-const qr = '/qr.png'
-const bg = '/backgrounds/randomBG.png'
-
 export default function QrPage() {
+    const { t } = useTranslation();
+    const cachedBackground = useCachedAssets({ bg: '/backgrounds/randomBG.png' }, 'assets-cache-backgrounds');
+    const cachedOthers = useCachedAssets({ qr: '/qr.png' }, 'assets-cache-others');
+
     return (
         <div className={styles.placeholder}>
-            <h2>Play on your mobile</h2>
-            <Image className={styles.qr} src={qr} alt="QR Code" width={200} height={200} />
-            <h2>@gwprod_bot</h2>
+            <h2>{t('qr')}</h2>
+            <Image className={styles.qr} src={cachedOthers.qr} alt="QR Code" width={200} height={200} priority />
+            <h2>@gwtestbot_bot</h2>
         </div>
     );
 }
