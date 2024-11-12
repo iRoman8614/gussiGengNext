@@ -103,8 +103,10 @@ export default function Page() {
                     if (task.type === 2) {
                         icon = task.name.includes("TG") ? "tg" : task.name.includes("X") ? "x" : '';
                     }
-                    const isVisible = (task.type === 1 ? task.id <= lastCompletedTaskIdType1 + 1 : true) &&
-                        (task.type === 3 ? task.id <= lastCompletedTaskIdType3 + 1 : true);
+                    const isVisible =
+                        (task.type === 1 && task.id <= lastCompletedTaskIdType1 + 1) ||
+                        (task.type === 3 && (isCompleted || task.id === (lastCompletedTaskIdType3 + 1))) ||
+                        (task.type !== 1 && task.type !== 3);
 
                     return {
                         ...task,
