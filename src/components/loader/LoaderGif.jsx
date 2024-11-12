@@ -3,18 +3,15 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
-import { useCachedAssets } from '@/utils/cache';
 
 import styles from './Loader.module.scss';
 
 const loader = '/loadingImg.jpg';
 
 export const LoaderGif = () => {
-    const cachedAssets = useCachedAssets({ loader }, 'assets-cache-backgrounds');
-
     return (
         <div className={styles.root}>
-            <Image width={450} height={1000} className={styles.video} src={cachedAssets.loader} alt="Loading..." priority />
+            <Image width={450} height={1000} className={styles.video} src={loader} alt="Loading..." priority />
             <LoadingText />
         </div>
     );

@@ -1,29 +1,23 @@
-
 import {useEffect, useState} from "react";
 import Image from "next/image";
 import {useRouter} from "next/router";
 import {useTranslation} from "react-i18next";
 import {useInit} from "@/context/InitContext";
-import { useCachedAssets } from "@/utils/cache";
 
 import gangs from '@/mock/teamsData'
 
 import styles from '@/styles/Random.module.scss'
 
-const assetPathsBackgrounds = {
-    bg: '/backgrounds/randomBG.png',
-};
-const assetPathsRandom = {
-    person: '/random/person.png',
-    hand: '/random/hand.png',
-    dialog: '/random/dialog.png',
-    dialog2: '/random/dialog2.png',
-    oneCard: '/random/oneCard.png',
-    greenCard: '/random/greenCard.png',
-    blueCard: '/random/blueCard.png',
-    yellowCard: '/random/yellowCard.png',
-    redCard: '/random/redCard.png',
-};
+const bg = '/backgrounds/randomBG.png'
+const person = '/random/person.png'
+const hand = '/random/hand.png'
+const dialog = '/random/dialog.png'
+const dialog2 = '/random/dialog2.png'
+const oneCard = '/random/oneCard.png'
+const greenCard = '/random/greenCard.png'
+const blueCard = '/random/blueCard.png'
+const yellowCard = '/random/yellowCard.png'
+const redCard = '/random/redCard.png'
 
 export default function Page() {
     const router = useRouter();
@@ -35,9 +29,6 @@ export default function Page() {
     const [clickCount4, setClickCount4] = useState(0);
     const [showCard, setShowCard] = useState(false);
     const [showFrase, setShowFrase] = useState(0)
-
-    const cachedBackgrounds = useCachedAssets(assetPathsBackgrounds, 'assets-cache-backgrounds');
-    const cachedRandom = useCachedAssets(assetPathsRandom, 'assets-cache-newPlayerAssets');
 
     const getBoxShadowColor = (groupId) => {
         switch (groupId) {
@@ -65,17 +56,17 @@ export default function Page() {
     }, [router]);
 
     const ShownCard = ({state, groupId}) => {
-        const greenCard = '/random/greenCard.png'
-        const blueCard = '/random/blueCard.png'
-        const yellowCard = '/random/yellowCard.png'
-        const redCard = '/random/redCard.png'
+        // const greenCard = '/random/greenCard.png'
+        // const blueCard = '/random/blueCard.png'
+        // const yellowCard = '/random/yellowCard.png'
+        // const redCard = '/random/redCard.png'
 
         return(
             <Image
                 className={state ? styles.cardImage : styles.hidden}
                 style={{ boxShadow: `0 0 20px 10px ${getBoxShadowColor(groupId)}` }}
-                src={groupId === 1 ? cachedRandom.greenCard : groupId === 2 ? cachedRandom.blueCard :
-                    groupId === 3 ? cachedRandom.yellowCard : cachedRandom.redCard}
+                src={groupId === 1 ? greenCard : groupId === 2 ? blueCard :
+                    groupId === 3 ? yellowCard : redCard}
                 alt="" width={200} height={340} loading="lazy" />
         )
     }
@@ -135,23 +126,23 @@ export default function Page() {
 
     return(
         <div className={styles.root}>
-            <Image className={styles.bg} src={cachedBackgrounds.bg} alt={'bg'} width={450} height={1000} loading="lazy" />
+            <Image className={styles.bg} src={bg} alt={'bg'} width={450} height={1000} loading="lazy" />
             {showFrase === 0 && <div className={styles.dialog}>
-                <Image src={cachedRandom.dialog} className={styles.dialogImage} width={200} height={100} alt={''} loading="lazy"/>
+                <Image src={dialog} className={styles.dialogImage} width={200} height={100} alt={''} loading="lazy"/>
                 <div className={styles.text}>{t('random.pick')}</div>
             </div>}
             {showFrase === 1 && <div className={styles.dialog}>
-                <Image src={cachedRandom.dialog} className={styles.dialogImage} width={200} height={100} alt={''} loading="lazy"/>
+                <Image src={dialog} className={styles.dialogImage} width={200} height={100} alt={''} loading="lazy"/>
                 <div className={styles.text3}>{t('random.tap')}</div>
             </div>}
             {showFrase === 2 && <div className={styles.dialog}>
-                <Image src={cachedRandom.dialog2} className={styles.dialog2Image} width={200} height={100} alt={''} loading="lazy"/>
+                <Image src={dialog2} className={styles.dialog2Image} width={200} height={100} alt={''} loading="lazy"/>
                 <div className={styles.text2}>{t('random.member')} <a className={styles.gang}>{gangs[groupId].Name}</a> {t('random.gang')}</div>
             </div>}
-            <Image src={cachedRandom.person} className={styles.person} width={450} height={1000} alt={''} priority />
+            <Image src={person} className={styles.person} width={450} height={1000} alt={''} priority />
             <div className={styles.cardSet}>
                 <Image
-                    src={cachedRandom.oneCard}
+                    src={oneCard}
                     alt={''}
                     width={100}
                     height={155}
@@ -166,7 +157,7 @@ export default function Page() {
                     priority
                     onClick={handleClick1} />
                 <Image
-                    src={cachedRandom.oneCard}
+                    src={oneCard}
                     alt={''}
                     width={100}
                     height={155}
@@ -181,7 +172,7 @@ export default function Page() {
                     priority
                     onClick={handleClick2} />
                 <Image
-                    src={cachedRandom.oneCard}
+                    src={oneCard}
                     alt={''}
                     width={100}
                     height={155}
@@ -196,7 +187,7 @@ export default function Page() {
                     priority
                     onClick={handleClick3} />
                 <Image
-                    src={cachedRandom.oneCard}
+                    src={oneCard}
                     alt={''}
                     width={100}
                     height={155}
@@ -211,7 +202,7 @@ export default function Page() {
                     priority
                     onClick={handleClick4} />
             </div>
-            <Image src={cachedRandom.hand} className={styles.hand} width={450} height={1000} alt={''} priority />
+            <Image src={hand} className={styles.hand} width={450} height={1000} alt={''} priority />
             <ShownCard state={showCard} groupId={groupId} />
             {showFrase === 2 && <button className={styles.btn} onClick={() => {
                 router.push('/faq/home')

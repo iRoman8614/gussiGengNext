@@ -1,31 +1,27 @@
 import Image from "next/image";
-import { useCachedAssets } from '@/utils/cache';
 
 import styles from './TaskBtn.module.scss'
 
-const assetPaths = {
-    Arrow: '/Tasks/TaskArrow.png',
-    Complite: '/Tasks/TaskComplited.png',
-    money: '/Tasks/money2.png',
-    Icon1: '/Tasks/referal.png',
-    Icon3: '/Tasks/pvp.png',
-    IconTG: '/Tasks/telegram.png',
-    IconX: '/Tasks/twitter.png'
-};
+const Arrow = '/Tasks/TaskArrow.png'
+const Complite = '/Tasks/TaskComplited.png'
+const money = '/Tasks/money2.png'
+const Icon1 = '/Tasks/referal.png'
+const Icon3 = '/Tasks/pvp.png'
+const IconTG = '/Tasks/telegram.png'
+const IconX = '/Tasks/twitter.png'
 
 // eslint-disable-next-line react/prop-types
 export const TaskBtn = ({title, subtitle, desc, completed, onClick, readyToComplete, reward, icon, type}) => {
-    const cachedAssets = useCachedAssets(assetPaths, 'assets-cache-others');
 
     const getIconSrc = () => {
         switch(icon) {
-            case 'ref': return cachedAssets.Icon1;
-            case 'pvp': return cachedAssets.Icon3;
-            case 'tg': return cachedAssets.IconTG;
-            case 'x': return cachedAssets.IconX;
+            case 'ref': return Icon1;
+            case 'pvp': return Icon3;
+            case 'tg': return IconTG;
+            case 'x': return IconX;
             default:
-                if (type === 1) return cachedAssets.Icon1;
-                if (type === 3) return cachedAssets.Icon3;
+                if (type === 1) return Icon1;
+                if (type === 3) return Icon3;
                 return '';
         }
     }
@@ -46,14 +42,14 @@ export const TaskBtn = ({title, subtitle, desc, completed, onClick, readyToCompl
                     {subtitle && <div className={styles.subtitle}>{subtitle}</div>}
                 </div>
                 <div className={styles.reward}>
-                    <Image className={styles.money} src={cachedAssets.money} width={20} height={16} alt={''} />+{reward}
+                    <Image className={styles.money} src={money} width={20} height={16} alt={''} />+{reward}
                 </div>
             </div>
             <div className={styles.desc}>{desc}</div>
             <div>
                 {completed === false
-                    ? <Image src={cachedAssets.Arrow} width={20} height={20} alt={''} />
-                    : <Image src={cachedAssets.Complite} width={30} height={30} alt={''} />}
+                    ? <Image src={Arrow} width={20} height={20} alt={''} />
+                    : <Image src={Complite} width={30} height={30} alt={''} />}
             </div>
         </div>
     );

@@ -4,16 +4,13 @@ import Image from "next/image";
 import {useTranslation} from "react-i18next";
 import { useInit } from '@/context/InitContext';
 import { useProfileStats, useMyInvitees } from '@/utils/api';
-import { useCachedAssets } from '@/utils/cache';
 
 import skinData from '@/mock/skinsData'
 import teamData from "@/mock/teamsData";
 
 import styles from '@/styles/Account.module.scss'
 
-const assetPaths = {
-    money: '/money.png'
-};
+const money = '/money.png'
 
 export default function Page() {
     const router = useRouter();
@@ -21,8 +18,6 @@ export default function Page() {
     const { groupId, liga, dailyEntries, coins, totalCoins, updateContext } = useInit();
     const [activeTab, setActiveTab] = useState(1);
     const [userName, setUserName] = useState(null);
-
-    const cachedAssets = useCachedAssets(assetPaths, 'assets-cache-others');
     const { fetchProfileStats, data: stats } = useProfileStats();
     const { data: friends } = useMyInvitees();
 
@@ -129,7 +124,7 @@ export default function Page() {
                         </div>
                         <div>
                             <div className={styles.barItem}>{t('account.balance')}</div>
-                            <div className={styles.balance}>{formatNumberFromEnd(coins)}{' '}<Image src={cachedAssets.money} alt={''} width={21} height={21} loading="lazy" /></div>
+                            <div className={styles.balance}>{formatNumberFromEnd(coins)}{' '}<Image src={money} alt={''} width={21} height={21} loading="lazy" /></div>
                         </div>
                     </div>}
                     {/*{activeTab === 2 && <div className={styles.skinContainer}>*/}

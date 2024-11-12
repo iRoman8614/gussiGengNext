@@ -1,4 +1,3 @@
-
 import {useEffect, useState} from 'react';
 import Image from "next/image";
 import Head from "next/head";
@@ -8,19 +7,13 @@ import {useTranslation} from "react-i18next";
 import axiosInstance from "@/utils/axios";
 import {IconButton} from "@/components/buttons/icon-btn/IconButton";
 import {useLastGames, useProfileStats} from "@/utils/api";
-import { useCachedAssets } from '@/utils/cache';
 
 import styles from '@/styles/Lobby.module.scss'
 
-
-const assetPaths = {
-    bg: '/backgrounds/Lobby.png'
-};
-const mainButtonAssets = {
-    hands: '/main-buttons/hand2.png',
-    rich: '/main-buttons/rich.png',
-    FAQ: '/main-buttons/FAQ.png'
-};
+const bg = '/backgrounds/Lobby.png'
+const hands = '/main-buttons/hand2.png'
+const rich = '/main-buttons/rich.png'
+const FAQ = '/main-buttons/FAQ.png'
 
 const gameIconsAssets = [
     '/game-icons/animation_hand_pap.gif',
@@ -43,10 +36,6 @@ export default function Page() {
     const [remainingTime, setRemainingTime] = useState(null);
     const [timerActive, setTimerActive] = useState(false);
     const [sessionsCount, setSessionsCount] = useState(0)
-
-    const cachedAssets = useCachedAssets(assetPaths, 'assets-cache-backgrounds');
-    const cachedMainButtons = useCachedAssets(mainButtonAssets, 'assets-cache-icons');
-
 
     const router = useRouter();
 
@@ -139,14 +128,14 @@ export default function Page() {
                 ))}
             </Head>
             <div className={styles.root}>
-                <Image className={styles.image} src={cachedAssets.bg} alt={''} width={450} height={1000} loading="lazy"/>
+                <Image className={styles.image} src={bg} alt={''} width={450} height={1000} loading="lazy"/>
                 <div className={styles.container}>
                     <div>
                         <div className={styles.card}>
                             <div className={styles.icon} onClick={handlePvpClick}>
                                 <div>{t('PVP.battle')}</div>
                                 <p className={styles.hiddenText}>free</p>
-                                <Image className={styles.logo} src={cachedMainButtons.hands} alt={''} width={150} height={75} loading="lazy"/>
+                                <Image className={styles.logo} src={hands} alt={''} width={150} height={75} loading="lazy"/>
                             </div>
                             <div className={styles.lable}>
                                 {remainingTime > 0 &&
@@ -186,7 +175,7 @@ export default function Page() {
                                 <div className={styles.icon}>
                                     <div>ton</div>
                                     <p>{t('PVP.battle')}</p>
-                                    <Image className={styles.logo} src={cachedMainButtons.rich} alt={''} width={150} height={75} loading="lazy"/>
+                                    <Image className={styles.logo} src={rich} alt={''} width={150} height={75} loading="lazy"/>
                                 </div>
                                 <div className={styles.lable}>
                                     <div className={styles.timer}>
@@ -213,7 +202,7 @@ export default function Page() {
                     </div>
                 </div>
                 <div className={styles.faq}>
-                    <IconButton image={cachedMainButtons.FAQ} alt={'home'} title={'faq'} onClick={() => {router.push('/faq/pvp')}} />
+                    <IconButton image={FAQ} alt={'home'} title={'faq'} onClick={() => {router.push('/faq/pvp')}} />
                 </div>
             </div>
         </>

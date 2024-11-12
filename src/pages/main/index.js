@@ -1,4 +1,3 @@
-
 import {useEffect, useState} from "react";
 import Image from "next/image";
 import {useRouter} from "next/router";
@@ -8,27 +7,20 @@ import {NavBar} from "@/components/nav-bar/NavBar";
 import {CollectBar} from "@/components/bars/CollectBar";
 import {useInit} from '@/context/InitContext';
 import {useFarmCollect} from "@/utils/api";
-import {useCachedAssets} from "@/utils/cache";
 
 import teamData from "@/mock/teamsData.js";
 import skinData from '@/mock/skinsData'
 
 import styles from "@/styles/Home.module.scss";
 
-const mainButtonAssets = {
-    account: '/main-buttons/account.png',
-    settings: '/main-buttons/settings.png',
-    boards: '/main-buttons/boards.png',
-    wallet: '/main-buttons/wallet.png'
-};
-const claimAssets = {
-    claim: '/claimBTN.png',
-    claimClicked: '/claimBTNclicked.png',
-    border: '/totalbar.png'
-};
-const assetPaths = {
-    background: '/backgrounds/nightcity.png'
-};
+const account = '/main-buttons/account.png'
+const settings = '/main-buttons/settings.png'
+const boards = '/main-buttons/boards.png'
+const wallet = '/main-buttons/wallet.png'
+const claim = '/claimBTN.png'
+const claimClicked = '/claimBTNclicked.png'
+const border = '/totalbar.png'
+const background = '/backgrounds/nightcity.png'
 
 export default function Home() {
     const router = useRouter();
@@ -40,10 +32,6 @@ export default function Home() {
     const [isClaimClicked, setIsClaimClicked] = useState(false);
 
     const { collectAndStart } = useFarmCollect();
-
-    const cachedBackgrounds = useCachedAssets(assetPaths, 'assets-cache-backgrounds');
-    const cachedMainButtons = useCachedAssets(mainButtonAssets, 'assets-cache-icons');
-    const cachedClaimButtons = useCachedAssets(claimAssets, 'assets-cache-icons');
 
     useEffect(() => {
         updateContext();
@@ -135,25 +123,25 @@ export default function Home() {
 
     return (
         <div className={styles.root}>
-            <Image className={styles.background} src={cachedBackgrounds.background} width={300} height={1000}  alt={'bg'} loading="lazy"/>
+            <Image className={styles.background} src={background} width={300} height={1000}  alt={'bg'} loading="lazy"/>
             <div className={styles.item1}>
-                <IconButton image={cachedMainButtons.account} alt={'account'} title={t('main.account')}  onClick={() => {router.push('/account')}}/>
+                <IconButton image={account} alt={'account'} title={t('main.account')}  onClick={() => {router.push('/account')}}/>
             </div>
             <div className={styles.item2}>
                 <IconButton image={teamData[groupId]?.logo} alt={'gang'} onClick={() => {router.push('/change')}}/>
             </div>
             <div className={styles.item3}>
-                <IconButton image={cachedMainButtons.settings} alt={'settings'} title={t('main.settings')} onClick={() => {router.push('/settings');}}/>
+                <IconButton image={settings} alt={'settings'} title={t('main.settings')} onClick={() => {router.push('/settings');}}/>
             </div>
             <div className={styles.item4}>
-                <IconButton image={cachedMainButtons.boards} alt={'boards'} title={t('main.boards')} onClick={() => {router.push('/boards');}}/>
+                <IconButton image={boards} alt={'boards'} title={t('main.boards')} onClick={() => {router.push('/boards');}}/>
             </div>
             <div className={styles.item5}>
-                <Image src={claimAssets.border} width={600} height={200} alt={'border'} className={styles.totalBarRoot} loading="lazy"/>
+                <Image src={border} width={600} height={200} alt={'border'} className={styles.totalBarRoot} loading="lazy"/>
                 <div className={styles.totalText}>{formatNumberFromEnd(balance)}</div>
             </div>
             <div className={styles.item6}>
-                <IconButton image={cachedMainButtons.wallet} alt={'wallet'} title={t('main.wallet')} hidden={true} onClick={() => {router.push('/main')}}/>
+                <IconButton image={wallet} alt={'wallet'} title={t('main.wallet')} hidden={true} onClick={() => {router.push('/main')}}/>
             </div>
             <div className={styles.item7}>
                 <Image width={1000} height={1000} className={styles.char} alt={'character'} src={skinData[groupId]?.[liga]?.icon} loading="lazy"/>
@@ -166,7 +154,7 @@ export default function Home() {
                 />
             </div>
             <div className={styles.item9}>
-                <Image className={styles.claimRoot} width={600} height={200} src={isClaimClicked ? cachedClaimButtons.claimClicked : cachedClaimButtons.claim} onClick={handleClaimClick} alt={'claim'} loading="lazy" />
+                <Image className={styles.claimRoot} width={600} height={200} src={isClaimClicked ? claimClicked : claim} onClick={handleClaimClick} alt={'claim'} loading="lazy" />
             </div>
             <div className={styles.item10}>
                 <NavBar/>

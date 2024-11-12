@@ -1,4 +1,3 @@
-
 import {useEffect, useRef, useState} from "react";
 import Image from "next/image";
 import { useRouter } from 'next/router';
@@ -14,8 +13,8 @@ import {useTranslation} from "react-i18next";
 import styles from '@/styles/Pvp.module.scss';
 import "react-toastify/dist/ReactToastify.css";
 
-const wins = '/wins.png';
-const lose = '/lose.png'
+const youWin = '/youWin.png';
+const youLose = '/youLose.png'
 const background = '/backgrounds/backalley.png'
 const timerBG = '/timer.png'
 const heart = '/game-icons/heart.png'
@@ -49,6 +48,8 @@ export default function PvpBotPage() {
     const [opponentName, setOpponentName] = useState("biggie smalls")
     const [resetSequence, setResetSequence] = useState(false);
     const [showChanger, setShowChanger] = useState(false)
+    const [isLocked, setIsLocked] = useState(false);
+    const [roundProcessed, setRoundProcessed] = useState(false);
 
     const playerGifCache = useRef({});
     const opponentGifCache = useRef({});
@@ -120,16 +121,20 @@ export default function PvpBotPage() {
                 }
                 setTimer(timer - 1);
             }, 1000);
-        } else if (timer === 0 && playerChoice !== null) {
+        } else if (timer === 0 && !roundProcessed) {
+            setIsLocked(true);
+            setRoundProcessed(true);
+            const finalPlayerChoice = playerChoice !== null ? playerChoice : 0;
+            setPlayerChoice(finalPlayerChoice)
             const randomOpponentChoice = getRandomOption();
             setOpponentChoice(randomOpponentChoice);
             showGifSequence();
             setTimeout(() => {
-                updateScores(playerChoice, randomOpponentChoice)
+                updateScores(finalPlayerChoice, randomOpponentChoice)
             }, 2000);
         }
         return () => clearTimeout(timerId);
-    }, [timer, gameOver, playerChoice]);
+    }, [timer, gameOver, playerChoice, roundProcessed]);
 
     const showGifSequence = () => {
         const timeouts = [];
@@ -145,10 +150,20 @@ export default function PvpBotPage() {
     };
 
     const updateScores = (playerMoveIndex, opponentMoveIndex) => {
-        const playerMove = gameOptions[playerMoveIndex].name;
+        const playerMove = gameOptions[playerMoveIndex]?.name;
         const opponentMove = gameOptions[opponentMoveIndex].name;
 
-        if (playerMove === opponentMove) {
+        if (playerMove === "default") {
+            setOpponentScore(prev => {
+                const newScore = prev + 1;
+                if (newScore === 3) {
+                    setTimeout(() => handleGameEnd(0), 3000);
+                } else {
+                    setShowChanger(true);
+                }
+                return newScore;
+            });
+        } else if (playerMove === opponentMove) {
             // Ничья — обновляем раунд сразу после анимации
             setTimeout(() => {
                 resetRoundAfterDelay();
@@ -210,7 +225,9 @@ export default function PvpBotPage() {
         setOpponentChoice(null);
         setTimer(3);
         setVisibleImage(0);
+        setIsLocked(false);
         setResetSequence(!resetSequence);
+        setRoundProcessed(false);
     };
 
     return (
@@ -304,9 +321,9 @@ export default function PvpBotPage() {
                         {t('PVP.rounds')} {playerScore+opponentScore+1}
                     </div>
                     <div className={styles.buttonSet}>
-                        <PvpBtn title={t('PVP.rock')} img={rock} value={1} onClick={() => setPlayerChoice(1)} choose={playerChoice} />
-                        <PvpBtn title={t('PVP.paper')} img={paper} value={2} onClick={() => setPlayerChoice(2)} choose={playerChoice} />
-                        <PvpBtn title={t('PVP.scissors')} img={scis} value={3} onClick={() => setPlayerChoice(3)} choose={playerChoice} />
+                        <PvpBtn title={t('PVP.rock')} img={rock} value={1} onClick={() => !isLocked && setPlayerChoice(1)} choose={playerChoice} />
+                        <PvpBtn title={t('PVP.paper')} img={paper} value={2} onClick={() => !isLocked && setPlayerChoice(2)} choose={playerChoice} />
+                        <PvpBtn title={t('PVP.scissors')} img={scis} value={3} onClick={() => !isLocked && setPlayerChoice(3)} choose={playerChoice} />
                     </div>
                 </div>
             </div>
@@ -339,22 +356,17 @@ const VictoryCounter = ({ score }) => (
 );
 
 // eslint-disable-next-line react/prop-types
-const WinningScreen = ({ userName, playerScore  }) => (
+const WinningScreen = ({ playerScore  }) => (
     <div className={styles.winbg}>
-        <div className={styles.winBorder}>
+        {playerScore === 3 ? <div className={styles.winBorder}>
             <div className={styles.winContainer}>
-                <div className={styles.winnerName}>
-                    {playerScore === 3 && userName}
-                </div>
                 {playerScore === 3
-                    ?
-                    <Image width={204} height={151} className={styles.winsImage} src={wins} alt={'wins'} loading="lazy" />
-                    :
-                    <Image width={204} height={204} className={styles.winsImage} src={lose} alt={'you lose'} loading="lazy" />
+                    &&
+                    <Image width={204} height={151} className={styles.winsImage} src={youWin} alt={'wins'} loading="lazy" />
                 }
-                {playerScore === 3 ? <p className={styles.winnerName}>+5% farm </p> : <p></p>}
+                {playerScore === 3 ? <p className={styles.winnerName}>+5% farm</p> : <p></p>}
             </div>
-        </div>
+        </div> : <Image width={204} height={204} className={styles.loseImage} src={youLose} alt={'you lose'} loading="lazy" />}
     </div>
 );
 
@@ -368,4 +380,5 @@ const RoundChanger = ({round}) => {
                 <div className={styles.changerText}>{t('PVP.rounds')} {round}</div>
             </div>
         </div>
-    )}
+    )
+}

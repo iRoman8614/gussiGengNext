@@ -1,4 +1,5 @@
 import Image from "next/image";
+
 import styles from './PvpBtn.module.scss';
 
 // eslint-disable-next-line react/prop-types

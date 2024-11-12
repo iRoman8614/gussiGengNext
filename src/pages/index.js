@@ -1,30 +1,22 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
+import CryptoJS from 'crypto-js';
 import { toast } from "react-toastify";
 import { useInit } from '@/context/InitContext';
 import { useProfileInit, useFarmStart, useProfileStats } from '@/utils/api';
 import { useTranslation } from "react-i18next";
-import { useCachedAssets } from '@/utils/cache';
 import assetData from "@/mock/assets.json";
-import CryptoJS from 'crypto-js';
 
 import styles from '@/styles/Loader.module.scss';
 
-const assetPaths = {
-    loaderImage: '/loadingImg.jpg'
-};
+const loaderImage = '/loadingImg.jpg'
 
 export default function LoaderPage() {
     const router = useRouter();
     const { updateContext } = useInit();
-    const [dataFetched, setDataFetched] = useState(false);
-    const [authToken, setAuthToken] = useState(null);
     const [groupId, setGroupId] = useState(null);
-    const [liga, setLiga] = useState(null);
-    const [loadingComplete, setLoadingComplete] = useState(false);
     let isNewPlayer = false;
-    const cachedAssets = useCachedAssets(assetPaths, 'assets-cache-backgrounds');
 
     const CURRENT_VERSION = process.env.NEXT_PUBLIC_CURRENT_VERSION
 
@@ -88,8 +80,6 @@ export default function LoaderPage() {
     const fetchData = useCallback(async () => {
         try {
             const initData = await fetchProfileInit()
-            await fetchFarmStart();
-            await fetchProfileStats();
             if (initData.data.init.groupId) {
                 const skinGroup = `skins.${groupId}`;
                 loadAssets(skinGroup, assetData.skins[groupId]);
@@ -142,6 +132,8 @@ export default function LoaderPage() {
         const executeAfterToken = async () => {
             initializeTelegramWebApp()
             await fetchData();
+            await fetchFarmStart();
+            await fetchProfileStats();
             updateAndRedirect();
         };
         if (token) {
@@ -171,7 +163,7 @@ export default function LoaderPage() {
 
     return (
         <div className={styles.root}>
-            <Image className={styles.video} src={cachedAssets.loaderImage} alt="Loading..." width={500} height={500} priority />
+            <Image className={styles.video} src={loaderImage} alt="Loading..." width={500} height={500} priority />
             <LoadingText />
         </div>
     );

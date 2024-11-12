@@ -1,11 +1,12 @@
-import "@/styles/globals.scss";
+import {useEffect} from "react";
 import Script from "next/script";
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import Head from "next/head";
+import { ToastContainer } from 'react-toastify';
 import { InitProvider } from '@/context/InitContext';
 import assetData from "@/mock/assets.json";
-import {useEffect} from "react";
+
+import 'react-toastify/dist/ReactToastify.css';
+import "@/styles/globals.scss";
 
 export default function App({ Component, pageProps }) {
     useEffect(() => {

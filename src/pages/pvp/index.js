@@ -16,7 +16,8 @@ import { gameOptions } from '@/mock/optionData';
 import styles from '@/styles/Pvp.module.scss';
 import "react-toastify/dist/ReactToastify.css";
 
-const wins = '/wins.png';
+const youWin = '/youWin.png';
+const youLose = '/youLose.png'
 const background = '/backgrounds/backalley.png'
 const timerBG = '/timer.png'
 const heart = '/game-icons/heart.png'
@@ -258,7 +259,12 @@ export default function PvpPage() {
         setOpponentChoice(opponentAnswer);
         setRoundResult({ userVictory, opponentVictory, finished })
         if (player1.answer !== 4 && player2.answer !== 4 && timer === 0) {
-            showGifSequence();
+            showGifSequence(() => {
+                if (userVictory !== playerScore || opponentVictory !== opponentScore) {
+                    setShowChanger(true);
+                    setTimeout(() => setShowChanger(false), 1000);
+                }
+            });
         }
     };
 
@@ -295,8 +301,6 @@ export default function PvpPage() {
     const resetRoundAfterDelay = () => {
         if (playerChoice !== opponentChoice) {
             setRound(prev => prev + 1);
-            setShowChanger(true);
-            setTimeout(() => setShowChanger(false), 1000);
         }
         setRoundResult(null);
         setPlayerChoice(4);
@@ -433,17 +437,17 @@ const VictoryCounter = ({ score }) => (
 );
 
 // eslint-disable-next-line react/prop-types
-const WinningScreen = ({ userName, playerScore, opponentName  }) => (
+const WinningScreen = ({ playerScore  }) => (
     <div className={styles.winbg}>
-        <div className={styles.winBorder}>
+        {playerScore === 3 ? <div className={styles.winBorder}>
             <div className={styles.winContainer}>
-                <div className={styles.winnerName}>
-                    {playerScore === 3 ? userName : opponentName}
-                </div>
-                <Image width={204} height={151} className={styles.winsImage} src={wins} alt={'wins'}  />
-                <p className={styles.winnerName}>+5% farm</p>
+                {playerScore === 3
+                    &&
+                    <Image width={204} height={151} className={styles.winsImage} src={youWin} alt={'wins'} loading="lazy" />
+                }
+                {playerScore === 3 ? <p className={styles.winnerName}>+5% farm</p> : <p></p>}
             </div>
-        </div>
+        </div> : <Image width={204} height={204} className={styles.loseImage} src={youLose} alt={'you lose'} loading="lazy" />}
     </div>
 );
 

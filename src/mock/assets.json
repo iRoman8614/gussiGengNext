@@ -71,10 +71,10 @@
     "/game-icons/roundAnimFront.png",
     "/game-icons/scissors.png",
     "/timer.png",
-    "/lose.png",
+    "/youLose.png",
     "/roundContainer.png",
     "/oppNickNameContainer.png",
-    "/wins.png"
+    "/yoWin.png"
   ],
   "upgrades": {
     "limit": [
@@ -85,11 +85,11 @@
       "/upgradesCards/limit/limit5.png"
     ],
     "rate": [
-      "/upgradesCards/rate/rate1.png",
-      "/upgradesCards/rate/rate2.png",
-      "/upgradesCards/rate/rate3.png",
-      "/upgradesCards/rate/rate4.png",
-      "/upgradesCards/rate/rate5.png"
+      "/upgradesCards/rate/rate11.png",
+      "/upgradesCards/rate/rate21.png",
+      "/upgradesCards/rate/rate31.png",
+      "/upgradesCards/rate/rate41.png",
+      "/upgradesCards/rate/rate51.png"
     ],
     "slider": [
       "/upgradesCards/slider/limitSlide.png",

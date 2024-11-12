@@ -198,7 +198,7 @@
   height: 391px;
   background: radial-gradient(67% 67.04% at 50% 50%, rgb(56, 66, 164) 0%, rgb(21, 25, 62) 100%);
   background-size: contain;
-  padding: 40px 10px 40px 10px;
+  padding: 40px 10px 10px 10px;
 }
 
 .winnerName {
@@ -210,6 +210,16 @@
 .winsImage {
   width: 204px;
   height: 151px;
+  margin-top: 20%;
+}
+
+.loseImage {
+  //width: 80%;
+  //height: auto;
+  width: 271px;
+  height: 391px;
+  display: flex;
+  justify-self: center;
 }
 
 .heart {

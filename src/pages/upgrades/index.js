@@ -43,11 +43,11 @@ export default function Page() {
     ]
 
     const rateImages = [
-        '/upgradesCards/rate/rate1.png',
-        '/upgradesCards/rate/rate2.png',
-        '/upgradesCards/rate/rate3.png',
-        '/upgradesCards/rate/rate4.png',
-        '/upgradesCards/rate/rate5.png'
+        '/upgradesCards/rate/rate11.png',
+        '/upgradesCards/rate/rate21.png',
+        '/upgradesCards/rate/rate31.png',
+        '/upgradesCards/rate/rate41.png',
+        '/upgradesCards/rate/rate51.png'
     ]
 
     const limitImages = [

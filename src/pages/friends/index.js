@@ -1,4 +1,3 @@
-
 import {useEffect, useState} from 'react';
 import {useRouter} from "next/router";
 import Image from "next/image";
@@ -7,15 +6,12 @@ import { toast } from 'react-toastify';
 import {useTranslation} from "react-i18next";
 import {ListItem} from "@/components/ListItem/ListItem";
 import {useMyInvitees} from "@/utils/api";
-import { useCachedAssets } from "@/utils/cache";
 
 import styles from '@/styles/Friends.module.scss'
 
-const assetPathsOthers = {
-    copy: '/copy.svg',
-    star: '/Star.png',
-    money: '/money.png'
-};
+const copy = '/copy.svg'
+const star = '/Star.png'
+const money = '/money.png'
 
 const link = process.env.NEXT_PUBLIC_BOT_LINK
 // const link = 'https://t.me/Gang_wars_bot'
@@ -27,7 +23,6 @@ export default function Page() {
     const { data: friends } = useMyInvitees();
 
     const router = useRouter();
-    const cachedOthers = useCachedAssets(assetPathsOthers, 'assets-cache-others');
 
     useEffect(() => {
         if (typeof window !== 'undefined' && window.Telegram?.WebApp) {
@@ -128,7 +123,7 @@ export default function Page() {
                     <div className={styles.banner}>
                         <div className={styles.bannerMid}>
                             {t('friends.inviteFriends')} tg
-                            <Image src={cachedOthers.star} alt={''} width={15} height={15} loading="lazy"/> friend
+                            <Image src={star} alt={''} width={15} height={15} loading="lazy"/> friend
                             <p>+2 PVP pass</p>
                         </div>
                         <div className={styles.hintLabel}><a>+10 {t('friends.extra')}</a></div>
@@ -182,7 +177,7 @@ export default function Page() {
                         <div className={styles.buttonset}>
                             <button className={styles.btnInvite} onClick={inviteClick}>{t('friends.invite')}</button>
                             <button className={styles.btnCopy} onClick={handleClick}>
-                                <Image src={cachedOthers.copy} alt={'copy'} height={50} width={50} loading="lazy"/>
+                                <Image src={copy} alt={'copy'} height={50} width={50} loading="lazy"/>
                             </button>
                         </div>
                     </div>}
@@ -191,36 +186,36 @@ export default function Page() {
                             <div className={styles.hintLabel}>-{t('friends.referral.each')} <a>{t('friends.referral.referral')}</a> {t('friends.referral.gives')} <a>+1 PvP pass.</a></div>
                             <div className={styles.hintLabel}>-<a>{t('friends.passes.passes')}</a> – {t('friends.passes.allows')} <a>{t('friends.passes.extra')}</a>{t('friends.passes.cooldown')}</div>
                             <div className={styles.hintLabel}>-{t('friends.premium.if')} <a>{t('friends.premium.tgp')}</a> {t('friends.premium.you')} <a>{t('friends.premium.passes')}</a>.</div>
-                            <div className={styles.hintLabel}>{t('friends.score.referrals')} <a>{t('friends.score.score')} </a> <img src={cachedOthers.money} alt={''} width={15} height={15} /> {t('friends.score.for')} <a>{t('friends.score.signing')}</a> {t('friends.score.link')}</div>
+                            <div className={styles.hintLabel}>{t('friends.score.referrals')} <a>{t('friends.score.score')} </a> <img src={money} alt={''} width={15} height={15} /> {t('friends.score.for')} <a>{t('friends.score.signing')}</a> {t('friends.score.link')}</div>
                             <div className={styles.rewards}>
                                 <div className={styles.title}>{t('friends.rewards')}</div>
                                 <div className={styles.row}>
                                     <div className={styles.hintLabel}><a>1</a> {t('friends.ref.1')}</div>
-                                    <div className={styles.hintLabel}><a>10000 </a><Image src={cachedOthers.money} alt={''} width={15} height={15} /></div>
+                                    <div className={styles.hintLabel}><a>10000 </a><Image src={money} alt={''} width={15} height={15} /></div>
                                 </div>
                                 <div className={styles.row}>
                                     <div className={styles.hintLabel}><a>3</a> {t('friends.ref.3')}</div>
-                                    <div className={styles.hintLabel}><a>50000 </a><Image src={cachedOthers.money} alt={''} width={15} height={15} /></div>
+                                    <div className={styles.hintLabel}><a>50000 </a><Image src={money} alt={''} width={15} height={15} /></div>
                                 </div>
                                 <div className={styles.row}>
                                     <div className={styles.hintLabel}><a>5</a> {t('friends.ref.5')}</div>
-                                    <div className={styles.hintLabel}><a>100000 </a><Image src={cachedOthers.money} alt={''} width={15} height={15} /></div>
+                                    <div className={styles.hintLabel}><a>100000 </a><Image src={money} alt={''} width={15} height={15} /></div>
                                 </div>
                                 <div className={styles.row}>
                                     <div className={styles.hintLabel}><a>10</a> {t('friends.ref.5')}</div>
-                                    <div className={styles.hintLabel}><a>250000 </a><Image src={cachedOthers.money} alt={''} width={15} height={15} /></div>
+                                    <div className={styles.hintLabel}><a>250000 </a><Image src={money} alt={''} width={15} height={15} /></div>
                                 </div>
                                 <div className={styles.row}>
                                     <div className={styles.hintLabel}><a>25</a> {t('friends.ref.5')}</div>
-                                    <div className={styles.hintLabel}><a>750000 </a><Image src={cachedOthers.money} alt={''} width={15} height={15} /></div>
+                                    <div className={styles.hintLabel}><a>750000 </a><Image src={money} alt={''} width={15} height={15} /></div>
                                 </div>
                                 <div className={styles.row}>
                                     <div className={styles.hintLabel}><a>50</a> {t('friends.ref.5')}</div>
-                                    <div className={styles.hintLabel}><a>1500000 </a><Image src={cachedOthers.money} alt={''} width={15} height={15} /></div>
+                                    <div className={styles.hintLabel}><a>1500000 </a><Image src={money} alt={''} width={15} height={15} /></div>
                                 </div>
                                 <div className={styles.row}>
                                     <div className={styles.hintLabel}><a>100</a> {t('friends.ref.5')}</div>
-                                    <div className={styles.hintLabel}><a>5000000 </a><Image src={cachedOthers.money} alt={''} width={15} height={15} /></div>
+                                    <div className={styles.hintLabel}><a>5000000 </a><Image src={money} alt={''} width={15} height={15} /></div>
                                 </div>
                             </div>
                         </div>
