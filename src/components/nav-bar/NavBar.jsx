@@ -9,7 +9,7 @@ const upgrades = '/main-buttons/upgrades.png'
 const hands = '/main-buttons/hands.png'
 const friends = '/main-buttons/friends.png'
 const bag = '/main-buttons/bag.png'
-const FAQ = '/main-buttons/FAQ.png '
+const faq = '/main-buttons/FAQ.png '
 
 export const NavBar = () => {
     const router = useRouter();
@@ -21,7 +21,7 @@ export const NavBar = () => {
             <IconButton image={upgrades} alt={'upgrades'} title={t('main.exp')} onClick={() => {router.push('/upgrades')}} />
             <BigButton image={hands} alt={'pvp'} title={t('main.pvp')} onClick={() => {router.push('/lobby')}} />
             <IconButton image={friends} alt={'friends'} title={t('main.friends')} onClick={() => {router.push('/friends')}} />
-            <IconButton image={FAQ} alt={'home'} title={t('main.faq')} onClick={() => {router.push('/faq/home')}} />
+            <IconButton image={faq} alt={'home'} title={t('main.faq')} onClick={() => {router.push('/faq/home')}} />
         </div>
     );
 };

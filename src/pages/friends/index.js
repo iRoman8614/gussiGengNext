@@ -9,7 +9,7 @@ import {useMyInvitees} from "@/utils/api";
 
 import styles from '@/styles/Friends.module.scss'
 
-const copy = '/copy.svg'
+const copy = '/copy.png'
 const star = '/Star.png'
 const money = '/money.png'
 
