@@ -103,7 +103,8 @@ export default function Page() {
                     if (task.type === 2) {
                         icon = task.name.includes("TG") ? "tg" : task.name.includes("X") ? "x" : '';
                     }
-                    const isVisible = (task.type === 1 && task.id <= lastCompletedTaskIdType1 + 1)
+                    const isVisible1 = (task.type === 1 && task.id <= lastCompletedTaskIdType1 + 1)
+                    const isVisible3 = (task.type === 3 && task.id <= lastCompletedTaskIdType3 + 1)
 
                     return {
                         ...task,
@@ -111,7 +112,7 @@ export default function Page() {
                         current: task.type === 1 ? numFriends : stats.victory,
                         completed: isCompleted,
                         path: task.type === 1 ? '/friends' : '/lobby',
-                        visible: isVisible,
+                        visible: isVisible1 || isVisible3,
                         readyToComplete: readyToComplete,
                         icon: icon,
                     };
