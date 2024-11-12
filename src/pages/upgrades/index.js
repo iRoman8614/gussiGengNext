@@ -90,8 +90,10 @@ export default function Page() {
                 const completedTasks = completedTasksResponse.data.map(task => task.task.id);
                 const lastCompletedTaskIdType1 = Math.max(0, ...tasks.filter(task => task.type === 1 && completedTasks.includes(task.id)).map(task => task.id));
                 const lastCompletedTaskIdType3 = Math.max(0, ...tasks.filter(task => task.type === 3 && completedTasks.includes(task.id)).map(task => task.id));
-                console.log('lastCompletedTaskIdType3', lastCompletedTaskIdType3)
-                console.log('lastCompletedTaskIdType1', lastCompletedTaskIdType1)
+                const type3Tasks = tasks
+                    .filter(task => task.type === 3)
+                    .sort((a, b) => a.id - b.id);
+                const lastCompletedTaskIndexType3 = type3Tasks.findIndex(task => task.id === Math.max(...completedTasks.filter(id => type3Tasks.some(task => task.id === id))));
                 tasks = tasks.map(task => {
                     const isCompleted = completedTasks.includes(task.id);
                     let readyToComplete = false;
@@ -108,7 +110,7 @@ export default function Page() {
                     // const isVisible = (task.type === 1 ? task.id <= lastCompletedTaskIdType1 + 1 :
                     //     (task.type === 3 ? task.id <= lastCompletedTaskIdType3 + 1 : true))
                     const isVisible = (task.type === 1 && task.id <= lastCompletedTaskIdType1 + 1) ||
-                        (task.type === 3 && (completedTasks.includes(task.id) || task.id === lastCompletedTaskIdType3 + 1)) ||
+                        (task.type === 3 && (isCompleted || type3Tasks[lastCompletedTaskIndexType3 + 1]?.id === task.id)) ||
                         (task.type !== 1 && task.type !== 3);
 
                     return {
