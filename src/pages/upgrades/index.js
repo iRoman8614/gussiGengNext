@@ -89,6 +89,7 @@ export default function Page() {
                 const completedTasksResponse = await axiosInstance.get('/task/completed-tasks');
                 const completedTasks = completedTasksResponse.data.map(task => task.task.id);
                 const lastCompletedTaskIdType1 = Math.max(0, ...tasks.filter(task => task.type === 1 && completedTasks.includes(task.id)).map(task => task.id));
+                const lastCompletedTaskIdType3 = Math.max(0, ...tasks.filter(task => task.type === 3 && completedTasks.includes(task.id)).map(task => task.id));
                 tasks = tasks.map(task => {
                     const isCompleted = completedTasks.includes(task.id);
                     let readyToComplete = false;
@@ -102,7 +103,9 @@ export default function Page() {
                     if (task.type === 2) {
                         icon = task.name.includes("TG") ? "tg" : task.name.includes("X") ? "x" : '';
                     }
-                    const isVisible = task.type === 1 ? task.id <= lastCompletedTaskIdType1 + 1 : true;
+                    const isVisible = (task.type === 1 ? task.id <= lastCompletedTaskIdType1 + 1 : true) &&
+                        (task.type === 3 ? task.id <= lastCompletedTaskIdType3 + 1 : true);
+
                     return {
                         ...task,
                         name: mapTaskName(task.name),
