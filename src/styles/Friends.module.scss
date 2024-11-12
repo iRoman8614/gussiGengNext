@@ -124,7 +124,7 @@
 .btnInvite {
   max-width: 400px;
   width: 100%;
-  font-size: auto-clamp(30, 50);
+  font-size: auto-clamp(24, 40);
   color: rgba(255,255,255);
 
   animation: pulse 1.5s infinite;
@@ -232,7 +232,7 @@
 }
 
 .hintLabel {
-  font-size: auto-height(8, 28) !important;
+  font-size: auto-height(8, 26) !important;
   text-align: center;
   color: #fff;
 

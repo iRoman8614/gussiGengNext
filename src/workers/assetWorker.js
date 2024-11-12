@@ -7,7 +7,18 @@ const updateCacheMap = (assets, cacheName) => {
 };
 
 self.onmessage = async function (event) {
-    const { assets, cacheName } = event.data;
+    const { type, assets, cacheName } = event.data;
+
+    if (type === 'CLEAR_CACHE') {
+        const cacheNames = await caches.keys();
+        for (const cacheName of cacheNames) {
+            await caches.delete(cacheName);
+        }
+        console.log('All caches cleared');
+        Object.keys(cacheMap).forEach(key => delete cacheMap[key]);
+        return;
+    }
+
     if (!assets || !cacheName) {
         console.error("No assets or cacheName provided to worker");
         return;

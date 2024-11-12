@@ -54,6 +54,7 @@ export default function PvpPage() {
     const [roundResult, setRoundResult] = useState(null);
     const [opponentName, setOpponentName] = useState("biggie smalls")
     const [showChanger, setShowChanger] = useState(false)
+    const [lastRound, setLastRound] = useState(1)
 
     const playerGifCache = useRef({});
     const opponentGifCache = useRef({});
@@ -259,12 +260,7 @@ export default function PvpPage() {
         setOpponentChoice(opponentAnswer);
         setRoundResult({ userVictory, opponentVictory, finished })
         if (player1.answer !== 4 && player2.answer !== 4 && timer === 0) {
-            showGifSequence(() => {
-                if (userVictory !== playerScore || opponentVictory !== opponentScore) {
-                    setShowChanger(true);
-                    setTimeout(() => setShowChanger(false), 1000);
-                }
-            });
+            showGifSequence()
         }
     };
 
@@ -289,6 +285,9 @@ export default function PvpPage() {
                 if (roundResult.finished === true) {
                     handleGameEnd();
                 } else {
+                    if(lastRound !== (newPlayerScore + newOpponentScore + 1)) {
+                        setShowChanger(true);
+                    }
                     setTimeout(() => {
                         resetRoundAfterDelay();
                     }, 1000);
@@ -301,6 +300,7 @@ export default function PvpPage() {
     const resetRoundAfterDelay = () => {
         if (playerChoice !== opponentChoice) {
             setRound(prev => prev + 1);
+            setLastRound(prev => prev + 1)
         }
         setRoundResult(null);
         setPlayerChoice(4);

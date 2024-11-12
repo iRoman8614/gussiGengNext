@@ -48,6 +48,9 @@ export default function LoaderPage() {
                 localStorage.clear();
                 isNewPlayer = true;
                 localStorage.setItem('version', CURRENT_VERSION);
+                if (navigator.serviceWorker.controller) {
+                    navigator.serviceWorker.controller.postMessage({ type: 'CLEAR_CACHE' });
+                }
             }
         }
     }, [CURRENT_VERSION]);
