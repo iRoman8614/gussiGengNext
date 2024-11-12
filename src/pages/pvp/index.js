@@ -41,7 +41,7 @@ export default function PvpPage() {
     const [opponentScore, setOpponentScore] = useState(0);
     const [gameOver, setGameOver] = useState(false);
     const [round, setRound] = useState(1);
-    const [timer, setTimer] = useState(3);
+    const [timer, setTimer] = useState(5);
     const [playerChoice, setPlayerChoice] = useState(4);
     const [opponentChoice, setOpponentChoice] = useState(4);
     const [gameEnded, setGameEnded] = useState(false);
@@ -307,6 +307,7 @@ export default function PvpPage() {
         setOpponentChoice(4);
         setTimer(3);
         setVisibleImage(0);
+        setShowChanger(false)
     };
 
     const handleGameEnd = () => {
