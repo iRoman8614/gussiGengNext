@@ -90,6 +90,8 @@ export default function Page() {
                 const completedTasks = completedTasksResponse.data.map(task => task.task.id);
                 const lastCompletedTaskIdType1 = Math.max(0, ...tasks.filter(task => task.type === 1 && completedTasks.includes(task.id)).map(task => task.id));
                 const lastCompletedTaskIdType3 = Math.max(0, ...tasks.filter(task => task.type === 3 && completedTasks.includes(task.id)).map(task => task.id));
+                console.log('lastCompletedTaskIdType3', lastCompletedTaskIdType3)
+                console.log('lastCompletedTaskIdType1', lastCompletedTaskIdType1)
                 tasks = tasks.map(task => {
                     const isCompleted = completedTasks.includes(task.id);
                     let readyToComplete = false;
