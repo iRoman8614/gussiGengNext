@@ -105,7 +105,8 @@ export default function Page() {
                     }
                     const isVisible =
                         (task.type === 1 && task.id <= lastCompletedTaskIdType1 + 1) ||
-                        (task.type === 3 && task.id <= lastCompletedTaskIdType3 + 1)
+                        (task.type === 3 && task.id <= lastCompletedTaskIdType3 + 1) ||
+                        (task.type !== 1 && task.type !== 3)
 
                     return {
                         ...task,
