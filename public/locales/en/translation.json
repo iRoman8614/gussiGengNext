@@ -183,9 +183,9 @@
       "wins": "wins the match"
     },
     "gl": "good luck player",
-    "pr": "paper beats rock",
-    "rs": "rock beats scissors",
-    "sp": "scissors beats paper",
+    "pr": " beats rock",
+    "rs": " beats scissors",
+    "sp": " beats paper",
     "expected": "expected time: 20 sec",
     "rock": "rock",
     "paper": "paper",

@@ -84,8 +84,10 @@ export default function PvpBotPage() {
             <div>{t('PVP.3wins.first')} <a className={styles.yellow}>{t('PVP.3wins.3')}</a> {t('PVP.3wins.wins')} <br/>
                 {t('PVP.gl')}</div>
         </div>,
-        <div className={styles.slideContent6} key={'slideContent7'}>
-            <Image src={trio} alt={''} width={200} height={180} loading="lazy" />
+        <div className={styles.slideContent7} key={'slideContent7'}>
+            <div className={styles.beat1}><a className={styles.red}>{t('PVP.paper')}</a>{t('PVP.pr')}</div>
+            <div className={styles.beat2}><a className={styles.yellow}>{t('PVP.rock')}</a>{t('PVP.rs')}</div>
+            <div className={styles.beat3}><a className={styles.green}>{t('PVP.scissors')}</a>{t('PVP.sp')}</div>
         </div>
     ];
 
@@ -135,7 +137,7 @@ export default function PvpBotPage() {
                 </div>
             </div>
             <div className={slide === 0 ? styles.filter0 : styles.filter}>
-                <div className={slide === 4 ? styles.tutorial4 : styles.tutorial}>
+                <div className={slide === 4 ? styles.tutorial4 : (slide === 6 ? styles.tutorial7 : styles.tutorial)}>
                     <div className={styles.col}>
                         <div className={styles.dot}>1</div>
                         <div className={styles.navLeft} onClick={prevSlide}>

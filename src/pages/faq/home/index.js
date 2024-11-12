@@ -53,7 +53,7 @@ export default function Home() {
         if (window.Telegram?.WebApp?.HapticFeedback) {
             window.Telegram.WebApp.HapticFeedback.impactOccurred("heavy");
         }
-        if(slide === 6) {
+        if(slide === 7) {
             router.push('/main')
         } else {
             setSlide((prev) => prev + 1);
@@ -77,7 +77,7 @@ export default function Home() {
             <div>{t('FAQ.1.farmPool')} <a className={styles.yellow}> {t('FAQ.1.pool')}</a> {t('FAQ.1.end')}</div>
         </div>,
         <div className={styles.slideContent2} key={'slideContent2'}>
-            <div>{t('FAQ.2.btn')} <a className={styles.yellow}>{t('FAQ.2.claim')}</a>{t('FAQ.2.money')} <a className={styles.yellow}>{t('FAQ.2.farm')}</a> {t('FAQ.2.add')} <a className={styles.green}>{t('FAQ.2.balance')}</a> </div>
+            {t('FAQ.2.btn')} <a className={styles.yellow}>{t('FAQ.2.claim')} </a>{t('FAQ.2.money')} <a className={styles.yellow}>{t('FAQ.2.farm')}</a> {t('FAQ.2.add')} <a className={styles.green}>{t('FAQ.2.balance')}</a>
         </div>,
         <div className={styles.slideContent3} key={'slideContent3'}>
             <div><a className={styles.green}>{t('FAQ.3.account')}</a> - {t('FAQ.3.check')}</div>
@@ -101,6 +101,11 @@ export default function Home() {
         <div className={styles.slideContent7} key={'slideContent7'}>
             <div>{t('FAQ.7.friends')} <a className={styles.yellow}>{t('FAQ.7.invite')}</a> {t('FAQ.7.your')} <a className={styles.green}>{t('FAQ.7.gain')}</a> {t('FAQ.7.bonuses')}</div>
             <div>{t('FAQ.7.faq')}</div>
+        </div>,
+        <div className={styles.slideContent8} key={'slideContent8'}>
+            <div>AND DONT FORGET
+                TO PACK YOUR BAGS
+                IN THE FUTURE, BRO!</div>
         </div>
     ];
 
@@ -147,7 +152,7 @@ export default function Home() {
                 <div className={slide === 6 ? `${styles.item14} ${styles.visible}` : styles.item14}><FaqIconButton image={FAQ} alt={'home'} title={t('main.faq')} /></div>
             </div>
             <div className={styles.filter}>
-                <div className={styles.tutorial}>
+                <div className={slide === 7 ? styles.tutorial7 : styles.tutorial}>
                     <div className={styles.col}>
                         <div className={styles.dot}>.</div>
                         <div className={styles.navLeft} onClick={prevSlide}>
@@ -155,7 +160,7 @@ export default function Home() {
                         </div>
                         <div className={styles.dot}>.</div>
                     </div>
-                    <div className={styles.caption}>
+                    <div className={slide === 7 ? styles.caption7 : styles.caption}>
                         {slideContent[slide]}
                     </div>
                     <div className={styles.col}>
@@ -163,7 +168,7 @@ export default function Home() {
                         <div className={styles.navRight} onClick={nextSlide}>
                             <Image src={'/ArrowWhite.png'} alt={''} width={24} height={24} loading="lazy" />
                         </div>
-                        <div className={styles.pagination}>{slide+1}/7</div>
+                        <div className={styles.pagination}>{slide+1}/8</div>
                     </div>
                 </div>
             </div>

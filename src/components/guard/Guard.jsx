@@ -8,6 +8,9 @@ const MobileGuard = () => {
         const checkMobileTelegram = () => {
             if (typeof window !== 'undefined' && window.Telegram && window.Telegram.WebApp) {
                 const platform = window.Telegram.WebApp.platform;
+                if (window.innerWidth > 450) {
+                    router.push('/qr');
+                }
                 if (platform === 'android' || platform === 'ios') {
                     console.log("Пользователь находится в Telegram Web App на мобильном устройстве.");
                 } else {

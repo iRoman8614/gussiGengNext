@@ -368,6 +368,23 @@
   padding: 3px;
 }
 
+.tutorial7 {
+  width: 100%;
+  background-color: #4c3981;
+  background-image: url("/faq/trio.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  height: fit-content;
+  border-radius: 18px;
+  margin: 5px 5px 110px 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 5px;
+  padding: 3px;
+}
+
 .visible {
   z-index: 11;
 }
@@ -433,6 +450,10 @@
   color: #FFCC26;
 }
 
+.red {
+  color: red;
+}
+
 .slideContent1, .slideContent4 {
   margin: auto;
   width: fit-content;
@@ -484,4 +505,32 @@
   font-family: 'Oswald';
   font-size: auto-clamp(16, 24);
   text-align: center;
+}
+
+.slideContent7 {
+  margin: auto;
+  width: fit-content;
+  display: grid;
+  grid-template-rows: repeat(3, 1fr);
+  grid-template-columns: repeat(3, 1fr);
+  color: #FFFFFF;
+  gap: 3px;
+  font-family: 'Oswald';
+  font-size: auto-clamp(12, 20);
+  text-align: center;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+.beat1 {
+  grid-column-start: 0;
+  grid-row-start: 0;
+}
+.beat2 {
+  grid-column-start: 3;
+  grid-row-start: 0;
+}
+.beat3 {
+  grid-column-start: 2;
+  grid-row-start: 3;
+  padding-top: 35px;
 }

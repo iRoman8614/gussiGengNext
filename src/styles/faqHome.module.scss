@@ -203,6 +203,23 @@
   padding: 5px;
 }
 
+.tutorial7 {
+  width: 100%;
+  background-color: #4c3981;
+  background-image: url('/faq/airdrop.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 50%;
+  border-radius: 18px;
+  margin: 5px 5px 65px 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px;
+}
+
+
 .visible {
   z-index: 11;
 }
@@ -317,4 +334,26 @@
   font-family: 'Oswald';
   font-size: auto-clamp(16, 24);
   text-align: center;
+}
+
+.caption7 {
+  height: 100%;
+}
+.slideContent8 {
+  margin: auto;
+  width: fit-content;
+  height: 100%;
+  color: #FFFFFF;
+  gap: 3px;
+  font-family: 'Oswald';
+  font-size: auto-clamp(12, 20);
+  text-align: center;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  div{
+    color: #57E22C;
+    grid-row-start: 3;
+    grid-column-start: 2;
+  }
 }
