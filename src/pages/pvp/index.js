@@ -423,8 +423,8 @@ export default function PvpPage() {
                                 <PvpBtn title={t('PVP.scissors')} img={scis} value={3} onClick={() => handlePlayerChoice(3)} choose={playerChoice} />
                             </div>
                         </div>
-                        {showChanger && <RoundChanger round={round} />}
                     </div>
+                    {showChanger && <RoundChanger round={round} />}
                 </>
             )}
         </>
