@@ -282,12 +282,13 @@ export default function PvpPage() {
                 const newPlayerScore = roundResult.userVictory;
                 const newOpponentScore = roundResult.opponentVictory;
 
+                setPlayerScore(newPlayerScore);
+                setOpponentScore(newOpponentScore);
+
                 if (!roundResult.finished && (newPlayerScore !== prevPlayerScore || newOpponentScore !== prevOpponentScore)) {
                     setShowChanger(true);
                 }
 
-                setPlayerScore(newPlayerScore);
-                setOpponentScore(newOpponentScore);
                 if (roundResult.finished === true) {
                     handleGameEnd();
                 } else {
