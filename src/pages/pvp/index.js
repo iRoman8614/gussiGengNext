@@ -277,17 +277,20 @@ export default function PvpPage() {
         });
         setTimeout(() => {
             if (roundResult) {
+                const prevPlayerScore = playerScore;
+                const prevOpponentScore = opponentScore;
                 const newPlayerScore = roundResult.userVictory;
                 const newOpponentScore = roundResult.opponentVictory;
+
+                if (!roundResult.finished && (newPlayerScore !== prevPlayerScore || newOpponentScore !== prevOpponentScore)) {
+                    setShowChanger(true);
+                }
+
                 setPlayerScore(newPlayerScore);
                 setOpponentScore(newOpponentScore);
-
                 if (roundResult.finished === true) {
                     handleGameEnd();
                 } else {
-                    if(lastRound !== (newPlayerScore + newOpponentScore + 1)) {
-                        setShowChanger(true);
-                    }
                     setTimeout(() => {
                         resetRoundAfterDelay();
                     }, 1000);
@@ -420,8 +423,8 @@ export default function PvpPage() {
                                 <PvpBtn title={t('PVP.scissors')} img={scis} value={3} onClick={() => handlePlayerChoice(3)} choose={playerChoice} />
                             </div>
                         </div>
+                        {showChanger && <RoundChanger round={round} />}
                     </div>
-                    {showChanger && <RoundChanger round={round}/>}
                 </>
             )}
         </>
