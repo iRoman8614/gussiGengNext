@@ -31,7 +31,7 @@ i18n
         supportedLngs: ['en', 'ru'],
         fallbackLng: 'en',
         lng: getAndSetInitialLanguage(),
-        debug: true,
+        debug: false,
         backend: {
             loadPath: '/locales/{{lng}}/translation.json',
         },

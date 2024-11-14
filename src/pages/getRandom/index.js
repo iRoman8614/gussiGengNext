@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import Image from "next/image";
 import {useRouter} from "next/router";
 import {useTranslation} from "react-i18next";
@@ -42,18 +42,6 @@ export default function Page() {
                 return 'rgba(199,21,22)';
         }
     };
-
-    useEffect(() => {
-        if (typeof window !== 'undefined' && window.Telegram?.WebApp?.BackButton) {
-            window.Telegram.WebApp.BackButton.show();
-            window.Telegram.WebApp.BackButton.onClick(() => {
-                router.push('/main');
-            });
-            return () => {
-                window.Telegram.WebApp.BackButton.hide();
-            };
-        }
-    }, [router]);
 
     const ShownCard = ({state, groupId}) => {
         // const greenCard = '/random/greenCard.png'
@@ -205,6 +193,7 @@ export default function Page() {
             <Image src={hand} className={styles.hand} width={450} height={1000} alt={''} priority />
             <ShownCard state={showCard} groupId={groupId} />
             {showFrase === 2 && <button className={styles.btn} onClick={() => {
+                localStorage.setItem('picked', true)
                 router.push('/faq/home')
             }}>{t('random.continue')}</button>}
         </div>

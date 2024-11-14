@@ -16,7 +16,7 @@ import { gameOptions } from '@/mock/optionData';
 import styles from '@/styles/Pvp.module.scss';
 import "react-toastify/dist/ReactToastify.css";
 
-const youWin = '/youWin.png';
+const youWin = '/winScreen.png';
 const youLose = '/youLose.png'
 const background = '/backgrounds/backalley.png'
 const timerBG = '/timer.png'
@@ -457,8 +457,8 @@ const RoundChanger = ({round}) => {
     return(
         <div className={styles.changerRoot}>
             <div className={styles.changerContainer}>
-                <Image className={styles.animF} src={changerF} alt={''} width={700} height={150} />
-                <Image className={styles.animB} src={changerB} alt={''} width={700} height={150} />
+                <Image className={styles.animF} src={changerF} alt={''} width={700} height={150} priority />
+                <Image className={styles.animB} src={changerB} alt={''} width={700} height={150} priority />
                 <div className={styles.changerText}>{t('PVP.rounds')} {round}</div>
             </div>
         </div>

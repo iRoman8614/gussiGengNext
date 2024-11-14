@@ -1,3 +1,4 @@
+
 @import './_utils';
 
 .root {
@@ -32,7 +33,7 @@
   height: 100vh;
   display: grid;
   grid-template-columns: 1fr 3fr 1fr;
-  grid-template-rows: 2fr 4fr 1fr 4fr 1fr 2fr;
+  grid-template-rows: 1fr 2fr 1fr 2fr 1fr 2fr;
   align-items: center;
   justify-items: center;
 }
@@ -42,7 +43,7 @@
   background: linear-gradient(359deg, rgba(21, 25, 62, 0.45) 0%, rgba(56, 66, 164, 0.45) 100%);
   backdrop-filter: blur(8px);
   width: auto-clamp(100, 150);
-  height: auto-height(100, 250);
+  height: auto-height(90, 250);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -69,9 +70,8 @@
 
 .choose {
   width: auto-clamp(100, 150);
-  height: auto-height(110, 240);
+  height: auto-height(80, 200);
   object-fit: contain;
-  padding: 10px;
   rotate: 180deg;
 }
 
@@ -91,15 +91,14 @@
 }
 
 .mychoose{
-  width: auto-clamp(100, 150);
-  height: auto-height(110, 240);
+  width: auto-clamp(90, 150);
+  height: auto-height(80, 200);
   object-fit: contain;
-  padding: 10px;
 }
 
 .roundTimer {
-  width: auto-clamp(80, 124);
-  height: auto-height(80, 144);
+  width: auto-height(60, 124);
+  height: auto-height(60, 144);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -113,8 +112,8 @@
   align-self: center;
   justify-self: center;
   object-fit: fill;
-  width: auto-clamp(80, 124);
-  height: auto-height(80, 144);
+  width: auto-height(60, 144);
+  height: auto-height(60, 144);
   z-index: -1;
 }
 
@@ -122,9 +121,9 @@
   position: absolute;
   width: 100%;
   text-align: center;
-  height: 34px;
-  font-size: auto-clamp(24, 34);
-  line-height: auto-clamp(24, 34);
+  height: auto-clamp(14, 34);
+  font-size: auto-clamp(14, 34);
+  line-height: auto-clamp(14, 34);
 }
 
 .round {
@@ -156,13 +155,11 @@
 
 .counter {
   display: flex;
-  gap: 1px;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
-  height: auto-height(120, 185);
-  max-width: 56px;
-  width: auto;
+  height: auto-height(90, 250);
+  width: auto-clamp(58, 68);
   justify-self: center;
   border-radius: 11px;
   backdrop-filter: blur(7px);
@@ -193,24 +190,26 @@
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  border-radius: 22px;
+  border-radius: 25px;
   width: 271px;
   height: 391px;
   background: radial-gradient(67% 67.04% at 50% 50%, rgb(56, 66, 164) 0%, rgb(21, 25, 62) 100%);
   background-size: contain;
-  padding: 40px 10px 10px 10px;
 }
 
 .winnerName {
+  position: relative;
+  z-index: 1100;
+  margin-top: -15%;
   font-size: 24px;
   color: #fff;
   text-align: center;
 }
 
 .winsImage {
-  width: 204px;
-  height: 151px;
-  margin-top: 20%;
+  scale: 1.01;
+  width: 100%;
+  height: 100%
 }
 
 .loseImage {
@@ -223,10 +222,10 @@
 }
 
 .heart {
-  width: auto-clamp(30, 45);
-  height: auto-height(30, 55);
+  width: 100%;
+  height: 33%;
+  max-height: 55px;
 }
-
 
 .changerRoot {
   position: absolute;
@@ -243,9 +242,9 @@
 .animF {
   position: absolute;
   top: 0;
-  left: -200%;
+  left: -220%;
   z-index: 1002;
-  animation: flyInOutFront 1s forwards;
+  animation: flyInOutFront 1.5s forwards;
   animation-delay: 1s;
 }
 
@@ -254,24 +253,24 @@
     transform: translateX(0%);
   }
   40% {
-    transform: translateX(100%);
+    transform: translateX(110%);
     animation-timing-function: ease-in;
   }
   60% {
-    transform: translateX(90%);
+    transform: translateX(70%);
     animation-timing-function: ease-out;
   }
   100% {
-    transform: translateX(300%);
+    transform: translateX(220%);
   }
 }
 
 .animB {
   position: absolute;
   top: 0;
-  right: -200%;
+  right: -220%;
   z-index: 1001;
-  animation: flyInOutBack 1s forwards;
+  animation: flyInOutBack 1.5s forwards;
   animation-delay: 1s;
 }
 
@@ -280,21 +279,21 @@
     transform: translateX(0%);
   }
   40% {
-    transform: translateX(-50%);
+    transform: translateX(-110%);
     animation-timing-function: ease-in-out;
   }
   60% {
-    transform: translateX(-40%);
+    transform: translateX(-70%);
     animation-timing-function: ease-in-out;
   }
   100% {
-    transform: translateX(-200%);
+    transform: translateX(-220%);
   }
 }
 
 .changerText {
   position: absolute;
-  padding-top: 12%;
+  padding-top: auto-height(50, 12);
   left: -100%;
   z-index: 1003;
   width: 100%;
@@ -302,9 +301,9 @@
   text-align: center;
   color: #FFFFFF;
   font-size: auto-clamp(35, 50);
-  animation: flyInOutText 1s forwards;
-  animation-delay: 1s;
   text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.5);
+  animation: flyInOutText 1.5s forwards;
+  animation-delay: 1s;
 }
 
 @keyframes flyInOutText {

@@ -74,7 +74,7 @@
     "/youLose.png",
     "/roundContainer.png",
     "/oppNickNameContainer.png",
-    "/yoWin.png"
+    "/winScreen.png"
   ],
   "upgrades": {
     "limit": [
@@ -122,7 +122,7 @@
     "/faq/faqHand1.png",
     "/faq/faqHand2.png",
     "/faq/trio.png",
-    "/faq/airdrop.png",
+    "/faq/airdropSlide.png",
     "/listItemsBG/1grbg.png",
     "/listItemsBG/2bvbg.png",
     "/listItemsBG/3yfbg.png",

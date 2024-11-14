@@ -124,7 +124,7 @@
 .btnInvite {
   max-width: 400px;
   width: 100%;
-  font-size: auto-clamp(24, 40);
+  font-size: auto-clamp(26, 44);
   color: rgba(255,255,255);
 
   animation: pulse 1.5s infinite;
@@ -150,20 +150,20 @@
 
 .block2 {
   padding: 20px 5px;
-  height: 57%;
+  height: 100vh;
   margin-top: auto;
   overflow: hidden;
   border-radius: 11px;
-  animation: stretch-up 0.5s forwards ease-out;
+  animation: zoom-in 0.5s forwards ease-out;
 }
-@keyframes stretch-up {
+@keyframes zoom-in {
   0% {
+    transform: scale(0);
     opacity: 0;
-    height: 57%;
   }
   100% {
+    transform: scale(1);
     opacity: 1;
-    height: 100vh;
   }
 }
 
@@ -233,6 +233,7 @@
 
 .hintLabel {
   font-size: auto-height(8, 26) !important;
+  line-height: auto-height(20, 40);
   text-align: center;
   color: #fff;
 
@@ -287,7 +288,7 @@
 .title {
   width: 100%;
   text-align: center;
-  font-size: auto-height(16, 36) !important;
+  font-size: auto-height(16, 33) !important;
   line-height: auto-clamp(16, 36);
   padding-top: 4px;
   color: #fff;

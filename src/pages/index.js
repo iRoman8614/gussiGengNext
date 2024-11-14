@@ -111,10 +111,11 @@ export default function LoaderPage() {
         const init = localStorage.getItem('init');
         const start = localStorage.getItem('farm');
         const GWToken = localStorage.getItem('GWToken');
+        const picked = localStorage.getItem('picked')
         const savedInit = JSON.parse(localStorage.getItem('init'));
         const savedFarm = JSON.parse(localStorage.getItem('farm'));
         let isExperiencedPlayer = false
-        if (!init || !start || !GWToken) {
+        if (!init || !start || !GWToken || !picked) {
             isNewPlayer = true;
         } else {
             isExperiencedPlayer = savedInit && savedFarm

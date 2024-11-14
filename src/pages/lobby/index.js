@@ -84,6 +84,9 @@ export default function Page() {
     }, [lastGamesData]);
 
     const handlePvpClick = async () => {
+        if (window.Telegram?.WebApp?.HapticFeedback) {
+            window.Telegram.WebApp.HapticFeedback.impactOccurred('light');
+        }
         if (typeof window === "undefined") return;
 
         try {
@@ -130,9 +133,9 @@ export default function Page() {
             <div className={styles.root}>
                 <Image className={styles.image} src={bg} alt={''} width={450} height={1000} loading="lazy"/>
                 <div className={styles.container}>
-                    <div>
-                        <div className={styles.card}>
-                            <div className={styles.icon} onClick={handlePvpClick}>
+                    <div className={styles.col}>
+                        <div className={styles.card} onClick={handlePvpClick}>
+                            <div className={styles.icon}>
                                 <div>{t('PVP.battle')}</div>
                                 <p className={styles.hiddenText}>free</p>
                                 <Image className={styles.logo} src={hands} alt={''} width={150} height={75} loading="lazy"/>
@@ -156,18 +159,14 @@ export default function Page() {
                                     }
                                 </div>
                             </div>
-                            <div className={styles.btn} onClick={() => {
-                                if (window.Telegram?.WebApp?.HapticFeedback) {
-                                    window.Telegram.WebApp.HapticFeedback.impactOccurred('light');
-                                }
-                                // router.push('/faq/pvp')
-                                setHintOne(!hintOne)
-                            }}>?</div>
                         </div>
-                        {hintOne && <div className={styles.hint}>
-                            {t('PVP.skill')}
-                            <p>{t('PVP.luck')}</p>
-                        </div>}
+                        <div className={styles.btn} onClick={() => {
+                            if (window.Telegram?.WebApp?.HapticFeedback) {
+                                window.Telegram.WebApp.HapticFeedback.impactOccurred('light');
+                            }
+                            // router.push('/faq/pvp')
+                            setHintOne(!hintOne)
+                        }}>?</div>
                     </div>
                     <div>
                         <div className={styles.hidderRoot}>
@@ -186,20 +185,24 @@ export default function Page() {
                                         {/*<p>ton</p>*/}
                                     </div>
                                 </div>
-                                <div className={styles.btn}
-                                    //  onClick={() => {
-                                    // if (window.Telegram?.WebApp?.HapticFeedback) {
-                                    //     window.Telegram.WebApp.HapticFeedback.impactOccurred('light');
-                                    // }
-                                    // setHintTwo(!hintTwo)}}
-                                >?</div>
                             </div>
                         </div>
-                        {hintTwo && <div className={styles.hint}>
-                            <p>feeling bold?</p>
-                            Put your Ton on the line in this high-stakes mode!
-                        </div>}
+                        <div className={styles.btn}
+                            //  onClick={() => {
+                            // if (window.Telegram?.WebApp?.HapticFeedback) {
+                            //     window.Telegram.WebApp.HapticFeedback.impactOccurred('light');
+                            // }
+                            // setHintTwo(!hintTwo)}}
+                        >?</div>
                     </div>
+                    {hintOne && <div className={styles.hint1}>
+                        {t('PVP.skill')}
+                        <p>{t('PVP.luck')}</p>
+                    </div>}
+                    {hintTwo && <div className={styles.hint2}>
+                        <p>feeling bold?</p>
+                        Put your Ton on the line in this high-stakes mode!
+                    </div>}
                 </div>
                 <div className={styles.faq}>
                     <IconButton image={FAQ} alt={'home'} title={'faq'} onClick={() => {router.push('/faq/pvp')}} />
