@@ -9,6 +9,7 @@ import skinData from '@/mock/skinsData'
 import teamData from "@/mock/teamsData";
 
 import styles from '@/styles/Account.module.scss'
+import axiosInstance from "@/utils/axios";
 
 const money = '/money.png'
 
@@ -18,6 +19,7 @@ export default function Page() {
     const { groupId, liga, dailyEntries, coins, totalCoins, updateContext } = useInit();
     const [activeTab, setActiveTab] = useState(1);
     const [userName, setUserName] = useState(null);
+    const [tasks, setTasks] = useState(0)
     const { fetchProfileStats, data: stats } = useProfileStats();
     const { data: friends } = useMyInvitees();
 
@@ -63,6 +65,19 @@ export default function Page() {
         }
         setActiveTab(tab)
     }
+
+    const fetchCompletedTasks = async () => {
+        try {
+            const response = await axiosInstance.get('/task/completed-tasks');
+            setTasks(response.data.length)
+        } catch (error) {
+            console.error('Error fetching completed tasks:', error);
+        }
+    };
+
+    useEffect(()=>{
+        fetchCompletedTasks()
+    }, [])
 
     return(
         <div className={styles.root}>
@@ -121,6 +136,9 @@ export default function Page() {
                             <div className={styles.barItemStats}>{friends.length}</div>
                             <div className={styles.barItem}>{t('account.login')}</div>
                             <div className={styles.barItemStats}>{dailyEntries}</div>
+                            <div className={styles.barItem}>{t('account.tasks')}</div>
+                            <div className={styles.barItemStats}>{tasks}</div>
+                            tasks
                         </div>
                         <div>
                             <div className={styles.barItem}>{t('account.balance')}</div>

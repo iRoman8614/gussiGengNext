@@ -452,11 +452,6 @@ export default function Page() {
                         <div className={styles.modalBorder}>
                             <div className={styles.modalUpgrades}>
                                 <h3>
-                                    {selectedItem.type === 'limit' ? `${t('EXP.limit')} +${selectedItem.Name}%` : `${t('EXP.rate')} +${selectedItem.Name}%`}
-                                </h3>
-                                <p>{t('EXP.lvl')}: {selectedItem.Level}</p>
-                                <p>{t('EXP.cost')}: {selectedItem.Cost}</p>
-                                <p>
                                     <a>
                                         {selectedItem.type === 'limit' ?
                                             Number(limit)
@@ -475,7 +470,12 @@ export default function Page() {
                                                 (Number(rate) * (1 + (Number(selectedItem.IncreasePer)/100)))).toFixed(3)
                                         }
                                     </a>
+                                </h3>
+                                <p>
+                                    {selectedItem.type === 'limit' ? `${t('EXP.limit')} +${selectedItem.Name}%` : `${t('EXP.rate')} +${selectedItem.Name}%`}
                                 </p>
+                                <p>{t('EXP.lvl')}: {selectedItem.Level}</p>
+                                <p>{t('EXP.cost')}: {selectedItem.Cost}</p>
                             </div>
                         </div>
                         <button

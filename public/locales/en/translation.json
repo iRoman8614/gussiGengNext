@@ -25,7 +25,8 @@
     "Total": "total coins earned",
     "friends": "friends invited",
     "login": "login streak",
-    "balance": "current balance"
+    "balance": "current balance",
+    "tasks": "completed tasks"
   },
   "change": {
     "destiny": "you wanna change your destiny?",
