@@ -12,6 +12,7 @@ import {BigButton} from "@/components/buttons/big-btn/BigButton";
 import {useRouter} from "next/router";
 import { useInit } from '@/context/InitContext';
 
+
 const account = "/main-buttons/account.png";
 const settings = "/main-buttons/settings.png";
 const boards = "/main-buttons/boards.png";
