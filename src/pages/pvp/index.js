@@ -1,4 +1,3 @@
-
 import {useEffect, useRef, useState} from "react";
 import Image from "next/image";
 import { useRouter } from 'next/router';
@@ -277,21 +276,16 @@ export default function PvpPage() {
         });
         setTimeout(() => {
             if (roundResult) {
-                const prevPlayerScore = playerScore;
-                const prevOpponentScore = opponentScore;
                 const newPlayerScore = roundResult.userVictory;
                 const newOpponentScore = roundResult.opponentVictory;
 
                 setPlayerScore(newPlayerScore);
                 setOpponentScore(newOpponentScore);
 
-                if (!roundResult.finished && (newPlayerScore !== prevPlayerScore || newOpponentScore !== prevOpponentScore)) {
-                    setShowChanger(true);
-                }
-
                 if (roundResult.finished === true) {
                     handleGameEnd();
                 } else {
+                    setShowChanger(true)
                     setTimeout(() => {
                         resetRoundAfterDelay();
                     }, 1000);
@@ -309,7 +303,7 @@ export default function PvpPage() {
         setRoundResult(null);
         setPlayerChoice(4);
         setOpponentChoice(4);
-        setTimer(3);
+        setTimer(4);
         setVisibleImage(0);
         setShowChanger(false)
     };

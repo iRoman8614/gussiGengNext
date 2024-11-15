@@ -51,6 +51,10 @@ export default function Page() {
         localStorage.setItem('appLanguage', newLang);
     };
 
+    const moveToFaq = () => {
+        router.push('/faq/home')
+    }
+
     return (
         <div className={styles.root}>
             <div className={styles.container}>
@@ -61,6 +65,7 @@ export default function Page() {
                     value={languageOptions.find(opt => opt.value === selectedLanguage)}
                     onChange={handleLanguageChange}
                 />
+                <div className={styles.faqBtn} onClick={moveToFaq}>faq</div>
             </div>
         </div>
     );

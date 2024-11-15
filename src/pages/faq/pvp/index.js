@@ -43,6 +43,9 @@ export default function PvpBotPage() {
             window.Telegram.WebApp.HapticFeedback.impactOccurred("heavy");
         }
         if(slide === 6) {
+            if(typeof window !== 'undefined') {
+                localStorage.setItem('pvpfaq', true)
+            }
             router.push('/lobby')
         } else {
             setSlide((prev) => prev + 1);
