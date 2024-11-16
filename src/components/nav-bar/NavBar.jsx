@@ -34,7 +34,7 @@ export const NavBar = () => {
             <IconButton image={upgrades} alt={'upgrades'} title={t('main.exp')} onClick={() => {router.push('/upgrades')}} />
             <BigButton image={hands} alt={'pvp'} title={t('main.pvp')} onClick={() => {router.push(move)}} />
             <IconButton image={friends} alt={'friends'} title={t('main.friends')} onClick={() => {router.push('/friends')}} />
-            <IconButton image={FAQ} alt={'home'} title={t('main.faq')} onClick={() => {router.push('/faq/home')}} />
+            <IconButton image={FAQ} alt={'home'} title={t('main.tasks')} onClick={() => {router.push('/faq/home')}} />
         </div>
     );
 };

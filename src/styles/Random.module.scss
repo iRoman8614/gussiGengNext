@@ -201,8 +201,8 @@
   z-index: 1;
   color: #FFFFFF;
   top: 20px;
-  left: 25px;
-  font-size: auto-clamp(32, 38);
+  left: 15px;
+  font-size: auto-clamp(32, 34);
 }
 
 .dialog2Image {
@@ -211,27 +211,27 @@
 }
 
 .text2 {
-  font-size: auto-clamp(22, 24);
+  font-size: auto-clamp(20, 20);
   position: absolute;
-  width: 180px;
+  width: 190px;
   z-index: 1;
   color: #FFFFFF;
-  top: 7px;
-  left: 14px;
+  top: 15px;
+  left: 10px;
 }
 
 .text3 {
-  font-size: auto-clamp(26, 30);
+  font-size: auto-clamp(28, 30);
   position: absolute;
-  width: 180px;
+  width: 190px;
   z-index: 1;
   color: #FFFFFF;
-  top: 10px;
-  left: 25px;
+  top: 15px;
+  left: 15px;
 }
 
 .gang {
-  font-size: auto-clamp(22, 24);
+  font-size: auto-clamp(20, 20);
   color: #FFCC26;
 }
 

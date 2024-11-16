@@ -73,39 +73,40 @@ export default function Home() {
 
     const slideContent = [
         <div className={styles.slideContent1} key={'slideContent1'}>
-            <div>{t('FAQ.1.current')} <br/><a className={styles.green}>{t('FAQ.1.balance')}</a></div>
-            <div>{t('FAQ.1.farmPool')} <a className={styles.yellow}> {t('FAQ.1.pool')}</a> {t('FAQ.1.end')}</div>
+            <div>{t('FAQ.1.current')} <br/><a className={styles.yellow}>{t('FAQ.1.balance')}</a></div>
+            <div>{t('FAQ.1.farmPool')} <br/><a className={styles.yellow}> {t('FAQ.1.pool')}</a> {t('FAQ.1.end')}</div>
         </div>,
         <div className={styles.slideContent2} key={'slideContent2'}>
-            {t('FAQ.2.btn')} <a className={styles.yellow}>{t('FAQ.2.claim')} </a>{t('FAQ.2.money')} <a className={styles.yellow}>{t('FAQ.2.farm')}</a> {t('FAQ.2.add')} <a className={styles.green}>{t('FAQ.2.balance')}</a>
+            {t('FAQ.2.this')} <a className={styles.yellow}>{t('FAQ.2.loot')}</a>{t('FAQ.2.btn')}<br/>
+            {t('FAQ.2.use')}<a className={styles.yellow}>{t('FAQ.2.pool')}</a>{t('FAQ.2.balance')}
+
         </div>,
         <div className={styles.slideContent3} key={'slideContent3'}>
-            <div><a className={styles.green}>{t('FAQ.3.account')}</a> - {t('FAQ.3.check')}</div>
-            <div><a className={styles.green}>{t('FAQ.3.gl')}</a> - {t('FAQ.3.swap')}</div>
-            <div><a className={styles.green}>{t('FAQ.3.settings')}</a> - {t('FAQ.3.change')}</div>
+            <div><a className={styles.yellow}>{t('FAQ.3.account')}</a> - {t('FAQ.3.check')}</div>
+            <div><a className={styles.yellow}>{t('FAQ.3.gl')}</a> - {t('FAQ.3.swap')}</div>
+            <div><a className={styles.yellow}>{t('FAQ.3.settings')}</a> - {t('FAQ.3.change')}</div>
         </div>,
         <div className={styles.slideContent4} key={'slideContent4'}>
-            <div><a className={styles.green}>{t('FAQ.4.boards')}</a> - {t('FAQ.4.check')}</div>
+            <div><a className={styles.yellow}>{t('FAQ.4.boards')}</a> - {t('FAQ.4.check')}</div>
             <div><a className={styles.yellow}>{t('FAQ.4.wallet')}</a> - {t('FAQ.4.link')}</div>
         </div>,
         <div className={styles.slideContent5} key={'slideContent5'}>
-            <div>{t('FAQ.5.pvp')} <a className={styles.yellow}>{t('FAQ.5.battle')}</a> {t('FAQ.5.way')} <a className={styles.yellow}>{t('FAQ.5.ranks')}</a> {t('FAQ.5.test')} <a className={styles.yellow}>{t('FAQ.5.ton')}</a> {t('FAQ.5.soon')}</div>
+            <div><a className={styles.yellow}>{t('FAQ.5.pvp')} </a> {t('FAQ.5.battle')} {t('FAQ.5.way')} <a className={styles.yellow}>{t('FAQ.5.ranks')}</a> {t('FAQ.5.test')} {t('FAQ.5.ton')} {t('FAQ.5.soon')}</div>
         </div>,
         <div className={styles.slideContent6} key={'slideContent6'}>
             <div>
-                {t('FAQ.6.items')} <a className={styles.yellow}>{t('FAQ.6.ava')}</a> {t('FAQ.6.earned')}
+                <a className={styles.yellow}>{t('FAQ.6.exp')}</a>{t('FAQ.6.upgrade')}
             </div>
             <div>
-                {t('FAQ.6.exp')} <a className={styles.yellow}>{t('FAQ.6.rate')}</a> {t('FAQ.6.and')} <a className={styles.green}>{t('FAQ.6.limit')}</a></div>
+                <a className={styles.yellow}>{t('FAQ.6.items')}</a>{t('FAQ.6.soon')}
+            </div>
         </div>,
         <div className={styles.slideContent7} key={'slideContent7'}>
-            <div>{t('FAQ.7.friends')} <a className={styles.yellow}>{t('FAQ.7.invite')}</a> {t('FAQ.7.your')} <a className={styles.green}>{t('FAQ.7.gain')}</a> {t('FAQ.7.bonuses')}</div>
-            <div>{t('FAQ.7.faq')}</div>
+            <div><a className={styles.yellow}>{t('FAQ.7.friends')}</a>{t('FAQ.7.invite')}</div>
+            <div><a className={styles.yellow}>{t('FAQ.7.tasks')}</a>{t('FAQ.7.complete')}</div>
         </div>,
         <div className={styles.slideContent8} key={'slideContent8'}>
-            <div>AND DONT FORGET
-                TO PACK YOUR BAGS
-                IN THE FUTURE, BRO!</div>
+            <div><a className={styles.yellow}>{t('FAQ.8.bags')}</a></div>
         </div>
     ];
 
@@ -158,7 +159,7 @@ export default function Home() {
                         <div className={styles.navLeft} onClick={prevSlide}>
                             <Image src={'/ArrowWhite.png'} alt={''} width={24} height={24} loading="lazy" />
                         </div>
-                        <div className={styles.dot}>.</div>
+                        <div className={styles.dot}>8</div>
                     </div>
                     <div className={slide === 7 ? styles.caption7 : styles.caption}>
                         {slideContent[slide]}

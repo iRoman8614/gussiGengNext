@@ -8,7 +8,7 @@
     "exp": "апгрейд",
     "pvp": "pvp",
     "friends": "друзья",
-    "faq": "faq"
+    "tasks": "задания"
   },
   "settingsPage": {
     "title": "Настройки",
@@ -42,59 +42,57 @@
   },
   "FAQ": {
     "1": {
-      "current": "Это твой активный",
-      "balance": "баланс",
-      "farmPool": "А это твой",
-      "pool": "пул",
-      "end": "для фарма монет. У него есть лимит"
+      "current": "This is your current",
+      "balance": "balance.",
+      "farmPool": "This is your limited",
+      "pool": "farm pool.",
+      "end": ""
     },
     "2": {
-      "btn": "Это кнопка",
-      "claim": "claim",
-      "money": ". Нажатие на нее позволяет снять деньги из",
-      "farm": "фарм пула",
-      "add": "и зачислить их на ",
-      "balance": "баланс"
+      "this": "This is your",
+      "loot": "LOOT",
+      "btn": " button.",
+      "use": "Use it to claim money from the ",
+      "pool": "farm pool ",
+      "balance": " and add it to your current balance"
     },
     "3": {
-      "account": "Профиль",
-      "check": "здесь вся статистика",
-      "gl": "Gang лого",
-      "swap": "раздел для смены банды",
-      "settings": "Настройки",
-      "change": "здесь смена языка"
+      "account": "Account",
+      "check": "check your stats and customise your profile.",
+      "gl": "Gang logo",
+      "swap": "swap your gang here.",
+      "settings": "Settings",
+      "change": "language and ui options."
     },
     "4": {
-      "boards": "Рейтинг",
-      "check": "здесь можно посмотреть актуальную лигу и позицию в ней",
-      "wallet": "Кошелек",
-      "link": "подключение криптокошелька к игре (скоро)"
+      "boards": "Leaderboard",
+      "check": "check out your rank and leaderboard standings.",
+      "wallet": "Wallet",
+      "link": "link your cryptowallet."
     },
     "5": {
-      "pvp": "PvP - ",
-      "battle": "сражайтесь",
-      "way": "с другими игроками, чтобы оказаться на",
-      "ranks": "вершине",
-      "test": "или испытайте судьбу в баттлах за",
-      "ton": "TON",
-      "soon": "(скоро)"
+      "pvp": "PvP ",
+      "battle": "- battle",
+      "way": "your way to the top of the",
+      "ranks": "leaderboard",
+      "test": "or test your skills for",
+      "ton": "crypto",
+      "soon": "(soon)"
     },
     "6": {
-      "items": "Айтемы - покупка",
-      "ava": "предметов",
-      "earned": "позволит сиять ярче во время битвы",
-      "exp": "Апгрейды - здесь можно улучшать",
-      "rate": "скорость",
-      "and": "и",
-      "limit": "лимит фарм пула"
+      "exp": "EXP ",
+      "upgrade": "- upgrade your farming rate and farming limit.",
+      "items": "Items",
+      "soon": " - coming soon."
     },
     "7": {
-      "friends": "Друзья -",
-      "invite": "приглашай",
-      "your": "друзей и",
-      "gain": "зарабатывай",
-      "bonuses": "ценные бонусы",
-      "faq": "FAQ - без него ты бы тут не оказался"
+      "friends": "Friends",
+      "invite": " - invite your friends and gain bonuses.",
+      "tasks": "Tasks",
+      "complete": " - complete quests and earn more."
+    },
+    "8": {
+      "bags": "AND DON'T FORGET TO PACK YOUR BAGS IN THE FUTURE, BRO!"
     }
   },
   "EXP": {
@@ -165,13 +163,12 @@
   "PVP": {
     "battle": "баттл",
     "left": "доступно",
-    "skill": "сражайся с оппонентами, зарабатывай бонусы и поднимайся выше в топ.",
-    "luck":"Только скилл, никакого везения!",
+    "skill": "Welcome to gang wars PvP battle mode! Let's get you battle-ready!",
     "opponent": "твой",
     "opp": "оппонент",
     "this": "это",
     "you": "ты",
-    "your": "ты",
+    "your": "твой",
     "rounds": "раунд",
     "hp": "твои жизни",
     "opphp": "жизни оппонента",
@@ -195,7 +192,7 @@
   },
   "random": {
     "pick":"выбери карту",
-    "tap": "нажми еще раз для подтверждения",
+    "tap": "нажми еще раз",
     "member": "теперь ты в банде",
     "gang": "",
     "continue": "продолжить"

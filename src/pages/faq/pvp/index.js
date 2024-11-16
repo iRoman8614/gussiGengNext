@@ -66,10 +66,9 @@ export default function PvpBotPage() {
     const slideContent = [
         <div className={styles.slideContent1} key={'slideContent1'}>
             <div>{t('PVP.skill')}</div>
-            <div><a className={styles.yellow}>{t('PVP.luck')}</a></div>
         </div>,
         <div className={styles.slideContent2} key={'slideContent2'}>
-            <div>{t('PVP.this')} <a className={styles.yellow}>{t('PVP.opponent')}</a></div>
+            <div>{t('PVP.this')} {t('PVP.your')} <a className={styles.yellow}>{t('PVP.opp')}</a></div>
             <div>{t('PVP.this')} <a className={styles.green}>{t('PVP.you')}</a></div>
         </div>,
         <div className={styles.slideContent3} key={'slideContent3'}>
@@ -139,7 +138,7 @@ export default function PvpBotPage() {
                     </div>
                 </div>
             </div>
-            <div className={slide === 0 ? styles.filter0 : styles.filter}>
+            <div className={styles.filter}>
                 <div className={slide === 4 ? styles.tutorial4 : (slide === 6 ? styles.tutorial7 : styles.tutorial)}>
                     <div className={styles.col}>
                         <div className={styles.dot}>1</div>

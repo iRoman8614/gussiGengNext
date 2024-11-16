@@ -13,7 +13,7 @@ import styles from '@/styles/Lobby.module.scss'
 const bg = '/backgrounds/Lobby.png'
 const hands = '/main-buttons/hand2.png'
 const rich = '/main-buttons/rich.png'
-const FAQ = '/main-buttons/FAQ.png'
+const FAQ = '/main-buttons/pvpfaq.png'
 
 const gameIconsAssets = [
     '/game-icons/animation_hand_pap.gif',
@@ -137,7 +137,7 @@ export default function Page() {
                         <div className={styles.card} onClick={handlePvpClick}>
                             <div className={styles.icon}>
                                 <div>{t('PVP.battle')}</div>
-                                <p className={styles.hiddenText}>free</p>
+                                <p className={styles.hiddenText}>{t('PVP.battle')}</p>
                                 <Image className={styles.logo} src={hands} alt={''} width={150} height={75} loading="lazy"/>
                             </div>
                             <div className={styles.lable}>
@@ -169,7 +169,7 @@ export default function Page() {
                         }}>?</div>
                     </div>
                     <div>
-                        <div className={styles.hidderRoot}>
+                        <div className={styles.hidderRoot} >
                             <div className={styles.card}>
                                 <div className={styles.icon}>
                                     <div>ton</div>
@@ -205,7 +205,7 @@ export default function Page() {
                     </div>}
                 </div>
                 <div className={styles.faq}>
-                    <IconButton image={FAQ} alt={'home'} title={'faq'} onClick={() => {router.push('/faq/pvp')}} />
+                    <IconButton image={FAQ} alt={'home'} title={'pvp info'} onClick={() => {router.push('/faq/pvp')}} />
                 </div>
             </div>
         </>

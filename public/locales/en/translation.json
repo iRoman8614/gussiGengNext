@@ -8,7 +8,7 @@
     "exp": "exp",
     "pvp": "pvp",
     "friends": "friends",
-    "faq": "faq"
+    "tasks": "tasks"
   },
   "settingsPage": {
     "title": "Settings",
@@ -43,58 +43,56 @@
   "FAQ": {
     "1": {
       "current": "This is your current",
-      "balance": "balance",
-      "farmPool": "and this is your limited farm",
-      "pool": "pool",
+      "balance": "balance.",
+      "farmPool": "This is your limited",
+      "pool": "farm pool.",
       "end": ""
     },
     "2": {
-      "btn": "This is your claim button. Use it to",
-      "claim": "claim",
-      "money": "money from the limited",
-      "farm": "farm pool",
-      "add": "and add it to your current",
-      "balance": "balance"
+      "this": "This is your",
+      "loot": "LOOT",
+      "btn": " button.",
+      "use": "Use it to claim money from the ",
+      "pool": "farm pool ",
+      "balance": " and add it to your current balance"
     },
     "3": {
       "account": "Account",
-      "check": "check your stats",
-      "gl": "Ganglogo",
-      "swap": "swap your gang here",
+      "check": "check your stats and customise your profile.",
+      "gl": "Gang logo",
+      "swap": "swap your gang here.",
       "settings": "Settings",
-      "change": "change your language"
+      "change": "language and ui options."
     },
     "4": {
       "boards": "Leaderboard",
-      "check": "check out your rank and leaderboard standing",
+      "check": "check out your rank and leaderboard standings.",
       "wallet": "Wallet",
-      "link": "link your cryptowallet (soon)"
+      "link": "link your cryptowallet."
     },
     "5": {
-      "pvp": "PvP - ",
-      "battle": "battle",
+      "pvp": "PvP ",
+      "battle": "- battle",
       "way": "your way to the top of the",
-      "ranks": "ranks",
+      "ranks": "leaderboard",
       "test": "or test your skills for",
-      "ton": "TON",
+      "ton": "crypto",
       "soon": "(soon)"
     },
     "6": {
-      "items": "Items - bling out your",
-      "ava": "battle avatar",
-      "earned": "with earned and bought items",
-      "exp": "Exp - upgrade your",
-      "rate": "farming rate",
-      "and": "and",
-      "limit": "farming limit"
+      "exp": "EXP ",
+      "upgrade": "- upgrade your farming rate and farming limit.",
+      "items": "Items",
+      "soon": " - coming soon."
     },
     "7": {
-      "friends": "Friends -",
-      "invite": "invite",
-      "your": "your friends and",
-      "gain": "gain",
-      "bonuses": "bonuses",
-      "faq": "FAQ - wouldn't be here without it"
+      "friends": "Friends",
+      "invite": " - invite your friends and gain bonuses.",
+      "tasks": "Tasks",
+      "complete": " - complete quests and earn more."
+    },
+    "8": {
+      "bags": "AND DON'T FORGET TO PACK YOUR BAGS IN THE FUTURE, BRO!"
     }
   },
   "EXP": {
@@ -165,21 +163,19 @@
   "PVP": {
     "battle": "battle",
     "left": "games left",
-    "skill": "battle against others, earn rewards, and climb the ranks.",
-    "luck":"No luck, just skill!",
-    "opponent": "your",
+    "skill": "Welcome to gang wars PvP battle mode! Let's get you battle-ready!",
     "opp": "opponent",
-    "this": "this is",
+    "this": "This is",
     "you": "you",
-    "your": "you",
+    "your": "your",
     "rounds": "round",
-    "hp": "your hp",
-    "opphp": "opponents hp",
-    "move": "make your move! pick one! rock/paper/scissors",
-    "time": "time left",
-    "round": "round count",
+    "hp": "Your HP",
+    "opphp": "Opponents HP",
+    "move": "Make your move! Pick one! Rock/Paper/Scissors",
+    "time": "Time left",
+    "round": "Round count",
     "3wins": {
-      "first": "first to",
+      "first": "First to",
       "3": "3",
       "wins": "wins the match"
     },
