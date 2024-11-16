@@ -39,7 +39,7 @@ export default function PvpBotPage() {
     const [playerScore, setPlayerScore] = useState(0);
     const [opponentScore, setOpponentScore] = useState(0);
     const [gameOver, setGameOver] = useState(false);
-    const [timer, setTimer] = useState(5);
+    const [timer, setTimer] = useState(4);
     const [playerChoice, setPlayerChoice] = useState(null);
     const [opponentChoice, setOpponentChoice] = useState(3);
     const [gameEnded, setGameEnded] = useState(false);
@@ -50,9 +50,12 @@ export default function PvpBotPage() {
     const [showChanger, setShowChanger] = useState(false)
     const [isLocked, setIsLocked] = useState(false);
     const [roundProcessed, setRoundProcessed] = useState(false);
+    const [preGameStep, setPreGameStep] = useState(0);
+    const [gameStarted, setGameStarted] = useState(false);
 
     const playerGifCache = useRef({});
     const opponentGifCache = useRef({});
+    const preGameSteps = ["Start", "Ready!", "Go!!!"];
 
     const preloadPlayerGifs = () => {
         const cache = {};
@@ -89,6 +92,17 @@ export default function PvpBotPage() {
     }, []);
 
     useEffect(() => {
+        if (preGameStep < preGameSteps.length) {
+            const timerId = setTimeout(() => {
+                setPreGameStep((prevStep) => prevStep + 1);
+            }, 1800);
+            return () => clearTimeout(timerId);
+        } else {
+            setGameStarted(true);
+        }
+    }, [preGameStep]);
+
+    useEffect(() => {
         if (typeof window !== 'undefined' && window.Telegram?.WebApp) {
             const search = window.Telegram.WebApp.initData;
             const urlParams = new URLSearchParams(search);
@@ -114,10 +128,10 @@ export default function PvpBotPage() {
 
     useEffect(() => {
         let timerId;
-        if (timer > 0 && !gameOver) {
+        if (timer > 0 && !gameOver && gameStarted) {
             timerId = setTimeout(() => {
                 if (window.Telegram?.WebApp?.HapticFeedback) {
-                    window.Telegram.WebApp.HapticFeedback.impactOccurred('light');
+                    window.Telegram.WebApp.HapticFeedback.impactOccurred("light");
                 }
                 setTimer(timer - 1);
             }, 1000);
@@ -125,16 +139,16 @@ export default function PvpBotPage() {
             setIsLocked(true);
             setRoundProcessed(true);
             const finalPlayerChoice = playerChoice !== null ? playerChoice : 0;
-            setPlayerChoice(finalPlayerChoice)
+            setPlayerChoice(finalPlayerChoice);
             const randomOpponentChoice = getRandomOption();
             setOpponentChoice(randomOpponentChoice);
             showGifSequence();
             setTimeout(() => {
-                updateScores(finalPlayerChoice, randomOpponentChoice)
+                updateScores(finalPlayerChoice, randomOpponentChoice);
             }, 2000);
         }
         return () => clearTimeout(timerId);
-    }, [timer, gameOver, playerChoice, roundProcessed]);
+    }, [timer, gameOver, playerChoice, roundProcessed, gameStarted]);
 
     const showGifSequence = () => {
         const timeouts = [];
@@ -223,7 +237,7 @@ export default function PvpBotPage() {
         setShowChanger(false);
         setPlayerChoice(null);
         setOpponentChoice(null);
-        setTimer(3);
+        setTimer(4);
         setVisibleImage(0);
         setIsLocked(false);
         setResetSequence(!resetSequence);
@@ -233,6 +247,11 @@ export default function PvpBotPage() {
     return (
         <>
             {gameEnded && <WinningScreen userName={userName} playerScore={playerScore} />}
+            {gameEnded && <WinningScreen userName={userName} playerScore={playerScore} />}
+            {preGameStep === 1 && <RoundChanger round="Start" />}
+            {preGameStep === 2 && <RoundChanger round="Ready!" />}
+            {preGameStep === 3 && <RoundChanger round="Go!!!" />}
+
             <div className={styles.root}>
                 <Image className={styles.background} src={background} width={300} height={1000} alt={'bg'} priority />
                 <div className={styles.container}>
@@ -321,9 +340,9 @@ export default function PvpBotPage() {
                         {t('PVP.rounds')} {playerScore+opponentScore+1}
                     </div>
                     <div className={styles.buttonSet}>
-                        <PvpBtn title={t('PVP.rock')} img={rock} value={1} onClick={() => !isLocked && setPlayerChoice(1)} choose={playerChoice} />
-                        <PvpBtn title={t('PVP.paper')} img={paper} value={2} onClick={() => !isLocked && setPlayerChoice(2)} choose={playerChoice} />
-                        <PvpBtn title={t('PVP.scissors')} img={scis} value={3} onClick={() => !isLocked && setPlayerChoice(3)} choose={playerChoice} />
+                        <PvpBtn title={t('PVP.rock')} img={rock} value={1} onClick={() => !isLocked && gameStarted && setPlayerChoice(1)} choose={playerChoice} />
+                        <PvpBtn title={t('PVP.paper')} img={paper} value={2} onClick={() => !isLocked && gameStarted && setPlayerChoice(2)} choose={playerChoice} />
+                        <PvpBtn title={t('PVP.scissors')} img={scis} value={3} onClick={() => !isLocked && gameStarted && setPlayerChoice(3)} choose={playerChoice} />
                     </div>
                 </div>
             </div>
@@ -377,7 +396,10 @@ const RoundChanger = ({round}) => {
             <div className={styles.changerContainer}>
                 <Image className={styles.animF} src={changerF} alt={''} width={700} height={150} priority />
                 <Image className={styles.animB} src={changerB} alt={''} width={700} height={150} priority />
-                <div className={styles.changerText}>{t('PVP.rounds')} {round}</div>
+                <div className={styles.changerText}>
+                    {typeof round === "string" ? round : `${t("PVP.rounds")} ${round}`}
+                </div>
             </div>
         </div>
-    )}
+    )
+}

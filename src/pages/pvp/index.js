@@ -460,4 +460,5 @@ const RoundChanger = ({round}) => {
                 <div className={styles.changerText}>{t('PVP.rounds')} {round}</div>
             </div>
         </div>
-    )}
+    )
+}
