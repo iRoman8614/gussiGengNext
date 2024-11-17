@@ -200,16 +200,15 @@
 .winnerName {
   position: relative;
   z-index: 1100;
-  margin-top: -15%;
-  font-size: 24px;
+  margin-top: -25%;
+  font-size: 28px;
   color: #fff;
   text-align: center;
 }
 
 .winsImage {
-  scale: 1.01;
   width: 100%;
-  height: 100%
+  height: auto
 }
 
 .loseImage {
@@ -248,6 +247,14 @@
   animation-delay: 0.5s;
 }
 
+.animFGS {
+  position: absolute;
+  top: 0;
+  left: -220%;
+  z-index: 1002;
+  animation: flyInOutFront 1.2s forwards;
+}
+
 @keyframes flyInOutFront {
   0% {
     transform: translateX(0%);
@@ -272,6 +279,14 @@
   z-index: 1001;
   animation: flyInOutBack 1.5s forwards;
   animation-delay: 0.5s;
+}
+
+.animBGS {
+  position: absolute;
+  top: 0;
+  right: -220%;
+  z-index: 1001;
+  animation: flyInOutBack 1.2s forwards;
 }
 
 @keyframes flyInOutBack {
@@ -304,6 +319,20 @@
   text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.5);
   animation: flyInOutText 1.5s forwards;
   animation-delay: 0.5s;
+}
+
+.changerTextGS {
+  position: absolute;
+  padding-top: auto-height(50, 12);
+  left: -100%;
+  z-index: 1003;
+  width: 100%;
+  height: auto;
+  text-align: center;
+  color: #FFFFFF;
+  font-size: auto-clamp(35, 50);
+  text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.5);
+  animation: flyInOutText 1.2s forwards;
 }
 
 @keyframes flyInOutText {
