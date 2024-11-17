@@ -89,6 +89,7 @@ export const InitProvider = ({ children }) => {
             setLiga(savedInit.liga || 0);
             setLang(savedInit.lang || 'en');
             setDailyEntries(savedInit.dailyEntries || 0);
+            setPass(savedInit.pass || 0)
 
             const savedFarm = JSON.parse(localStorage.getItem('farm')) || {};
             setLimit(savedFarm.farmLimit || 0);
