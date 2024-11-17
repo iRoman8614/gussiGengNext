@@ -74,6 +74,14 @@ export const InitProvider = ({ children }) => {
         return 0;
     });
 
+    const [pass, setPass] = useState(() => {
+        if (typeof window !== 'undefined') {
+            const savedInit = JSON.parse(localStorage.getItem('init')) || {};
+            return savedInit.pass || 0;
+        }
+        return 0;
+    });
+
     const updateContext = () => {
         if (typeof window !== 'undefined') {
             const savedInit = JSON.parse(localStorage.getItem('init')) || {};
@@ -95,6 +103,7 @@ export const InitProvider = ({ children }) => {
             groupId,
             liga,
             lang,
+            pass,
             dailyEntries,
         };
         localStorage.setItem('init', JSON.stringify(initData));
@@ -127,6 +136,8 @@ export const InitProvider = ({ children }) => {
         setTotalCoins,
         dailyEntries,
         setDailyEntries,
+        pass,
+        setPass,
         updateContext
     };
 

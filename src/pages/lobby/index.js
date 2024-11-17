@@ -6,9 +6,10 @@ import {toast} from "react-toastify";
 import {useTranslation} from "react-i18next";
 import axiosInstance from "@/utils/axios";
 import {IconButton} from "@/components/buttons/icon-btn/IconButton";
-import {useLastGames, useProfileStats} from "@/utils/api";
+import {useLastGames } from "@/utils/api";
 
 import styles from '@/styles/Lobby.module.scss'
+import {useInit} from "@/context/InitContext";
 
 const bg = '/backgrounds/Lobby.png'
 const hands = '/main-buttons/hand2.png'
@@ -39,12 +40,8 @@ export default function Page() {
 
     const router = useRouter();
 
-    const { fetchProfileStats, data: stats } = useProfileStats();
+    const { pass } = useInit()
     const { data: lastGamesData } = useLastGames()
-
-    useEffect(() => {
-        fetchProfileStats()
-    }, [])
 
     useEffect(() => {
         if (typeof window !== 'undefined' && window.Telegram?.WebApp?.BackButton) {
@@ -96,7 +93,7 @@ export default function Page() {
 
             if (data.session.count < 5) {
                 router.push('/pvp');
-            } else if (data.session.count >= 5 && stats.pass > 0) {
+            } else if (data.session.count >= 5 && pass > 0) {
                 router.push('/pvp');
             } else {
                 toast.warn("You have reached the maximum number of games. Please wait for the timer to expire.");
@@ -153,7 +150,7 @@ export default function Page() {
                                         </>
                                     ) : (
                                         <>
-                                            <div>{stats.pass}</div>
+                                            <div>{pass}</div>
                                             <p>{t('PVP.extra')}</p>
                                         </>)
                                     }
