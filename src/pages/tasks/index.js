@@ -23,57 +23,58 @@ export default function Page() {
     const { collectAndStart } = useFarmCollect();
 
 
+    const fetchTasksAndFriends = async () => {
+        try {
+            const statsResponse = await axiosInstance.get('/profile/stats');
+            const stats = statsResponse.data;
+            const friendsResponse = await axiosInstance.get('/profile/my-invitees');
+            const numFriends = friendsResponse.data.length;
+            const tasksResponse = await axiosInstance.get('/task/all');
+            let tasks = tasksResponse.data;
+            const completedTasksResponse = await axiosInstance.get('/task/completed-tasks');
+            const completedTasks = completedTasksResponse.data.map(task => task.task.id);
+            const lastCompletedTaskIdType1 = Math.max(0, ...tasks.filter(task => task.type === 1 && completedTasks.includes(task.id)).map(task => task.id));
+            const type3Tasks = tasks
+                .filter(task => task.type === 3)
+                .sort((a, b) => a.id - b.id);
+            const lastCompletedTaskIndexType3 = type3Tasks.findIndex(task => task.id === Math.max(...completedTasks.filter(id => type3Tasks.some(task => task.id === id))));
+            tasks = tasks.map(task => {
+                const isCompleted = completedTasks.includes(task.id);
+                let readyToComplete = false;
+                let icon = '';
+                if (task.type === 1 && numFriends >= task.amount && !isCompleted) {
+                    readyToComplete = true;
+                }
+                if (task.type === 3 && stats.victory >= task.amount && !isCompleted) {
+                    readyToComplete = true;
+                }
+                if (task.type === 2) {
+                    icon = task.name.includes("TG") ? "tg" : task.name.includes("X") ? "x" : '';
+                }
+                const isVisible = (task.type === 1 && task.id <= lastCompletedTaskIdType1 + 1) ||
+                    (task.type === 3 && (isCompleted || type3Tasks[lastCompletedTaskIndexType3 + 1]?.id === task.id)) ||
+                    (task.type !== 1 && task.type !== 3);
+
+                return {
+                    ...task,
+                    name: mapTaskName(task.name),
+                    current: task.type === 1 ? numFriends : stats.victory,
+                    completed: isCompleted,
+                    path: task.type === 1 ? '/friends' : '/lobby',
+                    visible: isVisible,
+                    readyToComplete: readyToComplete,
+                    icon: icon,
+                };
+            });
+
+            setTasks(tasks.filter(task => task.visible));
+        } catch (error) {
+            console.error('Ошибка при загрузке данных:', error);
+        }
+    };
+
     useEffect(() => {
         setBalance(coins)
-        const fetchTasksAndFriends = async () => {
-            try {
-                const statsResponse = await axiosInstance.get('/profile/stats');
-                const stats = statsResponse.data;
-                const friendsResponse = await axiosInstance.get('/profile/my-invitees');
-                const numFriends = friendsResponse.data.length;
-                const tasksResponse = await axiosInstance.get('/task/all');
-                let tasks = tasksResponse.data;
-                const completedTasksResponse = await axiosInstance.get('/task/completed-tasks');
-                const completedTasks = completedTasksResponse.data.map(task => task.task.id);
-                const lastCompletedTaskIdType1 = Math.max(0, ...tasks.filter(task => task.type === 1 && completedTasks.includes(task.id)).map(task => task.id));
-                const type3Tasks = tasks
-                    .filter(task => task.type === 3)
-                    .sort((a, b) => a.id - b.id);
-                const lastCompletedTaskIndexType3 = type3Tasks.findIndex(task => task.id === Math.max(...completedTasks.filter(id => type3Tasks.some(task => task.id === id))));
-                tasks = tasks.map(task => {
-                    const isCompleted = completedTasks.includes(task.id);
-                    let readyToComplete = false;
-                    let icon = '';
-                    if (task.type === 1 && numFriends >= task.amount && !isCompleted) {
-                        readyToComplete = true;
-                    }
-                    if (task.type === 3 && stats.victory >= task.amount && !isCompleted) {
-                        readyToComplete = true;
-                    }
-                    if (task.type === 2) {
-                        icon = task.name.includes("TG") ? "tg" : task.name.includes("X") ? "x" : '';
-                    }
-                    const isVisible = (task.type === 1 && task.id <= lastCompletedTaskIdType1 + 1) ||
-                        (task.type === 3 && (isCompleted || type3Tasks[lastCompletedTaskIndexType3 + 1]?.id === task.id)) ||
-                        (task.type !== 1 && task.type !== 3);
-
-                    return {
-                        ...task,
-                        name: mapTaskName(task.name),
-                        current: task.type === 1 ? numFriends : stats.victory,
-                        completed: isCompleted,
-                        path: task.type === 1 ? '/friends' : '/lobby',
-                        visible: isVisible,
-                        readyToComplete: readyToComplete,
-                        icon: icon,
-                    };
-                });
-
-                setTasks(tasks.filter(task => task.visible));
-            } catch (error) {
-                console.error('Ошибка при загрузке данных:', error);
-            }
-        };
         fetchTasksAndFriends();
     }, []);
 
@@ -136,6 +137,7 @@ export default function Page() {
             const collectData = await collectAndStart();
             const updatedBalance = collectData.totalCoins;
             setBalance(updatedBalance);
+            fetchTasksAndFriends()
         } catch (error) {
             console.error(`Error executing task ${taskId}:`, error);
         }
