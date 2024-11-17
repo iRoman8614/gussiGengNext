@@ -138,7 +138,6 @@ export default function Page() {
                             <div className={styles.barItemStats}>{dailyEntries}</div>
                             <div className={styles.barItem}>{t('account.tasks')}</div>
                             <div className={styles.barItemStats}>{tasks}</div>
-                            tasks
                         </div>
                         <div>
                             <div className={styles.barItem}>{t('account.balance')}</div>

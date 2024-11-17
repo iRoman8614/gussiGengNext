@@ -34,7 +34,7 @@
 }
 
 .season {
-  font-size: 32px;
+  font-size: 48px;
   color: #fff;
   word-break: break-all;
 
@@ -237,7 +237,7 @@
   display: grid;
   grid-template-columns: 2fr 1fr;
   margin-top: 14px;
-  margin-bottom: auto-height(15, 100);
+  margin-bottom: auto-height(15, 60);
 }
 
 .barItem, .barItemStats {
