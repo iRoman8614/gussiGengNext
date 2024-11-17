@@ -164,7 +164,7 @@
   "PVP": {
     "battle": "battle",
     "left": "games left",
-    "skill": "Welcome to gang wars PvP battle mode! Let's get you battle-ready!",
+    "skill": "Welcome to Gang Wars PvP battle mode! Let's get you battle-ready!",
     "opp": "opponent",
     "dot": ".",
     "this": "This is",
@@ -187,9 +187,9 @@
     "rs": " beats scissors",
     "sp": " beats paper",
     "expected": "expected time: 20 sec",
-    "rock": "rock",
-    "paper": "paper",
-    "scissors": "scissors",
+    "rock": "Rock",
+    "paper": "Paper",
+    "scissors": "Scissors",
     "extra": "extra games"
   },
   "random": {
