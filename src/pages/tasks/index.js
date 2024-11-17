@@ -4,13 +4,13 @@ import {useRouter} from "next/router";
 import {TaskBtn} from "@/components/taskBtn/TaskBtn";
 import axiosInstance from '@/utils/axios';
 import {useTranslation} from "react-i18next";
+import {useInit} from "@/context/InitContext";
+import {useFarmCollect} from "@/utils/api";
 
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/controller';
 import styles from '@/styles/Upgrades.module.scss'
-import {useInit} from "@/context/InitContext";
-import {useFarmCollect} from "@/utils/api";
 
 const money = '/money.png'
 
@@ -85,6 +85,9 @@ export default function Page() {
         return originalName;
     };
 
+    const navigateToPage = (path) => {
+        router.push(path);
+    };
 
     const timerRef = useRef(null);
     const handleTaskClick = (task) => {
