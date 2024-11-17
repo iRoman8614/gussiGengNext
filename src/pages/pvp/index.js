@@ -300,7 +300,7 @@ export default function PvpPage() {
 
                 if (roundResult.finished === true) {
                     handleGameEnd();
-                } else if(oldPlayerScore === newPlayerScore && oldOpponentScore === newOpponentScore) {
+                } else if(oldPlayerScore !== newPlayerScore && oldOpponentScore !== newOpponentScore) {
                     setShowChanger(true)
                     setTimeout(() => {
                         resetRoundAfterDelay();
@@ -440,7 +440,7 @@ export default function PvpPage() {
                             </div>
                         </div>
                     </div>
-                    {showChanger && <RoundChanger round={round} />}
+                    {showChanger && <RoundChanger round={round+1} />}
                 </>
             )}
         </>
