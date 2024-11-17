@@ -130,6 +130,7 @@
   grid-column: 4 / 8;
   max-height: 70px;
   max-width: 177px;
+  position: relative;
 }
 
 .claimRoot {
@@ -137,6 +138,16 @@
   height: 100%;
   width: 100%;
   padding: 0;
+}
+
+.btn {
+  position: absolute;
+  top: auto-height(5, 10);
+  width: 100%;
+  text-align: center;
+  color: #FFFFFF;
+  font-size: auto-height(30, 44);
+  margin: 0;
 }
 
 .item10 {

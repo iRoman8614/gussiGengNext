@@ -16,7 +16,7 @@ const account = "/main-buttons/account.png";
 const settings = "/main-buttons/settings.png";
 const boards = "/main-buttons/boards.png";
 const wallet = "/main-buttons/wallet.png";
-const claim = '/lootlootBTN.png'
+const claim = '/lootBTN.png'
 const border = '/totalbar.png'
 const background = '/backgrounds/nightcity.png'
 const upgrades = '/main-buttons/upgrades.png';
@@ -145,6 +145,7 @@ export default function Home() {
                 </div>
                 <div className={slide === 1 ? `${styles.item9} ${styles.visible}` : styles.item9}>
                     <Image className={styles.claimRoot} width={600} height={200} src={claim} alt={'claim'} loading="lazy" />
+                    <p className={styles.btn}>{t('main.loot')}</p>
                 </div>
                 <div className={slide === 5 ? `${styles.item10} ${styles.visible}` : styles.item10}><FaqIconButton image={bag} alt={'items'} title={t('main.items')} /></div>
                 <div className={slide === 5 ? `${styles.item11} ${styles.visible}` : styles.item11}><FaqIconButton image={upgrades} alt={'upgrades'} title={t('main.exp')} /></div>
