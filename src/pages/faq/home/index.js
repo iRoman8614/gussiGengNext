@@ -91,7 +91,7 @@ export default function Home() {
             <div><a className={styles.yellow}>{t('FAQ.4.wallet')}</a> - {t('FAQ.4.link')}</div>
         </div>,
         <div className={styles.slideContent5} key={'slideContent5'}>
-            <div><a className={styles.yellow}>{t('FAQ.5.pvp')} </a> {t('FAQ.5.battle')} {t('FAQ.5.way')} <a className={styles.yellow}>{t('FAQ.5.ranks')}</a> {t('FAQ.5.test')} {t('FAQ.5.ton')} {t('FAQ.5.soon')}</div>
+            <div><a className={styles.yellow}>{t('FAQ.5.pvp')} </a> {t('FAQ.5.battle')} {t('FAQ.5.way')} <a className={styles.yellow}>{t('FAQ.5.ranks')}</a>{t('FAQ.5.dot')} {t('FAQ.5.test')} {t('FAQ.5.ton')} {t('FAQ.5.soon')}</div>
         </div>,
         <div className={styles.slideContent6} key={'slideContent6'}>
             <div>
