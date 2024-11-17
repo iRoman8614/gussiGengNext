@@ -54,6 +54,8 @@ export default function PvpPage() {
     const [opponentName, setOpponentName] = useState("biggie smalls")
     const [showChanger, setShowChanger] = useState(false)
     const [lastRound, setLastRound] = useState(1)
+    const [preGameStep, setPreGameStep] = useState(0);
+    const [gameStarted, setGameStarted] = useState(false);
 
     const playerGifCache = useRef({});
     const opponentGifCache = useRef({});
@@ -428,9 +430,9 @@ export default function PvpPage() {
                                 {t('PVP.rounds')} {round}
                             </div>
                             <div className={styles.buttonSet}>
-                                <PvpBtn title={t('PVP.rock')} img={rock} value={1} onClick={() => handlePlayerChoice(1)} choose={playerChoice} />
-                                <PvpBtn title={t('PVP.paper')} img={paper} value={2} onClick={() => handlePlayerChoice(2)} choose={playerChoice} />
-                                <PvpBtn title={t('PVP.scissors')} img={scis} value={3} onClick={() => handlePlayerChoice(3)} choose={playerChoice} />
+                                <PvpBtn title={t('PVP.rock')} img={rock} value={1} onClick={() => gameStarted && handlePlayerChoice(1)} choose={playerChoice} />
+                                <PvpBtn title={t('PVP.paper')} img={paper} value={2} onClick={() => gameStarted && handlePlayerChoice(2)} choose={playerChoice} />
+                                <PvpBtn title={t('PVP.scissors')} img={scis} value={3} onClick={() => gameStarted && handlePlayerChoice(3)} choose={playerChoice} />
                             </div>
                         </div>
                     </div>

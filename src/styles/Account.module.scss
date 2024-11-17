@@ -24,7 +24,7 @@
   position: absolute;
   width: 100%;
   z-index: 100;
-  padding: 20px;
+  padding: auto-height(3, 20);
 }
 
 .seasonBlock {
@@ -98,6 +98,7 @@
 }
 
 .block {
+  margin-top: -20px;
   transform: scale(0.5);
   animation: zoom-in 0.5s forwards ease-out;
 
@@ -237,7 +238,7 @@
   display: grid;
   grid-template-columns: 2fr 1fr;
   margin-top: 14px;
-  margin-bottom: auto-height(15, 60);
+  margin-bottom: auto;
 }
 
 .barItem, .barItemStats {
