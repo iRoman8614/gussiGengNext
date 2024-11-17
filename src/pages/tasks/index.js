@@ -24,6 +24,7 @@ export default function Page() {
 
 
     useEffect(() => {
+        setBalance(coins)
         const fetchTasksAndFriends = async () => {
             try {
                 const statsResponse = await axiosInstance.get('/profile/stats');
@@ -183,7 +184,7 @@ export default function Page() {
             <div className={styles.container}>
                 <div className={styles.balanceContainer}>
                     <div className={styles.title}>{t('main.tasks')}</div>
-                    <div className={styles.balance}>{formatNumberFromEnd(coins)}{' '}<Image src={money} alt={''} width={21} height={21} loading="lazy" /></div>
+                    <div className={styles.balance}>{formatNumberFromEnd(balance)}{' '}<Image src={money} alt={''} width={21} height={21} loading="lazy" /></div>
                 </div>
                 <div className={styles.block}>
                     <div className={styles.skinContainer}>
