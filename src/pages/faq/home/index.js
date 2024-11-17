@@ -115,13 +115,13 @@ export default function Home() {
             <div className={styles.root}>
                 <Image className={styles.background} src={background} width={300} height={1000} alt={'bg'} loading="lazy"/>
                 <div className={slide === 2 ? `${styles.item1} ${styles.visible}` : styles.item1}>
-                    <FaqIconButton image={account} alt={'account'} title={t('main.account')} />
+                    <FaqIconButton image={account} alt={'account'} title={t('main.account')} big={slide === 2 && true} rotate={-15} />
                 </div>
                 <div className={slide === 2 ? `${styles.item2} ${styles.visible}` : styles.item2}>
-                    <FaqIconButton image={teamData[groupId]?.logo} alt={'gang'}/>
+                    <FaqIconButton image={teamData[groupId]?.logo} alt={'gang'} big={slide === 2 && true} rotate={15}/>
                 </div>
                 <div className={slide === 2 ? `${styles.item3} ${styles.visible}` : styles.item3}>
-                    <FaqIconButton image={settings} alt={'settings'} title={t('main.settings')} />
+                    <FaqIconButton image={settings} alt={'settings'} title={t('main.settings')} big={slide === 2 && true} rotate={30} />
                 </div>
                 <div className={slide === 3 ? `${styles.item4} ${styles.visible}` : styles.item4}>
                     <FaqIconButton image={boards} alt={'boards'} title={t('main.boards')} />

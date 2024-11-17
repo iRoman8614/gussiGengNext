@@ -19,7 +19,6 @@ const paper = '/game-icons/paper.png'
 const scis = '/game-icons/scissors.png'
 const hand1 = '/faq/faqHand1.png'
 const hand2 = '/faq/faqHand2.png'
-const trio = '/faq/trio.png'
 
 export default function PvpBotPage() {
     const router = useRouter();
