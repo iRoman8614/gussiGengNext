@@ -290,6 +290,8 @@ export default function PvpPage() {
         });
         setTimeout(() => {
             if (roundResult) {
+                const oldPlayerScore = playerScore;
+                const oldOpponentScore = opponentScore;
                 const newPlayerScore = roundResult.userVictory;
                 const newOpponentScore = roundResult.opponentVictory;
 
@@ -298,11 +300,13 @@ export default function PvpPage() {
 
                 if (roundResult.finished === true) {
                     handleGameEnd();
-                } else {
+                } else if(oldPlayerScore === newPlayerScore && oldOpponentScore === newOpponentScore) {
                     setShowChanger(true)
                     setTimeout(() => {
                         resetRoundAfterDelay();
-                    }, 1000);
+                    }, 2000);
+                } else {
+                    resetRoundAfterDelay();
                 }
             }
         }, totalGifDuration);
