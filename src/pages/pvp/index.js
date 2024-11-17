@@ -207,7 +207,7 @@ export default function PvpPage() {
 
     useEffect(() => {
         let timerId;
-        if (!isLoadingPvp && timer > 0 && !gameOver) {
+        if (!isLoadingPvp && timer > 0 && !gameOver && gameStarted) {
             timerId = setTimeout(() => {
                 if (window.Telegram?.WebApp?.HapticFeedback) {
                     window.Telegram.WebApp.HapticFeedback.impactOccurred('light');
@@ -222,7 +222,7 @@ export default function PvpPage() {
             }
         }
         return () => clearTimeout(timerId);
-    }, [timer, round, isLoadingPvp, playerChoice, opponentChoice]);
+    }, [timer, round, isLoadingPvp, playerChoice, opponentChoice, gameStarted]);
 
     const handlePlayerChoiceTimeout = () => {
         sendAnswerToServer(10);
