@@ -8,7 +8,8 @@
     "exp": "exp",
     "pvp": "pvp",
     "friends": "friends",
-    "tasks": "tasks"
+    "tasks": "tasks",
+    "loot": "loot"
   },
   "settingsPage": {
     "title": "Settings",

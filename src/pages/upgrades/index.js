@@ -37,19 +37,19 @@ export default function Page() {
     ]
 
     const rateImages = [
-        '/upgradesCards/rate/rate11.png',
-        '/upgradesCards/rate/rate21.png',
-        '/upgradesCards/rate/rate31.png',
-        '/upgradesCards/rate/rate41.png',
-        '/upgradesCards/rate/rate51.png'
+        '/upgradesCards/rate/1rate.png',
+        '/upgradesCards/rate/2rate.png',
+        '/upgradesCards/rate/3rate.png',
+        '/upgradesCards/rate/4rate.png',
+        '/upgradesCards/rate/5rate.png'
     ]
 
     const limitImages = [
-        '/upgradesCards/limit/limit1.png',
-        '/upgradesCards/limit/limit2.png',
-        '/upgradesCards/limit/limit3.png',
-        '/upgradesCards/limit/limit4.png',
-        '/upgradesCards/limit/limit5.png'
+        '/upgradesCards/limit/1limit.png',
+        '/upgradesCards/limit/2limit.png',
+        '/upgradesCards/limit/3limit.png',
+        '/upgradesCards/limit/4limit.png',
+        '/upgradesCards/limit/5limit.png'
     ]
 
     const upgradesList = [

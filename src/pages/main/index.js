@@ -17,8 +17,8 @@ const account = '/main-buttons/account.png'
 const settings = '/main-buttons/settings.png'
 const boards = '/main-buttons/boards.png'
 const wallet = '/main-buttons/wallet.png'
-const claim = '/claimBTN.png'
-const claimClicked = '/claimBTNclicked.png'
+const claim = '/lootBTN.png'
+const claimClicked = '/lootBTNclicked.png'
 const border = '/totalbar.png'
 const background = '/backgrounds/nightcity.png'
 
@@ -155,6 +155,7 @@ export default function Home() {
             </div>
             <div className={styles.item9}>
                 <Image className={styles.claimRoot} width={600} height={200} src={isClaimClicked ? claimClicked : claim} onClick={handleClaimClick} alt={'claim'} loading="lazy" />
+                <p className={isClaimClicked ? styles.btnClicked : styles.btn}>{t('main.loot')}</p>
             </div>
             <div className={styles.item10}>
                 <NavBar/>
