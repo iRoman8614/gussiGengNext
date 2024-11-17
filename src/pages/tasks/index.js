@@ -91,7 +91,6 @@ export default function Page() {
         router.push(path);
     };
 
-    const timerRef = useRef(null);
     const handleTaskClick = (task) => {
         if (task.readyToComplete) {
             executeTask(task.id);
@@ -111,8 +110,9 @@ export default function Page() {
                         console.error('URL could not be determined. Task name:', task.name);
                     }
                     if (url) {
+                        const timestamp = Date.now();
+                        localStorage.setItem(`task_${task.id}`, timestamp);
                         window.open(url, '_blank');
-                        timerRef.current = setTimeout(() => executeTask(task.id), 500);
                     }
                     break;
                 case 3:
@@ -123,13 +123,26 @@ export default function Page() {
             }
         }
     };
+
     useEffect(() => {
-        return () => {
-            if (timerRef.current) {
-                clearTimeout(timerRef.current);
+        const interval = setInterval(() => {
+            const oneHourInMs = 60 * 60 * 1000;
+            const now = Date.now();
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                if (key.startsWith('task_')) {
+                    const taskId = key.replace('task_', '');
+                    const timestamp = parseInt(localStorage.getItem(key), 10);
+                    if (now - timestamp > oneHourInMs) {
+                        executeTask(taskId);
+                        localStorage.removeItem(key);
+                    }
+                }
             }
-        };
+        }, 5000);
+        return () => clearInterval(interval);
     }, []);
+
     const executeTask = async (taskId) => {
         try {
             await axiosInstance.get(`/task/execute?taskId=${taskId}`);
