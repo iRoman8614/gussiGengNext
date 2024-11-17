@@ -43,7 +43,7 @@
   background: linear-gradient(359deg, rgba(21, 25, 62, 0.45) 0%, rgba(56, 66, 164, 0.45) 100%);
   backdrop-filter: blur(8px);
   width: auto-clamp(100, 150);
-  height: auto-height(90, 250);
+  height: auto-height(90, 200);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -67,6 +67,37 @@
   padding:2px 16px;
   max-height: 52px;
 }
+
+.oppNickname2 {
+  grid-row-start: 1;
+  grid-column-start: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: url("/oppNickNameContainer.png") no-repeat;
+  background-size: 100% 100%;
+  max-width: 202px;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  font-size: auto-clamp(20, 32);
+  line-height:  auto-clamp(16, 27);
+  padding:2px 16px;
+  max-height: 52px;
+  color: #FFFFFF;
+  animation: changeColorYellow2 1s forwards;
+  animation-delay: 1s;
+
+  @keyframes changeColorYellow2 {
+    from {
+      color: #FFFFFF;
+    }
+    to {
+      color: #FFCC26;
+    }
+  }
+}
+
 
 .choose {
   width: auto-clamp(100, 150);
@@ -373,7 +404,9 @@
 }
 
 .tutorial {
-  position: relative;
+  position: absolute;
+  top: 42%;
+  transform: translateY(-50%);
   z-index: 13;
   width: 100%;
   background: #4c3981;
@@ -388,7 +421,9 @@
 }
 
 .tutorial4 {
-  position: relative;
+  position: absolute;
+  top: 42%;
+  transform: translateY(-50%);
   z-index: 13;
   width: 100%;
   background: #4c3981;
@@ -403,7 +438,9 @@
 }
 
 .tutorial7 {
-  position: relative;
+  position: absolute;
+  top: 42%;
+  transform: translateY(-50%);
   z-index: 13;
   width: 100%;
   background-color: #4c3981;

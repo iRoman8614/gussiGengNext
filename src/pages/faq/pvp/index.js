@@ -115,7 +115,7 @@ export default function PvpBotPage() {
             <div className={styles.root}>
                 <Image className={styles.background} src={background} width={300} height={1000} alt={'bg'} priority />
                 <div className={styles.container}>
-                    <div className={slide === 1 ? `${styles.oppNickname} ${styles.visible}` : styles.oppNickname}>{t('PVP.opp')}</div>
+                    <div className={slide === 1 ? `${styles.oppNickname2} ${styles.visible}` : styles.oppNickname}>{t('PVP.opp')}</div>
                     <div className={slide === 1 ? `${styles.optionBg} ${styles.visible}` : styles.optionBg}>
                         <Image
                             width={90}
@@ -154,8 +154,8 @@ export default function PvpBotPage() {
                     </div>
                 </div>
             </div>
-            <div className={styles.filter}>
-                <div className={slide === 4 ? styles.tutorial4 : (slide === 6 ? styles.tutorial7 : styles.tutorial)}>
+            <div className={styles.filter}></div>
+            <div className={slide === 4 ? styles.tutorial4 : (slide === 6 ? styles.tutorial7 : styles.tutorial)}>
                     <div className={styles.col}>
                         <div className={styles.dot}>1</div>
                         <div className={styles.navLeft} onClick={prevSlide}>
@@ -174,7 +174,6 @@ export default function PvpBotPage() {
                         <div className={styles.pagination}>{slide+1}/7</div>
                     </div>
                 </div>
-            </div>
         </>
     )
 }
