@@ -84,8 +84,8 @@ export default function Page() {
             <div className={styles.container}>
                 <div className={styles.seasonBlock}>
                     <div className={styles.season}>
-                        {t('account.season')} <br/><br />
-                        {userName}
+                        {t('account.season')}
+                        <div className={styles.nickname}>{userName}</div>
                     </div>
                     <div className={styles.avatarContainer}>
                         <Image className={styles.logo} src={teamData[groupId]?.logo} alt={''} width={40} height={40} loading="lazy" />
