@@ -92,6 +92,11 @@ export default function Page() {
     };
 
     const handleTaskClick = (task) => {
+        if (typeof window === "undefined") {
+            console.warn("localStorage is not available on the server.");
+            return;
+        }
+
         if (task.readyToComplete) {
             executeTask(task.id);
             task.readyToComplete = false
@@ -110,9 +115,14 @@ export default function Page() {
                         console.error('URL could not be determined. Task name:', task.name);
                     }
                     if (url) {
-                        const timestamp = Date.now();
-                        localStorage.setItem(`task_${task.id}`, timestamp);
-                        window.open(url, '_blank');
+                        const existingTimestamp = localStorage.getItem(`task_${task.id}`);
+                        if (!existingTimestamp) {
+                            window.open(url, '_blank');
+                            const timestamp = Date.now();
+                            localStorage.setItem(`task_${task.id}`, timestamp);
+                        } else {
+                            console.log(`Task ${task.id} already clicked at ${new Date(parseInt(existingTimestamp, 10)).toLocaleString()}`);
+                        }
                     }
                     break;
                 case 3:
@@ -125,6 +135,11 @@ export default function Page() {
     };
 
     useEffect(() => {
+        if (typeof window === "undefined") {
+            console.warn("localStorage is not available on the server.");
+            return;
+        }
+
         const interval = setInterval(() => {
             const oneHourInMs = 60 * 60 * 1000;
             const now = Date.now();
