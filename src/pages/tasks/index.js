@@ -9,8 +9,6 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/controller';
 import styles from '@/styles/Upgrades.module.scss'
-import {Controller, Navigation} from "swiper/modules";
-import {toast} from "react-toastify";
 import {useInit} from "@/context/InitContext";
 import {useFarmCollect} from "@/utils/api";
 
@@ -20,9 +18,9 @@ export default function Page() {
     const router = useRouter();
     const { t } = useTranslation();
     const { coins } = useInit();
-    const { tab } = router.query;
     const [balance, setBalance] = useState(0);
     const [tasks, setTasks] = useState([]);
+    const { collectAndStart } = useFarmCollect();
 
 
     useEffect(() => {
@@ -131,6 +129,9 @@ export default function Page() {
         try {
             await axiosInstance.get(`/task/execute?taskId=${taskId}`);
             fetchCompletedTasks();
+            const collectData = await collectAndStart();
+            const updatedBalance = collectData.totalCoins;
+            setBalance(updatedBalance);
         } catch (error) {
             console.error(`Error executing task ${taskId}:`, error);
         }
@@ -178,7 +179,7 @@ export default function Page() {
         <div className={styles.root}>
             <div className={styles.container}>
                 <div className={styles.balanceContainer}>
-                    <div className={styles.title}>tasks</div>
+                    <div className={styles.title}>{t('main.tasks')}</div>
                     <div className={styles.balance}>{formatNumberFromEnd(coins)}{' '}<Image src={money} alt={''} width={21} height={21} loading="lazy" /></div>
                 </div>
                 <div className={styles.block}>

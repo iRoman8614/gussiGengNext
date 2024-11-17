@@ -185,7 +185,7 @@ export default function Page() {
         <div className={styles.root}>
             <div className={styles.container}>
                 <div className={styles.balanceContainer}>
-                    <div className={styles.title}>upgrades</div>
+                    <div className={styles.title}>{t('main.exp')}</div>
                     <div className={styles.balance}>{formatNumberFromEnd(coins)}{' '}<Image src={money} alt={''} width={21} height={21} loading="lazy" /></div>
                 </div>
                 <div className={styles.block}>
