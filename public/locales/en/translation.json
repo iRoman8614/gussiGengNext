@@ -166,6 +166,7 @@
     "left": "games left",
     "skill": "Welcome to gang wars PvP battle mode! Let's get you battle-ready!",
     "opp": "opponent",
+    "dot": ".",
     "this": "This is",
     "you": "you",
     "your": "your",
@@ -178,9 +179,10 @@
     "3wins": {
       "first": "First to",
       "3": "3",
-      "wins": "wins the match"
+      "wins": "wins the match."
     },
-    "gl": "good luck player",
+    "gl": "Good luck, ",
+    "imp": "!",
     "pr": " beats rock",
     "rs": " beats scissors",
     "sp": " beats paper",

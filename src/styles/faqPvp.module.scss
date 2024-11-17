@@ -126,6 +126,16 @@
   line-height: auto-clamp(14, 34);
 }
 
+.time4 {
+  color: #00FF29 !important;
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  height: auto-clamp(14, 34);
+  font-size: auto-clamp(14, 34);
+  line-height: auto-clamp(14, 34);
+}
+
 .round {
   grid-row-start: 5;
   grid-column-start: 2;

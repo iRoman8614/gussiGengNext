@@ -25,6 +25,22 @@ export default function PvpBotPage() {
     const router = useRouter();
     const { t } = useTranslation();
     const [slide, setSlide] = useState(0)
+    const [userName, setUserName] = useState(null);
+
+    useEffect(() => {
+        if (typeof window !== 'undefined' && window.Telegram?.WebApp) {
+            const search = window.Telegram.WebApp.initData;
+            const urlParams = new URLSearchParams(search);
+            const userParam = urlParams.get('user');
+
+            if (userParam) {
+                const decodedUserParam = decodeURIComponent(userParam);
+                const userObject = JSON.parse(decodedUserParam);
+                setUserName(userObject.username);
+            }
+        }
+
+    }, []);
 
     useEffect(() => {
         if (typeof window !== 'undefined' && window.Telegram?.WebApp?.BackButton) {
@@ -68,8 +84,8 @@ export default function PvpBotPage() {
             <div>{t('PVP.skill')}</div>
         </div>,
         <div className={styles.slideContent2} key={'slideContent2'}>
-            <div>{t('PVP.this')} {t('PVP.your')} <a className={styles.yellow}>{t('PVP.opp')}</a></div>
-            <div>{t('PVP.this')} <a className={styles.green}>{t('PVP.you')}</a></div>
+            <div>{t('PVP.this')} {t('PVP.your')} <a className={styles.yellow}>{t('PVP.opp')}</a>{t('PVP.dot')}</div>
+            <div>{t('PVP.this')} <a className={styles.green}>{t('PVP.you')}</a>{t('PVP.dot')}</div>
         </div>,
         <div className={styles.slideContent3} key={'slideContent3'}>
             <div>{t('PVP.hp')}</div>
@@ -84,7 +100,7 @@ export default function PvpBotPage() {
         </div>,
         <div className={styles.slideContent6} key={'slideContent6'}>
             <div>{t('PVP.3wins.first')} <a className={styles.yellow}>{t('PVP.3wins.3')}</a> {t('PVP.3wins.wins')} <br/>
-                {t('PVP.gl')}</div>
+                {t('PVP.gl')}{userName}{t('PVP.imp')}</div>
         </div>,
         <div className={styles.slideContent7} key={'slideContent7'}>
             <div className={styles.beat1}><a className={styles.red}>{t('PVP.paper')}</a>{t('PVP.pr')}</div>
@@ -114,7 +130,7 @@ export default function PvpBotPage() {
                     <IconButton image={teamData[1].logo} alt={'gang'} />
                     <div className={slide === 4 ? `${styles.roundTimer} ${styles.visible}` : styles.roundTimer}>
                         <Image src={timerBG} alt={'timer'} height={144} width={144} className={styles.roundTimerBG} loading="lazy" />
-                        <div className={styles.time}>5</div>
+                        <div className={slide === 4 ? styles.time4 : styles.time}>5</div>
                     </div>
                     <IconButton image={teamData[2].logo} alt={'gang'} />
                     <VictoryCounter score={0} slide={slide} />
@@ -129,7 +145,7 @@ export default function PvpBotPage() {
                         />
                     </div>
                     <div className={slide === 1 ? `${styles.round2} ${styles.visible}` : (slide === 4 ? `${styles.round4} ${styles.visible}` : styles.round)}>
-                        {slide === 1 ? `${t('PVP.your')}` : `${t('PVP.rounds')} 3`}
+                        {slide === 1 ? `${t('PVP.you')}` : `${t('PVP.rounds')} 3`}
                     </div>
                     <div className={slide === 3 ? `${styles.buttonSet2} ${styles.visible}` : styles.buttonSet}>
                         <PvpBtn title={t('PVP.rock')} img={rock} value={1} />
