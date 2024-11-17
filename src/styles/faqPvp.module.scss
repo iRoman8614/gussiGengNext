@@ -410,7 +410,8 @@
   z-index: 13;
   width: 100%;
   background: #4c3981;
-  height: min-content;
+  min-height: 100px;
+  height: fit-content;
   border-radius: 18px;
   margin: 5px 5px 115px 5px;
   display: flex;
@@ -427,6 +428,7 @@
   z-index: 13;
   width: 100%;
   background: #4c3981;
+  min-height: 100px;
   height: fit-content;
   border-radius: 18px;
   margin: 155px 5px 0 5px;
@@ -448,7 +450,8 @@
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
-  height: min-content;
+  min-height: 100px;
+  height: fit-content;
   border-radius: 18px;
   margin: 5px 5px 115px 5px;
   display: flex;
