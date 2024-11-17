@@ -379,10 +379,10 @@ const WinningScreen = ({ playerScore  }) => (
         {playerScore === 3 ? <div>
                 {playerScore === 3
                     &&
-                    <Image width={204} height={151} className={styles.winsImage} src={youWin} alt={'wins'} loading="lazy" />
+                    <Image width={204} height={151} className={styles.winsImage} src={youWin} alt={'wins'} priority />
                 }
-                {playerScore === 3 ? <p className={styles.winnerName}>+5% farm</p> : <p></p>}
-        </div> : <Image width={204} height={204} className={styles.loseImage} src={youLose} alt={'you lose'} loading="lazy" />}
+                {/*{playerScore === 3 ? <p className={styles.winnerName}>+5% farm</p> : <p></p>}*/}
+        </div> : <Image width={204} height={204} className={styles.loseImage} src={youLose} alt={'you lose'} priority />}
     </div>
 );
 

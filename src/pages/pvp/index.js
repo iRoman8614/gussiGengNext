@@ -15,7 +15,7 @@ import { gameOptions } from '@/mock/optionData';
 import styles from '@/styles/Pvp.module.scss';
 import "react-toastify/dist/ReactToastify.css";
 
-const youWin = '/winScreen.png';
+const youWin = '/winsgold.png';
 const youLose = '/youLose.png'
 const background = '/backgrounds/backalley.png'
 const timerBG = '/timer.png'
@@ -57,6 +57,7 @@ export default function PvpPage() {
 
     const playerGifCache = useRef({});
     const opponentGifCache = useRef({});
+    const preGameSteps = ["Start", "Ready!", "Go!!!"];
 
     const preloadPlayerGifs = () => {
         const cache = {};
@@ -90,6 +91,17 @@ export default function PvpPage() {
             opponentGifCache.current = preloadOpponentGifs();
         }
     }, []);
+
+    useEffect(() => {
+        if (preGameStep < preGameSteps.length) {
+            const timerId = setTimeout(() => {
+                setPreGameStep((prevStep) => prevStep + 1);
+            }, 1500);
+            return () => clearTimeout(timerId);
+        } else {
+            setGameStarted(true);
+        }
+    }, [preGameStep]);
 
     useEffect(() => {
         if (typeof window !== 'undefined' && window.Telegram?.WebApp) {
@@ -325,6 +337,9 @@ export default function PvpPage() {
             ) : (
                 <>
                     {gameEnded && <WinningScreen userName={userName} playerScore={playerScore} opponentName={opponentName} />}
+                    {preGameStep === 1 && <GameStarte round="Start" />}
+                    {preGameStep === 2 && <GameStarte round="Ready!" />}
+                    {preGameStep === 3 && <GameStarte round="Go!!!" />}
                     <div className={styles.root}>
                         <Image className={styles.background} src={background} width={300} height={1000} alt={'bg'} priority />
                         <div className={styles.container}>
@@ -435,18 +450,17 @@ const VictoryCounter = ({ score }) => (
     </div>
 );
 
+
 // eslint-disable-next-line react/prop-types
 const WinningScreen = ({ playerScore  }) => (
     <div className={styles.winbg}>
-        {playerScore === 3 ? <div className={styles.winBorder}>
-            <div className={styles.winContainer}>
-                {playerScore === 3
-                    &&
-                    <Image width={204} height={151} className={styles.winsImage} src={youWin} alt={'wins'} loading="lazy" />
-                }
-                {playerScore === 3 ? <p className={styles.winnerName}>+5% farm</p> : <p></p>}
-            </div>
-        </div> : <Image width={204} height={204} className={styles.loseImage} src={youLose} alt={'you lose'} loading="lazy" />}
+        {playerScore === 3 ? <div>
+            {playerScore === 3
+                &&
+                <Image width={204} height={151} className={styles.winsImage} src={youWin} alt={'wins'} priority />
+            }
+            {/*{playerScore === 3 ? <p className={styles.winnerName}>+5% farm</p> : <p></p>}*/}
+        </div> : <Image width={204} height={204} className={styles.loseImage} src={youLose} alt={'you lose'} priority />}
     </div>
 );
 
@@ -457,7 +471,24 @@ const RoundChanger = ({round}) => {
             <div className={styles.changerContainer}>
                 <Image className={styles.animF} src={changerF} alt={''} width={700} height={150} priority />
                 <Image className={styles.animB} src={changerB} alt={''} width={700} height={150} priority />
-                <div className={styles.changerText}>{t('PVP.rounds')} {round}</div>
+                <div className={styles.changerText}>
+                    {typeof round === "string" ? round : `${t("PVP.rounds")} ${round}`}
+                </div>
+            </div>
+        </div>
+    )
+}
+
+const GameStarte = ({round}) => {
+    const {t} = useTranslation();
+    return(
+        <div className={styles.changerRoot}>
+            <div className={styles.changerContainer}>
+                <Image className={styles.animFGS} src={changerF} alt={''} width={700} height={150} priority />
+                <Image className={styles.animBGS} src={changerB} alt={''} width={700} height={150} priority />
+                <div className={styles.changerTextGS}>
+                    {typeof round === "string" ? round : `${t("PVP.rounds")} ${round}`}
+                </div>
             </div>
         </div>
     )
