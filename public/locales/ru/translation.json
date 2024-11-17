@@ -8,7 +8,7 @@
     "exp": "апгрейд",
     "pvp": "pvp",
     "friends": "друзья",
-    "tasks": "задания"
+    "tasks": "задачи"
   },
   "settingsPage": {
     "title": "Настройки",
@@ -77,19 +77,19 @@
       "ranks": "ради топа в рейтинге",
       "test": "а также попробуй свои силы",
       "ton": "в баттле за крипто",
-      "soon": "(скоро)"
+      "soon": "(скоро)."
     },
     "6": {
-      "exp": "EXP ",
-      "upgrade": "- upgrade your farming rate and farming limit.",
-      "items": "Items",
-      "soon": " - coming soon."
+      "exp": "Апгрейд ",
+      "upgrade": "- здесь можно улучшить скорость и лимит фарма.",
+      "items": "Айтемы",
+      "soon": " - скоро будут."
     },
     "7": {
-      "friends": "Friends",
-      "invite": " - invite your friends and gain bonuses.",
-      "tasks": "Tasks",
-      "complete": " - complete quests and earn more."
+      "friends": "Друзья",
+      "invite": " - приглашай друзей и получай бонусы.",
+      "tasks": "“Задачи",
+      "complete": " - выполняй квесты и зарабатывай больше."
     },
     "8": {
       "bags": "AND DON'T FORGET TO PACK YOUR BAGS IN THE FUTURE, BRO!"
