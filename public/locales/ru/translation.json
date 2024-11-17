@@ -49,35 +49,35 @@
       "end": ""
     },
     "2": {
-      "this": "This is your",
-      "loot": "LOOT",
-      "btn": " button.",
-      "use": "Use it to claim money from the ",
-      "pool": "farm pool ",
-      "balance": " and add it to your current balance"
+      "this": "Это кнопка",
+      "loot": "ЛУТ",
+      "btn": ".",
+      "use": "Юзай ее для перевода кэша из ",
+      "pool": "фарм пула",
+      "balance": " на баланс."
     },
     "3": {
-      "account": "Account",
-      "check": "check your stats and customise your profile.",
-      "gl": "Gang logo",
-      "swap": "swap your gang here.",
-      "settings": "Settings",
-      "change": "language and ui options."
+      "account": "Аккаунт",
+      "check": "здесь вся твоя статистика.",
+      "gl": "Гэнг лого",
+      "swap": "раздел для смены банды.",
+      "settings": "Настройки",
+      "change": "переключение языка."
     },
     "4": {
-      "boards": "Leaderboard",
-      "check": "check out your rank and leaderboard standings.",
-      "wallet": "Wallet",
-      "link": "link your cryptowallet."
+      "boards": "Рейтинг",
+      "check": "здесь твоя актуальная лига и позиция в ней.",
+      "wallet": "Кошелек",
+      "link": "подключение твоего кошелька (скоро)."
     },
     "5": {
       "pvp": "PvP ",
-      "battle": "- battle",
-      "way": "your way to the top of the",
-      "ranks": "leaderboard",
-      "test": "or test your skills for",
-      "ton": "crypto",
-      "soon": "(soon)"
+      "battle": "- сражайся",
+      "way": "с другими игроками",
+      "ranks": "ради топа в рейтинге",
+      "test": "а также попробуй свои силы",
+      "ton": "в баттле за крипто",
+      "soon": "(скоро)"
     },
     "6": {
       "exp": "EXP ",
