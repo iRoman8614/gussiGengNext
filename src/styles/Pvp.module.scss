@@ -243,8 +243,7 @@
   top: 0;
   left: -220%;
   z-index: 1002;
-  animation: flyInOutFront 1.5s forwards;
-  animation-delay: 0.5s;
+  animation: flyInOutFront 2s forwards;
 }
 
 .animFGS {
@@ -277,8 +276,7 @@
   top: 0;
   right: -220%;
   z-index: 1001;
-  animation: flyInOutBack 1.5s forwards;
-  animation-delay: 0.5s;
+  animation: flyInOutBack 2s forwards;
 }
 
 .animBGS {
@@ -317,8 +315,7 @@
   color: #FFFFFF;
   font-size: auto-clamp(35, 50);
   text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.5);
-  animation: flyInOutText 1.5s forwards;
-  animation-delay: 0.5s;
+  animation: flyInOutText 2s forwards;
 }
 
 .changerTextGS {
