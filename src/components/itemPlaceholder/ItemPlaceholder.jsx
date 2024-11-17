@@ -22,6 +22,7 @@ export const ItemPlaceholder = ({ item, img, onClick }) => {
             <div className={styles.title}>
                 {item.Cost}{' '}
                 <Image src={money} alt="" width={15} height={15} />
+                <div>IncreasePer</div>
             </div>
         </div>
     );

@@ -153,8 +153,8 @@ export default function Home() {
                     width={currentWidth}
                 />
             </div>
-            <div className={styles.item9}>
-                <Image className={styles.claimRoot} width={600} height={200} src={isClaimClicked ? claimClicked : claim} onClick={handleClaimClick} alt={'claim'} loading="lazy" />
+            <div className={styles.item9} onClick={handleClaimClick}>
+                <Image className={styles.claimRoot} width={600} height={200} src={isClaimClicked ? claimClicked : claim} alt={'claim'} loading="lazy" />
                 <p className={isClaimClicked ? styles.btnClicked : styles.btn}>{t('main.loot')}</p>
             </div>
             <div className={styles.item10}>
