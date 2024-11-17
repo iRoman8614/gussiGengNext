@@ -42,10 +42,10 @@
   },
   "FAQ": {
     "1": {
-      "current": "This is your current",
-      "balance": "balance.",
-      "farmPool": "This is your limited",
-      "pool": "farm pool.",
+      "current": "Это твой активный",
+      "balance": "баланс.",
+      "farmPool": "Это твой",
+      "pool": "фарм пул.",
       "end": ""
     },
     "2": {
