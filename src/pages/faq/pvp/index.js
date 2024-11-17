@@ -36,7 +36,7 @@ export default function PvpBotPage() {
             if (userParam) {
                 const decodedUserParam = decodeURIComponent(userParam);
                 const userObject = JSON.parse(decodedUserParam);
-                setUserName(userObject.username);
+                setUserName(userObject.first_name);
             }
         }
 
