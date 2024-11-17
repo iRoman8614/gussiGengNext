@@ -18,11 +18,11 @@ export const ItemPlaceholder = ({ item, img, onClick }) => {
             <div className={styles.imageContainer}>
                 <Image className={styles.image} width={260} height={170} alt="" src={img} priority />
                 <div className={styles.level}>lvl {item.Level}</div>
+                <div>{item.IncreasePer}</div>
             </div>
             <div className={styles.title}>
                 {item.Cost}{' '}
                 <Image src={money} alt="" width={15} height={15} />
-                <div>IncreasePer</div>
             </div>
         </div>
     );
