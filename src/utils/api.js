@@ -121,11 +121,10 @@ export const useFarmCollect = () => {
 
             setData(newData);
             await fetchFarmStart();
-            return newData;
-
+            return response.data;
         } catch (err) {
             setError(err);
-            return null;
+            throw err;
         } finally {
             setLoading(false);
         }
