@@ -10,7 +10,6 @@ import styles from '@/styles/Settings.module.scss'
 export default function Page() {
     const { setLang } = useInit();
     const { t } = useTranslation();
-
     let lang = false
     if(typeof window !== "undefined") {
         lang = localStorage.getItem('appLanguage')
