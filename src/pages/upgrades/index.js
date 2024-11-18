@@ -254,9 +254,6 @@ export default function Page() {
                 </div>
                 {isUpgradeModalOpen && selectedItem && (
                     <div className={styles.modalOverlay}>
-                        {selectedItem && coins < selectedItem.Cost && (
-                            toast.error('Not enough coins available.')
-                        )}
                         <div className={showLevelUp ? styles.modalUpBoreder : styles.modalBorder}>
                             <div className={styles.modalUpgrades}>
                                 <h3>
@@ -298,6 +295,9 @@ export default function Page() {
                                         : handleRateUpgrade(selectedItem.Id, selectedItem.Cost);
                                 }
                             }}
+                            {selectedItem && coins < selectedItem.Cost && (
+                                toast.error('Not enough coins available.')
+                            )}
                             disabled={selectedItem && coins < selectedItem.Cost}
                         >
                             <div className={styles.modalBtn}>{t('EXP.upgrade')}</div>
