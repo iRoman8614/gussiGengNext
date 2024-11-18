@@ -4,7 +4,7 @@ import {useRouter} from "next/router";
 import { toast } from 'react-toastify';
 import {useTranslation} from "react-i18next";
 import {useInit} from "@/context/InitContext";
-import {useUpdateGroup} from "@/utils/api";
+import {useFarmCollect, useUpdateGroup} from "@/utils/api";
 
 import teamData from '@/mock/teamsData'
 
@@ -23,6 +23,7 @@ const money = "/money.png"
 export default function Page() {
     const router = useRouter();
     const { t } = useTranslation();
+    const { collectAndStart } = useFarmCollect();
     const { groupId, coins, updateContext } = useInit();
     const[showPopUp, setShowPopUp] = useState(false)
     const[choose, setChoose] = useState(null)
@@ -65,6 +66,7 @@ export default function Page() {
         }
         try {
             await updateGroupData(choose);
+            await collectAndStart();
             if (loading) return;
             if (error) {
                 if (error.response && error.response.status === 400) {
