@@ -45,8 +45,11 @@ export default function Page() {
 
     useEffect(() => {
         fetchProfileStats()
-        console.log('statsData', statsData)
-    }, [])
+        if (typeof window !== 'undefined') {
+            const passes = JSON.parse(localStorage.getItem('init'))
+            setPass(passes.pass)
+        }
+    }, [pass])
 
     useEffect(() => {
         if (typeof window !== 'undefined' && window.Telegram?.WebApp?.BackButton) {
