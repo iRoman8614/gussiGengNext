@@ -40,12 +40,15 @@ export default function Page() {
 
     const router = useRouter();
 
-    const { pass, setPass } = useInit()
+    const [pass, setPass] = useState(0)
     const { data: lastGamesData } = useLastGames()
     const { data: statsData, fetchProfileStats } = useProfileStats()
 
     useEffect(() => {
         const response = fetchProfileStats()
+        console.log('response.data.pass', response.data.pass)
+        console.log('response.data', response.data)
+        console.log('response', response)
         setPass(response.data.pass)
     }, [])
 

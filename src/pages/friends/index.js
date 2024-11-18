@@ -21,6 +21,10 @@ export default function Page() {
     const [userId, setUserId] = useState(null);
     const [activeTab, setActiveTab] = useState(1);
     const { data: friends } = useMyInvitees();
+    const [message, setMessage] = useState('Join Gang Wars and Start Earning Big!\n' +
+        '💰 Get 10,000 Coins as a welcome gift!\n' +
+        '🚀 Exclusive Future Airdrop Alert! The coins you earn now lead to exciting token airdrops when we launch — don’t miss your chance to stack up early and be part of the action.\n' +
+        '💥 Invite your friends, compete in PvP battles, and rise to the top of the leaderboard!')
 
     const router = useRouter();
 
@@ -33,6 +37,20 @@ export default function Page() {
                 const decodedUserParam = decodeURIComponent(userParam);
                 const userObject = JSON.parse(decodedUserParam);
                 setUserId(userObject.id);
+            }
+        }
+        if (typeof window !== 'undefined') {
+            const lang = localStorage.getItem('appLanguage')
+            if (lang === 'ru') {
+                setMessage('Присоединяйся к Gang Wars и начни зарабатывать по-крупному!\n' +
+                    '💰 Получи 10 000 монет в подарок!\n' +
+                    '🚀 Стань участником будущего Airdrop! Монеты, заработанные сейчас, приведут к раздаче токенов при запуске — не упусти свой шанс накопить раньше и больше! \n' +
+                    '💥 Приглашай друзей, соревнуйтесь в PvP-сражениях и начни свой путь на вершину рейтинга!')
+            } else {
+                setMessage('Join Gang Wars and Start Earning Big!\n' +
+                    '💰 Get 10,000 Coins as a welcome gift!\n' +
+                    '🚀 Exclusive Future Airdrop Alert! The coins you earn now lead to exciting token airdrops when we launch — don’t miss your chance to stack up early and be part of the action.\n' +
+                    '💥 Invite your friends, compete in PvP battles, and rise to the top of the leaderboard!')
             }
         }
     }, []);
@@ -80,7 +98,7 @@ export default function Page() {
     const inviteClick = () => {
         const tg = window.Telegram.WebApp;
         const referralLink = `${link}?start=kid${userId}`;
-        const inviteMessage = `Tap the link to join me`;
+        const inviteMessage = message;
         if (tg.HapticFeedback) {
             tg.HapticFeedback.impactOccurred('medium');
         }
@@ -160,7 +178,7 @@ export default function Page() {
                                     />
                                 </div>
                             ) : (
-                                <Link href="/upgrades?tab=2" className={styles.barFull}>
+                                <Link href="/tasks" className={styles.barFull}>
                                     <div className={styles.progressFull} style={{ width: `${progressPercent}%` }}>
                                     </div>
                                 </Link>
