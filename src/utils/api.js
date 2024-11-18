@@ -36,9 +36,11 @@ export const useProfileInit = (token) => {
                 farm: farmData,
                 init: initData,
             });
+            return response.data
         } catch (error) {
             console.log('init error', error);
             setError(error);
+            throw error
         } finally {
             setLoading(false);
         }
@@ -78,7 +80,7 @@ export const useFarmStart = () => {
                 limit,
                 startTime
             }));
-            return result;
+            return response.data;
         } catch (err) {
             console.log('start error', err)
             setError(err);
@@ -157,7 +159,7 @@ export const useProfileStats = () => {
             };
             localStorage.setItem('init', JSON.stringify(updatedInitData));
             setData({id, count, lost, victory, type, liga, pass});
-            return response
+            return response.data
         } catch (err) {
             console.log('stats error', error)
             setError(err);
