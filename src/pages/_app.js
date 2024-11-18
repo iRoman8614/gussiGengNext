@@ -61,10 +61,12 @@ export default function App({ Component, pageProps }) {
             if (await isGroupCached(cacheName)) {
                 console.log(`Группа ${group} уже загружена, пропускаем.`);
                 currentGroupIndex++;
-                loadNextGroup();
+                setTimeout(loadNextGroup, 1000);
             } else {
                 console.log(`Загружаем группу: ${group}`);
                 worker.postMessage({ assets, cacheName });
+                currentGroupIndex++;
+                setTimeout(loadNextGroup, 1000);
             }
         };
 

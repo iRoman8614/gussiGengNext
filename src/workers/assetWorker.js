@@ -43,7 +43,7 @@ self.onmessage = async function (event) {
             }
         } catch (error) {
             postMessage({ status: "error", asset, error: error.message });
-            await new Promise(res => setTimeout(res, 1000));
+            await new Promise(res => setTimeout(res, 2000));
         }
     }
     postMessage({ status: "complete", cacheName });
