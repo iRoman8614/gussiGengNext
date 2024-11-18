@@ -8,8 +8,8 @@ import { useInit } from '@/context/InitContext';
 import styles from '@/styles/Settings.module.scss'
 
 export default function Page() {
-    const { setLang } = useInit();
     const { t } = useTranslation();
+    const { setLang } = useInit();
     let lang = false
     if(typeof window !== "undefined") {
         lang = localStorage.getItem('appLanguage')
@@ -17,6 +17,12 @@ export default function Page() {
 
     const initialLang = lang || i18next.language;
     const [selectedLanguage, setSelectedLanguage] = useState(initialLang);
+
+    useEffect(() => {
+        i18next.changeLanguage(selectedLanguage);
+        setLang(selectedLanguage);
+        localStorage.setItem('appLanguage', selectedLanguage);
+    }, [selectedLanguage, setLang]);
 
     const languageOptions = [
         { value: 'en', label: 'English' },
@@ -35,12 +41,6 @@ export default function Page() {
             };
         }
     }, [router]);
-
-    useEffect(() => {
-        i18next.changeLanguage(selectedLanguage);
-        setLang(selectedLanguage);
-        localStorage.setItem('appLanguage', selectedLanguage);
-    }, [selectedLanguage, setLang]);
 
     const handleLanguageChange = (selectedOption) => {
         const newLang = selectedOption.value;

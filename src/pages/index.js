@@ -15,8 +15,23 @@ const loaderImage = '/loadingImg.jpg'
 
 export default function LoaderPage() {
     const router = useRouter();
-    const { updateContext } = useInit();
+    const { updateContext, setLang } = useInit();
     let isNewPlayer = false;
+
+    let lang = false
+    if(typeof window !== "undefined") {
+        lang = localStorage.getItem('appLanguage')
+    }
+
+    const initialLang = lang || i18next.language;
+    const [selectedLanguage, setSelectedLanguage] = useState(initialLang);
+
+    useEffect(() => {
+        i18next.changeLanguage(selectedLanguage);
+        setLang(selectedLanguage);
+        localStorage.setItem('appLanguage', selectedLanguage);
+    }, [selectedLanguage, setLang]);
+
 
     const CURRENT_VERSION = process.env.NEXT_PUBLIC_CURRENT_VERSION
 
