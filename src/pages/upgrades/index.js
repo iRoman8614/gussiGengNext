@@ -260,22 +260,22 @@ export default function Page() {
                         <div className={showLevelUp ? styles.modalUpBoreder : styles.modalBorder}>
                             <div className={styles.modalUpgrades}>
                                 <h3>
-                                    <a>
-                                        {selectedItem.type === 'limit' ?
-                                            Number(limit)
-                                            :
-                                            Number(rate).toFixed(3)
-                                        }
-                                    </a>
-                                </h3>
-                                <p>
-                                    <Image src={'/ArrowWhite.png'} alt={''} width={15} height={15} className={styles.navRight} loading="lazy" />
                                     <a className={styles.green}>
                                         {
                                             (selectedItem.type === 'limit' ?
                                                 (Number(limit) * (1 + (Number(selectedItem.IncreasePer)/100)))
                                                 :
                                                 (Number(rate) * (1 + (Number(selectedItem.IncreasePer)/100)))).toFixed(3)
+                                        }
+                                    </a>
+                                </h3>
+                                <Image src={'/ArrowWhite.png'} alt={''} width={15} height={15} className={styles.arrowUp} loading="lazy" />
+                                <p>
+                                    <a>
+                                        {selectedItem.type === 'limit' ?
+                                            Number(limit)
+                                            :
+                                            Number(rate).toFixed(3)
                                         }
                                     </a>
                                 </p>

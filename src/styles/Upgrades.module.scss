@@ -151,6 +151,15 @@
   object-fit: fill;
 }
 
+.arrowUp {
+  z-index: 2;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  width: 25px !important;
+  rotate: 90deg;
+}
+
 
 .navRight {
   z-index: 2;
@@ -158,7 +167,7 @@
   border: none;
   cursor: pointer;
   width: 25px !important;
-  rotate: 90deg;
+  rotate: 180deg;
 }
 
 .caption {
