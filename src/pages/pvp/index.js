@@ -15,7 +15,7 @@ import { gameOptions } from '@/mock/optionData';
 import styles from '@/styles/Pvp.module.scss';
 import "react-toastify/dist/ReactToastify.css";
 
-const youWin = '/winsgold.png';
+const youWin = '/goldwins.png';
 const youLose = '/youLose.png'
 const background = '/backgrounds/backalley.png'
 const timerBG = '/timer.png'
@@ -59,7 +59,7 @@ export default function PvpPage() {
 
     const playerGifCache = useRef({});
     const opponentGifCache = useRef({});
-    const preGameSteps = ["Start", "Ready!", "Go!!!"];
+    const preGameSteps = ["Ready!", "Go!!!"];
 
     const preloadPlayerGifs = () => {
         const cache = {};
@@ -98,7 +98,7 @@ export default function PvpPage() {
         if (preGameStep < preGameSteps.length) {
             const timerId = setTimeout(() => {
                 setPreGameStep((prevStep) => prevStep + 1);
-            }, 1500);
+            }, 2000);
             return () => clearTimeout(timerId);
         } else {
             setGameStarted(true);
@@ -333,7 +333,7 @@ export default function PvpPage() {
         }, 3000);
         setTimeout(() => {
             router.push('/main');
-        }, 2000);
+        }, 5000);
     };
 
     return (
@@ -343,9 +343,8 @@ export default function PvpPage() {
             ) : (
                 <>
                     {gameEnded && <WinningScreen userName={userName} playerScore={playerScore} opponentName={opponentName} />}
-                    {preGameStep === 1 && <GameStarte round="Start" />}
-                    {preGameStep === 2 && <GameStarte round="Ready!" />}
-                    {preGameStep === 3 && <GameStarte round="Go!!!" />}
+                    {preGameStep === 1 && <GameStarte round="Ready!" />}
+                    {preGameStep === 2 && <GameStarte round="Go!!!" />}
                     <div className={styles.root}>
                         <Image className={styles.background} src={background} width={300} height={1000} alt={'bg'} priority />
                         <div className={styles.container}>

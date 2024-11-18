@@ -267,9 +267,9 @@ export default function Page() {
                                             Number(rate).toFixed(3)
                                         }
                                     </a>
-                                    {' '}
+                                </h3>
+                                <p>
                                     <Image src={'/ArrowWhite.png'} alt={''} width={15} height={15} className={styles.navRight} loading="lazy" />
-                                    {' '}
                                     <a className={styles.green}>
                                         {
                                             (selectedItem.type === 'limit' ?
@@ -278,7 +278,7 @@ export default function Page() {
                                                 (Number(rate) * (1 + (Number(selectedItem.IncreasePer)/100)))).toFixed(3)
                                         }
                                     </a>
-                                </h3>
+                                </p>
                                 <p>
                                     {selectedItem.type === 'limit' ? `${t('EXP.limit')} +${selectedItem.Name}%` : `${t('EXP.rate')} +${selectedItem.Name}%`}
                                 </p>

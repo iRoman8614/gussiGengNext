@@ -168,8 +168,11 @@ const LoadingText = () => {
         return () => clearInterval(interval);
     }, []);
     return (
-        <div className={styles.loading}>
-            {t('loading')}{'.'.repeat(dots)}
-        </div>
+        <>
+            <div className={styles.beta}>beta</div>
+            <div className={styles.loading}>
+                {t('loading')}{'.'.repeat(dots)}
+            </div>
+        </>
     );
 };

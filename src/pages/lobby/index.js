@@ -142,26 +142,24 @@ export default function Page() {
                         <div className={styles.card} onClick={handlePvpClick}>
                             <div className={styles.icon}>
                                 <div>{t('PVP.battle')}</div>
-                                <p className={styles.hiddenText}>{t('PVP.battle')}</p>
+                                {remainingTime >= 0 ?
+                                    <p
+                                        // className={styles.timer}
+                                    >
+                                        {formatTime(remainingTime)}
+                                    </p> : <p className={styles.hiddenText}>{t('PVP.battle')}</p>}
                                 <Image className={styles.logo} src={hands} alt={''} width={150} height={75} loading="lazy"/>
                             </div>
                             <div className={styles.lable}>
-                                {remainingTime > 0 &&
-                                    <div className={styles.timer}>
-                                        {formatTime(remainingTime)}
-                                    </div>}
                                 <div className={styles.title}>
-                                    {sessionsCount < 5 ? (
-                                        <>
-                                            <div>{5 - sessionsCount}</div>
-                                            <p>{t('PVP.left')}</p>
-                                        </>
-                                    ) : (
-                                        <>
-                                            <div>{pass}</div>
-                                            <p>{t('PVP.extra')}</p>
-                                        </>)
-                                    }
+                                    <div>{5 - sessionsCount}</div>
+                                    <p>{t('PVP.left')}</p>
+                                </div>
+                            </div>
+                            <div className={styles.lable}>
+                                <div className={styles.title}>
+                                    <div>{pass}</div>
+                                    <p>{t('PVP.extra')}</p>
                                 </div>
                             </div>
                         </div>
@@ -182,13 +180,15 @@ export default function Page() {
                                     <Image className={styles.logo} src={rich} alt={''} width={150} height={75} loading="lazy"/>
                                 </div>
                                 <div className={styles.lable}>
-                                    <div className={styles.timer}>
-                                        <p>{' '}</p>
-                                    </div>
+                                    {' '}
+                                </div>
+                                <div className={styles.lable}>
                                     <div className={styles.title}>
                                         <div>Soon</div>
-                                        {/*<p>ton</p>*/}
                                     </div>
+                                </div>
+                                <div className={styles.lable}>
+                                    {' '}
                                 </div>
                             </div>
                         </div>

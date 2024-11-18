@@ -55,7 +55,7 @@
       "btn": " button.",
       "use": "Use it to claim money from the ",
       "pool": "farm pool ",
-      "balance": " and add it to your current balance"
+      "balance": " and add it to your current balance."
     },
     "3": {
       "account": "Account",
@@ -79,7 +79,7 @@
       "dot": "",
       "test": "or test your skills for",
       "ton": "crypto",
-      "soon": "(soon)"
+      "soon": "(soon)."
     },
     "6": {
       "exp": "EXP ",

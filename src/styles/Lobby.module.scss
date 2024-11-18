@@ -35,7 +35,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 5px 5px 40px 5px;
-  height: auto-clamp(200, 320);
+  height: auto-clamp(240, 370);
   margin-bottom: 25px;
 
   animation: zoom-in 0.5s forwards ease-out;
@@ -83,6 +83,11 @@
   width: 100%;
 }
 
+.lableTon {
+  width: 100%;
+  margin-bottom: 12px;
+}
+
 .timer {
   margin-top: 10px;
   font-size: auto-clamp(16, 22);
@@ -96,6 +101,7 @@
   justify-content: center;
   div {
     font-size: 40px;
+    line-height: 25px;
     text-align: center;
     color: #ffcc26;
     align-self: end;
@@ -168,6 +174,6 @@
 .faq {
   position: absolute;
   z-index: 100000;
-  bottom: 10%;
+  bottom: 15%;
   right: 5%;
 }

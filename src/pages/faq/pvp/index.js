@@ -78,6 +78,13 @@ export default function PvpBotPage() {
         }
     }
 
+    const closeFaq = () => {
+        if(typeof window !== 'undefined') {
+            localStorage.setItem('pvpfaq', true)
+        }
+        router.push('/lobby')
+    }
+
     const slideContent = [
         <div className={styles.slideContent1} key={'slideContent1'}>
             <div>{t('PVP.skill')}</div>
@@ -87,8 +94,8 @@ export default function PvpBotPage() {
             <div>{t('PVP.this')} <a className={styles.green}>{t('PVP.you')}</a>{t('PVP.dot')}</div>
         </div>,
         <div className={styles.slideContent3} key={'slideContent3'}>
-            <div>{t('PVP.hp')}</div>
-            <div>{t('PVP.opphp')}</div>
+            <div><a className={styles.green}>{t('PVP.hp')}</a></div>
+            <div><a className={styles.yellow}>{t('PVP.opphp')}</a></div>
         </div>,
         <div className={styles.slideContent4} key={'slideContent4'}>
             <div>{t('PVP.move')}</div>
@@ -108,7 +115,6 @@ export default function PvpBotPage() {
         </div>
     ];
 
-    // className={slide === 2 ? `${styles.item1} ${styles.visible}` : styles.item1}
     return (
         <>
             <div className={styles.root}>
@@ -125,14 +131,14 @@ export default function PvpBotPage() {
                             loading="lazy"
                         />
                     </div>
-                    <VictoryCounter score={3} slide={slide} />
+                    {slide === 2 ? <VictoryCounterOpp score={0} slide={slide}/> : <VictoryCounter score={0} slide={slide}/>}
                     <IconButton image={teamData[1].logo} alt={'gang'} />
                     <div className={slide === 4 ? `${styles.roundTimer} ${styles.visible}` : styles.roundTimer}>
                         <Image src={timerBG} alt={'timer'} height={144} width={144} className={styles.roundTimerBG} loading="lazy" />
                         <div className={slide === 4 ? styles.time4 : styles.time}>5</div>
                     </div>
                     <IconButton image={teamData[2].logo} alt={'gang'} />
-                    <VictoryCounter score={0} slide={slide} />
+                    {slide === 2 ? <VictoryCounterMe score={0} slide={slide}/> : <VictoryCounter score={0} slide={slide}/>}
                     <div className={slide === 1 ? `${styles.optionBg} ${styles.visible}` : styles.optionBg}>
                         <Image
                             width={90}
@@ -154,6 +160,7 @@ export default function PvpBotPage() {
                 </div>
             </div>
             <div className={styles.filter}></div>
+            <div className={styles.popUpClose} onClick={closeFaq}>x</div>
             <div className={slide === 4 ? styles.tutorial4 : (slide === 6 ? styles.tutorial7 : styles.tutorial)}>
                     <div className={styles.col}>
                         <div className={styles.dot}>1</div>
@@ -181,6 +188,22 @@ export default function PvpBotPage() {
 // eslint-disable-next-line react/prop-types
 const VictoryCounter = ({ score, slide }) => (
     <div className={slide === 2 ? `${styles.counter} ${styles.visible}` : styles.counter}>
+        {(score >= 1) ? <Image className={styles.heart} src={cross} alt={''} width={55} height={55} loading="lazy" /> : <Image className={styles.heart} src={heart} alt={''} width={55} height={55} loading="lazy"  />}
+        {(score >= 2) ? <Image className={styles.heart} src={cross} alt={''} width={55} height={55} loading="lazy" /> : <Image className={styles.heart} src={heart} alt={''} width={55} height={55} loading="lazy" />}
+        {(score >= 3) ? <Image className={styles.heart} src={cross} alt={''} width={55} height={55} loading="lazy" /> : <Image className={styles.heart} src={heart} alt={''} width={55} height={55} loading="lazy" />}
+    </div>
+);
+
+const VictoryCounterMe = ({ score, slide }) => (
+    <div className={slide === 2 ? `${styles.counterMe} ${styles.visible}` : styles.counter}>
+        {(score >= 1) ? <Image className={styles.heart} src={cross} alt={''} width={55} height={55} loading="lazy" /> : <Image className={styles.heart} src={heart} alt={''} width={55} height={55} loading="lazy"  />}
+        {(score >= 2) ? <Image className={styles.heart} src={cross} alt={''} width={55} height={55} loading="lazy" /> : <Image className={styles.heart} src={heart} alt={''} width={55} height={55} loading="lazy" />}
+        {(score >= 3) ? <Image className={styles.heart} src={cross} alt={''} width={55} height={55} loading="lazy" /> : <Image className={styles.heart} src={heart} alt={''} width={55} height={55} loading="lazy" />}
+    </div>
+);
+
+const VictoryCounterOpp = ({ score, slide }) => (
+    <div className={slide === 2 ? `${styles.counterOpp} ${styles.visible}` : styles.counter}>
         {(score >= 1) ? <Image className={styles.heart} src={cross} alt={''} width={55} height={55} loading="lazy" /> : <Image className={styles.heart} src={heart} alt={''} width={55} height={55} loading="lazy"  />}
         {(score >= 2) ? <Image className={styles.heart} src={cross} alt={''} width={55} height={55} loading="lazy" /> : <Image className={styles.heart} src={heart} alt={''} width={55} height={55} loading="lazy" />}
         {(score >= 3) ? <Image className={styles.heart} src={cross} alt={''} width={55} height={55} loading="lazy" /> : <Image className={styles.heart} src={heart} alt={''} width={55} height={55} loading="lazy" />}

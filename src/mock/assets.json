@@ -74,7 +74,7 @@
     "/youLose.png",
     "/roundContainer.png",
     "/oppNickNameContainer.png",
-    "/winsgold.png"
+    "/goldwins.png"
   ],
   "upgrades": {
     "limit": [
