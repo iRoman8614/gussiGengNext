@@ -49,7 +49,7 @@ export default function Page() {
         console.log('response.data.pass', response.data.pass)
         console.log('response.data', response.data)
         console.log('response', response)
-        setPass(response.data.pass)
+        setPass(response.pass)
     }, [])
 
     useEffect(() => {
