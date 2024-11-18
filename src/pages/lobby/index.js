@@ -6,7 +6,7 @@ import {toast} from "react-toastify";
 import {useTranslation} from "react-i18next";
 import axiosInstance from "@/utils/axios";
 import {IconButton} from "@/components/buttons/icon-btn/IconButton";
-import {useLastGames } from "@/utils/api";
+import {useLastGames, useProfileStats} from "@/utils/api";
 
 import styles from '@/styles/Lobby.module.scss'
 import {useInit} from "@/context/InitContext";
@@ -40,8 +40,14 @@ export default function Page() {
 
     const router = useRouter();
 
-    const { pass } = useInit()
+    const { pass, setPass } = useInit()
     const { data: lastGamesData } = useLastGames()
+    const { data: statsData, fetchProfileStats } = useProfileStats()
+
+    useEffect(() => {
+        const response = fetchProfileStats()
+        setPass(response.data.pass)
+    }, [])
 
     useEffect(() => {
         if (typeof window !== 'undefined' && window.Telegram?.WebApp?.BackButton) {
