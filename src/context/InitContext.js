@@ -86,7 +86,6 @@ export const InitProvider = ({ children }) => {
             const savedInit = JSON.parse(localStorage.getItem('init')) || {};
             setGroupId(savedInit.groupId || 0);
             setLiga(savedInit.liga || 0);
-            setLang(savedInit.lang || 'en');
             setDailyEntries(savedInit.dailyEntries || 0);
             setPass(savedInit.pass || 0)
 
