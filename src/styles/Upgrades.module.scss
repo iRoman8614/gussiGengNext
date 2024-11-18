@@ -296,7 +296,7 @@
 }
 
 .modalUpgrades h3 {
-  font-size: 36px;
+  font-size: auto-clamp(24, 32);
   font-weight: 400;
   color: #fff;
   margin-bottom: 10px;
