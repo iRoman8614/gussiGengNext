@@ -17,6 +17,7 @@ export default function LoaderPage() {
     const router = useRouter();
     const { updateContext, setLang } = useInit();
     let isNewPlayer = false;
+    let isOldPlayer = false
 
     let lang = false
     if(typeof window !== "undefined") {
@@ -36,9 +37,9 @@ export default function LoaderPage() {
     const CURRENT_VERSION = process.env.NEXT_PUBLIC_CURRENT_VERSION
 
     const token = createEncryptedToken();
-    const { data: profileData, loading: profileLoading, error: profileError, fetchProfileInit } = useProfileInit(token);
-    const { data: farmData, loading: farmLoading, error: farmError, fetchFarmStart } = useFarmStart();
-    const { data: statsData, loading: statsLoading, error, statsError, fetchProfileStats } = useProfileStats()
+    const { fetchProfileInit } = useProfileInit(token);
+    const { fetchFarmStart } = useFarmStart();
+    const { fetchProfileStats } = useProfileStats()
 
     const checkVersion = useCallback(() => {
         if (typeof window !== 'undefined') {
@@ -82,16 +83,11 @@ export default function LoaderPage() {
     const fetchData = useCallback(async () => {
         try {
             const initData = await fetchProfileInit()
-            console.log('initData', initData)
-            console.log('initData.data', initData.data)
+            if(initData) {
+                isOldPlayer = true
+            }
             if (isNewPlayer) {
                 loadAssets('newPlayerAssets', assetData.newPlayerAssets);
-            }
-            if (profileError) {
-                throw new Error('Initialization failed, restart app');
-            }
-            if (farmError) {
-                throw new Error('Farm start failed, restart app');
             }
         } catch (error) {
             if(error.status === 401) {
@@ -108,11 +104,8 @@ export default function LoaderPage() {
         const picked = localStorage.getItem('picked')
         const savedInit = JSON.parse(localStorage.getItem('init'));
         const savedFarm = JSON.parse(localStorage.getItem('farm'));
-        let isExperiencedPlayer = false
         if (!picked) {
             isNewPlayer = true;
-        } else {
-            isExperiencedPlayer = savedInit && savedFarm
         }
         updateContext();
 
@@ -121,7 +114,7 @@ export default function LoaderPage() {
         }
         if (isNewPlayer) {
             router.push('/getRandom');
-        } else if (!isNewPlayer && isExperiencedPlayer) {
+        } else if (isOldPlayer) {
             router.push('/main');
         }
     }, []);
