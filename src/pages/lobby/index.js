@@ -142,7 +142,7 @@ export default function Page() {
                         <div className={styles.card} onClick={handlePvpClick}>
                             <div className={styles.icon}>
                                 <div>{t('PVP.battle')}</div>
-                                {remainingTime >= 0 ?
+                                {remainingTime > 0 ?
                                     <p
                                         // className={styles.timer}
                                     >
