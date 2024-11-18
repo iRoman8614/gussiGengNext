@@ -83,8 +83,8 @@ export default function LoaderPage() {
     const fetchData = useCallback(async () => {
         try {
             const initData = await fetchProfileInit()
-            console.log('initData', initData)
-            if (initData.data.init.groupId) {
+            console.log('profileData', profileData)
+            if (profileData.group.id) {
                 console.log('profileData', profileData)
                 const skinGroup = `skins.${groupId}`;
                 loadAssets(skinGroup, assetData.skins[groupId]);
@@ -113,14 +113,11 @@ export default function LoaderPage() {
     const worker = typeof window !== "undefined" ? new Worker(new URL("../workers/assetWorker.js", import.meta.url)) : null;
 
     const updateAndRedirect = useCallback(() => {
-        const init = localStorage.getItem('init');
-        const start = localStorage.getItem('farm');
-        const GWToken = localStorage.getItem('GWToken');
         const picked = localStorage.getItem('picked')
         const savedInit = JSON.parse(localStorage.getItem('init'));
         const savedFarm = JSON.parse(localStorage.getItem('farm'));
         let isExperiencedPlayer = false
-        if (!init || !start || !GWToken || !picked) {
+        if (!picked) {
             isNewPlayer = true;
         } else {
             isExperiencedPlayer = savedInit && savedFarm
