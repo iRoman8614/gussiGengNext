@@ -47,6 +47,8 @@ export default function Page() {
         const response = fetchProfileStats()
         console.log('response', response)
         console.log('response.data', response.data)
+        console.log('statsData', statsData)
+        console.log('statsData.data', statsData.data)
     }, [])
 
     useEffect(() => {
