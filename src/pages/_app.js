@@ -88,7 +88,7 @@ export default function App({ Component, pageProps }) {
     return(
         <InitProvider>
             <Head>
-                <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no viewport-fit=cover, orientation=portrait" />
             </Head>
             <Script
                 src="https://telegram.org/js/telegram-web-app.js"

@@ -28,13 +28,13 @@ export const useProfileInit = (token) => {
             const initData = {
                 lang: lang,
                 groupId: group.id,
-                dailyEntries: delayEntries
+                dailyEntries: delayEntries,
+                lastUpdate: group.lastUpdate,
             };
             localStorage.setItem('init', JSON.stringify(initData));
             setData({
                 farm: farmData,
                 init: initData,
-                lastUpdate: group.lastUpdate,
             });
         } catch (error) {
             console.log('init error', error);
