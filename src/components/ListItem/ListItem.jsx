@@ -60,7 +60,7 @@ export const ListItem = ({ item, index, teamId }) => {
                 />
                 <div className={styles.content}>
                     <div className={styles.nickname}>{item.userName || 'Anonymous'}</div>
-                    <div className={styles.sum}>{formatBalance(item.balance)}</div>
+                    <div className={styles.sum}>{formatBalance(item.totalBalance)}</div>
                     {index && <div className={styles.index}>{index}</div>}
                 </div>
             </div>
