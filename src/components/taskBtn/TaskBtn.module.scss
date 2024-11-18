@@ -40,14 +40,14 @@
 }
 
 .title {
-  font-size: auto-clamp(16, 22);
+  font-size: auto-clamp(14, 22);
   line-height: auto-clamp(18, 28);
   color: #fff;
 }
 
 .subtitle {
-  font-size: auto-clamp(16, 22);
-  line-height: auto-clamp(16, 22);
+  font-size: auto-clamp(14, 22);
+  line-height: auto-clamp(14, 22);
   color: #fff;
   width: auto-clamp(70, 170);
   text-overflow: ellipsis;
@@ -62,7 +62,7 @@
   font-size: auto-clamp(14, 18);
   line-height: auto-clamp(18, 24);
   color: #fff;
-  width: auto-clamp(50, 70);
+  width: auto-clamp(40, 60);
   white-space: nowrap;
 }
 
