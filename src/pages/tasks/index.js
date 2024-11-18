@@ -84,12 +84,12 @@ export default function Page() {
                 const referralKey = amount === 1 ? '1referral' : amount === 3 ? '3referral' : '5referral';
                 return `${amount}${t(`EXP.${referralKey}`)}`;
             case 3:
-                return `${t(`EXP.win}`)}${amount}${t(`EXP.pvp}`)}`;
+                return `${t(`EXP.win`)}${amount}${t(`EXP.pvp`)}`;
             case 2:
                 if (name.includes('TG')) {
-                    return t(`EXP.tg}`);
+                    return t(`EXP.tg`);
                 } else if (name.includes('X')) {
-                    return t(`EXP.x}`);
+                    return t(`EXP.x`);
                 }
                 break;
             default:
