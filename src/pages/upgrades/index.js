@@ -294,10 +294,10 @@ export default function Page() {
                                         ? handleLimitUpgrade(selectedItem.Id, selectedItem.Cost)
                                         : handleRateUpgrade(selectedItem.Id, selectedItem.Cost);
                                 }
+                                if(selectedItem && coins < selectedItem.Cost) {
+                                    toast.error('Not enough coins available.')
+                                }
                             }}
-                            {selectedItem && coins < selectedItem.Cost && (
-                                toast.error('Not enough coins available.')
-                            )}
                             disabled={selectedItem && coins < selectedItem.Cost}
                         >
                             <div className={styles.modalBtn}>{t('EXP.upgrade')}</div>
