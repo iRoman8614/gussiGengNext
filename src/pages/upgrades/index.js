@@ -30,8 +30,7 @@ export default function Page() {
     const [isUpgradeModalOpen, setIsUpgradeModalOpen] = useState(false);
     const [selectedItem, setSelectedItem] = useState(null);
     const [activeIndex, setActiveIndex] = useState(0);
-    const [isUpgrading, setIsUpgrading] = useState(false);
-    const [showLevelUp, setShowLevelUp] = useState(false);
+    const [showLevelUp, setShowLevelUp] = useState(true);
 
     const sliderImages = [
         '/upgradesCards/slider/rateSlide.png',
