@@ -136,10 +136,10 @@ const Timer = () => {
     const { t } = useTranslation();
     const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0 });
     useEffect(() => {
-        const lastUpdate = localStorage.getItem('lastUpdate');
-        if (!lastUpdate) return;
+        const init = JSON.parse(localStorage.getItem('init'));
+        if (!init) return;
         const calculateTimeLeft = () => {
-            const lastUpdateDate = new Date(lastUpdate);
+            const lastUpdateDate = new Date(init.lastUpdate);
             const now = new Date();
             const fiveDaysLater = new Date(lastUpdateDate.getTime() + 5 * 24 * 60 * 60 * 1000);
 
