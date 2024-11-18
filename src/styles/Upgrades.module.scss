@@ -348,6 +348,7 @@
 .levelUpAnimation {
   animation: fadeInOut 2s linear;
   position: absolute;
+  z-index: 1005;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
