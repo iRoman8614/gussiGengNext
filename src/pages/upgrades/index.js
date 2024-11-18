@@ -30,6 +30,8 @@ export default function Page() {
     const [isUpgradeModalOpen, setIsUpgradeModalOpen] = useState(false);
     const [selectedItem, setSelectedItem] = useState(null);
     const [activeIndex, setActiveIndex] = useState(0);
+    const [isUpgrading, setIsUpgrading] = useState(false);
+    const [showLevelUp, setShowLevelUp] = useState(false);
 
     const sliderImages = [
         '/upgradesCards/slider/rateSlide.png',
@@ -108,9 +110,13 @@ export default function Page() {
             const collectData = await collectAndStart();
             const updatedBalance = collectData.totalCoins;
             setBalance(updatedBalance);
-            closeUpgradeModal();
-            fetchLevels();
             updateContext()
+            setShowLevelUp(true);
+            fetchLevels();
+            setTimeout(() => {
+                closeUpgradeModal();
+                setShowLevelUp(false);
+            }, 2000);
         } catch (error) {
             console.error('Ошибка при улучшении лимита:', error);
         }
@@ -125,9 +131,13 @@ export default function Page() {
             const collectData = await collectAndStart();
             const updatedBalance = collectData.totalCoins;
             setBalance(updatedBalance);
-            closeUpgradeModal();
-            fetchLevels();
             updateContext()
+            setShowLevelUp(true);
+            fetchLevels();
+            setTimeout(() => {
+                closeUpgradeModal();
+                setShowLevelUp(false);
+            }, 2000);
         } catch (error) {
             console.error('Ошибка при улучшении прокачки:', error);
         }
@@ -298,6 +308,7 @@ export default function Page() {
                         </div>
                     </div>
                 )}
+                {showLevelUp && <div className={styles.levelUpAnimation}>Level Up!</div>}
             </div>
         </div>
     );

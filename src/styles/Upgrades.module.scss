@@ -344,3 +344,19 @@
   text-align: center;
   color: #fff;
 }
+
+.levelUpAnimation {
+  animation: fadeInOut 2s linear;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 24px;
+  color: #4CAF50;
+}
+
+@keyframes fadeInOut {
+  0% { opacity: 0; }
+  50% { opacity: 1; }
+  100% { opacity: 0; }
+}
