@@ -35,7 +35,7 @@ export const TaskBtn = ({title, subtitle, desc, completed, onClick, readyToCompl
 
     return (
         <div className={readyToComplete ? styles.rootReady : styles.root} onClick={handleClick}>
-            <Image className={styles.icon} src={getIconSrc()} alt={''} width={60} height={60} />
+            <Image className={styles.icon} src={getIconSrc()} alt={''} width={50} height={50} />
             <div className={styles.container}>
                 <div>
                     {title && <div className={styles.title}>{title}</div>}
@@ -49,7 +49,7 @@ export const TaskBtn = ({title, subtitle, desc, completed, onClick, readyToCompl
             <div>
                 {completed === false
                     ? <Image src={Arrow} width={20} height={20} alt={''} />
-                    : <Image src={Complite} width={30} height={30} alt={''} />}
+                    : <Image src={Complite} width={25} height={25} alt={''} />}
             </div>
         </div>
     );
