@@ -258,7 +258,7 @@ export default function Page() {
                         {selectedItem && coins < selectedItem.Cost && (
                             toast.error('Not enough coins available.')
                         )}
-                        <div className={styles.modalBorder}>
+                        <div className={showLevelUp ? styles.modalUpBoreder : styles.modalBorder}>
                             <div className={styles.modalUpgrades}>
                                 <h3>
                                     <a>
@@ -288,7 +288,7 @@ export default function Page() {
                             </div>
                         </div>
                         <button
-                            className={styles.modalBorder}
+                            className={showLevelUp ? styles.modalUpBoreder : styles.modalBorder}
                             onClick={() => {
                                 if (window.Telegram?.WebApp?.HapticFeedback) {
                                     window.Telegram.WebApp.HapticFeedback.impactOccurred('medium');
@@ -303,7 +303,7 @@ export default function Page() {
                         >
                             <div className={styles.modalBtn}>{t('EXP.upgrade')}</div>
                         </button>
-                        <div className={styles.modalBorder} onClick={closeUpgradeModal}>
+                        <div className={showLevelUp ? styles.modalUpBoreder : styles.modalBorder} onClick={closeUpgradeModal}>
                             <div className={styles.modalBtn}>{t('EXP.close')}</div>
                         </div>
                     </div>

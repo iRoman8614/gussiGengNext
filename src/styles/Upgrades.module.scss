@@ -276,6 +276,13 @@
   background: linear-gradient(to right, #38246f 0%, #4f5e85 50%, #4c3981 100%);
 }
 
+.modalUpBoreder {
+  padding: 7px;
+  border-radius: 22px;
+  border: none;
+  background: linear-gradient(180deg, #c78100 0%, #e4aa39 50.3%, #c78100 100%);
+}
+
 .modalUpgrades {
   display: flex;
   flex-direction: column;
@@ -349,10 +356,10 @@
   animation: fadeInOut 2s linear;
   position: absolute;
   z-index: 1005;
-  top: 50%;
+  top: 25%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 40px;
+  font-size: 60px;
   color: #FFCC26;
 }
 
