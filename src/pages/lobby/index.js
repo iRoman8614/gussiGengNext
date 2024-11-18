@@ -9,7 +9,6 @@ import {IconButton} from "@/components/buttons/icon-btn/IconButton";
 import {useLastGames, useProfileStats} from "@/utils/api";
 
 import styles from '@/styles/Lobby.module.scss'
-import {useInit} from "@/context/InitContext";
 
 const bg = '/backgrounds/Lobby.png'
 const hands = '/main-buttons/hand2.png'
@@ -46,8 +45,6 @@ export default function Page() {
 
     useEffect(() => {
         const response = fetchProfileStats()
-        console.log('response.data.pass', response.data.pass)
-        console.log('response.data', response.data)
         console.log('response', response)
     }, [])
 
