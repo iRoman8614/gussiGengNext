@@ -1,10 +1,8 @@
 import {useState, useEffect, useCallback, useRef} from 'react';
 import instance from '@/utils/axios';
 import axios from "axios";
-import {toast} from "react-toastify";
 
 // Хук для /profile/init
-
 export const useProfileInit = (token) => {
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(false);
@@ -35,7 +33,8 @@ export const useProfileInit = (token) => {
             localStorage.setItem('init', JSON.stringify(initData));
             setData({
                 farm: farmData,
-                init: initData
+                init: initData,
+                lastUpdate: group.lastUpdate,
             });
         } catch (error) {
             console.log('init error', error);

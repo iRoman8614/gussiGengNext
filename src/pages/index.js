@@ -83,15 +83,6 @@ export default function LoaderPage() {
     const fetchData = useCallback(async () => {
         try {
             const initData = await fetchProfileInit()
-            console.log('profileData', profileData)
-            if (profileData.group.id) {
-                console.log('profileData', profileData)
-                const skinGroup = `skins.${groupId}`;
-                loadAssets(skinGroup, assetData.skins[groupId]);
-            }
-            if(typeof window !== 'undefined' && profileData.group.lastUpdate) {
-                localStorage.setItem('lastUpdate', profileData.group.lastUpdate);
-            }
             if (isNewPlayer) {
                 loadAssets('newPlayerAssets', assetData.newPlayerAssets);
             }
