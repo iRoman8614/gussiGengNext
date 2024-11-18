@@ -126,8 +126,47 @@ export default function Page() {
                         {' '}<Image src={money} alt={''} width={21} height={21} loading="lazy"/>
                     </div>
                 </div>
-                <button className={styles.popUpConfirm} onClick={changeClan}>{t('change.confirm')}</button>
+                <button className={styles.popUpConfirm} onClick={changeClan}><Timer /></button>
             </div>}
         </div>
     )
 }
+
+const Timer = () => {
+    const { t } = useTranslation();
+    const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0 });
+    useEffect(() => {
+        const lastUpdate = localStorage.getItem('lastUpdate');
+        if (!lastUpdate) return;
+        const calculateTimeLeft = () => {
+            const lastUpdateDate = new Date(lastUpdate);
+            const now = new Date();
+            const fiveDaysLater = new Date(lastUpdateDate.getTime() + 5 * 24 * 60 * 60 * 1000);
+
+            const timeDifference = fiveDaysLater - now;
+
+            if (timeDifference > 0) {
+                const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+                setTimeLeft({ days, hours, minutes });
+            } else {
+                setTimeLeft({ days: 0, hours: 0, minutes: 0 });
+            }
+        };
+        calculateTimeLeft();
+        const timer = setInterval(calculateTimeLeft, 60000);
+        return () => clearInterval(timer);
+    }, []);
+    return (
+        <div>
+            {timeLeft.days > 0 || timeLeft.hours > 0 || timeLeft.minutes > 0 ? (
+                <>
+                    {timeLeft.days}d : {timeLeft.hours}h : {timeLeft.minutes}m
+                </>
+            ) : (
+                <>{t('change.confirm')}</>
+            )}
+        </div>
+    );
+};
