@@ -202,7 +202,7 @@ export default function Page() {
                         <div className={styles.list}>
                             <div className={styles.containerSwiper}>
                                 <button className={styles.navLeft} onClick={handleSlidePrev}>
-                                    <Image src={'/ArrowWhite.png'} alt={''} width={15} height={15} loading="lazy" />
+                                    <Image src={'/ArrowWhite.png'} alt={''} width={20} height={20} loading="lazy" />
                                 </button>
                                 <Swiper
                                     modules={[Navigation, Controller]}
@@ -236,7 +236,7 @@ export default function Page() {
                                     ))}
                                 </Swiper>
                                 <button className={styles.navRight} onClick={handleSlideNext}>
-                                    <Image src={'/ArrowWhite.png'} alt={''} width={15} height={15} loading="lazy" />
+                                    <Image src={'/ArrowWhite.png'} alt={''} width={20} height={20} loading="lazy" />
                                 </button>
                             </div>
                             {activeIndex === 0 && <>
