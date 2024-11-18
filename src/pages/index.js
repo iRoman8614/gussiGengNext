@@ -25,22 +25,6 @@ export default function LoaderPage() {
     const { data: farmData, loading: farmLoading, error: farmError, fetchFarmStart } = useFarmStart();
     const { data: statsData, loading: statsLoading, error, statsError, fetchProfileStats } = useProfileStats()
 
-    const updateBodyHeight = useCallback(() => {
-        document.body.style.height = `${window.innerHeight}px`;
-    }, []);
-
-    const initializeTelegramWebApp = useCallback(() => {
-        if (window.Telegram?.WebApp) {
-            window.Telegram.WebApp.setHeaderColor('#183256');
-            window.Telegram.WebApp.expand();
-            updateBodyHeight();
-            window.addEventListener('resize', updateBodyHeight);
-        } else {
-            toast.error("Telegram WebApp unavailable");
-        }
-        checkVersion();
-    }, [updateBodyHeight]);
-
     const checkVersion = useCallback(() => {
         if (typeof window !== 'undefined') {
             const savedVersion = localStorage.getItem('version');
@@ -127,7 +111,7 @@ export default function LoaderPage() {
 
     useEffect(() => {
         const executeAfterToken = async () => {
-            initializeTelegramWebApp()
+            checkVersion();
             await fetchData();
             await fetchFarmStart();
             await fetchProfileStats();

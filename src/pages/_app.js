@@ -1,7 +1,7 @@
-import {useEffect} from "react";
+import {useCallback, useEffect} from "react";
 import Script from "next/script";
 import Head from "next/head";
-import { ToastContainer } from 'react-toastify';
+import {toast, ToastContainer} from 'react-toastify';
 import { InitProvider } from '@/context/InitContext';
 import assetData from "@/mock/assets.json";
 
@@ -9,9 +9,26 @@ import 'react-toastify/dist/ReactToastify.css';
 import "@/styles/globals.scss";
 
 export default function App({ Component, pageProps }) {
+
+    const updateBodyHeight = useCallback(() => {
+        document.body.style.height = `${window.innerHeight}px`;
+    }, []);
+
+    const initializeTelegramWebApp = useCallback(() => {
+        if (window.Telegram?.WebApp) {
+            window.Telegram.WebApp.setHeaderColor('#183256');
+            window.Telegram.WebApp.expand();
+            updateBodyHeight();
+            window.addEventListener('resize', updateBodyHeight);
+        } else {
+            toast.error("Telegram WebApp unavailable");
+        }
+    }, [updateBodyHeight]);
+
+
     useEffect(() => {
         if (typeof window === "undefined") return;
-
+        initializeTelegramWebApp()
         const worker = new Worker(new URL("../workers/assetWorker.js", import.meta.url));
         const assetGroups = [
             { group: "backgrounds", assets: assetData.backgrounds },
