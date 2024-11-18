@@ -85,12 +85,12 @@ export default function LoaderPage() {
             const initData = await fetchProfileInit()
             console.log('initData', initData)
             if (initData.data.init.groupId) {
-                console.log('initData.data.init.groupId', initData.data.init.groupId)
+                console.log('profileData', profileData)
                 const skinGroup = `skins.${groupId}`;
                 loadAssets(skinGroup, assetData.skins[groupId]);
             }
-            if(typeof window !== 'undefined' && initData.group.lastUpdate) {
-                localStorage.setItem('lastUpdate', initData.group.lastUpdate);
+            if(typeof window !== 'undefined' && profileData.group.lastUpdate) {
+                localStorage.setItem('lastUpdate', profileData.group.lastUpdate);
             }
             if (isNewPlayer) {
                 loadAssets('newPlayerAssets', assetData.newPlayerAssets);
