@@ -78,9 +78,11 @@ export const useFarmStart = () => {
                 limit,
                 startTime
             }));
+            return result;
         } catch (err) {
             console.log('start error', err)
             setError(err);
+            throw error;
         } finally {
             setLoading(false);
         }
@@ -155,9 +157,11 @@ export const useProfileStats = () => {
             };
             localStorage.setItem('init', JSON.stringify(updatedInitData));
             setData({id, count, lost, victory, type, liga, pass});
+            return response
         } catch (err) {
             console.log('stats error', error)
             setError(err);
+            throw error
         } finally {
             setLoading(false);
         }
