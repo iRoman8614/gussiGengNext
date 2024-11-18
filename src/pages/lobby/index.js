@@ -44,11 +44,8 @@ export default function Page() {
     const { data: statsData, fetchProfileStats } = useProfileStats()
 
     useEffect(() => {
-        const response = fetchProfileStats()
-        console.log('response', response)
-        console.log('response.data', response.data)
+        fetchProfileStats()
         console.log('statsData', statsData)
-        console.log('statsData.data', statsData.data)
     }, [])
 
     useEffect(() => {

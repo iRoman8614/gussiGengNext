@@ -158,7 +158,6 @@ export const useProfileStats = () => {
             };
             localStorage.setItem('init', JSON.stringify(updatedInitData));
             setData({id, count, lost, victory, type, liga, pass});
-            return response
         } catch (err) {
             console.log('stats error', error)
             setError(err);
