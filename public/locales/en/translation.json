@@ -109,10 +109,13 @@
     "lvl": "card level",
     "cost": "cost",
     "main": "main tasks",
-    "referral": "referral",
+    "1referral": " referral",
+    "3referral": " referrals",
+    "5referral": " referrals",
     "tg": "sub to GW telegram",
     "x": "sub to GW X",
-    "pvp": "win 5 pvp battles",
+    "win": "win ",
+    "pvp": " pvp battles",
     "noups": "no available upgrades"
   },
   "friends": {

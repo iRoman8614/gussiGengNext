@@ -57,7 +57,7 @@ export default function Page() {
 
                 return {
                     ...task,
-                    name: mapTaskName(task.name),
+                    name: mapTaskName(task.name, task.type, task.amount),
                     current: task.type === 1 ? numFriends : stats.victory,
                     completed: isCompleted,
                     path: task.type === 1 ? '/friends' : '/lobby',
@@ -78,14 +78,24 @@ export default function Page() {
         fetchTasksAndFriends();
     }, []);
 
-    const mapTaskName = (originalName) => {
-        if (originalName.includes("TG")) {
-            return 'sub to GW telegram';
-        } else if (originalName.includes("twitter")) {
-            return 'sub to Gw x';
+    const mapTaskName = (name, type, amount) => {
+        switch (type) {
+            case 1:
+                const referralKey = amount === 1 ? '1referral' : amount === 3 ? '3referral' : '5referral';
+                return `${amount}${t(`EXP.${referralKey}`)}`;
+            case 3:
+                return `${t(`EXP.win}`)}${amount}${t(`EXP.pvp}`)}`;
+            case 2:
+                if (name.includes('TG')) {
+                    return t(`EXP.tg}`);
+                } else if (name.includes('X')) {
+                    return t(`EXP.x}`);
+                }
+                break;
+            default:
+                return name;
         }
-        return originalName;
-    };
+    }
 
     const navigateToPage = (path) => {
         router.push(path);
