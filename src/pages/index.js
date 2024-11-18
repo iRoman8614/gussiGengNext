@@ -15,23 +15,8 @@ const loaderImage = '/loadingImg.jpg'
 
 export default function LoaderPage() {
     const router = useRouter();
-    const { updateContext, setLang } = useInit();
-    const [groupId, setGroupId] = useState(null);
+    const { updateContext } = useInit();
     let isNewPlayer = false;
-
-    let lang = false
-    if(typeof window !== "undefined") {
-        lang = localStorage.getItem('appLanguage')
-    }
-
-    const initialLang = lang || i18next.language;
-    const [selectedLanguage, setSelectedLanguage] = useState(initialLang);
-
-    useEffect(() => {
-        i18next.changeLanguage(selectedLanguage);
-        setLang(selectedLanguage)
-        localStorage.setItem('appLanguage', selectedLanguage);
-    }, [selectedLanguage, setLang]);
 
     const CURRENT_VERSION = process.env.NEXT_PUBLIC_CURRENT_VERSION
 
@@ -82,6 +67,8 @@ export default function LoaderPage() {
     const fetchData = useCallback(async () => {
         try {
             const initData = await fetchProfileInit()
+            console.log('initData', initData)
+            console.log('initData.data', initData.data)
             if (isNewPlayer) {
                 loadAssets('newPlayerAssets', assetData.newPlayerAssets);
             }

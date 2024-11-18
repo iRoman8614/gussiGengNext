@@ -22,8 +22,7 @@ export const InitProvider = ({ children }) => {
 
     const [lang, setLang] = useState(() => {
         if (typeof window !== 'undefined') {
-            const savedInit = JSON.parse(localStorage.getItem('init')) || {};
-            return savedInit.lang || 'en';
+            return localStorage.getItem('appLanguage') || 'en';
         }
         return 'en';
     });
