@@ -47,6 +47,8 @@
 .arrowUp {
   margin-top: auto-height(0, 35);
   transform: scaleY(-1);
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
 
 .arrowUpLeft {
@@ -61,6 +63,8 @@
 
 .arrowDown {
   margin-bottom: auto-height(0, 35);
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
 
 .arrowDownLeft {
