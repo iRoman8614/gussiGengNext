@@ -263,7 +263,7 @@
 .tutorial {
   width: 100%;
   background: #4c3981;
-  height: 30%;
+  height: fit-content;
   border-radius: 18px;
   display: flex;
   justify-content: space-between;
@@ -363,7 +363,9 @@
 .pagination {
   font-family: 'Oswald';
   color: #FFFFFF;
-  font-size: 20px;
+  font-size: auto-clamp(14, 20);
+  align-self: center;
+  justify-self: center;
 }
 
 .dot {
