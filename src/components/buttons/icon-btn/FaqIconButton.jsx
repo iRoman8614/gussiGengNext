@@ -14,7 +14,10 @@ export const FaqIconButton = ({image, title, alt, onClick, hidden, big, rotate})
         if(onClick) {onClick()}
     };
     return(
-        <>
+        <div className={styles.container}>
+            {big && rotate === 'downLeft' && <Image className={styles.arrowDownLeft} src={roundarrow} alt={''} width={60} height={80} /> }
+            {big && rotate === 'down' && <Image className={styles.arrowDown} src={arrow} alt={''} width={30} height={70} /> }
+            {big && rotate === 'downRight' && <Image className={styles.arrowDownRight} src={roundarrow} alt={''} width={60} height={80} /> }
             <div className={hidden ? styles.hidderRoot : (big ? styles.bigroot : styles.root)} onClick={handleClick}>
                 <div >
                     <Image width={60} height={40} className={styles.image} src={image} alt={alt} />
@@ -26,7 +29,6 @@ export const FaqIconButton = ({image, title, alt, onClick, hidden, big, rotate})
             {big && rotate === 'upLeft' && <Image className={styles.arrowUpLeft} src={roundarrow} alt={''} width={60} height={80} /> }
             {big && rotate === 'up' && <Image className={styles.arrowUp} src={arrow} alt={''} width={30} height={70} /> }
             {big && rotate === 'upRight' && <Image className={styles.arrowUpRight} src={roundarrow} alt={''} width={60} height={80} /> }
-        </>
-
+        </div>
     )
 }

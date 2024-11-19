@@ -1,5 +1,11 @@
 @import "../../../styles/utils";
 
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .root, .hidderRoot, .bigroot {
   border-radius: 11px;
   background:
@@ -40,7 +46,6 @@
 
 .arrowUp {
   margin-top: auto-height(0, 35);
-  margin-left: auto-clamp(0, 20);
   transform: scaleY(-1);
 }
 
@@ -52,6 +57,18 @@
 .arrowUpRight {
   margin-top: auto-height(0, 35);
   scale: -1;
+}
+
+.arrowDown {
+  margin-top: auto-height(0, 35);
+}
+
+.arrowDownLeft {
+  margin-top: auto-height(0, 35);
+}
+
+.arrowDownRight{
+  margin-top: auto-height(0, 35);
 }
 
 
@@ -73,7 +90,7 @@
   }
   .title {
     height: 14px;
-    width: 40px;
+    width: 100%;
     font-size: 14px;
     line-height: 14px;
   }
@@ -97,7 +114,7 @@
   }
   .title {
     height: 15px;
-    width: 47px;
+    width: 100%;
     font-size: 16px;
     line-height: 15px;
   }
@@ -120,7 +137,7 @@
   }
   .title {
     height: 16px;
-    width: 51px;
+    width: 100%;
     font-size: 16px;
     line-height: 15px;
   }

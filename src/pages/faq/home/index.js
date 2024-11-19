@@ -111,43 +111,60 @@ export default function Home() {
         </div>
     ];
 
+    const closeFaq = () => {
+        router.push('/main')
+    }
+
     return (
         <>
             <div className={styles.root}>
                 <Image className={styles.background} src={background} width={300} height={1000} alt={'bg'} loading="lazy"/>
-                <div className={slide === 3 ? `${styles.item4} ${styles.visible}` : styles.item4}>
+                <div className={styles.item1}>
+                    <FaqIconButton image={account} alt={'account'} title={t('main.account')} />
+                </div>
+                <div className={styles.item2}>
+                    <FaqIconButton image={teamData[groupId]?.logo} alt={'gang'}/>
+                </div>
+                <div className={styles.item3}>
+                    <FaqIconButton image={settings} alt={'settings'} title={t('main.settings')} />
+                </div>
+                <div className={styles.item4}>
                     <FaqIconButton image={boards} alt={'boards'} title={t('main.boards')} />
                 </div>
-                {/*<div className={slide === 0 ? `${styles.item5} ${styles.visible1}` : styles.item5}>*/}
-                {/*    <Image src={border} width={600} height={190} alt={'border'} className={styles.totalBarRoot} loading="lazy"/>*/}
-                {/*    <div className={styles.totalText}>525 000 000</div>*/}
-                {/*</div>*/}
-                <div className={slide === 3 ? `${styles.item6} ${styles.visible}` : styles.item6}>
+
+                <div className={styles.item5}>
+                    <Image src={border} width={600} height={190} alt={'border'} className={styles.totalBarRoot} loading="lazy"/>
+                    <div className={styles.totalText}>525 000 000</div>
+                </div>
+
+                <div className={styles.item6}>
                     <FaqIconButton image={wallet} alt={'wallet'} title={t('main.wallet')} />
                 </div>
                 <div className={styles.item7}>
                     <Image width={1000} height={1000} className={styles.char} alt={'character'} src={skinData[groupId]?.[liga]?.icon} loading="lazy"/>
                 </div>
-                {/*<div className={slide === 0 ? `${styles.item8} ${styles.visible}` : styles.item8}>*/}
-                {/*    <CollectBar*/}
-                {/*        currentCoins={formatNumberFromEnd(7250)}*/}
-                {/*        maxCoins={formatNumberFromEnd(35000)}*/}
-                {/*        width={60}*/}
-                {/*    />*/}
-                {/*</div>*/}
-                {/*<div className={slide === 1 ? `${styles.item9} ${styles.visible}` : styles.item9}>*/}
-                {/*    <Image className={styles.claimRoot} width={600} height={200} src={claim} alt={'claim'} loading="lazy" />*/}
-                {/*    <p className={styles.btn}>{t('main.loot')}</p>*/}
-                {/*</div>*/}
+                <div className={styles.item8}>
+                    <CollectBar
+                        currentCoins={formatNumberFromEnd(7250)}
+                        maxCoins={formatNumberFromEnd(35000)}
+                        width={60}
+                    />
+                </div>
+                <div className={styles.item9}>
+                    <Image className={styles.claimRoot} width={600} height={200} src={claim} alt={'claim'} loading="lazy" />
+                    <p className={styles.btn}>{t('main.loot')}</p>
+                </div>
+
                 <div className={slide === 5 ? `${styles.item10} ${styles.visible}` : styles.item10}><FaqIconButton image={bag} alt={'items'} title={t('main.items')} /></div>
                 <div className={slide === 5 ? `${styles.item11} ${styles.visible}` : styles.item11}><FaqIconButton image={upgrades} alt={'upgrades'} title={t('main.exp')} /></div>
-                <div className={slide === 4 ? `${styles.item12} ${styles.visible}` : styles.item12}><BigButton image={hands} alt={'pvp'} title={t('main.pvp')} /></div>
+                <div className={styles.item12}><BigButton image={hands} alt={'pvp'} title={t('main.pvp')} /></div>
                 <div className={slide === 6 ? `${styles.item13} ${styles.visible}` : styles.item13}><FaqIconButton image={friends} alt={'friends'} title={t('main.friends')} /></div>
                 <div className={slide === 6 ? `${styles.item14} ${styles.visible}` : styles.item14}><FaqIconButton image={FAQ} alt={'home'} title={t('main.tasks')} /></div>
             </div>
             <div className={styles.filter}>
+                <div className={styles.popUpClose} onClick={closeFaq}>x</div>
                 {slide === 0 && <div>.</div>}
-                {slide === 0 && <div className={slide === 0 ? `${styles.item5} ${styles.visible1}` : styles.item5}>
+                {slide === 0 && <div className={slide === 0 && styles.item5vis}>
                     <Image src={border} width={600} height={190} alt={'border'} className={styles.totalBarRoot} loading="lazy"/>
                     <div className={styles.totalText}>525 000 000</div>
                 </div>}
@@ -172,6 +189,22 @@ export default function Home() {
                         <FaqIconButton image={settings} alt={'settings'} title={t('main.settings')} big={slide === 2 && true} rotate={"upRight"} />
                     </div>
                 </div>}
+                {slide === 3 && <div>.</div>}
+                {slide === 3 && <div className={styles.row}>
+                    <div className={slide === 3 ? `${styles.item1} ${styles.visible}` : styles.item4}>
+                        <FaqIconButton image={boards} alt={'boards'} title={t('main.boards')} big={slide === 3 && true} rotate={"upLeft"} />
+                    </div>
+                    <div className={slide === 3 ? `${styles.item3} ${styles.visible}` : styles.item6}>
+                        <FaqIconButton image={wallet} alt={'wallet'} title={t('main.wallet')} big={slide === 3 && true} rotate={"upRight"}  />
+                    </div>
+                </div>}
+                {slide === 4 && <div>.</div>}
+                {slide === 4 && <div>.</div>}
+                {slide === 4 && <div>.</div>}
+                {slide === 4 && <div>.</div>}
+                {slide === 4 && <div>.</div>}
+                {slide === 4 && <div>.</div>}
+
                 <div className={slide === 7 ? styles.tutorial7 : styles.tutorial}>
                         <div className={styles.col}>
                             <div className={styles.dot}>.</div>
@@ -191,8 +224,10 @@ export default function Home() {
                             <div className={styles.pagination}>{slide+1}/8</div>
                         </div>
                     </div>
+
+
                 {slide === 0 && <Image className={styles.arrowDown} src={arrow} alt={''} width={30} height={85}/>}
-                {slide === 0 && <div className={slide === 0 ? `${styles.item8} ${styles.visible}` : styles.item8}>
+                {slide === 0 && <div className={slide === 0 && styles.item8vis}>
                     <CollectBar
                         currentCoins={formatNumberFromEnd(7250)}
                         maxCoins={formatNumberFromEnd(35000)}
@@ -200,11 +235,13 @@ export default function Home() {
                     />
                 </div>}
                 {slide === 0 && <div>.</div>}
+                {slide === 0 && <div>.</div>}
                 {slide === 1 && <Image className={styles.arrowDown} src={arrow} alt={''} width={30} height={85}/>}
-                {slide === 1 && <div className={slide === 1 ? `${styles.item9} ${styles.visible}` : styles.item9}>
+                {slide === 1 && <div className={slide === 1 && styles.item9vis}>
                     <Image className={styles.claimRoot} width={600} height={200} src={claim} alt={'claim'} loading="lazy" />
-                    <p className={styles.btn}>{t('main.loot')}</p>
+                    <p className={styles.btnVis}>{t('main.loot')}</p>
                 </div>}
+                {slide === 1 && <div>.</div>}
                 {slide === 1 && <div>.</div>}
                 {slide === 2 && <div>.</div>}
                 {slide === 2 && <div>.</div>}
@@ -215,6 +252,16 @@ export default function Home() {
                 {slide === 2 && <div>.</div>}
                 {slide === 2 && <div>.</div>}
                 {slide === 2 && <div>.</div>}
+                {slide === 3 && <div>.</div>}
+                {slide === 3 && <div>.</div>}
+                {slide === 3 && <div>.</div>}
+                {slide === 3 && <div>.</div>}
+                {slide === 3 && <div>.</div>}
+                {slide === 3 && <div>.</div>}
+                {slide === 3 && <div>.</div>}
+                {slide === 3 && <div>.</div>}
+                {slide === 3 && <div>.</div>}
+                {slide === 4 && <div className={styles.item12}><FaqIconButton image={hands} alt={'pvp'} title={t('main.pvp')} big={slide === 4 && true} rotate={"down"}  /></div>}
             </div>
         </>
     );
