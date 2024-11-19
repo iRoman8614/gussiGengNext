@@ -31,8 +31,8 @@ export const PvpBtnOld = ({ choose, img, title, value, arrow }) => {
             {arrow === "mid" && <Image src={Arrow} className={styles.midArrow} alt={""} width={30} height={85}/>}
             {arrow === "right" && <Image src={roundArrow} className={styles.rightArrow} alt={""} width={70} height={95}/>}
             <div className={styles.border}>
-                <div className={styles.rootOld}>
-                    <div className={styles.containerOld}>
+                <div className={styles.root}>
+                    <div className={styles.container}>
                         <Image className={styles.icon} src={img} alt={'rock'} width={42} height={33} />
                         <div className={value === choose ? styles.titleChosen : styles.title}>{title}</div>
                     </div>

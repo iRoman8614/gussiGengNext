@@ -60,15 +60,16 @@
 }
 
 .arrowDown {
-  margin-top: auto-height(0, 35);
+  margin-bottom: auto-height(0, 35);
 }
 
 .arrowDownLeft {
-  margin-top: auto-height(0, 35);
+  margin-bottom: auto-height(0, 35);
 }
 
 .arrowDownRight{
-  margin-top: auto-height(0, 35);
+  margin-bottom: auto-height(0, 35);
+  transform: scaleX(-1);
 }
 
 

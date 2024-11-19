@@ -131,12 +131,10 @@ export default function Home() {
                 <div className={styles.item4}>
                     <FaqIconButton image={boards} alt={'boards'} title={t('main.boards')} />
                 </div>
-
                 <div className={styles.item5}>
                     <Image src={border} width={600} height={190} alt={'border'} className={styles.totalBarRoot} loading="lazy"/>
                     <div className={styles.totalText}>525 000 000</div>
                 </div>
-
                 <div className={styles.item6}>
                     <FaqIconButton image={wallet} alt={'wallet'} title={t('main.wallet')} />
                 </div>
@@ -154,12 +152,11 @@ export default function Home() {
                     <Image className={styles.claimRoot} width={600} height={200} src={claim} alt={'claim'} loading="lazy" />
                     <p className={styles.btn}>{t('main.loot')}</p>
                 </div>
-
-                <div className={slide === 5 ? `${styles.item10} ${styles.visible}` : styles.item10}><FaqIconButton image={bag} alt={'items'} title={t('main.items')} /></div>
-                <div className={slide === 5 ? `${styles.item11} ${styles.visible}` : styles.item11}><FaqIconButton image={upgrades} alt={'upgrades'} title={t('main.exp')} /></div>
+                <div className={styles.item10}><FaqIconButton image={bag} alt={'items'} title={t('main.items')} /></div>
+                <div className={styles.item11}><FaqIconButton image={upgrades} alt={'upgrades'} title={t('main.exp')} /></div>
                 <div className={styles.item12}><BigButton image={hands} alt={'pvp'} title={t('main.pvp')} /></div>
-                <div className={slide === 6 ? `${styles.item13} ${styles.visible}` : styles.item13}><FaqIconButton image={friends} alt={'friends'} title={t('main.friends')} /></div>
-                <div className={slide === 6 ? `${styles.item14} ${styles.visible}` : styles.item14}><FaqIconButton image={FAQ} alt={'home'} title={t('main.tasks')} /></div>
+                <div className={styles.item13}><FaqIconButton image={friends} alt={'friends'} title={t('main.friends')} /></div>
+                <div className={styles.item14}><FaqIconButton image={FAQ} alt={'home'} title={t('main.tasks')} /></div>
             </div>
             <div className={styles.filter}>
                 <div className={styles.popUpClose} onClick={closeFaq}>x</div>
@@ -204,6 +201,18 @@ export default function Home() {
                 {slide === 4 && <div>.</div>}
                 {slide === 4 && <div>.</div>}
                 {slide === 4 && <div>.</div>}
+                {slide === 5 && <div>.</div>}
+                {slide === 5 && <div>.</div>}
+                {slide === 5 && <div>.</div>}
+                {slide === 5 && <div>.</div>}
+                {slide === 5 && <div>.</div>}
+                {slide === 5 && <div>.</div>}
+                {slide === 6 && <div>.</div>}
+                {slide === 6 && <div>.</div>}
+                {slide === 6 && <div>.</div>}
+                {slide === 6 && <div>.</div>}
+                {slide === 6 && <div>.</div>}
+                {slide === 6 && <div>.</div>}
 
                 <div className={slide === 7 ? styles.tutorial7 : styles.tutorial}>
                         <div className={styles.col}>
@@ -224,7 +233,6 @@ export default function Home() {
                             <div className={styles.pagination}>{slide+1}/8</div>
                         </div>
                     </div>
-
 
                 {slide === 0 && <Image className={styles.arrowDown} src={arrow} alt={''} width={30} height={85}/>}
                 {slide === 0 && <div className={slide === 0 && styles.item8vis}>
@@ -262,7 +270,16 @@ export default function Home() {
                 {slide === 3 && <div>.</div>}
                 {slide === 3 && <div>.</div>}
                 {slide === 4 && <div className={styles.item12}><FaqIconButton image={hands} alt={'pvp'} title={t('main.pvp')} big={slide === 4 && true} rotate={"down"}  /></div>}
+                {slide === 5 && <div className={styles.rowLeft}>
+                    <div className={slide === 5 ? `${styles.item10} ${styles.visible}` : styles.item10}><FaqIconButton image={bag} alt={'items'} title={t('main.items')} big={slide === 5 && true} rotate={"downLeft"}/></div>
+                    <div className={slide === 5 ? `${styles.item11} ${styles.visible}` : styles.item11}><FaqIconButton image={upgrades} alt={'upgrades'} title={t('main.exp')} big={slide === 5 && true} rotate={"down"} /></div>
+                </div>}
+                {slide === 6 && <div className={styles.rowRight}>
+                    <div className={slide === 6 ? `${styles.item13} ${styles.visible}` : styles.item13}><FaqIconButton image={friends} alt={'friends'} title={t('main.friends')} big={slide === 6 && true} rotate={"down"}/></div>
+                    <div className={slide === 6 ? `${styles.item14} ${styles.visible}` : styles.item14}><FaqIconButton image={FAQ} alt={'home'} title={t('main.tasks')} big={slide === 6 && true} rotate={"downRight"} /></div>
+                </div>}
             </div>
+
         </>
     );
 }

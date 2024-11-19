@@ -128,8 +128,8 @@
 .item8vis {
   grid-row: 7 / 8;
   grid-column: 4 / 8;
-  max-height: 75px;
-  max-width: 227px;
+  max-height: 80px;
+  max-width: 234px;
   color: #FFFFFF;
   animation: changeColorYellow 1s forwards;
   animation-delay: 1s;
@@ -462,6 +462,23 @@
   width: 100%;
   display: flex;
   justify-content: space-between;
-  padding-left: 50px;
-  padding-right: 50px;
+  padding-left: auto-clamp(10, 50);
+  padding-right: auto-clamp(10, 50);
+  align-items: center;
+}
+
+.rowLeft {
+  width: 100%;
+  display: flex;
+  justify-content: left;
+  gap: auto-clamp(20, 80);
+  padding-left: 30px;
+}
+
+.rowRight {
+  width: 100%;
+  display: flex;
+  justify-content: right;
+  gap: auto-clamp(20, 80);
+  padding-right: 30px;
 }
