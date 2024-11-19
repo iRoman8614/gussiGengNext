@@ -119,12 +119,13 @@ export default function Page() {
                     let url = '';
                     if (task.id === 8) {
                         url = "https://t.me/gang_wars_game";
+                        window.open(url, '_blank');
                     } else if (task.id === 9 || task.name && (task.name.toLowerCase().includes("x") || task.name.toLowerCase().includes("twitter"))) {
                         url = "https://x.com/gangwars_game";
                     } else {
                         console.error('URL could not be determined. Task name:', task.name);
                     }
-                    if (url) {
+                    if (url && task.id !== 8) {
                         const existingTimestamp = localStorage.getItem(`task_${task.id}`);
                         if (!existingTimestamp) {
                             window.open(url, '_blank');
@@ -158,6 +159,10 @@ export default function Page() {
                 if (key.startsWith('task_')) {
                     const taskId = key.replace('task_', '');
                     const timestamp = parseInt(localStorage.getItem(key), 10);
+                    const task = tasks.find(task => task.id === parseInt(taskId));
+                    if (task?.type === 2 && task?.id === 8) {
+                        continue;
+                    }
                     if (now - timestamp > oneHourInMs) {
                         executeTask(taskId);
                         localStorage.removeItem(key);
