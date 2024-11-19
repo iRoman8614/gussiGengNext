@@ -119,6 +119,7 @@ export default function Page() {
                     let url = '';
                     if (task.id === 8) {
                         url = "https://t.me/gang_wars_game";
+                        executeTask(task.id);
                         window.open(url, '_blank');
                     } else if (task.id === 9 || task.name && (task.name.toLowerCase().includes("x") || task.name.toLowerCase().includes("twitter"))) {
                         url = "https://x.com/gangwars_game";
