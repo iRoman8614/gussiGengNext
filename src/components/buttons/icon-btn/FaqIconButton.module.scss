@@ -38,22 +38,20 @@
   border-radius: 5px;
 }
 
-.arrow1 {
+.arrowUp {
   margin-top: auto-height(0, 35);
-  margin-left: 15px;
-  rotate: 10deg;
+  margin-left: auto-clamp(0, 20);
+  transform: scaleY(-1);
 }
 
-.arrow2 {
+.arrowUpLeft {
   margin-top: auto-height(0, 35);
-  margin-left: 15px;
-  rotate: -10deg;
+  transform: scaleY(-1);
 }
 
-.arrow3 {
+.arrowUpRight {
   margin-top: auto-height(0, 35);
-  margin-left: 15px;
-  rotate: 20deg;
+  scale: -1;
 }
 
 

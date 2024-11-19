@@ -3,6 +3,7 @@ import Image from "next/image";
 import styles from './FaqIconButton.module.scss'
 
 const arrow = '/faq/longArrow.png'
+const roundarrow = '/faq/longRoundArrow.png'
 
 // eslint-disable-next-line react/prop-types
 export const FaqIconButton = ({image, title, alt, onClick, hidden, big, rotate}) => {
@@ -22,9 +23,9 @@ export const FaqIconButton = ({image, title, alt, onClick, hidden, big, rotate})
                     {title}
                 </div>}
             </div>
-            {big && rotate === 15 && <Image className={styles.arrow1} src={arrow} alt={''} width={30} height={80} /> }
-            {big && rotate === -15 && <Image className={styles.arrow2} src={arrow} alt={''} width={30} height={80} /> }
-            {big && rotate === 30 && <Image className={styles.arrow3} src={arrow} alt={''} width={30} height={80} /> }
+            {big && rotate === 'upLeft' && <Image className={styles.arrowUpLeft} src={roundarrow} alt={''} width={60} height={80} /> }
+            {big && rotate === 'up' && <Image className={styles.arrowUp} src={arrow} alt={''} width={30} height={70} /> }
+            {big && rotate === 'upRight' && <Image className={styles.arrowUpRight} src={roundarrow} alt={''} width={60} height={80} /> }
         </>
 
     )
