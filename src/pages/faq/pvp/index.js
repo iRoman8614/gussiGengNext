@@ -2,7 +2,7 @@ import {useEffect, useState} from "react";
 import Image from "next/image";
 import { useRouter } from 'next/router';
 import { IconButton } from "@/components/buttons/icon-btn/IconButton.jsx";
-import {PvpBtn} from "@/components/buttons/PvpBtn/PvpBtn";
+import {PvpBtn, PvpBtnOld} from "@/components/buttons/PvpBtn/PvpBtn";
 import {useTranslation} from "react-i18next";
 
 import teamData from '@/mock/teamsData.js';
@@ -19,6 +19,7 @@ const paper = '/game-icons/paper.png'
 const scis = '/game-icons/scissors.png'
 const hand1 = '/faq/faqHand1.png'
 const hand2 = '/faq/faqHand2.png'
+const bonus = '/main-buttons/bonus.png'
 
 export default function PvpBotPage() {
     const router = useRouter();
@@ -57,7 +58,7 @@ export default function PvpBotPage() {
         if (window.Telegram?.WebApp?.HapticFeedback) {
             window.Telegram.WebApp.HapticFeedback.impactOccurred("heavy");
         }
-        if(slide === 6) {
+        if(slide === 7) {
             if(typeof window !== 'undefined') {
                 localStorage.setItem('pvpfaq', true)
             }
@@ -112,6 +113,9 @@ export default function PvpBotPage() {
             <div className={styles.beat1}><a className={styles.red}>{t('PVP.paper')}</a>{t('PVP.pr')}</div>
             <div className={styles.beat2}><a className={styles.yellow}>{t('PVP.rock')}</a>{t('PVP.rs')}</div>
             <div className={styles.beat3}><a className={styles.green}>{t('PVP.scissors')}</a>{t('PVP.sp')}</div>
+        </div>,
+        <div className={styles.slideContent6} key={'slideContent8'}>
+            <div>{t('PVP.bonus')}</div>
         </div>
     ];
 
@@ -153,14 +157,15 @@ export default function PvpBotPage() {
                         {slide === 1 ? `${t('PVP.you')}` : `${t('PVP.rounds')} 3`}
                     </div>
                     <div className={slide === 3 ? `${styles.buttonSet2} ${styles.visible}` : styles.buttonSet}>
-                        <PvpBtn title={t('PVP.rock')} img={rock} value={1} />
-                        <PvpBtn title={t('PVP.paper')} img={paper} value={2} />
-                        <PvpBtn title={t('PVP.scissors')} img={scis} value={3} />
+                        {slide === 3 ? <PvpBtnOld arrow={'left'} title={t('PVP.rock')} img={rock} value={1}/> :  <PvpBtn title={t('PVP.rock')} img={rock} value={1}/>}
+                        {slide === 3 ? <PvpBtnOld arrow={'mid'}  title={t('PVP.paper')} img={paper} value={2} /> :  <PvpBtn title={t('PVP.paper')} img={paper} value={1}/>}
+                        {slide === 3 ? <PvpBtnOld arrow={'right'}  title={t('PVP.scissors')} img={scis} value={3} /> :  <PvpBtn title={t('PVP.scissors')} img={scis} value={1}/>}
                     </div>
                 </div>
             </div>
             <div className={styles.filter}></div>
             <div className={styles.popUpClose} onClick={closeFaq}>x</div>
+            {slide === 7 && <Image className={styles.bonus} src={bonus} alt={''} width={138} height={138} priority/>}
             <div className={slide === 4 ? styles.tutorial4 : (slide === 6 ? styles.tutorial7 : styles.tutorial)}>
                     <div className={styles.col}>
                         <div className={styles.dot}>1</div>
@@ -177,7 +182,7 @@ export default function PvpBotPage() {
                         <div className={styles.navRight} onClick={nextSlide}>
                             <Image src={'/ArrowWhite.png'} alt={''} width={24} height={24} loading="lazy" />
                         </div>
-                        <div className={styles.pagination}>{slide+1}/7</div>
+                        <div className={styles.pagination}>{slide+1}/8</div>
                     </div>
                 </div>
         </>

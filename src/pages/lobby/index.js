@@ -143,16 +143,14 @@ export default function Page() {
                             <div className={styles.icon}>
                                 <div>{t('PVP.battle')}</div>
                                 {remainingTime > 0 ?
-                                    <p
-                                        // className={styles.timer}
-                                    >
+                                    <p>
                                         {formatTime(remainingTime)}
                                     </p> : <p className={styles.hiddenText}>{t('PVP.battle')}</p>}
                                 <Image className={styles.logo} src={hands} alt={''} width={150} height={75} loading="lazy"/>
                             </div>
                             <div className={styles.lable}>
                                 <div className={styles.title}>
-                                    <div>{5 - sessionsCount}</div>
+                                    <div>{sessionsCount > 5 ? 0 : (5 - sessionsCount)}</div>
                                     <p>{t('PVP.left')}</p>
                                 </div>
                             </div>
@@ -184,7 +182,7 @@ export default function Page() {
                                 </div>
                                 <div className={styles.lable}>
                                     <div className={styles.title}>
-                                        <div>Soon</div>
+                                        <div>{t('PVP.soon')}</div>
                                     </div>
                                 </div>
                                 <div className={styles.lable}>
@@ -210,7 +208,7 @@ export default function Page() {
                     </div>}
                 </div>
                 <div className={styles.faq}>
-                    <IconButton image={FAQ} alt={'home'} title={'pvp info'} onClick={() => {router.push('/faq/pvp')}} />
+                    <IconButton image={FAQ} alt={'home'} title={t('PVP.faq')} onClick={() => {router.push('/faq/pvp')}} />
                 </div>
             </div>
         </>

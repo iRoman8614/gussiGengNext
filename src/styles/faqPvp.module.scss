@@ -192,7 +192,7 @@
   display: flex;
   justify-content: space-around;
   z-index: 10;
-  margin-top: -200px;
+  margin-top: -100px;
 }
 
 .counter {
@@ -431,6 +431,16 @@
   text-align: center;
   color: rgba(255, 255, 255, 0.65);
   margin-left: auto;
+}
+
+.bonus {
+  width: auto-height(70, 130);
+  height: auto-height(70, 130);
+  position: absolute;
+  z-index: 13;
+  top: 15%;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 

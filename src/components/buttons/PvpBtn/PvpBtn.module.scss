@@ -1,6 +1,6 @@
 @import '../../../styles/_utils';
 
-.root, .rootChosen {
+.root, .rootChosen, .rootOld {
   margin: 0;
   padding: 5px;
   width: 100px;
@@ -17,7 +17,28 @@
   background: rgb(105 71 13);
 }
 
-.container, .containerChosen {
+.rootOld {
+  background: linear-gradient(0deg, #0C1825 0%, #2E598B 100%);
+}
+
+.oldContainer {
+  height: max-content;
+  margin-top: -80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.rightArrow {
+  transform: scaleX(-1);
+}
+
+.midArrow {
+  margin: 5px;
+}
+
+.container, .containerChosen, .containerOld {
   margin: 0;
   padding: auto-clamp(0, 10) 0 0 0;
   width: 90px;
@@ -35,6 +56,18 @@
 
 .containerChosen {
   background: linear-gradient(180deg, #c78100 0%, #e4aa39 50.3%, #c78100 100%);;
+}
+
+.containerOld {
+  background: radial-gradient(rgb(37, 49, 154) 0%, rgb(21, 25, 62) 100%);
+}
+
+.border {
+  width: 106px;
+  height: 106px;
+  background-color: #FFFFFF;
+  padding: 3px;
+  border-radius: 19px;
 }
 
 .title, .titleChosen {
@@ -61,11 +94,15 @@
 }
 
 @media (max-width: 360px) {
-  .root, .rootChosen {
+  .root, .rootChosen, .rootOld {
     height: 70px;
     width: 70px;
   }
-  .container, .containerChosen {
+  .border {
+    width: 76px;
+    height: 76px;
+  }
+  .container, .containerChosen, .containerOld {
     height: 60px;
     width: 60px;
   }

@@ -194,7 +194,10 @@
     "rock": "Rock",
     "paper": "Paper",
     "scissors": "Scissors",
-    "extra": "extra games"
+    "extra": "extra games",
+    "soon": "soon",
+    "faq": "pvp info",
+    "bonus": "Each PvP win activates a 5% loot claim increase."
   },
   "random": {
     "pick":"pick a card",
