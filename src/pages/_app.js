@@ -91,6 +91,13 @@ export default function App({ Component, pageProps }) {
         <InitProvider>
             <Head>
                 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no viewport-fit=cover, orientation=portrait" />
+                <Script src={"https://www.googletagmanager.com/gtag/js?id=G-QLS2HYFS37"} strategy={"afterInteractive"} />
+                <Script id="google-analytics" strategy={"afterInteractive"}>
+                    {`window.dataLayer = window.dataLayer || [];
+                    function gtag(){dataLayer.push(arguments);}
+                    gtag('js', new Date());
+                    gtag('config', 'G-QLS2HYFS37');`}
+                </Script>
             </Head>
             <Script
                 src="https://telegram.org/js/telegram-web-app.js"
