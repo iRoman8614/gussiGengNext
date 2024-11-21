@@ -97,12 +97,12 @@ export default function App({ Component, pageProps }) {
                 strategy="beforeInteractive"
             />
             <Script src={"https://www.googletagmanager.com/gtag/js?id=G-QLS2HYFS37"} strategy={"afterInteractive"} />
-            <Script id="google-analytics" strategy={"afterInteractive"}>
-                {`window.dataLayer = window.dataLayer || [];
-                    function gtag(){dataLayer.push(arguments);}
-                    gtag('js', new Date());
-                    gtag('config', 'G-QLS2HYFS37');`}
-            </Script>
+            {/*<Script id="google-analytics" strategy={"afterInteractive"}>*/}
+            {/*    {`window.dataLayer = window.dataLayer || [];*/}
+            {/*        function gtag(){dataLayer.push(arguments);}*/}
+            {/*        gtag('js', new Date());*/}
+            {/*        gtag('config', 'G-QLS2HYFS37');`}*/}
+            {/*</Script>*/}
             <Script id={'Google Tag Manager'} strategy={"afterInteractive"}>
                 {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
                 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
