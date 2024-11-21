@@ -197,7 +197,9 @@
     "extra": "extra games",
     "soon": "soon",
     "faq": "info",
-    "bonus": "Each PvP win activates a 5% loot claim increase."
+    "bonus": "Each PvP win activates a 5% loot claim increase.",
+    "against": "Battle against others, earn rewards, and climb the ranks.",
+    "luck": "no luck, just skill!"
   },
   "random": {
     "pick":"pick a card",

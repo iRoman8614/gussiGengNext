@@ -190,16 +190,18 @@ export default function Page() {
                                 </div>
                             </div>
                         </div>
-                        <div className={styles.btn}
-                            //  onClick={() => {
-                            // if (window.Telegram?.WebApp?.HapticFeedback) {
-                            //     window.Telegram.WebApp.HapticFeedback.impactOccurred('light');
-                            // }
-                            // setHintTwo(!hintTwo)}}
-                        >?</div>
+                        <div className={styles.hidderRoot} >
+                            <div className={styles.btn}
+                                //  onClick={() => {
+                                // if (window.Telegram?.WebApp?.HapticFeedback) {
+                                //     window.Telegram.WebApp.HapticFeedback.impactOccurred('light');
+                                // }
+                                // setHintTwo(!hintTwo)}}
+                            >?</div>
+                        </div>
                     </div>
                     {hintOne && <div className={styles.hint1}>
-                        {t('PVP.skill')}
+                        {t('PVP.against')}
                         <p>{t('PVP.luck')}</p>
                     </div>}
                     {hintTwo && <div className={styles.hint2}>
