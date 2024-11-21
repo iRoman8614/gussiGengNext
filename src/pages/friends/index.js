@@ -193,8 +193,8 @@ export default function Page() {
                             )}
                         </div>
                         <div className={styles.buttonset}>
-                            <button className={styles.btnInvite} onClick={inviteClick}>{t('friends.invite')}</button>
-                            <button className={styles.btnCopy} onClick={handleClick}>
+                            <button className={styles.btnInvite} id={'invite'} onClick={inviteClick}>{t('friends.invite')}</button>
+                            <button className={styles.btnCopy} id={'copy'} onClick={handleClick}>
                                 <Image src={copy} alt={'copy'} height={50} width={50} loading="lazy"/>
                             </button>
                         </div>
