@@ -239,7 +239,7 @@ export default function Page() {
                             {tasks.map((task, index) => {
                                 return(
                                     <>
-                                        {task.type !== 4 || task.type !== 5 || task.type !== 6 && <TaskBtn
+                                        {(task.type !== 4 || task.type !== 5 || task.type !== 6) && <TaskBtn
                                             subtitle={task.name}
                                             desc={task.type !== 2 ? `${task.current} / ${task.amount}` : ''}
                                             completed={task.completed}
