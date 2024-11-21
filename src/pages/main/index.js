@@ -154,8 +154,8 @@ export default function Home() {
                 />
             </div>
             <div className={styles.item9} id={"loot"} onClick={handleClaimClick}>
-                <Image className={styles.claimRoot} width={600} height={200} src={isClaimClicked ? claimClicked : claim} alt={'claim'} loading="lazy" />
-                <p className={isClaimClicked ? styles.btnClicked : styles.btn}>{t('main.loot')}</p>
+                <Image id={"loot"} className={styles.claimRoot} width={600} height={200} src={isClaimClicked ? claimClicked : claim} alt={'claim'} loading="lazy" />
+                <p id={"loot"} className={isClaimClicked ? styles.btnClicked : styles.btn}>{t('main.loot')}</p>
             </div>
             <div className={styles.item10}>
                 <NavBar/>
