@@ -78,7 +78,7 @@ export default function Page() {
     }, []);
 
     const isAvailable = (item) => {
-        if (index.id === 1) return true;
+        if (item.id === 1) return true;
         const taskKey = item.key;
         return completedTasks.some(task => task.key === taskKey);
     };
