@@ -282,9 +282,9 @@ export default function Page() {
                                     <a className={styles.green}>
                                         {
                                             (selectedItem.type === 'limit' ?
-                                                (Number(limit) * (1 + (Number(selectedItem.IncreasePer)/100)))
+                                                (Number(limit) * (1 + (Number(selectedItem.increasePer)/100)))
                                                 :
-                                                (Number(rate) * (1 + (Number(selectedItem.IncreasePer)/100)))).toFixed(3)
+                                                (Number(rate) * (1 + (Number(selectedItem.increasePer)/100)))).toFixed(3)
                                         }
                                     </a>
                                 </h3>
@@ -299,10 +299,10 @@ export default function Page() {
                                     </a>
                                 </p>
                                 <p>
-                                    {selectedItem.type === 'limit' ? `${t('EXP.limit')} +${selectedItem.Name}%` : `${t('EXP.rate')} +${selectedItem.Name}%`}
+                                    {selectedItem.type === 'limit' ? `${t('EXP.limit')} +${selectedItem.name}%` : `${t('EXP.rate')} +${selectedItem.name}%`}
                                 </p>
-                                <p>{t('EXP.lvl')}: {selectedItem.Level}</p>
-                                <p>{t('EXP.cost')}: {selectedItem.Cost}</p>
+                                <p>{t('EXP.lvl')}: {selectedItem.level}</p>
+                                <p>{t('EXP.cost')}: {selectedItem.cost}</p>
                             </div>
                         </div>
                         <button
