@@ -31,6 +31,7 @@ export default function Page() {
     const [selectedItem, setSelectedItem] = useState(null);
     const [activeIndex, setActiveIndex] = useState(0);
     const [showLevelUp, setShowLevelUp] = useState(false);
+    const [completedTasks, setCompletedTasks] = useState([]);
 
     const sliderImages = [
         '/upgradesCards/slider/rateSlide.png',
@@ -72,6 +73,24 @@ export default function Page() {
         updateContext()
     }, [rate, limit])
 
+    useEffect(() => {
+        fetchCompletedTasks();
+    }, []);
+
+    const isAvailable = (item) => {
+        const taskKey = item.key;
+        return completedTasks.some(task => task.key === taskKey);
+    };
+
+    const fetchCompletedTasks = async () => {
+        try {
+            const response = await axiosInstance.get(`/task/completed-tasks`);
+            setCompletedTasks(response.data);
+        } catch (error) {
+            console.error('Ошибка при загрузке выполненных заданий:', error);
+        }
+    };
+
     const fetchLevels = async () => {
         try {
             const limitResponse = await axiosInstance.get(`/farm/limit-levels`);
@@ -111,6 +130,7 @@ export default function Page() {
             setBalance(updatedBalance);
             updateContext()
             setShowLevelUp(true);
+            fetchCompletedTasks();
             fetchLevels();
             setTimeout(() => {
                 closeUpgradeModal();
@@ -132,6 +152,7 @@ export default function Page() {
             setBalance(updatedBalance);
             updateContext()
             setShowLevelUp(true);
+            fetchCompletedTasks();
             fetchLevels();
             setTimeout(() => {
                 closeUpgradeModal();
@@ -241,12 +262,12 @@ export default function Page() {
                             </div>
                             {activeIndex === 0 && <>
                                 {rateLevels.length !== 0 ? <div className={styles.itemsList}>{rateLevels.map((item, index) => (
-                                    <ItemPlaceholder img={rateImages[index]} item={item} key={index} onClick={() => openUpgradeModal(item)} />
+                                    <ItemPlaceholder img={rateImages[index]} item={item} key={index} onClick={() => openUpgradeModal(item)} available={isAvailable(item)} />
                                 ))}</div> : <div className={styles.warning}>{t('EXP.noups')}</div>}
                             </>}
                             {activeIndex === 1 && <>
                                 {limitLevels.length !== 0 ? <div className={styles.itemsList}>{limitLevels.map((item, index) => (
-                                    <ItemPlaceholder img={limitImages[index]} item={item} key={index} onClick={() => openUpgradeModal(item)} />
+                                    <ItemPlaceholder img={limitImages[index]} item={item} key={index} onClick={() => openUpgradeModal(item)} available={isAvailable(item)} />
                                 ))}</div> : <div className={styles.warning}>{t('EXP.noups')}</div>}
                             </>}
                         </div>

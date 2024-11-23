@@ -5,16 +5,18 @@ import styles from './ItemPlaceholder.module.scss';
 const money = '/money.png'
 
 // eslint-disable-next-line react/prop-types
-export const ItemPlaceholder = ({ item, img, onClick }) => {
+export const ItemPlaceholder = ({ item, img, onClick, available }) => {
     const handleClick = () => {
-        if (window.Telegram?.WebApp?.HapticFeedback) {
-            window.Telegram.WebApp.HapticFeedback.impactOccurred('light');
+        if (available) {
+            if (window.Telegram?.WebApp?.HapticFeedback) {
+                window.Telegram.WebApp.HapticFeedback.impactOccurred('light');
+            }
+            onClick();
         }
-        onClick();
     };
 
     return (
-        <div className={styles.root} onClick={handleClick}>
+        <div className={available ? styles.root: styles.hidden} onClick={handleClick}>
             <div className={styles.imageContainer}>
                 <Image className={styles.image} width={260} height={170} alt="" src={img} priority />
                 <div className={styles.level}>lvl {item.level}</div>
