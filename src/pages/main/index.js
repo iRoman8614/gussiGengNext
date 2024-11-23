@@ -154,9 +154,9 @@ export default function Home() {
             <div className={styles.item7}>
                 <Image width={1000} height={1000} className={styles.char} alt={'character'} src={skinData[groupId]?.[liga]?.icon} loading="lazy"/>
             </div>
-            <div className={styles.bonusItem}>
-                <Image src={bonus} alt={''} width={60} height={60} />
-            </div>
+            {gameBonus && <div className={styles.bonusItem}>
+                <Image src={bonus} alt={''} width={60} height={60}/>
+            </div>}
             <div className={styles.item8}>
                 <CollectBar
                     currentCoins={formatNumberFromEndDot(currentFarmCoins < 0 ? 0 : currentFarmCoins)}
