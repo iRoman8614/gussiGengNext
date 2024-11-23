@@ -59,18 +59,18 @@ export const useFarmStart = () => {
         setLoading(true);
         try {
             const response = await instance.get(`/farm/start`);
-            const { coins, totalCoins, startTime, rate, limit, delayEntries } = response.data;
+            const { coins, totalCoins, startTime, rate, limit, winsGames } = response.data;
             const initData = JSON.parse(localStorage.getItem('farm')) || {};
             const updatedInitData = {
                 ...initData,
                 coins,
                 totalCoins,
                 farmRate: rate,
-                farmLimit: limit,
-                dailyEntries: delayEntries
+                farmLimit: limit
             };
             localStorage.setItem('farm', JSON.stringify(updatedInitData));
             localStorage.setItem('startTime', startTime);
+            sessionStorage.setItem('gameBonus', winsGames)
 
             setData(prevData => ({
                 ...prevData,
@@ -78,7 +78,8 @@ export const useFarmStart = () => {
                 totalCoins,
                 rate,
                 limit,
-                startTime
+                startTime,
+                winsGames
             }));
             return response.data;
         } catch (err) {

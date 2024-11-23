@@ -12,6 +12,7 @@ import teamData from "@/mock/teamsData.js";
 import skinData from '@/mock/skinsData'
 
 import styles from "@/styles/Home.module.scss";
+import {use} from "i18next";
 
 const account = '/main-buttons/account.png'
 const settings = '/main-buttons/settings.png'
@@ -30,6 +31,7 @@ export default function Home() {
     const [currentFarmCoins, setCurrentFarmCoins] = useState(0);
     const [startFarmTime, setStartFarmTime] = useState(Date.now());
     const [isClaimClicked, setIsClaimClicked] = useState(false);
+    const [gameBonus, setGameBonus] = useState(false)
 
     const { collectAndStart } = useFarmCollect();
 
@@ -45,6 +47,11 @@ export default function Home() {
             const startTime = localStorage.getItem("startTime")
             if(startTime) {
                 setStartFarmTime(new Date(startTime).getTime());
+            }
+            const gameBonus = sessionStorage.getItem('gameBonus')
+            console.log('gameBonus', gameBonus)
+            if(gameBonus !== undefined && gameBonus > 0) {
+                setGameBonus(true)
             }
         }
     }, [balance, startFarmTime, isClaimClicked, coins]);
