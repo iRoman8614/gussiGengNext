@@ -22,7 +22,7 @@ const claim = '/lootBTN.png'
 const claimClicked = '/lootBTNclicked.png'
 const border = '/totalbar.png'
 const background = '/backgrounds/nightcity.png'
-const bonus = '/main-buttons/bomus.png'
+const bonus = '/main-buttons/bonus.png'
 
 export default function Home() {
     const router = useRouter();
