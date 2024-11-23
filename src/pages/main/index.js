@@ -22,6 +22,7 @@ const claim = '/lootBTN.png'
 const claimClicked = '/lootBTNclicked.png'
 const border = '/totalbar.png'
 const background = '/backgrounds/nightcity.png'
+const bonus = '/main-buttons/bomus.png'
 
 export default function Home() {
     const router = useRouter();
@@ -152,6 +153,9 @@ export default function Home() {
             </div>
             <div className={styles.item7}>
                 <Image width={1000} height={1000} className={styles.char} alt={'character'} src={skinData[groupId]?.[liga]?.icon} loading="lazy"/>
+            </div>
+            <div className={styles.bonusItem}>
+                <Image src={bonus} alt={''} width={60} height={60} />
             </div>
             <div className={styles.item8}>
                 <CollectBar

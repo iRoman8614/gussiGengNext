@@ -100,6 +100,13 @@
   animation: zoom-in 0.5s forwards ease-out;
 }
 
+.bonusItem {
+  grid-row: 3 / 4;
+  grid-column: 9/10;
+  width: 100%;
+  height: 100%;
+}
+
 .char {
   display: block;
   object-fit: contain;
