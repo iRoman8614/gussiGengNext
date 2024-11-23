@@ -124,7 +124,7 @@ export default function Page() {
         try {
             const response = await axiosInstance.get(`/farm/limit-level-up?levelId=${levelId}`);
             setLimitLevels(prevLevels => prevLevels.map(item =>
-                item.Id === levelId ? response.data : item
+                item.id === levelId ? response.data : item
             ));
             const collectData = await collectAndStart();
             const updatedBalance = collectData.totalCoins;
@@ -146,7 +146,7 @@ export default function Page() {
         try {
             const response = await axiosInstance.get(`/farm/rate-level-up?levelId=${levelId}`);
             setRateLevels(prevLevels => prevLevels.map(item =>
-                item.Id === levelId ? response.data : item
+                item.id === levelId ? response.data : item
             ));
             const collectData = await collectAndStart();
             const updatedBalance = collectData.totalCoins;
@@ -313,14 +313,14 @@ export default function Page() {
                                 }
                                 if (selectedItem) {
                                     selectedItem.type === 'limit'
-                                        ? handleLimitUpgrade(selectedItem.Id, selectedItem.Cost)
-                                        : handleRateUpgrade(selectedItem.Id, selectedItem.Cost);
+                                        ? handleLimitUpgrade(selectedItem.id, selectedItem.cost)
+                                        : handleRateUpgrade(selectedItem.id, selectedItem.cost);
                                 }
-                                if(selectedItem && coins < selectedItem.Cost) {
+                                if(selectedItem && coins < selectedItem.cost) {
                                     toast.error('Not enough coins available.')
                                 }
                             }}
-                            disabled={selectedItem && coins < selectedItem.Cost}
+                            disabled={selectedItem && coins < selectedItem.cost}
                         >
                             <div className={styles.modalBtn}>{t('EXP.upgrade')}</div>
                         </button>
