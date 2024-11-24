@@ -419,12 +419,12 @@ export default function Page() {
                             })}
                             <div className={styles.label}>{t('EXP.daily')}</div>
                             <div className={styles.dailyContainer}>
-                                {tasks.map((day, index) => {
+                                {dailyRewards.map((day, index) => {
                                     return(
                                         <>
                                             {day.type === 4 && <div className={styles.dailyItem} key={index}>
                                                 <div className={styles.dayTitle}>day {day.amount}</div>
-                                                <Image src={dailyBils} alt={''} width={37} height={35}/>
+                                                <Image className={styles.dailyImage} src={dailyBils} alt={''} width={37} height={35}/>
                                                 <div className={styles.dailySum}>{formatSum(day.reward)}</div>
                                             </div>}
                                         </>
