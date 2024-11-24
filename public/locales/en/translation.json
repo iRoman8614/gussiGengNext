@@ -116,7 +116,8 @@
     "x": "sub to GW X",
     "win": "win ",
     "pvp": " pvp battles",
-    "noups": "no available upgrades"
+    "noups": "no available upgrades",
+    "daily": "rewards"
   },
   "friends": {
     "inviteFriends": "invite a",

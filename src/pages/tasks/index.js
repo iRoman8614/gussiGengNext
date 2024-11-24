@@ -13,6 +13,7 @@ import 'swiper/css/controller';
 import styles from '@/styles/Upgrades.module.scss'
 
 const money = '/money.png'
+const dailyBils = '/dailyBills.png'
 
 export default function Page() {
     const router = useRouter();
@@ -22,6 +23,162 @@ export default function Page() {
     const [tasks, setTasks] = useState([]);
     const { collectAndStart } = useFarmCollect();
 
+    const dailyRewards = [
+        {
+            "id": 11,
+            "name": "День 1",
+            "description": "День 1",
+            "reward": 1000,
+            "amount": 1,
+            "type": 4,
+            "createdAt": "2024-10-05T13:17:42.20166Z",
+            "key": "",
+            "meta": {}
+        },
+        {
+            "id": 12,
+            "name": "День 2",
+            "description": "День 2",
+            "reward": 2500,
+            "amount": 2,
+            "type": 4,
+            "createdAt": "2024-10-05T13:17:42.20166Z",
+            "key": "",
+            "meta": {}
+        },
+        {
+            "id": 13,
+            "name": "День 3",
+            "description": "День 3",
+            "reward": 5000,
+            "amount": 3,
+            "type": 4,
+            "createdAt": "2024-10-05T13:17:42.20166Z",
+            "key": "",
+            "meta": {}
+        },
+        {
+            "id": 14,
+            "name": "День 4",
+            "description": "День 4",
+            "reward": 10000,
+            "amount": 4,
+            "type": 4,
+            "createdAt": "2024-10-05T13:17:42.20166Z",
+            "key": "",
+            "meta": {}
+        },
+        {
+            "id": 15,
+            "name": "День 5",
+            "description": "День 5",
+            "reward": 25000,
+            "amount": 5,
+            "type": 4,
+            "createdAt": "2024-10-05T13:17:42.20166Z",
+            "key": "",
+            "meta": {}
+        },
+        {
+            "id": 16,
+            "name": "День 6",
+            "description": "День 6",
+            "reward": 50000,
+            "amount": 6,
+            "type": 4,
+            "createdAt": "2024-10-05T13:17:42.20166Z",
+            "key": "",
+            "meta": {}
+        },
+        {
+            "id": 17,
+            "name": "День 7",
+            "description": "День 7",
+            "reward": 100000,
+            "amount": 7,
+            "type": 4,
+            "createdAt": "2024-10-05T13:17:42.20166Z",
+            "key": "",
+            "meta": {}
+        },
+        {
+            "id": 18,
+            "name": "День 8",
+            "description": "День 8",
+            "reward": 250000,
+            "amount": 8,
+            "type": 4,
+            "createdAt": "2024-10-05T13:17:42.20166Z",
+            "key": "",
+            "meta": {}
+        },
+        {
+            "id": 19,
+            "name": "День 9",
+            "description": "День 9",
+            "reward": 500000,
+            "amount": 9,
+            "type": 4,
+            "createdAt": "2024-10-05T13:17:42.20166Z",
+            "key": "",
+            "meta": {}
+        },
+        {
+            "id": 20,
+            "name": "День 10",
+            "description": "День 10",
+            "reward": 1000000,
+            "amount": 10,
+            "type": 4,
+            "createdAt": "2024-10-05T13:17:42.20166Z",
+            "key": "",
+            "meta": {}
+        },
+        {
+            "id": 21,
+            "name": "День 11",
+            "description": "День 11",
+            "reward": 2500000,
+            "amount": 11,
+            "type": 4,
+            "createdAt": "2024-10-05T13:17:42.20166Z",
+            "key": "",
+            "meta": {}
+        },
+        {
+            "id": 22,
+            "name": "День 12",
+            "description": "День 12",
+            "reward": 5000000,
+            "amount": 12,
+            "type": 4,
+            "createdAt": "2024-10-05T13:17:42.20166Z",
+            "key": "",
+            "meta": {}
+        },
+        {
+            "id": 23,
+            "name": "День 13",
+            "description": "День 13",
+            "reward": 10000000,
+            "amount": 13,
+            "type": 4,
+            "createdAt": "2024-10-05T13:17:42.20166Z",
+            "key": "",
+            "meta": {}
+        },
+        {
+            "id": 24,
+            "name": "День 14",
+            "description": "День 14",
+            "reward": 25000000,
+            "amount": 14,
+            "type": 4,
+            "createdAt": "2024-10-05T13:17:42.20166Z",
+            "key": "",
+            "meta": {}
+        }
+    ]
 
     const fetchTasksAndFriends = async () => {
         try {
@@ -225,6 +382,13 @@ export default function Page() {
         return num.toString().replace(/(\d)(?=(\d{3})+$)/g, "$1 ");
     }
 
+    function formatSum(num) {
+        if (num >= 1000) {
+            return (num / 1000).toFixed(1).replace('.0', '') + 'к';
+        }
+        return num.toString();
+    }
+
     return (
         <div className={styles.root}>
             <div className={styles.container}>
@@ -253,6 +417,20 @@ export default function Page() {
                                     </>
                                 )
                             })}
+                            <div className={styles.label}>{t('EXP.daily')}</div>
+                            <div className={styles.dailyContainer}>
+                                {tasks.map((day, index) => {
+                                    return(
+                                        <>
+                                            {day.type === 4 && <div className={styles.dailyItem} key={index}>
+                                                <div className={styles.dayTitle}>day {day.amount}</div>
+                                                <Image src={dailyBils} alt={''} width={37} height={35}/>
+                                                <div className={styles.dailySum}>{formatSum(day.reward)}</div>
+                                            </div>}
+                                        </>
+                                    )
+                                })}
+                            </div>
                         </div>
                     </div>
                 </div>
