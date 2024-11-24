@@ -117,7 +117,8 @@
     "win": "win ",
     "pvp": " pvp battles",
     "noups": "no available upgrades",
-    "daily": "rewards"
+    "daily": "rewards",
+    "day": "day"
   },
   "friends": {
     "inviteFriends": "invite a",

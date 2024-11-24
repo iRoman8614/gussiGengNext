@@ -423,7 +423,7 @@ export default function Page() {
                                     return(
                                         <>
                                             {day.type === 4 && <div className={styles.dailyItem} key={index}>
-                                                <div className={styles.dayTitle}>day {day.amount}</div>
+                                                <div className={styles.dayTitle}>{t('EXP.day')}{' '}{day.amount}</div>
                                                 <Image className={styles.dailyImage} src={dailyBils} alt={''} width={37} height={35}/>
                                                 <div className={styles.dailySum}>{formatSum(day.reward)}</div>
                                             </div>}
