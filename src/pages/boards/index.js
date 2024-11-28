@@ -64,6 +64,12 @@ export default function Page() {
     ]
 
     const swiperRef = useRef(null);
+
+    useEffect(() => {
+        if (swiperRef.current) {
+            swiperRef.current.slideTo(liga, 0);
+        }
+    }, [liga]);
     const handleSlidePrev = () => {
         if (window.Telegram?.WebApp?.HapticFeedback) {
             window.Telegram.WebApp.HapticFeedback.impactOccurred('light');
