@@ -20,5 +20,9 @@ export function formatNumber(num, maxLength = 12) {
         value /= 1000;
         index++;
     }
-    return `${value.toFixed(3)}${suffixes[index]}`;
+    if (value < 100) {
+        return `${value.toFixed(2)}${suffixes[index]}`;
+    } else {
+        return `${Math.floor(value)}${suffixes[index]}`;
+    }
 }

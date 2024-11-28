@@ -160,8 +160,8 @@ export default function Home() {
             </div>}
             <div className={styles.item8}>
                 <CollectBar
-                    currentCoins={formatNumberFromEndDot(currentFarmCoins < 0 ? 0 : currentFarmCoins)}
-                    maxCoins={formatNumberFromEnd(Number(limit))}
+                    currentCoins={formatNumber(currentFarmCoins < 0 ? 0 : currentFarmCoins)}
+                    maxCoins={formatNumber(Number(limit))}
                     width={currentWidth}
                 />
             </div>
