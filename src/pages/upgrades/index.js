@@ -32,6 +32,7 @@ export default function Page() {
     const [activeIndex, setActiveIndex] = useState(0);
     const [showLevelUp, setShowLevelUp] = useState(false);
     const [completedTasks, setCompletedTasks] = useState([]);
+    const [tasks, setTasks] = useState([]);
 
     const sliderImages = [
         '/upgradesCards/slider/rateSlide.png',
@@ -69,6 +70,24 @@ export default function Page() {
         }
     }, []);
 
+    const fetchTasks = async () => {
+        try {
+            const response = await axiosInstance.get("/task/all");
+            if (response?.data) {
+                const filteredTasks = response.data.filter(task => task.type === 5 || task.type === 6);
+                setTasks(filteredTasks);
+            } else {
+                console.error("Ответ от /task/all пустой");
+            }
+        } catch (error) {
+            console.error("Ошибка при загрузке заданий:", error);
+        }
+    };
+
+    useEffect(() => {
+        fetchTasks();
+    }, []);
+
     useEffect(() => {
         updateContext()
     }, [rate, limit])
@@ -92,21 +111,31 @@ export default function Page() {
         }
     };
 
-    const fetchLevels = async () => {
+    const fetchRateLevels = async () => {
+        try {
+            const rateResponse = await axiosInstance.get(`/farm/rate-levels`);
+            const rateLevelsWithType = rateResponse.data.map(level => ({ ...level, type: 'rate' }));
+            setRateLevels(rateLevelsWithType);
+            executeAvailableTasks();
+        } catch (error) {
+            console.error('Ошибка при загрузке уровней:', error);
+        }
+    };
+
+    const fetchLimitLevels = async () => {
         try {
             const limitResponse = await axiosInstance.get(`/farm/limit-levels`);
             const limitLevelsWithType = limitResponse.data.map(level => ({ ...level, type: 'limit' }));
             setLimitLevels(limitLevelsWithType);
-            const rateResponse = await axiosInstance.get(`/farm/rate-levels`);
-            const rateLevelsWithType = rateResponse.data.map(level => ({ ...level, type: 'rate' }));
-            setRateLevels(rateLevelsWithType);
+            executeAvailableTasks();
         } catch (error) {
             console.error('Ошибка при загрузке уровней:', error);
         }
     };
 
     useEffect(() => {
-        fetchLevels();
+        fetchRateLevels()
+        fetchLimitLevels()
     }, []);
 
     const openUpgradeModal = (item) => {
@@ -132,7 +161,7 @@ export default function Page() {
             updateContext()
             setShowLevelUp(true);
             fetchCompletedTasks();
-            fetchLevels();
+            fetchLimitLevels();
             setTimeout(() => {
                 closeUpgradeModal();
                 setShowLevelUp(false);
@@ -154,7 +183,7 @@ export default function Page() {
             updateContext()
             setShowLevelUp(true);
             fetchCompletedTasks();
-            fetchLevels();
+            fetchRateLevels();
             setTimeout(() => {
                 closeUpgradeModal();
                 setShowLevelUp(false);
@@ -211,6 +240,32 @@ export default function Page() {
     function formatNumberFromEnd(num) {
         return num.toString().replace(/(\d)(?=(\d{3})+$)/g, "$1 ");
     }
+
+    const executeTask = async (taskId) => {
+        try {
+            const response = await axiosInstance.get(`/task/execute-task?taskId=${taskId}`);
+            if (response.data) {
+                toast.success("Следующий апгрейд разблокирован")
+                console.log(response.data)
+                fetchCompletedTasks();
+            } else {
+                console.error("Ошибка выполнения задания.");
+            }
+        } catch (error) {
+            console.error("Ошибка при выполнении задания:", error);
+        }
+    };
+
+    const executeAvailableTasks = () => {
+        tasks.forEach(task => {
+            const isTaskCompleted = completedTasks.some(completed => completed.task.id === task.id);
+            const relatedCard = [...rateLevels, ...limitLevels].find(card => card.key === task.key);
+            if (!isTaskCompleted && relatedCard && relatedCard.level >= task.amount) {
+                executeTask(task.id);
+            }
+        });
+    };
+
 
     return (
         <div className={styles.root}>
