@@ -192,7 +192,7 @@
     "pr": " beats rock",
     "rs": " beats scissors",
     "sp": " beats paper",
-    "expected": "expected time: 20 sec",
+    "expected": "expected time: 10 sec",
     "rock": "Rock",
     "paper": "Paper",
     "scissors": "Scissors",
