@@ -128,7 +128,7 @@ export default function PvpPage() {
             controller.abort();
             clearTimeout(timeoutId);
             router.push('/pvpbot');
-        }, 10000);
+        }, 6000);
         const startGame = async () => {
             try {
                 const response = await axiosInstance.get(`/game/start`, {
