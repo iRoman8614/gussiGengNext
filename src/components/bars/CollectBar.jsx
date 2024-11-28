@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 import styles from './CollectBar.module.scss';
 
 const border =  '/farm_border.png'
@@ -6,7 +8,7 @@ const border =  '/farm_border.png'
 export const CollectBar = ({ currentCoins, maxCoins, width }) => {
     return (
         <div className={styles.root}>
-            <div className={styles.progressBar} style={{ 'width': ${width}px }}></div>
+            <div className={styles.progressBar} style={{ 'width': `${width}px` }}></div>
             <div className={styles.title}>
                 {currentCoins} / {maxCoins}
             </div>
