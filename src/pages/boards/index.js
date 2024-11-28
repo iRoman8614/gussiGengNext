@@ -18,10 +18,11 @@ const bg = "/backgrounds/leaderboardBG.png"
 const arrowWhite = "/ArrowWhite.png"
 
 export default function Page() {
+    const {liga} = useInit()
     const router = useRouter();
     const { t } = useTranslation();
     const { groupId, updateContext } = useInit();
-    const [activeIndex, setActiveIndex] = useState(0);
+    const [activeIndex, setActiveIndex] = useState(liga);
 
     const { fetchProfileStats, data: stats } = useProfileStats();
     const { data: leaderData } = useProfileLeaders(activeIndex + 1);

@@ -244,8 +244,6 @@ export default function Page() {
         try {
             const response = await axiosInstance.get(`/task/execute?taskId=${taskId}`);
             if (response.data) {
-                toast.success("Следующий апгрейд разблокирован")
-                console.log(response.data)
                 fetchCompletedTasks();
             } else {
                 console.error("Ошибка выполнения задания.");
