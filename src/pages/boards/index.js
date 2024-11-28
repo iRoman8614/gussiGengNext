@@ -21,7 +21,7 @@ export default function Page() {
     const router = useRouter();
     const { t } = useTranslation();
     const { groupId, updateContext, liga } = useInit();
-    const [activeIndex, setActiveIndex] = useState(liga);
+    const [activeIndex, setActiveIndex] = useState(0);
 
     useEffect(() => {
         setActiveIndex(liga)
@@ -67,10 +67,11 @@ export default function Page() {
 
     useEffect(() => {
         if (swiperRef.current) {
-            swiperRef.current.slideTo(liga, 0);
+            swiperRef.current.slideTo(liga);
             setActiveIndex(liga);
         }
     }, [liga]);
+
     const handleSlidePrev = () => {
         if (window.Telegram?.WebApp?.HapticFeedback) {
             window.Telegram.WebApp.HapticFeedback.impactOccurred('light');
@@ -90,7 +91,7 @@ export default function Page() {
     };
 
     const handleSlideChange = (swiper) => {
-        setActiveIndex(swiper.activeIndex);
+        setActiveIndex(swiper.realIndex);
     };
 
     return(
