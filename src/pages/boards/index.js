@@ -28,8 +28,10 @@ export default function Page() {
     const swiperRef = useRef(null);
 
     useEffect(() => {
-        swiperRef.current.slideTo(liga, 0);
-        setActiveIndex(liga);
+        if (swiperRef.current) {
+            swiperRef.current.slideTo(liga, 300);
+            setActiveIndex(liga);
+        }
     }, [liga]);
 
     const { fetchProfileStats, data: stats } = useProfileStats();
@@ -96,7 +98,6 @@ export default function Page() {
                     slidesPerView={3}
                     centeredSlides={true}
                     loop={true}
-                    initialSlide={liga}
                     onSwiper={(swiper) => {
                         swiperRef.current = swiper;
                     }}
