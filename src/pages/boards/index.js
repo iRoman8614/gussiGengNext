@@ -23,6 +23,8 @@ export default function Page() {
     const { groupId, updateContext, liga } = useInit();
     const [activeIndex, setActiveIndex] = useState(liga);
 
+    useEffect((setActiveIndex(liga)), [liga])
+
     console.log('liga', liga)
     console.log('activeIndex', activeIndex)
 
