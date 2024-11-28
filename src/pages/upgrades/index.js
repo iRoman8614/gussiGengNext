@@ -259,7 +259,17 @@ export default function Page() {
     const executeAvailableTasks = () => {
         tasks.forEach(task => {
             const isTaskCompleted = completedTasks.some(completed => completed.task.id === task.id);
-            const relatedCard = [...rateLevels, ...limitLevels].find(card => card.key === task.key);
+            const metaKey = task.type === 6 ? "farming_rate_level" : "farming_limit_level";
+            const relatedCard = [...rateLevels, ...limitLevels].find(card => {
+                if (card.checkTask) {
+                    return card.key === task.meta[metaKey];
+                } else {
+                    return card.key === task.key;
+                }
+            });
+            console.log(
+                `Задание ID: ${task.id}, Тип: ${task.type}, Выполнено: ${isTaskCompleted}, Уровень карточки: ${relatedCard?.level}, Требуемый уровень: ${task.amount}, Сравниваемый ключ: ${relatedCard?.key}, Meta: ${task.meta[metaKey]}`
+            );
             if (!isTaskCompleted && relatedCard && relatedCard.level >= task.amount) {
                 executeTask(task.id);
             }
