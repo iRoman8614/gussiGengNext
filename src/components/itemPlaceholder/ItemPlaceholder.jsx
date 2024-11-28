@@ -1,6 +1,7 @@
 import Image from "next/image";
 
 import styles from './ItemPlaceholder.module.scss';
+import {formatNumber} from "@/utils/formatNumber";
 
 const money = '/money.png'
 
@@ -23,7 +24,7 @@ export const ItemPlaceholder = ({ item, img, onClick, available }) => {
                 <div className={styles.per}>+{item.increasePer}%</div>
             </div>
             <div className={styles.title}>
-                {item.cost}{' '}
+                {formatNumber(Number(selectedItem.cost))}{' '}
                 <Image src={money} alt="" width={15} height={15} />
             </div>
         </div>
