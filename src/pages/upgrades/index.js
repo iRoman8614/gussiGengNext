@@ -116,7 +116,6 @@ export default function Page() {
             const rateResponse = await axiosInstance.get(`/farm/rate-levels`);
             const rateLevelsWithType = rateResponse.data.map(level => ({ ...level, type: 'rate' }));
             setRateLevels(rateLevelsWithType);
-            executeAvailableTasks()
         } catch (error) {
             console.error('Ошибка при загрузке уровней:', error);
         }
@@ -127,7 +126,6 @@ export default function Page() {
             const limitResponse = await axiosInstance.get(`/farm/limit-levels`);
             const limitLevelsWithType = limitResponse.data.map(level => ({ ...level, type: 'limit' }));
             setLimitLevels(limitLevelsWithType);
-            executeAvailableTasks()
         } catch (error) {
             console.error('Ошибка при загрузке уровней:', error);
         }
@@ -136,6 +134,8 @@ export default function Page() {
     useEffect(() => {
         fetchRateLevels()
         fetchLimitLevels()
+        executeAvailableTasks()
+        fetchCompletedTasks()
     }, [completedTasks]);
 
     const openUpgradeModal = (item) => {
@@ -267,20 +267,11 @@ export default function Page() {
                 }
             });
             const isTaskCompleted = completedTasks.some(completed => completed.task.id === task.id);
-            console.log(
-                `Задание ID: ${task.id}, Карточка: ${relatedCard?.key}, Уровень: ${relatedCard?.level}, Требуемый уровень: ${task.amount}, Выполнено: ${isTaskCompleted}`
-            );
             if (!isTaskCompleted && relatedCard && relatedCard.level >= task.amount) {
                 console.log(`Выполняется задание ID: ${task.id}`);
                 executeTask(task.id);
-            } else if (!relatedCard) {
-                console.log(`Задание ID: ${task.id} не связано с карточкой.`);
-            } else if (relatedCard.level < task.amount) {
-                console.log(`Карточка ID: ${relatedCard.id} имеет уровень ${relatedCard.level}, требуемо ${task.amount}.`);
-            } else if (isTaskCompleted) {
-                console.log(`Задание ID: ${task.id} уже выполнено.`);
             }
-        });
+        })
     };
 
     return (
