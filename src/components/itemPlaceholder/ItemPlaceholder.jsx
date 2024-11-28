@@ -24,7 +24,7 @@ export const ItemPlaceholder = ({ item, img, onClick, available }) => {
                 <div className={styles.per}>+{item.increasePer}%</div>
             </div>
             <div className={styles.title}>
-                {formatNumber(Number(selectedItem.cost))}{' '}
+                {formatNumber(Number(item.cost))}{' '}
                 <Image src={money} alt="" width={15} height={15} />
             </div>
         </div>
