@@ -68,6 +68,7 @@ export default function Page() {
     useEffect(() => {
         if (swiperRef.current) {
             swiperRef.current.slideTo(liga, 0);
+            setActiveIndex(liga);
         }
     }, [liga]);
     const handleSlidePrev = () => {
@@ -89,7 +90,7 @@ export default function Page() {
     };
 
     const handleSlideChange = (swiper) => {
-        setActiveIndex(swiper.realIndex);
+        setActiveIndex(swiper.activeIndex);
     };
 
     return(
