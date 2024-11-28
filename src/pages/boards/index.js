@@ -27,13 +27,6 @@ export default function Page() {
 
     const swiperRef = useRef(null);
 
-    // useEffect(() => {
-    //     if (swiperRef.current) {
-    //         swiperRef.current.slideTo(liga, 300);
-    //         setActiveIndex(liga);
-    //     }
-    // }, [liga]);
-
     useEffect(() => {
         if (swiperRef.current) {
             let currentIndex = swiperRef.current.realIndex;
