@@ -27,10 +27,24 @@ export default function Page() {
 
     const swiperRef = useRef(null);
 
+    // useEffect(() => {
+    //     if (swiperRef.current) {
+    //         swiperRef.current.slideTo(liga, 300);
+    //         setActiveIndex(liga);
+    //     }
+    // }, [liga]);
+
     useEffect(() => {
         if (swiperRef.current) {
-            swiperRef.current.slideTo(liga, 300);
-            setActiveIndex(liga);
+            let currentIndex = swiperRef.current.realIndex;
+            const targetIndex = liga;
+            if (currentIndex !== targetIndex) {
+                const steps = (targetIndex - currentIndex + skinData[groupId].length) % skinData[groupId].length;
+                for (let i = 0; i < steps; i++) {
+                    swiperRef.current.slideNext(0);
+                }
+            }
+            setActiveIndex(targetIndex);
         }
     }, [liga]);
 
