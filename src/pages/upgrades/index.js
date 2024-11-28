@@ -38,21 +38,21 @@ export default function Page() {
         '/upgradesCards/slider/limitSlide.png',
     ]
 
-    const rateImages = [
-        '/upgradesCards/rate/1rate.png',
-        '/upgradesCards/rate/2rate.png',
-        '/upgradesCards/rate/3rate.png',
-        '/upgradesCards/rate/4rate.png',
-        '/upgradesCards/rate/5rate.png'
-    ]
+    const rateImages = {
+        "farm_rate_level_2.5_0": '/upgradesCards/rate/1rate.png',
+        "farm_rate_level_2.5": '/upgradesCards/rate/2rate.png',
+        "farm_rate_level_4": '/upgradesCards/rate/3rate.png',
+        "farm_rate_level_5": '/upgradesCards/rate/4rate.png',
+        "farm_rate_level_10": '/upgradesCards/rate/5rate.png',
+    };
 
-    const limitImages = [
-        '/upgradesCards/limit/1limit.png',
-        '/upgradesCards/limit/2limit.png',
-        '/upgradesCards/limit/3limit.png',
-        '/upgradesCards/limit/4limit.png',
-        '/upgradesCards/limit/5limit.png'
-    ]
+    const limitImages = {
+        "farm_limit_level_2.5_0": '/upgradesCards/limit/1limit.png',
+        "farm_limit_level_2.5": '/upgradesCards/limit/2limit.png',
+        "farm_limit_level_4": '/upgradesCards/limit/3limit.png',
+        "farm_limit_level_5": '/upgradesCards/limit/4limit.png',
+        "farm_limit_level_10": '/upgradesCards/limit/5limit.png'
+    }
 
     const upgradesList = [
         t('EXP.speeds'),
@@ -80,7 +80,7 @@ export default function Page() {
     const isAvailable = (item) => {
         if (item.id === 1) return true;
         const taskKey = item.key;
-        return completedTasks.some(task => task.key === taskKey);
+        return completedTasks.some(task => task.task.key === taskKey);
     };
 
     const fetchCompletedTasks = async () => {
@@ -263,12 +263,12 @@ export default function Page() {
                             </div>
                             {activeIndex === 0 && <>
                                 {rateLevels.length !== 0 ? <div className={styles.itemsList}>{rateLevels.map((item, index) => (
-                                    <ItemPlaceholder img={rateImages[index]} item={item} key={index} onClick={() => openUpgradeModal(item)} available={isAvailable(item)} />
+                                    <ItemPlaceholder img={rateImages[item.key]} item={item} key={index} onClick={() => openUpgradeModal(item)} available={isAvailable(item)} />
                                 ))}</div> : <div className={styles.warning}>{t('EXP.noups')}</div>}
                             </>}
                             {activeIndex === 1 && <>
                                 {limitLevels.length !== 0 ? <div className={styles.itemsList}>{limitLevels.map((item, index) => (
-                                    <ItemPlaceholder img={limitImages[index]} item={item} key={index} onClick={() => openUpgradeModal(item)} available={isAvailable(item)} />
+                                    <ItemPlaceholder img={limitImages[item.key]} item={item} key={index} onClick={() => openUpgradeModal(item)} available={isAvailable(item)} />
                                 ))}</div> : <div className={styles.warning}>{t('EXP.noups')}</div>}
                             </>}
                         </div>
