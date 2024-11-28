@@ -258,24 +258,30 @@ export default function Page() {
 
     const executeAvailableTasks = () => {
         tasks.forEach(task => {
-            const isTaskCompleted = completedTasks.some(completed => completed.task.id === task.id);
-            const metaKey = task.type === 6 ? "farming_rate_level" : "farming_limit_level";
-            const relatedCard = [...rateLevels, ...limitLevels].find(card => {
-                if (card.checkTask) {
+            const metaKey = task.type === 5 ? "farming_limit_level" : "farming_rate_level";
+            const relatedCard = [...limitLevels, ...rateLevels].find(card => {
+                if (task.meta[metaKey]) {
                     return card.key === task.meta[metaKey];
                 } else {
                     return card.key === task.key;
                 }
             });
+            const isTaskCompleted = completedTasks.some(completed => completed.task.id === task.id);
             console.log(
-                `Задание ID: ${task.id}, Тип: ${task.type}, Выполнено: ${isTaskCompleted}, Уровень карточки: ${relatedCard?.level}, Требуемый уровень: ${task.amount}, Сравниваемый ключ: ${relatedCard?.key}, Meta: ${task.meta[metaKey]}`
+                `Задание ID: ${task.id}, Карточка: ${relatedCard?.key}, Уровень: ${relatedCard?.level}, Требуемый уровень: ${task.amount}, Выполнено: ${isTaskCompleted}`
             );
             if (!isTaskCompleted && relatedCard && relatedCard.level >= task.amount) {
+                console.log(`Выполняется задание ID: ${task.id}`);
                 executeTask(task.id);
+            } else if (!relatedCard) {
+                console.log(`Задание ID: ${task.id} не связано с карточкой.`);
+            } else if (relatedCard.level < task.amount) {
+                console.log(`Карточка ID: ${relatedCard.id} имеет уровень ${relatedCard.level}, требуемо ${task.amount}.`);
+            } else if (isTaskCompleted) {
+                console.log(`Задание ID: ${task.id} уже выполнено.`);
             }
         });
     };
-
 
     return (
         <div className={styles.root}>
