@@ -22,13 +22,17 @@ export default function Page() {
     const { t } = useTranslation();
     const { groupId, updateContext, liga } = useInit();
     const [activeIndex, setActiveIndex] = useState(0);
-
-    useEffect(() => {
-        setActiveIndex(liga)
-    }, [liga])
-
     console.log('liga', liga)
     console.log('activeIndex', activeIndex)
+
+    const swiperRef = useRef(null);
+
+    useEffect(() => {
+        if (swiperRef.current) {
+            swiperRef.current.slideTo(liga, 0);
+            setActiveIndex(liga);
+        }
+    }, [liga]);
 
     const { fetchProfileStats, data: stats } = useProfileStats();
     const { data: leaderData } = useProfileLeaders(activeIndex + 1);
@@ -62,15 +66,6 @@ export default function Page() {
         'syndicate kingpin',
         'seven',
     ]
-
-    const swiperRef = useRef(null);
-
-    useEffect(() => {
-        if (swiperRef.current) {
-            swiperRef.current.slideTo(liga);
-            setActiveIndex(liga);
-        }
-    }, [liga]);
 
     const handleSlidePrev = () => {
         if (window.Telegram?.WebApp?.HapticFeedback) {
