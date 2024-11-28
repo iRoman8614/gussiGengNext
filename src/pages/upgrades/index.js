@@ -116,7 +116,7 @@ export default function Page() {
             const rateResponse = await axiosInstance.get(`/farm/rate-levels`);
             const rateLevelsWithType = rateResponse.data.map(level => ({ ...level, type: 'rate' }));
             setRateLevels(rateLevelsWithType);
-            executeAvailableTasks();
+            executeAvailableTasks()
         } catch (error) {
             console.error('Ошибка при загрузке уровней:', error);
         }
@@ -127,7 +127,7 @@ export default function Page() {
             const limitResponse = await axiosInstance.get(`/farm/limit-levels`);
             const limitLevelsWithType = limitResponse.data.map(level => ({ ...level, type: 'limit' }));
             setLimitLevels(limitLevelsWithType);
-            executeAvailableTasks();
+            executeAvailableTasks()
         } catch (error) {
             console.error('Ошибка при загрузке уровней:', error);
         }
@@ -136,7 +136,7 @@ export default function Page() {
     useEffect(() => {
         fetchRateLevels()
         fetchLimitLevels()
-    }, []);
+    }, [completedTasks]);
 
     const openUpgradeModal = (item) => {
         setSelectedItem(item);
