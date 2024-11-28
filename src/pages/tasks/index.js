@@ -11,6 +11,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/controller';
 import styles from '@/styles/Upgrades.module.scss'
+import {formatNumber} from "@/utils/formatNumber";
 
 const money = '/money.png'
 const dailyBils = '/dailyBills.png'
@@ -378,10 +379,6 @@ export default function Page() {
         }
     }, [router]);
 
-    function formatNumberFromEnd(num) {
-        return num.toString().replace(/(\d)(?=(\d{3})+$)/g, "$1 ");
-    }
-
     function formatSum(num) {
         if (num >= 1000) {
             return (num / 1000).toFixed(1).replace('.0', '') + 'к';
@@ -394,7 +391,7 @@ export default function Page() {
             <div className={styles.container}>
                 <div className={styles.balanceContainer}>
                     <div className={styles.title}>{t('main.tasks')}</div>
-                    <div className={styles.balance}>{formatNumberFromEnd(balance)}{' '}<Image src={money} alt={''} width={21} height={21} loading="lazy" /></div>
+                    <div className={styles.balance}>{formatNumber(balance, 9)}{' '}<Image src={money} alt={''} width={21} height={21} loading="lazy" /></div>
                 </div>
                 <div className={styles.block}>
                     <div className={styles.skinContainer}>
@@ -411,7 +408,7 @@ export default function Page() {
                                             icon={task.icon}
                                             type={task.type}
                                             readyToComplete={task.readyToComplete}
-                                            reward={formatNumberFromEnd(task.reward)}
+                                            reward={formatNumber(task.reward, 9)}
                                             onClick={() => handleTaskClick(task)}
                                         />}
                                     </>

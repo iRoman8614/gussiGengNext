@@ -10,6 +10,7 @@ import teamData from "@/mock/teamsData";
 
 import styles from '@/styles/Account.module.scss'
 import axiosInstance from "@/utils/axios";
+import {formatNumber} from "@/utils/formatNumber";
 
 const money = '/money.png'
 
@@ -54,10 +55,6 @@ export default function Page() {
         }
 
     }, []);
-
-    function formatNumberFromEnd(num) {
-        return num.toString().replace(/(\d)(?=(\d{3})+$)/g, "$1 ");
-    }
 
     const handleTab = (tab) => {
         if (window.Telegram?.WebApp?.HapticFeedback) {
@@ -129,7 +126,7 @@ export default function Page() {
                         </div>
                         <div className={styles.barBlock}>
                             <div className={styles.barItem}>{t('account.Total')}</div>
-                            <div className={styles.barItemStats}>{formatNumberFromEnd(totalCoins)}</div>
+                            <div className={styles.barItemStats}>{formatNumber(totalCoins)}</div>
                             {/*<div className={styles.barItem}>total skins owned</div>*/}
                             {/*<div className={styles.barItemStats}>1/11</div>*/}
                             <div className={styles.barItem}>{t('account.friends')}</div>
@@ -141,7 +138,7 @@ export default function Page() {
                         </div>
                         <div>
                             <div className={styles.barItem}>{t('account.balance')}</div>
-                            <div className={styles.balance}>{formatNumberFromEnd(coins)}{' '}<Image src={money} alt={''} width={21} height={21} loading="lazy" /></div>
+                            <div className={styles.balance}>{formatNumber(coins, 15)}{' '}<Image src={money} alt={''} width={21} height={21} loading="lazy" /></div>
                         </div>
                     </div>}
                     {/*{activeTab === 2 && <div className={styles.skinContainer}>*/}

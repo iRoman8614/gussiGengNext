@@ -13,6 +13,7 @@ import skinData from '@/mock/skinsData'
 
 import styles from "@/styles/Home.module.scss";
 import {use} from "i18next";
+import {formatNumber} from "@/utils/formatNumber";
 
 const account = '/main-buttons/account.png'
 const settings = '/main-buttons/settings.png'
@@ -112,7 +113,7 @@ export default function Home() {
         if (isNaN(num) || typeof num !== 'number') {
             return '10800';
         }
-        return Math.round(num).toString().replace(/(\d)(?=(\d{3})+$)/g, "$1 ");
+        return Math.floor(num).toString().replace(/(\d)(?=(\d{3})+$)/g, "$1 ");
     }
 
     function formatNumberFromEndDot(num) {
@@ -146,7 +147,7 @@ export default function Home() {
             </div>
             <div className={styles.item5}>
                 <Image src={border} width={600} height={200} alt={'border'} className={styles.totalBarRoot} loading="lazy"/>
-                <div className={styles.totalText}>{formatNumberFromEnd(balance)}</div>
+                <div className={styles.totalText}>{formatNumber(balance, 12)}</div>
             </div>
             <div className={styles.item6}>
                 <IconButton image={wallet} alt={'wallet'} title={t('main.wallet')} hidden={true} onClick={() => {router.push('/main')}}/>

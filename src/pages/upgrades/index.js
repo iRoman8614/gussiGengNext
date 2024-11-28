@@ -14,6 +14,7 @@ import {Controller, Navigation} from "swiper/modules";
 import {toast} from "react-toastify";
 import {useInit} from "@/context/InitContext";
 import {useFarmCollect} from "@/utils/api";
+import {formatNumber} from "@/utils/formatNumber";
 
 const money = '/money.png'
 
@@ -277,7 +278,7 @@ export default function Page() {
             <div className={styles.container}>
                 <div className={styles.balanceContainer}>
                     <div className={styles.title}>{t('EXP.upgrades')}</div>
-                    <div className={styles.balance}>{formatNumberFromEnd(coins)}{' '}<Image src={money} alt={''} width={21} height={21} loading="lazy" /></div>
+                    <div className={styles.balance}>{formatNumber(coins, 9)}{' '}<Image src={money} alt={''} width={21} height={21} loading="lazy" /></div>
                 </div>
                 <div className={styles.block}>
                     <div className={styles.personalContainer}>
@@ -348,7 +349,7 @@ export default function Page() {
                                         }
                                     </a>
                                 </h3>
-                                <Image src={'/ArrowWhite.png'} alt={''} width={15} height={15} className={styles.arrowUp} loading="lazy" />
+                                {showLevelUp ? <div className={styles.levelUpAnimation}>Level Up!</div> : <Image src={'/ArrowWhite.png'} alt={''} width={15} height={15} className={styles.arrowUp} loading="lazy" />}
                                 <p>
                                     <a>
                                         {selectedItem.type === 'limit' ?
@@ -362,7 +363,7 @@ export default function Page() {
                                     {selectedItem.type === 'limit' ? `${t('EXP.limit')} +${selectedItem.name}%` : `${t('EXP.rate')} +${selectedItem.name}%`}
                                 </p>
                                 <p>{t('EXP.lvl')}: {selectedItem.level}</p>
-                                <p>{t('EXP.cost')}: {selectedItem.cost}</p>
+                                <p>{t('EXP.cost')}: {formatNumber(selectedItem.cost)}</p>
                             </div>
                         </div>
                         <button
@@ -371,16 +372,15 @@ export default function Page() {
                                 if (window.Telegram?.WebApp?.HapticFeedback) {
                                     window.Telegram.WebApp.HapticFeedback.impactOccurred('medium');
                                 }
+                                if(selectedItem && coins < selectedItem.cost) {
+                                    toast.error('Not enough coins available.')
+                                }
                                 if (selectedItem) {
                                     selectedItem.type === 'limit'
                                         ? handleLimitUpgrade(selectedItem.id, selectedItem.cost)
                                         : handleRateUpgrade(selectedItem.id, selectedItem.cost);
                                 }
-                                if(selectedItem && coins < selectedItem.cost) {
-                                    toast.error('Not enough coins available.')
-                                }
                             }}
-                            disabled={selectedItem && coins < selectedItem.cost}
                         >
                             <div className={styles.modalBtn}>{t('EXP.upgrade')}</div>
                         </button>
@@ -389,7 +389,6 @@ export default function Page() {
                         </div>
                     </div>
                 )}
-                {showLevelUp && <div className={styles.levelUpAnimation}>Level Up!</div>}
             </div>
         </div>
     );
