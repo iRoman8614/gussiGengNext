@@ -98,7 +98,7 @@ export default function Page() {
                     slidesPerView={3}
                     centeredSlides={true}
                     loop={true}
-                    initialSlide={liga}
+                    initialSlide={liga - 1}
                     onSwiper={(swiper) => {
                         swiperRef.current = swiper;
                     }}
