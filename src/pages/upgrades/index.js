@@ -135,7 +135,6 @@ export default function Page() {
         fetchRateLevels()
         fetchLimitLevels()
         executeAvailableTasks()
-        fetchCompletedTasks()
     }, [completedTasks]);
 
     const openUpgradeModal = (item) => {
@@ -270,6 +269,7 @@ export default function Page() {
             if (!isTaskCompleted && relatedCard && relatedCard.level >= task.amount) {
                 console.log(`Выполняется задание ID: ${task.id}`);
                 executeTask(task.id);
+                fetchCompletedTasks()
             }
         })
     };
