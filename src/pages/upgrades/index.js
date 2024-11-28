@@ -243,7 +243,7 @@ export default function Page() {
 
     const executeTask = async (taskId) => {
         try {
-            const response = await axiosInstance.get(`/task/execute-task?taskId=${taskId}`);
+            const response = await axiosInstance.get(`/task/execute?taskId=${taskId}`);
             if (response.data) {
                 toast.success("Следующий апгрейд разблокирован")
                 console.log(response.data)
