@@ -21,11 +21,12 @@ export default function Page() {
     const router = useRouter();
     const { t } = useTranslation();
     const { groupId, updateContext, liga } = useInit();
-    const [activeIndex, setActiveIndex] = useState(liga);
-    console.log('liga', liga)
-    console.log('activeIndex', activeIndex)
-
+    const [activeIndex, setActiveIndex] = useState(0);
     const swiperRef = useRef(null);
+
+    useEffect(() => {
+        setActiveIndex(liga)
+    }, [liga])
 
     useEffect(() => {
         if (swiperRef.current) {

@@ -363,7 +363,7 @@ export default function Page() {
                                     {selectedItem.type === 'limit' ? `${t('EXP.limit')} +${selectedItem.name}%` : `${t('EXP.rate')} +${selectedItem.name}%`}
                                 </p>
                                 <p>{t('EXP.lvl')}: {selectedItem.level}</p>
-                                <p>{t('EXP.cost')}: {formatNumber(selectedItem.cost)}</p>
+                                <p>{t('EXP.cost')}: {formatNumber(Number(selectedItem.cost))}</p>
                             </div>
                         </div>
                         <button

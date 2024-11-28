@@ -30,7 +30,7 @@ export default function Home() {
     const router = useRouter()
     const { t } = useTranslation();
     const [slide, setSlide] = useState(0)
-    const { groupId, liga } = useInit();
+    const { groupId } = useInit();
 
     useEffect(() => {
         if (typeof window !== 'undefined' && window.Telegram?.WebApp?.BackButton) {
@@ -139,12 +139,12 @@ export default function Home() {
                     <FaqIconButton image={wallet} alt={'wallet'} title={t('main.wallet')} />
                 </div>
                 <div className={styles.item7}>
-                    <Image width={1000} height={1000} className={styles.char} alt={'character'} src={skinData[groupId]?.[liga]?.icon} loading="lazy"/>
+                    <Image width={1000} height={1000} className={styles.char} alt={'character'} src={skinData[groupId]?.[0]?.icon} loading="lazy"/>
                 </div>
                 <div className={styles.item8}>
                     <CollectBar
-                        currentCoins={formatNumberFromEnd(7250)}
-                        maxCoins={formatNumberFromEnd(35000)}
+                        currentCoins={7250}
+                        maxCoins={35000}
                         width={60}
                     />
                 </div>
