@@ -21,10 +21,10 @@ export default function Page() {
     const [userId, setUserId] = useState(null);
     const [activeTab, setActiveTab] = useState(1);
     const { data: friends } = useMyInvitees();
-    const [message, setMessage] = useState('Join Gang Wars and Start Earning Big!\n' +
-        '💰 Get 10,000 Coins as a welcome gift!\n' +
-        '🚀 Exclusive Future Airdrop Alert! The coins you earn now lead to exciting token airdrops when we launch — don’t miss your chance to stack up early and be part of the action.\n' +
-        '💥 Invite your friends, compete in PvP battles, and rise to the top of the leaderboard!')
+    const [message, setMessage] = useState( "Gang Wars: Want a piece of the action?\n" +
+        "💰 10,000 coins just for signing up. Whoa!\n" +
+        "🚀 The Exclusive Future Airdrop's going to make you filthy rich – so start working right now, punk.\n" +
+        "💥 Dominate PvP, climb the leaderboard, and show the world who's the boss in the NightCity. Bring your bros.")
 
     const router = useRouter();
 
@@ -42,15 +42,15 @@ export default function Page() {
         if (typeof window !== 'undefined') {
             const lang = localStorage.getItem('appLanguage')
             if (lang === 'ru') {
-                setMessage('Присоединяйся к Gang Wars и начни зарабатывать по-крупному!\n' +
-                    '💰 Получи 10 000 монет в подарок!\n' +
-                    '🚀 Стань участником будущего Airdrop! Монеты, заработанные сейчас, приведут к раздаче токенов при запуске — не упусти свой шанс накопить раньше и больше! \n' +
-                    '💥 Приглашай друзей, соревнуйтесь в PvP-сражениях и начни свой путь на вершину рейтинга!')
+                setMessage("Gang Wars: хочешь оттяпать свою долю? \n" +
+                    "💰 10 000 монет просто за регистрацию. Твою ж...! \n" +
+                    "🚀 Эксклюзивный Airdrop скоро сделает тебя невероятно богатым – так что займись делом прямо сейчас. \n" +
+                    "💥 Побеждай в PvP, поднимайся в топе лидеров и покажи миру, кто босс NightCity. Приводи своих братишек.")
             } else {
-                setMessage('Join Gang Wars and Start Earning Big!\n' +
-                    '💰 Get 10,000 Coins as a welcome gift!\n' +
-                    '🚀 Exclusive Future Airdrop Alert! The coins you earn now lead to exciting token airdrops when we launch — don’t miss your chance to stack up early and be part of the action.\n' +
-                    '💥 Invite your friends, compete in PvP battles, and rise to the top of the leaderboard!')
+                setMessage("Gang Wars: Want a piece of the action?\n" +
+                    "💰 10,000 coins just for signing up. Whoa!\n" +
+                    "🚀 The Exclusive Future Airdrop's going to make you filthy rich – so start working right now, punk.\n" +
+                    "💥 Dominate PvP, climb the leaderboard, and show the world who's the boss in the NightCity. Bring your bros.")
             }
         }
     }, []);
