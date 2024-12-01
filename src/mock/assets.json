@@ -56,6 +56,12 @@
       "/skins/yg7.png"
     ]
   },
+  "paid": [
+    "/skins/thuglifeIcon.png",
+    "/skins/netrunnerIcon.png",
+    "/skins/theItDudeIcon.png",
+    "/skins/lilithIcon.png"
+  ],
   "gameItems": [
     "/game-icons/animation_hand_pap.gif",
     "/game-icons/animation_hand_rock.gif",

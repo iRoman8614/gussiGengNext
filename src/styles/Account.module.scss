@@ -98,7 +98,7 @@
 }
 
 .block {
-  margin-top: -20px;
+  margin-top: 0px;
   transform: scale(0.5);
   animation: zoom-in 0.5s forwards ease-out;
 
@@ -128,7 +128,7 @@
 }
 
 .folderBtnStats, .folderBtnSkins {
-  background: rgba(56,36,111, 0.8);
+  background: rgba(56,36,111, 0.95);
   backdrop-filter: blur(7px);
   border: 2px solid #3842a4;
   border-bottom: none;
@@ -148,7 +148,7 @@
   padding: 5px;
   width: 100%;
   height: auto;
-  background: rgba(56,36,111, 0.8);
+  background: rgba(56,36,111, 0.95);
   backdrop-filter: blur(7px);
   border-radius: 0 12px 12px 12px;
   border: 2px solid #3842a4;
@@ -160,7 +160,7 @@
 .skinContainer {
   position: relative;
   width: 100%;
-  background: rgba(56,36,111, 0.8);
+  background: rgba(56,36,111, 0.95);
   backdrop-filter: blur(7px);
   border-radius: 0 12px 12px 12px;
   border: 2px solid #3842a4;
@@ -175,18 +175,25 @@
   }
 }
 
+.skinSwiper {
+  margin: auto-clamp(5, 20) auto-clamp(5, 20) 7px auto-clamp(5, 20);
+  z-index: 113;
+  padding: 20px 10px 4px 10px;
+  border-radius: 15px;
+  background: linear-gradient(180deg, rgba(89, 67, 148, 0.6) 0%, rgba(62, 47, 103, 1) 100%);
+}
+
 .list {
   width: auto;
-  height: 100%;
-  margin: 25px;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  justify-items: center;
-  gap: 10px;
+  height: fit-content;
+  margin: 7px auto-clamp(5, 20) 0 auto-clamp(5, 20);
   overflow-y: scroll;
   scrollbar-width: none;
   -ms-overflow-style: none;
   z-index: 113;
+  padding: 4px;
+  border-radius: 15px;
+  background: linear-gradient(180deg, rgba(89, 67, 148, 0.6) 0%, rgba(62, 47, 103, 1) 100%);
 }
 
 .nickname {
@@ -269,4 +276,87 @@ text-align: center;
 }
 
 
+.skinListItem {
+  width: 100%;
+  height: 65px;
+  padding: 20px;
+  font-size: 20px;
+  color: #FFFFFF;
+  border-radius: 11px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(180deg, rgba(21, 25, 62, 0.6) 0%, rgba(56, 66, 164, 0.63) 100%);
+  margin-bottom: 4px;
+}
 
+.skinBalance {
+  width: 100%;
+  height: fit-content;
+  padding: 10px 20px;
+  font-size: 24px;
+  color: #FFCC26;
+  border-radius: 11px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(180deg, rgba(21, 25, 62, 0.6) 0%, rgba(56, 66, 164, 0.63) 100%);
+  margin-bottom: 4px;
+}
+
+.skinBalanceTitle {
+  font-size: 32px;
+}
+
+.containerSwiper {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.navRight {
+  z-index: 2;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  width: 25px !important;
+  rotate: 180deg;
+}
+
+.caption {
+  position: relative;
+  border-radius: 11px;
+  width: auto;
+  font-size: auto-clamp(22, 35);
+  color: #FFFFFF;
+  z-index: 2;
+  text-align: center;
+  align-self: center;
+  white-space: nowrap;
+  margin: auto auto auto-clamp(5, 30) auto;
+}
+
+.navLeft {
+  z-index: 2;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  width: 25px !important;
+}
+
+.swiper {
+  width: auto;
+}
+
+.slide {
+  width: auto;
+  justify-self: center;
+  display: flex;
+}
+
+.icon {
+  width: auto;
+  height: auto;
+  justify-self: center;
+  margin: auto;
+}

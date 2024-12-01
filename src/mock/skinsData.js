@@ -35,6 +35,28 @@ const skinData = {
         {icon: '/skins/rg6.png'},
         {icon: '/skins/rg7.png'},
     ],
+    paid: [
+        {
+            name: "thug life",
+            key: "thuglife",
+            cost: 2500000
+        },
+        {
+            name: "netrunner",
+            key: "netrunner",
+            cost: 2500000
+        },
+        {
+            name: "the it dude",
+            key: "theItDude",
+            cost: 2500000
+        },
+        {
+            name: "lilith",
+            key: "lilith",
+            cost: 2500000
+        },
+    ]
 };
 
 export default skinData;
