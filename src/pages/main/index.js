@@ -70,7 +70,7 @@ export default function Home() {
                     const { groupId } = response.data;
                     setClanId(groupId);
                     setClanPopUp(true);
-                    localStorage.setItem('lastFetchDate', today);
+                    localStorage.setItem('dailyClan', today);
                 })
                 .catch(error => {
                     console.error('Ошибка при выполнении запроса:', error);
@@ -204,9 +204,9 @@ export default function Home() {
                     <div className={styles.clanContainer}>
                         <div className={styles.clanLabel}>Daily Pvp<br/> results  </div>
                         <div className={styles.clanName}>{teamData[clanId]?.Name}</div>
-                        <Image src={teamData[clanId]?.logo} alt={''} width={120} height={120} />
+                        <Image src={teamData[clanId]?.logo} alt={''} width={120} height={120} lazy />
                         <div className={styles.clanLabel}>Are <a>oG</a>s TODAY</div>
-                        <div className={styles.clanName}>+50000 <Image src={money} alt="" width={15} height={15} /></div>
+                        <div className={styles.clanName}>+50000 <Image src={money} alt="" width={25} height={25} /></div>
                     </div>
                 </div>
             </div>}
