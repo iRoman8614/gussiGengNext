@@ -9,7 +9,13 @@
     "pvp": "pvp",
     "friends": "friends",
     "tasks": "tasks",
-    "loot": "loot"
+    "loot": "loot",
+    "daily": "daily login bonus",
+    "DailyPvp": "Daily Pvp",
+    "results": "results",
+    "are": "are",
+    "OG": "OG",
+    "today": "s today"
   },
   "settingsPage": {
     "title": "Settings",

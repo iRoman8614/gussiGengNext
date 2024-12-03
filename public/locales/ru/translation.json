@@ -9,7 +9,13 @@
     "pvp": "pvp",
     "friends": "друзья",
     "tasks": "задачи",
-    "loot": "лут"
+    "loot": "лут",
+    "daily": "ежедневная награда",
+    "DailyPvp": "PVP итоги дня",
+    "results": "",
+    "are": "",
+    "OG": "",
+    "today": "забаттлили всех"
   },
   "settingsPage": {
     "title": "Настройки",
