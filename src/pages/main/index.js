@@ -155,9 +155,15 @@ export default function Home() {
     const maxWidth = 224;
     const currentWidth = (currentFarmCoins / limit) * maxWidth;
 
-    const closePopUp = () => {
-        setClanPopUp(false)
-    }
+    // useEffect(() => {
+    //     const lastPopUpDate = localStorage.getItem("lastPopUpDate");
+    //     const today = new Date().toISOString().split("T")[0];
+    //     if (lastPopUpDate !== today) {
+    //         localStorage.setItem("lastPopUpDate", today);
+    //         setDailyPopUp(true);
+    //     }
+    // }, []);
+
 
     useEffect(() => {
         const savedDailyEntries = parseInt(localStorage.getItem("dailyEntries") || "0", 10);
@@ -167,9 +173,11 @@ export default function Home() {
     useEffect(() => {
         if (dailyEntries !== previousDailyEntries) {
             localStorage.setItem("dailyEntries", dailyEntries);
+
             if (dailyEntries > previousDailyEntries) {
                 setDailyPopUp(true);
             }
+
             loadTasks();
         }
     }, [dailyEntries, previousDailyEntries]);
@@ -178,30 +186,33 @@ export default function Home() {
         try {
             const allTasksResponse = await axios.get("/task/all-type?type=4");
             setTasks(allTasksResponse.data);
+
             const completedTasksResponse = await axios.get("/task/completed-tasks");
             const completedType4Tasks = completedTasksResponse.data.filter(
                 (item) => item.task.type === 4
             );
             setCompletedTaskIds(completedType4Tasks.map((item) => item.task.id));
-            if (dailyEntries > previousDailyEntries) {
-                executeTasks(allTasksResponse.data, completedType4Tasks);
-            }
+
+            // Выполняем задание на текущий день
+            executeTasks(allTasksResponse.data);
         } catch (error) {
             console.error("Error loading tasks:", error);
         }
     };
 
-    const executeTasks = async (allTasks, completed) => {
-        const completedTaskIds = completed.map((task) => task.task.id);
-        const tasksToExecute = allTasks.filter(
-            (task) => !completedTaskIds.includes(task.id)
+    const executeTasks = async (allTasks) => {
+        const todaysTask = allTasks.find(
+            (task) => task.type === 4 && task.amount === dailyEntries
         );
-        for (const task of tasksToExecute) {
-            try {
-                await axios.post(`/task/execute?taskId=${task.id}`);
-            } catch (error) {
-                console.error(`Error executing task ${task.id}:`, error);
-            }
+        if (!todaysTask || completedTaskIds.includes(todaysTask.id)) {
+            console.log("Задание на текущий день уже выполнено или отсутствует.");
+            return;
+        }
+        try {
+            const response = await axios.post(`/task/execute?taskId=${todaysTask.id}`);
+            console.log("Задание выполнено успешно:", response.data);
+        } catch (error) {
+            console.error(`Ошибка выполнения задания ${todaysTask.id}:`, error);
         }
     };
 
