@@ -145,13 +145,14 @@ export default function Home() {
     const currentWidth = (currentFarmCoins / limit) * maxWidth;
 
     useEffect(() => {
-        const lastPopUpDate = localStorage.getItem("dailyTaskDate");
         const today = new Date().toISOString().split("T")[0];
-        if (lastPopUpDate !== today) {
-            localStorage.setItem("dailyTaskDate", today);
+        const dailyTaskDate = localStorage.getItem("dailyTaskDate");
+        if (!dailyTaskDate || dailyTaskDate !== today) {
+            localStorage.setItem("dailyTaskDate", today)
             setDailyPopUp(true);
+            loadTasks();
         }
-    }, []);
+    }, [dailyEntries]);
 
     useEffect(() => {
         const savedDailyEntries = parseInt(localStorage.getItem("dailyEntries") || "0", 10);
@@ -170,6 +171,7 @@ export default function Home() {
 
     const loadTasks = async () => {
         try {
+            console.log("Вызов loadTasks...");
             const allTasksResponse = await axios.get("/task/all-type?type=4");
             setTasks(allTasksResponse.data);
             const completedTasksResponse = await axios.get("/task/completed-tasks");
@@ -179,7 +181,7 @@ export default function Home() {
             setCompletedTaskIds(completedType4Tasks.map((item) => item.task.id));
             executeTasks(allTasksResponse.data);
         } catch (error) {
-            console.error("Error loading tasks:", error);
+            console.error("Ошибка при загрузке задач:", error);
         }
     };
 
@@ -192,6 +194,7 @@ export default function Home() {
             return;
         }
         try {
+            console.log(`Выполнение задания ${todaysTask.id}`);
             const response = await axios.post(`/task/execute?taskId=${todaysTask.id}`);
             console.log("Задание выполнено успешно:", response.data);
             localStorage.setItem("dailyTaskDate", new Date().toISOString().split("T")[0]);
@@ -199,7 +202,6 @@ export default function Home() {
             console.error(`Ошибка выполнения задания ${todaysTask.id}:`, error);
         }
     };
-
 
     function formatSum(num) {
         if (num >= 1000) {
