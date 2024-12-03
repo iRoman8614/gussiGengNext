@@ -205,6 +205,13 @@ export default function Home() {
         }
     };
 
+    function formatSum(num) {
+        if (num >= 1000) {
+            return (num / 1000).toFixed(1).replace('.0', '') + 'к';
+        }
+        return num.toString();
+    }
+
     return (
         <>
             <div className={styles.root}>
