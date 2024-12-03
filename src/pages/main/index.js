@@ -38,7 +38,6 @@ export default function Home() {
     const [gameBonus, setGameBonus] = useState(false)
     const [clanId, setClanId] = useState(null)
     const [clanPopUp, setClanPopUp] = useState(false)
-    const [previousDailyEntries, setPreviousDailyEntries] = useState(0);
     const [dailyPopUp, setDailyPopUp] = useState(false);
     const [tasks, setTasks] = useState([]);
     const [completedTaskIds, setCompletedTaskIds] = useState([]);
@@ -154,10 +153,6 @@ export default function Home() {
         }
     }, [dailyEntries]);
 
-    useEffect(() => {
-        const savedDailyEntries = parseInt(localStorage.getItem("dailyEntries") || "0", 10);
-        setPreviousDailyEntries(savedDailyEntries);
-    }, []);
 
     useEffect(() => {
         const today = new Date().toISOString().split("T")[0];
@@ -165,7 +160,6 @@ export default function Home() {
         if (dailyTaskDate !== today) {
             localStorage.setItem("dailyTaskDate", today);
             loadTasks();
-            setDailyPopUp(true);
         }
     }, [dailyEntries]);
 
@@ -198,6 +192,12 @@ export default function Home() {
             const response = await axios.post(`/task/execute?taskId=${todaysTask.id}`);
             console.log("Задание выполнено успешно:", response.data);
             localStorage.setItem("dailyTaskDate", new Date().toISOString().split("T")[0]);
+            const completedTasksResponse = await axios.get("/task/completed-tasks");
+            const completedType4Tasks = completedTasksResponse.data.filter(
+                (item) => item.task.type === 4
+            );
+            setCompletedTaskIds(completedType4Tasks.map((item) => item.task.id));
+            setDailyPopUp(true);
         } catch (error) {
             console.error(`Ошибка выполнения задания ${todaysTask.id}:`, error);
         }
