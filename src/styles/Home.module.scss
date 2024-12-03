@@ -246,16 +246,16 @@
   top: 0;
   left: 0;
   background: #15193E;
-  padding-top: auto-clamp(30, 100);
+  padding: auto-clamp(20, 80) auto-clamp(0, 40);
   display: flex;
   color: #FFFFFF;
   flex-direction: column;
   align-items: center;
+}
 
-  h2 {
-    font-size: auto-clamp(30, 40);
-    margin-bottom: auto-clamp(20, 50);
-  }
+.dailyLabel {
+  font-size: auto-clamp(30, 40);
+  margin-bottom: auto-clamp(20, 50);
 }
 
 .todaysReward {

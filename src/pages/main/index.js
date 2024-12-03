@@ -271,7 +271,7 @@ export default function Home() {
             {dailyPopUp && (
                 <div className={styles.dailyPopup}>
                     <div className={styles.popUpClose} onClick={() => setDailyPopUp(false)}>x</div>
-                    <h2>daily login  bonus</h2>
+                    <div className={styles.dailyLabel}>daily login  bonus</div>
                     <div className={styles.todaysReward}>
                         {tasks
                             .filter((task) => task.type === 4 && completedTaskIds.includes(task.id))
