@@ -164,8 +164,8 @@ export default function Home() {
         const dailyTaskDate = localStorage.getItem("dailyTaskDate");
         if (dailyTaskDate !== today) {
             localStorage.setItem("dailyTaskDate", today);
-            setDailyPopUp(true);
             loadTasks();
+            setDailyPopUp(true);
         }
     }, [dailyEntries]);
 
