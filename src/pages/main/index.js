@@ -25,11 +25,12 @@ const border = '/totalbar.png'
 const background = '/backgrounds/nightcity.png'
 const bonus = '/main-buttons/bonus.png'
 const money = '/money.png'
+const dailyBils = '/dailyBills.png'
 
 export default function Home() {
     const router = useRouter();
     const { t } = useTranslation();
-    const { groupId, liga, rate, limit, updateContext, coins } = useInit();
+    const { groupId, liga, rate, limit, updateContext, coins, dailyEntries } = useInit();
     const [balance, setBalance] = useState(0)
     const [currentFarmCoins, setCurrentFarmCoins] = useState(0);
     const [startFarmTime, setStartFarmTime] = useState(Date.now());
@@ -37,6 +38,10 @@ export default function Home() {
     const [gameBonus, setGameBonus] = useState(false)
     const [clanId, setClanId] = useState(null)
     const [clanPopUp, setClanPopUp] = useState(false)
+    const [previousDailyEntries, setPreviousDailyEntries] = useState(0);
+    const [dailyPopUp, setDailyPopUp] = useState(false);
+    const [tasks, setTasks] = useState([]);
+    const [completedTaskIds, setCompletedTaskIds] = useState([]);
 
     const { collectAndStart } = useFarmCollect();
 
@@ -154,6 +159,52 @@ export default function Home() {
         setClanPopUp(false)
     }
 
+    useEffect(() => {
+        const savedDailyEntries = parseInt(localStorage.getItem("dailyEntries") || "0", 10);
+        setPreviousDailyEntries(savedDailyEntries);
+    }, []);
+
+    useEffect(() => {
+        if (dailyEntries !== previousDailyEntries) {
+            localStorage.setItem("dailyEntries", dailyEntries);
+            if (dailyEntries > previousDailyEntries) {
+                setDailyPopUp(true);
+            }
+            loadTasks();
+        }
+    }, [dailyEntries, previousDailyEntries]);
+
+    const loadTasks = async () => {
+        try {
+            const allTasksResponse = await axios.get("/task/all-type?type=4");
+            setTasks(allTasksResponse.data);
+            const completedTasksResponse = await axios.get("/task/completed-tasks");
+            const completedType4Tasks = completedTasksResponse.data.filter(
+                (item) => item.task.type === 4
+            );
+            setCompletedTaskIds(completedType4Tasks.map((item) => item.task.id));
+            if (dailyEntries > previousDailyEntries) {
+                executeTasks(allTasksResponse.data, completedType4Tasks);
+            }
+        } catch (error) {
+            console.error("Error loading tasks:", error);
+        }
+    };
+
+    const executeTasks = async (allTasks, completed) => {
+        const completedTaskIds = completed.map((task) => task.task.id);
+        const tasksToExecute = allTasks.filter(
+            (task) => !completedTaskIds.includes(task.id)
+        );
+        for (const task of tasksToExecute) {
+            try {
+                await axios.post(`/task/execute?taskId=${task.id}`);
+            } catch (error) {
+                console.error(`Error executing task ${task.id}:`, error);
+            }
+        }
+    };
+
     return (
         <>
             <div className={styles.root}>
@@ -198,8 +249,36 @@ export default function Home() {
                     <NavBar/>
                 </div>
             </div>
+            {dailyPopUp && (
+                <div className={styles.dailyPopup}>
+                    <div className={styles.popUpClose} onClick={() => setDailyPopUp(false)}>x</div>
+                    <h2>daily login  bonus</h2>
+                    <div className={styles.todaysReward}>
+                        {tasks
+                            .filter((task) => task.type === 4 && completedTaskIds.includes(task.id))
+                            .pop()?.reward || 0}<Image src={money} alt="" width={25} height={25} />
+                    </div>
+                    <div className={styles.dailyContainer}>
+                        {tasks.map((day, index) => {
+                            return(
+                                <>
+                                    {day.type === 4 && <div className={
+                                        completedTaskIds.includes(day.id)
+                                            ? styles.dailyItem
+                                            : styles.dailyItemGray
+                                    } key={index}>
+                                        <div className={styles.dayTitle}>{t('EXP.day')}{' '}{day.amount}</div>
+                                        <Image className={styles.dailyImage} src={dailyBils} alt={''} width={37} height={35}/>
+                                        <div className={styles.dailySum}>{formatSum(day.reward)}</div>
+                                    </div>}
+                                </>
+                            )
+                        })}
+                    </div>
+                </div>
+            )}
             {clanPopUp && <div className={styles.clanPopUp}>
-                <div className={styles.popUpClose} onClick={closePopUp}>x</div>
+                <div className={styles.popUpClose} onClick={() => setClanPopUp(false)}>x</div>
                 <div className={styles.clanBorder}>
                     <div className={styles.clanContainer}>
                         <div className={styles.clanLabel}>Daily Pvp<br/> results  </div>
