@@ -181,7 +181,7 @@ export default function Home() {
 
     const executeTasks = async (allTasks) => {
         const todaysTask = allTasks.find(
-            (task) => task.type === 4 && task.amount === dailyEntries
+            (task) => task.type === 4 && task.amount === (dailyEntries + 1) % 14 || 14
         );
         if (!todaysTask || completedTaskIds.includes(todaysTask.id)) {
             console.log("Задание на текущий день уже выполнено или отсутствует.");
