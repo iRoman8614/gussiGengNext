@@ -141,25 +141,14 @@ export default function Home() {
         return Math.floor(num).toString().replace(/(\d)(?=(\d{3})+$)/g, "$1 ");
     }
 
-    function formatNumberFromEndDot(num) {
-        if (typeof num !== 'number') {
-            return '0';
-        }
-        if (num < 100) {
-            return num.toFixed(2).toString().replace(/(\d)(?=(\d{3})+$)/g, "$1 ");
-        } else {
-            return Math.floor(num).toString().replace(/(\d)(?=(\d{3})+$)/g, "$1 ");
-        }
-    }
-
     const maxWidth = 224;
     const currentWidth = (currentFarmCoins / limit) * maxWidth;
 
     useEffect(() => {
-        const lastPopUpDate = localStorage.getItem("lastPopUpDate");
+        const lastPopUpDate = localStorage.getItem("dailyTaskDate");
         const today = new Date().toISOString().split("T")[0];
         if (lastPopUpDate !== today) {
-            localStorage.setItem("lastPopUpDate", today);
+            localStorage.setItem("dailyTaskDate", today);
             setDailyPopUp(true);
         }
     }, []);
@@ -170,19 +159,14 @@ export default function Home() {
     }, []);
 
     useEffect(() => {
-        const savedDailyEntries = parseInt(localStorage.getItem("dailyEntries") || "0", 10);
-        setPreviousDailyEntries(savedDailyEntries);
-        const today = new Date().toISOString().split("T")[0]
-        const taskExecutedToday = localStorage.getItem("taskExecutedToday");
-        if (dailyEntries !== previousDailyEntries || taskExecutedToday !== today) {
-            localStorage.setItem("dailyEntries", dailyEntries);
-            if (taskExecutedToday !== today) {
-                setDailyPopUp(true);
-                localStorage.setItem("taskExecutedToday", today);
-            }
+        const today = new Date().toISOString().split("T")[0];
+        const dailyTaskDate = localStorage.getItem("dailyTaskDate");
+        if (dailyTaskDate !== today) {
+            localStorage.setItem("dailyTaskDate", today);
+            setDailyPopUp(true);
             loadTasks();
         }
-    }, [dailyEntries, previousDailyEntries]);
+    }, [dailyEntries]);
 
     const loadTasks = async () => {
         try {
@@ -210,7 +194,7 @@ export default function Home() {
         try {
             const response = await axios.post(`/task/execute?taskId=${todaysTask.id}`);
             console.log("Задание выполнено успешно:", response.data);
-            localStorage.setItem("taskExecutedToday", new Date().toISOString().split("T")[0]);
+            localStorage.setItem("dailyTaskDate", new Date().toISOString().split("T")[0]);
         } catch (error) {
             console.error(`Ошибка выполнения задания ${todaysTask.id}:`, error);
         }
