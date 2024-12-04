@@ -13,6 +13,7 @@ import skinData from '@/mock/skinsData'
 import 'swiper/css';
 import 'swiper/css/navigation';
 import styles from '@/styles/Boards.module.scss'
+import axios from "@/utils/axios";
 
 const bg = "/backgrounds/leaderboardBG.png"
 const arrowWhite = "/ArrowWhite.png"
@@ -49,16 +50,17 @@ export default function Page() {
     useEffect(() => {
         const fetchData = async (index) => {
             try {
-                const data = await fetchLeadersData(index);
-                console.log('data fetchLeadersData', data)
-                setLeaderData(data);
+                const response = await axios.get(`/profile/leaders?liga=${index}`);
+                console.log("Fetched data:", response.data); // Логируем данные из ответа
+                setLeaderData(response.data); // Обновляем состояние
             } catch (error) {
                 console.error("Error fetching leaders data:", error);
-                setLeaderData([]);
+                setLeaderData([]); // Обработка ошибки
             }
         };
-        fetchData(activeIndex + 1);
-    }, [activeIndex, fetchLeadersData]);
+        fetchData(activeIndex + 1); // Передаем текущий индекс
+    }, [activeIndex]);
+
 
 
     useEffect(() => {
