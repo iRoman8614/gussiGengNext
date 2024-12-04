@@ -23,6 +23,7 @@ export default function Page() {
     const { groupId, updateContext, liga } = useInit();
     const [activeIndex, setActiveIndex] = useState(0);
     const swiperRef = useRef(null);
+    const [leaderData, setLeaderData] = useState([]);
 
     useEffect(() => {
         setActiveIndex(liga)
@@ -43,7 +44,21 @@ export default function Page() {
     }, [liga]);
 
     const { fetchProfileStats, data: stats } = useProfileStats();
-    const { data: leaderData } = useProfileLeaders(activeIndex + 1);
+    const {fetchLeadersData} = useProfileLeaders(activeIndex+1)
+
+    useEffect(() => {
+        const fetchData = async (index) => {
+            try {
+                const data = await fetchLeadersData(index);
+                setLeaderData(data);
+            } catch (error) {
+                console.error("Error fetching leaders data:", error);
+                setLeaderData([]);
+            }
+        };
+        fetchData(activeIndex + 1);
+    }, [activeIndex, fetchLeadersData]);
+
 
     useEffect(() => {
         fetchProfileStats()

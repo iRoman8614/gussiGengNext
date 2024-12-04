@@ -177,27 +177,27 @@ export const useProfileLeaders = (liga) => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const cache = useRef({});
+    const fetchLeadersData = async (liga) => {
+        if (cache.current[liga]) {
+            setData(cache.current[liga]);
+            setLoading(false);
+            return;
+        }
+        setLoading(true);
+        try {
+            const response = await instance.get(`/profile/leaders?liga=${liga}`);
+            cache.current[liga] = response.data;
+            setData(response.data);
+        } catch (err) {
+            setError(err);
+        } finally {
+            setLoading(false);
+        }
+    };
     useEffect(() => {
-        const fetchLeadersData = async () => {
-            if (cache.current[liga]) {
-                setData(cache.current[liga]);
-                setLoading(false);
-                return;
-            }
-            setLoading(true);
-            try {
-                const response = await instance.get(`/profile/leaders?liga=${liga}`);
-                cache.current[liga] = response.data;
-                setData(response.data);
-            } catch (err) {
-                setError(err);
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchLeadersData();
+        fetchLeadersData(liga);
     }, [liga]);
-    return { data, loading, error };
+    return { data, loading, error, fetchLeadersData };
 };
 
 // Хук для /profile/my-invitees
