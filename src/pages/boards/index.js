@@ -45,23 +45,20 @@ export default function Page() {
     }, [liga]);
 
     const { fetchProfileStats, data: stats } = useProfileStats();
-    const {fetchLeadersData} = useProfileLeaders(activeIndex+1)
 
     useEffect(() => {
         const fetchData = async (index) => {
             try {
                 const response = await axios.get(`/profile/leaders?liga=${index}`);
-                console.log("Fetched data:", response.data); // Логируем данные из ответа
-                setLeaderData(response.data); // Обновляем состояние
+                console.log("Fetched data:", response.data);
+                setLeaderData(response.data);
             } catch (error) {
                 console.error("Error fetching leaders data:", error);
-                setLeaderData([]); // Обработка ошибки
+                setLeaderData([]);
             }
         };
-        fetchData(activeIndex + 1); // Передаем текущий индекс
+        fetchData(activeIndex + 1);
     }, [activeIndex]);
-
-
 
     useEffect(() => {
         fetchProfileStats()
