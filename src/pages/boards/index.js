@@ -50,6 +50,7 @@ export default function Page() {
         const fetchData = async (index) => {
             try {
                 const data = await fetchLeadersData(index);
+                console.log('data fetchLeadersData', data)
                 setLeaderData(data);
             } catch (error) {
                 console.error("Error fetching leaders data:", error);
