@@ -26,24 +26,24 @@ export default function Page() {
     const swiperRef = useRef(null);
     const [leaderData, setLeaderData] = useState([]);
 
-    useEffect(() => {
-        setActiveIndex(liga)
-        fetchData(liga + 1);
-    }, [liga])
+    // useEffect(() => {
+    //     setActiveIndex(liga)
+    //     fetchData(liga + 1);
+    // }, [liga])
 
-    useEffect(() => {
-        if (swiperRef.current) {
-            let currentIndex = swiperRef.current.realIndex;
-            const targetIndex = liga;
-            if (currentIndex !== targetIndex) {
-                const steps = (targetIndex - currentIndex + skinData[groupId].length) % skinData[groupId].length;
-                for (let i = 0; i < steps; i++) {
-                    swiperRef.current.slideNext(0);
-                }
-            }
-            setActiveIndex(targetIndex);
-        }
-    }, [liga]);
+    // useEffect(() => {
+    //     if (swiperRef.current) {
+    //         let currentIndex = swiperRef.current.realIndex;
+    //         const targetIndex = liga;
+    //         if (currentIndex !== targetIndex) {
+    //             const steps = (targetIndex - currentIndex + skinData[groupId].length) % skinData[groupId].length;
+    //             for (let i = 0; i < steps; i++) {
+    //                 swiperRef.current.slideNext(0);
+    //             }
+    //         }
+    //         setActiveIndex(targetIndex);
+    //     }
+    // }, [liga]);
 
     const { fetchProfileStats, data: stats } = useProfileStats();
 
