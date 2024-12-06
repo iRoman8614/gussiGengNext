@@ -349,7 +349,6 @@
 
 .dilybtn {
   font-family: 'Pricedown';
-  position: absolute;
   border-radius: 11px;
   border: none;
   cursor: pointer;
@@ -358,13 +357,12 @@
   stroke-width: 2px;
   stroke: rgba(0, 0, 0, 0.39);
   box-shadow: 0 5px 0 0 #69470d;
-  z-index: 120;
-  bottom: 20px;
-  transform: translate(-50%, -50%);
   height: fit-content;
+  width: fit-content;
   font-size: auto-clamp(30, 50);
   color: rgba(255,255,255);
-  padding: 3px 30px;
+  padding: 3px 15px;
+  margin-top: 15px;
 
   animation: pulse 3s infinite;
 }
