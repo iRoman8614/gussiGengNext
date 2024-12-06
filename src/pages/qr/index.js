@@ -11,9 +11,9 @@ export default function QrPage() {
 
     return (
         <div className={styles.placeholder}>
-            <h2>{t('qr')}</h2>
+            <div>{t('qr')}</div>
             <Image className={styles.qr} src={qr} alt="QR Code" width={200} height={200} priority />
-            <h2>@gwtestbot_bot</h2>
+            <div>@gwtestbot_bot</div>
         </div>
     );
 }

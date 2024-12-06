@@ -201,9 +201,9 @@ export default function Page() {
                     </div>}
                     {activeTab === 2 && <div className={styles.infoContainer}>
                         <div className={styles.listInfo}>
-                            <div className={styles.hintLabel}>-{t('friends.referral.each')} <a>{t('friends.referral.referral')}</a> {t('friends.referral.gives')} <a>+1 PvP pass.</a></div>
-                            <div className={styles.hintLabel}>-<a>{t('friends.passes.passes')}</a> – {t('friends.passes.allows')} <a>{t('friends.passes.extra')}</a>{t('friends.passes.cooldown')}</div>
-                            <div className={styles.hintLabel}>-{t('friends.premium.if')} <a>{t('friends.premium.tgp')}</a> {t('friends.premium.you')} <a>{t('friends.premium.passes')}</a>.</div>
+                            <div className={styles.hintLabel}>{t('friends.referral.each')} <a>{t('friends.referral.referral')}</a> {t('friends.referral.gives')} <a>+1 PvP pass.</a></div>
+                            <div className={styles.hintLabel}><a>{t('friends.passes.passes')}</a> – {t('friends.passes.allows')} <a>{t('friends.passes.extra')}</a>{t('friends.passes.cooldown')}</div>
+                            <div className={styles.hintLabel}>{t('friends.premium.if')} <a>{t('friends.premium.tgp')}</a> {t('friends.premium.you')} <a>{t('friends.premium.passes')}</a>.</div>
                             <div className={styles.hintLabel}>{t('friends.score.referrals')} <a>{t('friends.score.score')} </a> <img src={money} alt={''} width={15} height={15} /> {t('friends.score.for')} <a>{t('friends.score.signing')}</a> {t('friends.score.link')}</div>
                             <div className={styles.rewards}>
                                 <div className={styles.title}>{t('friends.rewards')}</div>

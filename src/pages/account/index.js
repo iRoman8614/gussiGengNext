@@ -132,16 +132,18 @@ export default function Page() {
     return(
         <div className={styles.root}>
             <div className={styles.container}>
-                <div className={styles.seasonBlock}>
+                {activeTab === 1 && <div className={styles.seasonBlock}>
                     <div className={styles.season}>
                         {t('account.season')}
                         <div className={styles.nickname}>{userName}</div>
                     </div>
                     <div className={styles.avatarContainer}>
-                        <Image className={styles.logo} src={teamData[groupId]?.logo} alt={''} width={40} height={40} loading="lazy" />
-                        <Image className={styles.character} src={skinData[groupId]?.[liga]?.icon} alt={''} width={100} height={178} loading="lazy" />
+                        <Image className={styles.logo} src={teamData[groupId]?.logo} alt={''} width={40} height={40}
+                               loading="lazy"/>
+                        <Image className={styles.character} src={skinData[groupId]?.[liga]?.icon} alt={''} width={100}
+                               height={178} loading="lazy"/>
                     </div>
-                </div>
+                </div>}
                 <div className={styles.block}>
                     <div className={styles.buttonSet}>
                         <div className={styles.folderBtnStats}
