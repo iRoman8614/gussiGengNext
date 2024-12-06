@@ -173,7 +173,71 @@
 
 .faq {
   position: absolute;
-  z-index: 100000;
+  z-index: 1000;
   bottom: 15%;
   right: 5%;
+}
+
+.clanPopUp {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 10000;
+  top: 0;
+  left: 0;
+  background: #15193E;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.clanBorder {
+  width: auto-clamp(230, 275);
+  height: auto-height(340, 390);
+  border-radius: 30px;
+  background: linear-gradient(to right, #38246f 0%, #4f5e85 50%, #4c3981 100%);
+  padding: 8px;
+}
+
+.clanContainer {
+  background: radial-gradient(67% 67.04% at 50% 50%, rgb(56, 66, 164) 0%, rgb(21, 25, 62) 100%);
+  border-radius: 22px;
+  width: auto;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  color: #FFFFFF;
+  text-align: center;
+}
+
+.clanLabel {
+  font-size: auto-clamp(22, 27);
+
+  a {
+    font-size: auto-clamp(36, 48);
+  }
+}
+
+.clanName {
+  font-size: auto-clamp(36, 48);
+}
+
+.popUpClose {
+  position: absolute;
+  z-index: 13;
+  top: 15px;
+  right: 15px;
+  border-radius: 11px;
+  background: #362567;
+  border: 1px solid #685ED4;
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+  width: 40px;
+  height: 40px;
+  font-size: 30px;
+  padding: 5px;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.65);
+  margin-left: auto;
 }

@@ -36,8 +36,6 @@ export default function Home() {
     const [startFarmTime, setStartFarmTime] = useState(Date.now());
     const [isClaimClicked, setIsClaimClicked] = useState(false);
     const [gameBonus, setGameBonus] = useState(false)
-    const [clanId, setClanId] = useState(null)
-    const [clanPopUp, setClanPopUp] = useState(false)
     const [dailyPopUp, setDailyPopUp] = useState(false);
     const [tasks, setTasks] = useState([]);
     const [completedTaskIds, setCompletedTaskIds] = useState([]);
@@ -65,22 +63,6 @@ export default function Home() {
         }
     }, [balance, startFarmTime, isClaimClicked, coins]);
 
-    useEffect(() => {
-        const lastClan = localStorage.getItem('dailyClan');
-        const today = new Date().toISOString().split('T')[0];
-        if (lastClan !== today) {
-            axios.get('/group/last')
-                .then(response => {
-                    const { groupId } = response.data;
-                    setClanId(groupId);
-                    setClanPopUp(true);
-                    localStorage.setItem('dailyClan', today);
-                })
-                .catch(error => {
-                    console.error('Ошибка при выполнении запроса:', error);
-                });
-        }
-    }, []);
 
     useEffect(() => {
         if (typeof window !== "undefined") {
@@ -279,18 +261,6 @@ export default function Home() {
                     </div>
                 </div>
             )}
-            {clanPopUp && <div className={styles.clanPopUp}>
-                <div className={styles.popUpClose} onClick={() => setClanPopUp(false)}>x</div>
-                <div className={styles.clanBorder}>
-                    <div className={styles.clanContainer}>
-                        <div className={styles.clanLabel}>{t('main.DailyPvp')}<br/> {t('main.results')}</div>
-                        <div className={styles.clanName}>{teamData[clanId]?.Name}</div>
-                        <Image src={teamData[clanId]?.logo} alt={''} width={120} height={120} lazy />
-                        <div className={styles.clanLabel}>{t('main.are')} <a>{t('main.OG')}</a>{t('main.today')}</div>
-                        <div className={styles.clanName}>+50000 <Image src={money} alt="" width={25} height={25} /></div>
-                    </div>
-                </div>
-            </div>}
         </>
     );
 }

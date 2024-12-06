@@ -9,11 +9,14 @@ import {IconButton} from "@/components/buttons/icon-btn/IconButton";
 import {useLastGames, useProfileStats} from "@/utils/api";
 
 import styles from '@/styles/Lobby.module.scss'
+import axios from "@/utils/axios";
+import teamData from "@/mock/teamsData";
 
 const bg = '/backgrounds/Lobby.png'
 const hands = '/main-buttons/hand2.png'
 const rich = '/main-buttons/rich.png'
 const FAQ = '/main-buttons/pvpfaq.png'
+const money = '/money.png'
 
 const gameIconsAssets = [
     '/game-icons/animation_hand_pap.gif',
@@ -36,6 +39,8 @@ export default function Page() {
     const [remainingTime, setRemainingTime] = useState(null);
     const [timerActive, setTimerActive] = useState(false);
     const [sessionsCount, setSessionsCount] = useState(0)
+    const [clanId, setClanId] = useState(null)
+    const [clanPopUp, setClanPopUp] = useState(false)
 
     const router = useRouter();
 
@@ -87,6 +92,23 @@ export default function Page() {
             }
         }
     }, [lastGamesData]);
+
+    useEffect(() => {
+        const lastClan = localStorage.getItem('dailyClan');
+        const today = new Date().toISOString().split('T')[0];
+        if (lastClan !== today) {
+            axios.get('/group/last')
+                .then(response => {
+                    const { groupId } = response.data;
+                    setClanId(groupId);
+                    setClanPopUp(true);
+                    localStorage.setItem('dailyClan', today);
+                })
+                .catch(error => {
+                    console.error('Ошибка при выполнении запроса:', error);
+                });
+        }
+    }, []);
 
     const handlePvpClick = async () => {
         if (window.Telegram?.WebApp?.HapticFeedback) {
@@ -213,6 +235,18 @@ export default function Page() {
                     <IconButton image={FAQ} alt={'home'} title={t('PVP.faq')} onClick={() => {router.push('/faq/pvp')}} />
                 </div>
             </div>
+            {clanPopUp && <div className={styles.clanPopUp}>
+                <div className={styles.popUpClose} onClick={() => setClanPopUp(false)}>x</div>
+                <div className={styles.clanBorder}>
+                    <div className={styles.clanContainer}>
+                        <div className={styles.clanLabel}>{t('main.DailyPvp')}<br/> {t('main.results')}</div>
+                        <div className={styles.clanName}>{teamData[clanId]?.Name}</div>
+                        <Image src={teamData[clanId]?.logo} alt={''} width={120} height={120} lazy />
+                        <div className={styles.clanLabel}>{t('main.are')} <a>{t('main.OG')}</a>{t('main.today')}</div>
+                        <div className={styles.clanName}>+50000 <Image src={money} alt="" width={25} height={25} /></div>
+                    </div>
+                </div>
+            </div>}
         </>
 
     );
