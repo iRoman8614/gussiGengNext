@@ -197,7 +197,8 @@ export default function Page() {
                 .map(task => ({
                     ...task,
                     completed: completedTasks.includes(task.id),
-                }));
+                }))
+                .sort((a, b) => a.amount - b.amount);
             setDailyRewards(dailyTasks);
             const lastCompletedTaskIdType1 = Math.max(0, ...tasks.filter(task => task.type === 1 && completedTasks.includes(task.id)).map(task => task.id));
             const type3Tasks = tasks

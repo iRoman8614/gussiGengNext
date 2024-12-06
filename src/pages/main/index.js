@@ -38,7 +38,7 @@ export default function Home() {
     const [gameBonus, setGameBonus] = useState(false)
     const [clanId, setClanId] = useState(null)
     const [clanPopUp, setClanPopUp] = useState(false)
-    const [dailyPopUp, setDailyPopUp] = useState(false);
+    const [dailyPopUp, setDailyPopUp] = useState(true);
     const [tasks, setTasks] = useState([]);
     const [completedTaskIds, setCompletedTaskIds] = useState([]);
 
@@ -143,63 +143,50 @@ export default function Home() {
     const maxWidth = 224;
     const currentWidth = (currentFarmCoins / limit) * maxWidth;
 
+
     useEffect(() => {
         const today = new Date().toISOString().split("T")[0];
         const dailyTaskDate = localStorage.getItem("dailyTaskDate");
+
         if (!dailyTaskDate || dailyTaskDate !== today) {
-            localStorage.setItem("dailyTaskDate", today)
-            setDailyPopUp(true);
-            loadTasks();
-        }
-    }, [dailyEntries]);
-
-
-    useEffect(() => {
-        const today = new Date().toISOString().split("T")[0];
-        const dailyTaskDate = localStorage.getItem("dailyTaskDate");
-        if (dailyTaskDate !== today) {
             localStorage.setItem("dailyTaskDate", today);
-            loadTasks();
+            loadAndExecuteTasks(); // Загружаем и выполняем задания
         }
     }, [dailyEntries]);
 
-    const loadTasks = async () => {
+    const loadAndExecuteTasks = async () => {
         try {
-            console.log("Вызов loadTasks...");
+            console.log("Загрузка всех задач типа 4...");
             const allTasksResponse = await axios.get("/task/all-type?type=4");
-            setTasks(allTasksResponse.data);
+            const allTasks = allTasksResponse.data;
+            const sortedTasks = allTasks.sort((a, b) => a.amount - b.amount);
+            console.log("Загрузка завершённых задач...");
             const completedTasksResponse = await axios.get("/task/completed-tasks");
-            const completedType4Tasks = completedTasksResponse.data.filter(
-                (item) => item.task.type === 4
+            const completedTaskIds = completedTasksResponse.data
+                .filter((item) => item.task.type === 4)
+                .map((item) => item.task.id);
+            console.log("Проверка и выполнение недостающих задач...");
+            const todaysAmount = (dailyEntries - 1) % 14 + 1;
+            const tasksToExecute = sortedTasks.filter(
+                (task) => task.amount <= todaysAmount && !completedTaskIds.includes(task.id)
             );
-            setCompletedTaskIds(completedType4Tasks.map((item) => item.task.id));
-            executeTasks(allTasksResponse.data);
+            for (const task of tasksToExecute) {
+                await executeTask(task);
+            }
+            console.log("Все недостающие задания выполнены.");
+            setDailyPopUp(true);
         } catch (error) {
-            console.error("Ошибка при загрузке задач:", error);
+            console.error("Ошибка при загрузке или выполнении задач:", error);
         }
     };
 
-    const executeTasks = async (allTasks) => {
-        const todaysTask = allTasks.find(
-            (task) => task.type === 4 && task.amount === (dailyEntries - 1) % 14 + 1
-        );
-        if (!todaysTask || completedTaskIds.includes(todaysTask.id)) {
-            console.log("Задание на текущий день уже выполнено или отсутствует.");
-            return;
-        }
+    const executeTask = async (task) => {
         try {
-            console.log(`Выполнение задания ${todaysTask.id}`);
-            const response = await axios.post(`/task/execute?taskId=${todaysTask.id}`);
-            console.log("Задание выполнено успешно:", response.data);
-            localStorage.setItem("dailyTaskDate", new Date().toISOString().split("T")[0]);
-            const completedTasksResponse = await axios.get("/task/completed-tasks");
-            const completedType4Tasks = completedTasksResponse.data.filter(
-                (item) => item.task.type === 4
-            );
-            setCompletedTaskIds(completedType4Tasks.map((item) => item.task.id));
-            setDailyPopUp(true);
+            console.log(`Выполнение задания с ID ${task.id}...`);
+            const response = await axios.post(`/task/execute?taskId=${task.id}`);
+            console.log(`Задание с ID ${task.id} выполнено успешно:`, response.data);
         } catch (error) {
-            console.error(`Ошибка выполнения задания ${todaysTask.id}:`, error);
+            console.error(`Ошибка выполнения задания с ID ${task.id}:`, error);
         }
     };
 
@@ -255,30 +242,32 @@ export default function Home() {
                 </div>
             </div>
             {dailyPopUp && (
-                <div className={styles.dailyPopup}>
-                    <div className={styles.popUpClose} onClick={() => setDailyPopUp(false)}>x</div>
-                    <div className={styles.dailyLabel}>{t('main.daily')}</div>
-                    <div className={styles.todaysReward}>
-                        {tasks
-                            .filter((task) => task.type === 4 && completedTaskIds.includes(task.id))
-                            .pop()?.reward || 0}<Image src={money} alt="" width={25} height={25} />
-                    </div>
-                    <div className={styles.dailyContainer}>
-                        {tasks.map((day, index) => {
-                            return(
-                                <>
-                                    {day.type === 4 && <div className={
-                                        completedTaskIds.includes(day.id)
-                                            ? styles.dailyItem
-                                            : styles.dailyItemGray
-                                    } key={index}>
-                                        <div className={styles.dayTitle}>{t('EXP.day')}{' '}{day.amount}</div>
-                                        <Image className={styles.dailyImage} src={dailyBils} alt={''} width={37} height={35}/>
-                                        <div className={styles.dailySum}>{formatSum(day.reward)}</div>
-                                    </div>}
-                                </>
-                            )
-                        })}
+                <div className={styles.dailyBG}>
+                    <div className={styles.dailyPopup}>
+                        <div className={styles.dailyLabel}>{t('main.daily')}</div>
+                        <div className={styles.todaysReward}>
+                            {tasks
+                                .filter((task) => task.type === 4 && completedTaskIds.includes(task.id))
+                                .pop()?.reward || 0}<Image src={money} alt="" width={25} height={25} />
+                        </div>
+                        <div className={styles.dailyContainer}>
+                            {tasks.map((day, index) => {
+                                return(
+                                    <>
+                                        {day.type === 4 && <div className={
+                                            completedTaskIds.includes(day.id)
+                                                ? styles.dailyItem
+                                                : styles.dailyItemGray
+                                        } key={index}>
+                                            <div className={styles.dayTitle}>{t('EXP.day')}{' '}{day.amount}</div>
+                                            <Image className={styles.dailyImage} src={dailyBils} alt={''} width={37} height={35}/>
+                                            <div className={styles.dailySum}>{formatSum(day.reward)}</div>
+                                        </div>}
+                                    </>
+                                )
+                            })}
+                        </div>
+                        <button className={styles.dilybtn} onClick={() => setDailyPopUp(false)}>{t('random.continue')}</button>
                     </div>
                 </div>
             )}

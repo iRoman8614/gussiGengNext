@@ -3,13 +3,12 @@ import Image from "next/image";
 import {useRouter} from "next/router";
 import {useTranslation} from "react-i18next";
 import {useInit} from "@/context/InitContext";
+import {FaqIconButton} from "@/components/buttons/icon-btn/FaqIconButton";
+import {CollectBar} from "@/components/bars/CollectBar";
 
 import gangs from '@/mock/teamsData'
 
 import styles from '@/styles/Random.module.scss'
-import {BigButton} from "@/components/buttons/big-btn/BigButton";
-import {FaqIconButton} from "@/components/buttons/icon-btn/FaqIconButton";
-import {CollectBar} from "@/components/bars/CollectBar";
 
 const bg = '/backgrounds/randomBG.png'
 const person = '/random/person.png'
@@ -211,7 +210,7 @@ export default function Page() {
             </div>
             <Image src={hand} className={styles.hand} width={450} height={1000} alt={''} priority />
             <ShownCard state={showCard} groupId={groupId} />
-            {showFrase === 2 && <div className={styles.btn} onClick={showSmallFaq}>{t('random.continue')}</div>}
+            {showFrase === 2 && <button className={styles.btn} onClick={showSmallFaq}>{t('random.continue')}</button>}
             {showFAQ && <div className={styles.shortFAQ}>
                 <div className={styles.slide1}>
                     <div className={styles.item12}><FaqIconButton image={hands} alt={'pvp'} title={t('main.pvp')} big={true}/></div>
