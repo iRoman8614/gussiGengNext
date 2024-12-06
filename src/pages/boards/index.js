@@ -4,7 +4,7 @@ import {useRouter} from "next/router";
 import { Navigation, Controller } from 'swiper/modules';
 import {useTranslation} from "react-i18next";
 import {useInit} from "@/context/InitContext";
-import {useProfileStats, useProfileLeaders} from "@/utils/api";
+import {useProfileStats} from "@/utils/api";
 import {ListItem} from "@/components/ListItem/ListItem";
 import { Swiper, SwiperSlide } from 'swiper/react';
 
@@ -28,6 +28,7 @@ export default function Page() {
 
     useEffect(() => {
         setActiveIndex(liga)
+        fetchData(liga + 1);
     }, [liga])
 
     useEffect(() => {
@@ -46,17 +47,18 @@ export default function Page() {
 
     const { fetchProfileStats, data: stats } = useProfileStats();
 
+    const fetchData = async (index) => {
+        try {
+            const response = await axios.get(`/profile/leaders?liga=${index}`);
+            console.log("Fetched data:", response.data);
+            setLeaderData(response.data);
+        } catch (error) {
+            console.error("Error fetching leaders data:", error);
+            setLeaderData([]);
+        }
+    };
+
     useEffect(() => {
-        const fetchData = async (index) => {
-            try {
-                const response = await axios.get(`/profile/leaders?liga=${index}`);
-                console.log("Fetched data:", response.data);
-                setLeaderData(response.data);
-            } catch (error) {
-                console.error("Error fetching leaders data:", error);
-                setLeaderData([]);
-            }
-        };
         fetchData(activeIndex + 1);
     }, [activeIndex]);
 
