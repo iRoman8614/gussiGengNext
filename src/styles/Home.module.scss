@@ -361,11 +361,10 @@
   z-index: 120;
   bottom: 20px;
   transform: translate(-50%, -50%);
-  height: 70px;
-  font-size: 50px;
+  height: fit-content;
+  font-size: auto-clamp(30, 50);
   color: rgba(255,255,255);
   padding: 3px 30px;
 
   animation: pulse 3s infinite;
-  animation-delay: 2s;
 }
