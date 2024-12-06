@@ -92,7 +92,7 @@ export default function PvpBotPage() {
         </div>,
         <div className={styles.slideContent2} key={'slideContent2'}>
             <div>{t('PVP.this')} {t('PVP.your')} <a className={styles.yellow}>{t('PVP.opp')}</a>{t('PVP.dot')}</div>
-            <div>{t('PVP.this')} <a className={styles.green}>{t('PVP.you')}</a>{t('PVP.dot')}</div>
+            <div>{t('PVP.this')} <a className={styles.green}>{t('PVP.you')}</a>{t('PVP.dot')} {t('PVP.finish')}</div>
         </div>,
         <div className={styles.slideContent3} key={'slideContent3'}>
             <div><a className={styles.green}>{t('PVP.hp')}</a></div>

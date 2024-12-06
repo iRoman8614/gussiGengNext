@@ -49,19 +49,19 @@
   },
   "FAQ": {
     "1": {
-      "current": "This is your current",
+      "current": "Your current",
       "balance": "balance.",
-      "farmPool": "This is your limited",
+      "farmPool": "Your limited",
       "pool": "farm pool.",
-      "end": ""
+      "end": "Simple, huh?"
     },
     "2": {
-      "this": "This is your",
+      "this": "Your",
       "loot": "LOOT",
       "btn": " button.",
-      "use": "Use it to claim money from the ",
-      "pool": "farm pool ",
-      "balance": " and add it to your current balance."
+      "use": "Grab your dough from the ",
+      "pool": "farm pool",
+      "balance": " to your balance. "
     },
     "3": {
       "account": "Account",
@@ -73,31 +73,31 @@
     },
     "4": {
       "boards": "Leaderboard",
-      "check": "check out your rank and leaderboard standings.",
+      "check": "check out your place in the food chain.",
       "wallet": "Wallet",
       "link": "link your cryptowallet (soon)."
     },
     "5": {
       "pvp": "PvP ",
       "battle": "- battle",
-      "way": "your way to the top of the",
+      "way": "to the top of the ",
       "ranks": "leaderboard",
       "dot": "",
-      "test": "or test your skills for",
+      "test": " or to the bottom. Get ready to fight for ",
       "ton": "crypto",
       "soon": "(soon)."
     },
     "6": {
       "exp": "EXP ",
-      "upgrade": "- upgrade your farming rate and farming limit.",
+      "upgrade": "- upgrade your farming rate and limit, or stay weak.",
       "items": "Items",
       "soon": " - coming soon."
     },
     "7": {
       "friends": "Friends",
-      "invite": " - invite your friends and gain bonuses.",
+      "invite": " - invite and gain bonuses, or be alone.",
       "tasks": "Tasks",
-      "complete": " - complete quests and earn more."
+      "complete": " - complete, earn more, or die."
     },
     "8": {
       "bags": "AND DON'T FORGET TO PACK YOUR BAGS IN THE FUTURE, BRO!"
@@ -176,12 +176,13 @@
   "PVP": {
     "battle": "battle",
     "left": "games left",
-    "skill": "Welcome to Gang Wars PvP battle mode! Let's get you battle-ready!",
-    "opp": "opponent",
+    "skill": "Welcome to Gang Wars PvP battle mode! Listen up!",
+    "opp": "enemy",
     "dot": ".",
-    "this": "This is",
-    "you": "you",
-    "your": "your",
+    "this": "",
+    "you": "You",
+    "your": "Your",
+    "finish": "Finish them!",
     "rounds": "round",
     "hp": "Your HP",
     "opphp": "Opponents HP",
