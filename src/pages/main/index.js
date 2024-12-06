@@ -150,7 +150,7 @@ export default function Home() {
 
         if (!dailyTaskDate || dailyTaskDate !== today) {
             localStorage.setItem("dailyTaskDate", today);
-            loadAndExecuteTasks(); // Загружаем и выполняем задания
+            loadAndExecuteTasks();
         }
     }, [dailyEntries]);
 
@@ -160,9 +160,10 @@ export default function Home() {
             const allTasksResponse = await axios.get("/task/all-type?type=4");
             const allTasks = allTasksResponse.data;
             const sortedTasks = allTasks.sort((a, b) => a.amount - b.amount);
+            setTasks(sortedTasks);
             console.log("Загрузка завершённых задач...");
             const completedTasksResponse = await axios.get("/task/completed-tasks");
-            const completedTaskIds = completedTasksResponse.data
+            let completedTaskIds = completedTasksResponse.data
                 .filter((item) => item.task.type === 4)
                 .map((item) => item.task.id);
             console.log("Проверка и выполнение недостающих задач...");
@@ -173,12 +174,19 @@ export default function Home() {
             for (const task of tasksToExecute) {
                 await executeTask(task);
             }
+            console.log("Обновление списка завершённых задач...");
+            const updatedCompletedTasksResponse = await axios.get("/task/completed-tasks");
+            const updatedCompletedTaskIds = updatedCompletedTasksResponse.data
+                .filter((item) => item.task.type === 4)
+                .map((item) => item.task.id);
+            setCompletedTaskIds(updatedCompletedTaskIds);
             console.log("Все недостающие задания выполнены.");
             setDailyPopUp(true);
         } catch (error) {
             console.error("Ошибка при загрузке или выполнении задач:", error);
         }
     };
+
 
     const executeTask = async (task) => {
         try {
