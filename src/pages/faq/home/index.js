@@ -74,8 +74,8 @@ export default function Home() {
 
     const slideContent = [
         <div className={styles.slideContent1} key={'slideContent1'}>
-            <div>{t('FAQ.1.current')} <br/><a className={styles.yellow}>{t('FAQ.1.balance')}</a></div>
-            <div>{t('FAQ.1.farmPool')} <br/><a className={styles.yellow}> {t('FAQ.1.pool')}</a> {t('FAQ.1.end')}</div>
+            <div>{t('FAQ.1.current')} <a className={styles.yellow}>{t('FAQ.1.balance')}</a></div>
+            <div>{t('FAQ.1.farmPool')} <a className={styles.yellow}> {t('FAQ.1.pool')}</a> {t('FAQ.1.end')}</div>
         </div>,
         <div className={styles.slideContent2} key={'slideContent2'}>
             {t('FAQ.2.this')} <a className={styles.yellow}>{t('FAQ.2.loot')}</a>{t('FAQ.2.btn')}<br/>
