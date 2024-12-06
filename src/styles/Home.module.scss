@@ -265,12 +265,12 @@
 .dailyPopup {
   position: absolute;
   width: 100%;
-  height: 66%;
+  height: 75%;
   z-index: 10;
   bottom: 0;
   left: 0;
   background: #15193E;
-  padding: auto-clamp(5, 40);
+  padding: auto-clamp(5, 20);
   display: flex;
   color: #FFFFFF;
   flex-direction: column;
@@ -293,12 +293,12 @@
 
 .dailyLabel {
   font-size: auto-clamp(30, 40);
-  margin-bottom: auto-clamp(5, 20);
+  margin-bottom: auto-clamp(5, 15);
 }
 
 .todaysReward {
   font-size: auto-clamp(38, 52);
-  margin-bottom: auto-clamp(5, 20);
+  margin-bottom: auto-clamp(5, 15);
 }
 
 .dailyContainer {
