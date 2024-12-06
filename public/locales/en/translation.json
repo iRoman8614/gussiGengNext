@@ -151,7 +151,7 @@
       "passes": "PvP pass",
       "allows": "allows",
       "extra": "5 extra pvp games",
-      "cooldown": ", bypassing the 6-hour cooldown"
+      "cooldown": ", bypassing the 6-hour cooldown."
     },
     "premium": {
       "if": "If a referral has",
