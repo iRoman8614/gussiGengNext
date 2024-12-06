@@ -398,6 +398,20 @@
   padding: 3px 5px;
 }
 
+.dailyItemHidden {
+  background: #685ED4;
+  border-radius: 4px;
+  color: #FFFFFF;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: auto-clamp(50 ,80);
+  height: auto-clamp(50 ,80);
+  padding: 3px 5px;
+  filter: grayscale(100);
+}
+
 .dayTitle {
   font-size: auto-clamp(12, 20) !important;
   opacity: 0.6;
