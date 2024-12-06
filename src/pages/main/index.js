@@ -151,6 +151,7 @@ export default function Home() {
         if (!dailyTaskDate || dailyTaskDate !== today) {
             localStorage.setItem("dailyTaskDate", today);
             loadAndExecuteTasks();
+            setDailyPopUp(true);
         }
     }, [dailyEntries]);
 
@@ -181,7 +182,6 @@ export default function Home() {
                 .map((item) => item.task.id);
             setCompletedTaskIds(updatedCompletedTaskIds);
             console.log("Все недостающие задания выполнены.");
-            setDailyPopUp(true);
         } catch (error) {
             console.error("Ошибка при загрузке или выполнении задач:", error);
         }
