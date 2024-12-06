@@ -265,12 +265,12 @@
 .dailyPopup {
   position: absolute;
   width: 100%;
-  height: 75%;
+  height: 80%;
   z-index: 10;
   bottom: 0;
   left: 0;
   background: #15193E;
-  padding: auto-clamp(5, 20);
+  padding: 15px 40px;
   display: flex;
   color: #FFFFFF;
   flex-direction: column;
@@ -293,16 +293,17 @@
 
 .dailyLabel {
   font-size: auto-clamp(30, 40);
-  margin-bottom: auto-clamp(5, 15);
+  margin-bottom: 5px;
 }
 
 .todaysReward {
   font-size: auto-clamp(38, 52);
-  margin-bottom: auto-clamp(5, 15);
+  margin-bottom: 5px;
 }
 
 .dailyContainer {
-  width: 100%;
+  width: fit-content;
+  height: fit-content;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   justify-items: center;
@@ -320,8 +321,8 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  width: auto-clamp(50 ,80);
-  height: auto-clamp(50 ,80);
+  width: auto-clamp(40 ,60);
+  height: auto-clamp(40 ,60);
   padding: 3px 5px;
 }
 
@@ -330,13 +331,13 @@
 }
 
 .dayTitle {
-  font-size: auto-clamp(12, 20) !important;
+  font-size: auto-clamp(10, 18) !important;
   opacity: 0.6;
 }
 
 .dailyImage {
-  width: auto-clamp(20, 35);
-  height: auto-clamp(20, 35);
+  width: auto-clamp(15, 30);
+  height: auto-clamp(15, 30);
 }
 
 .dailySum {
