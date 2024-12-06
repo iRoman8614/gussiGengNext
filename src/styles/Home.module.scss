@@ -321,8 +321,8 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  width: auto-clamp(40 ,60);
-  height: auto-clamp(40 ,60);
+  width: auto-clamp(50 ,70);
+  height: auto-clamp(50 ,70);
   padding: 3px 5px;
 }
 
@@ -367,4 +367,5 @@
   padding: 3px 30px;
 
   animation: pulse 3s infinite;
+  animation-delay: 2s;
 }
