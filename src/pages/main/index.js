@@ -231,7 +231,7 @@ export default function Home() {
                     <div className={styles.totalText}>{formatNumber(balance, 12)}{' '}<Image src={money} alt={''} width={21} height={21} /></div>
                 </div>
                 <div className={styles.item6}>
-                    <IconButton image={wallet} alt={'wallet'} title={t('main.wallet')} hidden={true} onClick={() => {router.push('/main')}}/>
+                    <IconButton image={wallet} alt={'wallet'} title={t('main.wallet')} hidden={true} onClick={() => {router.push('/getRandom')}}/>
                 </div>
                 <div className={styles.item7}>
                     <Image width={1000} height={1000} className={styles.char} alt={'character'} src={skinData[groupId]?.[liga]?.icon} loading="lazy"/>

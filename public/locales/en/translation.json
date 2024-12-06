@@ -148,13 +148,13 @@
       "gives": "gives you"
     },
     "passes": {
-      "passes": "PvP passes",
+      "passes": "PvP pass",
       "allows": "allows",
       "extra": "5 extra pvp games",
       "cooldown": ", bypassing the 6-hour cooldown"
     },
     "premium": {
-      "if": "If the referral has",
+      "if": "If a referral has",
       "tgp": "Telegram premium",
       "you": "you get",
       "passes": "+2 pvp passes"
