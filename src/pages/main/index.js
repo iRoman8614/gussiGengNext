@@ -38,7 +38,7 @@ export default function Home() {
     const [gameBonus, setGameBonus] = useState(false)
     const [clanId, setClanId] = useState(null)
     const [clanPopUp, setClanPopUp] = useState(false)
-    const [dailyPopUp, setDailyPopUp] = useState(true);
+    const [dailyPopUp, setDailyPopUp] = useState(false);
     const [tasks, setTasks] = useState([]);
     const [completedTaskIds, setCompletedTaskIds] = useState([]);
 
@@ -151,7 +151,6 @@ export default function Home() {
         if (!dailyTaskDate || dailyTaskDate !== today) {
             localStorage.setItem("dailyTaskDate", today);
             loadAndExecuteTasks();
-            setDailyPopUp(true);
         }
     }, [dailyEntries]);
 
@@ -182,6 +181,7 @@ export default function Home() {
                 .map((item) => item.task.id);
             setCompletedTaskIds(updatedCompletedTaskIds);
             console.log("Все недостающие задания выполнены.");
+            setDailyPopUp(true);
         } catch (error) {
             console.error("Ошибка при загрузке или выполнении задач:", error);
         }
