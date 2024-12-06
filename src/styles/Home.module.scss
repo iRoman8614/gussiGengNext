@@ -105,6 +105,20 @@
   grid-column: 9/11;
   align-self: center;
   justify-self: center;
+
+  animation: pulse 5s infinite;
+
+  @keyframes pulse {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.08);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
 }
 
 .char {

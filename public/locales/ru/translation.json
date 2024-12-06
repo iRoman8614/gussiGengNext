@@ -144,24 +144,24 @@
     "noone": "пригласи друзей",
     "rewards": "Награды",
     "referral": {
-      "each": "каждый",
+      "each": "Каждый",
       "referral": "реферал",
       "gives": "приносит"
     },
     "passes": {
-      "passes": "pvp passes",
+      "passes": "PvP passes",
       "allows": "дает",
       "extra": "5 доп игр",
       "cooldown": ", вне 6-часового интерала"
     },
     "premium": {
-      "if": "если у реферала",
+      "if": "Если у реферала",
       "tgp": "Telegram premium",
       "you": "ты получаешь",
       "passes": "+2 pvp passes"
     },
     "score": {
-      "referrals": "приглашенные друзья",
+      "referrals": "Приглашенные друзья",
       "score": "получают 10 000",
       "for": "за",
       "signing": "регистрацию",

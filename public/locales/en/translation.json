@@ -143,24 +143,24 @@
     "invite": "invite",
     "noone": "Invite your friends",
     "referral": {
-      "each": "each",
+      "each": "Each",
       "referral": "referral",
       "gives": "gives you"
     },
     "passes": {
-      "passes": "pvp passes",
+      "passes": "PvP passes",
       "allows": "allows",
       "extra": "5 extra pvp games",
       "cooldown": ", bypassing the 6-hour cooldown"
     },
     "premium": {
-      "if": "if the referral has",
+      "if": "If the referral has",
       "tgp": "Telegram premium",
       "you": "you get",
       "passes": "+2 pvp passes"
     },
     "score": {
-      "referrals": "referrals",
+      "referrals": "Referrals",
       "score": "score 10 000",
       "for": "just for",
       "signing": "signing up",
