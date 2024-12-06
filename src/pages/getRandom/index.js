@@ -7,6 +7,9 @@ import {useInit} from "@/context/InitContext";
 import gangs from '@/mock/teamsData'
 
 import styles from '@/styles/Random.module.scss'
+import {BigButton} from "@/components/buttons/big-btn/BigButton";
+import {FaqIconButton} from "@/components/buttons/icon-btn/FaqIconButton";
+import {CollectBar} from "@/components/bars/CollectBar";
 
 const bg = '/backgrounds/randomBG.png'
 const person = '/random/person.png'
@@ -18,6 +21,9 @@ const greenCard = '/random/greenCard.png'
 const blueCard = '/random/blueCard.png'
 const yellowCard = '/random/yellowCard.png'
 const redCard = '/random/redCard.png'
+const hands = '/main-buttons/hands.png';
+const claim = '/lootBTN.png'
+const upgrades = '/main-buttons/upgrades.png';
 
 export default function Page() {
     const router = useRouter();
@@ -29,6 +35,7 @@ export default function Page() {
     const [clickCount4, setClickCount4] = useState(0);
     const [showCard, setShowCard] = useState(false);
     const [showFrase, setShowFrase] = useState(0)
+    const [showFAQ, setShowFAQ] = useState(false)
 
     const getBoxShadowColor = (groupId) => {
         switch (groupId) {
@@ -112,6 +119,18 @@ export default function Page() {
         }
     };
 
+    function formatNumberFromEnd(num) {
+        if (isNaN(num) || typeof num !== 'number') {
+            return '10800';
+        }
+        return Math.round(num).toString().replace(/(\d)(?=(\d{3})+$)/g, "$1 ");
+    }
+
+    const showSmallFaq = () => {
+        setShowFAQ(true)
+        setShowFrase(3)
+    }
+
     return(
         <div className={styles.root}>
             <Image className={styles.bg} src={bg} alt={'bg'} width={450} height={1000} loading="lazy" />
@@ -192,10 +211,44 @@ export default function Page() {
             </div>
             <Image src={hand} className={styles.hand} width={450} height={1000} alt={''} priority />
             <ShownCard state={showCard} groupId={groupId} />
-            {showFrase === 2 && <button className={styles.btn} onClick={() => {
-                localStorage.setItem('picked', true)
-                router.push('/faq/home')
-            }}>{t('random.continue')}</button>}
+            {showFrase === 2 && <div className={styles.btn} onClick={showSmallFaq}>{t('random.continue')}</div>}
+            {showFAQ && <div className={styles.shortFAQ}>
+                <div className={styles.slide1}>
+                    <div className={styles.item12}><FaqIconButton image={hands} alt={'pvp'} title={t('main.pvp')} big={true}/></div>
+                    <div className={styles.slideText}><a>{t('random.faq.play')}</a>{t('random.faq.earn')}</div>
+                </div>
+                <div className={styles.slide2}>
+                    <div className={styles.item8vis}>
+                        <CollectBar
+                            currentCoins={formatNumberFromEnd(7250)}
+                            maxCoins={formatNumberFromEnd(35000)}
+                            width={60}
+                        />
+                    </div>
+                    <div className={styles.slideText}><a>{t('random.faq.watch')}</a>{t('random.faq.farm')}</div>
+                    <div className={styles.item9vis}>
+                        <Image className={styles.claimRoot} width={600} height={200} src={claim} alt={'claim'}
+                               loading="lazy"/>
+                        <p className={styles.btnVis}>{t('main.loot')}</p>
+                    </div>
+                </div>
+                <div className={styles.slide3}>
+                    <div className={styles.slideText}><a>{t('random.faq.upgrade')}</a>{t('random.faq.airdrop')}</div>
+                    <div><FaqIconButton image={upgrades} alt={'upgrades'} title={t('main.exp')} big={true}/></div>
+                </div>
+                <div className={styles.slideBtns}>
+                    <div className={styles.fullBtn} onClick={() => {
+                        localStorage.setItem('picked', true)
+                        router.push('/faq/home')
+                    }}>full faq
+                    </div>
+                    <div className={styles.startBtn} onClick={() => {
+                        localStorage.setItem('picked', true)
+                        router.push('/main')
+                    }}>start
+                    </div>
+                </div>
+            </div>}
         </div>
     )
 }

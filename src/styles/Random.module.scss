@@ -326,3 +326,131 @@
     opacity: 0; /* Конец: элемент полностью невидим */
   }
 }
+
+.shortFAQ {
+  padding: 10px;
+  background: #38246F;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  position: absolute;
+  z-index: 100;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  color: #FFFFFF;
+}
+
+.slide1 {
+  border-top-right-radius: 47px;
+  border-top-left-radius: 47px;
+  background-color: #11082B;
+  height: 27%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+.slide2 {
+  background-color: #11082B;
+  height: 33%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  padding: 5px;
+}
+.slide3 {
+  border-bottom-right-radius: 47px;
+  border-bottom-left-radius: 47px;
+  background-color: #11082B;
+  height: 30%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  padding-bottom: 10px;
+}
+
+.slideBtns {
+  height: 10%;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.fullBtn {
+  border-radius: 11px;
+  color: #FFFFFF;
+  padding: 7px 12px;
+  text-align: center;
+  width: 40%;
+  height: fit-content;
+  font-size: auto-clamp(32, 46);
+  background: linear-gradient(0deg, #654AB1 0%, #997CE7 50%, #654AB1 100%);
+  border: 2px solid rgba(255, 255, 255, 0.19);
+  box-shadow:
+          0px 4px 0px #4C378F,
+          0px 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.startBtn {
+  border-radius: 11px;
+  color: #FFFFFF;
+  padding: 7px 12px;
+  text-align: center;
+  width: 40%;
+  height: fit-content;
+  font-size: auto-clamp(32, 46);
+  background: linear-gradient(0deg, #C78100 0%, #E4AA39 50%, #C78100 100%);
+  border: 2px solid #7A5001;
+  box-shadow:
+          0px 4px 0px #69470D,
+          0px 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.btnVis {
+  position: absolute;
+  top: 10px;
+  width: 100%;
+  text-align: center;
+  color: #FFFFFF;
+  font-size: auto-height(30, 44);
+  margin-top: auto-height(-10, -4);
+}
+
+.claimRoot {
+  cursor: pointer;
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  margin-top: -3px;
+}
+
+.item8vis {
+  max-height: 80px;
+  max-width: 234px;
+  color: #FFFFFF;
+  animation: changeColorYellow 1s forwards;
+  animation-delay: 1s;
+  border-radius: 18px;
+  border: 3px solid #FFFFFF;
+}
+
+.item9vis {
+  height: auto-height(44, 66);
+  max-width: 177px;
+  position: relative;
+  background: #FFFFFF;
+  border-radius: 30px;
+  padding-top: -3px;
+}
+
+.slideText {
+  font-size: auto-clamp(18, 24);
+  font-family: 'Oswald';
+
+  a {
+    color: #FFCC26;
+  }
+}

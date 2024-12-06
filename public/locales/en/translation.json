@@ -215,7 +215,15 @@
     "tap": "tap again to confirm",
     "member": "you are now a member of the",
     "gang": "gang",
-    "continue": "continue"
+    "continue": "continue",
+    "faq": {
+      "play": "Play PVP ",
+      "earn": "and earn loot multipliers",
+      "watch": "Watch ",
+      "farm": "your farm pool and loot it",
+      "upgrade": "UPGRADE ",
+      "airdrop": "your pool and farm for the airdrop"
+    }
   },
   "qr": "Play on your mobile",
   "loading": "loading"
