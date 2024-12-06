@@ -307,7 +307,7 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   justify-items: center;
-  gap: 5px;
+  gap: 3px;
   border-radius: 11px;
   padding: 5px;
   background: radial-gradient(circle, rgba(21,25,62,0.6) 0%, rgba(56,66,164,0.63) 58%);
@@ -321,8 +321,8 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  width: auto-clamp(60 ,80);
-  height: auto-clamp(60 ,80);
+  width: auto-clamp(55, 75);
+  height: auto-clamp(55 ,75);
   padding: 3px 5px;
 }
 
