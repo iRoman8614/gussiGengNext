@@ -43,13 +43,15 @@ export default function Page() {
         const fetchSkins = async () => {
             try {
                 const response = await axiosInstance.get('/skin/all');
-                setSkins(response.data);
+                const filteredSkins = response.data.filter(skin => skin.key in skinImages);
+                setSkins(filteredSkins);
             } catch (error) {
                 console.error('Error fetching skins:', error);
             }
         };
         fetchSkins();
     }, []);
+
 
     useEffect(() => {
         if (typeof window !== 'undefined' && window.Telegram?.WebApp?.BackButton) {
@@ -164,7 +166,7 @@ export default function Page() {
                         >skins</div>
                         <div className={styles.season}>
                             {t('account.season')}
-                            <div className={styles.nickname}>{userName}userName</div>
+                            <div className={styles.nickname}>{userName}</div>
                         </div>
                     </div>
                     {activeTab === 1 &&<div className={styles.personalContainer}>
