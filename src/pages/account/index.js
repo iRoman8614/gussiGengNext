@@ -28,22 +28,28 @@ export default function Page() {
     const [userName, setUserName] = useState(null);
     const [tasks, setTasks] = useState(0)
     const [activeIndex, setActiveIndex] = useState(0);
+    const [skins, setSkins] = useState([]);
     const { fetchProfileStats, data: stats } = useProfileStats();
     const { data: friends } = useMyInvitees();
 
-    // const skinsIcons = {
-    //     "thuglife": "/skins/thuglifeIcon.png",
-    //     "netrunner": "/skins/netrunnerIcon.png",
-    //     "theItDude": "/skins/theItDudeIcon.png",
-    //     "lilith": "/skins/lilithIcon.png"
-    // }
+    const skinImages = {
+        "skin_1": "/skins/thuglifeIcon.png",
+        "skin_2": "/skins/netrunnerIcon.png",
+        "skin_3": "/skins/theItDudeIcon.png",
+        "skin_4": "/skins/lilithIcon.png"
+    };
 
-    const skinsIcons = [
-        "/skins/thuglifeIcon.png",
-        "/skins/netrunnerIcon.png",
-        "/skins/theItDudeIcon.png",
-        "/skins/lilithIcon.png"
-    ]
+    useEffect(() => {
+        const fetchSkins = async () => {
+            try {
+                const response = await axiosInstance.get('/skin/all');
+                setSkins(response.data);
+            } catch (error) {
+                console.error('Error fetching skins:', error);
+            }
+        };
+        fetchSkins();
+    }, []);
 
     useEffect(() => {
         if (typeof window !== 'undefined' && window.Telegram?.WebApp?.BackButton) {
@@ -132,18 +138,12 @@ export default function Page() {
     return(
         <div className={styles.root}>
             <div className={styles.container}>
-                {activeTab === 1 && <div className={styles.seasonBlock}>
-                    <div className={styles.season}>
-                        {t('account.season')}
-                        <div className={styles.nickname}>{userName}</div>
-                    </div>
-                    <div className={styles.avatarContainer}>
-                        <Image className={styles.logo} src={teamData[groupId]?.logo} alt={''} width={40} height={40}
-                               loading="lazy"/>
-                        <Image className={styles.character} src={skinData[groupId]?.[liga]?.icon} alt={''} width={100}
-                               height={178} loading="lazy"/>
-                    </div>
-                </div>}
+                {/*<div className={styles.seasonBlock}>*/}
+                {/*    <div className={styles.season}>*/}
+                {/*        {t('account.season')}*/}
+                {/*        <div className={styles.nickname}>{userName}</div>*/}
+                {/*    </div>*/}
+                {/*</div>*/}
                 <div className={styles.block}>
                     <div className={styles.buttonSet}>
                         <div className={styles.folderBtnStats}
@@ -162,8 +162,18 @@ export default function Page() {
                             }}
                             onClick={() => handleTab(2)}
                         >skins</div>
+                        <div className={styles.season}>
+                            {t('account.season')}
+                            <div className={styles.nickname}>{userName}userName</div>
+                        </div>
                     </div>
                     {activeTab === 1 &&<div className={styles.personalContainer}>
+                        <div className={styles.avatarContainer}>
+                            <Image className={styles.logo} src={teamData[groupId]?.logo} alt={''} width={40} height={40}
+                                   loading="lazy"/>
+                            <Image className={styles.character} src={skinData[groupId]?.[liga]?.icon} alt={''} width={100}
+                                   height={178} loading="lazy"/>
+                        </div>
                         <div className={styles.stats}>
                             <div className={styles.nickname}>{t('account.league')} {stats?.liga}</div>
                             <div className={styles.stat}>
@@ -214,15 +224,13 @@ export default function Page() {
                                     onSlideChange={handleSlideChange}
                                     className={styles.swiper}
                                 >
-                                    {skinData.paid.map((image, index) => (
-                                        <SwiperSlide
-                                            key={index}
-                                            className={styles.slide}
-                                        >
+                                    {skins.map((skin, index) => (
+                                        <SwiperSlide key={skin.id} className={styles.slide}>
                                             <Image
+                                                key={index}
                                                 width={170}
                                                 height={234}
-                                                src={skinsIcons[activeIndex]}
+                                                src={skinImages[skin.key]}
                                                 alt={''}
                                                 className={styles.icon}
                                                 loading="lazy"
@@ -243,13 +251,13 @@ export default function Page() {
                             </div>
                         </div>
                         <div className={styles.list}>
-                            {skinData.paid.map((item, index) => {
-                                return(
-                                    <div key={index} className={styles.skinListItem}>
-                                        <div>{item.name}</div>
-                                        <div>{formatBalance(item.cost)}{' '}<Image src={money} alt={''} width={15} height={15} loading="lazy"/></div>
+                            {skins.map((skin, index) => {
+                                return (
+                                    <div key={skin.id} className={styles.skinListItem}>
+                                        <div>{skin.name}</div>
+                                        <div>{formatBalance(skin.price)}{' '}<Image src={money} alt={''} width={15} height={15} loading="lazy"/></div>
                                     </div>
-                                )
+                                );
                             })}
                         </div>
                     </div>}

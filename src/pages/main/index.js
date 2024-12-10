@@ -169,7 +169,6 @@ export default function Home() {
         }
     };
 
-
     const executeTask = async (task) => {
         try {
             console.log(`Выполнение задания с ID ${task.id}...`);
