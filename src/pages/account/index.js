@@ -41,6 +41,13 @@ export default function Page() {
         "skin_4": "/skins/lilithIcon.png"
     };
 
+    const skinFull = {
+        "skin_1": "/skins/tlfull.png",
+        "skin_2": "/skins/netfull.png",
+        "skin_3": "/skins/itfull.png",
+        "skin_4": "/skins/lilfull.png"
+    };
+
     useEffect(() => {
         const fetchSkins = async () => {
             try {
@@ -247,6 +254,7 @@ export default function Page() {
                                                 alt={''}
                                                 className={styles.icon}
                                                 loading="lazy"
+                                                onClick={() => setSelectedSkin(skin)}
                                             />
                                         </SwiperSlide>
                                     ))}
@@ -266,7 +274,7 @@ export default function Page() {
                         <div className={styles.list}>
                             {skins.map((skin, index) => {
                                 return (
-                                    <div key={skin.id} className={styles.skinListItem}>
+                                    <div key={skin.id} className={styles.skinListItem} onClick={() => setSelectedSkin(skin)}>
                                         <div>{skin.name}</div>
                                         <div>{formatBalance(skin.price)}{' '}<Image src={money} alt={''} width={15} height={15} loading="lazy"/></div>
                                     </div>
@@ -274,19 +282,26 @@ export default function Page() {
                             })}
                         </div>
                     </div>}
-                    {selectedSkin && (
-                        <div>
-                            <div>
-                                <div>img</div>
-                                <div>{selectedSkin.name}</div>
-                                <div>{selectedSkin.price}</div>
-                            </div>
-                            <div>buy</div>
-                            <div>equip</div>
-                        </div>
-                    )}
                 </div>
             </div>
+            {!selectedSkin && (
+                <div className={styles.skinPopUp}>
+                    <div className={styles.popUpClose} onClick={() => setSelectedSkin(null)}>x</div>
+                    <div className={styles.modalBorder}>
+                        <div className={styles.popUpContent}>
+                            <Image className={styles.fullSkin} src={skinFull[selectedSkin?.key]} alt={''} width={130} height={250} />
+                            <div className={styles.popUpText}>{selectedSkin?.name}name</div>
+                            <div>{selectedSkin?.price}{' '}<Image src={money} alt={''} width={15} height={15} loading="lazy"/></div>
+                        </div>
+                    </div>
+                    <div className={styles.modalBorder}>
+                        <div className={styles.modalBtn}>buy</div>
+                    </div>
+                    <div className={styles.modalBorder}>
+                        <div className={styles.modalBtn}>equip</div>
+                    </div>
+                </div>
+            )}
         </div>
     )
 }
