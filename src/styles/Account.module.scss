@@ -193,6 +193,7 @@
   padding: 20px 10px 4px 10px;
   border-radius: 15px;
   background: linear-gradient(180deg, rgba(89, 67, 148, 0.6) 0%, rgba(62, 47, 103, 1) 100%);
+  position: relative;
 }
 
 .list {
@@ -370,5 +371,23 @@ text-align: center;
   width: auto;
   height: auto;
   justify-self: center;
+  margin: auto;
+}
+
+.owned {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 100000;
+  background-color: rgba(56, 66, 164, 0.63);
+  width: 35px;
+  height: 35px;
+  border-radius: 7px;
+  display: flex;
+}
+
+.check {
+  justify-self: center;
+  align-self: center;
   margin: auto;
 }

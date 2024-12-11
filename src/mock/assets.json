@@ -62,6 +62,12 @@
     "/skins/theItDudeIcon.png",
     "/skins/lilithIcon.png"
   ],
+  "paidfull": [
+    "/skins/itfull.png",
+    "/skins/netfull.png",
+    "/skins/lilfull.png",
+    "/skins/tlfull.png"
+  ],
   "gameItems": [
     "/game-icons/animation_hand_pap.gif",
     "/game-icons/animation_hand_rock.gif",
@@ -124,7 +130,8 @@
     "/lootBTN.png",
     "/lootBTNclicked.png",
     "/farm_border.png",
-    "/totalbar.png"
+    "/totalbar.png",
+    "/check.png"
   ],
   "others": [
     "/faq/faqHand1.png",

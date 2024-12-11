@@ -29,6 +29,8 @@ export default function Page() {
     const [tasks, setTasks] = useState(0)
     const [activeIndex, setActiveIndex] = useState(0);
     const [skins, setSkins] = useState([]);
+    const [mySkins, setMySkins] = useState([]);
+    const [selectedSkin, setSelectedSkin] = useState(null);
     const { fetchProfileStats, data: stats } = useProfileStats();
     const { data: friends } = useMyInvitees();
 
@@ -45,6 +47,8 @@ export default function Page() {
                 const response = await axiosInstance.get('/skin/all');
                 const filteredSkins = response.data.filter(skin => skin.key in skinImages);
                 setSkins(filteredSkins);
+                const mySkinsResponse = await axiosInstance.get('/skin/my');
+                setMySkins(mySkinsResponse.data);
             } catch (error) {
                 console.error('Error fetching skins:', error);
             }
@@ -52,6 +56,8 @@ export default function Page() {
         fetchSkins();
     }, []);
 
+    const isOwned = (skin) => mySkins.some(mySkin => mySkin.id === skin.id);
+    const isActive = (skin) => mySkins.some(mySkin => mySkin.id === skin.id && mySkin.active);
 
     useEffect(() => {
         if (typeof window !== 'undefined' && window.Telegram?.WebApp?.BackButton) {
@@ -140,12 +146,6 @@ export default function Page() {
     return(
         <div className={styles.root}>
             <div className={styles.container}>
-                {/*<div className={styles.seasonBlock}>*/}
-                {/*    <div className={styles.season}>*/}
-                {/*        {t('account.season')}*/}
-                {/*        <div className={styles.nickname}>{userName}</div>*/}
-                {/*    </div>*/}
-                {/*</div>*/}
                 <div className={styles.block}>
                     <div className={styles.buttonSet}>
                         <div className={styles.folderBtnStats}
@@ -210,6 +210,11 @@ export default function Page() {
                     </div>}
                     {activeTab === 2 && <div className={styles.skinContainer}>
                         <div className={styles.skinSwiper}>
+                            {isOwned(skins[activeIndex]) && <div className={styles.owned}>
+                                {
+                                    isActive(skins[activeIndex]) && <Image className={styles.check} src={"/check.png"} alt={''} width={30} height={24} />
+                                }
+                            </div>}
                             <div className={styles.containerSwiper}>
                                 <button className={styles.navLeft} onClick={handleSlidePrev}>
                                     <Image src={'/ArrowWhite.png'} alt={''} width={20} height={20} loading="lazy" />
@@ -263,6 +268,17 @@ export default function Page() {
                             })}
                         </div>
                     </div>}
+                    {selectedSkin && (
+                        <div>
+                            <div>
+                                <div>img</div>
+                                <div>{selectedSkin.name}</div>
+                                <div>{selectedSkin.price}</div>
+                            </div>
+                            <div>buy</div>
+                            <div>equip</div>
+                        </div>
+                    )}
                 </div>
             </div>
         </div>
