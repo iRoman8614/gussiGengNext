@@ -290,7 +290,7 @@ export default function Page() {
                     <div className={styles.modalBorder}>
                         <div className={styles.popUpContent}>
                             <Image className={styles.fullSkin} src={skinFull[selectedSkin?.key]} alt={''} width={130} height={220} />
-                            <div className={styles.popUpText}>{selectedSkin?.name}name</div>
+                            <div className={styles.popUpText}>{selectedSkin?.name}</div>
                             <div className={styles.popUpText}>{selectedSkin?.price}{' '}<Image src={money} alt={''} width={15} height={15} loading="lazy"/></div>
                         </div>
                     </div>
