@@ -56,8 +56,14 @@ export default function Page() {
         fetchSkins();
     }, []);
 
-    const isOwned = (skin) => mySkins.some(mySkin => mySkin.id === skin.id);
-    const isActive = (skin) => mySkins.some(mySkin => mySkin.id === skin.id && mySkin.active);
+    const isOwned = (skinId) => {
+        console.log('skinId isOwned', skinId)
+        mySkins.some(mySkin => mySkin.id === skinId);
+    }
+    const isActive = (skinId) => {
+        console.log('skinId isActive', skinId)
+        mySkins.some(mySkin => mySkin.id === skinId && mySkin.active);
+    }
 
     useEffect(() => {
         if (typeof window !== 'undefined' && window.Telegram?.WebApp?.BackButton) {
@@ -210,9 +216,9 @@ export default function Page() {
                     </div>}
                     {activeTab === 2 && <div className={styles.skinContainer}>
                         <div className={styles.skinSwiper}>
-                            {isOwned(skins[activeIndex]) && <div className={styles.owned}>
+                            {isOwned(skins[activeIndex].id) && <div className={styles.owned}>
                                 {
-                                    isActive(skins[activeIndex]) && <Image className={styles.check} src={"/check.png"} alt={''} width={30} height={24} />
+                                    isActive(skins[activeIndex].id) && <Image className={styles.check} src={"/check.png"} alt={''} width={30} height={24} />
                                 }
                             </div>}
                             <div className={styles.containerSwiper}>
