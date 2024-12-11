@@ -149,10 +149,12 @@ export default function Home() {
                 .filter((item) => item.task.type === 4)
                 .map((item) => item.task.id);
             console.log("Проверка и выполнение недостающих задач...");
+            const isSpecialDay = (dailyEntries - 1) % 14 === 0; // Дни 1, 15, 29, и т.д.
             const todaysAmount = (dailyEntries - 1) % 14 + 1;
-            const tasksToExecute = sortedTasks.filter(
-                (task) => task.amount <= todaysAmount && !completedTaskIds.includes(task.id)
-            );
+            const tasksToExecute = sortedTasks.filter((task) => {
+                const isTaskOneOnSpecialDay = isSpecialDay && task.amount === 1; // Если специальный день и задание с amount 1
+                return (task.amount <= todaysAmount && !completedTaskIds.includes(task.id)) || isTaskOneOnSpecialDay;
+            });
             for (const task of tasksToExecute) {
                 await executeTask(task);
             }
