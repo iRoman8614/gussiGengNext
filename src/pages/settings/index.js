@@ -50,6 +50,10 @@ export default function Page() {
         localStorage.setItem('appLanguage', newLang);
     };
 
+    const clearLang = () => {
+        localStorage.removeItem('appLanguage')
+    }
+
     const moveToFaq = () => {
         router.push('/faq/home')
     }
@@ -65,6 +69,7 @@ export default function Page() {
                     onChange={handleLanguageChange}
                 />
                 <div className={styles.faqBtn} onClick={moveToFaq}>faq</div>
+                <button onClick={clearLang}>очистить язык</button>
             </div>
         </div>
     );
