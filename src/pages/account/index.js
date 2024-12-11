@@ -101,7 +101,7 @@ export default function Page() {
 
     const refreshMySkins = async () => {
         try {
-            const response = await axiosInstance.get('/skins/my');
+            const response = await axiosInstance.get('/skin/my');
             const skins = response.data;
             setMySkins(skins);
             const activeSkin = skins.find(skin => skin.id === selectedSkin?.id) || skins.find(skin => skin.active);

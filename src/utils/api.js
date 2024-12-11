@@ -33,7 +33,9 @@ export const useProfileInit = (token) => {
             };
             localStorage.setItem('init', JSON.stringify(initData));
 
+
             if (skin && skin.id !== 1) {
+                console.log('скин сохранен в ss')
                 sessionStorage.setItem('skin', JSON.stringify(skin));
             }
 
