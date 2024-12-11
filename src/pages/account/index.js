@@ -58,11 +58,11 @@ export default function Page() {
 
     const isOwned = (skinId) => {
         console.log('skinId isOwned', skinId)
-        mySkins.some(mySkin => mySkin.id === skinId);
+        return mySkins.some(mySkin => mySkin.id === skinId);
     }
     const isActive = (skinId) => {
         console.log('skinId isActive', skinId)
-        mySkins.some(mySkin => mySkin.id === skinId && mySkin.active);
+        return mySkins.some(mySkin => mySkin.id === skinId && mySkin.active);
     }
 
     useEffect(() => {
