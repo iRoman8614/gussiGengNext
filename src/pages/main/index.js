@@ -222,8 +222,11 @@ export default function Home() {
                 <div className={styles.item6}>
                     <IconButton image={wallet} alt={'wallet'} title={t('main.wallet')} hidden={true} onClick={() => {router.push('/getRandom')}}/>
                 </div>
+                {/*<div className={styles.item7}>*/}
+                {/*    <Image width={1000} height={1000} className={styles.char} alt={'character'} src={skinData[groupId]?.[liga]?.icon} loading="lazy"/>*/}
+                {/*</div>*/}
                 <div className={styles.item7}>
-                    <Image width={1000} height={1000} className={styles.char} alt={'character'} src={skinData[groupId]?.[liga]?.icon} loading="lazy"/>
+                    <Image width={1000} height={1000} className={styles.char} alt={'character'} src={skinSource} loading="lazy"/>
                 </div>
                 {gameBonus && <div className={styles.bonusItem}>
                     <Image src={bonus} alt={''} width={60} height={60}/>
