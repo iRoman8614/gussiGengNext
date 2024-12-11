@@ -284,7 +284,7 @@ export default function Page() {
                     </div>}
                 </div>
             </div>
-            {!selectedSkin && (
+            {selectedSkin && (
                 <div className={styles.skinPopUp}>
                     <div className={styles.popUpClose} onClick={() => setSelectedSkin(null)}>x</div>
                     <div className={styles.modalBorder}>
