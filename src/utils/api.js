@@ -16,7 +16,7 @@ export const useProfileInit = (token) => {
         setError(null);
         try {
             const response = await axios.get(`https://supavpn.lol/profile/init?token=${token}`);
-            const { jwt, balance, lang, group, farm, delayEntries } = response.data;
+            const { jwt, balance, lang, group, farm, delayEntries, skin } = response.data;
             localStorage.setItem('GWToken', jwt);
             const farmData = {
                 coins: balance,
@@ -32,6 +32,11 @@ export const useProfileInit = (token) => {
                 lastUpdate: group.lastUpdate,
             };
             localStorage.setItem('init', JSON.stringify(initData));
+
+            if (skin && skin.id !== 1) {
+                sessionStorage.setItem('skin', JSON.stringify(skin));
+            }
+
             setData({
                 farm: farmData,
                 init: initData,

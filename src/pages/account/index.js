@@ -6,7 +6,7 @@ import {Swiper, SwiperSlide} from "swiper/react";
 import {Controller, Navigation} from "swiper/modules";
 import { useInit } from '@/context/InitContext';
 import {formatNumber} from "@/utils/formatNumber";
-import { useProfileStats, useMyInvitees } from '@/utils/api';
+import {useProfileStats, useMyInvitees, useFarmCollect} from '@/utils/api';
 import axiosInstance from "@/utils/axios";
 
 
@@ -17,6 +17,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/controller';
 import styles from '@/styles/Account.module.scss'
+import {toast} from "react-toastify";
 
 const money = '/money.png'
 
@@ -33,6 +34,7 @@ export default function Page() {
     const [selectedSkin, setSelectedSkin] = useState(null);
     const { fetchProfileStats, data: stats } = useProfileStats();
     const { data: friends } = useMyInvitees();
+    const { collectAndStart } = useFarmCollect();
 
     const skinImages = {
         "skin_1": "/skins/thuglifeIcon.png",
@@ -48,18 +50,19 @@ export default function Page() {
         "skin_4": "/skins/lilfull.png"
     };
 
+    const fetchSkins = async () => {
+        try {
+            const response = await axiosInstance.get('/skin/all');
+            const filteredSkins = response.data.filter(skin => skin.key in skinImages);
+            setSkins(filteredSkins);
+            const mySkinsResponse = await axiosInstance.get('/skin/my');
+            setMySkins(mySkinsResponse.data);
+        } catch (error) {
+            console.error('Error fetching skins:', error);
+        }
+    };
+
     useEffect(() => {
-        const fetchSkins = async () => {
-            try {
-                const response = await axiosInstance.get('/skin/all');
-                const filteredSkins = response.data.filter(skin => skin.key in skinImages);
-                setSkins(filteredSkins);
-                const mySkinsResponse = await axiosInstance.get('/skin/my');
-                setMySkins(mySkinsResponse.data);
-            } catch (error) {
-                console.error('Error fetching skins:', error);
-            }
-        };
         fetchSkins();
     }, []);
 
@@ -71,6 +74,45 @@ export default function Page() {
         console.log('skinId isActive', skinId)
         return mySkins.some(mySkin => mySkin.id === skinId && mySkin.active);
     }
+
+    const handlePurchaseOrEquip = async (skinId, price) => {
+        if (!isOwned(skinId)) {
+            if (coins < price) {
+                toast.alert("You dont have enought money");
+            } else {
+                try {
+                    await axiosInstance.get(`/skin/update?skinId=${skinId}`);
+                    await refreshMySkins()
+                    await collectAndStart()
+                } catch (error) {
+                    console.error('Ошибка при покупке и экипировке скина:', error);
+                }
+            }
+        } else {
+            try {
+                await axiosInstance.get(`/skin/update?skinId=${skinId}`);
+                await refreshMySkins()
+                await collectAndStart()
+            } catch (error) {
+                console.error('Ошибка при покупке и экипировке скина:', error);
+            }
+        }
+    };
+
+    const refreshMySkins = async () => {
+        try {
+            const response = await axiosInstance.get('/skins/my');
+            const skins = response.data;
+            setMySkins(skins);
+            const activeSkin = skins.find(skin => skin.id === selectedSkin?.id) || skins.find(skin => skin.active);
+            if (activeSkin) {
+                sessionStorage.setItem('skin', JSON.stringify(activeSkin));
+                setSelectedSkin(activeSkin);
+            }
+        } catch (error) {
+            console.error('Ошибка при получении списка скинов:', error);
+        }
+    };
 
     useEffect(() => {
         if (typeof window !== 'undefined' && window.Telegram?.WebApp?.BackButton) {
@@ -295,11 +337,19 @@ export default function Page() {
                         </div>
                     </div>
                     <div className={styles.modalBorder}>
-                        <div className={styles.modalBtn}>buy</div>
+                        <div
+                            className={styles.modalBtn}
+                            onClick={() => handlePurchaseOrEquip(selectedSkin.id, selectedSkin.price)}
+                        >
+                            {isOwned(selectedSkin.id) ? "equip" : "buy"}
+                        </div>
                     </div>
-                    <div className={styles.modalBorder}>
-                        <div className={styles.modalBtn}>equip</div>
-                    </div>
+                    {/*<div className={styles.modalBorder}>*/}
+                    {/*    <div className={styles.modalBtn} onClick={() => handleBuySkin(selectedSkin.id)}>buy</div>*/}
+                    {/*</div>*/}
+                    {/*<div className={isOwned(selectedSkin.id) ? styles.modalBtn : styles.modalBtnHidden} >*/}
+                    {/*    <div className={styles.modalBtn} onClick={() => handleEquipSkin(selectedSkin.id)}>equip</div>*/}
+                    {/*</div>*/}
                 </div>
             )}
         </div>

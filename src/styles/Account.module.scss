@@ -438,7 +438,7 @@ text-align: center;
   justify-content: space-around;
   align-items: center;
   border-radius: 22px;
-  min-width: 240px;
+  min-width: 260px;
   width: fit-content;
   padding: 0 20px 0 20px;
   height: fit-content;
@@ -459,7 +459,7 @@ text-align: center;
   margin-bottom: 8px;
 }
 
-.modalBtn {
+.modalBtn, .modalBtnHidden {
   font-family: 'Pricedown';
   color: white;
   font-size: 40px;
@@ -469,4 +469,8 @@ text-align: center;
   border-radius: 18px;
   text-align: center;
   padding-top: 5px;
+}
+
+.modalBtnHidden {
+filter: grayscale(100);
 }

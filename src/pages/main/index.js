@@ -39,6 +39,7 @@ export default function Home() {
     const [dailyPopUp, setDailyPopUp] = useState(false);
     const [tasks, setTasks] = useState([]);
     const [completedTaskIds, setCompletedTaskIds] = useState([]);
+    const [skinSource, setSkinSource] = useState('');
 
     const { collectAndStart } = useFarmCollect();
 
@@ -62,6 +63,16 @@ export default function Home() {
             }
         }
     }, [balance, startFarmTime, isClaimClicked, coins]);
+
+    useEffect(() => {
+        const skinFromSession = sessionStorage.getItem('skin');
+        const skin = skinFromSession ? JSON.parse(skinFromSession) : null;
+        if (skin && skin.key) {
+            setSkinSource(skinData[skin.key] || skinData[groupId]?.[liga]?.icon);
+        } else {
+            setSkinSource(skinData[groupId]?.[liga]?.icon);
+        }
+    }, [groupId, liga]);
 
 
     useEffect(() => {
