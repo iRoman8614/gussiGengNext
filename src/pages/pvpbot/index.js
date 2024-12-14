@@ -29,6 +29,8 @@ const paper = '/game-icons/paper.png'
 const scis = '/game-icons/scissors.png'
 const changerF = '/game-icons/roundAnimFront.png'
 const changerB = '/game-icons/roundAnimBack.png'
+import roundAnimationData from '@/mock/Round.json';
+import startAnimationData from '@/mock/Start_new.json';
 
 export default function PvpBotPage() {
     const router = useRouter();
@@ -247,8 +249,10 @@ export default function PvpBotPage() {
     return (
         <>
             {gameEnded && <WinningScreen userName={userName} playerScore={playerScore} />}
-            {preGameStep === 1 && <GameStarte round="Ready!" />}
-            {preGameStep === 2 && <GameStarte round="Go!!!" />}
+            {/*{preGameStep === 1 && <GameStarte round="Ready!" />}*/}
+            {/*{preGameStep === 2 && <GameStarte round="Go!!!" />}*/}
+            {preGameStep === 1 && <StartAnimation round="Ready!" />}
+            {preGameStep === 2 && <StartAnimation round="Go!!!" />}
 
             <div className={styles.root}>
                 <Image className={styles.background} src={background} width={300} height={1000} alt={'bg'} priority />
@@ -344,7 +348,8 @@ export default function PvpBotPage() {
                     </div>
                 </div>
             </div>
-            {showChanger && <RoundChanger round={playerScore + opponentScore + 1}/>}
+            {/*{showChanger && <RoundChanger round={playerScore + opponentScore + 1}/>}*/}
+            {showChanger && <RoundAnimation round={playerScore + opponentScore + 1}/>}
         </>
     )
 }
@@ -385,32 +390,76 @@ const WinningScreen = ({ playerScore  }) => (
     </div>
 );
 
-const RoundChanger = ({round}) => {
-    const {t} = useTranslation();
-    return(
+// const RoundChanger = ({round}) => {
+//     const {t} = useTranslation();
+//     return(
+//         <div className={styles.changerRoot}>
+//             <div className={styles.changerContainer}>
+//                 <Image className={styles.animF} src={changerF} alt={''} width={700} height={150} priority />
+//                 <Image className={styles.animB} src={changerB} alt={''} width={700} height={150} priority />
+//                 <div className={styles.changerText}>
+//                     {typeof round === "string" ? round : `${t("PVP.rounds")} ${round}`}
+//                 </div>
+//             </div>
+//         </div>
+//     )
+// }
+//
+// const GameStarte = ({round}) => {
+//     const {t} = useTranslation();
+//     return(
+//         <div className={styles.changerRoot}>
+//             <div className={styles.changerContainer}>
+//                 <Image className={styles.animFGS} src={changerF} alt={''} width={700} height={150} priority />
+//                 <Image className={styles.animBGS} src={changerB} alt={''} width={700} height={150} priority />
+//                 <div className={styles.changerTextGS}>
+//                     {typeof round === "string" ? round : `${t("PVP.rounds")} ${round}`}
+//                 </div>
+//             </div>
+//         </div>
+//     )
+// }
+
+import Lottie from 'react-lottie';
+
+const RoundAnimation = ({ round }) => {
+    const { t } = useTranslation();
+    const defaultOptions = {
+        loop: false,
+        autoplay: true,
+        animationData: roundAnimationData,
+        rendererSettings: {
+            preserveAspectRatio: 'xMidYMid slice'
+        }
+    };
+
+    return (
         <div className={styles.changerRoot}>
-            <div className={styles.changerContainer}>
-                <Image className={styles.animF} src={changerF} alt={''} width={700} height={150} priority />
-                <Image className={styles.animB} src={changerB} alt={''} width={700} height={150} priority />
-                <div className={styles.changerText}>
-                    {typeof round === "string" ? round : `${t("PVP.rounds")} ${round}`}
-                </div>
+            <Lottie options={defaultOptions} height="100%" width="100%" />
+            <div className={styles.changerText}>
+                {typeof round === "string" ? round : `${t("PVP.rounds")} ${round}`}
             </div>
         </div>
-    )
+    );
 }
 
-const GameStarte = ({round}) => {
-    const {t} = useTranslation();
-    return(
+const StartAnimation = ({ round }) => {
+    const { t } = useTranslation();
+    const defaultOptions = {
+        loop: false,
+        autoplay: true,
+        animationData: startAnimationData,
+        rendererSettings: {
+            preserveAspectRatio: 'xMidYMid slice'
+        }
+    };
+
+    return (
         <div className={styles.changerRoot}>
-            <div className={styles.changerContainer}>
-                <Image className={styles.animFGS} src={changerF} alt={''} width={700} height={150} priority />
-                <Image className={styles.animBGS} src={changerB} alt={''} width={700} height={150} priority />
-                <div className={styles.changerTextGS}>
-                    {typeof round === "string" ? round : `${t("PVP.rounds")} ${round}`}
-                </div>
+            <Lottie options={defaultOptions} height="100%" width="100%" className={styles.lottie} />
+            <div className={styles.changerTextGS}>
+                {typeof round === "string" ? round : `${t("PVP.rounds")} ${round}`}
             </div>
         </div>
-    )
+    );
 }
