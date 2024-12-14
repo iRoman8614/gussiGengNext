@@ -39,10 +39,9 @@
 }
 
 .lockDesk {
-  font-size: 22px;
+  font-size: auto-clamp(10, 16);
   color: #FFFFFF;
 }
-
 
 .image {
   width: auto-clamp(230, 260);
