@@ -31,6 +31,8 @@ const paper = '/game-icons/paper.png'
 const scis = '/game-icons/scissors.png'
 const changerF = '/game-icons/roundAnimFront.png'
 const changerB = '/game-icons/roundAnimBack.png'
+import roundAnimationData from '@/mock/Round.json';
+import startAnimationData from '@/mock/Start_new.json';
 
 export default function PvpPage() {
     const router = useRouter();
