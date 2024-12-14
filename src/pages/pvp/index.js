@@ -100,7 +100,7 @@ export default function PvpPage() {
         if (preGameStep < preGameSteps.length) {
             const timerId = setTimeout(() => {
                 setPreGameStep((prevStep) => prevStep + 1);
-            }, 2000);
+            }, 2500);
             return () => clearTimeout(timerId);
         } else {
             setGameStarted(true);
