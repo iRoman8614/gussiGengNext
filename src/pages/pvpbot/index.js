@@ -57,7 +57,7 @@ export default function PvpBotPage() {
 
     const playerGifCache = useRef({});
     const opponentGifCache = useRef({});
-    const preGameSteps = ["Ready!", "Go!!!"];
+    const preGameSteps = ["Ready!", ""];
 
     const preloadPlayerGifs = () => {
         const cache = {};
@@ -251,8 +251,7 @@ export default function PvpBotPage() {
             {gameEnded && <WinningScreen userName={userName} playerScore={playerScore} />}
             {/*{preGameStep === 1 && <GameStarte round="Ready!" />}*/}
             {/*{preGameStep === 2 && <GameStarte round="Go!!!" />}*/}
-            {preGameStep === 1 && <StartAnimation round="Ready!" />}
-            {preGameStep === 2 && <StartAnimation round="Go!!!" />}
+            {preGameStep === 1 && <StartAnimation />}
 
             <div className={styles.root}>
                 <Image className={styles.background} src={background} width={300} height={1000} alt={'bg'} priority />
@@ -443,7 +442,7 @@ const RoundAnimation = ({ round }) => {
     );
 }
 
-const StartAnimation = ({ round }) => {
+const StartAnimation = () => {
     const { t } = useTranslation();
     const defaultOptions = {
         loop: false,
@@ -457,9 +456,6 @@ const StartAnimation = ({ round }) => {
     return (
         <div className={styles.changerRoot}>
             <Lottie options={defaultOptions} height="100%" width="100%" className={styles.lottie} />
-            <div className={styles.changerTextGS}>
-                {typeof round === "string" ? round : `${t("PVP.rounds")} ${round}`}
-            </div>
         </div>
     );
 }

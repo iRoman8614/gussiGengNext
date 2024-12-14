@@ -315,6 +315,8 @@
   position: absolute;
   padding-top: auto-height(50, 12);
   left: -100%;
+  top: 37%;
+  transform: translateY(-50%);
   z-index: 1003;
   width: 100%;
   height: auto;
@@ -322,13 +324,14 @@
   color: #FFFFFF;
   font-size: auto-clamp(35, 50);
   text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.5);
-  //animation: flyInOutText 2s forwards;
+  animation: flyInOutText 2s forwards;
 }
 
 .changerTextGS {
   position: absolute;
   padding-top: auto-height(50, 12);
   left: -100%;
+  top: 50%;
   z-index: 1003;
   width: 100%;
   height: auto;
