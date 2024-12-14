@@ -26,7 +26,7 @@ export const ItemPlaceholder = ({ item, img, onClick, available }) => {
                 {!available && <Image className={styles.lock} width={70} height={70} alt="" src={Lock} priority/>}
                 {!available && <div className={styles.lock}>
                     <Image className={styles.lock} width={70} height={70} alt="" src={Lock} priority/>
-                    <div className={styles.level}>Requires lvl 10 of the prev card</div>
+                    <div className={styles.lockDesk}>Requires lvl 10 of the prev card</div>
                 </div>}
             </div>
             <div className={styles.title}>
