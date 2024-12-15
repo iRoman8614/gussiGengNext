@@ -4,7 +4,7 @@ import {useRouter} from "next/router";
 import { toast } from 'react-toastify';
 import {useTranslation} from "react-i18next";
 import {useInit} from "@/context/InitContext";
-import {useFarmCollect, useUpdateGroup} from "@/utils/api";
+import {useFarmCollect, useProfileInit, useUpdateGroup} from "@/utils/api";
 
 import teamData from '@/mock/teamsData'
 
@@ -61,10 +61,16 @@ export default function Page() {
     const closePopUp = () => {
         setShowPopUp(false)
     }
+
+    const { fetchProfileInit } = useProfileInit(token);
+
     const changeClan = async () => {
         if (coins < 1000000) {
             toast.error(t('change.noMoney'));
             return;
+        }
+        if (typeof window !== "undefined") {
+            const authToken = localStorage.getItem('authToken');
         }
 
         try {
@@ -78,6 +84,7 @@ export default function Page() {
             localStorage.setItem('init', JSON.stringify(updatedInitData));
             setData(response.data);
             try {
+                await fetchProfileInit()
                 await collectAndStart();
             } catch (collectErr) {
                 console.error('Error during collect and start:', collectErr);
