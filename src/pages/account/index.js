@@ -37,17 +37,17 @@ export default function Page() {
     const { collectAndStart } = useFarmCollect();
 
     const skinImages = {
-        "skin_1": "/skins/thuglifeIcon.png",
-        "skin_2": "/skins/netrunnerIcon.png",
+        "Thug Life": "/skins/thuglifeIcon.png",
+        "Netrunner": "/skins/netrunnerIcon.png",
         "skin_3": "/skins/theItDudeIcon.png",
-        "skin_4": "/skins/lilithIcon.png"
+        "Lilith": "/skins/lilithIcon.png"
     };
 
     const skinFull = {
-        "skin_1": "/skins/tlfull.png",
-        "skin_2": "/skins/netfull.png",
+        "Thug Life": "/skins/tlfull.png",
+        "Netrunner": "/skins/netfull.png",
         "skin_3": "/skins/itfull.png",
-        "skin_4": "/skins/lilfull.png"
+        "Lilith": "/skins/lilfull.png"
     };
 
     const fetchSkins = async () => {
@@ -305,8 +305,11 @@ export default function Page() {
                                     <Image src={'/ArrowWhite.png'} alt={''} width={20} height={20} loading="lazy" />
                                 </button>
                             </div>
+                            {/*<div className={styles.caption}>*/}
+                            {/*    {skinData.paid[activeIndex].name}*/}
+                            {/*</div>*/}
                             <div className={styles.caption}>
-                                {skinData.paid[activeIndex].name}
+                                {skins[activeIndex].name}
                             </div>
                             <div className={styles.skinBalance}>
                                 <div className={styles.skinBalanceTitle}>balance</div>
@@ -333,7 +336,9 @@ export default function Page() {
                         <div className={styles.popUpContent}>
                             <Image className={styles.fullSkin} src={skinFull[selectedSkin?.key]} alt={''} width={130} height={220} />
                             <div className={styles.popUpText}>{selectedSkin?.name}</div>
-                            <div className={styles.popUpText}>{selectedSkin?.price}{' '}<Image src={money} alt={''} width={15} height={15} loading="lazy"/></div>
+                            {isOwned(selectedSkin.id) ? <div></div> : <div className={styles.popUpText}>{selectedSkin?.price}{' '}<Image src={money} alt={''}
+                                                                                                width={15} height={15}
+                                                                                                loading="lazy"/></div>}
                         </div>
                     </div>
                     <div className={styles.modalBorder}>
