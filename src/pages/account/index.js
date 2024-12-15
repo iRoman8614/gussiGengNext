@@ -39,15 +39,21 @@ export default function Page() {
     const skinImages = {
         "Thug Life": "/skins/thuglifeIcon.png",
         "Netrunner": "/skins/netrunnerIcon.png",
-        "skin_3": "/skins/theItDudeIcon.png",
-        "Lilith": "/skins/lilithIcon.png"
+        // "skin_3": "/skins/theItDudeIcon.png",
+        "Lilith": "/skins/lilithIcon.png",
+        "Pablo":"/skins/pabloIcon.png",
+        "Icy":"/skins/icyIcon.png",
+        // "PabloT":"/skins/pabloTIcon.png"
     };
 
     const skinFull = {
         "Thug Life": "/skins/tlfull.png",
         "Netrunner": "/skins/netfull.png",
-        "skin_3": "/skins/itfull.png",
-        "Lilith": "/skins/lilfull.png"
+        // "skin_3": "/skins/itfull.png",
+        "Lilith": "/skins/lilfull.png",
+        "Pablo":"/skins/pablofull.png",
+        "Icy":"/skins/icyfull.png",
+        // "PabloT": "/skins/pabloTfull.png"
     };
 
     const fetchSkins = async () => {
