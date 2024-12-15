@@ -66,6 +66,7 @@ export default function Page() {
             toast.error(t('change.noMoney'));
             return;
         }
+
         try {
             const response = await instance.get(`/profile/update-group?groupId=${choose}`);
             const { group } = response.data;
@@ -76,17 +77,21 @@ export default function Page() {
             };
             localStorage.setItem('init', JSON.stringify(updatedInitData));
             setData(response.data);
+            try {
+                await collectAndStart();
+            } catch (collectErr) {
+                console.error('Error during collect and start:', collectErr);
+            }
+            toast.success("Clan changed successfully");
+            updateContext();
+            router.push('/main');
         } catch (err) {
             console.log(err);
             toast.error("You can change your clan only once every 5 days");
         }
-        await collectAndStart();
-        if (data) {
-            toast.success("Clan changed successfully");
-            updateContext();
-            router.push('/main');
-        }
     };
+
+
 
     return(
         <div className={styles.root}>
