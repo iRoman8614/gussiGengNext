@@ -9,6 +9,7 @@ import {useFarmCollect, useUpdateGroup} from "@/utils/api";
 import teamData from '@/mock/teamsData'
 
 import styles from '@/styles/Change.module.scss'
+import instance from "@/utils/axios";
 
 const bg = "/backgrounds/randomBG.png"
 const dialog = "/random/dialog.png"
@@ -27,6 +28,7 @@ export default function Page() {
     const { groupId, coins, updateContext } = useInit();
     const[showPopUp, setShowPopUp] = useState(false)
     const[choose, setChoose] = useState(null)
+    const[data, setData] = useState(null)
 
     useEffect(() => {
         if (typeof window !== 'undefined' && window.Telegram?.WebApp?.BackButton) {
@@ -65,24 +67,24 @@ export default function Page() {
             return;
         }
         try {
-            await updateGroupData(choose);
-            await collectAndStart();
-            if (loading) return;
-            if (error) {
-                if (error.response && error.response.status === 400) {
-                    toast.error("You can change your clan only once every 5 days");
-                    return;
-                }
-                toast.error("Error during clan change");
-                return;
-            }
-            if (updatedGroup) {
-                toast.success("Clan changed successfully");
-                updateContext();
-                router.push('/main');
-            }
-        } catch (error) {
-            toast.error("Error while changing clan");
+            const response = await instance.get(`/profile/update-group?groupId=${choose}`);
+            const { group } = response.data;
+            const initData = JSON.parse(localStorage.getItem('init')) || {};
+            const updatedInitData = {
+                ...initData,
+                groupId: group.id
+            };
+            localStorage.setItem('init', JSON.stringify(updatedInitData));
+            setData(response.data);
+        } catch (err) {
+            console.log(err);
+            toast.error("You can change your clan only once every 5 days");
+        }
+        await collectAndStart();
+        if (data) {
+            toast.success("Clan changed successfully");
+            updateContext();
+            router.push('/main');
         }
     };
 
