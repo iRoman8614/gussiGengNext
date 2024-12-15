@@ -29,6 +29,7 @@ export default function Page() {
     const[showPopUp, setShowPopUp] = useState(false)
     const[choose, setChoose] = useState(null)
     const[data, setData] = useState(null)
+    const [token, setToken] = useState(null)
 
     useEffect(() => {
         if (typeof window !== 'undefined' && window.Telegram?.WebApp?.BackButton) {
@@ -62,15 +63,19 @@ export default function Page() {
         setShowPopUp(false)
     }
 
+    useEffect(() => {
+        if (typeof window !== "undefined") {
+            const authToken = localStorage.getItem('authToken');
+            setToken(authToken)
+        }
+    }, [token])
+
     const { fetchProfileInit } = useProfileInit(token);
 
     const changeClan = async () => {
         if (coins < 1000000) {
             toast.error(t('change.noMoney'));
             return;
-        }
-        if (typeof window !== "undefined") {
-            const authToken = localStorage.getItem('authToken');
         }
 
         try {
