@@ -24,7 +24,7 @@
       "/skins/gg2.png",
       "/skins/gg3.png",
       "/skins/gg4.png",
-      "/skins/gg5.png",
+      "/skins/g5.png",
       "/skins/gg6.png",
       "/skins/gg7.png"
     ],
@@ -33,7 +33,7 @@
       "/skins/bg2.png",
       "/skins/bg3.png",
       "/skins/bg4.png",
-      "/skins/bg5.png",
+      "/skins/b5.png",
       "/skins/bg6.png",
       "/skins/bg7.png"
     ],
@@ -42,7 +42,7 @@
       "/skins/rg2.png",
       "/skins/rg3.png",
       "/skins/rg4.png",
-      "/skins/rg5.png",
+      "/skins/r5.png",
       "/skins/rg6.png",
       "/skins/rg7.png"
     ],
@@ -51,7 +51,7 @@
       "/skins/yg2.png",
       "/skins/yg3.png",
       "/skins/yg4.png",
-      "/skins/yg5.png",
+      "/skins/y5.png",
       "/skins/yg6.png",
       "/skins/yg7.png"
     ]
@@ -62,11 +62,21 @@
     "/skins/theItDudeIcon.png",
     "/skins/lilithIcon.png"
   ],
+  "paid2": [
+    "/skins/pabloIcon.png",
+    "/skins/pabloTIcon.png",
+    "/skins/icyIcon.png"
+  ],
   "paidfull": [
     "/skins/itfull.png",
     "/skins/netfull.png",
     "/skins/lilfull.png",
     "/skins/tlfull.png"
+  ],
+  "paidfull2": [
+    "/skins/pablofull.png",
+    "/skins/icyfull.png",
+    "/skins/pabloTfull.png"
   ],
   "gameItems": [
     "/game-icons/animation_hand_pap.gif",
