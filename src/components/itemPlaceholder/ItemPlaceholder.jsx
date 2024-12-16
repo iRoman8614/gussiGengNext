@@ -8,7 +8,7 @@ const Lock = '/Lock.png'
 const frame = '/upgradesCards/upgradeFrame.png'
 
 // eslint-disable-next-line react/prop-types
-export const ItemPlaceholder = ({ item, img, onClick, available, name }) => {
+export const ItemPlaceholder = ({ item, img, onClick, available, name, need }) => {
     const handleClick = () => {
         if (available) {
             if (window.Telegram?.WebApp?.HapticFeedback) {
@@ -28,7 +28,8 @@ export const ItemPlaceholder = ({ item, img, onClick, available, name }) => {
                 <div className={styles.per}>+{item.increasePer}%</div>
                 {!available && <div className={styles.lock}>
                     <Image width={70} height={70} alt="" src={Lock} priority/>
-                    <div className={styles.lockDesk}>Requires lvl 10 of the prev card</div>
+                    {/*<div className={styles.lockDesk}>Requires lvl 10 of the prev card</div>*/}
+                    <div className={styles.lockDesk}>{`${need} lvl 10 requires`}</div>
                 </div>}
             </div>
             <div className={styles.title}>
