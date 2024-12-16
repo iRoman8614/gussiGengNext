@@ -41,8 +41,8 @@ export default function Page() {
         "netrunner": "/skins/netrunnerIcon.png",
         // "skin_3": "/skins/theItDudeIcon.png",
         "lilith": "/skins/lilithIcon.png",
-        "pablo":"/skins/pabloIcon.png",
-        "icy":"/skins/icyIcon.png",
+        // "pablo":"/skins/pabloIcon.png",
+        // "icy":"/skins/icyIcon.png",
         // "PabloT":"/skins/pabloTIcon.png"
     };
 
@@ -51,8 +51,8 @@ export default function Page() {
         "netrunner": "/skins/netfull.png",
         // "skin_3": "/skins/itfull.png",
         "lilith": "/skins/lilfull.png",
-        "pablo":"/skins/pablofull.png",
-        "icy":"/skins/icyfull.png",
+        // "pablo":"/skins/pablofull.png",
+        // "icy":"/skins/icyfull.png",
         // "PabloT": "/skins/pabloTfull.png"
     };
 
