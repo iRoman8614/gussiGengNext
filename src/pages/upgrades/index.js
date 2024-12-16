@@ -65,11 +65,11 @@ export default function Page() {
     }
 
     const limitNames = {
-        "farm_rate_level_2.5_0": 'gang dog',
-        "farm_rate_level_2.5": 'gas station',
-        "farm_rate_level_4": 'hustle cars',
-        "farm_rate_level_5": 'spades',
-        "farm_rate_level_10": 'ai nod',
+        "farm_limit_level_2.5_0": 'gang dog',
+        "farm_limit_level_2.5": 'gas station',
+        "farm_limit_level_4": 'hustle cars',
+        "farm_limit_level_5": 'spades',
+        "farm_limit_level_10": 'ai nod',
     }
 
     const upgradesList = [
