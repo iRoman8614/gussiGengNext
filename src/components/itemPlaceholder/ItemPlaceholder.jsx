@@ -5,9 +5,10 @@ import {formatNumber} from "@/utils/formatNumber";
 
 const money = '/money.png'
 const Lock = '/Lock.png'
+const frame = '/upgradesCards/upgradeFrame.png'
 
 // eslint-disable-next-line react/prop-types
-export const ItemPlaceholder = ({ item, img, onClick, available }) => {
+export const ItemPlaceholder = ({ item, img, onClick, available, name }) => {
     const handleClick = () => {
         if (available) {
             if (window.Telegram?.WebApp?.HapticFeedback) {
@@ -18,9 +19,11 @@ export const ItemPlaceholder = ({ item, img, onClick, available }) => {
     };
 
     return (
-        <div className={available ? styles.root: styles.hidden} onClick={handleClick}>
+        <div className={styles.root} onClick={handleClick}>
             <div className={styles.imageContainer}>
+                <Image className={styles.imageFrame} width={260} height={170} alt="" src={frame} priority />
                 <Image className={styles.image} width={260} height={170} alt="" src={img} priority />
+                <div className={styles.name}>{name}</div>
                 <div className={styles.level}>lvl {item.level}</div>
                 <div className={styles.per}>+{item.increasePer}%</div>
                 {!available && <div className={styles.lock}>
