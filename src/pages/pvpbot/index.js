@@ -224,7 +224,7 @@ export default function PvpBotPage() {
             setGameOver(true);
         }, 3000);
         setTimeout(() => {
-            router.push('/main');
+            router.push('/lobby');
         }, 5000);
     };
     const endBotGame = async (vin) => {

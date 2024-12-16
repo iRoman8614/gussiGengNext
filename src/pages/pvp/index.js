@@ -334,7 +334,7 @@ export default function PvpPage() {
             setGameOver(true);
         }, 3000);
         setTimeout(() => {
-            router.push('/main');
+            router.push('/lobby');
         }, 5000);
     };
 
