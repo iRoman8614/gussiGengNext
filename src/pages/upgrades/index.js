@@ -345,7 +345,7 @@ export default function Page() {
                             </>}
                             {activeIndex === 1 && <>
                                 {limitLevels.length !== 0 ? <div className={styles.itemsList}>{limitLevels.map((item, index) => (
-                                    <ItemPlaceholder img={limitImages[item.key]} item={item} key={index} onClick={() => openUpgradeModal(item)} available={isAvailable(item)} />
+                                    <ItemPlaceholder img={limitImages[item.key]} name={limitNames[item.key]} item={item} key={index} onClick={() => openUpgradeModal(item)} available={isAvailable(item)} />
                                 ))}</div> : <div className={styles.warning}>{t('EXP.noups')}</div>}
                             </>}
                         </div>
