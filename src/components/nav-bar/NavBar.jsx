@@ -30,11 +30,11 @@ export const NavBar = () => {
 
     return (
         <div className={styles.root}>
-            <BigButton image={bag} alt={'items'} title={t('main.items')} hidden={true} onClick={() => {router.push('/main')}} />
-            <BigButton image={upgrades} alt={'upgrades'} title={t('main.exp')} onClick={() => {router.push('/upgrades')}} />
+            <IconButton image={bag} alt={'items'} title={t('main.items')} hidden={true} onClick={() => {router.push('/main')}} />
+            <IconButton image={upgrades} alt={'upgrades'} title={t('main.exp')} onClick={() => {router.push('/upgrades')}} />
             <BigButton image={hands} alt={'pvp'} title={t('main.pvp')} onClick={() => {router.push(move)}} />
-            <BigButton image={friends} alt={'friends'} title={t('main.friends')} onClick={() => {router.push('/friends')}} />
-            <BigButton image={FAQ} alt={'home'} title={t('main.tasks')} onClick={() => {router.push('/tasks')}} />
+            <IconButton image={friends} alt={'friends'} title={t('main.friends')} onClick={() => {router.push('/friends')}} />
+            <IconButton image={FAQ} alt={'home'} title={t('main.tasks')} onClick={() => {router.push('/tasks')}} />
         </div>
     );
 };
