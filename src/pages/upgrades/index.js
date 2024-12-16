@@ -340,7 +340,7 @@ export default function Page() {
                             </div>
                             {activeIndex === 0 && <>
                                 {rateLevels.length !== 0 ? <div className={styles.itemsList}>{rateLevels.map((item, index) => (
-                                    <ItemPlaceholder img={rateImages[item.key]} name={rateNames[item.key]} need={index > 0 && limitNames[rateLevels[index-1].key]} item={item} key={index} onClick={() => openUpgradeModal(item)} available={isAvailable(item)} />
+                                    <ItemPlaceholder img={rateImages[item.key]} name={rateNames[item.key]} need={index > 0 && rateNames[rateLevels[index-1].key]} item={item} key={index} onClick={() => openUpgradeModal(item)} available={isAvailable(item)} />
                                 ))}</div> : <div className={styles.warning}>{t('EXP.noups')}</div>}
                             </>}
                             {activeIndex === 1 && <>
