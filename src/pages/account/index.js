@@ -37,22 +37,22 @@ export default function Page() {
     const { collectAndStart } = useFarmCollect();
 
     const skinImages = {
-        "Thug Life": "/skins/thuglifeIcon.png",
-        "Netrunner": "/skins/netrunnerIcon.png",
+        "thug_life": "/skins/thuglifeIcon.png",
+        "netrunner": "/skins/netrunnerIcon.png",
         // "skin_3": "/skins/theItDudeIcon.png",
-        "Lilith": "/skins/lilithIcon.png",
-        "Pablo":"/skins/pabloIcon.png",
-        "Icy":"/skins/icyIcon.png",
+        "lilith": "/skins/lilithIcon.png",
+        "pablo":"/skins/pabloIcon.png",
+        "icy":"/skins/icyIcon.png",
         // "PabloT":"/skins/pabloTIcon.png"
     };
 
     const skinFull = {
-        "Thug Life": "/skins/tlfull.png",
-        "Netrunner": "/skins/netfull.png",
+        "thug_life": "/skins/tlfull.png",
+        "netrunner": "/skins/netfull.png",
         // "skin_3": "/skins/itfull.png",
-        "Lilith": "/skins/lilfull.png",
-        "Pablo":"/skins/pablofull.png",
-        "Icy":"/skins/icyfull.png",
+        "lilith": "/skins/lilfull.png",
+        "pablo":"/skins/pablofull.png",
+        "icy":"/skins/icyfull.png",
         // "PabloT": "/skins/pabloTfull.png"
     };
 
