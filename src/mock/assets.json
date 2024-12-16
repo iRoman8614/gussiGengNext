@@ -98,25 +98,27 @@
     "/oppNickNameContainer.png",
     "/goldwins.png"
   ],
-  "limits": [
-    "/upgradesCards/upl1.png",
-    "/upgradesCards/upl2.png",
-    "/upgradesCards/upl3.png",
-    "/upgradesCards/upl4.png",
-    "/upgradesCards/upl5.png"
-  ],
-  "rates": [
-    "/upgradesCards/ups1.png",
-    "/upgradesCards/ups2.png",
-    "/upgradesCards/ups3.png",
-    "/upgradesCards/ups4.png",
-    "/upgradesCards/ups5.png"
-  ],
-  "slider": [
-    "/upgradesCards/slider/limitSlide.png",
-    "/upgradesCards/slider/rateSlide.png",
-    "/upgradesCards/upgradeFrame.png"
-  ],
+  "upgrades" : {
+    "limits": [
+      "/upgradesCards/upl1.png",
+      "/upgradesCards/upl2.png",
+      "/upgradesCards/upl3.png",
+      "/upgradesCards/upl4.png",
+      "/upgradesCards/upl5.png"
+    ],
+    "rates": [
+      "/upgradesCards/ups1.png",
+      "/upgradesCards/ups2.png",
+      "/upgradesCards/ups3.png",
+      "/upgradesCards/ups4.png",
+      "/upgradesCards/ups5.png"
+    ],
+    "slider": [
+      "/upgradesCards/slider/limitSlide.png",
+      "/upgradesCards/slider/rateSlide.png",
+      "/upgradesCards/upgradeFrame.png"
+    ]
+  },
   "icons": [
     "/gangs-logos/blue-logo.png",
     "/gangs-logos/green-logo.png",

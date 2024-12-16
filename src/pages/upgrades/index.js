@@ -35,59 +35,6 @@ export default function Page() {
     const [completedTasks, setCompletedTasks] = useState([]);
     const [tasks, setTasks] = useState([]);
 
-    const ratesLevels = [
-        {
-            "id": 1,
-            "level": 18,
-            "name": "2.5 0",
-            "cost": 105018,
-            "increasePer": 2.5,
-            "costIncreasePer": 28,
-            "key": "farm_rate_level_2.5_0",
-            "checkTask": false
-        },
-        {
-            "id": 2,
-            "level": 10,
-            "name": "2.5",
-            "cost": 14576,
-            "increasePer": 2.5,
-            "costIncreasePer": 28,
-            "key": "farm_rate_level_2.5",
-            "checkTask": true
-        },
-        {
-            "id": 3,
-            "level": 13,
-            "name": "4",
-            "cost": 38044,
-            "increasePer": 4,
-            "costIncreasePer": 30,
-            "key": "farm_rate_level_4",
-            "checkTask": true
-        },
-        {
-            "id": 4,
-            "level": 10,
-            "name": "5",
-            "cost": 18908,
-            "increasePer": 5,
-            "costIncreasePer": 31,
-            "key": "farm_rate_level_5",
-            "checkTask": true
-        },
-        {
-            "id": 5,
-            "level": 0,
-            "name": "10",
-            "cost": 1344,
-            "increasePer": 10,
-            "costIncreasePer": 37,
-            "key": "farm_rate_level_10",
-            "checkTask": true
-        }
-    ]
-
     const sliderImages = [
         '/upgradesCards/slider/rateSlide.png',
         '/upgradesCards/slider/limitSlide.png',
