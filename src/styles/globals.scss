@@ -10,6 +10,11 @@
   src: url("../pages/fonts/Oswald.ttf");
 }
 
+@font-face {
+  font-family: 'Rubik';
+  src: url("../pages/fonts/Rubik.ttf");
+}
+
 html, body {
   margin: 0 auto;
   padding: 0;
@@ -18,8 +23,13 @@ html, body {
   width: 100%;
   height: 100%;
   overflow: hidden;
-  font-family: 'Pricedown', 'Oswald', serif;
+  font-family: 'Pricedown', 'Oswald', 'Rubik', serif;
   font-weight: 400;
+  text-shadow:
+          -1px -1px 0 #000,
+          1px -1px 0 #000,
+          -1px  1px 0 #000,
+          1px  1px 0 #000;
 }
 
 * {

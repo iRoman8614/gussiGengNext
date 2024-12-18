@@ -27,7 +27,6 @@ export default function Page() {
     const { groupId, liga, dailyEntries, coins, totalCoins, updateContext } = useInit();
     const [activeTab, setActiveTab] = useState(1);
     const [userName, setUserName] = useState(null);
-    const [tasks, setTasks] = useState(0)
     const [activeIndex, setActiveIndex] = useState(0);
     const [skins, setSkins] = useState([]);
     const [mySkins, setMySkins] = useState([]);
@@ -159,19 +158,6 @@ export default function Page() {
         setActiveTab(tab)
     }
 
-    const fetchCompletedTasks = async () => {
-        try {
-            const response = await axiosInstance.get('/task/completed-tasks');
-            setTasks(response.data.length)
-        } catch (error) {
-            console.error('Error fetching completed tasks:', error);
-        }
-    };
-
-    useEffect(()=>{
-        fetchCompletedTasks()
-    }, [])
-
     const formatBalance = (balance) => {
         if (balance >= 1e12) return (balance / 1e12).toFixed(1) + 't';
         if (balance >= 1e9) return (balance / 1e9).toFixed(1) + 'b';
@@ -261,8 +247,6 @@ export default function Page() {
                             <div className={styles.barItemStats}>{friends.length}</div>
                             <div className={styles.barItem}>{t('account.login')}</div>
                             <div className={styles.barItemStats}>{dailyEntries}</div>
-                            <div className={styles.barItem}>{t('account.tasks')}</div>
-                            <div className={styles.barItemStats}>{tasks}</div>
                         </div>
                         <div>
                             <div className={styles.barItem}>{t('account.balance')}</div>

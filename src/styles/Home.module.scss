@@ -66,6 +66,7 @@
 }
 
 .totalText {
+  font-family: 'Pricedown';
   position: absolute;
   color: #FFFFFF;
   text-align: center;
@@ -145,12 +146,13 @@
 }
 
 .btn {
+  font-family: 'Rubik';
   position: absolute;
-  top: auto-height(5, 10);
+  top: auto-height(12, 12);
   width: 100%;
   text-align: center;
   color: #FFFFFF;
-  font-size: auto-height(30, 44);
+  font-size: auto-height(15, 30);
   margin: 0;
 }
 

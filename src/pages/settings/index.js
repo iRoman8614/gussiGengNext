@@ -27,6 +27,7 @@ export default function Page() {
     const languageOptions = [
         { value: 'en', label: 'English' },
         { value: 'ru', label: 'Русский' },
+        { value: 'ch', label: 'Chinese'}
     ];
 
     const router = useRouter();
