@@ -5,7 +5,7 @@ import HttpBackend from 'i18next-http-backend';
 const getAndSetInitialLanguage = () => {
     if (typeof window !== 'undefined') {
         const savedLanguage = localStorage.getItem('appLanguage');
-        if (savedLanguage === 'ru' || savedLanguage === 'en') {
+        if (savedLanguage === 'ru' || savedLanguage === 'en' || savedLanguage === 'ch') {
             return savedLanguage;
         }
         const telegramLang = window.Telegram?.WebApp?.initDataUnsafe?.user?.language_code;
@@ -13,6 +13,8 @@ const getAndSetInitialLanguage = () => {
         let initialLanguage;
         if (telegramLang === 'ru') {
             initialLanguage = 'ru';
+        } else if (telegramLang === 'ch') {
+            initialLanguage = 'ch';
         } else {
             initialLanguage = 'en';
         }
@@ -28,7 +30,7 @@ i18n
     .use(HttpBackend)
     .use(initReactI18next)
     .init({
-        supportedLngs: ['en', 'ru'],
+        supportedLngs: ['en', 'ru', 'ch'],
         fallbackLng: 'en',
         lng: getAndSetInitialLanguage(),
         debug: false,
