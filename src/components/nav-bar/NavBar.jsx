@@ -44,25 +44,25 @@ export const NavBar = () => {
                     {t('main.items')}
                 </div>
             </div>
-            <div className={styles.smallElem2}>
+            <div className={styles.smallElem2} onClick={() => {router.push('/upgrades')}}>
                 <Image width={60} height={40} className={styles.image} src={upgrades} alt={''} />
                 <div className={styles.title}>
                     {t('main.exp')}
                 </div>
             </div>
-            <div className={styles.bigElem}>
+            <div className={styles.bigElem} onClick={() => {router.push('/lobby')}}>
                 <Image width={60} height={40} className={styles.imageBig} src={hands} alt={''} />
                 <div className={styles.title}>
                     {t('main.pvp')}
                 </div>
             </div>
-            <div className={styles.smallElem3}>
+            <div className={styles.smallElem3} onClick={() => {router.push('/friends')}}>
                 <Image width={60} height={40} className={styles.image} src={friends} alt={''} />
                 <div className={styles.title}>
                     {t('main.friends')}
                 </div>
             </div>
-            <div className={styles.smallElem4}>
+            <div className={styles.smallElem4} onClick={() => {router.push('/tasks')}}>
                 <Image width={60} height={40} className={styles.image} src={FAQ} alt={''} />
                 <div className={styles.title}>
                     {t('main.tasks')}
