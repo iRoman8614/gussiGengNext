@@ -11,6 +11,7 @@
   align-items: center;
   width: auto-clamp(40, 70);
   height: auto-clamp(40, 70);
+  padding: 3px;
 
   transform: scale(0.5);
   animation: zoom-in 0.5s forwards ease-out;
@@ -52,13 +53,14 @@
 
 .title {
   color: #FFFFFF;
-  font-size: auto-clamp(12, 16);
+  font-size: auto-clamp(11, 15);
   text-align: center;
   background: rgba(104, 110, 166, 0.6);
   border-radius: 6px;
   height: fit-content;
   margin: 2px;
-  width: 80%;
+  width: 100%;
+  text-transform: uppercase;
 }
 
 

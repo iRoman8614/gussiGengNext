@@ -33,9 +33,9 @@
   flex-direction: column;
   gap: auto-clamp(0, 4);
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: start;
   color: #FFFFFF;
-  padding: auto-clamp(2, 5) auto-clamp(3, 7);
+  padding: 3px;
 }
 
 .smallElem1 {
@@ -56,8 +56,8 @@
   grid-column: 10/12;
 }
 .image {
-  object-fit: contain;
-
+  height: 50%;
+  width: auto;
 }
 
 .imageBig {
@@ -73,5 +73,6 @@
   max-width: 80px;
   padding-bottom: 3px;
   font-size: auto-clamp(13, 16);
-  line-height: auto-clamp(11, 13);
+  line-height: auto-clamp(15, 18);
+  text-transform: uppercase;
 }
