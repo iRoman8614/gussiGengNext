@@ -1,8 +1,11 @@
+@import "../../styles/_utils.scss";
+
 .root {
   width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(11, 1fr);
+  align-items: end;
 
   transform: scale(0.5);
   animation: zoom-in 0.5s forwards ease-out;
@@ -17,4 +20,58 @@
       opacity: 1;
     }
   }
+}
+
+.smallElem1, .smallElem2, .smallElem3, .smallElem4, .bigElem {
+  width: 100%;
+  height: 80%;
+  background: linear-gradient(0deg, #1D002F 0%, #4F5E85 25%, #FFFFFF 100%);
+  border: 1px solid #15193E;
+  border-top-right-radius: 11px;
+  border-top-left-radius: 11px;
+  display: flex;
+  flex-direction: column;
+  gap: auto-clamp(0, 4);
+  align-items: center;
+  justify-content: space-evenly;
+  color: #FFFFFF;
+  padding: auto-clamp(2, 5) auto-clamp(3, 7);
+}
+
+.smallElem1 {
+  grid-column: 1/3;
+}
+
+.smallElem2 {
+  grid-column: 3/5;
+}
+.bigElem {
+  grid-column: 5/8;
+  height: 100%;
+}
+.smallElem3 {
+  grid-column: 8/10;
+}
+.smallElem4 {
+  grid-column: 10/12;
+}
+.image {
+  object-fit: contain;
+
+}
+
+.imageBig {
+  width: 80%;
+  height: auto;
+}
+
+.title {
+  background: rgba(21, 25, 62, 0.7);
+  width: 100%;
+  text-align: center;
+  border-radius: 5px;
+  max-width: 80px;
+  padding-bottom: 3px;
+  font-size: auto-clamp(13, 16);
+  line-height: auto-clamp(11, 13);
 }

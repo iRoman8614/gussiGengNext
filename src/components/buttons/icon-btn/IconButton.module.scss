@@ -1,12 +1,16 @@
-.root, .hidderRoot {
+@import "../../../styles/_utils.scss";
+
+.rootRight, .rootLeft, .rootDown {
   border-radius: 11px;
   background:
-          linear-gradient(359.95deg, #120431 0.34%, #443664 50.67%, #7E709F 100%),
+          linear-gradient(180deg, #FFCECC 0%, #4F5E85 50%, #1D002F 100%),
           rgba(79, 94, 133, 0.7);
   cursor: pointer;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-evenly;
+  width: auto-clamp(40, 70);
+  height: auto-clamp(40, 70);
 
   transform: scale(0.5);
   animation: zoom-in 0.5s forwards ease-out;
@@ -23,77 +27,42 @@
   }
 }
 
-.hidderRoot {
-  filter: grayscale(100%);
+.rootRight {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.rootLeft {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.rootDown {
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
 }
 
 .image {
-  width: 100%;
+  width: auto-clamp(40, 70);
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 1px;
   object-fit: contain;
 }
 
 .title {
-  font-family: 'Rubik' !important;
   color: #FFFFFF;
-  font-size: 8px;
+  font-size: auto-clamp(12, 16);
   text-align: center;
   background: rgba(104, 110, 166, 0.6);
   border-radius: 5px;
-
+  height: fit-content;
+  margin: 2px;
 }
 
-@media (max-width: 360px) {
-  .root, .hidderRoot {
-    width: 50px;
-    height: 50px;
-    padding: 1px 3px 1px 3px;
-  }
-  .image {
-    height: 30px;
-  }
-  .title {
-    height: 14px;
-    width: 44px;
-    font-size: 7px;
-    line-height: 14px;
-  }
-}
 
-@media (min-width: 361px) and (max-width: 400px) {
-  .root, .hidderRoot {
-    width: 55px;
-    height: 55px;
-    padding: 1px 4px 2px 4px;
-  }
-  .image {
-    height: 35px;
-  }
-  .title {
-    height: 15px;
-    width: 47px;
-    font-size: 8px;
-    line-height: 15px;
-  }
-}
 
-@media (min-width: 401px) {
-  .root, .hidderRoot {
-    width: 60px;
-    height: 60px;
-    padding: 1px 4px 3px 4px;
-  }
-  .image {
-    height: 40px;
-  }
-  .title {
-    height: 16px;
-    width: 51px;
-    font-size: 8px;
-    line-height: 15px;
-  }
-}
+
+
+
 

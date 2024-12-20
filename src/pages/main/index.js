@@ -204,23 +204,26 @@ export default function Home() {
             <div className={styles.root}>
                 <Image className={styles.background} src={background} width={300} height={1000}  alt={'bg'} loading="lazy"/>
                 <div className={styles.item1}>
-                    <IconButton image={account} alt={'account'} title={t('main.account')}  onClick={() => {router.push('/account')}}/>
+                    <IconButton image={account} alt={'account'} title={t('main.account')}  onClick={() => {router.push('/account')}} direction={'left'} />
                 </div>
                 <div className={styles.item2}>
-                    <IconButton image={teamData[groupId]?.logo} alt={''} onClick={() => {router.push('/change')}}/>
+                    <div onClick={() => {router.push('/change')}} className={styles.gangs}>
+                        <Image className={styles.gangIcon} src={teamData[groupId]?.logo} alt={''} width={40} height={40} />
+                        <div>{teamData[groupId]?.Name}</div>
+                    </div>
                 </div>
                 <div className={styles.item3}>
-                    <IconButton image={settings} alt={'settings'} title={t('main.settings')} onClick={() => {router.push('/settings');}}/>
+                    <IconButton image={settings} alt={'settings'} title={t('main.settings')} onClick={() => {router.push('/settings');}} direction={'right'} />
                 </div>
                 <div className={styles.item4}>
-                    <IconButton image={boards} alt={'boards'} title={t('main.boards')} onClick={() => {router.push('/boards');}}/>
+                    <IconButton image={boards} alt={'boards'} title={t('main.boards')} onClick={() => {router.push('/boards');}} direction={'left'} />
                 </div>
                 <div className={styles.item5}>
                     <Image src={border} width={600} height={200} alt={'border'} className={styles.totalBarRoot} loading="lazy"/>
                     <div className={styles.totalText}>{formatNumber(balance, 12)}{' '}<Image src={money} alt={''} width={21} height={21} /></div>
                 </div>
                 <div className={styles.item6}>
-                    <IconButton image={wallet} alt={'wallet'} title={t('main.wallet')} hidden={true} onClick={() => {router.push('/getRandom')}}/>
+                    <IconButton image={wallet} alt={'wallet'} title={t('main.wallet')} hidden={true} direction={'right'}/>
                 </div>
                 {/*<div className={styles.item7}>*/}
                 {/*    <Image width={1000} height={1000} className={styles.char} alt={'character'} src={skinData[groupId]?.[liga]?.icon} loading="lazy"/>*/}
