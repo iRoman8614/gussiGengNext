@@ -44,7 +44,7 @@
 .gangs {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 13px;
   padding: 5px 10px 7px 0;
   //background: linear-gradient(180deg, #FFCECC 0%, #4F5E85 50%, #1D002F 100%);
   background: linear-gradient(359.95deg, #120431 0.34%, #443664 50.67%, #7E709F 100%);
@@ -55,6 +55,7 @@
   line-height: 18px;
   height: 43px;
   text-transform: uppercase;
+  letter-spacing: -1px;
   font-weight: bold;
 }
 
