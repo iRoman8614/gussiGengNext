@@ -3,7 +3,7 @@ import Image from "next/image";
 import styles from './IconButton.module.scss'
 
 // eslint-disable-next-line react/prop-types
-export const IconButton = ({image, title, alt, onClick, hidden, direction}) => {
+export const IconButton = ({image, title, alt, onClick, direction}) => {
     const handleClick = () => {
         if (window.Telegram?.WebApp?.HapticFeedback) {
             window.Telegram.WebApp.HapticFeedback.impactOccurred('light');

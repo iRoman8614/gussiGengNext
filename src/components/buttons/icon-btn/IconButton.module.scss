@@ -1,6 +1,7 @@
 @import "../../../styles/_utils.scss";
 
-.rootRight, .rootLeft, .rootDown {
+.rootRight, .rootLeft, .rootDown, .root {
+  font-family: 'Oswald';
   border-radius: 11px;
   background:
           linear-gradient(359.95deg, #120431 0.34%, #443664 50.67%, #7E709F 100%),

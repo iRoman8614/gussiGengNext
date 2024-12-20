@@ -34,7 +34,7 @@ export default function Home() {
     const [balance, setBalance] = useState(0)
     const [currentFarmCoins, setCurrentFarmCoins] = useState(0);
     const [startFarmTime, setStartFarmTime] = useState(Date.now());
-    const [isClaimClicked, setIsClaimClicked] = useState(false);
+    const [isClaimClicked, setIsClaimClicked] = useState(true);
     const [gameBonus, setGameBonus] = useState(false)
     const [dailyPopUp, setDailyPopUp] = useState(false);
     const [tasks, setTasks] = useState([]);

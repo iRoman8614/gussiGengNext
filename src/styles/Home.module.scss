@@ -42,6 +42,7 @@
 }
 
 .gangs {
+  font-family: 'Oswald';
   display: flex;
   align-items: center;
   gap: 13px;
@@ -178,24 +179,30 @@
 }
 
 .btn {
-  font-family: 'Rubik' !important;
+  font-family: 'Oswald';
   position: absolute;
-  top: auto-height(12, 12);
+  top: auto-height(0, 12);
+  font-weight: bold;
+  letter-spacing: -1px;
+  text-transform: uppercase;
   width: 100%;
   text-align: center;
   color: #FFFFFF;
-  font-size: auto-height(15, 30);
+  font-size: 30px;
   margin: 0;
 }
 
 .btnClicked {
-  font-family: 'Rubik' !important;
+  font-family: 'Oswald';
+  font-weight: bold;
+  letter-spacing: -1px;
+  text-transform: uppercase;
   position: absolute;
-  top: auto-height(10, 15);
+  top: auto-height(0, 15);
   width: 100%;
   text-align: center;
   color: #FFFFFF;
-  font-size: auto-height(15, 30);
+  font-size: 30px;
   margin: 0;
 }
 
