@@ -36,7 +36,7 @@
   align-items: center;
   justify-content: start;
   color: #FFFFFF;
-  padding: 3px;
+  padding: 1px 3px;
   font-weight: bold;
   letter-spacing: -1px;
   font-family: 'Oswald';
@@ -60,7 +60,7 @@
   grid-column: 10/12;
 }
 .image {
-  height: 50%;
+  height: 48%;
   width: auto;
 }
 
@@ -76,6 +76,7 @@
   border-radius: 5px;
   max-width: 80px;
   padding-bottom: 3px;
+  padding-top: 3px;
   font-size: auto-clamp(13, 16);
   line-height: auto-clamp(15, 18);
   text-transform: uppercase;
