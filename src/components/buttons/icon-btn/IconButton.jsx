@@ -15,9 +15,7 @@ export const IconButton = ({image, title, alt, onClick, hidden, direction}) => {
             className={direction ? styles['root' + direction.charAt(0).toUpperCase() + direction.slice(1)] : styles.root}
             onClick={handleClick}
         >
-            <div>
-                <Image width={60} height={40} className={styles.image} src={image} alt={alt} />
-            </div>
+            <Image width={60} height={40} className={styles.image} src={image} alt={alt} />
             {title && <div className={styles.title}>
                 {title}
             </div>}

@@ -8,7 +8,7 @@
   cursor: pointer;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  align-items: center;
   width: auto-clamp(40, 70);
   height: auto-clamp(40, 70);
 
@@ -43,7 +43,7 @@
 }
 
 .image {
-  width: auto-clamp(40, 70);
+  height: 60%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -55,9 +55,10 @@
   font-size: auto-clamp(12, 16);
   text-align: center;
   background: rgba(104, 110, 166, 0.6);
-  border-radius: 5px;
+  border-radius: 6px;
   height: fit-content;
   margin: 2px;
+  width: 80%;
 }
 
 
