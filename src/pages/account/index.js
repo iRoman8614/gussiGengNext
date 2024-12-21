@@ -389,7 +389,7 @@ export default function Page() {
                     {/*</div>*/}
                 </div>
             )}
-            {!defaultSkin &&
+            {defaultSkin &&
                 <div className={styles.skinPopUp}>
                     <div className={styles.popUpClose} onClick={() => setDefaultSkin(false)}>x</div>
                     <div className={styles.row}>
