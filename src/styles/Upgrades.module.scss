@@ -169,6 +169,9 @@
   cursor: pointer;
   width: 25px !important;
   rotate: 180deg;
+  align-self: center;
+  display: flex;
+  align-items: center;
 }
 
 .caption {
@@ -190,6 +193,9 @@
   border: none;
   cursor: pointer;
   width: 25px !important;
+  align-self: center;
+  display: flex;
+  align-items: center;
 }
 
 .skinContainer {

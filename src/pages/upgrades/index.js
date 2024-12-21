@@ -300,9 +300,9 @@ export default function Page() {
                     <div className={styles.personalContainer}>
                         <div className={styles.list}>
                             <div className={styles.containerSwiper}>
-                                <button className={styles.navLeft} onClick={handleSlidePrev}>
+                                <div className={styles.navLeft} onClick={handleSlidePrev}>
                                     <Image src={'/ArrowWhite.png'} alt={''} width={20} height={20} loading="lazy" />
-                                </button>
+                                </div>
                                 <Swiper
                                     modules={[Navigation, Controller]}
                                     slidesPerView={1}
@@ -334,9 +334,9 @@ export default function Page() {
                                         </SwiperSlide>
                                     ))}
                                 </Swiper>
-                                <button className={styles.navRight} onClick={handleSlideNext}>
+                                <div className={styles.navRight} onClick={handleSlideNext}>
                                     <Image src={'/ArrowWhite.png'} alt={''} width={20} height={20} loading="lazy" />
-                                </button>
+                                </div>
                             </div>
                             {activeIndex === 0 && <>
                                 {rateLevels.length !== 0 ? <div className={styles.itemsList}>{rateLevels.map((item, index) => (
