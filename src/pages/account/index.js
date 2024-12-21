@@ -307,11 +307,21 @@ export default function Page() {
                             </div>
                         </div>
                         <div className={styles.list}>
+                            <div className={styles.skinListItem}>
+                                <div>default</div>
+                            </div>
                             {skins.map((skin, index) => {
                                 return (
                                     <div key={skin.id} className={styles.skinListItem} onClick={() => setSelectedSkin(skin)}>
                                         <div>{skin.name}</div>
-                                        <div>{formatBalance(skin.price)}{' '}<Image src={money} alt={''} width={15} height={15} loading="lazy"/></div>
+                                        <div>{skin.price > 0 ? <>
+                                            {formatBalance(skin.price)}{' '}<Image src={money} alt={''} width={15}
+                                                                                   height={15}
+                                                                                   loading="lazy"/>
+                                            </> : <>
+                                                <div onClick={() => {router.push('/tasks')}}>task</div>
+                                            </>}
+                                            </div>
                                     </div>
                                 );
                             })}

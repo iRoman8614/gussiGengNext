@@ -111,3 +111,40 @@ function PayWithTelegram() {
         <button onClick={handlePayment}>Оплатить через Telegram</button>
     );
 }
+
+function Pay2WithTelegram() {
+    const [invoiceData, setInvoiceData] = useState(null);
+
+    useEffect(() => {
+        // Загрузка данных инвойса с бэкенда
+        const fetchInvoiceData = async () => {
+            try {
+                const response = await axios.get('/api/get_invoice_data');
+                setInvoiceData(response.data);
+            } catch (error) {
+                console.error('Ошибка при получении данных инвойса:', error);
+            }
+        };
+
+        fetchInvoiceData();
+    }, []);
+
+    const handlePayment = () => {
+        if (window.Telegram.WebApp && invoiceData) {
+            window.Telegram.WebApp.openInvoice({
+                title: invoiceData.title,
+                description: invoiceData.description,
+                payload: invoiceData.payload,
+                provider_token: invoiceData.provider_token,
+                currency: invoiceData.currency,
+                prices: invoiceData.prices
+            });
+        }
+    };
+
+    return (
+        <button onClick={handlePayment} disabled={!invoiceData}>
+            Оплатить через Telegram
+        </button>
+    );
+}
