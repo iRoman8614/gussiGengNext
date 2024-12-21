@@ -57,10 +57,10 @@ const skinData = {
             cost: 2500000
         },
     ],
-    skin_1: "/skins/tlfull.png",
-    skin_2: "/skins/netfull.png",
-    skin_3: "/skins/itfull.png",
-    skin_4: "/skins/lilfull.png"
+    thuglife: "/skins/tlfull.png",
+    netrunner: "/skins/netfull.png",
+    theItDude: "/skins/itfull.png",
+    lilith: "/skins/lilfull.png"
 };
 
 export default skinData;
