@@ -296,7 +296,7 @@ export default function Home() {
             {itemPlaceholder &&
                 <div className={styles.placeholder}>
                     <div className={styles.closePH} onClick={() => setItemPlaceholder(false)}>x</div>
-                    <div className={styles.placeholderTitle1}>More <a>Drip</a><br/>for your <a>Grip!</a></div>
+                    <div className={styles.placeholderTitle1}>more <a>drip</a><br/>for your <a>grip!</a></div>
                     <div className={styles.imageBorder}>
                         <Image className={styles.phImage} src={itemsPH} alt={''} width={450} height={420} />
                     </div>

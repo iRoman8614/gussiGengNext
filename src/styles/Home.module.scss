@@ -372,7 +372,7 @@
 }
 
 .placeholderTitle1 {
-  font-size: 36px;
+  font-size: auto-height(36, 50);
   text-align: center;
 
   a {
@@ -399,7 +399,7 @@
 }
 
 .placeholderDesk1 {
-  font-size: 28px;
+  font-size: auto-height(28, 36);
   text-align: center;
   margin: 0 40px;
 }
