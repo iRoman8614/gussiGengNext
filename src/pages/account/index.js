@@ -95,6 +95,7 @@ export default function Page() {
                     await axiosInstance.get(`/skin/update?skinId=${skinId}`);
                     await refreshMySkins()
                     await collectAndStart()
+                    setSelectedSkin(null)
                 } catch (error) {
                     console.error('Ошибка при покупке и экипировке скина:', error);
                 }
@@ -104,6 +105,7 @@ export default function Page() {
                 await axiosInstance.get(`/skin/update?skinId=${skinId}`);
                 await refreshMySkins()
                 await collectAndStart()
+                setSelectedSkin(null)
             } catch (error) {
                 console.error('Ошибка при покупке и экипировке скина:', error);
             }
