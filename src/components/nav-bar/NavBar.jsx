@@ -13,7 +13,7 @@ const friends = '/main-buttons/friends.png'
 const bag = '/main-buttons/bag.png'
 const FAQ = '/main-buttons/FAQ.png'
 
-export const NavBar = () => {
+export const NavBar = ({clickItem}) => {
     const router = useRouter();
     const { t } = useTranslation();
     const [move, setMove] = useState('/lobby')
@@ -38,7 +38,7 @@ export const NavBar = () => {
         //     <IconButton image={FAQ} alt={'home'} title={t('main.tasks')} onClick={() => {router.push('/tasks')}} />
         // </div>
         <div className={styles.root}>
-            <div className={styles.smallElem1}>
+            <div className={styles.smallElem1} onClick={clickItem}>
                 <Image width={60} height={40} className={styles.image} src={bag} alt={''} />
                 <div className={styles.title}>
                     {t('main.items')}

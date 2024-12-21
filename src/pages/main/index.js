@@ -26,6 +26,8 @@ const background = '/backgrounds/nightcity.png'
 const bonus = '/main-buttons/bonus.png'
 const money = '/money.png'
 const dailyBils = '/dailyBills.png'
+const walletPH = '/walletPH.png'
+const itemsPH ='/itemsPH.png'
 
 export default function Home() {
     const router = useRouter();
@@ -40,6 +42,8 @@ export default function Home() {
     const [tasks, setTasks] = useState([]);
     const [completedTaskIds, setCompletedTaskIds] = useState([]);
     const [skinSource, setSkinSource] = useState('');
+    const [itemPlaceholder, setItemPlaceholder] = useState(false)
+    const [walletPlaceholder, setWalletPlaceholder] = useState(false)
 
     const { collectAndStart } = useFarmCollect();
 
@@ -223,7 +227,7 @@ export default function Home() {
                     <div className={styles.totalText}>{formatNumber(balance, 12)}{' '}<Image src={money} alt={''} width={21} height={21} /></div>
                 </div>
                 <div className={styles.item6}>
-                    <IconButton image={wallet} alt={'wallet'} title={t('main.wallet')} hidden={true} direction={'right'}/>
+                    <IconButton image={wallet} alt={'wallet'} title={t('main.wallet')} hidden={true} direction={'right'} onClick={() => setWalletPlaceholder(true)} />
                 </div>
                 {/*<div className={styles.item7}>*/}
                 {/*    <Image width={1000} height={1000} className={styles.char} alt={'character'} src={skinData[groupId]?.[liga]?.icon} loading="lazy"/>*/}
@@ -246,7 +250,7 @@ export default function Home() {
                     <p id={"loot"} className={isClaimClicked ? styles.btnClicked : styles.btn}>{t('main.loot')}</p>
                 </div>
                 <div className={styles.item10}>
-                    <NavBar/>
+                    <NavBar clickItem={() => setItemPlaceholder(true)} />
                 </div>
             </div>
             {dailyPopUp && (
@@ -279,6 +283,27 @@ export default function Home() {
                     </div>
                 </div>
             )}
+            {walletPlaceholder && <div className={styles.placeholder}>
+                <div className={styles.closePH} onClick={() => setWalletPlaceholder(false)}>x</div>
+                <div className={styles.placeholderTitle}><a>Wallet</a> is on the Way!</div>
+                <div className={styles.imageBorder}>
+                    <Image className={styles.phImage} src={walletPH} alt={''} width={450} height={420} />
+                </div>
+                <div className={styles.placeholderDesk}>Sit tight and watch —
+                    loot and airdrop riches
+                    are around the corner!!!</div>
+            </div>}
+            {itemPlaceholder &&
+                <div className={styles.placeholder}>
+                    <div className={styles.closePH} onClick={() => setItemPlaceholder(false)}>x</div>
+                    <div className={styles.placeholderTitle1}>More <a>Drip</a><br/>for your <a>Grip!</a></div>
+                    <div className={styles.imageBorder}>
+                        <Image className={styles.phImage} src={itemsPH} alt={''} width={450} height={420} />
+                    </div>
+                    <div className={styles.placeholderDesk1}>Watches, rings, and ink—make your hands look mean and clean</div>
+                    <div className={styles.placeholderTitle1}><a>stay tuned!!!</a></div>
+                </div>
+            }
         </>
     );
 }

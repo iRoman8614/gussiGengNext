@@ -135,8 +135,8 @@
 }
 
 .bonusItem {
-  grid-row: 5 / 7;
-  grid-column: 11/13;
+  grid-row: 6 / 8;
+  grid-column: 10/13;
   align-self: center;
   justify-self: center;
 
@@ -344,4 +344,81 @@
   margin: 15px auto;
 
   animation: pulse 3s infinite;
+}
+
+.placeholder {
+  padding: 40px 5px 5px 5px;
+  position: absolute;
+  bottom: 0;
+  width: 100vw;
+  height: 85vh;
+  border: 2px solid #3842A4;
+  background: rgba(56, 36, 111, 0.95);
+  border-radius: 28px;
+  color: #FFFFFF;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  gap: 10px;
+}
+
+.placeholderTitle {
+  font-size: auto-height(28, 40);
+  text-align: center;
+
+  a {
+    color: #FFCC26;
+  }
+}
+
+.placeholderTitle1 {
+  font-size: 36px;
+  text-align: center;
+
+  a {
+    color: #FFCC26;
+  }
+}
+
+.imageBorder {
+  background: #0D0F24;
+  padding: 7px 7px 3px 7px;
+  border-radius: 20px;
+}
+
+.phImage {
+  width: 100%;
+  height: auto;
+  border-radius: 15px;
+}
+
+.placeholderDesk {
+  font-size: auto-height(18, 30);
+  text-align: center;
+  margin: 5px auto-height(0, 30);
+}
+
+.placeholderDesk1 {
+  font-size: 28px;
+  text-align: center;
+  margin: 0 40px;
+}
+
+
+.closePH {
+  position: absolute;
+  z-index: 13;
+  top: 10px;
+  right: 10px;
+  border-radius: 11px;
+  background: #FD4747;
+  border: 1px solid #D45E5E;
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+  width: 40px;
+  height: 40px;
+  font-size: 30px;
+  padding: 5px;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.65);
+  margin-left: auto;
 }
