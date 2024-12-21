@@ -71,7 +71,43 @@ export default function Page() {
                 />
                 <div className={styles.faqBtn} onClick={moveToFaq}>faq</div>
                 <button onClick={clearLang}>очистить язык</button>
+                <PayWithTelegram />
             </div>
         </div>
     );
 };
+
+import React from 'react';
+
+function PayWithTelegram() {
+    const handlePayment = () => {
+        // Эти данные должны быть предварительно загружены или получены от вашего сервера
+        const invoiceData = {
+            title: "Название продукта",
+            description: "Описание продукта",
+            payload: "unique_payload",
+            provider_token: "provider_token_registered_with_Telegram",
+            currency: "USD",
+            prices: [{ label: "Product", amount: 10000 }]  // 100.00 USD
+        };
+
+        if (window.Telegram.WebApp) {
+            window.Telegram.WebApp.openInvoice({
+                title: invoiceData.title,
+                description: invoiceData.description,
+                payload: invoiceData.payload,
+                provider_token: invoiceData.provider_token,
+                currency: invoiceData.currency,
+                prices: invoiceData.prices,
+                max_tip_amount: 1000000, // Опционально, максимальная сумма чаевых в малейших единицах валюты
+                suggested_tip_amounts: [50000, 100000, 150000], // Опционально, предлагаемые суммы чаевых
+                start_parameter: 'get_access', // Опционально, параметр для deep linking
+                is_flexible: false // Опционально, указывает на изменяемость итоговой суммы в зависимости от адреса
+            });
+        }
+    };
+
+    return (
+        <button onClick={handlePayment}>Оплатить через Telegram</button>
+    );
+}
