@@ -34,6 +34,7 @@ export default function Page() {
     const [mySkins, setMySkins] = useState([]);
     const [selectedSkin, setSelectedSkin] = useState(null);
     const [defaultSkin, setDefaultSkin] = useState(false)
+    const [skinSource, setSkinSource] = useState('');
     const { fetchProfileStats, data: stats } = useProfileStats();
     const { data: friends } = useMyInvitees();
     const { collectAndStart } = useFarmCollect();
@@ -111,6 +112,16 @@ export default function Page() {
             }
         }
     };
+
+    useEffect(() => {
+        const skinFromSession = sessionStorage.getItem('skin');
+        const skin = skinFromSession ? JSON.parse(skinFromSession) : null;
+        if (skin && skin.key) {
+            setSkinSource(skinData[skin.key] || skinData[groupId]?.[liga]?.icon);
+        } else {
+            setSkinSource(skinData[groupId]?.[liga]?.icon);
+        }
+    }, [groupId, liga]);
 
     const refreshMySkins = async () => {
         try {
@@ -254,7 +265,7 @@ export default function Page() {
                         <div className={styles.avatarContainer}>
                             <Image className={styles.logo} src={teamData[groupId]?.logo} alt={''} width={40} height={40}
                                    loading="lazy"/>
-                            <Image className={styles.character} src={skinData[groupId]?.[liga]?.icon} alt={''} width={100}
+                            <Image className={styles.character} src={skinSource} alt={''} width={100}
                                    height={178} loading="lazy"/>
                         </div>
                         <div className={styles.stats}>
