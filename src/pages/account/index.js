@@ -242,7 +242,7 @@ export default function Page() {
                                 marginBottom:  activeTab === 2 ? '-0px' : '2px',
                             }}
                             onClick={() => handleTab(2)}
-                        >skins</div>
+                        >{t('account.skins')}</div>
                         <div className={styles.season}>
                             {t('account.season')}
                             <div className={styles.nickname}>{userName}</div>
@@ -281,7 +281,7 @@ export default function Page() {
                             <div className={styles.barItemStats}>{dailyEntries}</div>
                         </div>
                         <div>
-                            <div className={styles.barItem}>{t('account.balance')}</div>
+                            <div className={styles.barItem}>{t('account.cur_balance')}</div>
                             <div className={styles.balance}>{formatNumber(coins, 15)}{' '}<Image src={money} alt={''} width={21} height={21} loading="lazy"/></div>
                         </div>
                     </div>}
@@ -327,20 +327,17 @@ export default function Page() {
                                     <Image src={'/ArrowWhite.png'} alt={''} width={20} height={20} loading="lazy" />
                                 </button>
                             </div>
-                            {/*<div className={styles.caption}>*/}
-                            {/*    {skinData.paid[activeIndex].name}*/}
-                            {/*</div>*/}
                             <div className={styles.caption}>
                                 {skins[activeIndex].name}
                             </div>
                             <div className={styles.skinBalance}>
-                                <div className={styles.skinBalanceTitle}>balance</div>
+                                <div className={styles.skinBalanceTitle}>{t('account.balance')}</div>
                                 <div>{formatNumber(coins, 15)}{' '}<Image src={money} alt={''} width={18} height={18} loading="lazy"/></div>
                             </div>
                         </div>
                         <div className={styles.list}>
                             <div className={styles.skinListItem} onClick={() => setDefaultSkin(true)}>
-                                <div>default</div>
+                                <div>{t('account.default')}</div>
                             </div>
                             {skins.map((skin, index) => {
                                 return (
@@ -354,9 +351,7 @@ export default function Page() {
                                                 <div onClick={() => {router.push('/tasks')}}>task</div>
                                             </>}
                                             </div>
-                                    </div>
-                                );
-                            })}
+                                    </div>);})}
                         </div>
                     </div>}
                 </div>
@@ -378,15 +373,9 @@ export default function Page() {
                             className={styles.modalBtn}
                             onClick={() => handlePurchaseOrEquip(selectedSkin.id, selectedSkin.price)}
                         >
-                            {isOwned(selectedSkin.id) ? "equip" : "buy"}
+                            {isOwned(selectedSkin.id) ? <>{t('account.equip')}</> : <>{t('account.buy')}</>}
                         </div>
                     </div>
-                    {/*<div className={styles.modalBorder}>*/}
-                    {/*    <div className={styles.modalBtn} onClick={() => handleBuySkin(selectedSkin.id)}>buy</div>*/}
-                    {/*</div>*/}
-                    {/*<div className={isOwned(selectedSkin.id) ? styles.modalBtn : styles.modalBtnHidden} >*/}
-                    {/*    <div className={styles.modalBtn} onClick={() => handleEquipSkin(selectedSkin.id)}>equip</div>*/}
-                    {/*</div>*/}
                 </div>
             )}
             {defaultSkin &&
@@ -406,9 +395,6 @@ export default function Page() {
                                         <div className={styles.lockDesk}>reach next leagues</div>
                                     </div>
                                 }
-                                {/*{isOwned(selectedSkin.id) ? <div></div> : <div className={styles.popUpText}>{selectedSkin?.price}{' '}<Image src={money} alt={''}*/}
-                                {/*                                                                                                             width={15} height={15}*/}
-                                {/*                                                                                                             loading="lazy"/></div>}*/}
                             </div>
                         </div>
                         <div className={styles.navRight} onClick={nextSkin}>
@@ -420,7 +406,7 @@ export default function Page() {
                             <div
                                 className={styles.modalBtn}
                                 onClick={() => {console.log('equiped')}}
-                            >equip</div>
+                            >{t('account.equip')}</div>
                         </div>
                     </div>
 

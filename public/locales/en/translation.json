@@ -32,8 +32,13 @@
     "Total": "total coins earned",
     "friends": "friends invited",
     "login": "login streak",
-    "balance": "current balance",
-    "tasks": "completed tasks"
+    "cur_balance": "current balance",
+    "tasks": "completed tasks",
+    "skins": "skins",
+    "balance": "balance",
+    "default": "default",
+    "buy": "buy",
+    "equip": "equip"
   },
   "change": {
     "destiny": "you wanna change your destiny?",
@@ -105,6 +110,7 @@
   },
   "EXP": {
     "upgrades": "upgrades",
+    "requires": "requires",
     "tasks": "tasks",
     "speeds": "speed upgrades",
     "limits": "limit upgrades",
