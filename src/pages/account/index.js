@@ -99,6 +99,7 @@ export default function Page() {
                     setSelectedSkin(null)
                 } catch (error) {
                     console.error('Ошибка при покупке и экипировке скина:', error);
+                    await refreshMySkins()
                 }
             }
         } else {
@@ -109,6 +110,7 @@ export default function Page() {
                 setSelectedSkin(null)
             } catch (error) {
                 console.error('Ошибка при покупке и экипировке скина:', error);
+                await refreshMySkins()
             }
         }
     };
