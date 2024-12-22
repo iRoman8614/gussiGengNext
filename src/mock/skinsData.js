@@ -57,7 +57,7 @@ const skinData = {
             cost: 2500000
         },
     ],
-    thuglife: "/skins/tlfull.png",
+    thug_life: "/skins/tlfull.png",
     netrunner: "/skins/netfull.png",
     theItDude: "/skins/itfull.png",
     lilith: "/skins/lilfull.png"
