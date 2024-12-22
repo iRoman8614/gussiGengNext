@@ -209,6 +209,9 @@ export default function Home() {
                             console.log('скин сохранен в ss')
                             sessionStorage.setItem('skin', JSON.stringify(skin));
                         }
+                        if (skin && skin.key) {
+                            setSkinSource(skinData[skin.key] || skinData[groupId]?.[liga]?.icon);
+                        }
                     } catch (error) {
                         toast.error("Failed to authenticate.");
                         console.error("Error refreshing JWT token:", error);
