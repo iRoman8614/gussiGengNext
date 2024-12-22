@@ -113,6 +113,7 @@ export default function Page() {
                 await refreshMySkins()
             }
         }
+        setSelectedSkin(null)
     };
 
     useEffect(() => {
