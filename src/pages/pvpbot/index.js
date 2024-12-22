@@ -27,8 +27,6 @@ const gifPaths = {
 const rock = '/game-icons/rock.png'
 const paper = '/game-icons/paper.png'
 const scis = '/game-icons/scissors.png'
-const changerF = '/game-icons/roundAnimFront.png'
-const changerB = '/game-icons/roundAnimBack.png'
 import roundAnimationData from '@/mock/Round.json';
 import startAnimationData from '@/mock/Start_new.json';
 
@@ -341,10 +339,29 @@ export default function PvpBotPage() {
                         {t('PVP.rounds')} {playerScore+opponentScore+1}
                     </div>
                     <div className={styles.buttonSet}>
-                        <PvpBtn title={t('PVP.rock')} img={rock} value={1} onClick={() => !isLocked && gameStarted && setPlayerChoice(1)} choose={playerChoice} />
-                        <PvpBtn title={t('PVP.paper')} img={paper} value={2} onClick={() => !isLocked && gameStarted && setPlayerChoice(2)} choose={playerChoice} />
-                        <PvpBtn title={t('PVP.scissors')} img={scis} value={3} onClick={() => !isLocked && gameStarted && setPlayerChoice(3)} choose={playerChoice} />
+                        <PvpBtn
+                            title={t('PVP.rock')}
+                            img={rock}
+                            value={1}
+                            onClick={() => playerChoice === null && !isLocked && gameStarted && setPlayerChoice(1)}
+                            choose={playerChoice}
+                        />
+                        <PvpBtn
+                            title={t('PVP.paper')}
+                            img={paper}
+                            value={2}
+                            onClick={() => playerChoice === null && !isLocked && gameStarted && setPlayerChoice(2)}
+                            choose={playerChoice}
+                        />
+                        <PvpBtn
+                            title={t('PVP.scissors')}
+                            img={scis}
+                            value={3}
+                            onClick={() => playerChoice === null && !isLocked && gameStarted && setPlayerChoice(3)}
+                            choose={playerChoice}
+                        />
                     </div>
+
                 </div>
             </div>
             {/*{showChanger && <RoundChanger round={playerScore + opponentScore + 1}/>}*/}
@@ -388,36 +405,6 @@ const WinningScreen = ({ playerScore  }) => (
         </div> : <Image width={204} height={204} className={styles.loseImage} src={youLose} alt={'you lose'} priority />}
     </div>
 );
-
-// const RoundChanger = ({round}) => {
-//     const {t} = useTranslation();
-//     return(
-//         <div className={styles.changerRoot}>
-//             <div className={styles.changerContainer}>
-//                 <Image className={styles.animF} src={changerF} alt={''} width={700} height={150} priority />
-//                 <Image className={styles.animB} src={changerB} alt={''} width={700} height={150} priority />
-//                 <div className={styles.changerText}>
-//                     {typeof round === "string" ? round : `${t("PVP.rounds")} ${round}`}
-//                 </div>
-//             </div>
-//         </div>
-//     )
-// }
-//
-// const GameStarte = ({round}) => {
-//     const {t} = useTranslation();
-//     return(
-//         <div className={styles.changerRoot}>
-//             <div className={styles.changerContainer}>
-//                 <Image className={styles.animFGS} src={changerF} alt={''} width={700} height={150} priority />
-//                 <Image className={styles.animBGS} src={changerB} alt={''} width={700} height={150} priority />
-//                 <div className={styles.changerTextGS}>
-//                     {typeof round === "string" ? round : `${t("PVP.rounds")} ${round}`}
-//                 </div>
-//             </div>
-//         </div>
-//     )
-// }
 
 import Lottie from 'react-lottie';
 
