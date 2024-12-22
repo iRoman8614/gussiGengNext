@@ -235,18 +235,17 @@ export default function Page() {
                     <IconButton image={FAQ} alt={'home'} title={t('PVP.faq')} onClick={() => {router.push('/faq/pvp')}} />
                 </div>
             </div>
-            {clanPopUp && <div className={styles.clanPopUp}>
-                <div className={styles.popUpClose} onClick={() => setClanPopUp(false)}>x</div>
-                <div className={styles.clanBorder}>
-                    <div className={styles.clanContainer}>
+            {clanPopUp &&
+                <div className={styles.popUpBG}>
+                    <div className={styles.clanPopUp}>
                         <div className={styles.clanLabel}>{t('main.DailyPvp')}<br/> {t('main.results')}</div>
                         <div className={styles.clanName}>{teamData[clanId]?.Name}</div>
                         <Image src={teamData[clanId]?.logo} alt={''} width={120} height={120} lazy />
                         <div className={styles.clanLabel}>{t('main.are')} <a>{t('main.OG')}</a>{t('main.today')}</div>
                         <div className={styles.clanName}>+50000 <Image src={money} alt="" width={25} height={25} /></div>
+                        <button className={styles.dilybtn} onClick={() => setClanPopUp(false)}>{t('random.continue')}</button>
                     </div>
-                </div>
-            </div>}
+                </div>}
         </>
 
     );
