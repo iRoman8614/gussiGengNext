@@ -418,7 +418,7 @@ export default function Page() {
                         <div className={styles.modalBorder}>
                             <div
                                 className={styles.modalBtn}
-                                onClick={() => {console.log('equiped')}}
+                                onClick={() => handlePurchaseOrEquip(1, 0)}
                             >{t('account.equip')}</div>
                         </div>
                     </div>
