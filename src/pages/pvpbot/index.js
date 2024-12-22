@@ -421,7 +421,7 @@ const RoundAnimation = ({ round }) => {
 
     return (
         <div className={styles.changerRoot}>
-            <Lottie options={defaultOptions} height="100%" width="100%" />
+            <Lottie style={{ pointerEvents: "none" }} options={defaultOptions} height="100%" width="100%" />
             <div className={styles.changerText}>
                 {typeof round === "string" ? round : `${t("PVP.rounds")} ${round}`}
             </div>
@@ -442,7 +442,7 @@ const StartAnimation = () => {
 
     return (
         <div className={styles.changerRoot}>
-            <Lottie options={defaultOptions} height="100%" width="100%" className={styles.lottie} />
+            <Lottie options={defaultOptions} style={{ pointerEvents: "none" }} height="100%" width="100%" className={styles.lottie} />
         </div>
     );
 }
