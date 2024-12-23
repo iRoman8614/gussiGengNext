@@ -20,20 +20,12 @@ function BuySkinButton() {
             }
         } catch (err) {
             if (err.status !== 200) {
-                console.log('err', err)
-                console.log('err.responce.data', err.response.data.error)
                 const errorUrl = err.response.data.error;
                 console.log('errorUrl', errorUrl)
                 if (errorUrl) {
                     window.open(errorUrl, '_blank');
-                } else {
-                    throw new Error('Ссылка для оплаты не найдена');
                 }
             }
-            console.error('Ошибка при покупке скина:', err);
-            setError(err.message);
-        } finally {
-            setLoading(false);
         }
     };
 
