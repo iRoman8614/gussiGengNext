@@ -110,7 +110,7 @@
   },
   "EXP": {
     "upgrades": "upgrades",
-    "requires": "requires",
+    "requires": "required",
     "tasks": "tasks",
     "speeds": "speed upgrades",
     "limits": "limit upgrades",
