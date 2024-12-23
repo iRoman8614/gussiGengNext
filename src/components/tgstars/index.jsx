@@ -20,6 +20,7 @@ function BuySkinButton() {
             }
         } catch (err) {
             if (err.status !== 200) {
+                console.log('err', err)
                 console.log('err.error', err.error)
                 console.log('err.data', err.data)
                 console.log('err.message', err.message)
