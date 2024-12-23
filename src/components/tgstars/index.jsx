@@ -20,7 +20,10 @@ function BuySkinButton() {
             }
         } catch (err) {
             if (err.status !== 200) {
-                const errorUrl = err.data.error;
+                console.log('err.error', err.error)
+                console.log('err.data', err.data)
+                console.log('err.message', err.message)
+                const errorUrl = err.error;
                 if (errorUrl) {
                     window.open(errorUrl, '_blank');
                 } else {
