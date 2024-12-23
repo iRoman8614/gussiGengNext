@@ -326,23 +326,21 @@ export default function Home() {
             )}
             {walletPlaceholder && <div className={styles.placeholder}>
                 <div className={styles.closePH} onClick={() => setWalletPlaceholder(false)}>x</div>
-                <div className={styles.placeholderTitle}><a>Wallet</a> is on the Way!</div>
+                <div className={styles.placeholderTitle}><a>{t('main.wallet')}</a>{t('main.way')}</div>
                 <div className={styles.imageBorder}>
                     <Image className={styles.phImage} src={walletPH} alt={''} width={450} height={420} />
                 </div>
-                <div className={styles.placeholderDesk}>Sit tight and watch —
-                    loot and airdrop riches
-                    are around the corner!!!</div>
+                <div className={styles.placeholderDesk}>{t('main.riches')}</div>
             </div>}
             {itemPlaceholder &&
                 <div className={styles.placeholder}>
                     <div className={styles.closePH} onClick={() => setItemPlaceholder(false)}>x</div>
-                    <div className={styles.placeholderTitle1}>more <a>drip</a><br/>for your <a>grip!</a></div>
+                    <div className={styles.placeholderTitle1}>{t('main.more')}<a>{t('main.drip')}</a><br/>{t('main.foryour')}<a>{t('main.grip')}</a></div>
                     <div className={styles.imageBorder}>
                         <Image className={styles.phImage} src={itemsPH} alt={''} width={450} height={420} />
                     </div>
-                    <div className={styles.placeholderDesk1}>Watches, rings, and ink—make your hands look mean and clean</div>
-                    <div className={styles.placeholderTitle1}><a>stay tuned!!!</a></div>
+                    <div className={styles.placeholderDesk1}>{t('main.watches')}</div>
+                    <div className={styles.placeholderTitle1}><a>{t('main.tuned')}</a></div>
                 </div>
             }
         </>
