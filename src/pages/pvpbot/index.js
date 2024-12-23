@@ -24,10 +24,13 @@ const gifPaths = {
     rockAnim: '/game-icons/animation_hand_rock.gif',
     scisAnim: '/game-icons/animation_hand_sci.gif',
     papAnim: '/game-icons/animation_hand_pap.gif',
+    watchMove: '/game-icons/SciWatchMove.gif'
 };
 const rock = '/game-icons/rock.png'
 const paper = '/game-icons/paper.png'
 const scis = '/game-icons/scissors.png'
+const watchStart = '/game-icons/SciWatchStart.png'
+const watchFinish = '/game-icons/SciWatchFinish.png'
 import roundAnimationData from '@/mock/Round.json';
 import startAnimationData from '@/mock/Start_new.json';
 
@@ -255,7 +258,56 @@ export default function PvpBotPage() {
                     <div className={styles.oppNickname}>
                         {opponentName}
                     </div>
+                    {/*<div className={styles.optionBg}>*/}
+                    {/*    <img*/}
+                    {/*        className={`${styles.choose} ${visibleImage === 1 ? styles.visible : styles.hidden}`}*/}
+                    {/*        src={*/}
+                    {/*            opponentChoice === 1*/}
+                    {/*                ? opponentGifCache.current.rockAnim?.src || gifPaths.rockAnim*/}
+                    {/*                : opponentChoice === 2*/}
+                    {/*                    ? opponentGifCache.current.papAnim?.src || gifPaths.papAnim*/}
+                    {/*                    : opponentChoice === 3*/}
+                    {/*                        ? opponentGifCache.current.scisAnim?.src || gifPaths.scisAnim*/}
+                    {/*                        : gameOptions[4]?.logo*/}
+                    {/*        }*/}
+                    {/*        alt="game choice animation"*/}
+                    {/*    />*/}
+                    {/*    <Image*/}
+                    {/*        width={90}*/}
+                    {/*        height={190}*/}
+                    {/*        layout="fixed"*/}
+                    {/*        objectFit="contain"*/}
+                    {/*        className={`${styles.choose} ${visibleImage !== 1 ? styles.visible : styles.hidden}`}*/}
+                    {/*        src={*/}
+                    {/*            visibleImage === 0*/}
+                    {/*                ? gameOptions[4]?.logo*/}
+                    {/*                : opponentChoice === 0 || opponentChoice === 10*/}
+                    {/*                    ? gameOptions[4]?.logo*/}
+                    {/*                    : opponentChoice === 1*/}
+                    {/*                        ? gameOptions[1]?.logo*/}
+                    {/*                        : opponentChoice === 2*/}
+                    {/*                            ? gameOptions[2]?.logo*/}
+                    {/*                            : gameOptions[3]?.logo*/}
+                    {/*        }*/}
+                    {/*        alt="game choice"*/}
+                    {/*        loading="lazy"*/}
+                    {/*    />*/}
+                    {/*</div>*/}
                     <div className={styles.optionBg}>
+                        <Image
+                            width={90}
+                            height={190}
+                            layout="fixed"
+                            objectFit="contain"
+                            className={`${styles.choose} ${styles.overlayOpponent} ${visibleImage === 0 ? styles.visible : styles.hidden}`}
+                            src={watchStart}
+                            alt="watch start"
+                        />
+                        <img
+                            className={`${styles.choose} ${styles.watchMoveOpp} ${visibleImage === 1 ? styles.visible : styles.hidden}`}
+                            src={'/game-icons/SciWatchMove.gif'}
+                            alt="watch move"
+                        />
                         <img
                             className={`${styles.choose} ${visibleImage === 1 ? styles.visible : styles.hidden}`}
                             src={
@@ -277,7 +329,7 @@ export default function PvpBotPage() {
                             className={`${styles.choose} ${visibleImage !== 1 ? styles.visible : styles.hidden}`}
                             src={
                                 visibleImage === 0
-                                    ? gameOptions[4]?.logo
+                                    ? gameOptions[1]?.logo
                                     : opponentChoice === 0 || opponentChoice === 10
                                         ? gameOptions[4]?.logo
                                         : opponentChoice === 1
@@ -289,16 +341,80 @@ export default function PvpBotPage() {
                             alt="game choice"
                             loading="lazy"
                         />
+                        <Image
+                            width={90}
+                            height={190}
+                            layout="fixed"
+                            objectFit="contain"
+                            className={`${styles.choose} ${styles.overlayOpponent} ${visibleImage !== 1 ? styles.visible : styles.hidden}`}
+                            src={watchFinish}
+                            alt="watch finish"
+                        />
                     </div>
                     <VictoryCounter score={playerScore} />
-                    <IconButton image={teamData[groupId]?.logo} alt={'gang'} />
+                    {/*<IconButton image={teamData[groupId]?.logo} alt={'gang'} />*/}
+                    <div className={styles.iconBG}>
+                        <Image className={styles.iconImage} src={teamData[groupId]?.logo} alt={''} width={80} height={80} />
+                    </div>
                     <div className={styles.roundTimer}>
                         <Image src={timerBG} alt={'timer'} height={144} width={144} className={styles.roundTimerBG} loading="lazy" />
                         <div className={styles.time}>{timer}</div>
                     </div>
-                    <IconButton image={teamData[oppClan]?.logo} alt={'gang'} />
+                    {/*<IconButton image={teamData[oppClan]?.logo} alt={'gang'} />*/}
+                    <div className={styles.iconBG}>
+                        <Image className={styles.iconImage} src={teamData[oppClan]?.logo} alt={''} width={80} height={80} />
+                    </div>
                     <VictoryCounter score={opponentScore} />
+                    {/*<div className={styles.optionBg}>*/}
+                    {/*    <img*/}
+                    {/*        className={`${styles.mychoose} ${visibleImage === 1 ? styles.visible : styles.hidden}`}*/}
+                    {/*        src={*/}
+                    {/*            playerChoice === 1*/}
+                    {/*                ? playerGifCache.current.rockAnim?.src || gifPaths.rockAnim*/}
+                    {/*                : playerChoice === 2*/}
+                    {/*                    ? playerGifCache.current.papAnim?.src || gifPaths.papAnim*/}
+                    {/*                    : playerChoice === 3*/}
+                    {/*                        ? playerGifCache.current.scisAnim?.src || gifPaths.scisAnim*/}
+                    {/*                        : gameOptions[4]?.logo*/}
+                    {/*        }*/}
+                    {/*        alt="game choice animation"*/}
+                    {/*    />*/}
+                    {/*    <Image*/}
+                    {/*        width={90}*/}
+                    {/*        height={190}*/}
+                    {/*        layout="fixed"*/}
+                    {/*        objectFit="contain"*/}
+                    {/*        className={`${styles.mychoose} ${visibleImage !== 1 ? styles.visible : styles.hidden}`}*/}
+                    {/*        src={*/}
+                    {/*            visibleImage === 0*/}
+                    {/*                ? gameOptions[4]?.logo*/}
+                    {/*                : playerChoice === 0 || playerChoice === 10*/}
+                    {/*                    ? gameOptions[4]?.logo*/}
+                    {/*                    : playerChoice === 1*/}
+                    {/*                        ? gameOptions[1]?.logo*/}
+                    {/*                        : playerChoice === 2*/}
+                    {/*                            ? gameOptions[2]?.logo*/}
+                    {/*                            : gameOptions[3]?.logo*/}
+                    {/*        }*/}
+                    {/*        alt="game choice"*/}
+                    {/*        loading="lazy"*/}
+                    {/*    />*/}
+                    {/*</div>*/}
                     <div className={styles.optionBg}>
+                        <Image
+                            width={90}
+                            height={190}
+                            layout="fixed"
+                            objectFit="contain"
+                            className={`${styles.mychoose} ${styles.overlay} ${visibleImage === 0 ? styles.visible : styles.hidden}`}
+                            src={watchStart}
+                            alt="watch start"
+                        />
+                        <img
+                            className={`${styles.mychoose} ${styles.watchMove} ${visibleImage === 1 ? styles.visible : styles.hidden}`}
+                            src='/game-icons/SciWatchMove.gif'
+                            alt="watch move"
+                        />
                         <img
                             className={`${styles.mychoose} ${visibleImage === 1 ? styles.visible : styles.hidden}`}
                             src={
@@ -331,6 +447,15 @@ export default function PvpBotPage() {
                             }
                             alt="game choice"
                             loading="lazy"
+                        />
+                        <Image
+                            width={90}
+                            height={190}
+                            layout="fixed"
+                            objectFit="contain"
+                            className={`${styles.mychoose} ${styles.overlay} ${visibleImage !== 1 ? styles.visible : styles.hidden}`}
+                            src={watchFinish}
+                            alt="watch finish"
                         />
                     </div>
                     <div className={styles.round}>
