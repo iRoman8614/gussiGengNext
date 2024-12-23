@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import i18next from 'i18next';
 import {CustomSelect} from '@/components/selector/Select';
 import { useInit } from '@/context/InitContext';
+import BuySkinButton from "@/components/tgstars";  
 
 import styles from '@/styles/Settings.module.scss'
 
@@ -71,13 +72,13 @@ export default function Page() {
                 />
                 <div className={styles.faqBtn} onClick={moveToFaq}>faq</div>
                 <button onClick={clearLang}>очистить язык</button>
-                <PayWithTelegram />
+                {/*<PayWithTelegram />*/}
+                <BuySkinButton />
             </div>
         </div>
     );
 };
 
-import React from 'react';
 
 function PayWithTelegram() {
     const handlePayment = () => {
