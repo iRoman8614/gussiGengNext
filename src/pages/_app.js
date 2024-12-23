@@ -3,6 +3,7 @@ import Script from "next/script";
 import Head from "next/head";
 import {toast, ToastContainer} from 'react-toastify';
 import { InitProvider } from '@/context/InitContext';
+import MobileGuard from "@/components/guard/Guard";
 import assetData from "@/mock/assets.json";
 
 import 'react-toastify/dist/ReactToastify.css';
@@ -42,7 +43,6 @@ export default function App({ Component, pageProps }) {
 
         let currentGroupIndex = 0;
 
-        // Проверка на наличие группы в кэше
         const isGroupCached = async (cacheName) => {
             const cache = await caches.open(cacheName);
             const keys = await cache.keys();
@@ -96,40 +96,30 @@ export default function App({ Component, pageProps }) {
                 src="https://telegram.org/js/telegram-web-app.js"
                 strategy="beforeInteractive"
             />
-            {/*<Script src={"https://www.googletagmanager.com/gtag/js?id=G-QLS2HYFS37"} strategy={"afterInteractive"} />*/}
-            {/*<Script id="google-analytics" strategy={"afterInteractive"}>*/}
-            {/*    {`window.dataLayer = window.dataLayer || [];*/}
-            {/*        function gtag(){dataLayer.push(arguments);}*/}
-            {/*        gtag('js', new Date());*/}
-            {/*        gtag('config', 'G-QLS2HYFS37');`}*/}
-            {/*</Script>*/}
-            {/*<Script id={'Google Tag Manager'} strategy={"afterInteractive"}>*/}
-            {/*    {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':*/}
-            {/*    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],*/}
-            {/*    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=*/}
-            {/*    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);*/}
-            {/*})(window,document,'script','dataLayer','GTM-NPCQFZWP');`}</Script>*/}
-            {/*<Script src="https://www.googletagmanager.com/gtag/js?id=G-QLS2HYFS37" strategy="afterInteractive" />*/}
-            {/*<Script id="google-analytics" strategy="afterInteractive">*/}
-            {/*    {`window.dataLayer = window.dataLayer || [];*/}
-            {/*       function gtag(){dataLayer.push(arguments);}*/}
-            {/*        gtag('js', new Date());*/}
-            {/*        gtag('config', 'G-QLS2HYFS37');`}*/}
-            {/*</Script>*/}
-
-            {/*<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NPCQFZWP"*/}
-            {/*                  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>*/}
-            <ToastContainer
-                position="top-center"
-                autoClose={3000}
-                hideProgressBar
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-            />
+            <Script src={"https://www.googletagmanager.com/gtag/js?id=G-QLS2HYFS37"} strategy={"afterInteractive"} />
+            <Script id="google-analytics" strategy={"afterInteractive"}>
+                {`window.dataLayer = window.dataLayer || [];
+                    function gtag(){dataLayer.push(arguments);}
+                    gtag('js', new Date());
+                    gtag('config', 'G-QLS2HYFS37');`}
+            </Script>
+            <Script id={'Google Tag Manager'} strategy={"afterInteractive"}>
+                {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+                new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+                j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+                'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+            })(window,document,'script','dataLayer','GTM-NPCQFZWP');`}</Script>
+            {/*<ToastContainer*/}
+            {/*    position="top-center"*/}
+            {/*    autoClose={3000}*/}
+            {/*    hideProgressBar*/}
+            {/*    newestOnTop={false}*/}
+            {/*    closeOnClick*/}
+            {/*    rtl={false}*/}
+            {/*    pauseOnFocusLoss*/}
+            {/*    draggable*/}
+            {/*    pauseOnHover*/}
+            {/*/>*/}
             {/*<MobileGuard />*/}
             <Component {...pageProps} />
         </InitProvider>
