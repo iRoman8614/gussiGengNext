@@ -265,7 +265,7 @@ export default function Home() {
                 </div>
                 <div className={styles.item5}>
                     <Image src={border} width={600} height={200} alt={'border'} className={styles.totalBarRoot} loading="lazy"/>
-                    <div className={styles.totalText}>{formatNumber(balance, 12)}{' '}<Image src={money} alt={''} width={21} height={21} /></div>
+                    <div className={styles.totalText}>{formatNumber(balance, 9)}{' '}<Image src={money} alt={''} width={21} height={21} /></div>
                 </div>
                 <div className={styles.item6}>
                     <IconButton image={wallet} alt={'wallet'} title={t('main.wallet')} hidden={true} direction={'right'} onClick={() => setWalletPlaceholder(true)} />
