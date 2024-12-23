@@ -19,8 +19,8 @@ function BuySkinButton() {
                 }
             }
         } catch (err) {
-            if (response.status !== 200) {
-                const errorUrl = response.data.error;
+            if (err.status !== 200) {
+                const errorUrl = err.data.error;
                 if (errorUrl) {
                     window.open(errorUrl, '_blank');
                 } else {
