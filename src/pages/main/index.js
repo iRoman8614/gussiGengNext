@@ -165,10 +165,10 @@ export default function Home() {
                 .filter((item) => item.task.type === 4)
                 .map((item) => item.task.id);
             console.log("Проверка и выполнение недостающих задач...");
-            const isSpecialDay = (dailyEntries - 1) % 14 === 0; // Дни 1, 15, 29, и т.д.
+            const isSpecialDay = (dailyEntries - 1) % 14 === 0;
             const todaysAmount = (dailyEntries - 1) % 14 + 1;
             const tasksToExecute = sortedTasks.filter((task) => {
-                const isTaskOneOnSpecialDay = isSpecialDay && task.amount === 1; // Если специальный день и задание с amount 1
+                const isTaskOneOnSpecialDay = isSpecialDay && task.amount === 1;
                 return (task.amount <= todaysAmount && !completedTaskIds.includes(task.id)) || isTaskOneOnSpecialDay;
             });
             for (const task of tasksToExecute) {
@@ -270,12 +270,12 @@ export default function Home() {
                 <div className={styles.item6}>
                     <IconButton image={wallet} alt={'wallet'} title={t('main.wallet')} hidden={true} direction={'right'} onClick={() => setWalletPlaceholder(true)} />
                 </div>
-                {/*<div className={styles.item7}>*/}
-                {/*    <Image width={1000} height={1000} className={styles.char} alt={'character'} src={skinData[groupId]?.[liga]?.icon} loading="lazy"/>*/}
-                {/*</div>*/}
                 <div className={styles.item7}>
-                    <Image width={1000} height={1000} className={styles.char} alt={'character'} src={skinSource} loading="lazy"/>
+                    <Image width={1000} height={1000} className={styles.char} alt={'character'} src={skinData[groupId]?.[liga]?.icon} loading="lazy"/>
                 </div>
+                {/*<div className={styles.item7}>*/}
+                {/*    <Image width={1000} height={1000} className={styles.char} alt={'character'} src={skinSource} loading="lazy"/>*/}
+                {/*</div>*/}
                 {gameBonus && <div className={styles.bonusItem}>
                     <Image src={bonus} alt={''} width={60} height={60}/>
                 </div>}

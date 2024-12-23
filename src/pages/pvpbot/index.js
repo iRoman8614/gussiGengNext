@@ -1,4 +1,5 @@
 import {useEffect, useRef, useState} from "react";
+import Lottie from 'react-lottie';
 import Image from "next/image";
 import { useRouter } from 'next/router';
 import { IconButton } from "@/components/buttons/icon-btn/IconButton.jsx";
@@ -178,7 +179,6 @@ export default function PvpBotPage() {
                 return newScore;
             });
         } else if (playerMove === opponentMove) {
-            // Ничья — обновляем раунд сразу после анимации
             setTimeout(() => {
                 resetRoundAfterDelay();
             }, 2000);
@@ -247,8 +247,6 @@ export default function PvpBotPage() {
     return (
         <>
             {gameEnded && <WinningScreen userName={userName} playerScore={playerScore} />}
-            {/*{preGameStep === 1 && <GameStarte round="Ready!" />}*/}
-            {/*{preGameStep === 2 && <GameStarte round="Go!!!" />}*/}
             {preGameStep === 1 && <StartAnimation />}
 
             <div className={styles.root}>
@@ -364,7 +362,6 @@ export default function PvpBotPage() {
 
                 </div>
             </div>
-            {/*{showChanger && <RoundChanger round={playerScore + opponentScore + 1}/>}*/}
             {showChanger && <RoundAnimation round={playerScore + opponentScore + 1}/>}
         </>
     )
@@ -406,8 +403,6 @@ const WinningScreen = ({ playerScore  }) => (
     </div>
 );
 
-import Lottie from 'react-lottie';
-
 const RoundAnimation = ({ round }) => {
     const { t } = useTranslation();
     const defaultOptions = {
@@ -430,7 +425,6 @@ const RoundAnimation = ({ round }) => {
 }
 
 const StartAnimation = () => {
-    const { t } = useTranslation();
     const defaultOptions = {
         loop: false,
         autoplay: true,
