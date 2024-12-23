@@ -2,7 +2,7 @@
 
 .rootRight, .rootLeft, .rootDown, .root {
   font-family: 'Oswald';
-  border-radius: 11px;
+  border-radius: 9px;
   background:
           linear-gradient(359.95deg, #120431 0.34%, #443664 50.67%, #7E709F 100%),
           rgba(79, 94, 133, 0.7);
@@ -58,7 +58,7 @@
   font-size: auto-clamp(10, 15);
   text-align: center;
   background: rgba(104, 110, 166, 0.6);
-  border-radius: 6px;
+  border-radius: 9px;
   height: fit-content;
   margin: 2px;
   width: 100%;
