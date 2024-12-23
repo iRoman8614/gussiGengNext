@@ -71,13 +71,20 @@
 }
 
 .title, .titleChosen {
+  font-family: 'Oswald';
   border-radius: 5px;
   font-weight: 400;
-  font-size: 20px;
+  font-size: 14px;
+  line-height: 14px;
   color: #fff;
-  width: 80%;
+  width: 90%;
   height: 18px;
   text-align: center;
+  text-shadow:
+          -1px -1px 0 #000,
+          1px -1px 0 #000,
+          -1px  1px 0 #000,
+          1px  1px 0 #000;
 }
 
 .title {
@@ -107,7 +114,7 @@
     width: 60px;
   }
   .title, .titleChosen {
-    font-size: 16px;
+    font-size: 13px;
   }
 }
 
