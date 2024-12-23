@@ -54,7 +54,7 @@
   color: #FFFFFF;
   font-size: 18px;
   line-height: 18px;
-  height: 43px;
+  height: auto-clamp(33, 44);
   text-transform: uppercase;
   //letter-spacing: -1px;
   font-weight: bold;
