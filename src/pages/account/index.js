@@ -404,9 +404,18 @@ export default function Page() {
                         <div className={styles.popUpContent}>
                             <Image className={styles.fullSkin} src={skinFull[selectedSkin?.key]} alt={''} width={130} height={220} />
                             <div className={styles.popUpText}>{selectedSkin?.name}</div>
-                            {isOwned(selectedSkin.id) ? <div></div> : <div className={styles.popUpText}>{selectedSkin?.price}{' '}<Image src={money} alt={''}
-                                                                                                width={15} height={15}
-                                                                                                loading="lazy"/></div>}
+                            {isOwned(selectedSkin.id) ?
+                                <div></div> :
+                                <>{selectedSkin.stars > 0 ?
+                                    <div className={styles.popUpText}>
+                                        {selectedSkin.stars}{' '}<Image src={star} alt={''} width={15} height={15} loading="lazy"/>
+                                    </div> :
+                                    <div className={styles.popUpText}>{selectedSkin?.price}{' '}<Image
+                                        src={money} alt={''} width={15} height={15} loading="lazy"/>
+                                    </div>
+                                }
+                                </>
+                            }
                         </div>
                     </div>
                     <div className={styles.modalBorder}>
