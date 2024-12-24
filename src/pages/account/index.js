@@ -36,6 +36,7 @@ export default function Page() {
     const [selectedSkin, setSelectedSkin] = useState(null);
     const [defaultSkin, setDefaultSkin] = useState(false)
     const [skinSource, setSkinSource] = useState('');
+    const [link, setLink] = useState('')
     const { fetchProfileStats, data: stats } = useProfileStats();
     const { data: friends } = useMyInvitees();
     const { collectAndStart } = useFarmCollect();
@@ -364,7 +365,7 @@ export default function Page() {
                                             {formatBalance(skin.price)}{' '}<Image src={money} alt={''} width={15}
                                                                                    height={15}
                                                                                    loading="lazy"/>
-                                            </> : <>{skin.satrs > 0 ? <>
+                                            </> : <>{skin.stars > 0 ? <>
                                                 {skin.stars}{' '}<Image src={star} alt={''} width={15} height={15} loading="lazy"/>
                                             </> :
                                             <div onClick={() => {
