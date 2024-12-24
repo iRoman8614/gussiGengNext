@@ -402,7 +402,10 @@ export default function Page() {
             </div>
             {selectedSkin && (
                 <div className={styles.skinPopUp}>
-                    <div className={styles.popUpClose} onClick={() => setSelectedSkin(null)}>x</div>
+                    <div className={styles.popUpClose} onClick={() => {
+                        refreshMySkins()
+                        setSelectedSkin(null)
+                    }}>x</div>
                     <div className={styles.modalBorder}>
                         <div className={styles.popUpContent}>
                             <Image className={styles.fullSkin} src={skinFull[selectedSkin?.key]} alt={''} width={130} height={220} />
