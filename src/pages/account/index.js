@@ -242,16 +242,19 @@ export default function Page() {
     }
 
     const getStarsLink = async (skin) => {
+        fetchSkins()
         if (!isOwned(skin.id) && skin.stars > 0) {
             try {
                 const response = await axiosInstance.get(`/skin/update?skinId=${skin.id}`);
                 setLink(response.data.error);
                 setSelectedSkin(skin);
+                fetchSkins()
             } catch (error) {
                 const errorUrl = error.response.data.error;
                 console.log('errorUrl', errorUrl)
                 setLink(errorUrl)
                 setSelectedSkin(skin);
+                fetchSkins()
             }
         } else {
             setSelectedSkin(skin);
