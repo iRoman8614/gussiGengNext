@@ -412,6 +412,7 @@ export default function Page() {
                     <div className={styles.modalBorder}>
                         {!isOwned(selectedSkin.id) && selectedSkin.stars > 0  ? <>
                             <Link
+                                className={styles.link}
                                 href={link}
                             >
                                <div className={styles.modalBtn}>
