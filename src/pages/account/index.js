@@ -248,9 +248,10 @@ export default function Page() {
                 setLink(response.data.error);
                 setSelectedSkin(skin);
             } catch (error) {
-                const errorUrl = err.response.data.error;
+                const errorUrl = error.response.data.error;
                 console.log('errorUrl', errorUrl)
                 setLink(errorUrl)
+                setSelectedSkin(skin);
             }
         } else {
             setSelectedSkin(skin);
