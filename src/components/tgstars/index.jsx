@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import axios from '@/utils/axios';
+import Link from "next/link";
 
 function BuySkinButton() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
+    const [link, setLink] = useState('')
 
     const handleBuySkin = async () => {
         setLoading(true);
@@ -13,9 +15,7 @@ function BuySkinButton() {
             if (response.status !== 200) {
                 const errorUrl = response.data.error;
                 if (errorUrl) {
-                    window.open(errorUrl
-                        // , '_blank'
-                    );
+                    setLink(errorUrl)
                 } else {
                     throw new Error('Ссылка для оплаты не найдена');
                 }
@@ -24,20 +24,17 @@ function BuySkinButton() {
             if (err.status !== 200) {
                 const errorUrl = err.response.data.error;
                 console.log('errorUrl', errorUrl)
-                if (errorUrl) {
-                    window.open(errorUrl, '_blank');
-                }
+                setLink(errorUrl)
             }
         }
     };
 
     return (
-        <div>
-            <button onClick={handleBuySkin} disabled={loading}>
+        <Link href={link}>
+            <div onClick={handleBuySkin}>
                 Купить скин
-            </button>
-            {error && <p>Ошибка: {error}</p>}
-        </div>
+            </div>
+        </Link>
     );
 }
 

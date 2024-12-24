@@ -74,7 +74,7 @@ export default function Page() {
                 <button onClick={clearLang}>очистить язык</button>
                 {/*<PayWithTelegram />*/}
                 <BuySkinButton />
-                <a href={'https://t.me/$2O8_fyx9SVdvAQAAe1XHXcat4DM'}>купить</a>
+                {/*<a href={'https://t.me/$2O8_fyx9SVdvAQAAe1XHXcat4DM'}>купить</a>*/}
             </div>
         </div>
     );
