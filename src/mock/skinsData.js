@@ -60,7 +60,8 @@ const skinData = {
     thug_life: "/skins/tlfull.png",
     netrunner: "/skins/netfull.png",
     theItDude: "/skins/itfull.png",
-    lilith: "/skins/lilfull.png"
+    lilith: "/skins/lilfull.png",
+    stars:"/skins/icyfull.png",
 };
 
 export default skinData;
