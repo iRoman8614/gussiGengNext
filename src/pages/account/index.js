@@ -413,10 +413,10 @@ export default function Page() {
                         {!isOwned(selectedSkin.id) && selectedSkin.stars > 0  ? <>
                             <Link
                                 href={link}
-                                className={styles.modalBtn}
-                                onClick={() => handlePurchaseOrEquip(selectedSkin.id, selectedSkin.price)}
                             >
-                                {isOwned(selectedSkin.id) ? <>{t('account.equip')}</> : <>{t('account.buy')}</>}
+                               <div className={styles.modalBtn}>
+                                   {isOwned(selectedSkin.id) ? <>{t('account.equip')}</> : <>{t('account.buy')}</>}
+                               </div>
                             </Link>
                         </> : <>
                             <div
