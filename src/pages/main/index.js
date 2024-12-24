@@ -188,40 +188,7 @@ export default function Home() {
     };
 
     const checkAndActivateSkin = async () => {
-        if (dailyEntries === 10) {
-            try {
-                const mySkinsResponse = await axios.get('/skin/my');
-                const mySkins = mySkinsResponse.data;
-                const hasThugLifeSkin = mySkins.some(skin => skin.key === 'thug_life' && skin.active);
-                if (!hasThugLifeSkin) {
-                    const allSkinsResponse = await axios.get('/skin/all');
-                    const allSkins = allSkinsResponse.data;
-                    const thugLifeSkin = allSkins.find(skin => skin.key === 'thug_life');
-                    if (thugLifeSkin) {
-                        await axios.post(`/skin/update?skinId=${thugLifeSkin.id}`);
-                        console.log('Скин "Thug Life" активирован');
-                    }
-                    const authToken = localStorage.getItem('authToken');
-                    try {
-                        const response = await axios.get(`https://supavpn.lol/profile/init?token=${authToken}`);
-                        const { skin } = response.data;
-                        if (skin && skin.id !== 1) {
-                            console.log('скин сохранен в ss')
-                            sessionStorage.setItem('skin', JSON.stringify(skin));
-                        }
-                        if (skin && skin.key) {
-                            setSkinSource(skinData[skin.key] || skinData[groupId]?.[liga]?.icon);
-                        }
-                    } catch (error) {
-                        toast.error("Failed to authenticate.");
-                        console.error("Error refreshing JWT token:", error);
-                    }
-                }
-            } catch (error) {
-                console.error('Ошибка при работе с API скинов:', error);
-            }
-        }
-        if (dailyEntries > 10) {
+        if (dailyEntries >= 10) {
             try {
                 const mySkinsResponse = await axios.get('/skin/my');
                 const mySkins = mySkinsResponse.data;
