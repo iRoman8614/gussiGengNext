@@ -18,6 +18,7 @@ import 'swiper/css/navigation';
 import 'swiper/css/controller';
 import styles from '@/styles/Account.module.scss'
 import {toast} from "react-toastify";
+import Link from "next/link";
 
 const money = '/money.png'
 const Lock = '/Lock.png'
@@ -240,6 +241,22 @@ export default function Page() {
         }
     }
 
+    const getStarsLink = async (skin) => {
+        if (!isOwned(skin.id) && skin.stars > 0) {
+            try {
+                const response = await axiosInstance.get(`/skin/update?skinId=${skin.id}`);
+                setLink(response.data.error);
+                setSelectedSkin(skin);
+            } catch (error) {
+                const errorUrl = err.response.data.error;
+                console.log('errorUrl', errorUrl)
+                setLink(errorUrl)
+            }
+        } else {
+            setSelectedSkin(skin);
+        }
+    };
+
     return(
         <div className={styles.root}>
             <div className={styles.container}>
@@ -359,7 +376,7 @@ export default function Page() {
                             </div>
                             {skins.map((skin, index) => {
                                 return (
-                                    <div key={skin.id} className={styles.skinListItem} onClick={() => setSelectedSkin(skin)}>
+                                    <div key={skin.id} className={styles.skinListItem} onClick={() => getStarsLink(skin)}>
                                         <div>{skin.name}</div>
                                         <div>{skin.price > 0 ? <>
                                             {formatBalance(skin.price)}{' '}<Image src={money} alt={''} width={15}
@@ -373,7 +390,8 @@ export default function Page() {
                                             }}>task</div>
                                         }</>}
                                             </div>
-                                    </div>);})}
+                                    </div>);
+                            })}
                         </div>
                     </div>}
                 </div>
@@ -391,12 +409,22 @@ export default function Page() {
                         </div>
                     </div>
                     <div className={styles.modalBorder}>
-                        <div
-                            className={styles.modalBtn}
-                            onClick={() => handlePurchaseOrEquip(selectedSkin.id, selectedSkin.price)}
-                        >
-                            {isOwned(selectedSkin.id) ? <>{t('account.equip')}</> : <>{t('account.buy')}</>}
-                        </div>
+                        {!isOwned(selectedSkin.id) && selectedSkin.stars > 0  ? <>
+                            <Link
+                                href={link}
+                                className={styles.modalBtn}
+                                onClick={() => handlePurchaseOrEquip(selectedSkin.id, selectedSkin.price)}
+                            >
+                                {isOwned(selectedSkin.id) ? <>{t('account.equip')}</> : <>{t('account.buy')}</>}
+                            </Link>
+                        </> : <>
+                            <div
+                                className={styles.modalBtn}
+                                onClick={() => handlePurchaseOrEquip(selectedSkin.id, selectedSkin.price)}
+                            >
+                                {isOwned(selectedSkin.id) ? <>{t('account.equip')}</> : <>{t('account.buy')}</>}
+                            </div>
+                        </>}
                     </div>
                 </div>
             )}
