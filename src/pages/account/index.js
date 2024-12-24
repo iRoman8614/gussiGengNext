@@ -21,6 +21,7 @@ import {toast} from "react-toastify";
 
 const money = '/money.png'
 const Lock = '/Lock.png'
+const star = '/Star.png'
 
 export default function Page() {
     const router = useRouter();
@@ -45,20 +46,20 @@ export default function Page() {
     const skinImages = {
         "thug_life": "/skins/thuglifeIcon.png",
         "netrunner": "/skins/netrunnerIcon.png",
-        // "skin_3": "/skins/theItDudeIcon.png",
+        "the_it_dude": "/skins/theItDudeIcon.png",
         "lilith": "/skins/lilithIcon.png",
         // "pablo":"/skins/pabloIcon.png",
-        // "icy":"/skins/icyIcon.png",
+        "stars":"/skins/icyIcon.png",
         // "PabloT":"/skins/pabloTIcon.png"
     };
 
     const skinFull = {
         "thug_life": "/skins/tlfull.png",
         "netrunner": "/skins/netfull.png",
-        // "skin_3": "/skins/itfull.png",
+        "the_it_dude": "/skins/itfull.png",
         "lilith": "/skins/lilfull.png",
         // "pablo":"/skins/pablofull.png",
-        // "icy":"/skins/icyfull.png",
+        "stars":"/skins/icyfull.png",
         // "PabloT": "/skins/pabloTfull.png"
     };
 
@@ -363,9 +364,13 @@ export default function Page() {
                                             {formatBalance(skin.price)}{' '}<Image src={money} alt={''} width={15}
                                                                                    height={15}
                                                                                    loading="lazy"/>
-                                            </> : <>
-                                                <div onClick={() => {router.push('/tasks')}}>task</div>
-                                            </>}
+                                            </> : <>{skin.satrs > 0 ? <>
+                                                {skin.stars}{' '}<Image src={star} alt={''} width={15} height={15} loading="lazy"/>
+                                            </> :
+                                            <div onClick={() => {
+                                                router.push('/tasks')
+                                            }}>task</div>
+                                        }</>}
                                             </div>
                                     </div>);})}
                         </div>
