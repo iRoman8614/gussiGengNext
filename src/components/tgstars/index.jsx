@@ -13,7 +13,9 @@ function BuySkinButton() {
             if (response.status !== 200) {
                 const errorUrl = response.data.error;
                 if (errorUrl) {
-                    window.open(errorUrl, '_blank');
+                    window.open(errorUrl
+                        // , '_blank'
+                    );
                 } else {
                     throw new Error('Ссылка для оплаты не найдена');
                 }
