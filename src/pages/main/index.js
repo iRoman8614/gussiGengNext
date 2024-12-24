@@ -192,7 +192,7 @@ export default function Home() {
             try {
                 const mySkinsResponse = await axios.get('/skin/my');
                 const mySkins = mySkinsResponse.data;
-                const hasThugLifeSkin = mySkins.some(skin => skin.key === 'thug_life' && skin.active);
+                const hasThugLifeSkin = mySkins.some(skin => skin.key === 'thug_life');
                 if (!hasThugLifeSkin) {
                     const allSkinsResponse = await axios.get('/skin/all');
                     const allSkins = allSkinsResponse.data;
