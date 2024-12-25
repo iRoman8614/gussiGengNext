@@ -403,7 +403,6 @@ export default function Page() {
             {selectedSkin && (
                 <div className={styles.skinPopUp}>
                     <div className={styles.popUpClose} onClick={() => {
-                        refreshMySkins()
                         setSelectedSkin(null)
                     }}>x</div>
                     <div className={styles.modalBorder}>
