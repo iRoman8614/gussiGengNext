@@ -157,7 +157,7 @@ export default function Page() {
             const defaultIcon = skinData[groupId][liga].icon;
             setSkinSource(defaultIcon);
         }
-    }, [groupId, liga]);
+    }, [groupId, liga, skins]);
 
 
     const refreshMySkins = async () => {
