@@ -185,7 +185,7 @@ export default function Page() {
                         console.log('url', url)
                         const existingTimestamp = localStorage.getItem(`task_${task.id}`);
                         if (!existingTimestamp) {
-                            window.open(url, '_blank');
+                            window.open(url);
                             const timestamp = Date.now();
                             localStorage.setItem(`task_${task.id}`, timestamp);
                         } else {
