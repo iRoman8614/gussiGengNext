@@ -171,7 +171,6 @@ export default function Page() {
             console.warn("localStorage is not available on the server.");
             return;
         }
-
         if (task.readyToComplete) {
             executeTask(task.id);
             task.readyToComplete = false;
@@ -181,9 +180,9 @@ export default function Page() {
                     navigateToPage(task.path);
                     break;
                 case 2:
-                    // Используем URL из метаданных для каждого задания типа 2
-                    const url = task.meta && task.meta.url ? task.meta.url : '';
+                    const url = (task.meta && task.meta.url) ? task.meta.url : '';
                     if (url) {
+                        console.log('url', url)
                         const existingTimestamp = localStorage.getItem(`task_${task.id}`);
                         if (!existingTimestamp) {
                             window.open(url, '_blank');
