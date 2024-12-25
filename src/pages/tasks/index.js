@@ -106,6 +106,8 @@ export default function Page() {
                     return t(`EXP.tg`);
                 } else if (name.includes('X')) {
                     return t(`EXP.x`);
+                } else if (name.includes('Kat')) {
+                    return t(`EXP.Kat`);
                 }
                 break;
             default:
