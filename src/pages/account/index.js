@@ -76,6 +76,7 @@ export default function Page() {
             setMySkins(mySkinsResponse.data);
             const filteredSkins = allSkins.filter(skin => skin.id === 1 || (skin.key.startsWith('liga')));
             setDefaultSkins(filteredSkins);
+            console.log('filteredSkins', filteredSkins)
         } catch (error) {
             console.error('Error fetching skins:', error);
         }
@@ -500,7 +501,7 @@ export default function Page() {
                         </div>
                         <div className={styles.modalBorder}>
                             <div className={styles.popUpContent}>
-                                <Image className={styles.fullSkin} src={defaultSkins[skinIndex].icon} alt={''} width={130} height={220} />
+                                <Image className={styles.fullSkin} src={skinData[groupId][skinIndex].icon} alt={''} width={130} height={220} />
                                 <div className={styles.popUpText}>{defaultSkins[skinIndex].name}</div>
                             </div>
                         </div>
