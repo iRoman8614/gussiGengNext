@@ -382,18 +382,22 @@ export default function Page() {
                                 return (
                                     <div key={skin.id} className={styles.skinListItem} onClick={() => getStarsLink(skin)}>
                                         <div>{skin.name}</div>
-                                        <div>{skin.price > 0 ? <>
-                                            {formatBalance(skin.price)}{' '}<Image src={money} alt={''} width={15}
-                                                                                   height={15}
-                                                                                   loading="lazy"/>
-                                            </> : <>{skin.stars > 0 ? <>
-                                                {skin.stars}{' '}<Image src={star} alt={''} width={15} height={15} loading="lazy"/>
-                                            </> :
-                                            <div onClick={() => {
-                                                router.push('/tasks')
-                                            }}>task</div>
-                                        }</>}
-                                            </div>
+                                        <div>
+                                            {isOwned(skin.id) ? <>Owned</> : <>{
+                                                skin.price > 0 ?
+                                                    <>{formatBalance(skin.price)}{' '}<Image src={money} alt={''}
+                                                                                             width={15}
+                                                                                             height={15}
+                                                                                             loading="lazy"/>
+                                                    </> : <>{skin.stars > 0 ? <>
+                                                            {skin.stars}{' '}<Image src={star} alt={''} width={15}
+                                                                                    height={15} loading="lazy"/>
+                                                        </> :
+                                                        <div onClick={() => {
+                                                            router.push('/tasks')
+                                                        }}>task</div>}</>
+                                            }</>}
+                                        </div>
                                     </div>);
                             })}
                         </div>
