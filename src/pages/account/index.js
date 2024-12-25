@@ -87,6 +87,7 @@ export default function Page() {
     }, []);
 
     useEffect(() => {
+        console.log('defaultSkins', defaultSkins)
         if (defaultSkins.length > 0 && skinIndex < defaultSkins.length) {
             setCurrentSkin(defaultSkins[skinIndex]);
         }
