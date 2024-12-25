@@ -238,7 +238,7 @@ export default function Page() {
             {clanPopUp &&
                 <div className={styles.popUpBG}>
                     <div className={styles.clanPopUp}>
-                        <div className={styles.clanLabel}>{t('main.DailyPvp')}<br/> {t('main.results')}</div>
+                        <div className={styles.clanLabel}>{t('main.DailyPvp')} {t('main.results')}</div>
                         <div className={styles.clanName}>{teamData[clanId]?.Name}</div>
                         <Image src={teamData[clanId]?.logo} alt={''} width={120} height={120} lazy />
                         <div className={styles.clanLabel}>{t('main.are')} <a>{t('main.OG')}</a>{t('main.today')}</div>

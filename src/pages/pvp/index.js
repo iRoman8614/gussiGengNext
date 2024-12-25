@@ -387,12 +387,18 @@ export default function PvpPage() {
                                 />
                             </div>
                             <VictoryCounter score={playerScore} />
-                            <IconButton image={teamData[userClan].logo} alt={'gang'} />
+                            {/*<IconButton image={teamData[userClan].logo} alt={'gang'} />*/}
+                            <div className={styles.iconBG}>
+                                <Image className={styles.iconImage} src={teamData[groupId]?.logo} alt={''} width={80} height={80} />
+                            </div>
                             <div className={styles.roundTimer}>
                                 <Image src={timerBG} alt={'timer'} height={144} width={144} className={styles.roundTimerBG} loading="lazy" />
                                 <div className={styles.time}>{timer}</div>
                             </div>
-                            <IconButton image={teamData[oppClan].logo} alt={'gang'} />
+                            {/*<IconButton image={teamData[oppClan].logo} alt={'gang'} />*/}
+                            <div className={styles.iconBG}>
+                                <Image className={styles.iconImage} src={teamData[oppClan]?.logo} alt={''} width={80} height={80} />
+                            </div>
                             <VictoryCounter score={opponentScore} />
                             <div className={styles.optionBg}>
                                 <img
