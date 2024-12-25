@@ -459,39 +459,6 @@ export default function Page() {
                     </div>
                 </div>
             )}
-            {/*{defaultSkin &&*/}
-            {/*    <div className={styles.skinPopUp}>*/}
-            {/*        <div className={styles.popUpClose} onClick={() => setDefaultSkin(false)}>x</div>*/}
-            {/*        <div className={styles.row}>*/}
-            {/*            <div className={styles.navLeft} onClick={prevSkin}>*/}
-            {/*                <Image src={'/ArrowWhite.png'} alt={''} width={15} height={15} loading="lazy" />*/}
-            {/*            </div>*/}
-            {/*            <div className={styles.modalBorder}>*/}
-            {/*                <div className={styles.popUpContent}>*/}
-            {/*                    <Image className={styles.fullSkin} src={skinData[groupId][skinIndex].icon} alt={''} width={130} height={220} />*/}
-            {/*                    <div className={styles.popUpText}>{ligsNames[skinIndex]}</div>*/}
-            {/*                    {(currentSkin.meta.liga > liga) &&*/}
-            {/*                        <div className={styles.lock}>*/}
-            {/*                            <Image width={70} height={70} alt="" src={Lock} priority/>*/}
-            {/*                            <div className={styles.lockDesk}>reach next leagues</div>*/}
-            {/*                        </div>*/}
-            {/*                    }*/}
-            {/*                </div>*/}
-            {/*            </div>*/}
-            {/*            <div className={styles.navRight} onClick={nextSkin}>*/}
-            {/*                <Image src={'/ArrowWhite.png'} alt={''} width={15} height={15} loading="lazy" />*/}
-            {/*            </div>*/}
-            {/*        </div>*/}
-            {/*        <div className={(skinIndex > liga) && styles.modalBorderHidden }>*/}
-            {/*            <div className={styles.modalBorder}>*/}
-            {/*                <div*/}
-            {/*                    className={styles.modalBtn}*/}
-            {/*                    onClick={() => handlePurchaseOrEquip(1, 0)}*/}
-            {/*                >{t('account.equip')}</div>*/}
-            {/*            </div>*/}
-            {/*        </div>*/}
-
-            {/*    </div>}*/}
             {defaultSkin &&
                 <div className={styles.skinPopUp}>
                     <div className={styles.popUpClose} onClick={() => setDefaultSkin(false)}>x</div>
@@ -502,23 +469,28 @@ export default function Page() {
                         <div className={styles.modalBorder}>
                             <div className={styles.popUpContent}>
                                 <Image className={styles.fullSkin} src={skinData[groupId][skinIndex].icon} alt={''} width={130} height={220} />
-                                <div className={styles.popUpText}>{defaultSkins[skinIndex].name}</div>
+                                <div className={styles.popUpText}>{ligsNames[skinIndex]}</div>
+                                {(currentSkin.meta.liga > liga) &&
+                                    <div className={styles.lock}>
+                                        <Image width={70} height={70} alt="" src={Lock} priority/>
+                                        <div className={styles.lockDesk}>reach next leagues</div>
+                                    </div>
+                                }
                             </div>
                         </div>
                         <div className={styles.navRight} onClick={nextSkin}>
                             <Image src={'/ArrowWhite.png'} alt={''} width={15} height={15} loading="lazy" />
                         </div>
                     </div>
-                    {defaultSkins[skinIndex].meta.liga <= liga &&
+                    <div className={(skinIndex > liga) && styles.modalBorderHidden }>
                         <div className={styles.modalBorder}>
                             <div
                                 className={styles.modalBtn}
                                 onClick={() => handlePurchaseOrEquip(defaultSkins[skinIndex].id, defaultSkins[skinIndex].price)}
                             >{t('account.equip')}</div>
                         </div>
-                    }
-                </div>
-            }
+                    </div>
+                </div>}
         </div>
     )
 }
