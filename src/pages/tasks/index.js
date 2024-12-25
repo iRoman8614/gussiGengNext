@@ -35,6 +35,14 @@ export default function Page() {
             let tasks = tasksResponse.data;
             const completedTasksResponse = await axiosInstance.get('/task/completed-tasks');
             const completedTasks = completedTasksResponse.data.map(task => task.task.id);
+
+            tasks = tasks.sort((a, b) => {
+                if (a.type === 2 && b.type === 2) {
+                    return a.id - b.id;
+                }
+                return 0;
+            });
+
             const dailyTasks = tasks
                 .filter(task => task.type === 4)
                 .map(task => ({
