@@ -301,6 +301,13 @@ export default function Page() {
         return num.toString();
     }
 
+    function formatSkinName(key) {
+        return key
+            .split('_')
+            .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+            .join(' ');
+    }
+
     return (
         <div className={styles.root}>
             <div className={styles.container}>
@@ -341,7 +348,7 @@ export default function Page() {
                                             } key={index}>
                                                 <div className={styles.dayTitle}>{t('EXP.day')}{' '}{day.amount}</div>
                                                 <Image className={styles.dailyImage} src={dailyBils} alt={''} width={37} height={35}/>
-                                                <div className={styles.dailySum}>{formatSum(day.reward)}</div>
+                                                <div className={styles.dailySum}>{formatSum(day.reward)} {day.meta.skin && <><br/>{formatSkinName(day.meta.skin)}</>}</div>
                                             </div>}
                                         </>
                                     )
