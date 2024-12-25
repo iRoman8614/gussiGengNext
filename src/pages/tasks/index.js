@@ -119,6 +119,53 @@ export default function Page() {
         router.push(path);
     };
 
+    // const handleTaskClick = (task) => {
+    //     if (typeof window === "undefined") {
+    //         console.warn("localStorage is not available on the server.");
+    //         return;
+    //     }
+    //
+    //     if (task.readyToComplete) {
+    //         executeTask(task.id);
+    //         task.readyToComplete = false
+    //     } else {
+    //         switch (task.type) {
+    //             case 1:
+    //                 navigateToPage(task.path);
+    //                 break;
+    //             case 2:
+    //                 let url = '';
+    //                 if (task.id === 8) {
+    //                     url = "https://t.me/gang_wars_game";
+    //                     executeTask(task.id);
+    //                     window.open(url, '_blank');
+    //                 } else if (task.id === 9 || task.name && (task.name.toLowerCase().includes("x") || task.name.toLowerCase().includes("twitter"))) {
+    //                     url = "https://x.com/gangwars_game";
+    //                 } else if (task.id === 39) {
+    //                     url = "https://t.me/katknight_bot/app?startapp=nqPn_0GUEV";
+    //                 } else {
+    //                     console.error('URL could not be determined. Task name:', task.name);
+    //                 }
+    //                 if (url && task.id !== 8) {
+    //                     const existingTimestamp = localStorage.getItem(`task_${task.id}`);
+    //                     if (!existingTimestamp) {
+    //                         window.open(url, '_blank');
+    //                         const timestamp = Date.now();
+    //                         localStorage.setItem(`task_${task.id}`, timestamp);
+    //                     } else {
+    //                         console.log(`Task ${task.id} already clicked at ${new Date(parseInt(existingTimestamp, 10)).toLocaleString()}`);
+    //                     }
+    //                 }
+    //                 break;
+    //             case 3:
+    //                 navigateToPage(task.path);
+    //                 break;
+    //             default:
+    //                 console.log('No action for this task.');
+    //         }
+    //     }
+    // };
+
     const handleTaskClick = (task) => {
         if (typeof window === "undefined") {
             console.warn("localStorage is not available on the server.");
@@ -134,19 +181,8 @@ export default function Page() {
                     navigateToPage(task.path);
                     break;
                 case 2:
-                    let url = '';
-                    if (task.id === 8) {
-                        url = "https://t.me/gang_wars_game";
-                        executeTask(task.id);
-                        window.open(url, '_blank');
-                    } else if (task.id === 9 || task.name && (task.name.toLowerCase().includes("x") || task.name.toLowerCase().includes("twitter"))) {
-                        url = "https://x.com/gangwars_game";
-                    } else if (task.id === 39) {
-                        url = "https://t.me/katknight_bot/app?startapp=nqPn_0GUEV";
-                    } else {
-                        console.error('URL could not be determined. Task name:', task.name);
-                    }
-                    if (url && task.id !== 8) {
+                    if (task.meta && task.meta.url) {
+                        let url = task.meta.url;
                         const existingTimestamp = localStorage.getItem(`task_${task.id}`);
                         if (!existingTimestamp) {
                             window.open(url, '_blank');
@@ -155,6 +191,8 @@ export default function Page() {
                         } else {
                             console.log(`Task ${task.id} already clicked at ${new Date(parseInt(existingTimestamp, 10)).toLocaleString()}`);
                         }
+                    } else {
+                        console.error('URL could not be determined. Task name:', task.name);
                     }
                     break;
                 case 3:
