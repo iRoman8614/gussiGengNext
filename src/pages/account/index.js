@@ -157,7 +157,7 @@ export default function Page() {
             const defaultIcon = skinData[groupId][liga].icon;
             setSkinSource(defaultIcon);
         }
-    }, [groupId, liga, skins]);
+    }, [groupId, liga, mySkins]);
 
 
     const refreshMySkins = async () => {
@@ -169,6 +169,7 @@ export default function Page() {
             if (activeSkin) {
                 sessionStorage.setItem('skin', JSON.stringify(activeSkin));
                 setSelectedSkin(activeSkin);
+                setDefaultSkin(false)
             }
         } catch (error) {
             console.error('Ошибка при получении списка скинов:', error);
