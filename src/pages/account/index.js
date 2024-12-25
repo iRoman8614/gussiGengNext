@@ -71,16 +71,13 @@ export default function Page() {
         try {
             const response = await axiosInstance.get('/skin/all');
             const allSkins = response.data.filter(skin => skin.key in skinImages);
-            console.log('allSkins', allSkins)
-            console.log('allSkins2', allSkins.map(skin => ({ id: skin.id, key: skin.key })));
             setSkins(allSkins);
             const mySkinsResponse = await axiosInstance.get('/skin/my');
             console.log('mySkinsResponse', mySkinsResponse)
             setMySkins(mySkinsResponse.data);
-            const filteredSkins = allSkins.filter(skin => skin.id === 1 || (skin.key.startsWith('liga')));
+            const filteredSkins = response.data.filter(skin => skin.id === 1 || (skin.key.startsWith('liga')));
             console.log("Filtered skins:", filteredSkins);
             setDefaultSkins(filteredSkins);
-            console.log('filteredSkins', filteredSkins)
         } catch (error) {
             console.error('Error fetching skins:', error);
         }
