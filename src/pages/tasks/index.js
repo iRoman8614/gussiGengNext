@@ -25,163 +25,6 @@ export default function Page() {
     const { collectAndStart } = useFarmCollect();
     const [dailyRewards, setDailyRewards] = useState([])
 
-    // const dailyRewards = [
-    //     {
-    //         "id": 11,
-    //         "name": "День 1",
-    //         "description": "День 1",
-    //         "reward": 1000,
-    //         "amount": 1,
-    //         "type": 4,
-    //         "createdAt": "2024-10-05T13:17:42.20166Z",
-    //         "key": "",
-    //         "meta": {}
-    //     },
-    //     {
-    //         "id": 12,
-    //         "name": "День 2",
-    //         "description": "День 2",
-    //         "reward": 2500,
-    //         "amount": 2,
-    //         "type": 4,
-    //         "createdAt": "2024-10-05T13:17:42.20166Z",
-    //         "key": "",
-    //         "meta": {}
-    //     },
-    //     {
-    //         "id": 13,
-    //         "name": "День 3",
-    //         "description": "День 3",
-    //         "reward": 5000,
-    //         "amount": 3,
-    //         "type": 4,
-    //         "createdAt": "2024-10-05T13:17:42.20166Z",
-    //         "key": "",
-    //         "meta": {}
-    //     },
-    //     {
-    //         "id": 14,
-    //         "name": "День 4",
-    //         "description": "День 4",
-    //         "reward": 10000,
-    //         "amount": 4,
-    //         "type": 4,
-    //         "createdAt": "2024-10-05T13:17:42.20166Z",
-    //         "key": "",
-    //         "meta": {}
-    //     },
-    //     {
-    //         "id": 15,
-    //         "name": "День 5",
-    //         "description": "День 5",
-    //         "reward": 25000,
-    //         "amount": 5,
-    //         "type": 4,
-    //         "createdAt": "2024-10-05T13:17:42.20166Z",
-    //         "key": "",
-    //         "meta": {}
-    //     },
-    //     {
-    //         "id": 16,
-    //         "name": "День 6",
-    //         "description": "День 6",
-    //         "reward": 50000,
-    //         "amount": 6,
-    //         "type": 4,
-    //         "createdAt": "2024-10-05T13:17:42.20166Z",
-    //         "key": "",
-    //         "meta": {}
-    //     },
-    //     {
-    //         "id": 17,
-    //         "name": "День 7",
-    //         "description": "День 7",
-    //         "reward": 100000,
-    //         "amount": 7,
-    //         "type": 4,
-    //         "createdAt": "2024-10-05T13:17:42.20166Z",
-    //         "key": "",
-    //         "meta": {}
-    //     },
-    //     {
-    //         "id": 18,
-    //         "name": "День 8",
-    //         "description": "День 8",
-    //         "reward": 250000,
-    //         "amount": 8,
-    //         "type": 4,
-    //         "createdAt": "2024-10-05T13:17:42.20166Z",
-    //         "key": "",
-    //         "meta": {}
-    //     },
-    //     {
-    //         "id": 19,
-    //         "name": "День 9",
-    //         "description": "День 9",
-    //         "reward": 500000,
-    //         "amount": 9,
-    //         "type": 4,
-    //         "createdAt": "2024-10-05T13:17:42.20166Z",
-    //         "key": "",
-    //         "meta": {}
-    //     },
-    //     {
-    //         "id": 20,
-    //         "name": "День 10",
-    //         "description": "День 10",
-    //         "reward": 1000000,
-    //         "amount": 10,
-    //         "type": 4,
-    //         "createdAt": "2024-10-05T13:17:42.20166Z",
-    //         "key": "",
-    //         "meta": {}
-    //     },
-    //     {
-    //         "id": 21,
-    //         "name": "День 11",
-    //         "description": "День 11",
-    //         "reward": 2500000,
-    //         "amount": 11,
-    //         "type": 4,
-    //         "createdAt": "2024-10-05T13:17:42.20166Z",
-    //         "key": "",
-    //         "meta": {}
-    //     },
-    //     {
-    //         "id": 22,
-    //         "name": "День 12",
-    //         "description": "День 12",
-    //         "reward": 5000000,
-    //         "amount": 12,
-    //         "type": 4,
-    //         "createdAt": "2024-10-05T13:17:42.20166Z",
-    //         "key": "",
-    //         "meta": {}
-    //     },
-    //     {
-    //         "id": 23,
-    //         "name": "День 13",
-    //         "description": "День 13",
-    //         "reward": 10000000,
-    //         "amount": 13,
-    //         "type": 4,
-    //         "createdAt": "2024-10-05T13:17:42.20166Z",
-    //         "key": "",
-    //         "meta": {}
-    //     },
-    //     {
-    //         "id": 24,
-    //         "name": "День 14",
-    //         "description": "День 14",
-    //         "reward": 25000000,
-    //         "amount": 14,
-    //         "type": 4,
-    //         "createdAt": "2024-10-05T13:17:42.20166Z",
-    //         "key": "",
-    //         "meta": {}
-    //     }
-    // ]
-
     const fetchTasksAndFriends = async () => {
         try {
             const statsResponse = await axiosInstance.get('/profile/stats');
@@ -216,7 +59,13 @@ export default function Page() {
                     readyToComplete = true;
                 }
                 if (task.type === 2) {
-                    icon = task.name.includes("TG") ? "tg" : task.name.includes("X") ? "x" : '';
+                    if (task.name.includes("TG")) {
+                        icon = "tg";
+                    } else if (task.name.includes("X")) {
+                        icon = "x";
+                    } else if (task.name.includes("Kat")) {
+                        icon = "kat";
+                    }
                 }
                 const isVisible = (task.type === 1 && task.id <= lastCompletedTaskIdType1 + 1) ||
                     (task.type === 3 && (isCompleted || type3Tasks[lastCompletedTaskIndexType3 + 1]?.id === task.id)) ||
@@ -290,6 +139,8 @@ export default function Page() {
                         window.open(url, '_blank');
                     } else if (task.id === 9 || task.name && (task.name.toLowerCase().includes("x") || task.name.toLowerCase().includes("twitter"))) {
                         url = "https://x.com/gangwars_game";
+                    } else if (task.id === 39) {
+                        url = "https://t.me/katknight_bot/app?startapp=nqPn_0GUEV";
                     } else {
                         console.error('URL could not be determined. Task name:', task.name);
                     }
