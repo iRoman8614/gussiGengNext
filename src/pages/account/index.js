@@ -72,6 +72,7 @@ export default function Page() {
             const response = await axiosInstance.get('/skin/all');
             const allSkins = response.data.filter(skin => skin.key in skinImages);
             console.log('allSkins', allSkins)
+            console.log('allSkins2', allSkins.map(skin => ({ id: skin.id, key: skin.key })));
             setSkins(allSkins);
             const mySkinsResponse = await axiosInstance.get('/skin/my');
             console.log('mySkinsResponse', mySkinsResponse)
