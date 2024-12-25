@@ -34,8 +34,10 @@ export default function Page() {
     const [skinIndex, setSkinIndex] = useState((liga > 0 ? liga-1 : 0) || 0)
     const [skins, setSkins] = useState([]);
     const [mySkins, setMySkins] = useState([]);
+    const [defaultSkins, setDefaultSkins] = useState([]);
     const [selectedSkin, setSelectedSkin] = useState(null);
     const [defaultSkin, setDefaultSkin] = useState(false)
+    const [currentSkin, setCurrentSkin] = useState(null);
     const [skinSource, setSkinSource] = useState('');
     const [link, setLink] = useState('')
     const { fetchProfileStats, data: stats } = useProfileStats();
@@ -51,7 +53,7 @@ export default function Page() {
         "the_it_dude": "/skins/theItDudeIcon.png",
         "lilith": "/skins/lilithIcon.png",
         // "pablo":"/skins/pabloIcon.png",
-        "stars":"/skins/icyIcon.png",
+        // "icy":"/skins/icyIcon.png",
         // "PabloT":"/skins/pabloTIcon.png"
     };
 
@@ -61,17 +63,19 @@ export default function Page() {
         "the_it_dude": "/skins/itfull.png",
         "lilith": "/skins/lilfull.png",
         // "pablo":"/skins/pablofull.png",
-        "stars":"/skins/icyfull.png",
+        // "icy":"/skins/icyfull.png",
         // "PabloT": "/skins/pabloTfull.png"
     };
 
     const fetchSkins = async () => {
         try {
             const response = await axiosInstance.get('/skin/all');
-            const filteredSkins = response.data.filter(skin => skin.key in skinImages);
-            setSkins(filteredSkins);
+            const allSkins = response.data.filter(skin => skin.key in skinImages);
+            setSkins(allSkins);
             const mySkinsResponse = await axiosInstance.get('/skin/my');
             setMySkins(mySkinsResponse.data);
+            const filteredSkins = allSkins.filter(skin => skin.id === 1 || (skin.key.startsWith('liga')));
+            setDefaultSkins(filteredSkins);
         } catch (error) {
             console.error('Error fetching skins:', error);
         }
@@ -80,6 +84,12 @@ export default function Page() {
     useEffect(() => {
         fetchSkins();
     }, []);
+
+    useEffect(() => {
+        if (defaultSkins.length > 0 && skinIndex < defaultSkins.length) {
+            setCurrentSkin(defaultSkins[skinIndex]);
+        }
+    }, [skinIndex, defaultSkins]);
 
     const isOwned = (skinId) => {
         console.log('skinId isOwned', skinId)
@@ -448,6 +458,39 @@ export default function Page() {
                     </div>
                 </div>
             )}
+            {/*{defaultSkin &&*/}
+            {/*    <div className={styles.skinPopUp}>*/}
+            {/*        <div className={styles.popUpClose} onClick={() => setDefaultSkin(false)}>x</div>*/}
+            {/*        <div className={styles.row}>*/}
+            {/*            <div className={styles.navLeft} onClick={prevSkin}>*/}
+            {/*                <Image src={'/ArrowWhite.png'} alt={''} width={15} height={15} loading="lazy" />*/}
+            {/*            </div>*/}
+            {/*            <div className={styles.modalBorder}>*/}
+            {/*                <div className={styles.popUpContent}>*/}
+            {/*                    <Image className={styles.fullSkin} src={skinData[groupId][skinIndex].icon} alt={''} width={130} height={220} />*/}
+            {/*                    <div className={styles.popUpText}>{ligsNames[skinIndex]}</div>*/}
+            {/*                    {(currentSkin.meta.liga > liga) &&*/}
+            {/*                        <div className={styles.lock}>*/}
+            {/*                            <Image width={70} height={70} alt="" src={Lock} priority/>*/}
+            {/*                            <div className={styles.lockDesk}>reach next leagues</div>*/}
+            {/*                        </div>*/}
+            {/*                    }*/}
+            {/*                </div>*/}
+            {/*            </div>*/}
+            {/*            <div className={styles.navRight} onClick={nextSkin}>*/}
+            {/*                <Image src={'/ArrowWhite.png'} alt={''} width={15} height={15} loading="lazy" />*/}
+            {/*            </div>*/}
+            {/*        </div>*/}
+            {/*        <div className={(skinIndex > liga) && styles.modalBorderHidden }>*/}
+            {/*            <div className={styles.modalBorder}>*/}
+            {/*                <div*/}
+            {/*                    className={styles.modalBtn}*/}
+            {/*                    onClick={() => handlePurchaseOrEquip(1, 0)}*/}
+            {/*                >{t('account.equip')}</div>*/}
+            {/*            </div>*/}
+            {/*        </div>*/}
+
+            {/*    </div>}*/}
             {defaultSkin &&
                 <div className={styles.skinPopUp}>
                     <div className={styles.popUpClose} onClick={() => setDefaultSkin(false)}>x</div>
@@ -457,30 +500,24 @@ export default function Page() {
                         </div>
                         <div className={styles.modalBorder}>
                             <div className={styles.popUpContent}>
-                                <Image className={styles.fullSkin} src={skinData[1][skinIndex].icon} alt={''} width={130} height={220} />
-                                <div className={styles.popUpText}>{ligsNames[skinIndex]}</div>
-                                {(skinIndex > liga) &&
-                                    <div className={styles.lock}>
-                                        <Image width={70} height={70} alt="" src={Lock} priority/>
-                                        <div className={styles.lockDesk}>reach next leagues</div>
-                                    </div>
-                                }
+                                <Image className={styles.fullSkin} src={defaultSkins[skinIndex].icon} alt={''} width={130} height={220} />
+                                <div className={styles.popUpText}>{defaultSkins[skinIndex].name}</div>
                             </div>
                         </div>
                         <div className={styles.navRight} onClick={nextSkin}>
                             <Image src={'/ArrowWhite.png'} alt={''} width={15} height={15} loading="lazy" />
                         </div>
                     </div>
-                    <div className={(skinIndex > liga) && styles.modalBorderHidden }>
+                    {defaultSkins[skinIndex].meta.liga <= liga &&
                         <div className={styles.modalBorder}>
                             <div
                                 className={styles.modalBtn}
-                                onClick={() => handlePurchaseOrEquip(1, 0)}
+                                onClick={() => handlePurchaseOrEquip(defaultSkins[skinIndex].id, defaultSkins[skinIndex].price)}
                             >{t('account.equip')}</div>
                         </div>
-                    </div>
-
-                </div>}
+                    }
+                </div>
+            }
         </div>
     )
 }
