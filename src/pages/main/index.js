@@ -69,13 +69,39 @@ export default function Home() {
         }
     }, [balance, startFarmTime, isClaimClicked, coins]);
 
+    // useEffect(() => {
+    //     const skinFromSession = sessionStorage.getItem('skin');
+    //     const skin = skinFromSession ? JSON.parse(skinFromSession) : null;
+    //     if (skin && skin.key) {
+    //         setSkinSource(skinData[skin.key] || skinData[groupId]?.[liga]?.icon);
+    //     } else {
+    //         setSkinSource(skinData[groupId]?.[liga]?.icon);
+    //     }
+    // }, [groupId, liga]);
+
     useEffect(() => {
         const skinFromSession = sessionStorage.getItem('skin');
         const skin = skinFromSession ? JSON.parse(skinFromSession) : null;
+        function getSkinIcon(skinKey, groupId) {
+            const skin = skinData[skinKey];
+            if (Array.isArray(skin)) {
+                const iconEntry = skin.find(entry => entry[groupId]);
+                return iconEntry ? iconEntry[groupId] : null;
+            } else {
+                return skin;
+            }
+        }
         if (skin && skin.key) {
-            setSkinSource(skinData[skin.key] || skinData[groupId]?.[liga]?.icon);
+            const icon = getSkinIcon(skin.key, groupId);
+            if (icon) {
+                setSkinSource(icon);
+            } else {
+                const defaultIcon = skinData[groupId][liga].icon;
+                setSkinSource(defaultIcon);
+            }
         } else {
-            setSkinSource(skinData[groupId]?.[liga]?.icon);
+            const defaultIcon = skinData[groupId][liga].icon;
+            setSkinSource(defaultIcon);
         }
     }, [groupId, liga]);
 

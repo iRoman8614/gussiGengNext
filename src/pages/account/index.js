@@ -30,7 +30,7 @@ export default function Page() {
     const [activeTab, setActiveTab] = useState(1);
     const [userName, setUserName] = useState(null);
     const [activeIndex, setActiveIndex] = useState(0);
-    const [skinIndex, setSkinIndex] = useState((liga > 0 ? liga-1 : 0) || 0)
+    const [skinIndex, setSkinIndex] = useState((liga > 0 ? liga : 0) || 0)
     const [skins, setSkins] = useState([]);
     const [mySkins, setMySkins] = useState([]);
     const [defaultSkins, setDefaultSkins] = useState([]);
