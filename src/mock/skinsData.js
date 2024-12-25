@@ -40,6 +40,48 @@ const skinData = {
     theItDude: "/skins/itfull.png",
     lilith: "/skins/lilfull.png",
     stars:"/skins/icyfull.png",
+    default: [
+        {1: '/skins/gg.png'},
+        {2: '/skins/bg.png'},
+        {3: '/skins/yg.png'},
+        {4: '/skins/rg.png'}
+    ],
+    liga_2: [
+        {1: '/skins/gg2.png'},
+        {2: '/skins/bg2.png'},
+        {3: '/skins/yg2.png'},
+        {4: '/skins/rg2.png'}
+    ],
+    liga_3: [
+        {1: '/skins/gg3.png'},
+        {2: '/skins/bg3.png'},
+        {3: '/skins/yg3.png'},
+        {4: '/skins/rg3.png'}
+    ],
+    liga_4: [
+        {1: '/skins/gg4.png'},
+        {2: '/skins/bg4.png'},
+        {3: '/skins/yg4.png'},
+        {4: '/skins/rg4.png'}
+    ],
+    liga_5: [
+        {1: '/skins/g5.png'},
+        {2: '/skins/b5.png'},
+        {3: '/skins/y5.png'},
+        {4: '/skins/r5.png'}
+    ],
+    liga_6: [
+        {1: '/skins/gg6.png'},
+        {2: '/skins/bg6.png'},
+        {3: '/skins/yg6.png'},
+        {4: '/skins/rg6.png'}
+    ],
+    liga_7: [
+        {1: '/skins/gg7.png'},
+        {2: '/skins/bg7.png'},
+        {3: '/skins/yg7.png'},
+        {4: '/skins/rg7.png'}
+    ]
 };
 
 export default skinData;

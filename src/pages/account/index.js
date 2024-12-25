@@ -8,7 +8,8 @@ import { useInit } from '@/context/InitContext';
 import {formatNumber} from "@/utils/formatNumber";
 import {useProfileStats, useMyInvitees, useFarmCollect} from '@/utils/api';
 import axiosInstance from "@/utils/axios";
-
+import {toast} from "react-toastify";
+import Link from "next/link";
 
 import skinData from '@/mock/skinsData'
 import teamData from "@/mock/teamsData";
@@ -17,8 +18,6 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/controller';
 import styles from '@/styles/Account.module.scss'
-import {toast} from "react-toastify";
-import Link from "next/link";
 
 const money = '/money.png'
 const Lock = '/Lock.png'
@@ -37,7 +36,6 @@ export default function Page() {
     const [defaultSkins, setDefaultSkins] = useState([]);
     const [selectedSkin, setSelectedSkin] = useState(null);
     const [defaultSkin, setDefaultSkin] = useState(false)
-    const [currentSkin, setCurrentSkin] = useState(null);
     const [skinSource, setSkinSource] = useState('');
     const [link, setLink] = useState('')
     const { fetchProfileStats, data: stats } = useProfileStats();
@@ -87,13 +85,6 @@ export default function Page() {
         fetchSkins();
     }, []);
 
-    useEffect(() => {
-        console.log('defaultSkins', defaultSkins)
-        if (defaultSkins.length > 0 && skinIndex < defaultSkins.length) {
-            setCurrentSkin(defaultSkins[skinIndex]);
-        }
-    }, [skinIndex, defaultSkins]);
-
     const isOwned = (skinId) => {
         console.log('skinId isOwned', skinId)
         return mySkins.some(mySkin => mySkin.id === skinId);
@@ -136,7 +127,7 @@ export default function Page() {
         const skinFromSession = sessionStorage.getItem('skin');
         const skin = skinFromSession ? JSON.parse(skinFromSession) : null;
         if (skin && skin.key) {
-            setSkinSource(skinData[skin.key] || skinData[groupId]?.[liga]?.icon);
+            setSkinSource(skinData[skin.key] || skinData[skin.key]?.[groupId] || skinData[groupId]?.[liga]?.icon);
         } else {
             setSkinSource(skinData[groupId]?.[liga]?.icon);
         }
@@ -484,14 +475,20 @@ export default function Page() {
                             <Image src={'/ArrowWhite.png'} alt={''} width={15} height={15} loading="lazy" />
                         </div>
                     </div>
-                    <div className={(skinIndex > liga) && styles.modalBorderHidden }>
+                    {(skinIndex > liga) ? <div className={styles.modalBorderHidden}>
+                        <div className={styles.modalBorder}>
+                            <div
+                                className={styles.modalBtn}
+                            >{t('account.equip')}</div>
+                        </div>
+                    </div> : <div>
                         <div className={styles.modalBorder}>
                             <div
                                 className={styles.modalBtn}
                                 onClick={() => handlePurchaseOrEquip(defaultSkins[skinIndex].id, defaultSkins[skinIndex].price)}
                             >{t('account.equip')}</div>
                         </div>
-                    </div>
+                    </div>}
                 </div>}
         </div>
     )
