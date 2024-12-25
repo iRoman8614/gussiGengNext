@@ -73,6 +73,8 @@ export default function Page() {
                         icon = "x";
                     } else if (task.name.includes("Kat")) {
                         icon = "kat";
+                    } else if (task.name.includes("Gridbybot")) {
+                        icon = "Gridbybot";
                     }
                 }
                 const isVisible = (task.type === 1 && task.id <= lastCompletedTaskIdType1 + 1) ||
@@ -116,6 +118,8 @@ export default function Page() {
                     return t(`EXP.x`);
                 } else if (name.includes('Kat')) {
                     return t(`EXP.Kat`);
+                } else if (name.includes('Gridbybot')) {
+                    return t('EXP.Gridbybot')
                 }
                 break;
             default:

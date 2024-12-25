@@ -10,6 +10,7 @@ const Icon3 = '/Tasks/pvp.png'
 const IconTG = '/Tasks/telegram.png'
 const IconX = '/Tasks/twitter.png'
 const KatKnight = '/Tasks/KatKnight.png'
+const Gridbybot = '/Tasks/Gridbybot.JPG'
 
 // eslint-disable-next-line react/prop-types
 export const TaskBtn = ({title, subtitle, desc, completed, onClick, readyToComplete, reward, icon, type}) => {
@@ -21,6 +22,7 @@ export const TaskBtn = ({title, subtitle, desc, completed, onClick, readyToCompl
             case 'tg': return IconTG;
             case 'x': return IconX;
             case 'kat': return KatKnight
+            case 'Gridbybot': return Gridbybot
             default:
                 if (type === 1) return Icon1;
                 if (type === 3) return Icon3;
