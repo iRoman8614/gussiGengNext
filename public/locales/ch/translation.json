@@ -46,7 +46,8 @@
     "balance": "balance",
     "default": "default",
     "buy": "buy",
-    "equip": "equip"
+    "equip": "equip",
+    "owned": "owned"
   },
   "change": {
     "destiny": "you wanna change your destiny?",

@@ -383,7 +383,7 @@ export default function Page() {
                                     <div key={skin.id} className={styles.skinListItem} onClick={() => getStarsLink(skin)}>
                                         <div>{skin.name}</div>
                                         <div>
-                                            {isOwned(skin.id) ? <>Owned</> : <>{
+                                            {isOwned(skin.id) ? <>{t('account.owned')}</> : <>{
                                                 skin.price > 0 ?
                                                     <>{formatBalance(skin.price)}{' '}<Image src={money} alt={''}
                                                                                              width={15}
