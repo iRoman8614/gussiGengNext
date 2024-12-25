@@ -470,7 +470,7 @@ export default function Page() {
                             <div className={styles.popUpContent}>
                                 <Image className={styles.fullSkin} src={skinData[groupId][skinIndex].icon} alt={''} width={130} height={220} />
                                 <div className={styles.popUpText}>{ligsNames[skinIndex]}</div>
-                                {(currentSkin.meta.liga > liga) &&
+                                {(skinIndex > liga) &&
                                     <div className={styles.lock}>
                                         <Image width={70} height={70} alt="" src={Lock} priority/>
                                         <div className={styles.lockDesk}>reach next leagues</div>
