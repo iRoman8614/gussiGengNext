@@ -174,15 +174,16 @@ export default function Page() {
 
         if (task.readyToComplete) {
             executeTask(task.id);
-            task.readyToComplete = false
+            task.readyToComplete = false;
         } else {
             switch (task.type) {
                 case 1:
                     navigateToPage(task.path);
                     break;
                 case 2:
-                    if (task.meta && task.meta.url) {
-                        let url = task.meta.url;
+                    // Используем URL из метаданных для каждого задания типа 2
+                    const url = task.meta && task.meta.url ? task.meta.url : '';
+                    if (url) {
                         const existingTimestamp = localStorage.getItem(`task_${task.id}`);
                         if (!existingTimestamp) {
                             window.open(url, '_blank');
@@ -203,6 +204,7 @@ export default function Page() {
             }
         }
     };
+
 
     useEffect(() => {
         if (typeof window === "undefined") {
