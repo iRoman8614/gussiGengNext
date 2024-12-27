@@ -357,7 +357,26 @@ export default function Page() {
                             {tasks.map((task, index) => {
                                 return (
                                     <>
-                                        {(task.type !== 4 && task.type !== 5 && task.type !== 6) && <TaskBtn
+                                        {(task.type !== 4 && task.type !== 5 && task.type !== 6 && task.type !== 2) && <TaskBtn
+                                            id={task.id}
+                                            subtitle={task.name}
+                                            desc={task.type !== 2 ? `${task.current} / ${task.amount}` : ''}
+                                            completed={task.completed}
+                                            key={index}
+                                            icon={task.icon}
+                                            type={task.type}
+                                            readyToComplete={task.readyToComplete}
+                                            reward={formatNumber(task.reward, 9)}
+                                            onClick={() => handleTaskClick(task)}
+                                        />}
+                                    </>
+                                )
+                            })}
+                            {tasks.filter(task =>
+                                task.key === "subscription_tg_channel" || task.key === "subscription_x_channel").map((task, index) => {
+                                return (
+                                    <>
+                                        {(task.type !== 4 && task.type !== 5 && task.type !== 6 && task.type !== 2) && <TaskBtn
                                             id={task.id}
                                             subtitle={task.name}
                                             desc={task.type !== 2 ? `${task.current} / ${task.amount}` : ''}
@@ -401,7 +420,10 @@ export default function Page() {
                 }
                 {activeTab === 2 && <div className={styles.skinContainer}>
                     <div className={styles.col}>
-                        {tasks.map((task, index) => {
+                        {tasks
+                            .filter(task =>
+                                task.key !== "subscription_tg_channel" && task.key !== "subscription_x_channel")
+                            .map((task, index) => {
                             return (
                                 <>
                                     {(task.type === 2) && <TaskBtn

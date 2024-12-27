@@ -208,6 +208,12 @@
   border-radius: 0 12px 12px 12px;
   border: 2px solid #3842a4;
   z-index: 111;
+
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 .list {
