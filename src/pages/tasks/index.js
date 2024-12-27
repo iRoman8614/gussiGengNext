@@ -323,6 +323,7 @@ export default function Page() {
                                 return(
                                     <>
                                         {(task.type !== 4 && task.type !== 5 && task.type !== 6) && <TaskBtn
+                                            id={task.id}
                                             subtitle={task.name}
                                             desc={task.type !== 2 ? `${task.current} / ${task.amount}` : ''}
                                             completed={task.completed}
