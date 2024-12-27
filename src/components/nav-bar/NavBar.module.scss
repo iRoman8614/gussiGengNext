@@ -37,7 +37,7 @@
   justify-content: start;
   color: #FFFFFF;
   padding: 1px 3px;
-  font-weight: bold;
+  //font-weight: bold;
   //font-family: 'Oswald';
   font-family: 'Pricedown';
 }
@@ -80,9 +80,9 @@
   font-size: auto-clamp(17, 22);
   line-height: auto-clamp(15, 18);
   //text-transform: uppercase;
-  text-shadow:
-          -1px -1px 0 #000,
-          1px -1px 0 #000,
-          -1px  1px 0 #000,
-          1px  1px 0 #000;
+  //text-shadow:
+  //        -1px -1px 0 #000,
+  //        1px -1px 0 #000,
+  //        -1px  1px 0 #000,
+  //        1px  1px 0 #000;
 }

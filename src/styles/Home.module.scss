@@ -53,17 +53,17 @@
   width: fit-content;
   border-radius: 11px;
   color: #FFFFFF;
-  font-size: 18px;
+  font-size: 24px;
   line-height: 18px;
   height: auto-clamp(33, 44);
   //text-transform: uppercase;
   //letter-spacing: -1px;
-  font-weight: bold;
-  text-shadow:
-          -1px -1px 0 #000,
-          1px -1px 0 #000,
-          -1px  1px 0 #000,
-          1px  1px 0 #000;
+  //font-weight: bold;
+  //text-shadow:
+  //        -1px -1px 0 #000,
+  //        1px -1px 0 #000,
+  //        -1px  1px 0 #000,
+  //        1px  1px 0 #000;
 }
 
 .gangIcon  {
@@ -189,28 +189,28 @@
   font-family: 'Pricedown';
   position: absolute;
   top: auto-height(0, 12);
-  font-weight: bold;
+  //font-weight: bold;
   //letter-spacing: -1px;
-  text-transform: uppercase;
+  //text-transform: uppercase;
   width: 100%;
   text-align: center;
   color: #FFFFFF;
-  font-size: 30px;
+  font-size: 40px;
   margin: 0;
 }
 
 .btnClicked {
   //font-family: 'Oswald';
   font-family: 'Pricedown';
-  font-weight: bold;
+  //font-weight: bold;
   //letter-spacing: -1px;
-  text-transform: uppercase;
+  //text-transform: uppercase;
   position: absolute;
   top: auto-height(0, 15);
   width: 100%;
   text-align: center;
   color: #FFFFFF;
-  font-size: 30px;
+  font-size: 40px;
   margin: 0;
 }
 
