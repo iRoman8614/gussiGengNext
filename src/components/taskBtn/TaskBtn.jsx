@@ -74,11 +74,11 @@ const IconX = '/Tasks/twitter.png';
 const KatKnight = '/Tasks/KatKnight.png';
 const Gridbybot = '/Tasks/Gridbybot.JPG';
 
-export const TaskBtn = ({title, subtitle, desc, completed, onClick, readyToComplete, reward, icon, type, id}) => {
+export const TaskBtn = ({ title, subtitle, desc, completed, onClick, readyToComplete, reward, icon, type, id }) => {
     const [timer, setTimer] = useState('');
 
     const getIconSrc = () => {
-        switch(icon) {
+        switch (icon) {
             case 'ref': return Icon1;
             case 'pvp': return Icon3;
             case 'tg': return IconTG;
@@ -86,38 +86,36 @@ export const TaskBtn = ({title, subtitle, desc, completed, onClick, readyToCompl
             case 'kat': return KatKnight;
             case 'Gridbybot': return Gridbybot;
             default:
-                if (type === 1) return Icon1;
-                if (type === 3) return Icon3;
-                return '';
+                return type === 1 ? Icon1 : type === 3 ? Icon3 : '';
         }
     };
 
-
     useEffect(() => {
-        console.log(`Task ${id} timer check:`, localStorage.getItem(`task_${id}`));
-        const taskTime = localStorage.getItem('task_9');
-        if (taskTime) {
-            console.log(new Date(parseInt(taskTime, 10)));
-        }
-        const storedTimestamp = localStorage.getItem(`task_${id}`);
-        if (storedTimestamp) {
-            const endTime = parseInt(storedTimestamp, 10) + 3600000;
-            const updateTimer = () => {
-                const now = Date.now();
-                const remaining = endTime - now;
-                if (remaining > 0) {
-                    const minutes = Math.floor((remaining % (1000 * 60 * 60)) / (1000 * 60));
-                    const seconds = Math.floor((remaining % (1000 * 60)) / 1000);
-                    setTimer(`${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`);
-                } else {
-                    clearInterval(intervalId);
-                    setTimer('');
-                    localStorage.removeItem(`task_${id}`);
-                }
-            };
-            updateTimer();
-            const intervalId = setInterval(updateTimer, 1000);
-            return () => clearInterval(intervalId);
+        if (type === 2) {
+            const taskKey = `task_${id}`;
+            const storedTimestamp = localStorage.getItem(taskKey);
+            if (storedTimestamp) {
+                const endTime = parseInt(storedTimestamp, 10);
+
+                const updateTimer = () => {
+                    const now = Date.now();
+                    const remaining = endTime - now;
+                    if (remaining > 0) {
+                        const minutes = Math.floor((remaining % (1000 * 60 * 60)) / (1000 * 60));
+                        const seconds = Math.floor((remaining % (1000 * 60)) / 1000);
+                        setTimer(`${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`);
+                    } else {
+                        setTimer('');
+                        localStorage.removeItem(taskKey);
+                    }
+                };
+
+                updateTimer();
+                const intervalId = setInterval(updateTimer, 1000);
+                return () => clearInterval(intervalId);
+            } else {
+                setTimer('');
+            }
         }
     }, [id, type]);
 
