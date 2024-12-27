@@ -192,11 +192,11 @@
   z-index: 111;
   margin-bottom: 15px;
   height: calc(100vh - 150px);
-  overflow-y: scroll;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
+  //overflow-y: scroll;
+  //
+  //&::-webkit-scrollbar {
+  //  display: none;
+  //}
 }
 
 .personalContainer {
@@ -208,11 +208,11 @@
   border: 2px solid #3842a4;
   z-index: 111;
   height: calc(100vh - 150px);
-  overflow-y: scroll;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
+  //overflow-y: scroll;
+  //
+  //&::-webkit-scrollbar {
+  //  display: none;
+  //}
 }
 
 .list {
@@ -251,9 +251,7 @@
   height: 100%;
   gap: 10px;
   margin: 15px;
-
   overflow-y: scroll;
-
   &::-webkit-scrollbar {
     display: none;
   }
