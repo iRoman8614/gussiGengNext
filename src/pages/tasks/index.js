@@ -372,11 +372,13 @@ export default function Page() {
                                     </>
                                 )
                             })}
-                            {tasks.filter(task =>
-                                task.key === "subscription_tg_channel" || task.key === "subscription_x_channel").map((task, index) => {
+                            {tasks
+                                .filter(task =>
+                                task.key === "subscription_tg_channel" || task.key === "subscription_x_channel")
+                                .map((task, index) => {
                                 return (
                                     <>
-                                        {(task.type !== 4 && task.type !== 5 && task.type !== 6 && task.type !== 2) && <TaskBtn
+                                        {(task.type === 2) && <TaskBtn
                                             id={task.id}
                                             subtitle={task.name}
                                             desc={task.type !== 2 ? `${task.current} / ${task.amount}` : ''}
