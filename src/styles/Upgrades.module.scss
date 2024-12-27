@@ -203,6 +203,7 @@
   padding: 20px 5px 5px 5px;
   width: 100%;
   min-height: 80vh;
+  height: fit-content;
   background: rgba(56,36,111, 0.95);
   backdrop-filter: blur(7px);
   border-radius: 0 12px 12px 12px;
@@ -243,7 +244,7 @@
 
 .col {
   width: auto;
-  height: auto;
+  height: 100%;
   gap: 10px;
   margin: 15px;
 
