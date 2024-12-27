@@ -92,31 +92,34 @@ export const TaskBtn = ({title, subtitle, desc, completed, onClick, readyToCompl
         }
     };
 
+
     useEffect(() => {
-        if (type === 2) {
-            const storedTimestamp = localStorage.getItem(`task_${id}`);
-            if (storedTimestamp) {
-                const endTime = parseInt(storedTimestamp, 10) + 3600000;
-                const updateTimer = () => {
-                    const now = Date.now();
-                    const remaining = endTime - now;
-                    if (remaining > 0) {
-                        const minutes = Math.floor((remaining % (1000 * 60 * 60)) / (1000 * 60));
-                        const seconds = Math.floor((remaining % (1000 * 60)) / 1000);
-                        setTimer(`${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`);
-                    } else {
-                        clearInterval(intervalId);
-                        setTimer('');
-                        localStorage.removeItem(`task_${id}`);
-                    }
-                };
-                updateTimer();
-                const intervalId = setInterval(updateTimer, 1000);
-                return () => clearInterval(intervalId);
-            }
+        console.log(`Task ${id} timer check:`, localStorage.getItem(`task_${id}`));
+        const taskTime = localStorage.getItem('task_9');
+        if (taskTime) {
+            console.log(new Date(parseInt(taskTime, 10)));
+        }
+        const storedTimestamp = localStorage.getItem(`task_${id}`);
+        if (storedTimestamp) {
+            const endTime = parseInt(storedTimestamp, 10) + 3600000;
+            const updateTimer = () => {
+                const now = Date.now();
+                const remaining = endTime - now;
+                if (remaining > 0) {
+                    const minutes = Math.floor((remaining % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((remaining % (1000 * 60)) / 1000);
+                    setTimer(`${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`);
+                } else {
+                    clearInterval(intervalId);
+                    setTimer('');
+                    localStorage.removeItem(`task_${id}`);
+                }
+            };
+            updateTimer();
+            const intervalId = setInterval(updateTimer, 1000);
+            return () => clearInterval(intervalId);
         }
     }, [id, type]);
-
 
     const handleClick = () => {
         if (window.Telegram?.WebApp?.HapticFeedback) {
