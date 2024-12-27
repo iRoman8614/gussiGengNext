@@ -42,9 +42,6 @@ export default function Page() {
     const { data: friends } = useMyInvitees();
     const { collectAndStart } = useFarmCollect();
 
-    console.log('liga', liga)
-    console.log('skinIndex', skinIndex)
-
     const skinImages = {
         "thug_life": "/skins/thuglifeIcon.png",
         "netrunner": "/skins/netrunnerIcon.png",
@@ -320,118 +317,123 @@ export default function Page() {
                         </div>
                     </div>
                     {activeTab === 1 &&<div className={styles.personalContainer}>
-                        <div className={styles.avatarContainer}>
-                            <Image className={styles.logo} src={teamData[groupId]?.logo} alt={''} width={40} height={40}
-                                   loading="lazy"/>
-                            <Image className={styles.character} src={skinSource} alt={''} width={100}
-                                   height={178} loading="lazy"/>
-                        </div>
-                        <div className={styles.stats}>
-                            <div className={styles.nickname}>{t('account.league')} {stats?.liga}</div>
-                            <div className={styles.stat}>
-                                {t('account.total')} <p>{stats?.count}</p>
+                        <div className={styles.padding}>
+                            <div className={styles.avatarContainer}>
+                                <Image className={styles.logo} src={teamData[groupId]?.logo} alt={''} width={40} height={40}
+                                       loading="lazy"/>
+                                <Image className={styles.character} src={skinSource} alt={''} width={100}
+                                       height={178} loading="lazy"/>
                             </div>
-                            <div className={styles.stat}>
-                                {t('account.wins')} <p>{stats?.victory}</p>
+                            <div className={styles.stats}>
+                                <div className={styles.nickname}>{t('account.league')} {stats?.liga}</div>
+                                <div className={styles.stat}>
+                                    {t('account.total')} <p>{stats?.count}</p>
+                                </div>
+                                <div className={styles.stat}>
+                                    {t('account.wins')} <p>{stats?.victory}</p>
+                                </div>
+                                <div className={styles.stat}>
+                                    {t('account.defeats')} <p>{stats?.lost}</p>
+                                </div>
+                                <div className={styles.stat}>
+                                    {t('account.winRate')} <p>{stats?.count === 0 ? '0%' : `${((stats?.victory / stats?.count) * 100).toFixed(2)}%`}</p>
+                                </div>
                             </div>
-                            <div className={styles.stat}>
-                                {t('account.defeats')} <p>{stats?.lost}</p>
+                            <div className={styles.barBlock}>
+                                <div className={styles.barItem}>{t('account.Total')}</div>
+                                <div className={styles.barItemStats}>{formatNumber(totalCoins)}</div>
+                                {/*<div className={styles.barItem}>total skins owned</div>*/}
+                                {/*<div className={styles.barItemStats}>1/11</div>*/}
+                                <div className={styles.barItem}>{t('account.friends')}</div>
+                                <div className={styles.barItemStats}>{friends.length}</div>
+                                <div className={styles.barItem}>{t('account.login')}</div>
+                                <div className={styles.barItemStats}>{dailyEntries}</div>
                             </div>
-                            <div className={styles.stat}>
-                                {t('account.winRate')} <p>{stats?.count === 0 ? '0%' : `${((stats?.victory / stats?.count) * 100).toFixed(2)}%`}</p>
+                            <div>
+                                <div className={styles.barItem}>{t('account.cur_balance')}</div>
+                                <div className={styles.balance}>{formatNumber(coins, 15)}{' '}<Image src={money} alt={''} width={21} height={21} loading="lazy"/></div>
                             </div>
                         </div>
-                        <div className={styles.barBlock}>
-                            <div className={styles.barItem}>{t('account.Total')}</div>
-                            <div className={styles.barItemStats}>{formatNumber(totalCoins)}</div>
-                            {/*<div className={styles.barItem}>total skins owned</div>*/}
-                            {/*<div className={styles.barItemStats}>1/11</div>*/}
-                            <div className={styles.barItem}>{t('account.friends')}</div>
-                            <div className={styles.barItemStats}>{friends.length}</div>
-                            <div className={styles.barItem}>{t('account.login')}</div>
-                            <div className={styles.barItemStats}>{dailyEntries}</div>
-                        </div>
-                        <div>
-                            <div className={styles.barItem}>{t('account.cur_balance')}</div>
-                            <div className={styles.balance}>{formatNumber(coins, 15)}{' '}<Image src={money} alt={''} width={21} height={21} loading="lazy"/></div>
-                        </div>
+
                     </div>}
                     {activeTab === 2 && <div className={styles.skinContainer}>
-                        <div className={styles.skinSwiper}>
-                            {isOwned(skins[activeIndex].id) && <div className={styles.owned}>
-                                {
-                                    isActive(skins[activeIndex].id) && <Image className={styles.check} src={"/check.png"} alt={''} width={30} height={24} />
-                                }
-                            </div>}
-                            <div className={styles.containerSwiper}>
-                                <button className={styles.navLeft} onClick={handleSlidePrev}>
-                                    <Image src={'/ArrowWhite.png'} alt={''} width={20} height={20} loading="lazy" />
-                                </button>
-                                <Swiper
-                                    modules={[Navigation, Controller]}
-                                    slidesPerView={1}
-                                    centeredSlides={false}
-                                    spaceBetween={10}
-                                    loop={true}
-                                    onSwiper={(swiper) => {
-                                        swiperRef.current = swiper;
-                                    }}
-                                    onSlideChange={handleSlideChange}
-                                    className={styles.swiper}
-                                >
-                                    {skins.map((skin, index) => (
-                                        <SwiperSlide key={skin.id} className={styles.slide}>
-                                            <Image
-                                                key={index}
-                                                width={170}
-                                                height={234}
-                                                src={skinImages[skin.key]}
-                                                alt={''}
-                                                className={styles.icon}
-                                                loading="lazy"
-                                                onClick={() => setSelectedSkin(skin)}
-                                            />
-                                        </SwiperSlide>
-                                    ))}
-                                </Swiper>
-                                <button className={styles.navRight} onClick={handleSlideNext}>
-                                    <Image src={'/ArrowWhite.png'} alt={''} width={20} height={20} loading="lazy" />
-                                </button>
+                        <div className={styles.padding}>
+                            <div className={styles.skinSwiper}>
+                                {isOwned(skins[activeIndex].id) && <div className={styles.owned}>
+                                    {
+                                        isActive(skins[activeIndex].id) && <Image className={styles.check} src={"/check.png"} alt={''} width={30} height={24} />
+                                    }
+                                </div>}
+                                <div className={styles.containerSwiper}>
+                                    <button className={styles.navLeft} onClick={handleSlidePrev}>
+                                        <Image src={'/ArrowWhite.png'} alt={''} width={20} height={20} loading="lazy" />
+                                    </button>
+                                    <Swiper
+                                        modules={[Navigation, Controller]}
+                                        slidesPerView={1}
+                                        centeredSlides={false}
+                                        spaceBetween={10}
+                                        loop={true}
+                                        onSwiper={(swiper) => {
+                                            swiperRef.current = swiper;
+                                        }}
+                                        onSlideChange={handleSlideChange}
+                                        className={styles.swiper}
+                                    >
+                                        {skins.map((skin, index) => (
+                                            <SwiperSlide key={skin.id} className={styles.slide}>
+                                                <Image
+                                                    key={index}
+                                                    width={170}
+                                                    height={234}
+                                                    src={skinImages[skin.key]}
+                                                    alt={''}
+                                                    className={styles.icon}
+                                                    loading="lazy"
+                                                    onClick={() => setSelectedSkin(skin)}
+                                                />
+                                            </SwiperSlide>
+                                        ))}
+                                    </Swiper>
+                                    <button className={styles.navRight} onClick={handleSlideNext}>
+                                        <Image src={'/ArrowWhite.png'} alt={''} width={20} height={20} loading="lazy" />
+                                    </button>
+                                </div>
+                                <div className={styles.caption}>
+                                    {skins[activeIndex].name}
+                                </div>
+                                <div className={styles.skinBalance}>
+                                    <div className={styles.skinBalanceTitle}>{t('account.balance')}</div>
+                                    <div>{formatNumber(coins, 15)}{' '}<Image src={money} alt={''} width={18} height={18} loading="lazy"/></div>
+                                </div>
                             </div>
-                            <div className={styles.caption}>
-                                {skins[activeIndex].name}
+                            <div className={styles.list}>
+                                <div className={styles.skinListItem} onClick={() => setDefaultSkin(true)}>
+                                    <div>{t('account.default')}</div>
+                                </div>
+                                {skins.map((skin, index) => {
+                                    return (
+                                        <div key={skin.id} className={styles.skinListItem} onClick={() => getStarsLink(skin)}>
+                                            <div>{skin.name}</div>
+                                            <div>
+                                                {isOwned(skin.id) ? <>{t('account.owned')}</> : <>{
+                                                    skin.price > 0 ?
+                                                        <>{formatBalance(skin.price)}{' '}<Image src={money} alt={''}
+                                                                                                 width={15}
+                                                                                                 height={15}
+                                                                                                 loading="lazy"/>
+                                                        </> : <>{skin.stars > 0 ? <>
+                                                                {skin.stars}{' '}<Image src={star} alt={''} width={15}
+                                                                                        height={15} loading="lazy"/>
+                                                            </> :
+                                                            <div onClick={() => {
+                                                                router.push('/tasks')
+                                                            }}>{t('account.task')}</div>}</>
+                                                }</>}
+                                            </div>
+                                        </div>);
+                                })}
                             </div>
-                            <div className={styles.skinBalance}>
-                                <div className={styles.skinBalanceTitle}>{t('account.balance')}</div>
-                                <div>{formatNumber(coins, 15)}{' '}<Image src={money} alt={''} width={18} height={18} loading="lazy"/></div>
-                            </div>
-                        </div>
-                        <div className={styles.list}>
-                            <div className={styles.skinListItem} onClick={() => setDefaultSkin(true)}>
-                                <div>{t('account.default')}</div>
-                            </div>
-                            {skins.map((skin, index) => {
-                                return (
-                                    <div key={skin.id} className={styles.skinListItem} onClick={() => getStarsLink(skin)}>
-                                        <div>{skin.name}</div>
-                                        <div>
-                                            {isOwned(skin.id) ? <>{t('account.owned')}</> : <>{
-                                                skin.price > 0 ?
-                                                    <>{formatBalance(skin.price)}{' '}<Image src={money} alt={''}
-                                                                                             width={15}
-                                                                                             height={15}
-                                                                                             loading="lazy"/>
-                                                    </> : <>{skin.stars > 0 ? <>
-                                                            {skin.stars}{' '}<Image src={star} alt={''} width={15}
-                                                                                    height={15} loading="lazy"/>
-                                                        </> :
-                                                        <div onClick={() => {
-                                                            router.push('/tasks')
-                                                        }}>{t('account.task')}</div>}</>
-                                            }</>}
-                                        </div>
-                                    </div>);
-                            })}
                         </div>
                     </div>}
                 </div>
