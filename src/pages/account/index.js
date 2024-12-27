@@ -427,7 +427,7 @@ export default function Page() {
                                                         </> :
                                                         <div onClick={() => {
                                                             router.push('/tasks')
-                                                        }}>task</div>}</>
+                                                        }}>{t('account.task')}</div>}</>
                                             }</>}
                                         </div>
                                     </div>);

@@ -47,7 +47,8 @@
     "default": "default",
     "buy": "buy",
     "equip": "equip",
-    "owned": "owned"
+    "owned": "owned",
+    "task": "task"
   },
   "change": {
     "destiny": "you wanna change your destiny?",
