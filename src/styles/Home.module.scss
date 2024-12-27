@@ -42,7 +42,9 @@
 }
 
 .gangs {
-  font-family: 'Oswald';
+  //font-family: 'Oswald';
+  font-family: 'inglobalb';
+  letter-spacing: -1px;
   display: flex;
   align-items: center;
   gap: 13px;
@@ -102,9 +104,7 @@
 }
 
 .totalText {
-  //font-family: 'Pricedown';
-  font-family: 'inglobalb';
-  letter-spacing: -1px;
+  font-family: 'Pricedown';
   position: absolute;
   color: #FFFFFF;
   text-align: center;
@@ -186,7 +186,9 @@
 }
 
 .btn {
-  font-family: 'Oswald';
+  //font-family: 'Oswald';
+  font-family: 'inglobalb';
+  letter-spacing: -1px;
   position: absolute;
   top: auto-height(0, 12);
   font-weight: bold;
@@ -200,7 +202,9 @@
 }
 
 .btnClicked {
-  font-family: 'Oswald';
+  //font-family: 'Oswald';
+  font-family: 'inglobalb';
+  letter-spacing: -1px;
   font-weight: bold;
   //letter-spacing: -1px;
   text-transform: uppercase;
