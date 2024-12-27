@@ -181,13 +181,13 @@
   border: 2px solid #3842a4;
   z-index: 111;
   height: 85vh;
-  overflow-y: scroll;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
+  //overflow-y: scroll;
+  //scrollbar-width: none;
+  //-ms-overflow-style: none;
+  //
+  //&::-webkit-scrollbar {
+  //  display: none;
+  //}
 }
 
 .skinSwiper {
