@@ -91,31 +91,31 @@ export const TaskBtn = ({ title, subtitle, desc, completed, onClick, readyToComp
     };
 
     useEffect(() => {
-        if (type === 2) {
-            const taskKey = `task_${id}`;
-            const storedTimestamp = localStorage.getItem(taskKey);
-            if (storedTimestamp) {
-                const endTime = parseInt(storedTimestamp, 10);
+        const taskKey = `task_${id}`;
+        console.log(`Checking for task ${taskKey} in localStorage`);
+        const storedTimestamp = localStorage.getItem(taskKey);
+        console.log(`Stored timestamp for ${taskKey}:`, storedTimestamp);
 
-                const updateTimer = () => {
-                    const now = Date.now();
-                    const remaining = endTime - now;
-                    if (remaining > 0) {
-                        const minutes = Math.floor((remaining % (1000 * 60 * 60)) / (1000 * 60));
-                        const seconds = Math.floor((remaining % (1000 * 60)) / 1000);
-                        setTimer(`${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`);
-                    } else {
-                        setTimer('');
-                        localStorage.removeItem(taskKey);
-                    }
-                };
+        if (type === 2 && storedTimestamp) {
+            const endTime = parseInt(storedTimestamp, 10);
 
-                updateTimer();
-                const intervalId = setInterval(updateTimer, 1000);
-                return () => clearInterval(intervalId);
-            } else {
-                setTimer('');
-            }
+            const updateTimer = () => {
+                const now = Date.now();
+                const remaining = endTime - now;
+                if (remaining > 0) {
+                    const minutes = Math.floor((remaining % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((remaining % (1000 * 60)) / 1000);
+                    setTimer(`${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`);
+                } else {
+                    setTimer('');
+                    console.log(`Clearing task ${taskKey} from localStorage`);
+                    localStorage.removeItem(taskKey);
+                }
+            };
+
+            updateTimer();
+            const intervalId = setInterval(updateTimer, 1000);
+            return () => clearInterval(intervalId);
         }
     }, [id, type]);
 
@@ -128,23 +128,23 @@ export const TaskBtn = ({ title, subtitle, desc, completed, onClick, readyToComp
 
     return (
         <div className={readyToComplete ? styles.rootReady : styles.root} onClick={handleClick}>
-            <Image className={styles.icon} src={getIconSrc()} alt={''} width={50} height={50} />
+            <Image className={styles.icon} src={getIconSrc()} alt={''} width={50} height{50} />
             <div className={styles.container}>
                 <div>
                     {title && <div className={styles.title}>{title}</div>}
                     {subtitle && <div className={styles.subtitle}>{subtitle}</div>}
                 </div>
                 <div className={styles.reward}>
-                    <Image className={styles.money} src={money} width={20} height={16} alt={''} />+{reward}
+                    <Image className={styles.money} src={money} width{20} height{16} alt={''} />+{reward}
                 </div>
             </div>
             <div className={styles.desc}>{desc}</div>
             <div>
                 {completed
-                    ? <Image src={Complite} width={25} height={25} alt={''} />
+                    ? <Image src{Complite} width{25} height{25} alt={''} />
                     : type === 2 && timer
-                        ? <div className={styles.timer}>{timer}</div>
-                        : <Image src={Arrow} width={20} height={20} alt={''} />
+                        ? <div className{styles.timer}>{timer}</div>
+                        : <Image src{Arrow} width{20} height{20} alt={''} />
                 }
             </div>
         </div>
