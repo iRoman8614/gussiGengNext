@@ -10,23 +10,6 @@
   src: url("../pages/fonts/Oswald.ttf");
 }
 
-@font-face {
-  font-family: 'inglobalb';
-  src: url("../pages/fonts/inglobalb.ttf");
-}
-
-@font-face {
-  font-family: 'Amagro';
-  src: url("../pages/fonts/Amagro.ttf");
-}
-@font-face {
-  font-family: 'Daray';
-  src: url("../pages/fonts/Daray.otf");
-}
-@font-face {
-  font-family: 'Audex';
-  src: url("../pages/fonts/Audex.ttf");
-}
 
 html, body {
   margin: 0 auto;
@@ -36,7 +19,7 @@ html, body {
   width: 100%;
   height: 100%;
   overflow: hidden;
-  font-family: 'Pricedown', 'Oswald', 'inglobalb', 'Amagro', 'Daray', 'Audex', serif;
+  font-family: 'Pricedown', 'Oswald', serif;
   font-weight: 400;
   //text-shadow:
   //        -1px -1px 0 #000,
