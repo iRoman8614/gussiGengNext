@@ -43,7 +43,7 @@
 
 .gangs {
   //font-family: 'Oswald';
-  font-family: 'Daray';
+  font-family: 'Pricedown';
   display: flex;
   align-items: center;
   gap: 13px;
@@ -56,7 +56,7 @@
   font-size: 18px;
   line-height: 18px;
   height: auto-clamp(33, 44);
-  text-transform: uppercase;
+  //text-transform: uppercase;
   //letter-spacing: -1px;
   font-weight: bold;
   text-shadow:
@@ -186,7 +186,7 @@
 
 .btn {
   //font-family: 'Oswald';
-  font-family: 'Daray';
+  font-family: 'Pricedown';
   position: absolute;
   top: auto-height(0, 12);
   font-weight: bold;
@@ -201,7 +201,7 @@
 
 .btnClicked {
   //font-family: 'Oswald';
-  font-family: 'Daray';
+  font-family: 'Pricedown';
   font-weight: bold;
   //letter-spacing: -1px;
   text-transform: uppercase;

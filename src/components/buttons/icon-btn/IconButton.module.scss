@@ -2,7 +2,7 @@
 
 .rootRight, .rootLeft, .rootDown, .root {
   //font-family: 'Oswald';
-  font-family: 'Daray';
+  font-family: 'Pricedown';
   border-radius: 9px;
   background:
           linear-gradient(359.95deg, #120431 0.34%, #443664 50.67%, #7E709F 100%),
@@ -55,7 +55,7 @@
 .title {
   color: #FFFFFF;
   //font-size: auto-clamp(10, 15);
-  font-size: auto-clamp(9, 14);
+  font-size: auto-clamp(15, 22);
   text-align: center;
   background: rgba(104, 110, 166, 0.6);
   border-radius: 8px;
@@ -63,7 +63,7 @@
   margin: 2px;
   padding: 2px 0px 0px 0px;
   width: 100%;
-  text-transform: uppercase;
+  //text-transform: uppercase;
   font-weight: bold;
   text-shadow:
           -1px -1px 0 #000,
