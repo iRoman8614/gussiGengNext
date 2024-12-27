@@ -63,6 +63,7 @@ import { useState, useEffect } from 'react';
 import Image from "next/image";
 
 import styles from './TaskBtn.module.scss';
+import {console} from "next/dist/compiled/@edge-runtime/primitives";
 
 const Arrow = '/Tasks/TaskArrow.png';
 const Complite = '/Tasks/TaskComplited.png';
@@ -93,7 +94,9 @@ export const TaskBtn = ({ title, subtitle, desc, completed, onClick, readyToComp
     useEffect(() => {
         if (type === 2) {
             const taskKey = `task_${id}`;
+            console.log("taskKey", taskKey)
             const storedTimestamp = localStorage.getItem(taskKey);
+            console.log('storedTimestamp', storedTimestamp)
             if (storedTimestamp) {
                 const endTime = parseInt(storedTimestamp, 10);
 
