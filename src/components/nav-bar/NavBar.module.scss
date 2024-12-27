@@ -77,7 +77,7 @@
   max-width: 80px;
   padding-bottom: 3px;
   padding-top: 3px;
-  font-size: auto-clamp(17, 22);
+  font-size: auto-clamp(15, 22);
   line-height: auto-clamp(15, 18);
   //text-transform: uppercase;
   //text-shadow:
@@ -85,4 +85,16 @@
   //        1px -1px 0 #000,
   //        -1px  1px 0 #000,
   //        1px  1px 0 #000;
+}
+
+.titleBig {
+  background: rgba(21, 25, 62, 0.7);
+  width: 100%;
+  text-align: center;
+  border-radius: 8px;
+  max-width: 80px;
+  padding-bottom: 3px;
+  padding-top: 3px;
+  font-size: auto-clamp(24, 30);
+  line-height: auto-clamp(15, 18);
 }

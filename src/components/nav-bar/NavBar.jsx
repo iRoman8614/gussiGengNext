@@ -43,7 +43,7 @@ export const NavBar = ({clickItem}) => {
             </div>
             <div className={styles.bigElem} onClick={() => {router.push('/lobby')}}>
                 <Image width={60} height={40} className={styles.imageBig} src={hands} alt={''} />
-                <div className={styles.title}>
+                <div className={styles.titleBig}>
                     {t('main.pvp')}
                 </div>
             </div>
