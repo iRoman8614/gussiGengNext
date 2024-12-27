@@ -173,6 +173,7 @@
 }
 
 .skinContainer {
+  padding: 20px 5px;
   position: relative;
   width: 100%;
   background: rgba(56,36,111, 0.95);
@@ -203,9 +204,6 @@
   width: auto;
   height: fit-content;
   margin: 7px auto-clamp(5, 20) 0 auto-clamp(5, 20);
-  //overflow-y: scroll;
-  //scrollbar-width: none;
-  //-ms-overflow-style: none;
   z-index: 113;
   padding: 4px;
   border-radius: 15px;
