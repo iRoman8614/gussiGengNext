@@ -202,13 +202,17 @@
 .personalContainer {
   padding: 20px 5px 5px 5px;
   width: 100%;
-  min-height: 80vh;
-  height: fit-content;
   background: rgba(56,36,111, 0.95);
   backdrop-filter: blur(7px);
   border-radius: 0 12px 12px 12px;
   border: 2px solid #3842a4;
   z-index: 111;
+  height: calc(100vh - 150px);
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 .list {
