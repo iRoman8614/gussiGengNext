@@ -1,7 +1,8 @@
 @import "../../../styles/_utils.scss";
 
 .rootRight, .rootLeft, .rootDown, .root {
-  font-family: 'Oswald';
+  //font-family: 'Oswald';
+  font-family: 'inglobalb';
   border-radius: 9px;
   background:
           linear-gradient(359.95deg, #120431 0.34%, #443664 50.67%, #7E709F 100%),
@@ -55,12 +56,14 @@
 
 .title {
   color: #FFFFFF;
-  font-size: auto-clamp(10, 15);
+  //font-size: auto-clamp(10, 15);
+  font-size: auto-clamp(9, 14);
   text-align: center;
   background: rgba(104, 110, 166, 0.6);
   border-radius: 8px;
   height: fit-content;
   margin: 2px;
+  padding: 2px 0px 0px 0px;
   width: 100%;
   text-transform: uppercase;
   font-weight: bold;
