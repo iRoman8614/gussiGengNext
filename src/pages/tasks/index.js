@@ -24,6 +24,9 @@ export default function Page() {
     const [tasks, setTasks] = useState([]);
     const { collectAndStart } = useFarmCollect();
     const [dailyRewards, setDailyRewards] = useState([])
+    const [activeTab, setActiveTab] = useState(1);
+    const [partnersTasks, setPartnersTasks] = useState([])
+    const [linkTasks, setLinkTasks] = useState([])
 
     const fetchTasksAndFriends = async () => {
         try {
@@ -35,6 +38,15 @@ export default function Page() {
             let tasks = tasksResponse.data;
             const completedTasksResponse = await axiosInstance.get('/task/completed-tasks');
             const completedTasks = completedTasksResponse.data.map(task => task.task.id);
+
+            const typeTwoTasks = tasks.filter(task => task.type === 2);
+            const subscriptionTasks = typeTwoTasks.filter(task =>
+                task.key === "subscription_tg_channel" || task.key === "subscription_x_channel");
+            setLinkTasks(subscriptionTasks)
+            const otherTypeTwoTasks = typeTwoTasks.filter(task =>
+                task.key !== "subscription_tg_channel" && task.key !== "subscription_x_channel");
+            setPartnersTasks(otherTypeTwoTasks)
+
 
             tasks = tasks.sort((a, b) => {
                 if (a.type === 2 && b.type === 2) {
@@ -308,6 +320,13 @@ export default function Page() {
             .join(' ');
     }
 
+    const handleTab = (tab) => {
+        if (window.Telegram?.WebApp?.HapticFeedback) {
+            window.Telegram.WebApp.HapticFeedback.impactOccurred('light');
+        }
+        setActiveTab(tab)
+    }
+
     return (
         <div className={styles.root}>
             <div className={styles.container}>
@@ -315,12 +334,48 @@ export default function Page() {
                     <div className={styles.title}>{t('main.tasks')}</div>
                     <div className={styles.balance}>{formatNumber(balance, 9)}{' '}<Image src={money} alt={''} width={21} height={21} loading="lazy" /></div>
                 </div>
-                <div className={styles.block}>
-                    <div className={styles.skinContainer}>
+                <div className={styles.buttonSet}>
+                    <div className={styles.folderBtnStats}
+                         style={{
+                             zIndex: activeTab === 1 ? 112 : 110,
+                             marginBottom:  activeTab === 1 ? '0px' : '-12px',
+                             borderRight:  activeTab === 1 ? '2px solid #3842a4' : 'none',
+                         }}
+                         onClick={() => handleTab(1)}
+                    >{t('account.main')}</div>
+                    <div
+                        className={styles.folderBtnSkins}
+                        style={{
+                            zIndex: activeTab === 2 ? 113 : 110,
+                            marginBottom:  activeTab === 2 ? '-0px' : '2px',
+                        }}
+                        onClick={() => handleTab(2)}
+                    >{t('account.partner')}</div>
+                </div>
+                {activeTab ===1 &&
+                    <div className={styles.personalContainer}>
                         <div className={styles.col}>
                             <div className={styles.label}>{t('EXP.main')}</div>
                             {tasks.map((task, index) => {
-                                return(
+                                return (
+                                    <>
+                                        {(task.type !== 4 && task.type !== 5 && task.type !== 6 && task.type !== 2) && <TaskBtn
+                                            id={task.id}
+                                            subtitle={task.name}
+                                            desc={task.type !== 2 ? `${task.current} / ${task.amount}` : ''}
+                                            completed={task.completed}
+                                            key={index}
+                                            icon={task.icon}
+                                            type={task.type}
+                                            readyToComplete={task.readyToComplete}
+                                            reward={formatNumber(task.reward, 9)}
+                                            onClick={() => handleTaskClick(task)}
+                                        />}
+                                    </>
+                                )
+                            })}
+                            {linkTasks.map((task, index) => {
+                                return (
                                     <>
                                         {(task.type !== 4 && task.type !== 5 && task.type !== 6) && <TaskBtn
                                             id={task.id}
@@ -340,7 +395,7 @@ export default function Page() {
                             <div className={styles.label}>{t('EXP.daily')}</div>
                             <div className={styles.dailyContainer}>
                                 {dailyRewards.map((day, index) => {
-                                    return(
+                                    return (
                                         <>
                                             {day.type === 4 && <div className={
                                                 day.completed
@@ -348,8 +403,14 @@ export default function Page() {
                                                     : styles.dailyItemHidden
                                             } key={index}>
                                                 <div className={styles.dayTitle}>{t('EXP.day')}{' '}{day.amount}</div>
-                                                <Image className={styles.dailyImage} src={dailyBils} alt={''} width={37} height={35}/>
-                                                <div className={styles.dailySum}>{formatSum(day.reward)} {day.meta.skin && <><br/>{formatSkinName(day.meta.skin)}</>}</div>
+                                                <Image className={styles.dailyImage} src={dailyBils} alt={''} width={37}
+                                                       height={35}/>
+                                                <div
+                                                    className={styles.dailySum}>{formatSum(day.reward)} {day.meta.skin && <>
+                                                    <br/>
+                                                    {t('EXP.skin')}
+                                                    {/*{formatSkinName(day.meta.skin)}*/}
+                                                </>}</div>
                                             </div>}
                                         </>
                                     )
@@ -357,7 +418,27 @@ export default function Page() {
                             </div>
                         </div>
                     </div>
-                </div>
+                }
+                {activeTab === 2 && <div className={styles.skinContainer}>
+                    {partnersTasks.map((task, index) => {
+                        return (
+                            <>
+                                {(task.type !== 4 && task.type !== 5 && task.type !== 6) && <TaskBtn
+                                    id={task.id}
+                                    subtitle={task.name}
+                                    desc={task.type !== 2 ? `${task.current} / ${task.amount}` : ''}
+                                    completed={task.completed}
+                                    key={index}
+                                    icon={task.icon}
+                                    type={task.type}
+                                    readyToComplete={task.readyToComplete}
+                                    reward={formatNumber(task.reward, 9)}
+                                    onClick={() => handleTaskClick(task)}
+                                />}
+                            </>
+                        )
+                    })}
+                </div>}
             </div>
         </div>
     );

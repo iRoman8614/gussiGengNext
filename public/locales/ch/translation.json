@@ -51,7 +51,9 @@
     "buy": "buy",
     "equip": "equip",
     "owned": "owned",
-    "task": "task"
+    "task": "task",
+    "main": "main",
+    "partner": "partners"
   },
   "change": {
     "destiny": "you wanna change your destiny?",
@@ -145,7 +147,8 @@
     "daily": "rewards",
     "day": "day",
     "Kat": "Play Kat Knight",
-    "Gridbybot": "Play Gridby"
+    "Gridbybot": "Play Gridby",
+    "skin": "skin"
   },
   "friends": {
     "inviteFriends": "invite a",

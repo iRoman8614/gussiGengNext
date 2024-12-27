@@ -51,7 +51,9 @@
     "buy": "купить",
     "equip": "надеть",
     "owned": "куплен",
-    "task": "задание"
+    "task": "задание",
+    "main": "основные",
+    "partner": "партнеры"
   },
   "change": {
     "destiny": "хочешь изменить судьбу?",
@@ -145,7 +147,8 @@
     "daily": "награды",
     "day": "день",
     "Kat": "Зайди в Kat Knight",
-    "Gridbybot": "зайди в Gridby"
+    "Gridbybot": "зайди в Gridby",
+    "skin": "скин"
   },
   "friends": {
     "inviteFriends": "пригласи",
