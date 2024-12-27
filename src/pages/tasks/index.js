@@ -25,8 +25,6 @@ export default function Page() {
     const { collectAndStart } = useFarmCollect();
     const [dailyRewards, setDailyRewards] = useState([])
     const [activeTab, setActiveTab] = useState(1);
-    const [partnersTasks, setPartnersTasks] = useState([])
-    const [linkTasks, setLinkTasks] = useState([])
 
     const fetchTasksAndFriends = async () => {
         try {
@@ -38,14 +36,14 @@ export default function Page() {
             let tasks = tasksResponse.data;
             const completedTasksResponse = await axiosInstance.get('/task/completed-tasks');
             const completedTasks = completedTasksResponse.data.map(task => task.task.id);
-
-            const typeTwoTasks = tasks.filter(task => task.type === 2);
-            const subscriptionTasks = typeTwoTasks.filter(task =>
-                task.key === "subscription_tg_channel" || task.key === "subscription_x_channel");
-            setLinkTasks(subscriptionTasks)
-            const otherTypeTwoTasks = typeTwoTasks.filter(task =>
-                task.key !== "subscription_tg_channel" && task.key !== "subscription_x_channel");
-            setPartnersTasks(otherTypeTwoTasks)
+            //
+            // const typeTwoTasks = tasks.filter(task => task.type === 2);
+            // const subscriptionTasks = typeTwoTasks.filter(task =>
+            //     task.key === "subscription_tg_channel" || task.key === "subscription_x_channel");
+            // setLinkTasks(subscriptionTasks)
+            // const otherTypeTwoTasks = typeTwoTasks.filter(task =>
+            //     task.key !== "subscription_tg_channel" && task.key !== "subscription_x_channel");
+            // setPartnersTasks(otherTypeTwoTasks)
 
 
             tasks = tasks.sort((a, b) => {
@@ -359,24 +357,6 @@ export default function Page() {
                             {tasks.map((task, index) => {
                                 return (
                                     <>
-                                        {(task.type !== 4 && task.type !== 5 && task.type !== 6 && task.type !== 2) && <TaskBtn
-                                            id={task.id}
-                                            subtitle={task.name}
-                                            desc={task.type !== 2 ? `${task.current} / ${task.amount}` : ''}
-                                            completed={task.completed}
-                                            key={index}
-                                            icon={task.icon}
-                                            type={task.type}
-                                            readyToComplete={task.readyToComplete}
-                                            reward={formatNumber(task.reward, 9)}
-                                            onClick={() => handleTaskClick(task)}
-                                        />}
-                                    </>
-                                )
-                            })}
-                            {linkTasks.map((task, index) => {
-                                return (
-                                    <>
                                         {(task.type !== 4 && task.type !== 5 && task.type !== 6) && <TaskBtn
                                             id={task.id}
                                             subtitle={task.name}
@@ -420,24 +400,26 @@ export default function Page() {
                     </div>
                 }
                 {activeTab === 2 && <div className={styles.skinContainer}>
-                    {partnersTasks.map((task, index) => {
-                        return (
-                            <>
-                                {(task.type !== 4 && task.type !== 5 && task.type !== 6) && <TaskBtn
-                                    id={task.id}
-                                    subtitle={task.name}
-                                    desc={task.type !== 2 ? `${task.current} / ${task.amount}` : ''}
-                                    completed={task.completed}
-                                    key={index}
-                                    icon={task.icon}
-                                    type={task.type}
-                                    readyToComplete={task.readyToComplete}
-                                    reward={formatNumber(task.reward, 9)}
-                                    onClick={() => handleTaskClick(task)}
-                                />}
-                            </>
-                        )
-                    })}
+                    <div className={styles.col}>
+                        {tasks.map((task, index) => {
+                            return (
+                                <>
+                                    {(task.type === 2) && <TaskBtn
+                                        id={task.id}
+                                        subtitle={task.name}
+                                        desc={task.type !== 2 ? `${task.current} / ${task.amount}` : ''}
+                                        completed={task.completed}
+                                        key={index}
+                                        icon={task.icon}
+                                        type={task.type}
+                                        readyToComplete={task.readyToComplete}
+                                        reward={formatNumber(task.reward, 9)}
+                                        onClick={() => handleTaskClick(task)}
+                                    />}
+                                </>
+                            )
+                        })}
+                    </div>
                 </div>}
             </div>
         </div>
