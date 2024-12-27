@@ -65,7 +65,12 @@
   width: auto-clamp(40, 60);
   white-space: nowrap;
 }
-
+.timer {
+  font-size: auto-clamp(14, 18);
+  line-height: auto-clamp(18, 24);
+  color: #fff;
+  width: 30px;
+}
 .reward {
   line-height: 16px;
   color: #00FF29;

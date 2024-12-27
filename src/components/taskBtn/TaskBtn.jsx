@@ -94,28 +94,29 @@ export const TaskBtn = ({title, subtitle, desc, completed, onClick, readyToCompl
 
     useEffect(() => {
         if (type === 2) {
-            const timestamp = localStorage.getItem(`task_${id}`);
-            if (timestamp) {
-                const interval = setInterval(() => {
+            const storedTimestamp = localStorage.getItem(`task_${id}`);
+            if (storedTimestamp) {
+                const endTime = parseInt(storedTimestamp, 10) + 3600000;
+                const updateTimer = () => {
                     const now = Date.now();
-                    const endTime = parseInt(timestamp, 10) + 60 * 60 * 1000; // Добавление часа
                     const remaining = endTime - now;
-
                     if (remaining > 0) {
                         const minutes = Math.floor((remaining % (1000 * 60 * 60)) / (1000 * 60));
                         const seconds = Math.floor((remaining % (1000 * 60)) / 1000);
                         setTimer(`${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`);
                     } else {
-                        clearInterval(interval);
+                        clearInterval(intervalId);
                         setTimer('');
                         localStorage.removeItem(`task_${id}`);
                     }
-                }, 1000);
-
-                return () => clearInterval(interval);
+                };
+                updateTimer();
+                const intervalId = setInterval(updateTimer, 1000);
+                return () => clearInterval(intervalId);
             }
         }
-    }, [type, id]);
+    }, [id, type]);
+
 
     const handleClick = () => {
         if (window.Telegram?.WebApp?.HapticFeedback) {
@@ -141,7 +142,7 @@ export const TaskBtn = ({title, subtitle, desc, completed, onClick, readyToCompl
                 {completed
                     ? <Image src={Complite} width={25} height={25} alt={''} />
                     : type === 2 && timer
-                        ? <div className={styles.subtitle}>{timer}</div>
+                        ? <div className={styles.timer}>{timer}</div>
                         : <Image src={Arrow} width={20} height={20} alt={''} />
                 }
             </div>
