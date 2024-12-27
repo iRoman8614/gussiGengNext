@@ -29,6 +29,7 @@ const money = '/money.png'
 const dailyBils = '/dailyBills.png'
 const walletPH = '/walletPH.png'
 const itemsPH ='/itemsPH.png'
+const skinsNote = '/skinsNote.png'
 
 export default function Home() {
     const router = useRouter();
@@ -45,6 +46,7 @@ export default function Home() {
     const [skinSource, setSkinSource] = useState('');
     const [itemPlaceholder, setItemPlaceholder] = useState(false)
     const [walletPlaceholder, setWalletPlaceholder] = useState(false)
+    const [skinPopup, setSkinPopup] = useState(false)
 
     const { collectAndStart } = useFarmCollect();
 
@@ -68,6 +70,14 @@ export default function Home() {
             }
         }
     }, [balance, startFarmTime, isClaimClicked, coins]);
+
+    useEffect(() => {
+        const hasShownNotification = localStorage.getItem('hasShownNotification');
+        if (!hasShownNotification) {
+            setSkinPopup(true);
+            localStorage.setItem('hasShownNotification', 'true');
+        }
+    }, []);
 
     // useEffect(() => {
     //     const skinFromSession = sessionStorage.getItem('skin');
@@ -374,6 +384,17 @@ export default function Home() {
                     </div>
                     <div className={styles.placeholderDesk1}>{t('main.watches')}</div>
                     <div className={styles.placeholderTitle1}><a>{t('main.tuned')}</a></div>
+                </div>
+            }
+            {skinPopup &&
+                <div className={styles.placeholder}>
+                    <div className={styles.closePH} onClick={() => setSkinPopup(false)}>x</div>
+                    <div className={styles.placeholderTitle1}>{t('main.checkOut')}</div>
+                    <div className={styles.imageBorderSkins}>
+                        <Image className={styles.phImage} src={skinsNote} alt={''} width={450} height={420} />
+                    </div>
+                    <div className={styles.placeholderDesk1}>{t('main.flex')}</div>
+                    <div className={styles.placeholderTitle1}><a>{t('main.goGet')}</a></div>
                 </div>
             }
         </>
