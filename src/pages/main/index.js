@@ -40,13 +40,13 @@ export default function Home() {
     const [startFarmTime, setStartFarmTime] = useState(Date.now());
     const [isClaimClicked, setIsClaimClicked] = useState(false);
     const [gameBonus, setGameBonus] = useState(false)
-    const [dailyPopUp, setDailyPopUp] = useState(false);
+    const [dailyPopUp, setDailyPopUp] = useState(true);
     const [tasks, setTasks] = useState([]);
     const [completedTaskIds, setCompletedTaskIds] = useState([]);
     const [skinSource, setSkinSource] = useState('');
-    const [itemPlaceholder, setItemPlaceholder] = useState(false)
-    const [walletPlaceholder, setWalletPlaceholder] = useState(false)
-    const [skinPopup, setSkinPopup] = useState(false)
+    const [itemPlaceholder, setItemPlaceholder] = useState(true)
+    const [walletPlaceholder, setWalletPlaceholder] = useState(true)
+    const [skinPopup, setSkinPopup] = useState(true)
 
     const { collectAndStart } = useFarmCollect();
 
