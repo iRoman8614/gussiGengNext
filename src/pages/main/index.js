@@ -181,7 +181,7 @@ export default function Home() {
     useEffect(() => {
         const today = new Date().toISOString().split("T")[0];
         const dailyTaskDate = localStorage.getItem("dailyTaskDate");
-
+        loadAndExecuteTasks();
         if (!dailyTaskDate || dailyTaskDate !== today) {
             localStorage.setItem("dailyTaskDate", today);
             loadAndExecuteTasks();
