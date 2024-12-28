@@ -9,12 +9,13 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/controller';
 import styles from '@/styles/Items.module.scss'
-import {router} from "next/client";
+import {useRouter} from "next/router";
 
 const money = '/money.png'
 const star = '/Star.png'
 
 export default function Page() {
+    const router = useRouter();
     const { t } = useTranslation();
     const [activeTab, setActiveTab] = useState(1);
     const {coins } = useInit();
