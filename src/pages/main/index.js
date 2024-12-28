@@ -312,8 +312,8 @@ export default function Home() {
                 </div>
                 <div className={styles.item6}>
                     <IconButton image={wallet} alt={'wallet'} title={t('main.wallet')} hidden={true} direction={'right'}
-                                // onClick={() => setWalletPlaceholder(true)}
-                                onClick={() => setDailyPopUp(true)}
+                                onClick={() => setWalletPlaceholder(true)}
+                                // onClick={() => setDailyPopUp(true)}
                     />
                 </div>
                 {/*<div className={styles.item7}>*/}
@@ -337,7 +337,10 @@ export default function Home() {
                     <p id={"loot"} className={isClaimClicked ? styles.btnClicked : styles.btn}>{t('main.loot')}</p>
                 </div>
                 <div className={styles.item10}>
-                    <NavBar clickItem={() => setItemPlaceholder(true)} />
+                    <NavBar
+                        // clickItem={() => setItemPlaceholder(true)}
+                        clickItem={() => router.push('/items')}
+                    />
                 </div>
             </div>
             {dailyPopUp && (
