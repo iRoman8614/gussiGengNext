@@ -153,6 +153,10 @@ export default function Page() {
         }
     };
 
+    useEffect(() => {
+        fetchItems()
+    }, [])
+
     return(
         <div className={styles.root}>
             <div className={styles.container}>
