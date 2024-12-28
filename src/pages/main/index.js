@@ -40,13 +40,13 @@ export default function Home() {
     const [startFarmTime, setStartFarmTime] = useState(Date.now());
     const [isClaimClicked, setIsClaimClicked] = useState(false);
     const [gameBonus, setGameBonus] = useState(false)
-    const [dailyPopUp, setDailyPopUp] = useState(true);
+    const [dailyPopUp, setDailyPopUp] = useState(false);
     const [tasks, setTasks] = useState([]);
     const [completedTaskIds, setCompletedTaskIds] = useState([]);
     const [skinSource, setSkinSource] = useState('');
-    const [itemPlaceholder, setItemPlaceholder] = useState(true)
-    const [walletPlaceholder, setWalletPlaceholder] = useState(true)
-    const [skinPopup, setSkinPopup] = useState(true)
+    const [itemPlaceholder, setItemPlaceholder] = useState(false)
+    const [walletPlaceholder, setWalletPlaceholder] = useState(false)
+    const [skinPopup, setSkinPopup] = useState(false)
 
     const { collectAndStart } = useFarmCollect();
 
@@ -311,7 +311,10 @@ export default function Home() {
                     <div className={styles.totalText}>{formatNumber(balance, 9)}{' '}<Image src={money} alt={''} width={21} height={21} /></div>
                 </div>
                 <div className={styles.item6}>
-                    <IconButton image={wallet} alt={'wallet'} title={t('main.wallet')} hidden={true} direction={'right'} onClick={() => setWalletPlaceholder(true)} />
+                    <IconButton image={wallet} alt={'wallet'} title={t('main.wallet')} hidden={true} direction={'right'}
+                                // onClick={() => setWalletPlaceholder(true)}
+                                onClick={() => setDailyPopUp(true)}
+                    />
                 </div>
                 {/*<div className={styles.item7}>*/}
                 {/*    <Image width={1000} height={1000} className={styles.char} alt={'character'} src={skinData[groupId]?.[liga]?.icon} loading="lazy"/>*/}
