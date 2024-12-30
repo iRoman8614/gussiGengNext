@@ -39,6 +39,7 @@ const skinData = {
     netrunner: "/skins/netfull.png",
     theItDude: "/skins/itfull.png",
     lilith: "/skins/lilfull.png",
+    santa: "/skins/SantaFull.png",
     default: [
         {1: '/skins/gg.png'},
         {2: '/skins/bg.png'},
