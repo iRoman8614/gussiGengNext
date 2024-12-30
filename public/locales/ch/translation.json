@@ -53,7 +53,8 @@
     "owned": "owned",
     "task": "task",
     "main": "main",
-    "partner": "partners"
+    "partner": "partners",
+    "free": "free"
   },
   "change": {
     "destiny": "you wanna change your destiny?",
