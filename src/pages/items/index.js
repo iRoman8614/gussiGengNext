@@ -249,7 +249,7 @@ export default function Page() {
                                                     key={index}
                                                     width={170}
                                                     height={234}
-                                                    src={'/skins/thug_life.png'}
+                                                    src={'/skins/thuglifeIcon.png'}
                                                     alt={''}
                                                     className={styles.icon}
                                                     loading="lazy"
@@ -346,7 +346,7 @@ export default function Page() {
                                                 key={index}
                                                 width={170}
                                                 height={234}
-                                                src={'/skins/thug_life.png'}
+                                                src={'/skins/thuglifeIcon.png'}
                                                 alt={''}
                                                 className={styles.icon}
                                                 loading="lazy"
@@ -417,7 +417,7 @@ export default function Page() {
                                                 key={index}
                                                 width={170}
                                                 height={234}
-                                                src={'/skins/thug_life.png'}
+                                                src={'/skins/thuglifeIcon.png'}
                                                 alt={''}
                                                 className={styles.icon}
                                                 loading="lazy"
@@ -473,7 +473,7 @@ export default function Page() {
                     }}>x</div>
                     <div className={styles.modalBorder}>
                         <div className={styles.popUpContent}>
-                            <Image className={styles.fullSkin} src={'/skins/thug_life'} alt={''} width={130} height={220} />
+                            <Image className={styles.fullSkin} src={'/skins/thuglifeIcon.png'} alt={''} width={130} height={220} />
                             <div className={styles.popUpText}>{selectedItem?.name}</div>
                             {(!isOwned(selectedItem.id) && selectedItem.stars > 0 )?
                                 <div className={styles.popUpText}>{selectedItem.stars}{' '}<Image src={star} alt={''} width={15} height={15} loading="lazy"/>
@@ -486,14 +486,14 @@ export default function Page() {
                     </div>
                     <div className={styles.modalBorder}>
                         {!isOwned(selectedItem.id) && selectedItem.stars > 0  ? <>
-                            <Link
-                                className={styles.link}
-                                href={link}
-                            >
+                            {/*<Link*/}
+                            {/*    className={styles.link}*/}
+                            {/*    // href={link}*/}
+                            {/*>*/}
                                 <div className={styles.modalBtn}>
                                     {isOwned(selectedItem.id) ? <>{t('account.equip')}</> : <>{t('account.buy')}</>}
                                 </div>
-                            </Link>
+                            {/*</Link>*/}
                         </> : <>
                             <div
                                 className={styles.modalBtn}
