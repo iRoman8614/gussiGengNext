@@ -431,10 +431,10 @@ export default function Page() {
                                                         </> : <>{skin.stars > 0 ? <>
                                                                 {skin.stars}{' '}<Image src={star} alt={''} width={15}
                                                                                         height={15} loading="lazy"/>
-                                                            </> :
-                                                            <div onClick={() => {
-                                                                router.push('/tasks')
-                                                            }}>{t('account.task')}</div>}</>
+                                                            </> :<>{skin.key === 'thug_life'} ? <div onClick={() => {
+                                                            router.push('/tasks')
+                                                        }}>{t('account.task')}</div> : <>free</> </>
+                                                            }</>
                                                 }</>}
                                             </div>
                                         </div>);
