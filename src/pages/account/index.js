@@ -449,14 +449,18 @@ export default function Page() {
                             <div className={styles.popUpText}>{selectedSkin?.name}</div>
                             {isOwned(selectedSkin.id) ?
                                 <div></div> :
-                                <>{selectedSkin.stars > 0 ?
-                                    <div className={styles.popUpText}>
-                                        {selectedSkin.stars}{' '}<Image src={star} alt={''} width={15} height={15} loading="lazy"/>
-                                    </div> :
-                                    <div className={styles.popUpText}>{selectedSkin?.price}{' '}<Image
-                                        src={money} alt={''} width={15} height={15} loading="lazy"/>
-                                    </div>
-                                }
+                                <>
+                                    {selectedSkin?.key === 'thug_life' ?
+                                        <div className={styles.popUpText}>10 daily entries</div> :
+                                        <>
+                                            {selectedSkin.stars > 0 ?
+                                                <div className={styles.popUpText}>{selectedSkin.stars}{' '}<Image src={star} alt={''} width={15} height={15} loading="lazy"/>
+                                                </div> :
+                                                <div className={styles.popUpText}>{selectedSkin?.price}{' '}<Image
+                                                    src={money} alt={''} width={15} height={15} loading="lazy"/>
+                                                </div>}
+                                        </>
+                                    }
                                 </>
                             }
                         </div>
