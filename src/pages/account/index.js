@@ -191,6 +191,10 @@ export default function Page() {
     }, []);
 
     useEffect(() => {
+        console.log('selectedSkin', selectedSkin)
+    }, [selectedSkin])
+
+    useEffect(() => {
         if (typeof window !== 'undefined' && window.Telegram?.WebApp) {
             const search = window.Telegram.WebApp.initData;
             const urlParams = new URLSearchParams(search);
@@ -450,7 +454,7 @@ export default function Page() {
                             {isOwned(selectedSkin.id) ?
                                 <div></div> :
                                 <>
-                                    {selectedSkin?.key === 'thug_life' ?
+                                    {selectedSkin.key === 'thug_life' ?
                                         <div className={styles.popUpText}>10 daily entries</div> :
                                         <>
                                             {selectedSkin.stars > 0 ?
