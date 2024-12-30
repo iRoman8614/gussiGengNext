@@ -4,13 +4,15 @@ import {useTranslation} from "react-i18next";
 import { useInit } from '@/context/InitContext';
 import {formatNumber} from "@/utils/formatNumber";
 import axiosInstance from "@/utils/axios";
+import {useRouter} from "next/router";
+import Link from "next/link";
+import {Swiper, SwiperSlide} from "swiper/react";
+import {Controller, Navigation} from "swiper/modules";
 
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/controller';
 import styles from '@/styles/Items.module.scss'
-import {useRouter} from "next/router";
-import Link from "next/link";
 
 const money = '/money.png'
 const star = '/Star.png'
@@ -168,6 +170,30 @@ export default function Page() {
         fetchItems()
     }, [])
 
+    const swiperRef = useRef(null);
+
+    const handleSlideChange = (swiper) => {
+        setActiveIndex(swiper.realIndex);
+    };
+
+    const handleSlidePrev = () => {
+        if (window.Telegram?.WebApp?.HapticFeedback) {
+            window.Telegram.WebApp.HapticFeedback.impactOccurred('light');
+        }
+        if (swiperRef.current) {
+            swiperRef.current.slidePrev();
+        }
+    };
+
+    const handleSlideNext = () => {
+        if (window.Telegram?.WebApp?.HapticFeedback) {
+            window.Telegram.WebApp.HapticFeedback.impactOccurred('light');
+        }
+        if (swiperRef.current) {
+            swiperRef.current.slideNext();
+        }
+    };
+
     return(
         <div className={styles.root}>
             <div className={styles.container}>
@@ -200,10 +226,59 @@ export default function Page() {
                     </div>
                     {activeTab === 1 && <div className={styles.personalContainer}>
                         <div className={styles.padding}>
+                            <div className={styles.skinSwiper}>
+                                {isOwned(itemsCat1[activeIndex].id) && <div className={styles.owned}>
+                                    {
+                                        isActive(itemsCat1[activeIndex].id) && <Image className={styles.check} src={"/check.png"} alt={''} width={30} height={24} />
+                                    }
+                                </div>}
+                                <div className={styles.containerSwiper}>
+                                    <button className={styles.navLeft} onClick={handleSlidePrev}>
+                                        <Image src={'/ArrowWhite.png'} alt={''} width={20} height={20} loading="lazy" />
+                                    </button>
+                                    <Swiper
+                                        modules={[Navigation, Controller]}
+                                        slidesPerView={1}
+                                        centeredSlides={false}
+                                        spaceBetween={10}
+                                        loop={true}
+                                        onSwiper={(swiper) => {
+                                            swiperRef.current = swiper;
+                                        }}
+                                        onSlideChange={handleSlideChange}
+                                        className={styles.swiper}
+                                    >
+                                        {itemsCat1.map((item, index) => (
+                                            <SwiperSlide key={item.id} className={styles.slide}>
+                                                <Image
+                                                    key={index}
+                                                    width={170}
+                                                    height={234}
+                                                    src={'/skins/thug_life.png'}
+                                                    alt={''}
+                                                    className={styles.icon}
+                                                    loading="lazy"
+                                                    onClick={() => setSelectedItem(item)}
+                                                />
+                                            </SwiperSlide>
+                                        ))}
+                                    </Swiper>
+                                    <button className={styles.navRight} onClick={handleSlideNext}>
+                                        <Image src={'/ArrowWhite.png'} alt={''} width={20} height={20} loading="lazy" />
+                                    </button>
+                                </div>
+                                <div className={styles.caption}>
+                                    {skins[activeIndex].name}
+                                </div>
+                                <div className={styles.skinBalance}>
+                                    <div className={styles.skinBalanceTitle}>{t('account.balance')}</div>
+                                    <div>{formatNumber(coins, 15)}{' '}<Image src={money} alt={''} width={18} height={18} loading="lazy"/></div>
+                                </div>
+                            </div>
                             <div className={styles.list}>
                                 {itemsCat1.map((item, index) => {
                                     return(
-                                        <div key={item.id} className={styles.ListItem}>
+                                        <div key={item.id} className={styles.ListItem} onClick={() => setSelectedItem(item)}>
                                             <div className={styles.itemRow}>
                                                 <div className={styles.itemImage}></div>
                                                 <div>{item.name}</div>
@@ -229,7 +304,7 @@ export default function Page() {
                                 })}
                                 {itemsCat2.map((item, index) => {
                                     return(
-                                        <div key={item.id} className={styles.ListItem}>
+                                        <div key={item.id} className={styles.ListItem} onClick={() => setSelectedItem(item)}>
                                             <div className={styles.itemRow}>
                                                 <div className={styles.itemImage}></div>
                                                 <div>{item.name}</div>
@@ -265,7 +340,7 @@ export default function Page() {
                             <div className={styles.list}>
                                 {itemsCat3.map((item, index) => {
                                     return(
-                                        <div key={item.id} className={styles.ListItem}>
+                                        <div key={item.id} className={styles.ListItem} onClick={() => setSelectedItem(item)}>
                                             <div className={styles.itemRow}>
                                                 <div className={styles.itemImage}></div>
                                                 <div>{item.name}</div>

@@ -274,3 +274,84 @@
 .modalBtnHidden {
   filter: grayscale(100);
 }
+
+
+.skinSwiper {
+  margin: auto-clamp(5, 20) auto-clamp(5, 20) 7px auto-clamp(5, 20);
+  z-index: 113;
+  padding: 20px 10px 4px 10px;
+  border-radius: 15px;
+  background: linear-gradient(180deg, rgba(89, 67, 148, 0.6) 0%, rgba(62, 47, 103, 1) 100%);
+  position: relative;
+}
+
+.owned {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 140;
+  background-color: rgba(56, 66, 164, 0.63);
+  width: 35px;
+  height: 35px;
+  border-radius: 7px;
+  display: flex;
+}
+
+.check {
+  justify-self: center;
+  align-self: center;
+  margin: auto;
+}
+
+.navRight {
+  z-index: 2;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  width: 25px !important;
+  rotate: 180deg;
+  align-self: center;
+  display: flex;
+  align-items: center;
+}
+
+.caption {
+  position: relative;
+  border-radius: 11px;
+  width: auto;
+  font-size: auto-clamp(22, 35);
+  color: #FFFFFF;
+  z-index: 2;
+  text-align: center;
+  align-self: center;
+  white-space: nowrap;
+  margin: auto auto auto-clamp(5, 30) auto;
+}
+
+.navLeft {
+  z-index: 2;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  width: 25px !important;
+  align-self: center;
+  display: flex;
+  align-items: center;
+}
+
+.swiper {
+  width: auto;
+}
+
+.slide {
+  width: auto;
+  justify-self: center;
+  display: flex;
+}
+
+.icon {
+  width: auto;
+  height: auto;
+  justify-self: center;
+  margin: auto;
+}
