@@ -226,13 +226,12 @@ export default function Page() {
                     </div>
                     {activeTab === 1 && <div className={styles.personalContainer}>
                         <div className={styles.padding}>
-                            <div className={styles.skinSwiper}>
-                                {/*{isOwned(itemsCat1[activeIndex]?.id) && <div className={styles.owned}>*/}
-                                {/*    {*/}
-                                {/*        isActive(itemsCat1[activeIndex].id) && <Image className={styles.check} src={"/check.png"} alt={''} width={30} height={24} />*/}
-                                {/*    }*/}
-                                {/*</div>}*/}
-                                <div className={styles.containerSwiper}>
+                            {/*{isOwned(itemsCat1[activeIndex]?.id) && <div className={styles.owned}>*/}
+                            {/*    {*/}
+                            {/*        isActive(itemsCat1[activeIndex].id) && <Image className={styles.check} src={"/check.png"} alt={''} width={30} height={24} />*/}
+                            {/*    }*/}
+                            {/*</div>}*/}
+                            <div className={styles.containerSwiper}>
                                     <button className={styles.navLeft} onClick={handleSlidePrev}>
                                         <Image src={'/ArrowWhite.png'} alt={''} width={20} height={20} loading="lazy" />
                                     </button>
@@ -267,13 +266,8 @@ export default function Page() {
                                         <Image src={'/ArrowWhite.png'} alt={''} width={20} height={20} loading="lazy" />
                                     </button>
                                 </div>
-                                <div className={styles.caption}>
-                                    {itemsCat1[activeIndex]?.name}
-                                </div>
-                                <div className={styles.skinBalance}>
-                                    <div className={styles.skinBalanceTitle}>{t('account.balance')}</div>
-                                    <div>{formatNumber(coins, 15)}{' '}<Image src={money} alt={''} width={18} height={18} loading="lazy"/></div>
-                                </div>
+                            <div className={styles.caption}>
+                                {itemsCat1[activeIndex]?.name}
                             </div>
                             <div className={styles.list}>
                                 {itemsCat1.map((item, index) => {
