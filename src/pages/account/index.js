@@ -487,8 +487,8 @@ export default function Page() {
                                 {isOwned(selectedSkin.id) ?
                                     <>{t('account.equip')}</>
                                     :
-                                    <>{selectedSkin.key === 'thug_life'} ?
-                                        <>open tasks</> : <>{t('account.buy')}</>
+                                    <>{selectedSkin.key === 'thug_life' ?
+                                        <>open tasks</> : <>{t('account.buy')}</>}
                                     </>
                                 }
                             </div>
