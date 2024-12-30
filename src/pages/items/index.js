@@ -24,6 +24,7 @@ export default function Page() {
     const [itemsCat2, setItemsCat2] = useState([])
     const [itemsCat3, setItemsCat3] = useState([])
     const [itemsCat4, setItemsCat4] = useState([])
+    const [myItems, setMyItems] = useState([])
     const [selectedItem, setSelectedItem] = useState(null);
 
 
@@ -150,10 +151,17 @@ export default function Page() {
             setItemsCat3(response3.data);
             const response4 = await axiosInstance.get('/item/find-category?categoryId=4');
             setItemsCat4(response4.data);
+            const myItemsList = await axiosInstance.get('/item/my')
+            setMyItems(myItemsList)
         } catch (error) {
             console.error('Error fetching skins:', error);
         }
     };
+
+    const isOwned = (itemId) => {
+        console.log('skinId isOwned', itemId)
+        return myItems.some(itemId => itemId.id === itemId);
+    }
 
     useEffect(() => {
         fetchItems()
@@ -323,46 +331,47 @@ export default function Page() {
                             </div>
                         </div>
                     </div>}
-                    {selectedItem && (
-                        <div className={styles.skinPopUp}>
-                            <div className={styles.popUpClose} onClick={() => {
-                                setSelectedItem(null)
-                            }}>x</div>
-                            <div className={styles.modalBorder}>
-                                <div className={styles.popUpContent}>
-                                    <Image className={styles.fullSkin} src={'/skins/thug_life'} alt={''} width={130} height={220} />
-                                    <div className={styles.popUpText}>{selectedItem?.name}</div>
-                                    {selectedItem.stars > 0 ?
-                                        <div className={styles.popUpText}>{selectedItem.stars}{' '}<Image src={star} alt={''} width={15} height={15} loading="lazy"/>
-                                        </div> :
-                                        <div className={styles.popUpText}>{selectedItem?.price}{' '}<Image
-                                            src={money} alt={''} width={15} height={15} loading="lazy"/>
-                                        </div>}
-                                </div>
-                            </div>
-                            {/*<div className={styles.modalBorder}>*/}
-                            {/*    {!isOwned(selectedSkin.id) && selectedItem.stars > 0  ? <>*/}
-                            {/*        <Link*/}
-                            {/*            className={styles.link}*/}
-                            {/*            href={link}*/}
-                            {/*        >*/}
-                            {/*            <div className={styles.modalBtn}>*/}
-                            {/*                {isOwned(selectedSkin.id) ? <>{t('account.equip')}</> : <>{t('account.buy')}</>}*/}
-                            {/*            </div>*/}
-                            {/*        </Link>*/}
-                            {/*    </> : <>*/}
-                            {/*        <div*/}
-                            {/*            className={styles.modalBtn}*/}
-                            {/*            onClick={() => handlePurchaseOrEquip(selectedSkin.id, selectedSkin.price)}*/}
-                            {/*        >*/}
-                            {/*            {isOwned(selectedSkin.id) ? <>{t('account.equip')}</> : <>{t('account.buy')}</>}*/}
-                            {/*        </div>*/}
-                            {/*    </>}*/}
-                            {/*</div>*/}
-                        </div>
-                    )}
                 </div>
             </div>
+            {selectedItem && (
+                <div className={styles.skinPopUp}>
+                    <div className={styles.popUpClose} onClick={() => {
+                        setSelectedItem(null)
+                    }}>x</div>
+                    <div className={styles.modalBorder}>
+                        <div className={styles.popUpContent}>
+                            <Image className={styles.fullSkin} src={'/skins/thug_life'} alt={''} width={130} height={220} />
+                            <div className={styles.popUpText}>{selectedItem?.name}</div>
+                            {(!isOwned(selectedItem.id) && selectedItem.stars > 0 )?
+                                <div className={styles.popUpText}>{selectedItem.stars}{' '}<Image src={star} alt={''} width={15} height={15} loading="lazy"/>
+                                </div> :
+                                <div className={styles.popUpText}>{selectedItem?.price}{' '}<Image
+                                    src={money} alt={''} width={15} height={15} loading="lazy"/>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <div className={styles.modalBorder}>
+                        {!isOwned(selectedItem.id) && selectedItem.stars > 0  ? <>
+                            <Link
+                                className={styles.link}
+                                href={link}
+                            >
+                                <div className={styles.modalBtn}>
+                                    {isOwned(selectedItem.id) ? <>{t('account.equip')}</> : <>{t('account.buy')}</>}
+                                </div>
+                            </Link>
+                        </> : <>
+                            <div
+                                className={styles.modalBtn}
+                                // onClick={() => handlePurchaseOrEquip(selectedSkin.id, selectedSkin.price)}
+                            >
+                                {isOwned(selectedItem.id) ? <>{t('account.equip')}</> : <>{t('account.buy')}</>}
+                            </div>
+                        </>}
+                    </div>
+                </div>
+            )}
         </div>
     )
 }

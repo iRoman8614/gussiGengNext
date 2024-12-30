@@ -253,3 +253,24 @@
   width: auto-clamp(100, 220);
   height: auto;
 }
+
+.link {
+  text-decoration: none;
+}
+
+.modalBtn, .modalBtnHidden {
+  font-family: 'Pricedown';
+  color: white;
+  font-size: 40px;
+  background: radial-gradient(67% 67.04% at 50% 50%, rgb(56, 66, 164) 0%, rgb(21, 25, 62) 100%);
+  width: 200px;
+  height: 50px;
+  border-radius: 18px;
+  text-align: center;
+  padding-top: 5px;
+  text-decoration: none;
+}
+
+.modalBtnHidden {
+  filter: grayscale(100);
+}
