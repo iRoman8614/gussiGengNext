@@ -10,6 +10,7 @@ import 'swiper/css/navigation';
 import 'swiper/css/controller';
 import styles from '@/styles/Items.module.scss'
 import {useRouter} from "next/router";
+import Link from "next/link";
 
 const money = '/money.png'
 const star = '/Star.png'
@@ -23,6 +24,7 @@ export default function Page() {
     const [itemsCat2, setItemsCat2] = useState([])
     const [itemsCat3, setItemsCat3] = useState([])
     const [itemsCat4, setItemsCat4] = useState([])
+    const [selectedItem, setSelectedItem] = useState(null);
 
 
     useEffect(() => {
@@ -321,6 +323,44 @@ export default function Page() {
                             </div>
                         </div>
                     </div>}
+                    {selectedItem && (
+                        <div className={styles.skinPopUp}>
+                            <div className={styles.popUpClose} onClick={() => {
+                                setSelectedItem(null)
+                            }}>x</div>
+                            <div className={styles.modalBorder}>
+                                <div className={styles.popUpContent}>
+                                    <Image className={styles.fullSkin} src={'/skins/thug_life'} alt={''} width={130} height={220} />
+                                    <div className={styles.popUpText}>{selectedItem?.name}</div>
+                                    {selectedItem.stars > 0 ?
+                                        <div className={styles.popUpText}>{selectedItem.stars}{' '}<Image src={star} alt={''} width={15} height={15} loading="lazy"/>
+                                        </div> :
+                                        <div className={styles.popUpText}>{selectedItem?.price}{' '}<Image
+                                            src={money} alt={''} width={15} height={15} loading="lazy"/>
+                                        </div>}
+                                </div>
+                            </div>
+                            {/*<div className={styles.modalBorder}>*/}
+                            {/*    {!isOwned(selectedSkin.id) && selectedItem.stars > 0  ? <>*/}
+                            {/*        <Link*/}
+                            {/*            className={styles.link}*/}
+                            {/*            href={link}*/}
+                            {/*        >*/}
+                            {/*            <div className={styles.modalBtn}>*/}
+                            {/*                {isOwned(selectedSkin.id) ? <>{t('account.equip')}</> : <>{t('account.buy')}</>}*/}
+                            {/*            </div>*/}
+                            {/*        </Link>*/}
+                            {/*    </> : <>*/}
+                            {/*        <div*/}
+                            {/*            className={styles.modalBtn}*/}
+                            {/*            onClick={() => handlePurchaseOrEquip(selectedSkin.id, selectedSkin.price)}*/}
+                            {/*        >*/}
+                            {/*            {isOwned(selectedSkin.id) ? <>{t('account.equip')}</> : <>{t('account.buy')}</>}*/}
+                            {/*        </div>*/}
+                            {/*    </>}*/}
+                            {/*</div>*/}
+                        </div>
+                    )}
                 </div>
             </div>
         </div>

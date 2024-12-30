@@ -484,7 +484,13 @@ export default function Page() {
                                 className={styles.modalBtn}
                                 onClick={() => handlePurchaseOrEquip(selectedSkin.id, selectedSkin.price)}
                             >
-                                {isOwned(selectedSkin.id) ? <>{t('account.equip')}</> : <>{t('account.buy')}</>}
+                                {isOwned(selectedSkin.id) ?
+                                    <>{t('account.equip')}</>
+                                    :
+                                    <>{selectedSkin.key === 'thug_life'} ?
+                                        <>open tasks</> : <>{t('account.buy')}</>
+                                    </>
+                                }
                             </div>
                         </>}
                     </div>
