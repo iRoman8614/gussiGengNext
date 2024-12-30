@@ -50,6 +50,7 @@ export default function Page() {
         // "pablo":"/skins/pabloIcon.png",
         // "icy":"/skins/icyIcon.png",
         // "PabloT":"/skins/pabloTIcon.png"
+        "Santa": "/skins/SantaIcon.png"
     };
 
     const skinFull = {
@@ -60,6 +61,7 @@ export default function Page() {
         // "pablo":"/skins/pablofull.png",
         // "icy":"/skins/icyfull.png",
         // "PabloT": "/skins/pabloTfull.png"
+        "Santa": "/skins/SantaFull.png"
     };
 
     const fetchSkins = async () => {

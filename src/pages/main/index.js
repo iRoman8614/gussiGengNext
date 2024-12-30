@@ -29,7 +29,7 @@ const money = '/money.png'
 const dailyBils = '/dailyBills.png'
 const walletPH = '/walletPH.png'
 const itemsPH ='/itemsPH.png'
-const skinsNote = '/skinsNote.png'
+const santaNote = '/SantaPreview.png'
 
 export default function Home() {
     const router = useRouter();
@@ -78,6 +78,16 @@ export default function Home() {
             localStorage.setItem('hasShownNotification', 'true');
         }
     }, []);
+
+    // useEffect(() => {
+    //     const currentNotificationVersion = 1;
+    //     const hasShownNotification = parseInt(localStorage.getItem('hasShownNotification'), 10);
+    //
+    //     if (hasShownNotification !== currentNotificationVersion) {
+    //         setSkinPopup(true);
+    //         localStorage.setItem('hasShownNotification', currentNotificationVersion.toString());
+    //     }
+    // }, []);
 
     // useEffect(() => {
     //     const skinFromSession = sessionStorage.getItem('skin');
@@ -396,7 +406,7 @@ export default function Home() {
                     <div className={styles.closePH} onClick={() => setSkinPopup(false)}>x</div>
                     <div className={styles.placeholderTitle1}>{t('main.checkOut')}</div>
                     <div className={styles.imageBorderSkins}>
-                        <Image className={styles.phImage} src={skinsNote} alt={''} width={450} height={420} />
+                        <Image className={styles.phImage} src={santaNote} alt={''} width={450} height={420} />
                     </div>
                     <div className={styles.placeholderDesk1}>{t('main.flex')}</div>
                     <div className={styles.placeholderTitle1}><a>{t('main.goGet')}</a></div>

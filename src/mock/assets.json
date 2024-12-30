@@ -60,7 +60,8 @@
     "/skins/thuglifeIcon.png",
     "/skins/netrunnerIcon.png",
     "/skins/theItDudeIcon.png",
-    "/skins/lilithIcon.png"
+    "/skins/lilithIcon.png",
+    "/skins/SantaIcon.png"
   ],
   "paid2": [
     "/skins/pabloIcon.png",
@@ -71,7 +72,8 @@
     "/skins/itfull.png",
     "/skins/netfull.png",
     "/skins/lilfull.png",
-    "/skins/tlfull.png"
+    "/skins/tlfull.png",
+    "/skins/SantaFull.png"
   ],
   "paidfull2": [
     "/skins/pablofull.png",
@@ -176,6 +178,6 @@
     "/Star.png",
     "/walletPH.png",
     "/itemsPH.png",
-    "/skinsNote.png"
+    "/SantaPreview.png"
   ]
 }
