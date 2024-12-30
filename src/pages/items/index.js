@@ -292,7 +292,7 @@ export default function Page() {
                             <div className={styles.list}>
                                 {itemsCat4.map((item, index) => {
                                     return(
-                                        <div key={item.id} className={styles.ListItem}>
+                                        <div key={item.id} className={styles.ListItem} onClick={() => setSelectedItem(item)}>
                                             <div className={styles.itemRow}>
                                                 <div className={styles.itemImage}></div>
                                                 <div>{item.name}</div>
