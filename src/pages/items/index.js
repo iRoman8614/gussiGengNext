@@ -152,7 +152,7 @@ export default function Page() {
             const response4 = await axiosInstance.get('/item/find-category?categoryId=4');
             setItemsCat4(response4.data);
             const myItemsList = await axiosInstance.get('/item/my')
-            setMyItems(myItemsList)
+            setMyItems(myItemsList.data)
         } catch (error) {
             console.error('Error fetching skins:', error);
         }
@@ -160,6 +160,7 @@ export default function Page() {
 
     const isOwned = (itemId) => {
         console.log('skinId isOwned', itemId)
+        console.log('myItems', myItems)
         return myItems.some(itemId => itemId.id === itemId);
     }
 
