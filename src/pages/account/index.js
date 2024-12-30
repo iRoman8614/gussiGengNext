@@ -462,7 +462,7 @@ export default function Page() {
                                             {selectedSkin.stars > 0 ?
                                                 <div className={styles.popUpText}>{selectedSkin.stars}{' '}<Image src={star} alt={''} width={15} height={15} loading="lazy"/>
                                                 </div> :
-                                                <div className={styles.popUpText}>{selectedSkin?.price}{' '}<Image
+                                                <div className={styles.popUpText}>{selectedSkin?.price > 0 ? <>{selectedSkin?.price}</> : <>free</>}{' '}<Image
                                                     src={money} alt={''} width={15} height={15} loading="lazy"/>
                                                 </div>}
                                         </>
