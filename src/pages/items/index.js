@@ -141,6 +141,7 @@ export default function Page() {
             window.Telegram.WebApp.HapticFeedback.impactOccurred('light');
         }
         setActiveTab(tab)
+        setActiveIndex(0)
     }
 
     const fetchItems = async () => {
@@ -226,11 +227,6 @@ export default function Page() {
                     </div>
                     {activeTab === 1 && <div className={styles.personalContainer}>
                         <div className={styles.padding}>
-                            {/*{isOwned(itemsCat1[activeIndex]?.id) && <div className={styles.owned}>*/}
-                            {/*    {*/}
-                            {/*        isActive(itemsCat1[activeIndex].id) && <Image className={styles.check} src={"/check.png"} alt={''} width={30} height={24} />*/}
-                            {/*    }*/}
-                            {/*</div>}*/}
                             <div className={styles.containerSwiper}>
                                     <button className={styles.navLeft} onClick={handleSlidePrev}>
                                         <Image src={'/ArrowWhite.png'} alt={''} width={20} height={20} loading="lazy" />
@@ -266,9 +262,6 @@ export default function Page() {
                                         <Image src={'/ArrowWhite.png'} alt={''} width={20} height={20} loading="lazy" />
                                     </button>
                                 </div>
-                            <div className={styles.caption}>
-                                {itemsCat1[activeIndex]?.name}
-                            </div>
                             <div className={styles.list}>
                                 {itemsCat1.map((item, index) => {
                                     return(
@@ -331,55 +324,41 @@ export default function Page() {
                     </div>}
                     {activeTab === 2 && <div className={styles.skinContainer}>
                         <div className={styles.padding}>
-                            {/*<div className={styles.skinSwiper}>*/}
-                            {/*    {isOwned(itemsCat3[activeIndex].id) && <div className={styles.owned}>*/}
-                            {/*        /!*{*!/*/}
-                            {/*        /!*    isActive(itemsCat1[activeIndex].id) && <Image className={styles.check} src={"/check.png"} alt={''} width={30} height={24} />*!/*/}
-                            {/*        /!*}*!/*/}
-                            {/*    </div>}*/}
-                            {/*    <div className={styles.containerSwiper}>*/}
-                            {/*        <button className={styles.navLeft} onClick={handleSlidePrev}>*/}
-                            {/*            <Image src={'/ArrowWhite.png'} alt={''} width={20} height={20} loading="lazy" />*/}
-                            {/*        </button>*/}
-                            {/*        <Swiper*/}
-                            {/*            modules={[Navigation, Controller]}*/}
-                            {/*            slidesPerView={1}*/}
-                            {/*            centeredSlides={false}*/}
-                            {/*            spaceBetween={10}*/}
-                            {/*            loop={true}*/}
-                            {/*            onSwiper={(swiper) => {*/}
-                            {/*                swiperRef.current = swiper;*/}
-                            {/*            }}*/}
-                            {/*            onSlideChange={handleSlideChange}*/}
-                            {/*            className={styles.swiper}*/}
-                            {/*        >*/}
-                            {/*            {itemsCat3.map((item, index) => (*/}
-                            {/*                <SwiperSlide key={item.id} className={styles.slide}>*/}
-                            {/*                    <Image*/}
-                            {/*                        key={index}*/}
-                            {/*                        width={170}*/}
-                            {/*                        height={234}*/}
-                            {/*                        src={'/skins/thug_life.png'}*/}
-                            {/*                        alt={''}*/}
-                            {/*                        className={styles.icon}*/}
-                            {/*                        loading="lazy"*/}
-                            {/*                        onClick={() => setSelectedItem(item)}*/}
-                            {/*                    />*/}
-                            {/*                </SwiperSlide>*/}
-                            {/*            ))}*/}
-                            {/*        </Swiper>*/}
-                            {/*        <button className={styles.navRight} onClick={handleSlideNext}>*/}
-                            {/*            <Image src={'/ArrowWhite.png'} alt={''} width={20} height={20} loading="lazy" />*/}
-                            {/*        </button>*/}
-                            {/*    </div>*/}
-                            {/*    <div className={styles.caption}>*/}
-                            {/*        {itemsCat3[activeIndex].name}*/}
-                            {/*    </div>*/}
-                            {/*    <div className={styles.skinBalance}>*/}
-                            {/*        <div className={styles.skinBalanceTitle}>{t('account.balance')}</div>*/}
-                            {/*        <div>{formatNumber(coins, 15)}{' '}<Image src={money} alt={''} width={18} height={18} loading="lazy"/></div>*/}
-                            {/*    </div>*/}
-                            {/*</div>*/}
+                            <div className={styles.containerSwiper}>
+                                <button className={styles.navLeft} onClick={handleSlidePrev}>
+                                    <Image src={'/ArrowWhite.png'} alt={''} width={20} height={20} loading="lazy" />
+                                </button>
+                                <Swiper
+                                    modules={[Navigation, Controller]}
+                                    slidesPerView={1}
+                                    centeredSlides={false}
+                                    spaceBetween={10}
+                                    loop={true}
+                                    onSwiper={(swiper) => {
+                                        swiperRef.current = swiper;
+                                    }}
+                                    onSlideChange={handleSlideChange}
+                                    className={styles.swiper}
+                                >
+                                    {itemsCat3.map((item, index) => (
+                                        <SwiperSlide key={item.id} className={styles.slide}>
+                                            <Image
+                                                key={index}
+                                                width={170}
+                                                height={234}
+                                                src={'/skins/thug_life.png'}
+                                                alt={''}
+                                                className={styles.icon}
+                                                loading="lazy"
+                                                onClick={() => setSelectedItem(item)}
+                                            />
+                                        </SwiperSlide>
+                                    ))}
+                                </Swiper>
+                                <button className={styles.navRight} onClick={handleSlideNext}>
+                                    <Image src={'/ArrowWhite.png'} alt={''} width={20} height={20} loading="lazy" />
+                                </button>
+                            </div>
                             <div className={styles.list}>
                                 {itemsCat3.map((item, index) => {
                                     return(
@@ -416,55 +395,41 @@ export default function Page() {
                     </div>}
                     {activeTab === 3 && <div className={styles.skinContainer}>
                         <div className={styles.padding}>
-                            {/*<div className={styles.skinSwiper}>*/}
-                            {/*    {isOwned(itemsCat4[activeIndex].id) && <div className={styles.owned}>*/}
-                            {/*        /!*{*!/*/}
-                            {/*        /!*    isActive(itemsCat1[activeIndex].id) && <Image className={styles.check} src={"/check.png"} alt={''} width={30} height={24} />*!/*/}
-                            {/*        /!*}*!/*/}
-                            {/*    </div>}*/}
-                            {/*    <div className={styles.containerSwiper}>*/}
-                            {/*        <button className={styles.navLeft} onClick={handleSlidePrev}>*/}
-                            {/*            <Image src={'/ArrowWhite.png'} alt={''} width={20} height={20} loading="lazy" />*/}
-                            {/*        </button>*/}
-                            {/*        <Swiper*/}
-                            {/*            modules={[Navigation, Controller]}*/}
-                            {/*            slidesPerView={1}*/}
-                            {/*            centeredSlides={false}*/}
-                            {/*            spaceBetween={10}*/}
-                            {/*            loop={true}*/}
-                            {/*            onSwiper={(swiper) => {*/}
-                            {/*                swiperRef.current = swiper;*/}
-                            {/*            }}*/}
-                            {/*            onSlideChange={handleSlideChange}*/}
-                            {/*            className={styles.swiper}*/}
-                            {/*        >*/}
-                            {/*            {itemsCat4.map((item, index) => (*/}
-                            {/*                <SwiperSlide key={item.id} className={styles.slide}>*/}
-                            {/*                    <Image*/}
-                            {/*                        key={index}*/}
-                            {/*                        width={170}*/}
-                            {/*                        height={234}*/}
-                            {/*                        src={'/skins/thug_life.png'}*/}
-                            {/*                        alt={''}*/}
-                            {/*                        className={styles.icon}*/}
-                            {/*                        loading="lazy"*/}
-                            {/*                        onClick={() => setSelectedItem(item)}*/}
-                            {/*                    />*/}
-                            {/*                </SwiperSlide>*/}
-                            {/*            ))}*/}
-                            {/*        </Swiper>*/}
-                            {/*        <button className={styles.navRight} onClick={handleSlideNext}>*/}
-                            {/*            <Image src={'/ArrowWhite.png'} alt={''} width={20} height={20} loading="lazy" />*/}
-                            {/*        </button>*/}
-                            {/*    </div>*/}
-                            {/*    <div className={styles.caption}>*/}
-                            {/*        {itemsCat4[activeIndex].name}*/}
-                            {/*    </div>*/}
-                            {/*    <div className={styles.skinBalance}>*/}
-                            {/*        <div className={styles.skinBalanceTitle}>{t('account.balance')}</div>*/}
-                            {/*        <div>{formatNumber(coins, 15)}{' '}<Image src={money} alt={''} width={18} height={18} loading="lazy"/></div>*/}
-                            {/*    </div>*/}
-                            {/*</div>*/}
+                            <div className={styles.containerSwiper}>
+                                <button className={styles.navLeft} onClick={handleSlidePrev}>
+                                    <Image src={'/ArrowWhite.png'} alt={''} width={20} height={20} loading="lazy" />
+                                </button>
+                                <Swiper
+                                    modules={[Navigation, Controller]}
+                                    slidesPerView={1}
+                                    centeredSlides={false}
+                                    spaceBetween={10}
+                                    loop={true}
+                                    onSwiper={(swiper) => {
+                                        swiperRef.current = swiper;
+                                    }}
+                                    onSlideChange={handleSlideChange}
+                                    className={styles.swiper}
+                                >
+                                    {itemsCat4.map((item, index) => (
+                                        <SwiperSlide key={item.id} className={styles.slide}>
+                                            <Image
+                                                key={index}
+                                                width={170}
+                                                height={234}
+                                                src={'/skins/thug_life.png'}
+                                                alt={''}
+                                                className={styles.icon}
+                                                loading="lazy"
+                                                onClick={() => setSelectedItem(item)}
+                                            />
+                                        </SwiperSlide>
+                                    ))}
+                                </Swiper>
+                                <button className={styles.navRight} onClick={handleSlideNext}>
+                                    <Image src={'/ArrowWhite.png'} alt={''} width={20} height={20} loading="lazy" />
+                                </button>
+                            </div>
                             <div className={styles.list}>
                                 {itemsCat4.map((item, index) => {
                                     return(

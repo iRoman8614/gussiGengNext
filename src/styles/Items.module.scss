@@ -275,16 +275,6 @@
   filter: grayscale(100);
 }
 
-
-.skinSwiper {
-  margin: auto-clamp(5, 20) auto-clamp(5, 20) 7px auto-clamp(5, 20);
-  z-index: 113;
-  padding: 20px 10px 4px 10px;
-  border-radius: 15px;
-  background: linear-gradient(180deg, rgba(89, 67, 148, 0.6) 0%, rgba(62, 47, 103, 1) 100%);
-  position: relative;
-}
-
 .containerSwiper {
   width: 100%;
   display: flex;
