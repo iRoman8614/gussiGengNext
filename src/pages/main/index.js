@@ -71,23 +71,23 @@ export default function Home() {
         }
     }, [balance, startFarmTime, isClaimClicked, coins]);
 
-    useEffect(() => {
-        const hasShownNotification = localStorage.getItem('hasShownNotification');
-        if (!hasShownNotification) {
-            setSkinPopup(true);
-            localStorage.setItem('hasShownNotification', 'true');
-        }
-    }, []);
-
     // useEffect(() => {
-    //     const currentNotificationVersion = 1;
-    //     const hasShownNotification = parseInt(localStorage.getItem('hasShownNotification'), 10);
-    //
-    //     if (hasShownNotification !== currentNotificationVersion) {
+    //     const hasShownNotification = localStorage.getItem('hasShownNotification');
+    //     if (!hasShownNotification) {
     //         setSkinPopup(true);
-    //         localStorage.setItem('hasShownNotification', currentNotificationVersion.toString());
+    //         localStorage.setItem('hasShownNotification', 'true');
     //     }
     // }, []);
+
+    useEffect(() => {
+        const currentNotificationVersion = 1;
+        const hasShownNotification = parseInt(localStorage.getItem('hasShownNotification'), 10);
+
+        if (hasShownNotification !== currentNotificationVersion) {
+            setSkinPopup(true);
+            localStorage.setItem('hasShownNotification', currentNotificationVersion.toString());
+        }
+    }, []);
 
     // useEffect(() => {
     //     const skinFromSession = sessionStorage.getItem('skin');
