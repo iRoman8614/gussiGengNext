@@ -485,18 +485,19 @@ export default function Page() {
                                </div>
                             </Link>
                         </> : <>
-                            <div
+                            {selectedSkin.key === 'thug_life' ? <div
+                                className={styles.modalBtn}
+                                onClick={() => router.push('/tasks')}
+                            >{t('account.toTasks')}</div> : <div
                                 className={styles.modalBtn}
                                 onClick={() => handlePurchaseOrEquip(selectedSkin.id, selectedSkin.price)}
                             >
                                 {isOwned(selectedSkin.id) ?
                                     <>{t('account.equip')}</>
                                     :
-                                    <>{selectedSkin.key === 'thug_life' ?
-                                        <>open tasks</> : <>{t('account.buy')}</>}
-                                    </>
+                                    <>{t('account.buy')}</>
                                 }
-                            </div>
+                            </div>}
                         </>}
                     </div>
                 </div>

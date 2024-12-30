@@ -54,7 +54,8 @@
     "task": "task",
     "main": "main",
     "partner": "partners",
-    "free": "free"
+    "free": "free",
+    "toTasks": "to tasks"
   },
   "change": {
     "destiny": "you wanna change your destiny?",
