@@ -253,7 +253,7 @@ export default function Page() {
                 <div className={styles.faq}>
                     <IconButton image={FAQ} alt={'home'} title={t('PVP.faq')} onClick={() => {router.push('/faq/pvp')}} />
                 </div>
-                <Link href={link} className={styles.buyPass} onClick={handleBuyPass}>
+                <Link href={link} className={styles.buyPass}>
                     {/*<div image={FAQ} alt={'home'} title={"buy passes"} onClick={() => {router.push('/faq/pvp')}} />*/}
                     <Image src={FAQ} alt={''} width={60} height={40} />
                     <div>buy passes</div>
