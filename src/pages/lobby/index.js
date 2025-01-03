@@ -153,20 +153,21 @@ export default function Page() {
         return `${hours}h ${minutes}m ${seconds}s`;
     };
 
-    const handleBuyPass = async () => {
-        try {
-            const response = await axios.get('/buy/pass');
-            if (response.status === 200 && response.data.invoiceLink) {
-                setLink(response.data.invoiceLink)
-                // window.open(response.data.invoiceLink);
-            } else {
-                throw new Error('Ссылка для оплаты не найдена');
+    useEffect(() => {
+        const fetchLink = async () => {
+            try {
+                const response = await axios.get('/buy/pass');
+                if (response.status === 200 && response.data.invoiceLink) {
+                    setLink(response.data.invoiceLink);
+                } else {
+                    throw new Error('Ссылка для оплаты не найдена');
+                }
+            } catch (err) {
+                console.error('Error while fetching invoice link:', err);
             }
-        } catch (err) {
-            console.error('Error while fetching invoice link:', err);
-            toast.error(err.message || 'Ошибка при получении ссылки');
-        }
-    };
+        };
+        fetchLink();
+    }, []);
 
     return (
         <>
@@ -270,6 +271,5 @@ export default function Page() {
                     </div>
                 </div>}
         </>
-
     );
 };
