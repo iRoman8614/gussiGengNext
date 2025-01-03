@@ -151,14 +151,12 @@ export default function Page() {
         return `${hours}h ${minutes}m ${seconds}s`;
     };
 
-    const [error, setError] = useState(null);
-
     const handleBuyPass = async () => {
         setError(null);
         try {
             const response = await axios.get('/buy/pass');
             if (response.status === 200 && response.data.invoiceLink) {
-                window.open(response.data.invoiceLink, '_blank');
+                window.open(response.data.invoiceLink);
             } else {
                 throw new Error('Ссылка для оплаты не найдена');
             }
