@@ -16,7 +16,9 @@ import "react-toastify/dist/ReactToastify.css";
 
 const youWin = '/goldwins.png';
 const youLose = '/youLose.png'
-const background = '/backgrounds/backalley.png'
+const background1 = '/backgrounds/backalley.png'
+const background2 = '/backgrounds/pvpbg2.png'
+const background3 = '/backgrounds/pvpbg3.png'
 const timerBG = '/timer.png'
 const heart = '/game-icons/heart.png'
 const cross = '/game-icons/lose.png'
@@ -56,6 +58,7 @@ export default function PvpBotPage() {
     const [roundProcessed, setRoundProcessed] = useState(false);
     const [preGameStep, setPreGameStep] = useState(0);
     const [gameStarted, setGameStarted] = useState(false);
+    const [background, setBackground] = useState(null)
 
     const playerGifCache = useRef({});
     const opponentGifCache = useRef({});
@@ -94,6 +97,24 @@ export default function PvpBotPage() {
         }
         updateContext()
     }, []);
+
+    useEffect(() => {
+        const number = Math.floor(Math.random() * 3) + 1;
+        setBackground(number);
+    }, []);
+
+    const getBackgroundImageUrl = (number) => {
+        switch (number) {
+            case 1:
+                return '/backgrounds/backalley.png';
+            case 2:
+                return '/backgrounds/pvpbg2.png';
+            case 3:
+                return '/backgrounds/pvpbg3.png';
+            default:
+                return '';
+        }
+    };
 
     useEffect(() => {
         if (preGameStep < preGameSteps.length) {
@@ -253,7 +274,8 @@ export default function PvpBotPage() {
             {preGameStep === 1 && <StartAnimation />}
 
             <div className={styles.root}>
-                <Image className={styles.background} src={background} width={300} height={1000} alt={'bg'} priority />
+                {/*<Image className={styles.background} src={background} width={300} height={1000} alt={'bg'} priority />*/}
+                <Image className={styles.background} src={getBackgroundImageUrl(background)} width={300} height={1000} alt={'bg'} priority />
                 <div className={styles.container}>
                     <div className={styles.oppNickname}>
                         {opponentName}
