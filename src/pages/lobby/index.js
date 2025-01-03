@@ -152,7 +152,6 @@ export default function Page() {
     };
 
     const handleBuyPass = async () => {
-        setError(null);
         try {
             const response = await axios.get('/buy/pass');
             if (response.status === 200 && response.data.invoiceLink) {
