@@ -57,6 +57,7 @@ export default function PvpPage() {
     const [lastRound, setLastRound] = useState(1)
     const [preGameStep, setPreGameStep] = useState(0);
     const [gameStarted, setGameStarted] = useState(false);
+    const [background, setBackground] = useState(null)
 
     const playerGifCache = useRef({});
     const opponentGifCache = useRef({});
@@ -94,6 +95,24 @@ export default function PvpPage() {
             opponentGifCache.current = preloadOpponentGifs();
         }
     }, []);
+
+    useEffect(() => {
+        const number = Math.floor(Math.random() * 3) + 1;
+        setBackground(number);
+    }, []);
+
+    const getBackgroundImageUrl = (number) => {
+        switch (number) {
+            case 1:
+                return '/backgrounds/backalley.png';
+            case 2:
+                return '/backgrounds/pvpbg2.png';
+            case 3:
+                return '/backgrounds/pvpbg3.png';
+            default:
+                return '';
+        }
+    };
 
     useEffect(() => {
         if (preGameStep < preGameSteps.length) {
@@ -346,7 +365,8 @@ export default function PvpPage() {
                     {gameEnded && <WinningScreen userName={userName} playerScore={playerScore} opponentName={opponentName} />}
                     {preGameStep === 1 && <StartAnimation />}
                     <div className={styles.root}>
-                        <Image className={styles.background} src={background} width={300} height={1000} alt={'bg'} priority />
+                        {/*<Image className={styles.background} src={background} width={300} height={1000} alt={'bg'} priority />*/}
+                        <Image className={styles.background} src={getBackgroundImageUrl(background)} width={300} height={1000} alt={'bg'} priority />
                         <div className={styles.container}>
                             <div className={styles.oppNickname}>
                                 {opponentName}
