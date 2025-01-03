@@ -11,6 +11,7 @@ import {useLastGames, useProfileStats} from "@/utils/api";
 import styles from '@/styles/Lobby.module.scss'
 import axios from "@/utils/axios";
 import teamData from "@/mock/teamsData";
+import {BigButton} from "@/components/buttons/big-btn/BigButton";
 
 const bg = '/backgrounds/Lobby.png'
 const hands = '/main-buttons/hand2.png'
@@ -150,6 +151,23 @@ export default function Page() {
         return `${hours}h ${minutes}m ${seconds}s`;
     };
 
+    const [error, setError] = useState(null);
+
+    const handleBuyPass = async () => {
+        setError(null);
+        try {
+            const response = await axios.get('/buy/pass');
+            if (response.status === 200 && response.data.invoiceLink) {
+                window.open(response.data.invoiceLink, '_blank');
+            } else {
+                throw new Error('Ссылка для оплаты не найдена');
+            }
+        } catch (err) {
+            console.error('Error while fetching invoice link:', err);
+            toast.error(err.message || 'Ошибка при получении ссылки');
+        }
+    };
+
     return (
         <>
             <Head>
@@ -233,6 +251,11 @@ export default function Page() {
                 </div>
                 <div className={styles.faq}>
                     <IconButton image={FAQ} alt={'home'} title={t('PVP.faq')} onClick={() => {router.push('/faq/pvp')}} />
+                </div>
+                <div className={styles.buyPass} onClick={handleBuyPass}>
+                    {/*<div image={FAQ} alt={'home'} title={"buy passes"} onClick={() => {router.push('/faq/pvp')}} />*/}
+                    <Image src={FAQ} alt={''} width={60} height={40} />
+                    <div>buy passes</div>
                 </div>
             </div>
             {clanPopUp &&
