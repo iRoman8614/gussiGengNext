@@ -329,6 +329,8 @@ export default function Page() {
         setActiveTab(tab)
     }
 
+    const allowedKeys = ['app_kat_knight', "app_play_mushroom_warrior"];
+
     return (
         <div className={styles.root}>
             <div className={styles.container}>
@@ -428,7 +430,8 @@ export default function Page() {
                     <div className={styles.col}>
                         {tasks
                             .filter(task =>
-                                task.key !== "subscription_tg_channel" && task.key !== "subscription_x_channel")
+                                allowedKeys.includes(task.key))
+                                // task.key !== "subscription_tg_channel" && task.key !== "subscription_x_channel")
                             .map((task, index) => {
                             return (
                                 <>
