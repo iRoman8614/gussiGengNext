@@ -87,6 +87,8 @@ export default function Page() {
                         icon = "Gridbybot";
                     } else if (task.name.includes("Mushroom")) {
                         icon = 'MushWarr'
+                    } else if (task.name.includes("AKEFish")) {
+                        icon = 'AKEFish'
                     }
                 }
                 const isVisible = (task.type === 1 && task.id <= lastCompletedTaskIdType1 + 1) ||
@@ -134,6 +136,8 @@ export default function Page() {
                     return t('EXP.Gridbybot')
                 } else if (name.includes('Mushroom')) {
                     return t('EXP.Mushroom')
+                } else if (name.includes('AKEFish')) {
+                    return t('EXP.AKEFish')
                 }
                 break;
             default:
@@ -329,7 +333,7 @@ export default function Page() {
         setActiveTab(tab)
     }
 
-    const allowedKeys = ['app_kat_knight', "app_play_mushroom_warrior"];
+    const allowedKeys = ['app_kat_knight', "app_play_mushroom_warrior", "app_akefish"];
 
     return (
         <div className={styles.root}>
