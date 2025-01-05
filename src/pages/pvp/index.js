@@ -18,7 +18,6 @@ import "react-toastify/dist/ReactToastify.css";
 
 const youWin = '/goldwins.png';
 const youLose = '/youLose.png'
-const background = '/backgrounds/backalley.png'
 const timerBG = '/timer.png'
 const heart = '/game-icons/heart.png'
 const cross = '/game-icons/lose.png'
@@ -108,7 +107,7 @@ export default function PvpPage() {
             case 2:
                 return '/backgrounds/pvpbg2.png';
             case 3:
-                return '/backgrounds/pvpbg3.png';
+                return '/backgrounds/pvpbg4.png';
             default:
                 return '';
         }

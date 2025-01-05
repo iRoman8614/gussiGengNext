@@ -6,7 +6,7 @@
     "/backgrounds/nightcity.png",
     "/backgrounds/randomBG.png",
     "/backgrounds/pvpbg2.png",
-    "/backgrounds/pvpbg3.png",
+    "/backgrounds/pvpbg4.png",
     "/loadingImg.jpg"
   ],
   "newPlayerAssets": [
@@ -182,6 +182,6 @@
     "/Star.png",
     "/walletPH.png",
     "/itemsPH.png",
-    "/SantaPreview.png"
+    "/arenas.png"
   ]
 }
