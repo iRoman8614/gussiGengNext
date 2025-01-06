@@ -174,7 +174,7 @@ export default function PvpBotPage() {
 
     const showGifSequence = () => {
         const timeouts = [];
-        const durations = [0, 2000];
+        const durations = [0, 2080];
         durations.forEach((duration, index) => {
             timeouts.push(
                 setTimeout(() => {

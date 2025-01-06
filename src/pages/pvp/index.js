@@ -298,7 +298,7 @@ export default function PvpPage() {
 
     const showGifSequence = () => {
         const timeouts = [];
-        const durations = [0, 2000];
+        const durations = [0, 2080];
         const totalGifDuration = 2000 + 1000;
         durations.forEach((duration, index) => {
             timeouts.push(
