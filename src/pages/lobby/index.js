@@ -172,6 +172,10 @@ export default function Page() {
     const updateAfterPurchasePasses = () => {
         setTimeout(() => {
             fetchProfileStats();
+            if (typeof window !== 'undefined') {
+                const passes = JSON.parse(localStorage.getItem('init'))
+                setPass(passes.pass)
+            }
         }, 5000);
     };
 
