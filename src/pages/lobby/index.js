@@ -19,6 +19,7 @@ const hands = '/main-buttons/hand2.png'
 const rich = '/main-buttons/rich.png'
 const FAQ = '/main-buttons/pvpfaq.png'
 const money = '/money.png'
+const passes = "/main-buttons/pvpPass.png"
 
 const gameIconsAssets = [
     '/game-icons/animation_hand_pap.gif',
@@ -214,7 +215,7 @@ export default function Page() {
                         <div className={styles.hidderRoot} >
                             <div className={styles.card}>
                                 <div className={styles.icon}>
-                                    <div>ton</div>
+                                    <div>stars</div>
                                     <p>{t('PVP.battle')}</p>
                                     <Image className={styles.logo} src={rich} alt={''} width={150} height={75} loading="lazy"/>
                                 </div>
@@ -254,9 +255,7 @@ export default function Page() {
                     <IconButton image={FAQ} alt={'home'} title={t('PVP.faq')} onClick={() => {router.push('/faq/pvp')}} />
                 </div>
                 <Link href={link} className={styles.buyPass}>
-                    {/*<div image={FAQ} alt={'home'} title={"buy passes"} onClick={() => {router.push('/faq/pvp')}} />*/}
-                    <Image src={FAQ} alt={''} width={60} height={40} />
-                    <div>buy passes</div>
+                    <IconButton image={passes} alt={''} title={'pvp pass'} />
                 </Link>
             </div>
             {clanPopUp &&
