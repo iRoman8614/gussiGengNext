@@ -29,7 +29,7 @@ const money = '/money.png'
 const dailyBils = '/dailyBills.png'
 const walletPH = '/walletPH.png'
 const itemsPH ='/itemsPH.png'
-const arenasNote = '/arenas.png'
+const pabloNote = '/pabloNote.png'
 
 export default function Home() {
     const router = useRouter();
@@ -406,7 +406,7 @@ export default function Home() {
                     <div className={styles.closePH} onClick={() => setSkinPopup(false)}>x</div>
                     <div className={styles.placeholderTitle1}>{t('main.checkOut')}</div>
                     <div className={styles.imageBorderSkins}>
-                        <Image className={styles.phImage} src={arenasNote} alt={''} width={450} height={420} />
+                        <Image className={styles.phImage} src={pabloNote} alt={''} width={450} height={420} />
                     </div>
                     <div className={styles.placeholderDesk1}>{t('main.flex')}</div>
                     <div className={styles.placeholderTitle1}><a>{t('main.goGet')}</a></div>
