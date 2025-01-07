@@ -40,6 +40,8 @@ const skinData = {
     theItDude: "/skins/itfull.png",
     lilith: "/skins/lilfull.png",
     santa: "/skins/SantaFull.png",
+    pablo:"/skins/pabloIcon.png",
+    pablo_t:"/skins/pabloTIcon.png",
     default: [
         {1: '/skins/gg.png'},
         {2: '/skins/bg.png'},
