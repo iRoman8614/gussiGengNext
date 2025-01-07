@@ -11,7 +11,6 @@ import {useLastGames, useProfileStats} from "@/utils/api";
 import styles from '@/styles/Lobby.module.scss'
 import axios from "@/utils/axios";
 import teamData from "@/mock/teamsData";
-import {BigButton} from "@/components/buttons/big-btn/BigButton";
 import Link from "next/link";
 
 const bg = '/backgrounds/Lobby.png'
@@ -170,6 +169,12 @@ export default function Page() {
         fetchLink();
     }, []);
 
+    const updateAfterPurchasePasses = () => {
+        setTimeout(() => {
+            fetchProfileStats();
+        }, 5000);
+    };
+
     return (
         <>
             <Head>
@@ -254,9 +259,9 @@ export default function Page() {
                 <div className={styles.faq}>
                     <IconButton image={FAQ} alt={'home'} title={t('PVP.faq')} onClick={() => {router.push('/faq/pvp')}} />
                 </div>
-                <Link href={link} className={styles.buyPass}>
+                <a href={link} target="_blank" className={styles.buyPass} onClick={updateAfterPurchasePasses}>
                     <IconButton image={passes} alt={''} title={'pvp pass'} />
-                </Link>
+                </a>
             </div>
             {clanPopUp &&
                 <div className={styles.popUpBG}>
