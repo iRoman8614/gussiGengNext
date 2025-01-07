@@ -11,7 +11,7 @@ import {useLastGames, useProfileStats} from "@/utils/api";
 import styles from '@/styles/Lobby.module.scss'
 import axios from "@/utils/axios";
 import teamData from "@/mock/teamsData";
-import Link from "next/link";
+import instance from "@/utils/axios";
 
 const bg = '/backgrounds/Lobby.png'
 const hands = '/main-buttons/hand2.png'
@@ -44,6 +44,7 @@ export default function Page() {
     const [clanId, setClanId] = useState(null)
     const [clanPopUp, setClanPopUp] = useState(false)
     const [link, setLink] = useState('')
+    const [triggerFetch, setTriggerFetch] = useState(false);
 
     const router = useRouter();
 
@@ -51,13 +52,25 @@ export default function Page() {
     const { data: lastGamesData } = useLastGames()
     const { data: statsData, fetchProfileStats } = useProfileStats()
 
+    const fetchStats = async () => {
+        const response = await instance.get(`/profile/stats`);
+        setPass(response.data.pass)
+    }
+
     useEffect(() => {
-        fetchProfileStats()
-        if (typeof window !== 'undefined') {
-            const passes = JSON.parse(localStorage.getItem('init'))
-            setPass(passes.pass)
+        fetchStats()
+    }, [pass, triggerFetch])
+
+    useEffect(() => {
+        let timer;
+        if (triggerFetch) {
+            timer = setTimeout(() => {
+                fetchStats();
+                setTriggerFetch(false);
+            }, 5000);
         }
-    }, [pass])
+        return () => clearTimeout(timer);
+    }, [triggerFetch]);
 
     useEffect(() => {
         if (typeof window !== 'undefined' && window.Telegram?.WebApp?.BackButton) {
@@ -170,13 +183,7 @@ export default function Page() {
     }, []);
 
     const updateAfterPurchasePasses = () => {
-        setTimeout(() => {
-            fetchProfileStats();
-            if (typeof window !== 'undefined') {
-                const passes = JSON.parse(localStorage.getItem('init'))
-                setPass(passes.pass)
-            }
-        }, 5000);
+        setTriggerFetch(true);
     };
 
     return (
