@@ -80,7 +80,7 @@ export default function Home() {
     // }, []);
 
     useEffect(() => {
-        const currentNotificationVersion = 2;
+        const currentNotificationVersion = 3;
         const hasShownNotification = parseInt(localStorage.getItem('hasShownNotification'), 10);
 
         if (hasShownNotification !== currentNotificationVersion) {
