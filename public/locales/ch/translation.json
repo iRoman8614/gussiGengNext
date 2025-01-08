@@ -47,7 +47,7 @@
     "tasks": "completed tasks",
     "skins": "skins",
     "balance": "balance",
-    "default": "default",
+    "default": "main",
     "buy": "buy",
     "equip": "equip",
     "owned": "owned",
@@ -55,7 +55,8 @@
     "main": "main",
     "partner": "partners",
     "free": "free",
-    "toTasks": "to tasks"
+    "toTasks": "to tasks",
+    "equipped": "equipped"
   },
   "change": {
     "destiny": "you wanna change your destiny?",

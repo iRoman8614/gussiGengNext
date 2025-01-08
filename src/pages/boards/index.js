@@ -172,7 +172,7 @@ export default function Page() {
                     </div>
                 ) : leaderData ? (
                     leaderData.map((user, index) => (
-                        <ListItem key={index} teamId={user.teamId} item={user} index={index + 1} />
+                        <ListItem key={index} teamId={user.teamId} item={user} index={user.number} />
                     ))
                 ) : (
                     <div className={styles.emptyState}>Loading...</div>

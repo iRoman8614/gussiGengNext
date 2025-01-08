@@ -422,23 +422,29 @@ export default function Page() {
                                         <div key={skin.id} className={styles.skinListItem} onClick={() => getStarsLink(skin)}>
                                             <div>{skin.name}</div>
                                             <div>
-                                                {isOwned(skin.id) ? <>{t('account.owned')}</> : <>{
-                                                    skin.price > 0 ?
-                                                        <>{formatBalance(skin.price)}{' '}<Image src={money} alt={''}
-                                                                                                 width={15}
-                                                                                                 height={15}
-                                                                                                 loading="lazy"/>
-                                                        </> :
-                                                        <>
-                                                            {skin.stars > 0 ?
-                                                                <>{skin.stars}{' '}<Image src={star} alt={''} width={15} height={15} loading="lazy"/></>
-                                                                :
-                                                                <>{skin.key === 'thug_life'
-                                                                    ? <div onClick={() => {router.push('/tasks')}}>{t('account.task')}</div>
-                                                                    : <>{t('account.free')}</>}
-                                                                </>
-                                                            }</>
-                                                }</>}
+                                                {isActive(skin.id) ? <></> :
+                                                    <>{isOwned(skin.id) ? <>{t('account.owned')}</> : <>{
+                                                        skin.price > 0 ?
+                                                            <>{formatBalance(skin.price)}{' '}<Image src={money}
+                                                                                                     alt={''}
+                                                                                                     width={15}
+                                                                                                     height={15}
+                                                                                                     loading="lazy"/>
+                                                            </> :
+                                                            <>
+                                                                {skin.stars > 0 ?
+                                                                    <>{skin.stars}{' '}<Image src={star} alt={''}
+                                                                                              width={15} height={15}
+                                                                                              loading="lazy"/></>
+                                                                    :
+                                                                    <>{skin.key === 'thug_life'
+                                                                        ? <div onClick={() => {
+                                                                            router.push('/tasks')
+                                                                        }}>{t('account.task')}</div>
+                                                                        : <>{t('account.free')}</>}
+                                                                    </>
+                                                                }</>
+                                                    }</>}</>}
                                             </div>
                                         </div>);
                                 })}

@@ -13,7 +13,7 @@ export default function QrPage() {
         <div className={styles.placeholder}>
             <div>{t('qr')}</div>
             <Image className={styles.qr} src={qr} alt="QR Code" width={200} height={200} priority />
-            <div>@gwtestbot_bot</div>
+            <div>@Gang_wars_bot</div>
         </div>
     );
 }
