@@ -174,15 +174,16 @@
 .faq {
   position: absolute;
   z-index: 1000;
-  bottom: 15%;
+  bottom: 25%;
   right: 5%;
 }
 
 .buyPass {
   text-decoration: none;
   position: absolute;
-  bottom: 15%;
+  bottom: 25%;
   left: 5%;
+  //z-index: 10;
 
   animation: pulse 5s infinite;
 

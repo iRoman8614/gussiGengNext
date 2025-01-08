@@ -266,13 +266,13 @@ export default function Page() {
                         <p>feeling bold?</p>
                         Put your Ton on the line in this high-stakes mode!
                     </div>}
+                    <div className={styles.faq}>
+                        <IconButton image={FAQ} alt={'home'} title={t('PVP.faq')} onClick={() => {router.push('/faq/pvp')}} />
+                    </div>
+                    <a href={link} target="_blank" className={styles.buyPass} onClick={updateAfterPurchasePasses}>
+                        <IconButton image={passes} alt={''} title={'pvp pass'} />
+                    </a>
                 </div>
-                <div className={styles.faq}>
-                    <IconButton image={FAQ} alt={'home'} title={t('PVP.faq')} onClick={() => {router.push('/faq/pvp')}} />
-                </div>
-                <a href={link} target="_blank" className={styles.buyPass} onClick={updateAfterPurchasePasses}>
-                    <IconButton image={passes} alt={''} title={'pvp pass'} />
-                </a>
             </div>
             {clanPopUp &&
                 <div className={styles.popUpBG}>
