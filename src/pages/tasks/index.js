@@ -146,9 +146,9 @@ export default function Page() {
                     return t('EXP.MoMeet')
                 }else if (name.includes('Fiesta')) {
                     return t('EXP.Fiesta')
-                }else if (name.includes('Optimus')) {
+                }else if (name.includes('OptimusX')) {
                     return t('EXP.Optimus')
-                }else if (name.includes('X')) {
+                }else if (name.includes('X (twitter)')) {
                     return t(`EXP.x`);
                 }
                 break;
