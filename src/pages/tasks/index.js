@@ -79,7 +79,7 @@ export default function Page() {
                 if (task.type === 2) {
                     if (task.name.includes("TG")) {
                         icon = "tg";
-                    } else if (task.name.includes("X")) {
+                    } else if (task.name.includes("X (twitter)")) {
                         icon = "x";
                     } else if (task.name.includes("Kat")) {
                         icon = "kat";
@@ -93,7 +93,7 @@ export default function Page() {
                         icon = 'MoMeet'
                     }else if (task.name.includes('Fiesta')) {
                         icon = 'Fiesta'
-                    }else if (task.name.includes('Optimus')) {
+                    }else if (task.name.includes('OptimusX')) {
                         icon = 'Optimus'
                     }
                 }
