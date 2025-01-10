@@ -134,8 +134,6 @@ export default function Page() {
             case 2:
                 if (name.includes('TG')) {
                     return t(`EXP.tg`);
-                } else if (name.includes('X')) {
-                    return t(`EXP.x`);
                 } else if (name.includes('Kat')) {
                     return t(`EXP.Kat`);
                 } else if (name.includes('Gridbybot')) {
@@ -150,6 +148,8 @@ export default function Page() {
                     return t('EXP.Fiesta')
                 }else if (name.includes('Optimus')) {
                     return t('EXP.Optimus')
+                }else if (name.includes('X')) {
+                    return t(`EXP.x`);
                 }
                 break;
             default:
