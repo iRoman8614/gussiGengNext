@@ -89,6 +89,12 @@ export default function Page() {
                         icon = 'MushWarr'
                     } else if (task.name.includes("AKEFish")) {
                         icon = 'AKEFish'
+                    } else if (task.name.includes('MoMeet')) {
+                        icon = 'MoMeet'
+                    }else if (task.name.includes('Fiesta')) {
+                        icon = 'Fiesta'
+                    }else if (task.name.includes('Optimus')) {
+                        icon = 'Optimus'
                     }
                 }
                 const isVisible = (task.type === 1 && task.id <= lastCompletedTaskIdType1 + 1) ||
@@ -138,6 +144,12 @@ export default function Page() {
                     return t('EXP.Mushroom')
                 } else if (name.includes('AKEFish')) {
                     return t('EXP.AKEFish')
+                } else if (name.includes('MoMeet')) {
+                    return t('EXP.MoMeet')
+                }else if (name.includes('Fiesta')) {
+                    return t('EXP.Fiesta')
+                }else if (name.includes('Optimus')) {
+                    return t('EXP.Optimus')
                 }
                 break;
             default:
