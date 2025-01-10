@@ -345,7 +345,7 @@ export default function Page() {
         setActiveTab(tab)
     }
 
-    const allowedKeys = ['app_kat_knight', "app_play_mushroom_warrior", "app_akefish"];
+    const allowedKeys = ['app_kat_knight', "app_gidbybot", "app_play_mushroom_warrior", "app_akefish", "app_momeetbot", "app_ton_fiesta", "app_ptimusx"];
 
     return (
         <div className={styles.root}>
