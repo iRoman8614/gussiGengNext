@@ -16,6 +16,8 @@ const AKEFish = '/Tasks/AKEFish.png'
 const MoMeet = '/Tasks/MoMeet.JPG'
 const Fiesta = '/Tasks/Fiesta.JPG'
 const Optimus = '/Tasks/Optimus.JPG'
+const TonBee = "/Tasks/tonbee.JPG"
+const SpinRush = "/Tasks/spinrush.jpeg"
 
 // eslint-disable-next-line react/prop-types
 export const TaskBtn = ({title, subtitle, desc, completed, onClick, readyToComplete, reward, icon, type}) => {
@@ -33,6 +35,8 @@ export const TaskBtn = ({title, subtitle, desc, completed, onClick, readyToCompl
             case 'MoMeet': return MoMeet
             case 'Fiesta': return Fiesta
             case 'Optimus': return Optimus
+            case "SpinRush": return TonBee
+            case "TonBee": return SpinRush
             default:
                 if (type === 1) return Icon1;
                 if (type === 3) return Icon3;

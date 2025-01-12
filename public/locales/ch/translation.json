@@ -156,7 +156,9 @@
     "AKEFish": "Play AKEFish",
     "MoMeet" : "Join MoMeet bot",
     "Fiesta": "Play TON Fiesta",
-    "Optimus": "Play OptimusX"
+    "Optimus": "Play OptimusX",
+    "SpinRush": "Play SpinRush",
+    "TonBee": "Play TonBee"
   },
   "friends": {
     "inviteFriends": "invite a",

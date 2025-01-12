@@ -93,8 +93,12 @@ export default function Page() {
                         icon = 'MoMeet'
                     }else if (task.name.includes('Fiesta')) {
                         icon = 'Fiesta'
-                    }else if (task.name.includes('OptimusX')) {
+                    } else if (task.name.includes('OptimusX')) {
                         icon = 'Optimus'
+                    } else if (task.name.includes('SpinRush')) {
+                        icon = 'SpinRush'
+                    } else if (task.name.includes('TonBee')) {
+                        icon = 'TonBee'
                     }
                 }
                 const isVisible = (task.type === 1 && task.id <= lastCompletedTaskIdType1 + 1) ||
@@ -150,6 +154,10 @@ export default function Page() {
                     return t('EXP.Optimus')
                 }else if (name.includes('X (twitter)')) {
                     return t(`EXP.x`);
+                } else if (name.includes('SpinRush')) {
+                    return t(`EXP.SpinRush`);
+                } else if (name.includes('TonBee')) {
+                    return t(`EXP.TonBee`);
                 }
                 break;
             default:
