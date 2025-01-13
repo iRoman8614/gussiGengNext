@@ -464,7 +464,7 @@ export default function Page() {
                                 // task.key !== "subscription_tg_channel" && task.key !== "subscription_x_channel")
                             .map((task, index) => {
                             return (
-                                <>
+                                <div className={styles.taskList}>
                                     {(task.type === 2) && <TaskBtn
                                         id={task.id}
                                         subtitle={task.name}
@@ -477,7 +477,7 @@ export default function Page() {
                                         reward={formatNumber(task.reward, 9)}
                                         onClick={() => handleTaskClick(task)}
                                     />}
-                                </>
+                                </div>
                             )
                         })}
                     </div>
