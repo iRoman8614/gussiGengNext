@@ -464,20 +464,20 @@ export default function Page() {
                                 // task.key !== "subscription_tg_channel" && task.key !== "subscription_x_channel")
                             .map((task, index) => {
                             return (
-                                <div className={styles.taskList}>
+                                <>
                                     {(task.type === 2) && <TaskBtn
                                         id={task.id}
                                         subtitle={task.name}
+                                        key={index}
                                         desc={task.type !== 2 ? `${task.current} / ${task.amount}` : ''}
                                         completed={task.completed}
-                                        key={index}
                                         icon={task.icon}
                                         type={task.type}
                                         readyToComplete={task.readyToComplete}
                                         reward={formatNumber(task.reward, 9)}
                                         onClick={() => handleTaskClick(task)}
                                     />}
-                                </div>
+                                </>
                             )
                         })}
                     </div>
