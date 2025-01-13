@@ -36,8 +36,8 @@ export const TaskBtn = ({title, subtitle, desc, completed, onClick, readyToCompl
             case 'MoMeet': return MoMeet
             case 'Fiesta': return Fiesta
             case 'Optimus': return Optimus
-            case "SpinRush": return TonBee
-            case "TonBee": return SpinRush
+            case "SpinRush": return SpinRush
+            case "TonBee": return TonBee
             case "Draton": return Draton
             default:
                 if (type === 1) return Icon1;
