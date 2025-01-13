@@ -99,6 +99,8 @@ export default function Page() {
                         icon = 'SpinRush'
                     } else if (task.name.includes('TonBee')) {
                         icon = 'TonBee'
+                    } else if (task.name.includes('Draton')) {
+                        icon = 'Draton'
                     }
                 }
                 const isVisible = (task.type === 1 && task.id <= lastCompletedTaskIdType1 + 1) ||
@@ -158,6 +160,8 @@ export default function Page() {
                     return t(`EXP.SpinRush`);
                 } else if (name.includes('TonBee')) {
                     return t(`EXP.TonBee`);
+                } else if (name.includes('Draton')) {
+                    return t(`EXP.Draton`);
                 }
                 break;
             default:
@@ -353,7 +357,9 @@ export default function Page() {
         setActiveTab(tab)
     }
 
-    const allowedKeys = ['app_kat_knight', "app_gidbybot", "app_play_mushroom_warrior", "app_akefish", "app_momeetbot", "app_ton_fiesta", "app_ptimusx"];
+    const allowedKeys = ['app_kat_knight', "app_gidbybot",
+        "app_play_mushroom_warrior", "app_akefish", "app_momeetbot",
+        "app_ton_fiesta", "app_ptimusx", "app_draton", "app_tonbee", "app_spinrush"];
 
     return (
         <div className={styles.root}>
