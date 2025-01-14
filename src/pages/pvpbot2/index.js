@@ -2,6 +2,7 @@ import {useEffect, useRef, useState} from "react";
 import Lottie from 'react-lottie';
 import Image from "next/image";
 import { useRouter } from 'next/router';
+import { IconButton } from "@/components/buttons/icon-btn/IconButton.jsx";
 import {PvpBtn} from "@/components/buttons/PvpBtn/PvpBtn";
 import {useTriggerBotGame} from "@/utils/api";
 import {useInit} from "@/context/InitContext";
@@ -24,10 +25,14 @@ const gifPaths = {
     rockAnim: '/game-icons/animation_hand_rock.gif',
     scisAnim: '/game-icons/animation_hand_sci.gif',
     papAnim: '/game-icons/animation_hand_pap.gif',
+    watchMove: '/game-icons/SciWatchMove.gif'
 };
 const rock = '/game-icons/rock.png'
 const paper = '/game-icons/paper.png'
 const scis = '/game-icons/scissors.png'
+const watchStart = '/game-icons/SciWatchStart.png'
+const watchFinish = '/game-icons/SciWatchFinish.png'
+
 
 export default function PvpBotPage() {
     const router = useRouter();
@@ -35,28 +40,8 @@ export default function PvpBotPage() {
     const { groupId, updateContext } = useInit();
     const { triggerBotGame } = useTriggerBotGame();
     const [visibleImage, setVisibleImage] = useState(0);
-    // const [playerScore, setPlayerScore] = useState(0);
-    // const [opponentScore, setOpponentScore] = useState(0);
-    const [playerScore, setPlayerScore] = useState(() => {
-        if (typeof window !== 'undefined') {
-            const gameState = localStorage.getItem('gameState');
-            if (gameState) {
-                const { plScore } = JSON.parse(gameState);
-                return plScore || 0;
-            }
-        }
-        return 0;
-    });
-    const [opponentScore, setOpponentScore] = useState(() => {
-        if (typeof window !== 'undefined') {
-            const gameState = localStorage.getItem('gameState');
-            if (gameState) {
-                const { oppScore } = JSON.parse(gameState);
-                return oppScore || 0;
-            }
-        }
-        return 0;
-    });
+    const [playerScore, setPlayerScore] = useState(0);
+    const [opponentScore, setOpponentScore] = useState(0);
     const [gameOver, setGameOver] = useState(false);
     const [timer, setTimer] = useState(4);
     const [playerChoice, setPlayerChoice] = useState(null);
@@ -76,43 +61,6 @@ export default function PvpBotPage() {
     const playerGifCache = useRef({});
     const opponentGifCache = useRef({});
     const preGameSteps = ["Ready!", ""];
-
-    useEffect(() => {
-        const gameState = localStorage.getItem('gameState');
-        console.log('Loaded gameState:', gameState);
-        if (!gameState) {
-            const initialGameState = {
-                opponentName: gangsterNames[Math.floor(Math.random() * gangsterNames.length)],
-                oppClan: getRandomTeamIdExceptCurrent(groupId),
-                plScore: 0,
-                oppScore: 0
-            };
-            localStorage.setItem('gameState', JSON.stringify(initialGameState));
-            console.log('Initial gameState set:', initialGameState);
-        } else {
-            const { opponentName, oppClan, plScore, oppScore } = JSON.parse(gameState);
-            console.log('Setting scores from gameState:', plScore, oppScore);
-            setOpponentName(opponentName);
-            setOppClan(oppClan);
-            setPlayerScore(plScore);
-            setOpponentScore(oppScore);
-        }
-    }, [groupId]);
-
-
-    useEffect(() => {
-        const gameState = localStorage.getItem('gameState');
-        if (gameState) {
-            const parsedState = JSON.parse(gameState);
-            parsedState.plScore = playerScore;
-            parsedState.oppScore = opponentScore;
-            localStorage.setItem('gameState', JSON.stringify(parsedState));
-        }
-    }, [playerScore, opponentScore]);
-
-    const clearGameState = () => {
-        localStorage.removeItem('gameState');
-    };
 
     const preloadPlayerGifs = () => {
         const cache = {};
@@ -141,9 +89,18 @@ export default function PvpBotPage() {
     };
 
     useEffect(() => {
+        if (typeof window !== 'undefined') {
+            playerGifCache.current = preloadPlayerGifs();
+            opponentGifCache.current = preloadOpponentGifs();
+        }
+        updateContext()
+    }, []);
+
+    useEffect(() => {
         const number = Math.floor(Math.random() * 3) + 1;
         setBackground(number);
     }, []);
+
     const getBackgroundImageUrl = (number) => {
         switch (number) {
             case 1:
@@ -156,14 +113,6 @@ export default function PvpBotPage() {
                 return '';
         }
     };
-
-    useEffect(() => {
-        if (typeof window !== 'undefined') {
-            playerGifCache.current = preloadPlayerGifs();
-            opponentGifCache.current = preloadOpponentGifs();
-        }
-        updateContext()
-    }, []);
 
     useEffect(() => {
         if (preGameStep < preGameSteps.length) {
@@ -188,8 +137,17 @@ export default function PvpBotPage() {
             } else {
                 setUserName('you');
             }
+            const randomName = gangsterNames[Math.floor(Math.random() * gangsterNames.length)];
+            setOpponentName(randomName)
         }
     }, []);
+
+    useEffect(() => {
+        if (groupId !== null) {
+            const randomOpponentTeamId = getRandomTeamIdExceptCurrent(groupId);
+            setOppClan(randomOpponentTeamId);
+        }
+    }, [groupId]);
 
     useEffect(() => {
         let timerId;
@@ -217,7 +175,7 @@ export default function PvpBotPage() {
 
     const showGifSequence = () => {
         const timeouts = [];
-        const durations = [0, 2000];
+        const durations = [0, 2080];
         durations.forEach((duration, index) => {
             timeouts.push(
                 setTimeout(() => {
@@ -282,7 +240,6 @@ export default function PvpBotPage() {
         if (gameEnded) return;
         setGameEnded(true);
         endBotGame(vin)
-        clearGameState();
         setTimeout(() => {
             setGameOver(true);
         }, 3000);
@@ -314,13 +271,26 @@ export default function PvpBotPage() {
             {gameEnded && <WinningScreen userName={userName} playerScore={playerScore} />}
             {preGameStep === 1 && <StartAnimation />}
             <div className={styles.root}>
-                {/*<Image className={styles.background} src={background} width={300} height={1000} alt={'bg'} priority />*/}
                 <Image className={styles.background} src={getBackgroundImageUrl(background)} width={300} height={1000} alt={'bg'} priority />
                 <div className={styles.container}>
                     <div className={styles.oppNickname}>
                         {opponentName}
                     </div>
                     <div className={styles.optionBg}>
+                        <Image
+                            width={90}
+                            height={190}
+                            layout="fixed"
+                            objectFit="contain"
+                            className={`${styles.choose} ${styles.overlayOpponent} ${visibleImage === 0 ? styles.visible : styles.hidden}`}
+                            src={watchStart}
+                            alt="watch start"
+                        />
+                        <img
+                            className={`${styles.choose} ${styles.watchMoveOpp} ${visibleImage === 1 ? styles.visible : styles.hidden}`}
+                            src={'/game-icons/SciWatchMove.gif'}
+                            alt="watch move"
+                        />
                         <img
                             className={`${styles.choose} ${visibleImage === 1 ? styles.visible : styles.hidden}`}
                             src={
@@ -342,7 +312,7 @@ export default function PvpBotPage() {
                             className={`${styles.choose} ${visibleImage !== 1 ? styles.visible : styles.hidden}`}
                             src={
                                 visibleImage === 0
-                                    ? gameOptions[4]?.logo
+                                    ? gameOptions[1]?.logo
                                     : opponentChoice === 0 || opponentChoice === 10
                                         ? gameOptions[4]?.logo
                                         : opponentChoice === 1
@@ -353,6 +323,15 @@ export default function PvpBotPage() {
                             }
                             alt="game choice"
                             loading="lazy"
+                        />
+                        <Image
+                            width={90}
+                            height={190}
+                            layout="fixed"
+                            objectFit="contain"
+                            className={`${styles.choose} ${styles.overlayOpponent} ${visibleImage !== 1 ? styles.visible : styles.hidden}`}
+                            src={watchFinish}
+                            alt="watch finish"
                         />
                     </div>
                     <VictoryCounter score={playerScore} />
@@ -368,6 +347,20 @@ export default function PvpBotPage() {
                     </div>
                     <VictoryCounter score={opponentScore} />
                     <div className={styles.optionBg}>
+                        <Image
+                            width={90}
+                            height={190}
+                            layout="fixed"
+                            objectFit="contain"
+                            className={`${styles.mychoose} ${styles.overlay} ${visibleImage === 0 ? styles.visible : styles.hidden}`}
+                            src={watchStart}
+                            alt="watch start"
+                        />
+                        <img
+                            className={`${styles.mychoose} ${styles.watchMove} ${visibleImage === 1 ? styles.visible : styles.hidden}`}
+                            src='/game-icons/SciWatchMove.gif'
+                            alt="watch move"
+                        />
                         <img
                             className={`${styles.mychoose} ${visibleImage === 1 ? styles.visible : styles.hidden}`}
                             src={
@@ -401,6 +394,15 @@ export default function PvpBotPage() {
                             alt="game choice"
                             loading="lazy"
                         />
+                        <Image
+                            width={90}
+                            height={190}
+                            layout="fixed"
+                            objectFit="contain"
+                            className={`${styles.mychoose} ${styles.overlay} ${visibleImage !== 1 ? styles.visible : styles.hidden}`}
+                            src={watchFinish}
+                            alt="watch finish"
+                        />
                     </div>
                     <div className={styles.round}>
                         {t('PVP.rounds')} {playerScore+opponentScore+1}
@@ -428,6 +430,7 @@ export default function PvpBotPage() {
                             choose={playerChoice}
                         />
                     </div>
+
                 </div>
             </div>
             {showChanger && <RoundAnimation round={playerScore + opponentScore + 1}/>}
